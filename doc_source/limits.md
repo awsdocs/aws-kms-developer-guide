@@ -24,9 +24,11 @@ An alias is an independent display name that you can map to a CMK\. It is not a 
 
 ## Grants per CMK: 2500<a name="grants-per-key"></a>
 
-[Using Grants](grants.md) are advanced mechanisms for specifying permissions that you or an AWS service integrated with AWS KMS can use to limit how and when a CMK can be used\. Grants are attached to a CMK, and each grant contains the principal who receives permission to use the CMK, the ID of the CMK, and a list of operations that can be performed\. Grants are an alternative to the key policy\.
+Grants are advanced mechanisms for specifying permissions that you or an AWS service integrated with AWS KMS can use to limit how and when a CMK can be used\. Grants are attached to a CMK, and each grant contains the principal who receives permission to use the CMK, the ID of the CMK, and a list of operations that can be performed\. Grants are an alternative to the key policy\.
 
 Each CMK can have up to 2500 grants, including the grants created by AWS services that are integrated with AWS KMS\. For a list of these services, see [How AWS Services use AWS KMS](service-integration.md)\. One effect of this limit is that you cannot create more than 2500 resources that use the same CMK\. For example, you cannot create more than 2500 encrypted EBS volumes that use the same CMK\.
+
+This limit does not apply to AWS managed CMKs\.
 
 ## Grants for a given principal per CMK: 500<a name="grants-per-principal-per-key"></a>
 

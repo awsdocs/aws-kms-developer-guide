@@ -12,13 +12,13 @@ Customer master keys are stored securely in AWS KMS\. They can never be exported
 
 ## Encrypting User Data<a name="encrypting_user_data"></a>
 
-When a data key is requested, AWS KMS returns both the encrypted and plaintext key back to the service or application that requested it\. The plaintext data key is used to encrypt the user's data in memory\. This key should never be written to disk and should be deleted from memory as soon as practical\. The encrypted copy of the data key should be written to disk alongside of the encrypted data\. This is acceptable and simplifies management of the encrypted data key\.
+When an AWS application or service requests a data key, AWS KMS returns both the encrypted and plaintext key\. The service uses the plaintext data key to encrypt the user's data in memory\. The plaintext key should never be written to disk and should be deleted from memory as soon as practical\. The encrypted copy of the data key should be written to disk alongside of the encrypted data\. This is an acceptable security practice that simplifies management of the encrypted data key\.
 
 ![\[Encrypting user data diagram\]](http://docs.aws.amazon.com/kms/latest/developerguide/images/Workflow_EncryptingContent.png)
 
 ## Decrypting User Data<a name="decrypting_user_data"></a>
 
-Decryption reverses the encryption process\. When a service or application needs to decrypt data, it sends AWS KMS the encrypted data key\. AWS KMS decrypts the data key by automatically using the correct customer master key and then sends the plaintext key back to the service or application that requested it\. The plaintext key is used to decrypt the data\. This key should never be written to disk and should be deleted as soon as is practical\. The following illustration shows the customer master key used with the symmetric decryption algorithm to decrypt the data key\.
+Decryption reverses the encryption process\. When a service or application decrypts data, it sends AWS KMS the encrypted data key\. AWS KMS automatically uses the correct customer master key to decrypt the data key\. Then, it sends the plaintext key back to the service or application that requested it\. The application or service uses the plaintext key to decrypt the data\. The plaintext key should never be written to disk and should be deleted as soon as is practical\. The following illustration shows the customer master key used with a symmetric decryption algorithm to decrypt the data key\.
 
 ![\[Decrypting user data diagram\]](http://docs.aws.amazon.com/kms/latest/developerguide/images/Workflow_DecryptingContentPt1.png)
 

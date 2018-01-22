@@ -105,7 +105,7 @@ Decide what permissions you want to give to the external account:
 
 + To add the external account to a key policy as a *key administrator* or give custom permissions, you must modify the key policy document directly using the console's policy view or the AWS KMS API\. For more information, see [Using the AWS Management Console's Policy View](#key-policy-modifying-how-to-console-policy-view) or [Using the AWS KMS API](#key-policy-modifying-how-to-api)\.
 
-For an example of the JSON syntax to use when you add an external account to the `Principal` element of a key policy document, refer to the policy statement in the default key policy that allows key users to use the CMK\.
+For an example of JSON syntax that adds an external account to the `Principal` element of a key policy document, see the policy statement in the default console key policy that allows key users to use the CMK\.
 
 ### Adding or modifying an IAM Policy to Allow Access to a CMK in Another AWS Account<a name="key-policy-modifying-external-accounts-iam"></a>
 

@@ -8,7 +8,7 @@ You can use the IAM section of the AWS Management Console to create a customer m
 
 ## Creating CMKs \(Console\)<a name="create-keys-console"></a>
 
-You can use the AWS Management Console to create customer master keys \(CMKs\)\.l
+You can use the AWS Management Console to create customer master keys \(CMKs\)\.
 
 **To create a new CMK \(console\)**
 

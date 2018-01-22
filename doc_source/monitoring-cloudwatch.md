@@ -99,7 +99,7 @@ For more information, see [Creating an Amazon CloudWatch Alarm to Detect Usage o
 
 ## AWS KMS Events<a name="kms-events"></a>
 
-AWS KMS integrates with Amazon CloudWatch Events to notify you of certain events that affect your CMKs\. Each event is represented in [JSON \(JavaScript Object Notation\)](http://json.org) and contains the event name, the date and time when the event occurred, the CMK affected, and more\. You can use CloudWatch Events to collect these events and set up rules that route them to one or more *targets* such as AWS Lambda functions, Amazon SNS topics, Amazon SQS queues, streams in Amazon Kinesis Streams, or built\-in targets\.
+AWS KMS integrates with Amazon CloudWatch Events to notify you of certain events that affect your CMKs\. Each event is represented in [JSON \(JavaScript Object Notation\)](http://json.org) and contains the event name, the date and time when the event occurred, the CMK affected, and more\. You can use CloudWatch Events to collect these events and set up rules that route them to one or more *targets* such as AWS Lambda functions, Amazon SNS topics, Amazon SQS queues, streams in Amazon Kinesis Data Streams, or built\-in targets\.
 
 For more information about using CloudWatch Events with other kinds of events, including those emitted by AWS CloudTrail when it records a read/write API request, see the [Amazon CloudWatch Events User Guide](http://docs.aws.amazon.com/AmazonCloudWatch/latest/events/)\.
 

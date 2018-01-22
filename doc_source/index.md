@@ -1,7 +1,7 @@
 # AWS Key Management Service Developer Guide
 
 -----
-*****Copyright &copy; 2017 Amazon Web Services, Inc. and/or its affiliates. All rights reserved.*****
+*****Copyright &copy; 2018 Amazon Web Services, Inc. and/or its affiliates. All rights reserved.*****
 
 -----
 Amazon's trademarks and trade dress may not be used in 
@@ -53,6 +53,7 @@ Amazon's trademarks and trade dress may not be used in
    + [How Amazon Relational Database Service (Amazon RDS) Uses AWS KMS](services-rds.md)
    + [How Amazon Simple Email Service (Amazon SES) Uses AWS KMS](services-ses.md)
    + [How Amazon Simple Storage Service (Amazon S3) Uses AWS KMS](services-s3.md)
+   + [How AWS Systems Manager Parameter Store Uses AWS KMS](services-parameter-store.md)
    + [How Amazon WorkMail Uses AWS KMS](services-wm.md)
    + [How Amazon WorkSpaces Uses AWS KMS](services-workspaces.md)
 + [Monitoring Customer Master Keys](monitoring-overview.md)
@@ -76,6 +77,7 @@ Amazon's trademarks and trade dress may not be used in
    + [ReEncrypt](ct-reencrypt.md)
    + [Amazon EC2 Example One](ct-ec2one.md)
    + [Amazon EC2 Example Two](ct-ec2two.md)
++ [Connecting to AWS KMS Through a VPC Endpoint](kms-vpc-endpoint.md)
 + [Programming the AWS KMS API](programming-top.md)
    + [Creating a Client](programming-client.md)
    + [Working With Keys](programming-keys.md)

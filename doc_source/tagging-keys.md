@@ -55,7 +55,7 @@ For example, this call to the **TagResource** operation adds **Purpose** and **D
 
 ```
 $ aws kms tag-resource --key-id 1234abcd-12ab-34cd-56ef-1234567890ab /
-                       --tags TagKey=Purpose,TagValue=Test, /
+                       --tags TagKey=Purpose,TagValue=Test /
                               TagKey=Department,TagValue=Finance
 ```
 
