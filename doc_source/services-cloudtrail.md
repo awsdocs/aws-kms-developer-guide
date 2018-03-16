@@ -12,13 +12,16 @@ Encrypting CloudTrail log files with AWS KMS builds on the Amazon S3 feature cal
 
 When you configure AWS CloudTrail to use SSE\-KMS to encrypt your log files, CloudTrail and Amazon S3 use your KMS customer master key \(CMK\) when you perform certain actions with those services\. The following sections explain when and how those services can use your CMK, and provide additional information that you can use to validate this explanation\.
 
-Actions that cause CloudTrail and Amazon S3 to use your CMK
+
++ [You Configure CloudTrail to Encrypt Log Files with Your Customer Master Key \(CMK\)](#cloudtrail-details-update-configuration)
++ [CloudTrail Puts a Log File into Your S3 Bucket](#cloudtrail-details-put-log-file)
++ [You Get an Encrypted Log File from Your S3 Bucket](#cloudtrail-details-get-log-file)
 
 ### You Configure CloudTrail to Encrypt Log Files with Your Customer Master Key \(CMK\)<a name="cloudtrail-details-update-configuration"></a>
 
 When you [update your CloudTrail configuration to use your CMK](http://docs.aws.amazon.com/awscloudtrail/latest/userguide/create-kms-key-policy-for-cloudtrail-update-trail.html), CloudTrail sends a [http://docs.aws.amazon.com/kms/latest/APIReference/API_GenerateDataKey.html](http://docs.aws.amazon.com/kms/latest/APIReference/API_GenerateDataKey.html) request to AWS KMS to verify that the CMK exists and that CloudTrail has permission to use it for encryption\. CloudTrail does not use the resulting data key\.
 
-The `GenerateDataKey` request includes the following information for the encryption context:
+The `GenerateDataKey` request includes the following information for the [encryption context](encryption-context.md):
 
 + The [Amazon Resource Name \(ARN\)](http://docs.aws.amazon.com/general/latest/gr/aws-arns-and-namespaces.html) of the CloudTrail trail
 
@@ -76,7 +79,7 @@ You might need to scroll to the right to see some of the callouts in the followi
 
 Each time CloudTrail puts a log file into your S3 bucket, Amazon S3 sends a [http://docs.aws.amazon.com/kms/latest/APIReference/API_GenerateDataKey.html](http://docs.aws.amazon.com/kms/latest/APIReference/API_GenerateDataKey.html) request to AWS KMS on behalf of CloudTrail\. In response to this request, AWS KMS generates a unique data key and then sends Amazon S3 two copies of the data key, one in plaintext and one that is encrypted with the specified CMK\. Amazon S3 uses the plaintext data key to encrypt the CloudTrail log file and then removes the plaintext data key from memory as soon as possible after use\. Amazon S3 stores the encrypted data key as metadata with the encrypted CloudTrail log file\.
 
-The `GenerateDataKey` request includes the following information for the encryption context:
+The `GenerateDataKey` request includes the following information for the [encryption context](encryption-context.md):
 
 + The [Amazon Resource Name \(ARN\)](http://docs.aws.amazon.com/general/latest/gr/aws-arns-and-namespaces.html) of the CloudTrail trail
 
@@ -142,7 +145,7 @@ You might need to scroll to the right to see some of the callouts in the followi
 
 Each time you get an encrypted CloudTrail log file from your S3 bucket, Amazon S3 sends a [http://docs.aws.amazon.com/kms/latest/APIReference/API_Decrypt.html](http://docs.aws.amazon.com/kms/latest/APIReference/API_Decrypt.html) request to AWS KMS on your behalf to decrypt the log file's encrypted data key\. In response to this request, AWS KMS uses your CMK to decrypt the data key and then sends the plaintext data key to Amazon S3\. Amazon S3 uses the plaintext data key to decrypt the CloudTrail log file and then removes the plaintext data key from memory as soon as possible after use\.
 
-The `Decrypt` request includes the following information for the encryption context:
+The `Decrypt` request includes the following information for the [encryption context](encryption-context.md):
 
 + The [Amazon Resource Name \(ARN\)](http://docs.aws.amazon.com/general/latest/gr/aws-arns-and-namespaces.html) of the CloudTrail trail
 
@@ -198,10 +201,10 @@ You might need to scroll to the right to see some of the callouts in the followi
 
 To predict costs and better understand your AWS bill, you might want to know how often CloudTrail uses your CMK\. AWS KMS charges for all API requests to the service that exceed the free tier\. For the exact charges, see [AWS Key Management Service Pricing](https://aws.amazon.com/kms/pricing/)\.
 
-When you encrypt CloudTrail log files with AWS KMS–Managed Keys \(SSE\-KMS\), each time CloudTrail puts a log file into your S3 bucket it results in an AWS KMS API request\. Typically, CloudTrail puts a log file into your S3 bucket once every five minutes, which results in approximately 288 AWS KMS API requests per day, per region, and per AWS account\. For example:
+When you encrypt CloudTrail log files with AWS KMS–Managed Keys \(SSE\-KMS\), each time [CloudTrail puts a log file into your S3 bucket](#cloudtrail-details-put-log-file) it results in an AWS KMS API request\. Typically, CloudTrail puts a log file into your S3 bucket once every five minutes, which results in approximately 288 AWS KMS API requests per day, per region, and per AWS account\. For example:
 
 + If you enable this feature in two regions in a single AWS account, you can expect approximately 576 AWS KMS API requests per day \(2 x 288\)\.
 
 + If you enable this feature in two regions in each of three AWS accounts, you can expect approximately 1,728 AWS KMS API requests per day \(6 x 288\)\.
 
-These numbers represent only the AWS KMS API requests that occur when CloudTrail puts a log file into your S3 bucket\. Each time you get an encrypted log file from your S3 bucket it results in an additional AWS KMS API request\.
+These numbers represent only the AWS KMS API requests that occur when CloudTrail puts a log file into your S3 bucket\. Each time [you get an encrypted log file from your S3 bucket](#cloudtrail-details-get-log-file) it results in an additional AWS KMS API request\.

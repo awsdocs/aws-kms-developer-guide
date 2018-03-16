@@ -18,19 +18,19 @@ When you configure Amazon SES to receive email and encrypt the email messages be
 
 1. Amazon SES receives an email message that matches your receipt rule\.
 
-1. Amazon SES requests a unique data key encrypted with the KMS CMK that you specified in the applicable receipt rule\.
+1. <a name="SES-requests-data-key"></a>Amazon SES requests a unique data key encrypted with the KMS CMK that you specified in the applicable receipt rule\.
 
 1. AWS KMS creates a new data key, encrypts it with the specified CMK, and then sends the encrypted and plaintext copies of the data key to Amazon SES\.
 
 1. Amazon SES uses the plaintext data key to encrypt the email message and then removes the plaintext data key from memory as soon as possible after use\.
 
-1. Amazon SES puts the encrypted email message and the encrypted data key in the specified S3 bucket\. The encrypted data key is stored as metadata with the encrypted email message\.
+1. <a name="SES-puts-message-in-bucket"></a>Amazon SES puts the encrypted email message and the encrypted data key in the specified S3 bucket\. The encrypted data key is stored as metadata with the encrypted email message\.
 
-To accomplish [[ERROR] BAD/MISSING LINK TEXT](#SES-requests-data-key) through [[ERROR] BAD/MISSING LINK TEXT](#SES-puts-message-in-bucket), Amazon SES uses the AWS–provided Amazon S3 encryption client\. Use the same client to retrieve your encrypted email messages from Amazon S3 and decrypt them\. For more information, see [Retrieving and Decrypting Email Messages](#services-ses-decrypt)\.
+To accomplish [Step 3](#SES-requests-data-key) through [Step 6](#SES-puts-message-in-bucket), Amazon SES uses the AWS–provided Amazon S3 encryption client\. Use the same client to retrieve your encrypted email messages from Amazon S3 and decrypt them\. For more information, see [Retrieving and Decrypting Email Messages](#services-ses-decrypt)\.
 
 ## Amazon SES Encryption Context<a name="services-ses-encryptioncontext"></a>
 
-When Amazon SES requests a data key to encrypt your received email messages \([[ERROR] BAD/MISSING LINK TEXT](#SES-requests-data-key) in the [Overview of Amazon SES Encryption Using AWS KMS](#services-ses-overview)\), it includes encryption context in the request\. The encryption context provides additional authenticated information that AWS KMS uses to ensure data integrity\. The encryption context is also written to your AWS CloudTrail log files, which can help you understand why a given customer master key \(CMK\) was used\. Amazon SES uses the following for the encryption context:
+When Amazon SES requests a data key to encrypt your received email messages \([Step 3](#SES-requests-data-key) in the [Overview of Amazon SES Encryption Using AWS KMS](#services-ses-overview)\), it includes encryption context in the request\. The encryption context provides additional authenticated information that AWS KMS uses to ensure data integrity\. The encryption context is also written to your AWS CloudTrail log files, which can help you understand why a given customer master key \(CMK\) was used\. Amazon SES uses the following for the encryption context:
 
 + The ID of the AWS account in which you've configured Amazon SES to receive email messages
 
@@ -52,7 +52,7 @@ For more information about encryption context, go to [Encryption Context](encryp
 
 ## Giving Amazon SES Permission to Use Your AWS KMS Customer Master Key \(CMK\)<a name="services-ses-permissions"></a>
 
-You can use the default customer master key \(CMK\) in your account for Amazon SES with the alias **aws/ses**, or you can use a custom CMK you create\. If you use the default CMK for Amazon SES, you don't need to perform any steps to give Amazon SES permission to use it\. However, to specify a custom CMK when you [add the S3 action](http://docs.aws.amazon.com/ses/latest/DeveloperGuide/receiving-email-action-s3.html) to your Amazon SES receipt rule, you must ensure that Amazon SES has permission to use the CMK to encrypt your email messages\. To give Amazon SES permission to use your custom CMK, add the following statement to your CMK's key policy:
+You can use the default customer master key \(CMK\) in your account for Amazon SES with the alias **aws/ses**, or you can use a custom CMK you create\. If you use the default CMK for Amazon SES, you don't need to perform any steps to give Amazon SES permission to use it\. However, to specify a custom CMK when you [add the S3 action](http://docs.aws.amazon.com/ses/latest/DeveloperGuide/receiving-email-action-s3.html) to your Amazon SES receipt rule, you must ensure that Amazon SES has permission to use the CMK to encrypt your email messages\. To give Amazon SES permission to use your custom CMK, add the following statement to your CMK's [key policy](key-policies.md):
 
 ```
 {
@@ -94,7 +94,7 @@ Amazon SES does not have permission to decrypt your encrypted email messages and
 
 + [AWS SDK for Go](https://aws.amazon.com/sdk-for-go/) – See [http://docs.aws.amazon.com/sdk-for-go/api/service/s3/s3crypto/](http://docs.aws.amazon.com/sdk-for-go/api/service/s3/s3crypto/) in the *AWS SDK for Go API Reference*\.
 
-The Amazon S3 encryption client simplifies the work of constructing the necessary requests to Amazon S3 to retrieve the encrypted email message and to AWS KMS to decrypt the message's encrypted data key, and of decrypting the email message\. For example, to successfully decrypt the encrypted data key you must pass the same encryption context that Amazon SES passed when requesting the data key from AWS KMS \([[ERROR] BAD/MISSING LINK TEXT](#SES-requests-data-key) in the [Overview of Amazon SES Encryption Using AWS KMS](#services-ses-overview)\)\. The Amazon S3 encryption client handles this, and much of the other work, for you\.
+The Amazon S3 encryption client simplifies the work of constructing the necessary requests to Amazon S3 to retrieve the encrypted email message and to AWS KMS to decrypt the message's encrypted data key, and of decrypting the email message\. For example, to successfully decrypt the encrypted data key you must pass the same encryption context that Amazon SES passed when requesting the data key from AWS KMS \([Step 3](#SES-requests-data-key) in the [Overview of Amazon SES Encryption Using AWS KMS](#services-ses-overview)\)\. The Amazon S3 encryption client handles this, and much of the other work, for you\.
 
 For sample code that uses the Amazon S3 encryption client in the AWS SDK for Java to do client\-side decryption, see the following:
 

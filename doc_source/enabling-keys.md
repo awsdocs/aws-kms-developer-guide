@@ -2,9 +2,12 @@
 
 You can disable and reenable the AWS Key Management Service \(AWS KMS\) customer master keys \(CMKs\) that you manage\. You cannot change the status of AWS managed CMKs\.
 
-When you create a CMK, it is enabled by default\. If you disable a CMK, it cannot be used to encrypt or decrypt data until you re\-enable it\. AWS managed CMKs are permanently enabled for use by services that use AWS KMS\. You cannot disable them\.
+When you create a CMK, it is enabled by default\. If you disable a CMK, it cannot be used to encrypt or decrypt data until you re\-enable it\. AWS managed CMKs are permanently enabled for use by [services that use AWS KMS](service-integration.md)\. You cannot disable them\.
 
 You can also delete CMKs\. For more information, see [Deleting Customer Master Keys](deleting-keys.md)\.
+
+**Note**  
+AWS KMS does not rotate the backing keys of customer\-managed CMKs while they are disabled\. For more information, see [How Automatic Key Rotation Works](rotate-keys.md#rotate-keys-how-it-works)\.
 
 
 + [Enabling and Disabling CMKs \(Console\)](#enabling-keys-console)

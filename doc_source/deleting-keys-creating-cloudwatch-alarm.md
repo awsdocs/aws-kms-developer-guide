@@ -75,10 +75,10 @@ To receive a notification when AWS KMS API requests attempt to use a customer ma
       + To use an existing Amazon SNS topic, choose the name of the topic to use\.
 
    1. Choose **Create Alarm**\.   
-![\[Image NOT FOUND\]](http://docs.aws.amazon.com/kms/latest/developerguide/images/cloudwatch-console-create-alarm.png)![\[Image NOT FOUND\]](http://docs.aws.amazon.com/kms/latest/developerguide/)
+![\[Image NOT FOUND\]](http://docs.aws.amazon.com/kms/latest/developerguide/images/cloudwatch-console-create-alarm.png)
 
 1. If you chose to send notifications to an email address, open the email message you receive from no\-reply@sns\.amazonaws\.com with a subject "AWS Notification \- Subscription Confirmation\." Confirm your email address by choosing the **Confirm subscription** link in the email message\.
 **Note**  
 You will not receive email notifications until after you have confirmed your email address\.
 
-After you complete this procedure, you will receive a notification each time this CloudWatch alarm enters the `ALARM` state\. If you receive a notification for this alarm, it might mean that someone or something still needs to use this CMK\. In that case, you should cancel deletion of the CMK to give yourself more time to determine whether you really want to delete it\.
+After you complete this procedure, you will receive a notification each time this CloudWatch alarm enters the `ALARM` state\. If you receive a notification for this alarm, it might mean that someone or something still needs to use this CMK\. In that case, you should [cancel deletion of the CMK](deleting-keys.md#deleting-keys-scheduling-key-deletion) to give yourself more time to determine whether you really want to delete it\.

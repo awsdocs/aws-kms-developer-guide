@@ -1,6 +1,6 @@
 # Modifying a Key Policy<a name="key-policy-modifying"></a>
 
-To change the permissions for a customer master key \(CMK\) in AWS KMS you modify the CMK's key policy\. You can add or remove IAM users, IAM roles, and AWS accounts \(root users\) in the key policy, and change the actions that are allowed or denied for those principals\. For more information about the ways to specify principals and permissions in a key policy, see [Using Key Policies](key-policies.md)\.
+To change the permissions for a customer master key \(CMK\) in AWS KMS you modify the CMK's [key policy](key-policies.md)\. You can add or remove IAM users, IAM roles, and AWS accounts \(root users\) in the key policy, and change the actions that are allowed or denied for those principals\. For more information about the ways to specify principals and permissions in a key policy, see [Using Key Policies](key-policies.md)\.
 
 You cannot add IAM groups to a key policy, though you can add multiple IAM users\. For more information, see [Allowing Multiple IAM Users to Access a CMK](#key-policy-modifying-multiple-iam-users)\.
 
@@ -15,7 +15,10 @@ When you add external AWS accounts to a key policy, you must also use IAM polici
 
 You can modify a key policy in three different ways, each of which is explained in the following sections\.
 
-Ways to modify a key policy
+
++ [Using the AWS Management Console's Default View](#key-policy-modifying-how-to-console-default-view)
++ [Using the AWS Management Console's Policy View](#key-policy-modifying-how-to-console-policy-view)
++ [Using the AWS KMS API](#key-policy-modifying-how-to-api)
 
 ### Using the AWS Management Console's Default View<a name="key-policy-modifying-how-to-console-default-view"></a>
 
@@ -36,10 +39,10 @@ If the following steps don't match what you see in the console, it means that th
 
 1. Decide what to modify\.
 
-   + To add or remove key administrators, and to allow or disallow key administrators to delete the CMK, use the controls in the **Key Administrators** area in the **Key Policy** section of the page\.  
+   + To add or remove [key administrators](key-policies.md#key-policy-default-allow-administrators), and to allow or disallow key administrators to [delete the CMK](deleting-keys.md), use the controls in the **Key Administrators** area in the **Key Policy** section of the page\.  
 ![\[Key administrators area in the console's key policy section\]](http://docs.aws.amazon.com/kms/latest/developerguide/images/console-key-policy-administrators.png)
 
-   + To add or remove key users, and to allow or disallow external AWS accounts to use the CMK, use the controls in the **Key Users** area in the **Key Policy** section of the page\.  
+   + To add or remove [key users](key-policies.md#key-policy-default-allow-users), and to allow or disallow external AWS accounts to use the CMK, use the controls in the **Key Users** area in the **Key Policy** section of the page\.  
 ![\[Key users area in the console's key policy section\]](http://docs.aws.amazon.com/kms/latest/developerguide/images/console-key-policy-users.png)
 
 ### Using the AWS Management Console's Policy View<a name="key-policy-modifying-how-to-console-policy-view"></a>
@@ -79,7 +82,7 @@ IAM groups are not valid principals in a key policy\. To allow multiple IAM user
 
 + Add each IAM user to the key policy\. This approach requires that you update the key policy each time the list of authorized users changes\.
 
-+ Ensure that the key policy includes the statement that enables IAM policies to allow access to the CMK\. Then [create an IAM policy](http://docs.aws.amazon.com/IAM/latest/UserGuide/access_policies_managed-using.html#create-managed-policy-console) that allows access to the CMK, and then [attach that policy to an IAM group](http://docs.aws.amazon.com/IAM/latest/UserGuide/access_policies_managed-using.html#attach-managed-policy-console) that contains the authorized IAM users\. Using this approach, you don't need to modify any policies when the list of authorized users changes\. Instead, you only need to add or remove those users from the appropriate IAM group\.
++ Ensure that the key policy includes the statement that [enables IAM policies to allow access to the CMK](key-policies.md#key-policy-default-allow-root-enable-iam)\. Then [create an IAM policy](http://docs.aws.amazon.com/IAM/latest/UserGuide/access_policies_managed-using.html#create-managed-policy-console) that allows access to the CMK, and then [attach that policy to an IAM group](http://docs.aws.amazon.com/IAM/latest/UserGuide/access_policies_managed-using.html#attach-managed-policy-console) that contains the authorized IAM users\. Using this approach, you don't need to modify any policies when the list of authorized users changes\. Instead, you only need to add or remove those users from the appropriate IAM group\.
 
 For more information about how AWS KMS key policies and IAM policies work together, see [Understanding Policy Evaluation](determining-access.md#policy-evaluation)\.
 
@@ -105,7 +108,7 @@ Decide what permissions you want to give to the external account:
 
 + To add the external account to a key policy as a *key administrator* or give custom permissions, you must modify the key policy document directly using the console's policy view or the AWS KMS API\. For more information, see [Using the AWS Management Console's Policy View](#key-policy-modifying-how-to-console-policy-view) or [Using the AWS KMS API](#key-policy-modifying-how-to-api)\.
 
-For an example of JSON syntax that adds an external account to the `Principal` element of a key policy document, see the policy statement in the default console key policy that allows key users to use the CMK\.
+For an example of JSON syntax that adds an external account to the `Principal` element of a key policy document, see [the policy statement in the default console key policy](key-policies.md#key-policy-default-allow-users) that allows key users to use the CMK\.
 
 ### Adding or modifying an IAM Policy to Allow Access to a CMK in Another AWS Account<a name="key-policy-modifying-external-accounts-iam"></a>
 
@@ -142,9 +145,9 @@ After you add the external account to the CMK's key policy, you then add an IAM 
 }
 ```
 
-This policy allows users and roles in account 111122223333 to use the CMK in account 444455556666 directly for encryption and decryption, and to delegate a subset of their own permissions to some of the AWS services that are integrated with AWS KMS, specifically the services that use grants\. Note the following details about this policy:
+This policy allows users and roles in account 111122223333 to use the CMK in account 444455556666 directly for encryption and decryption, and to delegate a subset of their own permissions to some of the [AWS services that are integrated with AWS KMS](service-integration.md), specifically the services that use grants\. Note the following details about this policy:
 
-+ The policy allows the use of a specific CMK in account 444455556666, identified by the CMK's Amazon Resource Name \(ARN\) in the `Resource` element of the policy statements\. When you give access to CMKs with an IAM policy, always list the specific CMK ARNs in the policy's `Resource` element\. Otherwise, you might inadvertently give access to more CMKs than you intend\.
++ The policy allows the use of a specific CMK in account 444455556666, identified by the [CMK's Amazon Resource Name \(ARN\)](control-access-overview.md#kms-resources-operations) in the `Resource` element of the policy statements\. When you give access to CMKs with an IAM policy, always list the specific CMK ARNs in the policy's `Resource` element\. Otherwise, you might inadvertently give access to more CMKs than you intend\.
 
 + IAM policies do not contain the `Principal` element, which differs from KMS key policies\. In IAM policies, the principal is implied by the identity to which the policy is attached\.
 

@@ -124,7 +124,7 @@ For more information, see [HLS Content Protection](http://docs.aws.amazon.com/el
 
 ## Elastic Transcoder Encryption Context<a name="et-encryption-context"></a>
 
-Elastic Transcoder sends encryption context when making AWS KMS API requests to generate data keys, encrypt, and decrypt\. The encryption context is written to CloudTrail logs to help you understand why a given AWS KMS CMK was used\. Elastic Transcoder uses the service name as encryption context\. In the `requestParameters` field of a CloudTrail log file, the encryption context looks similar to the following:
+Elastic Transcoder sends [encryption context](encryption-context.md) when making AWS KMS API requests to generate data keys, encrypt, and decrypt\. The encryption context is written to CloudTrail logs to help you understand why a given AWS KMS CMK was used\. Elastic Transcoder uses the service name as encryption context\. In the `requestParameters` field of a CloudTrail log file, the encryption context looks similar to the following:
 
 ```
 "encryptionContext": {

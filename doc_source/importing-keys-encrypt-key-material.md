@@ -1,10 +1,10 @@
 # Importing Key Material Step 3: Encrypt the Key Material<a name="importing-keys-encrypt-key-material"></a>
 
-After you download the public key and import token, you use the public key to encrypt your key material\. The key material must be in binary format\. 
+After you [download the public key and import token](importing-keys-get-public-key-and-token.md), you use the public key to encrypt your key material\. The key material must be in binary format\. 
 
 Typically, you encrypt your key material when you export it from your hardware security module \(HSM\) or key management system\. For information about how to export key material in binary format, see the documentation for your HSM or key management system\. You can also refer to the following section that provides a proof of concept demonstration using OpenSSL\. 
 
-When you encrypt your key material, use the encryption scheme with the padding option that you specified when you downloaded the public key and import token \(RSAES\_OAEP\_SHA\_256, RSAES\_OAEP\_SHA\_1, or RSAES\_PKCS1\_V1\_5\)\.
+When you encrypt your key material, use the encryption scheme with the padding option that you specified when you [downloaded the public key and import token](importing-keys-get-public-key-and-token.md) \(RSAES\_OAEP\_SHA\_256, RSAES\_OAEP\_SHA\_1, or RSAES\_PKCS1\_V1\_5\)\.
 
 ## Example: Encrypt Key Material with OpenSSL<a name="importing-keys-encrypt-key-material-openssl"></a>
 
@@ -12,7 +12,7 @@ The following example demonstrates how to use [OpenSSL](https://openssl.org/) to
 
 **Important**  
 This example is a proof of concept demonstration only\. For production systems, use a more secure method \(such as a commercial HSM or key management system\) to generate and store your key material\.  
-The **RSAES\_OAEP\_SHA\_1** encryption algorithm works best with this example\. Before running the example, make sure that you used RSAES\_OAEP\_SHA\_1 for the wrapping algorithm in Step 2\. If necessary, repeat the step to download and import the public key and token\.
+The **RSAES\_OAEP\_SHA\_1** encryption algorithm works best with this example\. Before running the example, make sure that you used RSAES\_OAEP\_SHA\_1 for the wrapping algorithm in [Step 2](importing-keys-get-public-key-and-token.md)\. If necessary, repeat the step to download and import the public key and token\.
 
 **To use OpenSSL to generate binary key material and encrypt it for import into AWS KMS**
 

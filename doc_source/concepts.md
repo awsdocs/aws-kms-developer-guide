@@ -15,16 +15,31 @@ Learn the basic terms and concepts in AWS Key Management Service \(AWS KMS\) and
 
 ## Customer Master Keys<a name="master_keys"></a>
 
-The primary resources in AWS KMS are *customer master keys* \(CMKs\)\. CMKs are either customer managed or AWS managed\. You can use either type of CMK to protect up to 4 kilobytes \(4096 bytes\) of data directly\. Typically you use CMKs to protect *data encryption keys* \(or *data keys*\) which are then used to encrypt or decrypt larger amounts of data outside of the service\. CMKs never leave AWS KMS unencrypted, but data keys can\. AWS KMS does not store, manage, or track your data keys\.
+The primary resources in AWS KMS are *customer master keys* \(CMKs\)\. You can use a CMK to encrypt and decrypt up to 4 kilobytes \(4096 bytes\) of data\. Typically, you use CMKs to generate, encrypt, and decrypt the [data keys](#data-keys) that you use outside of AWS KMS to encrypt your data\. 
 
-There is one *AWS managed CMK* for each service that is integrated with AWS KMS\. When you create an encrypted resource in these services, you can choose to protect that resource under the AWS managed CMK for that service\. This CMK is unique to your AWS account and the AWS region in which it is used, and it protects the data keys used by the AWS services to protect your data\. Many of these services allow you to specify a customer managed CMK instead of the AWS managed CMK, which is useful when you need more granular control over the CMK\. For example, when you use a customer managed CMK with these services you can request that AWS KMS rotate the CMK's key material every year\. You cannot do this with an AWS managed CMK\.
+AWS KMS stores, tracks, and protects your CMKs\. When you want to use a CMK, you access it through AWS KMS\. CMKs never leave AWS KMS unencrypted\. This strategy differs from data keys that AWS KMS returns to you, optionally in plaintext\. AWS KMS does not store, manage, or track your data keys\.
+
+There are two types of CMKs in AWS accounts:
+
++ **Customer managed CMKs** are CMKs that you create, manage, and use\. This includes [enabling and disabling the CMK](enabling-keys.md), [rotating its cryptographic material](rotate-keys.md), and [establishing the IAM policies and key policies](control-access.md) that govern access to the CMK, as well as using the CMK in cryptographic operations\. You can allow an AWS service to use a customer managed CMK on your behalf, but you retain control of the CMK\.
+
+   
+
++ **AWS managed CMKs** are CMKs in your account that are created, managed, and used on your behalf by an AWS service that is integrated with AWS KMS\. This CMK is unique to your AWS account and region\. Only the service that created the AWS managed CMK can use it\. 
+
+   
+
+  You can recognize AWS managed CMKs because their aliases have the format `aws/service-name`, such as `aws/redshift`\. Typically, a service creates its AWS managed CMK in your account when you set up the service or the first time you use the CMK\. 
+
+The AWS services that integrate with AWS KMS can use it in many different ways\. Some services create AWS managed CMKs in your account\. Other services require that you specify a customer managed CMK that you have created\. And, others support both types of CMKs to allow you the ease of an AWS managed CMK or the control of a customer\-managed CMK\.
 
 ## Data Keys<a name="data-keys"></a>
 
-You use data keys to encrypt large data objects within your own application outside AWS KMS\. When you make a [GenerateDataKey](http://docs.aws.amazon.com/kms/latest/APIReference/API_GenerateDataKey.html) API request, AWS KMS returns a plaintext copy of the data key and a ciphertext that contains the data key encrypted under the specified CMK\. You use the plaintext data key in your application to encrypt data, and you typically store the encrypted data key alongside your encrypted data\. Security best practices dictate that you should remove the plaintext data key from memory as soon as practical after use\. To decrypt data in your application, you pass the encrypted data key with a [Decrypt](http://docs.aws.amazon.com/kms/latest/APIReference/API_Decrypt.html) API request\. AWS KMS uses your CMK to decrypt the data key into plaintext, and then returns it to you\. You use the plaintext data key to decrypt your data and then remove the plaintext data key from memory as soon as practical after use\.
+*Data keys* are encryption keys that you can use to encrypt data, including large amounts of data and other data encryption keys\. You can use your AWS KMS CMKs to generate, encrypt, and decrypt data keys, but AWS KMS does not store, manage, or track your data keys, and AWS KMS cannot use a data key to encrypt data for you\. You must use and manage data keys inside your application\.
 
-**Note**  
-You can use AWS KMS to generate, encrypt, and decrypt data keys, but AWS KMS does not store, manage, or track your data keys\. You must do this inside your application\.
+When you make a [GenerateDataKey](http://docs.aws.amazon.com/kms/latest/APIReference/API_GenerateDataKey.html) API request, AWS KMS gets the data key from the CMK you specify\. The CMK returns a plaintext copy of the data key and a copy encrypted under the CMK\. Use the plaintext data key to encrypt data and then remove it from memory as soon as possible\. You must store and manage the encrypted data key so you can decrypt your data\. Typically, users store the encrypted data key with the encrypted data\. 
+
+To decrypt data, pass the encrypted data key in a [Decrypt](http://docs.aws.amazon.com/kms/latest/APIReference/API_Decrypt.html) API request\. AWS KMS uses your CMK to decrypt the data key and then it returns the plaintext data key\. You use the plaintext data key to decrypt your data and then remove the plaintext data key from memory as soon as possible\.
 
 ## Envelope Encryption<a name="enveloping"></a>
 
@@ -46,7 +61,7 @@ Envelope encryption offers several benefits:
 
 The following image provides an overview of envelope encryption\. In this scenario, the data key is encrypted with a single KEK, which is the master key\. In AWS KMS, your CMK represents the master key\.
 
-![\[Envelope encryption\]](http://docs.aws.amazon.com/kms/latest/developerguide/images/envelope-encryption.png)![\[Envelope encryption\]](http://docs.aws.amazon.com/kms/latest/developerguide/)
+![\[Envelope encryption\]](http://docs.aws.amazon.com/kms/latest/developerguide/images/envelope-encryption.png)
 
 ## Encryption Context<a name="encrypt_context"></a>
 

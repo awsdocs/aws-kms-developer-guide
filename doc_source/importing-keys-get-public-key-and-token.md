@@ -1,6 +1,6 @@
 # Importing Key Material Step 2: Download the Public Key and Import Token<a name="importing-keys-get-public-key-and-token"></a>
 
-After you create a customer master key \(CMK\) with no key material, you download a public key and import token for that CMK\. You need these items to import your key material, and you can download both items in one step using the AWS Management Console or the AWS KMS API\.
+After you [create a customer master key \(CMK\) with no key material](importing-keys-create-cmk.md), you download a public key and import token for that CMK\. You need these items to import your key material, and you can download both items in one step using the AWS Management Console or the AWS KMS API\.
 
 You also download these items when you want to reimport key material into a CMK\. You might do this to change the expiration time for the key material, or to restore a CMK after the key material has expired or been deleted\.
 
@@ -20,7 +20,7 @@ Before you download a public key and import token, you must determine how you wi
 + **RSAES\_PKCS1\_V1\_5** – The RSA encryption algorithm with the padding format defined in PKCS \#1 Version 1\.5\.
 
 **Note**  
-If you plan to try the Encrypt Key Material with OpenSSL proof\-of\-concept example in Step 3, use RSAES\_OAEP\_SHA\_1\.
+If you plan to try the [Encrypt Key Material with OpenSSL](importing-keys-encrypt-key-material.md#importing-keys-encrypt-key-material-openssl) proof\-of\-concept example in [Step 3](importing-keys-encrypt-key-material.md), use RSAES\_OAEP\_SHA\_1\.
 
 If your HSM or key management system supports it, we recommending using RSAES\_OAEP\_SHA\_256 to encrypt your key material\. If that option is not available, you should use RSAES\_OAEP\_SHA\_1\. If neither of the OAEP options are available, you must use RSAES\_PKCS1\_V1\_5\. For information about how to encrypt your key material, see the documentation for the hardware security module or key management system that protects your key material\.
 
@@ -34,7 +34,7 @@ To download the public key and import token, you can use the AWS Management Cons
 
 ## Download the Public Key and Import Token \(AWS Management Console\)<a name="importing-keys-get-public-key-and-token-console"></a>
 
-You can use the AWS Management Console to download the public key and import token\. If you just completed the steps to create a CMK with no key material, skip to [[ERROR] BAD/MISSING LINK TEXT](#id-wrap-step)\.
+You can use the AWS Management Console to download the public key and import token\. If you just completed the steps to [create a CMK with no key material](importing-keys-create-cmk.md#importing-keys-create-cmk-console), skip to [Step 6](#id-wrap-step)\.
 
 **To download the public key and import token \(console\)**
 
@@ -50,9 +50,9 @@ The CMK's **Origin** must be **External**\. If you don't see the **Origin** colu
 
 1. In the **Key Material** section of the page, choose **Download wrapping key and import token**\.
 
-1. For **Select wrapping algorithm**, choose the option that you will use to encrypt your key material\. For more information about the options, see the preceding section\.
+1. <a name="id-wrap-step"></a>For **Select wrapping algorithm**, choose the option that you will use to encrypt your key material\. For more information about the options, see the preceding section\.
 
-   If you plan to try the  Encrypt Key Material with OpenSSL proof\-of\-concept example in Step 3, choose RSAES\_OAEP\_SHA\_1\.
+   If you plan to try the [ Encrypt Key Material with OpenSSL](importing-keys-encrypt-key-material.md#importing-keys-encrypt-key-material-openssl) proof\-of\-concept example in [Step 3](importing-keys-encrypt-key-material.md), choose RSAES\_OAEP\_SHA\_1\.
 
 1. Choose **Download wrapping key and import token**, and then save the file\.
 
@@ -68,7 +68,7 @@ The CMK's **Origin** must be **External**\. If you don't see the **Origin** colu
 
    To continue the process now, proceed to the next step\. Otherwise, choose **Skip and do this later** and then proceed to [Step 3: Encrypt the Key Material](importing-keys-encrypt-key-material.md)\.
 
-1. \(Optional\) To continue the process now, encrypt your key material\. Then do one of the following:
+1. \(Optional\) To continue the process now, [encrypt your key material](importing-keys-encrypt-key-material.md)\. Then do one of the following:
 
    + If you are in the **Import key material** wizard, select the check box for **I am ready to upload my exported key material** and choose **Next**\.
 
@@ -83,7 +83,7 @@ To use the [AWS KMS API](http://docs.aws.amazon.com/kms/latest/APIReference/) to
 This example specifies `RSAES_OAEP_SHA_1` as the encryption option\. To specify a different option, replace `RSAES_OAEP_SHA_1` with `RSAES_OAEP_SHA_256` or `RSAES_PKCS1_V1_5`\. Replace `1234abcd-12ab-34cd-56ef-1234567890ab` with the key ID of the CMK for which to download the public key and import token\. You can use the CMK's key ID or Amazon Resource Name \(ARN\), but you cannot use an alias for this operation\.
 
 **Note**  
-If you plan to try the Encrypt Key Material with OpenSSL proof\-of\-concept example in Step 3, specify RSAES\_OAEP\_SHA\_1\.
+If you plan to try the [Encrypt Key Material with OpenSSL](importing-keys-encrypt-key-material.md#importing-keys-encrypt-key-material-openssl) proof\-of\-concept example in [Step 3](importing-keys-encrypt-key-material.md), specify RSAES\_OAEP\_SHA\_1\.
 
 ```
 $ aws kms get-parameters-for-import --key-id 1234abcd-12ab-34cd-56ef-1234567890ab \

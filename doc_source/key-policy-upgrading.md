@@ -1,6 +1,6 @@
 # Keeping Key Policies Up to Date<a name="key-policy-upgrading"></a>
 
-When you use the AWS Management Console to create a customer master key \(CMK\), you can choose the IAM users, IAM roles, and AWS accounts that you want to have access to the CMK\. These users, roles, and accounts are added to a default key policy that controls access to the CMK\. Occasionally, the default key policy for new CMKs is updated\. Typically, these updates correspond to new AWS KMS features\.
+When you [use the AWS Management Console to create a customer master key \(CMK\)](create-keys.md), you can choose the IAM users, IAM roles, and AWS accounts that you want to have access to the CMK\. These users, roles, and accounts are added to a [default key policy](key-policies.md#key-policy-default) that controls access to the CMK\. Occasionally, the default key policy for new CMKs is updated\. Typically, these updates correspond to new AWS KMS features\.
 
 When you create a new CMK, the latest version of the default key policy is added to the CMK\. However, existing CMKs continue to use their existing key policy—that is, new versions of the default key policy are *not* automatically applied to existing CMKs\. Instead, the console alerts you that a newer version is available and prompts you to upgrade it\.
 
@@ -28,13 +28,13 @@ For information about the permissions that are added to a key policy when you up
 
 ## Changes to the Default Key Policy<a name="key-policy-changes"></a>
 
-In the current version of the default key policy, the *key administrators statement* contains more permissions than those in previous versions\. These additional permissions correspond to new AWS KMS features\.
+In the [current version of the default key policy](key-policies.md#key-policy-default), the *key administrators statement* contains more permissions than those in previous versions\. These additional permissions correspond to new AWS KMS features\.
 
 CMKs that are using an older version of the default key policy might be missing the following permissions\. When you upgrade to the latest version of the default key policy, they're added to the key administrators statement\.
 
 **kms:TagResource and kms:UntagResource**  
-These permissions allow key administrators to add, update, and remove tags from the CMK\. They were added to the default key policy when AWS KMS released the tagging feature\.
+These permissions allow key administrators to add, update, and remove tags from the CMK\. They were added to the default key policy when AWS KMS released the [tagging feature](tagging-keys.md)\.
 
 **kms:ScheduleKeyDeletion and kms:CancelKeyDeletion**  
-These permissions allow key administrators to schedule and cancel deletion for the CMK\. They were added to the default key policy when AWS KMS released the CMK deletion feature\.  
-The `kms:ScheduleKeyDeletion` and `kms:CancelKeyDeletion` permissions are included by default when you create a CMK and when you upgrade to the latest version of the default key policy\. However, you can optionally remove them from the default key policy when you create a CMK by clearing the box for **Allow key administrators to delete this key**\. In the same way, you can use the key details page to remove them from the default key policy for existing CMKs\. That includes CMKs whose key policy you upgraded to the latest version\.
+These permissions allow key administrators to schedule and cancel deletion for the CMK\. They were added to the default key policy when AWS KMS released the [CMK deletion feature](deleting-keys.md)\.  
+The `kms:ScheduleKeyDeletion` and `kms:CancelKeyDeletion` permissions are included by default when you [create a CMK](create-keys.md) and when you upgrade to the latest version of the default key policy\. However, you can optionally remove them from the default key policy when you create a CMK by clearing the box for **Allow key administrators to delete this key**\. In the same way, you can use the key details page to remove them from the default key policy for existing CMKs\. That includes CMKs whose key policy you upgraded to the latest version\.

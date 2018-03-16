@@ -2,7 +2,7 @@
 
 This topic explains how to create, delete, list, and update aliases\.
 
-An *alias* is an optional display name for a customer master key \(CMK\)\. 
+An *alias* is an optional display name for a [customer master key \(CMK\)](concepts.md#master_keys)\. 
 
 Each CMK can have multiple aliases, but each alias points to only one CMK\. The alias name must be unique in the AWS account and region\. To simplify code that runs in multiple regions, you can use the same alias name, but point it to a different CMK in each region\. 
 

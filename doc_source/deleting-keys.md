@@ -1,6 +1,6 @@
 # Deleting Customer Master Keys<a name="deleting-keys"></a>
 
-Deleting a customer master key \(CMK\) in AWS Key Management Service \(AWS KMS\) is destructive and potentially dangerous\. It deletes the key material and all metadata associated with the CMK, and is irreversible\. After a CMK is deleted you can no longer decrypt the data that was encrypted under that CMK, which means that data becomes unrecoverable\. You should delete a CMK only when you are sure that you don't need to use it anymore\. If you are not sure, consider disabling the CMK instead of deleting it\. You can re\-enable a disabled CMK if you need to use it again later, but you cannot recover a deleted CMK\.
+Deleting a customer master key \(CMK\) in AWS Key Management Service \(AWS KMS\) is destructive and potentially dangerous\. It deletes the key material and all metadata associated with the CMK, and is irreversible\. After a CMK is deleted you can no longer decrypt the data that was encrypted under that CMK, which means that data becomes unrecoverable\. You should delete a CMK only when you are sure that you don't need to use it anymore\. If you are not sure, consider [disabling the CMK](enabling-keys.md) instead of deleting it\. You can re\-enable a disabled CMK if you need to use it again later, but you cannot recover a deleted CMK\.
 
 Before deleting a CMK, you might want to know how many ciphertexts were encrypted under that CMK\. AWS KMS does not store this information, and does not store any of the ciphertexts\. To get this information, you must determine on your own the past usage of a CMK\. For some guidance that might help you do this, go to [Determining Past Usage of a Customer Master Key](deleting-keys-determining-usage.md)\.
 
@@ -10,7 +10,10 @@ You might choose to delete a CMK for one or more of the following reasons:
 
 + To avoid the management overhead and [costs](https://aws.amazon.com/kms/pricing/) associated with maintaining unused CMKs
 
-+ To reduce the number of CMKs that count against your limit
++ To reduce the number of CMKs that count against your [limit](limits.md)
+
+**Note**  
+If you [close or delete your AWS account](http://docs.aws.amazon.com/awsaccountbilling/latest/aboutv2/close-account.html), your CMKs become inaccessible and you are no longer billed for them\. You do not need to schedule deletion of your CMKs separate from closing the account\.
 
 
 + [How Deleting Customer Master Keys Works](#deleting-keys-how-it-works)
@@ -21,11 +24,19 @@ You might choose to delete a CMK for one or more of the following reasons:
 
 ## How Deleting Customer Master Keys Works<a name="deleting-keys-how-it-works"></a>
 
-Because it is destructive and potentially dangerous to delete a customer master key \(CMK\), AWS KMS enforces a waiting period\. To delete a CMK in AWS KMS you *schedule key deletion*\. You can set the waiting period from a minimum of 7 days up to a maximum of 30 days\. The default waiting period is 30 days\. During the waiting period, the CMK is *pending deletion* which means it can't be used\. After the waiting period ends, AWS KMS deletes the CMK and all AWS KMS data associated with it, including all aliases that point to it\.
+Because it is destructive and potentially dangerous to delete a customer master key \(CMK\), AWS KMS enforces a waiting period\. To delete a CMK in AWS KMS you *schedule key deletion*\. You can set the waiting period from a minimum of 7 days up to a maximum of 30 days\. The default waiting period is 30 days\. 
+
+During the waiting period, the CMK state is *pending deletion*\. 
+
++ A CMK that is pending deletion cannot be used in any cryptographic operations\. 
+
++ AWS KMS does not [rotate the backing keys](rotate-keys.md#rotate-keys-how-it-works) of CMKs that are pending deletion\.
+
+After the waiting period ends, AWS KMS deletes the CMK and all AWS KMS data associated with it, including all aliases that point to it\.
 
 When you schedule key deletion, AWS KMS reports the date and time when the waiting period ends\. This date and time is at least the specified number of days from when you scheduled key deletion, but it can be up to 24 hours longer\. For example, when you schedule key deletion and specify a waiting period of 7 days, the end of the waiting period occurs no earlier than 7 days and no more than 8 days from the time of your request\. You can confirm the exact date and time when the waiting period ends in the AWS Management Console, AWS CLI, or AWS KMS API\.
 
-Use the waiting period to ensure that you don't need the CMK now or in the future\. You can configure an Amazon CloudWatch alarm to warn you if a person or application attempts to use the CMK during the waiting period\. To recover the CMK, you can cancel key deletion before the waiting period ends\. After the waiting period ends you cannot cancel key deletion, and AWS KMS deletes the CMK\.
+Use the waiting period to ensure that you don't need the CMK now or in the future\. You can [configure an Amazon CloudWatch alarm](deleting-keys-creating-cloudwatch-alarm.md) to warn you if a person or application attempts to use the CMK during the waiting period\. To recover the CMK, you can cancel key deletion before the waiting period ends\. After the waiting period ends you cannot cancel key deletion, and AWS KMS deletes the CMK\.
 
 ### How Deleting Customer Master Keys Affects AWS Services Integrated With AWS KMS<a name="deleting-keys-how-it-affects-aws-services-integrated-with-kms"></a>
 
@@ -54,11 +65,14 @@ However, the next time the encrypted EBS volume is attached to an EC2 instance, 
 The following procedures describe how to schedule key deletion and cancel key deletion in AWS Key Management Service \(AWS KMS\) using the AWS Management Console, the AWS CLI, and the AWS SDK for Java\.
 
 **Warning**  
-Deleting a customer master key \(CMK\) in AWS KMS is destructive and potentially dangerous\. You should proceed only when you are sure that you don't need to use the CMK anymore and won't need to use it in the future\. If you are not sure, you should disable the CMK instead of deleting it\.
+Deleting a customer master key \(CMK\) in AWS KMS is destructive and potentially dangerous\. You should proceed only when you are sure that you don't need to use the CMK anymore and won't need to use it in the future\. If you are not sure, you should [disable the CMK](enabling-keys.md) instead of deleting it\.
 
 Before you can delete a CMK, you must have permission to do so\. If you rely on the key policy alone to specify AWS KMS permissions, you might need to add additional permissions before you can delete the CMK\. For information about adding these permissions, go to [Adding Permission to Schedule and Cancel Key Deletion](#deleting-keys-adding-permission)\.
 
-Ways to schedule and cancel key deletion
+
++ [Using the AWS Management Console](#deleting-keys-scheduling-key-deletion-console)
++ [Using the AWS CLI](#deleting-keys-scheduling-key-deletion-cli)
++ [Using the AWS SDK for Java](#deleting-keys-scheduling-key-deletion-java)
 
 ### Scheduling and Canceling Key Deletion \(AWS Management Console\)<a name="deleting-keys-scheduling-key-deletion-console"></a>
 
@@ -92,7 +106,7 @@ The CMK status changes to **Pending Deletion**\.
 
 1. Choose **Key Actions**, **Cancel key deletion**\.
 
-The CMK status changes from **Pending Deletion** to **Disabled**\. To use the CMK, you must enable it\.
+The CMK status changes from **Pending Deletion** to **Disabled**\. To use the CMK, you must [enable it](enabling-keys.md)\.
 
 ### Scheduling and Canceling Key Deletion \(AWS CLI\)<a name="deleting-keys-scheduling-key-deletion-cli"></a>
 
@@ -125,7 +139,7 @@ When used successfully, the AWS CLI returns output like the output shown in the 
 }
 ```
 
-The status of the CMK changes from **Pending Deletion** to **Disabled**\. To use the CMK, you must enable it\.
+The status of the CMK changes from **Pending Deletion** to **Disabled**\. To use the CMK, you must [enable it](enabling-keys.md)\.
 
 ### Scheduling and Canceling Key Deletion \(AWS SDK for Java\)<a name="deleting-keys-scheduling-key-deletion-java"></a>
 
@@ -151,7 +165,7 @@ new CancelKeyDeletionRequest().withKeyId(KeyId);
 kms.cancelKeyDeletion(cancelKeyDeletionRequest);
 ```
 
-The status of the CMK changes from **Pending Deletion** to **Disabled**\. To use the CMK, you must enable it\.
+The status of the CMK changes from **Pending Deletion** to **Disabled**\. To use the CMK, you must [enable it](enabling-keys.md)\.
 
 ## Adding Permission to Schedule and Cancel Key Deletion<a name="deleting-keys-adding-permission"></a>
 
@@ -159,7 +173,9 @@ If you use IAM policies to allow AWS KMS permissions, all IAM users and roles th
 
 The following procedures describe how to add permissions to a key policy using the AWS Management Console or the AWS CLI\.
 
-Ways to add permission to schedule and cancel key deletion
+
++ [Using the AWS Management Console](#deleting-keys-adding-permission-console)
++ [Using the AWS CLI](#deleting-keys-adding-permission-cli)
 
 ### Adding Permission to Schedule and Cancel Key Deletion \(AWS Management Console\)<a name="deleting-keys-adding-permission-console"></a>
 
@@ -179,7 +195,7 @@ You can use the AWS Management Console to add permissions for scheduling and can
 **Note**  
 If you do not see the **Allow key administrators to delete this key** option, this likely means that you have previously modified this key policy using the AWS KMS API\. In this case you must update the key policy document manually\. Add the `kms:ScheduleKeyDeletion` and `kms:CancelKeyDeletion` permissions to the key administrators statement \(`"Sid": "Allow access for Key Administrators"`\) in the key policy, and then choose **Save Changes**\.   
 
-![\[Image NOT FOUND\]](http://docs.aws.amazon.com/kms/latest/developerguide/images/kms-console-add-permissions-schedule-cancel-key-deletion.png)![\[Image NOT FOUND\]](http://docs.aws.amazon.com/kms/latest/developerguide/)
+![\[Image NOT FOUND\]](http://docs.aws.amazon.com/kms/latest/developerguide/images/kms-console-add-permissions-schedule-cancel-key-deletion.png)
 
 ### Adding Permission to Schedule and Cancel Key Deletion \(AWS CLI\)<a name="deleting-keys-adding-permission-cli"></a>
 

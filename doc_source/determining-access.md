@@ -1,6 +1,6 @@
 # Determining Access to an AWS KMS Customer Master Key<a name="determining-access"></a>
 
-To determine the full extent of who or what currently has access to a customer master key \(CMK\) in AWS KMS, you must examine the CMK's key policy, all grants that apply to the CMK, and potentially all AWS Identity and Access Management \(IAM\) policies\. You might do this to determine the scope of potential usage of a CMK, or to help you meet compliance or auditing requirements\. The following topics can help you generate a complete list of the AWS principals \(identities\) that currently have access to a CMK\.
+To determine the full extent of who or what currently has access to a customer master key \(CMK\) in AWS KMS, you must examine the CMK's key policy, all [grants](grants.md) that apply to the CMK, and potentially all AWS Identity and Access Management \(IAM\) policies\. You might do this to determine the scope of potential usage of a CMK, or to help you meet compliance or auditing requirements\. The following topics can help you generate a complete list of the AWS principals \(identities\) that currently have access to a CMK\.
 
 
 + [Understanding Policy Evaluation](#policy-evaluation)
@@ -14,7 +14,7 @@ When authorizing access to a CMK, AWS KMS evaluates the key policy attached to t
 
 For example, assume that you have two CMKs and three users, all in the same AWS account\. The CMKs and users have the following policies:
 
-+ CMK1's key policy allows access to the AWS account \(root user\) and thereby enables IAM policies to allow access to CMK1\.
++ CMK1's key policy [allows access to the AWS account \(root user\) and thereby enables IAM policies to allow access to CMK1](key-policies.md#key-policy-default-allow-root-enable-iam)\.
 
 + CMK2's key policy allows access to Alice and Charlie\.
 
@@ -34,11 +34,13 @@ Charlie cannot access CMK1 or CMK2 because all AWS KMS actions are denied in his
 
 You can examine the key policy in two ways:
 
-+ If the CMK was created in the AWS Management Console, you can use the console's *default view* on the key details page to view the principals listed in the key policy\. If you can view the key policy in this way, it means the key policy allows access with IAM policies\. Be sure to examine IAM policies to determine the complete list of principals that can access the CMK\.
++ If the CMK was created in the AWS Management Console, you can use the console's *default view* on the key details page to view the principals listed in the key policy\. If you can view the key policy in this way, it means the key policy [allows access with IAM policies](key-policies.md#key-policy-default-allow-root-enable-iam)\. Be sure to [examine IAM policies](#determining-access-iam-policies) to determine the complete list of principals that can access the CMK\.
 
 + You can use the [GetKeyPolicy](http://docs.aws.amazon.com/kms/latest/APIReference/API_GetKeyPolicy.html) operation in the AWS KMS API to retrieve a copy of the key policy document, and then examine the document\. You can also view the policy document in the AWS Management Console\.
 
-Ways to examine the key policy
+
++ [Examining the Key Policy in the AWS Management Console](#determining-access-key-policy-console)
++ [Examining the Key Policy Document](#determining-access-key-policy-document)
 
 ### Examining the Key Policy in the AWS Management Console<a name="determining-access-key-policy-console"></a>
 
@@ -54,7 +56,7 @@ Ways to examine the key policy
 
 1. In the **Key Policy** section of the key details page, find the list of IAM users and roles in the **Key Administrators** section, and another list in the **Key Users** section\. The listed users, roles, and AWS accounts all have access to manage or use this CMK\.
 **Important**  
-The IAM users, roles, and AWS accounts listed here are the ones that have been explicitly granted access in the key policy\. If you use IAM policies to allow access to CMKs, other IAM users and roles might have access to this CMK, even if they are not listed here\. Take care to examine all IAM policies in this account to determine if they allow access to this CMK\.
+The IAM users, roles, and AWS accounts listed here are the ones that have been explicitly granted access in the key policy\. If you use IAM policies to allow access to CMKs, other IAM users and roles might have access to this CMK, even if they are not listed here\. Take care to [examine all IAM policies](#determining-access-iam-policies) in this account to determine if they allow access to this CMK\.
 
 1. \(Optional\) To view the key policy document, choose **Switch to policy view**\.
 
@@ -68,7 +70,7 @@ You can view the key policy document in a couple of ways:
 
 Examine the key policy document and take note of all principals specified in each policy statement's `Principal` element\. The IAM users, IAM roles, and AWS accounts in the `Principal` elements are those that have access to this CMK\.
 
-The following examples use the policy statements found in the default key policy to demonstrate how to do this\.
+The following examples use the policy statements found in the [default key policy](key-policies.md#key-policy-default) to demonstrate how to do this\.
 
 **Example Policy Statement 1**  
 
@@ -82,7 +84,7 @@ The following examples use the policy statements found in the default key policy
 }
 ```
 In the preceding policy statement, `arn:aws:iam::111122223333:root` refers to the AWS account 111122223333\. By default, a policy statement like this one is present in the key policy document when you create a new CMK with the console, and when you create a new CMK programmatically but do not provide a key policy\.  
-A key policy document with a statement that allows access to the AWS account \(root user\) enables IAM policies in the account to allow access to the CMK\. This means that IAM users and roles in the account might have access to the CMK even if they are not explicitly listed as principals in the key policy document\. Take care to examine all IAM policies in all AWS accounts listed as principals to determine whether they allow access to this CMK\.
+A key policy document with a statement that allows access to the AWS account \(root user\) enables [IAM policies in the account to allow access to the CMK](key-policies.md#key-policy-default-allow-root-enable-iam)\. This means that IAM users and roles in the account might have access to the CMK even if they are not explicitly listed as principals in the key policy document\. Take care to [examine all IAM policies](#determining-access-iam-policies) in all AWS accounts listed as principals to determine whether they allow access to this CMK\.
 
 **Example Policy Statement 2**  
 
@@ -145,7 +147,7 @@ In the preceding policy statement, `arn:aws:iam::111122223333:role/EncryptionApp
   "Condition": {"Bool": {"kms:GrantIsForAWSResource": true}}
 }
 ```
-In the preceding policy statement, `arn:aws:iam::111122223333:role/EncryptionApp` refers to the IAM role named EncryptionApp in AWS account 111122223333\. Principals that can assume this role are allowed to perform the actions listed in the policy statement\. These actions, when combined with the actions allowed in **Example policy statement 3**, are those necessary to delegate use of the CMK to most AWS services that integrate with AWS KMS, specifically the services that use grants\. The `Condition` element ensures that the delegation is allowed only when the delegate is an AWS service that integrates with AWS KMS and uses grants for authorization\.
+In the preceding policy statement, `arn:aws:iam::111122223333:role/EncryptionApp` refers to the IAM role named EncryptionApp in AWS account 111122223333\. Principals that can assume this role are allowed to perform the actions listed in the policy statement\. These actions, when combined with the actions allowed in **Example policy statement 3**, are those necessary to delegate use of the CMK to most [AWS services that integrate with AWS KMS](service-integration.md), specifically the services that use [grants](grants.md)\. The `Condition` element ensures that the delegation is allowed only when the delegate is an AWS service that integrates with AWS KMS and uses grants for authorization\.
 
 To learn all the different ways you can specify a principal in a key policy document, see [Specifying a Principal](http://docs.aws.amazon.com/IAM/latest/UserGuide/reference_policies_elements.html#Principal_specifying) in the *IAM User Guide*\.
 
@@ -157,7 +159,9 @@ In addition to the key policy and grants, you can also use IAM policies in combi
 
 To determine which principals currently have access to a CMK through IAM policies, you can use the browser\-based [IAM Policy Simulator](https://policysim.aws.amazon.com/) tool, or you can make requests to the IAM API\.
 
-Ways to examine IAM policies
+
++ [Examining IAM Policies with the IAM Policy Simulator](#determining-access-iam-policy-simulator)
++ [Examining IAM Policies with the IAM API](#determining-access-iam-api)
 
 ### Examining IAM Policies with the IAM Policy Simulator<a name="determining-access-iam-policy-simulator"></a>
 

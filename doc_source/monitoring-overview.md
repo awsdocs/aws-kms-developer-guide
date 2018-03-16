@@ -8,7 +8,7 @@ Monitoring is an important part of understanding the availability, state, and us
 
 + How often will you monitor these resources?
 
-+ What monitoring tools will you use?
++ What [monitoring tools](#monitoring-tools) will you use?
 
 + Who will perform the monitoring tasks?
 
@@ -24,7 +24,7 @@ To establish a baseline for normal patterns, monitor the following items:
 
 + AWS KMS API activity for *control plane* operations that are important to you\. These operations manage a CMK, and you might want to monitor those that change a CMK's availability \(such as [ScheduleKeyDeletion](http://docs.aws.amazon.com/kms/latest/APIReference/API_ScheduleKeyDeletion.html), [CancelKeyDeletion](http://docs.aws.amazon.com/kms/latest/APIReference/API_CancelKeyDeletion.html), [DisableKey](http://docs.aws.amazon.com/kms/latest/APIReference/API_DisableKey.html), [EnableKey](http://docs.aws.amazon.com/kms/latest/APIReference/API_EnableKey.html), [ImportKeyMaterial](http://docs.aws.amazon.com/kms/latest/APIReference/API_ImportKeyMaterial.html), and [DeleteImportedKeyMaterial](http://docs.aws.amazon.com/kms/latest/APIReference/API_DeleteImportedKeyMaterial.html)\) or modify a CMK's access control \(such as [PutKeyPolicy](http://docs.aws.amazon.com/kms/latest/APIReference/API_PutKeyPolicy.html) and [RevokeGrant](http://docs.aws.amazon.com/kms/latest/APIReference/API_RevokeGrant.html)\)\.
 
-+ Other AWS KMS metrics \(such as the amount of time remaining until your imported key material expires\) and events \(such as the expiration of imported key material or the deletion or key rotation of a CMK\)\.
++ Other AWS KMS metrics \(such as the amount of time remaining until your [imported key material](importing-keys.md) expires\) and events \(such as the expiration of imported key material or the deletion or key rotation of a CMK\)\.
 
 ## Monitoring Tools<a name="monitoring-tools"></a>
 

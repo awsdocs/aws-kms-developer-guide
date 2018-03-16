@@ -47,7 +47,7 @@ Use the controls in the **Tags** section of the page\.
 ![\[Tags section of the console's key details page\]](http://docs.aws.amazon.com/kms/latest/developerguide/images/console-tags.png)
 
 **Enable or disable rotation**  
-Use the controls in the **Key Rotation** section of the page to enable and disable automatic rotation of the cryptographic material in a CMK\.  
+Use the controls in the **Key Rotation** section of the page to enable and disable [automatic rotation](rotate-keys.md) of the cryptographic material in a CMK\.  
 
 ![\[Key rotation section of the console's key details page\]](http://docs.aws.amazon.com/kms/latest/developerguide/images/console-rotation.png)
 
@@ -103,6 +103,6 @@ The [PutKeyPolicy](http://docs.aws.amazon.com/kms/latest/APIReference/API_PutKey
 
 ### Enable and Disable Key Rotation<a name="editing-keys-enable-key-rotation"></a>
 
-The [EnableKeyRotation](http://docs.aws.amazon.com/kms/latest/APIReference/API_EnableKeyRotation.html) operation enables automatic rotation of the cryptographic material in a CMK\. The [DisableKeyRotation](http://docs.aws.amazon.com/kms/latest/APIReference/API_DisableKeyRotation.html) operation disables it\. The [GetKeyRotationStatus](http://docs.aws.amazon.com/kms/latest/APIReference/API_GetKeyRotationStatus.html) operation returns a Boolean value that tells you whether automatic key rotation is enabled \(**true**\) or disabled \(**false**\)\. 
+The [EnableKeyRotation](http://docs.aws.amazon.com/kms/latest/APIReference/API_EnableKeyRotation.html) operation enables [automatic rotation](rotate-keys.md) of the cryptographic material in a CMK\. The [DisableKeyRotation](http://docs.aws.amazon.com/kms/latest/APIReference/API_DisableKeyRotation.html) operation disables it\. The [GetKeyRotationStatus](http://docs.aws.amazon.com/kms/latest/APIReference/API_GetKeyRotationStatus.html) operation returns a Boolean value that tells you whether automatic key rotation is enabled \(**true**\) or disabled \(**false**\)\. 
 
 For an example, see [Rotating Customer Master Keys](rotate-keys.md)\.

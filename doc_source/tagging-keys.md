@@ -14,7 +14,7 @@ For more information about using tags for cost allocation, see [Using Cost Alloc
 
 ## Managing CMK Tags \(Console\)<a name="manage-tags"></a>
 
-You can manage tags for your CMKs from the IAM section of the AWS Management Console\. You can add tags to a CMK when you create it\. You can also use the console's key details page to manage, add, edit, and delete tags for a CMK\. For more information, see [Editing Keys](editing-keys.md)\. 
+You can manage tags for your CMKs from the IAM section of the AWS Management Console\. You can add tags to a CMK when you [create it](create-keys.md)\. You can also use the console's key details page to manage, add, edit, and delete tags for a CMK\. For more information, see [Editing Keys](editing-keys.md)\. 
 
 **To manage tags for your CMKs \(console\)**
 
@@ -31,8 +31,7 @@ You cannot tag AWS managed CMKs, which are denoted by the orange AWS icon\.
 1. Choose **Key actions**, **Add or edit tags**\.
 
 1. Use the controls in the **Add or edit tags** window\. When you're finished, choose **Save**\.  
-![\[Add or edit tags window in the Encryption Keys section of the IAM
-              console\]](http://docs.aws.amazon.com/kms/latest/developerguide/images/console-tags-modal.png)
+![\[Add or edit tags window in the Encryption Keys section of the IAM console\]](http://docs.aws.amazon.com/kms/latest/developerguide/images/console-tags-modal.png)
 
 ## Managing CMK Tags \(API\)<a name="manage-tags-api"></a>
 

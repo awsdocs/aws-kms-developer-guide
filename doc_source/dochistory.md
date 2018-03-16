@@ -29,7 +29,7 @@ The following table describes the important changes to the documentation since t
 | New content | Added documentation about [How Key State Affects Use of a Customer Master Key](key-state.md)\. | October 15, 2015 | 
 | New content | Added documentation about [How Amazon Simple Email Service \(Amazon SES\) Uses AWS KMS](services-ses.md)\. | October 1, 2015 | 
 | Update | Updated the [Limits](limits.md) page to explain the new requests per second limits\. | August 31, 2015 | 
-| New content | Added information about the charges for using AWS KMS\. See AWS KMS Pricing\. | August 14, 2015 | 
+| New content | Added information about the charges for using AWS KMS\. See [AWS KMS Pricing](overview.md#pricing)\. | August 14, 2015 | 
 | New content | Added requests per second to the AWS KMS [Limits](limits.md)\. | June 11, 2015 | 
 | New content | Added a new Java code sample demonstrating use of the [http://docs.aws.amazon.com/kms/latest/APIReference/API_UpdateAlias.html](http://docs.aws.amazon.com/kms/latest/APIReference/API_UpdateAlias.html) API\. See [Updating an Alias](programming-aliases.md#update-alias)\. | June 1, 2015 | 
 | Update | Moved the [AWS Key Management Service regions table](http://docs.aws.amazon.com/general/latest/gr/rande.html#kms_region) to the AWS General Reference\. | May 29, 2015 | 

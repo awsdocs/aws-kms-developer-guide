@@ -14,7 +14,7 @@ To manage sensitive data, you can create Secure String parameters\. Parameter St
 
 ## Encrypting and Decrypting Secure String Parameters<a name="parameter-store-encrypt"></a>
 
-Parameter Store does not perform any cryptographic operations\. Instead, it relies on AWS KMS to encrypt and decrypt Secure String parameter values\. When you create or change a Secure String parameter value, Parameter Store calls the AWS KMS [Encrypt](http://docs.aws.amazon.com/kms/latest/APIReference/API_Encrypt.html) API operation\. This operation uses an AWS KMS CMK directly to encrypt the parameter value instead of using the CMK to generate a data key\. 
+Parameter Store does not perform any cryptographic operations\. Instead, it relies on AWS KMS to encrypt and decrypt Secure String parameter values\. When you create or change a Secure String parameter value, Parameter Store calls the AWS KMS [Encrypt](http://docs.aws.amazon.com/kms/latest/APIReference/API_Encrypt.html) API operation\. This operation uses an AWS KMS CMK directly to encrypt the parameter value instead of using the CMK to generate a [data key](concepts.md#data-keys)\. 
 
 You can select the CMK that Parameter Store uses to encrypt the parameter value\. If you do not specify a CMK, Parameter Store uses the default `aws/ssm` CMK that Systems Manager automatically creates in your account\.
 
@@ -189,8 +189,8 @@ To perform any operation on a Secure String parameter, Parameter Store must be a
 
 + The CMK is not found\. 
 
-  This typically happens when you use an incorrect identifier for the CMK\. Find the correct identifiers for the CMK and try the command again\. 
+  This typically happens when you use an incorrect identifier for the CMK\. [Find the correct identifiers](viewing-keys.md#find-cmk-id-arn) for the CMK and try the command again\. 
 
 + The CMK is not enabled\. When this occurs, Parameter Store returns an InvalidKeyId exception with a detailed error message from AWS KMS\.
 
-  To find the status of a CMK, use the Status column of the **Encryption keys** page of the [IAM console](https://console.aws.amazon.com/iam/home?#home) or the [DescribeKey](http://docs.aws.amazon.com/kms/latest/APIReference/API_DescribeKey.html) operation in the AWS KMS API\. If the CMK state is disabled, enable it\. If it is pending import, you must complete the import procedure\. If the CMK is pending deletion, you must use a different CMK or cancel the key deletion\. 
+  To find the status of a CMK, use the [Status column](viewing-keys.md#viewing-keys-console) of the **Encryption keys** page of the [IAM console](https://console.aws.amazon.com/iam/home?#home) or the [DescribeKey](http://docs.aws.amazon.com/kms/latest/APIReference/API_DescribeKey.html) operation in the AWS KMS API\. If the CMK state is disabled, [enable it](enabling-keys.md)\. If it is pending import, you must complete the [import procedure](importing-keys.md)\. If the CMK is pending deletion, you must use a different CMK or [cancel the key deletion](deleting-keys.md#deleting-keys-scheduling-key-deletion)\. 

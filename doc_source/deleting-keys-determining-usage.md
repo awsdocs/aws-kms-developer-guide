@@ -14,7 +14,7 @@ Determining who or what currently has access to a customer master key \(CMK\) mi
 
 AWS KMS is integrated with AWS CloudTrail, so all AWS KMS API activity is recorded in CloudTrail log files\. If you have CloudTrail turned on in the region where your customer master key \(CMK\) is located, you can examine your CloudTrail log files to view a history of all AWS KMS API activity for a particular CMK, and thus its usage history\. You might be able to use a CMK's usage history to help you determine whether or not you still need it\.
 
-The following examples show CloudTrail log entries that are generated when a KMS CMK is used to protect an object stored in Amazon Simple Storage Service \(Amazon S3\)\. In this example, the object is uploaded to Amazon S3 using server\-side encryption with AWS KMS\-managed keys \(SSE\-KMS\)\. When you upload an object to Amazon S3 with SSE\-KMS, you specify the KMS CMK to use for protecting the object\. Amazon S3 uses the AWS KMS `GenerateDataKey` API to request a unique data key for the object, and this API event is logged in CloudTrail with an entry similar to the following:
+The following examples show CloudTrail log entries that are generated when a KMS CMK is used to protect an object stored in Amazon Simple Storage Service \(Amazon S3\)\. In this example, the object is uploaded to Amazon S3 using [server\-side encryption with AWS KMS\-managed keys \(SSE\-KMS\)](services-s3.md#sse)\. When you upload an object to Amazon S3 with SSE\-KMS, you specify the KMS CMK to use for protecting the object\. Amazon S3 uses the AWS KMS `GenerateDataKey` API to request a unique data key for the object, and this API event is logged in CloudTrail with an entry similar to the following:
 
 ```
 {

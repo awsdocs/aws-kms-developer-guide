@@ -12,7 +12,7 @@ This topic discusses how to create, describe, list, enable, and disable keys in 
 
 ## Creating a Customer Master Key<a name="creating-keys"></a>
 
-To create a customer master key, use the [CreateKey](http://docs.aws.amazon.com/kms/latest/APIReference/API_CreateKey.html) operation\. For details about the Java implementation, see the [createKey method](http://docs.aws.amazon.com/AWSJavaSDK/latest/javadoc/com/amazonaws/services/kms/AWSKMSClient.html#createKey-com.amazonaws.services.kms.model.CreateKeyRequest-) in the *AWS SDK for Java API Reference*\.
+To create a [customer master key](concepts.md#master_keys), use the [CreateKey](http://docs.aws.amazon.com/kms/latest/APIReference/API_CreateKey.html) operation\. For details about the Java implementation, see the [createKey method](http://docs.aws.amazon.com/AWSJavaSDK/latest/javadoc/com/amazonaws/services/kms/AWSKMSClient.html#createKey-com.amazonaws.services.kms.model.CreateKeyRequest-) in the *AWS SDK for Java API Reference*\.
 
 ```
 // Create a CMK

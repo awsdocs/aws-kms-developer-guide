@@ -52,9 +52,12 @@ For more information about AWS policy syntax, see [AWS IAM Policy Reference](htt
 When you create a CMK programmatically—that is, with the [AWS KMS API](http://docs.aws.amazon.com/kms/latest/APIReference/) \(including through the [AWS SDKs](https://aws.amazon.com/tools/#sdk) and [command line tools](https://aws.amazon.com/tools/#cli)\)—you have the option of providing the key policy for the new CMK\. If you don't provide one, AWS KMS creates one for you\. This default key policy has one policy statement that gives the AWS account \(root user\) that owns the CMK full access to the CMK and enables IAM policies in the account to allow access to the CMK\. For more information about this policy statement, see [Allows Access to the AWS Account and Enables IAM Policies](#key-policy-default-allow-root-enable-iam)\.
 
 **Default key policy when you create a CMK with the AWS Management Console**  
-When you create a CMK with the AWS Management Console, you can choose the IAM users, IAM roles, and AWS accounts that are given access to the CMK\. The users, roles, and accounts that you choose are added to a default key policy that the console creates for you\. With the console, you can use the default view to view or modify this key policy, or you can work with the key policy document directly\. The default key policy created by the console allows the following permissions, each of which is explained in the corresponding section\.
+When you [create a CMK with the AWS Management Console](create-keys.md), you can choose the IAM users, IAM roles, and AWS accounts that are given access to the CMK\. The users, roles, and accounts that you choose are added to a default key policy that the console creates for you\. With the console, you can use the default view to view or modify this key policy, or you can work with the key policy document directly\. The default key policy created by the console allows the following permissions, each of which is explained in the corresponding section\.
 
-Permissions
+
++ [Allows Access to the AWS Account and Enables IAM Policies](#key-policy-default-allow-root-enable-iam)
++ [Allows Key Administrators to Administer the CMK](#key-policy-default-allow-administrators)
++ [Allows Key Users to Use the CMK](#key-policy-default-allow-users)
 
 ### Allows Access to the AWS Account and Enables IAM Policies<a name="key-policy-default-allow-root-enable-iam"></a>
 
@@ -126,11 +129,11 @@ When you use the console's default view to modify the list of key administrators
 
 The key administrators statement allows the following permissions:
 
-+ **kms:Create\*** – Allows key administrators to create aliases and grants for this CMK\.
++ **kms:Create\*** – Allows key administrators to create aliases and [grants](grants.md) for this CMK\.
 
 + **kms:Describe\*** – Allows key administrators to retrieve information about this CMK including its identifiers, creation date, state, and more\. This permission is necessary to view the key details page in the AWS Management Console\.
 
-+ **kms:Enable\*** – Allows key administrators to set this CMK's state to enabled and to specify annual rotation of the CMK's key material\.
++ **kms:Enable\*** – Allows key administrators to set this CMK's state to enabled and to specify [annual rotation of the CMK's key material](rotate-keys.md)\.
 
 + **kms:List\*** – Allows key administrators to retrieve lists of the aliases, grants, key policies, and tags for this CMK\. This permission is necessary to view the list of CMKs in the AWS Management Console\.
 
@@ -138,27 +141,27 @@ The key administrators statement allows the following permissions:
 
 + **kms:Update\*** – Allows key administrators to change the target of an alias to this CMK, and to modify this CMK's description\.
 
-+ **kms:Revoke\*** – Allows key administrators to revoke the permissions for this CMK that are allowed by a grant\.
++ **kms:Revoke\*** – Allows key administrators to revoke the permissions for this CMK that are allowed by a [grant](grants.md)\.
 
-+ **kms:Disable\*** – Allows key administrators to set this CMK's state to disabled and to disable annual rotation of this CMK's key material\.
++ **kms:Disable\*** – Allows key administrators to set this CMK's state to disabled and to disable [annual rotation of this CMK's key material](rotate-keys.md)\.
 
 + **kms:Get\*** – Allows key administrators to retrieve the key policy for this CMK and to determine whether this CMK's key material is rotated annually\. If this CMK's origin is external, it also allows key administrators to download the public key and import token for this CMK\. For more information about CMK origin, see [Importing Key Material](importing-keys.md)\.
 
-+ **kms:Delete\*** – Allows key administrators to delete an alias that points to this CMK and, if this CMK's origin is external, to delete the imported key material\. For more information about imported key material, see [Importing Key Material](importing-keys.md)\. Note that this permission does not allow key administrators to delete the CMK\.
++ **kms:Delete\*** – Allows key administrators to delete an alias that points to this CMK and, if this CMK's origin is external, to delete the imported key material\. For more information about imported key material, see [Importing Key Material](importing-keys.md)\. Note that this permission does not allow key administrators to [delete the CMK](deleting-keys.md)\.
 
 + **kms:ImportKeyMaterial** – Allows key administrators to import key material into the CMK\.
 **Note**  
-This permission is not shown in the preceding example policy statement\. This permission is applicable only to CMKs whose origin is external\. It is automatically included in the key administrators statement when you use the console to create a CMK with no key material\. For more information, see [Importing Key Material](importing-keys.md)\.
+This permission is not shown in the preceding example policy statement\. This permission is applicable only to CMKs whose origin is external\. It is automatically included in the key administrators statement when you use the console to [create a CMK with no key material](importing-keys-create-cmk.md)\. For more information, see [Importing Key Material](importing-keys.md)\.
 
 + **kms:TagResource** – Allows key administrators to add and update tags for this CMK\.
 
 + **kms:UntagResource** – Allows key administrators to remove tags from this CMK\.
 
-+ **kms:ScheduleKeyDeletion** – Allows key administrators to delete this CMK\.
++ **kms:ScheduleKeyDeletion** – Allows key administrators to [delete this CMK](deleting-keys.md)\.
 
 + **kms:CancelKeyDeletion** – Allows key administrators to cancel the pending deletion of this CMK\.
 
-The final two permissions in the preceding list, `kms:ScheduleKeyDeletion` and `kms:CancelKeyDeletion`, are included by default when you create a CMK\. However, you can optionally remove them from the key policy when you create a CMK by clearing the box for **Allow key administrators to delete this key**\. In the same way, you can use the key details page to remove them from the default key policy for existing CMKs\. For more information, see [Editing Keys](editing-keys.md)\.
+The final two permissions in the preceding list, `kms:ScheduleKeyDeletion` and `kms:CancelKeyDeletion`, are included by default when you [create a CMK](create-keys.md)\. However, you can optionally remove them from the key policy when you create a CMK by clearing the box for **Allow key administrators to delete this key**\. In the same way, you can use the key details page to remove them from the default key policy for existing CMKs\. For more information, see [Editing Keys](editing-keys.md)\.
 
 Many of these permissions contain the wildcard character \(`*`\)\. That means that if AWS KMS adds new API operations in the future, key administrators will automatically be allowed to perform all new API operations that begin with Create, Describe, Enable, List, Put, Update, Revoke, Disable, Get, or Delete\.
 
@@ -167,13 +170,13 @@ The key administrators statement described in the preceding section is in the la
 
 ### Allows Key Users to Use the CMK<a name="key-policy-default-allow-users"></a>
 
-The default key policy created by the console allows you to choose IAM users and roles in the account, and external AWS accounts, and make them *key users*\. Key users have permissions to use the CMK directly for encryption and decryption\. They also have permission to delegate a subset of their own permissions to some of the AWS services that are integrated with AWS KMS\. Key users can implicitly give these services permissions to use the CMK in specific and limited ways\. This implicit delegation is done using grants\. For example, key users can do the following things:
+The default key policy created by the console allows you to choose IAM users and roles in the account, and external AWS accounts, and make them *key users*\. Key users have permissions to use the CMK directly for encryption and decryption\. They also have permission to delegate a subset of their own permissions to some of the [AWS services that are integrated with AWS KMS](service-integration.md)\. Key users can implicitly give these services permissions to use the CMK in specific and limited ways\. This implicit delegation is done using [grants](grants.md)\. For example, key users can do the following things:
 
 + Use this CMK with Amazon Elastic Block Store \(Amazon EBS\) and Amazon Elastic Compute Cloud \(Amazon EC2\) to attach an encrypted EBS volume to an EC2 instance\. The key user implicitly gives Amazon EC2 permission to use the CMK to attach the encrypted volume to the instance\. For more information, see [How Amazon Elastic Block Store \(Amazon EBS\) Uses AWS KMS](services-ebs.md)\.
 
 + Use this CMK with Amazon Redshift to launch an encrypted cluster\. The key user implicitly gives Amazon Redshift permission to use the CMK to launch the encrypted cluster and create encrypted snapshots\. For more information, see [How Amazon Redshift Uses AWS KMS](services-redshift.md)\.
 
-+ Use this CMK with other AWS services integrated with AWS KMS, specifically the services that use grants, to create, manage, or use encrypted resources with those services\.
++ Use this CMK with other [AWS services integrated with AWS KMS](service-integration.md), specifically the services that use grants, to create, manage, or use encrypted resources with those services\.
 
 The default key policy gives key users permissions to allow these integrated services to use the CMK, but users also need permission to use the integrated services\. For details about giving users access to an AWS service that integrates with AWS KMS, consult the documentation for the integrated service\.
 
@@ -236,11 +239,11 @@ The first of these two statements allows key users to use the CMK directly, and 
 
 + **kms:DescribeKey** – Allows key users to retrieve information about this CMK including its identifiers, creation date, state, and more\.
 
-The second of these two statements allows key users to use grants to delegate a subset of their own permissions to some of the AWS services that are integrated with AWS KMS, specifically the services that use grants\. This policy statement uses a condition element to allow these permissions only when the key user is delegating permissions to an integrated AWS service\. For more information about using conditions in a key policy, see [Using Policy Conditions](policy-conditions.md)\.
+The second of these two statements allows key users to use grants to delegate a subset of their own permissions to some of the [AWS services that are integrated with AWS KMS](service-integration.md), specifically the services that use grants\. This policy statement uses a condition element to allow these permissions only when the key user is delegating permissions to an integrated AWS service\. For more information about using conditions in a key policy, see [Using Policy Conditions](policy-conditions.md)\.
 
 ## Example Key Policy<a name="key-policy-example"></a>
 
-The following example shows a complete key policy\. This key policy combines the example policy statements from the preceding default key policy section into a single key policy that accomplishes the following:
+The following example shows a complete key policy\. This key policy combines the example policy statements from the preceding [default key policy](#key-policy-default) section into a single key policy that accomplishes the following:
 
 + Allows the AWS account \(root user\) 111122223333 full access to the CMK, and thus enables IAM policies in the account to allow access to the CMK\.
 

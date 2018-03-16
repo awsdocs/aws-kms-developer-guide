@@ -144,4 +144,4 @@ To identify your AWS KMS CMKs in programs, scripts, and command line interface \
 
 **To find the CMK ID and ARN \(API\)**
 
-+ To find the CMK ID and ARN, use the ListKeys operation \(see above\)\.
++ To find the CMK ID and ARN, use the [ListKeys](#viewing-keys-list-keys) operation \(see above\)\.

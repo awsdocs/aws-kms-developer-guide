@@ -17,7 +17,7 @@ If you enable [private DNS hostnames](http://docs.aws.amazon.com/AmazonVPC/lates
 You can also use AWS CloudTrail logs to audit your use of KMS keys through the VPC endpoint\. And you can use the conditions in IAM and key policies to deny access to any request that does not come from a specified VPC or VPC endpoint\.
 
 **Note**  
-Use caution when creating IAM and key policies based on your VPC endpoint\. If a policy statement requires that requests come from a particular VPC or VPC endpoint, requests from integrated AWS services that use the CMK on your behalf might fail\. For help, see [[ERROR] BAD/MISSING LINK TEXT](policy-conditions.md#conditions-aws-vpce) \.
+Use caution when creating IAM and key policies based on your VPC endpoint\. If a policy statement requires that requests come from a particular VPC or VPC endpoint, requests from integrated AWS services that use the CMK on your behalf might fail\. For help, see [Using VPC Endpoint Conditions in Policies with AWS KMS Permissions](policy-conditions.md#conditions-aws-vpce)\.
 
 **Regions**  
 AWS KMS supports VPC endpoints in all AWS regions where both [Amazon VPC](http://docs.aws.amazon.com/general/latest/gr/rande.html#vpc_region) and [AWS KMS](http://docs.aws.amazon.com/general/latest/gr/rande.html#kms_region) are available, except for AWS GovCloud \(US\) and EU \(Paris\)\.
@@ -25,8 +25,8 @@ AWS KMS supports VPC endpoints in all AWS regions where both [Amazon VPC](http:/
 
 + [Create an AWS KMS VPC Endpoint](#create-vpc-endpoint)
 + [Connecting to an AWS KMS VPC Endpoint](#connecting-vpc-endpoint)
-+ [Using a VPC Endpoint in a Policy Statement](#logging-privatelink)
-+ [Audit the CMK Use for your VPC](#logging-privatelink)
++ [Using a VPC Endpoint in a Policy Statement](#vpce-policy)
++ [Audit the CMK Use for your VPC](#vpce-logging)
 
 ## Create an AWS KMS VPC Endpoint<a name="create-vpc-endpoint"></a>
 
@@ -68,7 +68,7 @@ You [create an interface endpoint](http://docs.aws.amazon.com/AmazonVPC/latest/U
 
 1. Choose **Create endpoint**\.
 
-The results show the VPC endpoint, including the VPC endpoint ID and the DNS names that you use to connect to your VPC endpoint\. 
+The results show the VPC endpoint, including the VPC endpoint ID and the DNS names that you use to [connect to your VPC endpoint](#connecting-vpc-endpoint)\. 
 
 You can also use the Amazon VPC tools to view and manage your endpoint, including creating a notification for an endpoint, changing properties of the endpoint, and deleting the endpoint\. For instructions, see [Interface VPC Endpoints](http://docs.aws.amazon.com/AmazonVPC/latest/UserGuide/vpce-interface.html)\.
 
@@ -158,7 +158,7 @@ If you enabled private hostnames when you created your VPC endpoint, you do not 
 
 To use private hostnames, the` enableDnsHostnames` and `enableDnsSupport` attributes of your VPC must be set to true\. To set these attributes, use the [ModifyVpcAttribute](http://docs.aws.amazon.com/AWSEC2/latest/APIReference/API_ModifyVpcAttribute.html) API\. 
 
-## Using a VPC Endpoint in a Policy Statement<a name="logging-privatelink"></a>
+## Using a VPC Endpoint in a Policy Statement<a name="vpce-policy"></a>
 
 You can use IAM policies and AWS KMS key policies to control access to your AWS KMS customer master keys \(CMKs\)\. You can also use [global condition keys](http://docs.aws.amazon.com/IAM/latest/UserGuide/reference_policies_condition-keys.html#AvailableKeys) to restrict these policies based on VPC endpoint or VPC in the request\.
 
@@ -167,7 +167,7 @@ You can use IAM policies and AWS KMS key policies to control access to your AWS 
 + Use the `aws:sourceVpc` condition key to grant or restrict access to an AWS KMS CMK based on the VPC that hosts the private endpoint\.
 
 **Note**  
-Use caution when creating IAM and key policies based on your VPC endpoint\. If a policy statement requires that requests come from a particular VPC or VPC endpoint, requests from integrated AWS services that use the CMK on your behalf might fail\. For help, see [[ERROR] BAD/MISSING LINK TEXT](policy-conditions.md#conditions-aws-vpce) \.  
+Use caution when creating IAM and key policies based on your VPC endpoint\. If a policy statement requires that requests come from a particular VPC or VPC endpoint, requests from integrated AWS services that use the CMK on your behalf might fail\. For help, see [Using VPC Endpoint Conditions in Policies with AWS KMS Permissions](policy-conditions.md#conditions-aws-vpce)\.  
 Also, the `aws:sourceIP` condition key is not effective when the request comes from an [Amazon VPC endpoint](https://docs.aws.amazon.com/AmazonVPC/latest/UserGuide/vpc-endpoints.html)\. To restrict requests to a VPC endpoint, use the `aws:sourceVpce` or `aws:sourceVpc` condition keys\. For more information, see [VPC Endpoints \- Controlling the Use of Endpoints](http://docs.aws.amazon.com/AmazonVPC/latest/UserGuide/vpc-endpoints.html#vpc-endpoints-iam-access) in the *Amazon VPC User Guide*\. 
 
 For example, the following sample key policy allows a user to perform encryption operations with a CMK only when the request comes through the specified VPC endpoint\. 
@@ -264,9 +264,9 @@ To use a policy like this one, replace the placeholder AWS account ID and VPC en
 }
 ```
 
-## Audit the CMK Use for your VPC<a name="logging-privatelink"></a>
+## Audit the CMK Use for your VPC<a name="vpce-logging"></a>
 
-When a request to AWS KMS uses a VPC endpoint, the VPC endpoint ID appears in the AWS CloudTrail log entry that records the request\. You can use the endpoint ID to audit the use of your AWS KMS VPC endpoint\. 
+When a request to AWS KMS uses a VPC endpoint, the VPC endpoint ID appears in the [AWS CloudTrail log](logging-using-cloudtrail.md) entry that records the request\. You can use the endpoint ID to audit the use of your AWS KMS VPC endpoint\. 
 
 For example, this sample log entry records a `GenerateDataKey` request that used the VPC endpoint\. The `vpcEndpointId` field appears at the end of the log entry\.
 

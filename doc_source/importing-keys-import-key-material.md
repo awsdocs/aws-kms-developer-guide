@@ -1,6 +1,6 @@
 # Importing Key Material Step 4: Import the Key Material<a name="importing-keys-import-key-material"></a>
 
-After you encrypt your key material, you can import the key material to use with an AWS KMS customer master key \(CMK\)\. To import key material, you upload the encrypted key material from [Step 3: Encrypt the Key Material](importing-keys-encrypt-key-material.md) and the import token that you downloaded at [Step 2: Download the Public Key and Import Token](importing-keys-get-public-key-and-token.md)\. You must import key material into the same CMK that you specified when you downloaded the public key and import token\.
+After you [encrypt your key material](importing-keys-encrypt-key-material.md), you can import the key material to use with an AWS KMS customer master key \(CMK\)\. To import key material, you upload the encrypted key material from [Step 3: Encrypt the Key Material](importing-keys-encrypt-key-material.md) and the import token that you downloaded at [Step 2: Download the Public Key and Import Token](importing-keys-get-public-key-and-token.md)\. You must import key material into the same CMK that you specified when you downloaded the public key and import token\.
 
 When you import key material, you can optionally specify a time at which the key material expires\. When the key material expires, AWS KMS deletes the key material and the CMK becomes unusable\. To use the CMK again, you must reimport key material\.
 
@@ -14,7 +14,7 @@ To import key material, you can use the AWS Management Console or the AWS KMS AP
 
 ## Import Key Material \(AWS Management Console\)<a name="importing-keys-import-key-material-console"></a>
 
-You can use the AWS Management Console to import key material\. If you just completed the optional final step of downloading the public key and import token with the console, skip to [[ERROR] BAD/MISSING LINK TEXT](#id-key-materials-step)\.
+You can use the AWS Management Console to import key material\. If you just completed the optional final step of [downloading the public key and import token with the console](importing-keys-get-public-key-and-token.md#importing-keys-get-public-key-and-token-console), skip to [Step 6](#id-key-materials-step)\.
 
 **To import key material \(console\)**
 
@@ -28,7 +28,7 @@ You can use the AWS Management Console to import key material\. If you just comp
 
 1. In the **Key Material** section of the page, choose **Upload key material**\.
 
-1. In the **Specify key material details** section, for **Encrypted key material**, choose the file that contains your encrypted key material\. For **Import token**, choose the file that contains the import token that you downloaded previously\.
+1. <a name="id-key-materials-step"></a>In the **Specify key material details** section, for **Encrypted key material**, choose the file that contains your encrypted key material\. For **Import token**, choose the file that contains the import token that you [downloaded previously](importing-keys-get-public-key-and-token.md#importing-keys-get-public-key-and-token-console)\.
 
 1. In the **Choose an expiration option** section, choose whether the key material expires\. If you choose expiration, type a date and a time in the corresponding boxes\.
 

@@ -1,11 +1,11 @@
 # Using IAM Policies with AWS KMS<a name="iam-policies"></a>
 
-You can use IAM policies in combination with key policies to control access to your customer master keys \(CMKs\) in AWS KMS\.
+You can use IAM policies in combination with [key policies](key-policies.md) to control access to your customer master keys \(CMKs\) in AWS KMS\.
 
 **Note**  
 This section discusses using IAM in the context of AWS KMS\. It doesn't provide detailed information about the IAM service\. For complete IAM documentation, see the [IAM User Guide](http://docs.aws.amazon.com/IAM/latest/UserGuide/)\.
 
-Policies attached to IAM identities \(that is, users, groups, and roles\) are called *identity\-based policies* \(or *IAM policies*\), and policies attached to resources outside of IAM are called *resource\-based policies*\. In AWS KMS, you must attach resource\-based policies to your CMKs\. These are called *key policies*\. All KMS CMKs have a key policy, and you must use it to control access to a CMK\. IAM policies by themselves are not sufficient to allow access to a CMK, though you can use them in combination with a CMK's key policy\. To do so, ensure that CMK's key policy includes the policy statement that enables IAM policies\.
+Policies attached to IAM identities \(that is, users, groups, and roles\) are called *identity\-based policies* \(or *IAM policies*\), and policies attached to resources outside of IAM are called *resource\-based policies*\. In AWS KMS, you must attach resource\-based policies to your CMKs\. These are called *key policies*\. All KMS CMKs have a key policy, and you must use it to control access to a CMK\. IAM policies by themselves are not sufficient to allow access to a CMK, though you can use them in combination with a CMK's key policy\. To do so, ensure that CMK's key policy includes the [policy statement that enables IAM policies](key-policies.md#key-policy-default-allow-root-enable-iam)\.
 
 
 + [Overview of IAM Policies](#iam-policies-overview)
@@ -61,7 +61,7 @@ AWS provides one AWS managed policy for AWS KMS called [AWSKeyManagementServiceP
 
 + Allows users to retrieve information about each CMK, including its identifiers, creation date, rotation status, key policy, and more\.
 
-+ Allows users to create CMKs that they can administer or use\. When users create a CMK, they can set permissions in the CMK's key policy\. This means users can create CMKs with any permissions they want, including allowing themselves to administer or use the CMK\. The **AWSKeyManagementServicePowerUser** policy does not allow users to administer or use any other CMKs, only the ones they create\.
++ Allows users to create CMKs that they can administer or use\. When users create a CMK, they can set permissions in the CMK's [key policy](key-policies.md)\. This means users can create CMKs with any permissions they want, including allowing themselves to administer or use the CMK\. The **AWSKeyManagementServicePowerUser** policy does not allow users to administer or use any other CMKs, only the ones they create\.
 
 ## Customer Managed Policy Examples<a name="customer-managed-policies"></a>
 
