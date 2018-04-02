@@ -18,7 +18,7 @@ CloudTrail log files can contain one or more log entries where each entry is mad
 
 For examples of what these CloudTrail log entries look like, see the following topics\.
 
-
+**Topics**
 + [CreateAlias](ct-createalias.md)
 + [CreateGrant](ct-creategrant.md)
 + [CreateKey](ct-createkey.md)

@@ -6,7 +6,7 @@ To learn how to use encryption context to protect the integrity of encrypted dat
 
 Encryption context can consist of any values that you want\. However, because it is not encrypted and because it is logged if CloudTrail logging is turned on, your encryption context should not include sensitive information\. We further recommend that your encryption context describe the data being encrypted or decrypted so that you can better understand the CloudTrail log entries produced by AWS KMS\. For example, Amazon EBS uses the ID of the encrypted volume as the encryption context for server\-side encryption\. If you are encrypting a file, you might use part of the file path as encryption context\.
 
-
+**Topics**
 + [Encryption Context in Grants and Key Policies](#encryption-context-authorization)
 + [Logging Encryption Context](#encryption-context-auditing)
 + [Storing Encryption Context](#encryption-context-storing)

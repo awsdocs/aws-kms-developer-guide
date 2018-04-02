@@ -1,8 +1,8 @@
 # How Key State Affects Use of a Customer Master Key<a name="key-state"></a>
 
-A customer master key \(CMK\) is always in one of the following states: Enabled, Disabled, PendingImport, or PendingDeletion\. The following table shows whether AWS KMS APIs run on a CMK in each state can be expected to succeed \(✓\), fail \(X\), or succeed only under certain conditions \(?\)\. The result often differs for CMKs with imported key material\.
+A customer master key \(CMK\) is always in one of the following states: `Enabled`, `Disabled`, `PendingImport`, or `PendingDeletion`\. The following table shows whether AWS KMS API operations that run on a CMK in each state can be expected to succeed \(✓\), fail \(X\), or succeed only under certain conditions \(?\)\. The result often differs for CMKs with imported key material\.
 
-The `CreateKey` and `GenerateRandom` APIs have an not\-applicable \(N/A\) result because they do not use an existing CMK\.
+The `CreateKey` and `GenerateRandom` API operations have an not\-applicable \(N/A\) result because they do not use an existing CMK\.
 
 
 ****  
@@ -46,23 +46,13 @@ The `CreateKey` and `GenerateRandom` APIs have an not\-applicable \(N/A\) result
 | UpdateKeyDescription | ![\[Image NOT FOUND\]](http://docs.aws.amazon.com/kms/latest/developerguide/images/icon-successful.png) | ![\[Image NOT FOUND\]](http://docs.aws.amazon.com/kms/latest/developerguide/images/icon-successful.png) | ![\[Image NOT FOUND\]](http://docs.aws.amazon.com/kms/latest/developerguide/images/icon-successful.png) | ![\[Image NOT FOUND\]](http://docs.aws.amazon.com/kms/latest/developerguide/images/icon-disabled-pending-deletion.png)\[3\] | 
 
 **Table Details**
-
 + \[1\] `DisabledException: <CMK ARN> is disabled.`
-
 + \[2\] `DisabledException: <CMK ARN> is pending deletion.`
-
 + \[3\] `KMSInvalidStateException: <CMK ARN> is pending deletion.`
-
 + \[4\] `KMSInvalidStateException: <CMK ARN> is not pending deletion.`
-
 + \[5\] `KMSInvalidStateException: <CMK ARN> is pending import.`
-
 + \[6\] `UnsupportedOperationException: <CMK ARN> origin is EXTERNAL which is not valid for this operation.`
-
 + \[7\] If the CMK has imported key material: `UnsupportedOperationException`\.
-
 + \[8\] If the CMK has imported key material: `KMSInvalidStateException`
-
 + \[9\] If the CMK does not have imported key material: `UnsupportedOperationException`\.
-
 + \[10\] If the source CMK is pending deletion, the command succeeds\. If the destination CMK is pending deletion, the command fails with error: `KMSInvalidStateException : <CMK ARN> is pending deletion.`

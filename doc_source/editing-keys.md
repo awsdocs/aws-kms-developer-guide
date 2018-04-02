@@ -4,7 +4,7 @@ You can use the key detail page of the **Encryption keys** section of the AWS Ma
 
 You can also use the operations in the [AWS Key Management Service \(AWS KMS\) API](http://docs.aws.amazon.com/kms/latest/APIReference/) to edit the CMKs that you manage\. You cannot changes the properties of AWS managed CMKs\.
 
-
+**Topics**
 + [Editing CMKs \(console\)](#editing-keys-console)
 + [Editing CMKs \(API\)](#editing-keys-cli)
 
@@ -57,7 +57,7 @@ You can use the [AWS Key Management Service \(AWS KMS\) API](http://docs.aws.ama
 
 You cannot edit the properties of AWS managed CMKs\.
 
-
+**Topics**
 + [UpdateKeyDescription: Change the Description of a CMK](#editing-keys-edit-description)
 + [PutKeyPolicy: Change the Key Policy for a CMK](#editing-keys-edit-key-policy)
 + [Enable and Disable Key Rotation](#editing-keys-enable-key-rotation)

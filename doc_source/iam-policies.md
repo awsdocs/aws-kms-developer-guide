@@ -7,7 +7,7 @@ This section discusses using IAM in the context of AWS KMS\. It doesn't provide 
 
 Policies attached to IAM identities \(that is, users, groups, and roles\) are called *identity\-based policies* \(or *IAM policies*\), and policies attached to resources outside of IAM are called *resource\-based policies*\. In AWS KMS, you must attach resource\-based policies to your CMKs\. These are called *key policies*\. All KMS CMKs have a key policy, and you must use it to control access to a CMK\. IAM policies by themselves are not sufficient to allow access to a CMK, though you can use them in combination with a CMK's key policy\. To do so, ensure that CMK's key policy includes the [policy statement that enables IAM policies](key-policies.md#key-policy-default-allow-root-enable-iam)\.
 
-
+**Topics**
 + [Overview of IAM Policies](#iam-policies-overview)
 + [Permissions Required to Use the AWS KMS Console](#console-permissions)
 + [AWS Managed \(Predefined\) Policies for AWS KMS](#aws-managed-policies)
@@ -16,9 +16,7 @@ Policies attached to IAM identities \(that is, users, groups, and roles\) are ca
 ## Overview of IAM Policies<a name="iam-policies-overview"></a>
 
 You can use IAM policies in the following ways:
-
 + **Attach a permissions policy to a user or a group** – You can attach a policy that allows an IAM user or group of users to, for example, create new CMKs\.
-
 + **Attach a permissions policy to a role for federation or cross\-account permissions** – You can attach an IAM policy to an IAM role to enable identity federation, allow cross\-account permissions, or give permissions to applications running on EC2 instances\. For more information about the various use cases for IAM roles, see [IAM Roles](http://docs.aws.amazon.com/IAM/latest/UserGuide/id_roles.html) in the *IAM User Guide*\.
 
 The following example shows an IAM policy with AWS KMS permissions\. This policy allows the IAM identities to which it is attached to retrieve a list of all CMKs and aliases\.
@@ -56,11 +54,8 @@ You don't need to allow minimum console permissions for users that are working w
 AWS addresses many common use cases by providing standalone IAM policies that are created and managed by AWS\. These are called *AWS managed policies*\. AWS managed policies provide the necessary permissions for common use cases so you don't have to investigate which permissions are needed\. For more information, see [AWS Managed Policies](http://docs.aws.amazon.com/IAM/latest/UserGuide/access_policies_managed-vs-inline.html#aws-managed-policies) in the *IAM User Guide*\.
 
 AWS provides one AWS managed policy for AWS KMS called [AWSKeyManagementServicePowerUser](https://console.aws.amazon.com/iam/home#policies/arn:aws:iam::aws:policy/AWSKeyManagementServicePowerUser)\. This policy allows the following permissions:
-
 + Allows users to list all CMKs and aliases\.
-
 + Allows users to retrieve information about each CMK, including its identifiers, creation date, rotation status, key policy, and more\.
-
 + Allows users to create CMKs that they can administer or use\. When users create a CMK, they can set permissions in the CMK's [key policy](key-policies.md)\. This means users can create CMKs with any permissions they want, including allowing themselves to administer or use the CMK\. The **AWSKeyManagementServicePowerUser** policy does not allow users to administer or use any other CMKs, only the ones they create\.
 
 ## Customer Managed Policy Examples<a name="customer-managed-policies"></a>
@@ -70,7 +65,7 @@ In this section, you can find example IAM policies that allow permissions for va
 **Important**  
 Some of the permissions in the following policies are allowed only when the CMK's key policy also allows them\. For more information, see [AWS KMS API Permissions Reference](kms-api-permissions-reference.md)\.
 
-
+**Topics**
 + [Allow a User Read\-Only Access to All CMKs through the AWS KMS Console](#iam-policy-example-read-only-console)
 + [Allow a User to Encrypt and Decrypt with Any CMK in a Specific AWS Account](#iam-policy-example-encrypt-decrypt-one-account)
 + [Allow a User to Encrypt and Decrypt with Any CMK in a Specific AWS Account and Region](#iam-policy-example-encrypt-decrypt-one-account-one-region)

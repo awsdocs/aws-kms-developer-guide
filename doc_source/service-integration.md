@@ -6,7 +6,7 @@ The following topics discuss in detail how particular services use AWS KMS, incl
 
 The first topic explains [envelope encryption](workflow.md) and the methods that many integrated services use to [encrypt](workflow.md#encrypting_user_data) and [decrypt](workflow.md#decrypting_user_data) your data transparently\.
 
-
+**Topics**
 + [How Envelope Encryption Works with Supported AWS Services](workflow.md)
 + [AWS CloudTrail](services-cloudtrail.md)
 + [Amazon Elastic Block Store \(Amazon EBS\)](services-ebs.md)

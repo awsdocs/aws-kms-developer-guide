@@ -4,9 +4,11 @@ This topic describes how and when AWS KMS generates, encrypts, and decrypts keys
 
 ## Envelope Encryption<a name="envelope_encryption"></a>
 
-AWS KMS supports two kinds of keys—*master keys* and *data keys*\. Master keys can be used to directly encrypt and decrypt up to 4 kilobytes \(4096 bytes\) of data and can also be used to protect data keys\. The data keys are then used to encrypt and decrypt customer data\.
+AWS KMS supports two kinds of keys— [customer master keys](concepts.md#master_keys) \(CMKs\) and [data keys](concepts.md#data-keys)\. You can use CMKs to encrypt and decrypt up to 4 kilobytes \(4096 bytes\) of data, use them to generate, encrypt, and decrypt data keys\. The data keys are used to encrypt and decrypt customer data of any size\.
 
-Customer master keys are stored securely in AWS KMS\. They can never be exported from AWS KMS\. Data keys created inside of AWS KMS can be exported and are protected for export by being encrypted under a master key\. The data key encryption process is illustrated by the following diagram:
+Customer master keys are stored securely in AWS KMS\. They can never be exported from AWS KMS unencrypted\. Data keys created in AWS KMS are exported\. They are protected for export by being encrypted under a master key\. 
+
+The following diagram show how to use a master key to generate a data key\. The master key returns two copies of the data key; one in plaintext and one that is encrypted by the master key\.
 
 ![\[Envelope encryption diagram\]](http://docs.aws.amazon.com/kms/latest/developerguide/images/Workflow_EnvelopeEncryption.png)
 

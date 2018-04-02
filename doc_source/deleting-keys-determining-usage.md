@@ -2,7 +2,7 @@
 
 Before deleting a customer master key \(CMK\), you might want to know how many ciphertexts were encrypted under that key\. AWS KMS does not store this information, and does not store any of the ciphertexts\. To obtain this information, you must determine on your own the past usage of a CMK\. Knowing how a CMK was used in the past might help you decide whether or not you will need it in the future\. The following guidance can help you determine the past usage of a CMK\.
 
-
+**Topics**
 + [Examining CMK Permissions to Determine the Scope of Potential Usage](#deleting-keys-usage-key-permissions)
 + [Examining AWS CloudTrail Logs to Determine Actual Usage](#deleting-keys-usage-cloudtrail)
 

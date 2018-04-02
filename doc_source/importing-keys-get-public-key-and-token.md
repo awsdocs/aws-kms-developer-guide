@@ -12,11 +12,8 @@ The import token contains metadata to ensure that your key material is imported 
 
 **Plan ahead**  
 Before you download a public key and import token, you must determine how you will encrypt your key material\. Typically, you choose an option based on the capabilities of the hardware security module \(HSM\) or key management system that protects your key material\. You must use the RSA PKCS \#1 encryption scheme with one of three padding options, represented by the following choices\. These choices are listed in order of AWS preference\. The technical details of the schemes represented by these choices are explained in section 7 of the [PKCS \#1 Version 2\.1](https://tools.ietf.org/html/rfc3447) standard\.
-
 + **RSAES\_OAEP\_SHA\_256** – The RSA encryption algorithm with Optimal Asymmetric Encryption Padding \(OAEP\) with the SHA\-256 hash function\.
-
 + **RSAES\_OAEP\_SHA\_1** – The RSA encryption algorithm with Optimal Asymmetric Encryption Padding \(OAEP\) with the SHA\-1 hash function\.
-
 + **RSAES\_PKCS1\_V1\_5** – The RSA encryption algorithm with the padding format defined in PKCS \#1 Version 1\.5\.
 
 **Note**  
@@ -28,7 +25,7 @@ The public key and import token are valid for 24 hours\. If you don't use them t
 
 To download the public key and import token, you can use the AWS Management Console or the AWS KMS API\. You can use the API directly by making HTTP requests, or through one of the [AWS SDKs](https://aws.amazon.com/tools/#sdk) or [command line tools](https://aws.amazon.com/tools/#cli)\.
 
-
+**Topics**
 + [Download the Public Key and Import Token \(AWS Management Console\)](#importing-keys-get-public-key-and-token-console)
 + [Download the Public Key and Import Token \(AWS KMS API\)](#importing-keys-get-public-key-and-token-api)
 
@@ -59,19 +56,14 @@ The CMK's **Origin** must be **External**\. If you don't see the **Origin** colu
 1. Decompress the `.zip` file that you saved in the previous step \(`ImportParameters.zip`\)\.
 
    The folder contains the following files:
-
    + The wrapping key \(public key\), in a file named wrappingKey\_*CMK\_key\_ID*\_*timestamp* \(for example, `wrappingKey_f44c4e20-f83c-48f4-adc6-a1ef38829760_0809092909`\)\. This is a 2048\-bit RSA public key\.
-
    + The import token, in a file named importToken\_*CMK\_key\_ID*\_*timestamp* \(for example, `importToken_f44c4e20-f83c-48f4-adc6-a1ef38829760_0809092909`\)\.
-
    + A text file named README\_*CMK\_key\_ID*\_*timestamp*\.txt \(for example, `README_f44c4e20-f83c-48f4-adc6-a1ef38829760_0809092909.txt`\)\. This file contains information about the wrapping key \(public key\), the wrapping algorithm to use to encrypt your key material, and the date and time when the wrapping key \(public key\) and import token expire\.
 
    To continue the process now, proceed to the next step\. Otherwise, choose **Skip and do this later** and then proceed to [Step 3: Encrypt the Key Material](importing-keys-encrypt-key-material.md)\.
 
 1. \(Optional\) To continue the process now, [encrypt your key material](importing-keys-encrypt-key-material.md)\. Then do one of the following:
-
    + If you are in the **Import key material** wizard, select the check box for **I am ready to upload my exported key material** and choose **Next**\.
-
    + If you are in the key details page, choose **Upload key material**\.
 
 After you complete this step, proceed to [Step 3: Encrypt the Key Material](importing-keys-encrypt-key-material.md)\.

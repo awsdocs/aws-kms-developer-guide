@@ -6,7 +6,7 @@ A CMK with no key material is in the *pending import* state and is not available
 
 To create a CMK with no key material, you can use the AWS Management Console or the AWS KMS API\. You can use the API directly by making HTTP requests, or through one of the [AWS SDKs](https://aws.amazon.com/tools/#sdk) or [command line tools](https://aws.amazon.com/tools/#cli)\.
 
-
+**Topics**
 + [Create a CMK with No Key Material \(AWS Management Console\)](#importing-keys-create-cmk-console)
 + [Create a CMK with No Key Material \(AWS KMS API\)](#importing-keys-create-cmk-api)
 

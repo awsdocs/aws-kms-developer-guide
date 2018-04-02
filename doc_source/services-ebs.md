@@ -2,7 +2,7 @@
 
 This topic discusses in detail how [Amazon Elastic Block Store \(Amazon EBS\)](http://docs.aws.amazon.com/AWSEC2/latest/UserGuide/AmazonEBS.html) uses AWS KMS to encrypt volumes and snapshots\. For basic instructions about encrypting Amazon EBS volumes, see [Amazon EBS Encryption](http://docs.aws.amazon.com/AWSEC2/latest/UserGuide/EBSEncryption.html)\.
 
-
+**Topics**
 + [Amazon EBS Encryption](#ebs-encrypt)
 + [Amazon EBS Encryption Context](#ebs-encryption-context)
 + [Detecting Amazon EBS Failures](#ebs-failures)
@@ -51,17 +51,12 @@ Amazon EBS uses the snapshot ID as encryption context for encrypted snapshots cr
 ## Detecting Amazon EBS Failures<a name="ebs-failures"></a>
 
 To create an encrypted EBS volume or attach the volume to an EC2 instance, Amazon EBS and the Amazon EC2 infrastructure must be able to use the CMK that you specified for EBS volume encryption\. When the CMK is not usable—for example, when it is not in the enabled [key state](key-state.md)—the volume creation or volume attachment fails\. In this case, Amazon EBS sends an *event* to Amazon CloudWatch Events to notify you about the failure\. With CloudWatch Events, you can establish rules that trigger automatic actions in response to these events\. For more information, see [Amazon CloudWatch Events for Amazon EBS](http://docs.aws.amazon.com/AWSEC2/latest/UserGuide/ebs-cloud-watch-events.html) in the *Amazon EC2 User Guide for Linux Instances*, especially the following sections:
-
 + [Invalid Encryption Key on Volume Attach or Reattach](http://docs.aws.amazon.com/AWSEC2/latest/UserGuide/ebs-cloud-watch-events.html#attach-fail-key)
-
 + [Invalid Encryption Key on Create Volume](http://docs.aws.amazon.com/AWSEC2/latest/UserGuide/ebs-cloud-watch-events.html#create-fail-key)
 
 To fix these failures, ensure that the CMK that you specified for EBS volume encryption is enabled\. To do this, first [view the CMK](viewing-keys.md) to determine its current key state \(the **Status** column in the AWS Management Console\)\. Then, see the information at one of the following links:
-
 + If the CMK's key state is disabled, [enable it](enabling-keys.md)\.
-
 + If the CMK's key state is pending import, [import key material](importing-keys.md#importing-keys-overview)\.
-
 + If the CMK's key state is pending deletion, [cancel key deletion](deleting-keys.md#deleting-keys-scheduling-key-deletion)\.
 
 ## Using AWS CloudFormation to Create Encrypted Amazon EBS Volumes<a name="ebs-encryption-using-cloudformation"></a>

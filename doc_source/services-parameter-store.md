@@ -6,7 +6,7 @@ With [Parameter Store](http://docs.aws.amazon.com/systems-manager/latest/usergui
 
 To manage sensitive data, you can create Secure String parameters\. Parameter Store uses AWS KMS customer master keys \(CMKs\) to encrypt the parameter values of Secure String parameters when you create or change them\. It also uses CMKs to decrypt the parameter values when you access them\. You can use the default CMK that Parameter Store creates for your account or specify your own customer managed CMK\.
 
-
+**Topics**
 + [Encrypting and Decrypting Secure String Parameters](#parameter-store-encrypt)
 + [Setting Permissions to Encrypt and Decrypt Parameter Values](#parameter-store-policies)
 + [Parameter Store Encryption Context](#parameter-store-encryption-context)
@@ -123,9 +123,7 @@ An *encryption context* is a set of key–value pairs that contain arbitrary non
 You can also use the encryption context to identify a cryptographic operation in audit records and logs\. The encryption context appears in plaintext in logs, such as [AWS CloudTrail](http://docs.aws.amazon.com/awscloudtrail/latest/userguide/cloudtrail-user-guide.html) logs\. 
 
 Parameter Store uses the following encryption context in its cryptographic operations:
-
 + Key: `PARAMETER_ARN`
-
 + Value: The Amazon Resource Name \(ARN\) of the parameter that is being encrypted\. 
 
 The format of the encryption context is as follows:
@@ -182,15 +180,12 @@ This example IAM policy allows the user to the get value of the `MyParameter` pa
 ## Troubleshooting CMK Issues in Parameter Store<a name="parameter-store-cmk-fail"></a>
 
 To perform any operation on a Secure String parameter, Parameter Store must be able to use the AWS KMS CMK that you specify for your intended operation\. Most of the Parameter Store failures related to CMKs are caused by the following problems:
-
 + The credentials that an application is using do not have permission to perform the specified action on the CMK\. 
 
   To fix this error, run the application with different credentials or revise the IAM or key policy that is preventing the operation\. For help with AWS KMS IAM and key policies, see [Authentication and Access Control for AWS KMS](control-access.md)\.
-
 + The CMK is not found\. 
 
   This typically happens when you use an incorrect identifier for the CMK\. [Find the correct identifiers](viewing-keys.md#find-cmk-id-arn) for the CMK and try the command again\. 
-
 + The CMK is not enabled\. When this occurs, Parameter Store returns an InvalidKeyId exception with a detailed error message from AWS KMS\.
 
   To find the status of a CMK, use the [Status column](viewing-keys.md#viewing-keys-console) of the **Encryption keys** page of the [IAM console](https://console.aws.amazon.com/iam/home?#home) or the [DescribeKey](http://docs.aws.amazon.com/kms/latest/APIReference/API_DescribeKey.html) operation in the AWS KMS API\. If the CMK state is disabled, [enable it](enabling-keys.md)\. If it is pending import, you must complete the [import procedure](importing-keys.md)\. If the CMK is pending deletion, you must use a different CMK or [cancel the key deletion](deleting-keys.md#deleting-keys-scheduling-key-deletion)\. 

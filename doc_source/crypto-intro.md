@@ -13,7 +13,7 @@ Encryption algorithms are either symmetric or asymmetric\. *Symmetric encryption
 
 For a more detailed introduction to cryptography and AWS KMS, see the following topics\.
 
-
+**Topics**
 + [How Symmetric Key Cryptography Works](crypto_overview.md)
 + [Authenticated Encryption](crypto_authen.md)
 + [Encryption Context](encryption-context.md)

@@ -8,7 +8,7 @@ After you successfully import key material, the CMK's key state changes to enabl
 
 To import key material, you can use the AWS Management Console or the AWS KMS API\. You can use the API directly by making HTTP requests, or through one of the [AWS SDKs](https://aws.amazon.com/tools/#sdk) or [command line tools](https://aws.amazon.com/tools/#cli)\.
 
-
+**Topics**
 + [Import Key Material \(AWS Management Console\)](#importing-keys-import-key-material-console)
 + [Import Key Material \(AWS KMS API\)](#importing-keys-import-key-material-api)
 

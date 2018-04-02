@@ -4,7 +4,7 @@ You can use [Amazon WorkSpaces](https://aws.amazon.com/workspaces/) to provision
 
 For more information about creating WorkSpaces with encrypted volumes, go to [Encrypt a WorkSpace](http://docs.aws.amazon.com/workspaces/latest/adminguide/wsp_encrypt_workspace.html) in the *Amazon WorkSpaces Administration Guide*\.
 
-
+**Topics**
 + [Overview of Amazon WorkSpaces Encryption Using AWS KMS](#services-workspaces-overview)
 + [Amazon WorkSpaces Encryption Context](#services-workspaces-encryptioncontext)
 + [Giving Amazon WorkSpaces Permission to Use A CMK On Your Behalf](#services-workspaces-permissions)
@@ -12,9 +12,7 @@ For more information about creating WorkSpaces with encrypted volumes, go to [En
 ## Overview of Amazon WorkSpaces Encryption Using AWS KMS<a name="services-workspaces-overview"></a>
 
 When you create WorkSpaces with encrypted volumes, Amazon WorkSpaces uses Amazon Elastic Block Store \(Amazon EBS\) to create and manage those volumes\. Both services use your KMS customer master key \(CMK\) to work with the encrypted volumes\. For more information about EBS volume encryption, see the following documentation:
-
 + [How Amazon Elastic Block Store \(Amazon EBS\) Uses AWS KMS](services-ebs.md) in this guide
-
 + [Amazon EBS Encryption](http://docs.aws.amazon.com/AWSEC2/latest/UserGuide/EBSEncryption.html) in the *Amazon EC2 User Guide for Windows Instances*
 
 When you launch WorkSpaces with encrypted volumes, the end\-to\-end process works like this:
@@ -40,11 +38,8 @@ When you launch WorkSpaces with encrypted volumes, the end\-to\-end process work
 ## Amazon WorkSpaces Encryption Context<a name="services-workspaces-encryptioncontext"></a>
 
 Amazon WorkSpaces doesn't use your customer master key \(CMK\) directly for cryptographic operations \(such as [http://docs.aws.amazon.com/kms/latest/APIReference/API_Encrypt.html](http://docs.aws.amazon.com/kms/latest/APIReference/API_Encrypt.html), [http://docs.aws.amazon.com/kms/latest/APIReference/API_Decrypt.html](http://docs.aws.amazon.com/kms/latest/APIReference/API_Decrypt.html), [http://docs.aws.amazon.com/kms/latest/APIReference/API_GenerateDataKey.html](http://docs.aws.amazon.com/kms/latest/APIReference/API_GenerateDataKey.html), etc\.\), which means Amazon WorkSpaces doesn't send requests to AWS KMS that include encryption context\. However, when Amazon EBS requests an encrypted data key for the encrypted volumes of your WorkSpaces \([Step 3](#WSP-EBS-requests-encrypted-volume-data-key) in the [Overview of Amazon WorkSpaces Encryption Using AWS KMS](#services-workspaces-overview)\) and when it requests a plaintext copy of that data key \([Step 5](#WSP-uses-EBS-to-attach-encrypted-volume)\), it includes encryption context in the request\. The encryption context provides additional authenticated information that AWS KMS uses to ensure data integrity\. The encryption context is also written to your AWS CloudTrail log files, which can help you understand why a given customer master key \(CMK\) was used\. Amazon EBS uses the following for the encryption context:
-
 + The `sid` of the AWS Directory Service user that is associated with the WorkSpace
-
 + The directory ID of the AWS Directory Service directory that is associated with the WorkSpace
-
 + The volume ID of the encrypted volume
 
 The following example shows a JSON representation of the encryption context that Amazon EBS uses:

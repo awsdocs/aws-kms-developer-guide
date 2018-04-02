@@ -2,7 +2,7 @@
 
 This topic discusses how Amazon Redshift uses AWS KMS to encrypt data\.
 
-
+**Topics**
 + [Amazon Redshift Encryption](#rs-encryption)
 + [Encryption Context](#rs-encryptioncontext)
 

@@ -6,7 +6,7 @@ Deleting key material affects the CMK right away, but you can reverse the deleti
 
 To delete key material, you can use the AWS Management Console or the AWS KMS API\. You can use the API directly by making HTTP requests, or through one of the [AWS SDKs](https://aws.amazon.com/tools/#sdk) or [command line tools](https://aws.amazon.com/tools/#cli)\.
 
-
+**Topics**
 + [How Deleting Key Material Affects AWS Services Integrated With AWS KMS](#importing-keys-delete-key-material-services)
 + [Delete Key Material \(AWS Management Console\)](#importing-keys-delete-key-material-console)
 + [Delete Key Material \(AWS KMS API\)](#importing-keys-delete-key-material-api)
@@ -58,9 +58,7 @@ You can use the AWS Management Console to delete key material\.
 1. For **Region**, choose the appropriate AWS Region\. Do not use the region selector in the navigation bar \(top right corner\)\.
 
 1. Choose one of the following:
-
    + Select the check box for the CMK whose key material you want to delete\. Choose **Key actions**, **Delete key material**\.
-
    + Choose the alias of the CMK whose key material you want to delete\. In the **Key Material** section of the page, choose **Delete key material**\.
 
 1. Confirm that you want to delete the key material and then choose **Delete key material**\. The CMK's key state changes to `Pending Import`\.

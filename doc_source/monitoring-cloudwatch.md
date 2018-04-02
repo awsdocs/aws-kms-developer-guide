@@ -2,7 +2,7 @@
 
 You can monitor your customer master keys \(CMKs\) using Amazon CloudWatch, which collects and processes raw data from AWS KMS into readable, near real\-time metrics\. These data are recorded for a period of two weeks so that you can access historical information and gain a better understanding of the usage of your CMKs and their changes over time\. For more information about Amazon CloudWatch, see the [Amazon CloudWatch User Guide](http://docs.aws.amazon.com/AmazonCloudWatch/latest/monitoring/)\.
 
-
+**Topics**
 + [AWS KMS Metrics and Dimensions](#kms-metrics-dimensions)
 + [Creating CloudWatch Alarms to Monitor AWS KMS Metrics](#creating-alarms)
 + [AWS KMS Events](#kms-events)
@@ -50,7 +50,7 @@ $ aws cloudwatch list-metrics --namespace AWS/KMS
 
 You can create a CloudWatch alarm that sends an Amazon SNS message when the value of the metric changes and causes the alarm to change state\. An alarm watches a single metric over a time period you specify, and performs one or more actions based on the value of the metric relative to a given threshold over a number of time periods\. The action is a notification sent to an Amazon SNS topic or Auto Scaling policy\. Alarms invoke actions for sustained state changes only\. CloudWatch alarms do not invoke actions simply because they are in a particular state; the state must have changed and been maintained for a specified number of periods\.
 
-
+**Topics**
 + [Monitor the Expiration of Imported Key Material](#key-material-expiration-alarm)
 + [Monitor Usage of CMKs that are Pending Deletion](#cmk-pending-deletion-alarm)
 
@@ -81,9 +81,7 @@ When you [import key material into a CMK](importing-keys.md), you can optionally
    1. For **for consecutive period\(s\)**, if necessary, type **1**\.
 
    1. For **Send notification to:**, do one of the following:
-
       + To use a new Amazon SNS topic, choose **New list** and then type a new topic name\. For **Email list:**, type at least one email address\. You can type more than one email address by separating them with commas\.
-
       + To use an existing Amazon SNS topic, choose the name of the topic to use\.
 
    1. Choose **Create Alarm**\.  
@@ -107,7 +105,7 @@ For more information about using CloudWatch Events with other kinds of events, i
 
 The following topics describe the CloudWatch Events that AWS KMS creates\.
 
-
+**Topics**
 + [KMS CMK Rotation](#kms-events-rotation)
 + [KMS Imported Key Material Expiration](#kms-events-expiration)
 + [KMS CMK Deletion](#kms-events-deletion)

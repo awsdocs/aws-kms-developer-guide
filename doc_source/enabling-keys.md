@@ -9,7 +9,7 @@ You can also delete CMKs\. For more information, see [Deleting Customer Master K
 **Note**  
 AWS KMS does not rotate the backing keys of customer\-managed CMKs while they are disabled\. For more information, see [How Automatic Key Rotation Works](rotate-keys.md#rotate-keys-how-it-works)\.
 
-
+**Topics**
 + [Enabling and Disabling CMKs \(Console\)](#enabling-keys-console)
 + [Enabling and Disabling CMKs \(API\)](#enabling-keys-api)
 

@@ -1,27 +1,22 @@
 # What is AWS Key Management Service?<a name="overview"></a>
 
-AWS Key Management Service \(AWS KMS\) is a managed service that makes it easy for you to create and control the encryption keys used to encrypt your data\. AWS KMS is integrated with other AWS services including Amazon Elastic Block Store \(Amazon EBS\), Amazon Simple Storage Service \(Amazon S3\), Amazon Redshift, Amazon Elastic Transcoder, Amazon WorkMail, Amazon Relational Database Service \(Amazon RDS\), and others to make it simple to encrypt your data with encryption keys that you manage\. AWS KMS is also integrated with AWS CloudTrail to provide you with key usage logs to help meet your auditing, regulatory and compliance needs\.
+AWS Key Management Service \(AWS KMS\) is a managed service that makes it easy for you to create and control the encryption keys used to encrypt your data\. The master keys that you create in AWS KMS are protected by [FIPS 140\-2 validated cryptographic modules](https://csrc.nist.gov/projects/cryptographic-module-validation-program/Certificate/3139)\.
 
-AWS KMS lets you create master keys that can never be exported from the service and which can be used to encrypt and decrypt data based on policies you define\.
+AWS KMS is integrated with most [other AWS services](https://aws.amazon.com/kms/details/#integration) that encrypt your data with encryption keys that you manage\. AWS KMS is also integrated with [AWS CloudTrail](https://docs.aws.amazon.com/awscloudtrail/latest/userguide/) to provide encryption key usage logs to help meet your auditing, regulatory and compliance needs\.
 
-You can perform the following management actions on master keys by using AWS KMS:
-
+You can perform the following management actions on your AWS KMS master keys:
 + Create, describe, and list master keys
-
 + Enable and disable master keys
-
-+ Set and retrieve master key usage policies \(access control\)
-
-+ Create, delete, list, and update *aliases*, which are friendly names that point to your master keys
-
++ Create and view grants and access control policies for your master keys
++ Enable and disable automatic rotation of the cryptographic material in a master key
++ Import cryptographic material into an AWS KMS master key
++ Tag your master keys for easier identification, categorizing, and tracking
++ Create, delete, list, and update *aliases*, which are friendly names associated with your master keys
 + Delete master keys to complete the key lifecycle
 
 With AWS KMS you can also perform the following cryptographic functions using master keys:
-
 + Encrypt, decrypt, and re\-encrypt data
-
 + Generate data encryption keys that you can export from the service in plaintext or encrypted under a master key that doesn't leave the service
-
 + Generate random numbers suitable for cryptographic applications
 
 By using AWS KMS, you gain more control over access to data you encrypt\. You can use the key management and cryptographic features directly in your applications or through AWS services that are integrated with AWS KMS\. Whether you are writing applications for AWS or using AWS services, AWS KMS enables you to maintain control over who can use your master keys and gain access to your encrypted data\.

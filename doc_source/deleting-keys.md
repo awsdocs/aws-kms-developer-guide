@@ -5,17 +5,14 @@ Deleting a customer master key \(CMK\) in AWS Key Management Service \(AWS KMS\)
 Before deleting a CMK, you might want to know how many ciphertexts were encrypted under that CMK\. AWS KMS does not store this information, and does not store any of the ciphertexts\. To get this information, you must determine on your own the past usage of a CMK\. For some guidance that might help you do this, go to [Determining Past Usage of a Customer Master Key](deleting-keys-determining-usage.md)\.
 
 You might choose to delete a CMK for one or more of the following reasons:
-
 + To complete the key lifecycle for CMKs that you no longer need
-
 + To avoid the management overhead and [costs](https://aws.amazon.com/kms/pricing/) associated with maintaining unused CMKs
-
 + To reduce the number of CMKs that count against your [limit](limits.md)
 
 **Note**  
 If you [close or delete your AWS account](http://docs.aws.amazon.com/awsaccountbilling/latest/aboutv2/close-account.html), your CMKs become inaccessible and you are no longer billed for them\. You do not need to schedule deletion of your CMKs separate from closing the account\.
 
-
+**Topics**
 + [How Deleting Customer Master Keys Works](#deleting-keys-how-it-works)
 + [Scheduling and Canceling Key Deletion](#deleting-keys-scheduling-key-deletion)
 + [Adding Permission to Schedule and Cancel Key Deletion](#deleting-keys-adding-permission)
@@ -27,9 +24,7 @@ If you [close or delete your AWS account](http://docs.aws.amazon.com/awsaccountb
 Because it is destructive and potentially dangerous to delete a customer master key \(CMK\), AWS KMS enforces a waiting period\. To delete a CMK in AWS KMS you *schedule key deletion*\. You can set the waiting period from a minimum of 7 days up to a maximum of 30 days\. The default waiting period is 30 days\. 
 
 During the waiting period, the CMK state is *pending deletion*\. 
-
 + A CMK that is pending deletion cannot be used in any cryptographic operations\. 
-
 + AWS KMS does not [rotate the backing keys](rotate-keys.md#rotate-keys-how-it-works) of CMKs that are pending deletion\.
 
 After the waiting period ends, AWS KMS deletes the CMK and all AWS KMS data associated with it, including all aliases that point to it\.
@@ -69,7 +64,7 @@ Deleting a customer master key \(CMK\) in AWS KMS is destructive and potentially
 
 Before you can delete a CMK, you must have permission to do so\. If you rely on the key policy alone to specify AWS KMS permissions, you might need to add additional permissions before you can delete the CMK\. For information about adding these permissions, go to [Adding Permission to Schedule and Cancel Key Deletion](#deleting-keys-adding-permission)\.
 
-
+**Topics**
 + [Using the AWS Management Console](#deleting-keys-scheduling-key-deletion-console)
 + [Using the AWS CLI](#deleting-keys-scheduling-key-deletion-cli)
 + [Using the AWS SDK for Java](#deleting-keys-scheduling-key-deletion-java)
@@ -173,7 +168,7 @@ If you use IAM policies to allow AWS KMS permissions, all IAM users and roles th
 
 The following procedures describe how to add permissions to a key policy using the AWS Management Console or the AWS CLI\.
 
-
+**Topics**
 + [Using the AWS Management Console](#deleting-keys-adding-permission-console)
 + [Using the AWS CLI](#deleting-keys-adding-permission-cli)
 

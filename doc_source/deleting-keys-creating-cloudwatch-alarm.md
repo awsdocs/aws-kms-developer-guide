@@ -6,7 +6,7 @@ The following procedures explain how to receive a notification whenever an AWS K
 
 Before you begin these procedures, you must have already turned on CloudTrail in the AWS account and region where you intend to monitor AWS KMS API requests\. For instructions, go to [Creating a Trail for the First Time](http://docs.aws.amazon.com/awscloudtrail/latest/userguide/cloudtrail-create-a-trail-using-the-console-first-time.html) in the *AWS CloudTrail User Guide*\.
 
-
+**Topics**
 + [Part 1: Configure CloudTrail Log File Delivery to CloudWatch Logs](#deleting-keys-cloudwatch-configure-cloudtrail)
 + [Part 2: Create the CloudWatch Alarm](#deleting-keys-cloudwatch-create-alarm)
 
@@ -69,9 +69,7 @@ To receive a notification when AWS KMS API requests attempt to use a customer ma
    1. For **for consecutive period\(s\)**, if necessary, type **1**\.
 
    1. Next to **Send notification to:**, do one of the following:
-
       + To use a new Amazon SNS topic, choose **New list**, and then type a new topic name\. For **Email list:**, type at least one email address\. You can type more than one email address by separating them with commas\.
-
       + To use an existing Amazon SNS topic, choose the name of the topic to use\.
 
    1. Choose **Create Alarm**\.   

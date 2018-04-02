@@ -6,7 +6,7 @@ These operations are designed to encrypt and decrypt [data keys](concepts.md#dat
 
 To encrypt application data, use the server\-side encryption features of an AWS service, or a client\-side encryption library, such as the [AWS Encryption SDK](http://docs.aws.amazon.com/encryption-sdk/latest/developer-guide/) or the [Amazon S3 encryption client](http://docs.aws.amazon.com/AmazonS3/latest/dev/UsingClientSideEncryption.html)\. 
 
-
+**Topics**
 + [Encrypting a Data Key](#encryption)
 + [Decrypting a Data Key](#decryption)
 + [Re\-Encrypting a Data Key Under a Different Customer Master Key](#reencryption)
@@ -17,6 +17,8 @@ The [Encrypt](http://docs.aws.amazon.com/kms/latest/APIReference/API_Encrypt.htm
 
 For details about the Java implementation of the Encrypt operation, see the [encrypt method](http://docs.aws.amazon.com/AWSJavaSDK/latest/javadoc/com/amazonaws/services/kms/AWSKMSClient.html#encrypt-com.amazonaws.services.kms.model.EncryptRequest-) in the *AWS SDK for Java API Reference*\.
 
+This example uses the `kmsClient` client object that you created in [Creating a Client](programming-client.md)\.
+
 ```
 // Encrypt a data key
 //
@@ -26,7 +28,7 @@ String keyId = "arn:aws:kms:us-west-2:111122223333:key/1234abcd-12ab-34cd-56ef-1
 ByteBuffer plaintext = ByteBuffer.wrap(new byte[]{1,2,3,4,5,6,7,8,9,0});
 
 EncryptRequest req = new EncryptRequest().withKeyId(keyId).withPlaintext(plaintext);
-ByteBuffer ciphertext = kms.encrypt(req).getCiphertextBlob();
+ByteBuffer ciphertext = kmsClient.encrypt(req).getCiphertextBlob();
 ```
 
 ## Decrypting a Data Key<a name="decryption"></a>
@@ -35,6 +37,8 @@ To decrypt a data key, use the [Decrypt](http://docs.aws.amazon.com/kms/latest/A
 
 The `ciphertextBlob` must be a byte buffer that was returned by the [GenerateDataKey](http://docs.aws.amazon.com/kms/latest/APIReference/API_GenerateDataKey.html), [GenerateDataKeyWithoutPlaintext](http://docs.aws.amazon.com/kms/latest/APIReference/API_GenerateDataKeyWithoutPlaintext.html), or [Encrypt](http://docs.aws.amazon.com/kms/latest/APIReference/API_Encrypt.html) operations\.
 
+This example uses the `kmsClient` client object that you created in [Creating a Client](programming-client.md)\.
+
 ```
 // Decrypt a data key
 //
@@ -42,7 +46,7 @@ The `ciphertextBlob` must be a byte buffer that was returned by the [GenerateDat
 ByteBuffer ciphertextBlob = Place your ciphertext here;
 
 DecryptRequest req = new DecryptRequest().withCiphertextBlob(ciphertextBlob);
-ByteBuffer plainText = kms.decrypt(req).getPlaintext();
+ByteBuffer plainText = kmsClient.decrypt(req).getPlaintext();
 ```
 
 ## Re\-Encrypting a Data Key Under a Different Customer Master Key<a name="reencryption"></a>
@@ -52,6 +56,8 @@ To decrypt an encrypted data key, and then immediately re\-encrypt the data key 
 The `ciphertextBlob` must be a byte buffer that was returned by the [GenerateDataKey](http://docs.aws.amazon.com/kms/latest/APIReference/API_GenerateDataKey.html), [GenerateDataKeyWithoutPlaintext](http://docs.aws.amazon.com/kms/latest/APIReference/API_GenerateDataKeyWithoutPlaintext.html), or [Encrypt](http://docs.aws.amazon.com/kms/latest/APIReference/API_Encrypt.html) operations\.
 
 For details about the Java implementation, see the [reEncrypt method](http://docs.aws.amazon.com/AWSJavaSDK/latest/javadoc/com/amazonaws/services/kms/AWSKMSClient.html#reEncrypt-com.amazonaws.services.kms.model.ReEncryptRequest-) in the *AWS SDK for Java API Reference*\.
+
+This example uses the `kmsClient` client object that you created in [Creating a Client](programming-client.md)\.
 
 ```
 // Re-encrypt a data key
@@ -64,5 +70,5 @@ String destinationKeyId = "arn:aws:kms:us-west-2:111122223333:key/0987dcba-09fe-
 ReEncryptRequest req = new ReEncryptRequest();
 req.setCiphertextBlob(sourceCiphertextBlob);
 req.setDestinationKeyId(destinationKeyId);
-ByteBuffer destinationCipherTextBlob = kms.reEncrypt(req).getCiphertextBlob();
+ByteBuffer destinationCipherTextBlob = kmsClient.reEncrypt(req).getCiphertextBlob();
 ```

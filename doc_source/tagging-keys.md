@@ -8,7 +8,7 @@ You might use a tag to categorize and track your AWS costs\. You can apply tags 
 
 For more information about using tags for cost allocation, see [Using Cost Allocation Tags](http://docs.aws.amazon.com/awsaccountbilling/latest/aboutv2/cost-alloc-tags.html) in the *AWS Billing and Cost Management User Guide*\. For information about the rules that apply to tag keys and tag values, see [User\-Defined Tag Restrictions](http://docs.aws.amazon.com/awsaccountbilling/latest/aboutv2/allocation-tag-restrictions.html) in the *AWS Billing and Cost Management User Guide*\.
 
-
+**Topics**
 + [Managing CMK Tags \(Console\)](#manage-tags)
 + [Managing CMK Tags \(API\)](#manage-tags-api)
 
@@ -39,7 +39,7 @@ You can use the [AWS Key Management Service \(AWS KMS\) API](http://docs.aws.ama
 
 You cannot tag AWS managed CMKs\.
 
-
+**Topics**
 + [TagResource: Add or Change Tags for a CMK](#tagging-keys-tag-resource)
 + [ListResourceTags: Get the Tags for a CMK](#tagging-keys-list-resource-tags)
 + [UntagResource: Delete Tags from a CMK](#tagging-keys-untag-resource)

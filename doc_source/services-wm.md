@@ -2,7 +2,7 @@
 
 This topic discusses how Amazon WorkMail uses AWS KMS to encrypt email messages\.
 
-
+**Topics**
 + [Amazon WorkMail Overview](#wm-overview)
 + [Amazon WorkMail Encryption](#wm-encrypt)
 + [Amazon WorkMail Encryption Context](#wm-encryptioncontext)

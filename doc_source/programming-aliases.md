@@ -11,15 +11,10 @@ You can use AWS KMS API operations to list, create, and delete aliases\. You can
 Because an alias is not a property of a CMK, it can be associated with and disassociated from an existing CMK without changing the properties of the CMK\. Deleting an alias does not delete the underlying CMK\.
 
 You can use an alias as the value of the `KeyId` parameter only in the following operations:
-
 + `DescribeKey`
-
 + `Encrypt`
-
 + `GenerateDataKey`
-
 + `GenerateDataKeyWithoutPlaintext`
-
 + `ReEncrypt`
 
 Aliases are created in an AWS account and are known only to the account in which you create them\. You cannot use an alias name or alias ARN to identify a CMK in a different AWS account\.
@@ -34,7 +29,7 @@ arn:aws:kms:us-west-2:111122223333:alias/ExampleAlias
 alias/ExampleAlias
 ```
 
-
+**Topics**
 + [Creating an Alias](#create-alias)
 + [Deleting an Alias](#delete-alias)
 + [Listing Aliases](#list-aliases)
@@ -46,6 +41,8 @@ To create an alias, use the [CreateAlias](http://docs.aws.amazon.com/kms/latest/
 
 For details about the Java implementation, see the [createAlias method](http://docs.aws.amazon.com/AWSJavaSDK/latest/javadoc/com/amazonaws/services/kms/AWSKMSClient.html#createAlias-com.amazonaws.services.kms.model.CreateAliasRequest-) in the *AWS SDK for Java API Reference*\.
 
+This example uses the `kmsClient` client object that you created in [Creating a Client](programming-client.md)\.
+
 ```
 // Create an alias for a CMK
 //
@@ -53,12 +50,14 @@ String aliasName = "alias/projectKey1";
 String targetKeyId = "arn:aws:kms:us-west-2:111122223333:key/1234abcd-12ab-34cd-56ef-1234567890ab";
 
 CreateAliasRequest req = new CreateAliasRequest().withAliasName(aliasName).withTargetKeyId(targetKeyId);
-kms.createAlias(req);
+kmsClient.createAlias(req);
 ```
 
 ## Deleting an Alias<a name="delete-alias"></a>
 
 To delete an alias, use the [DeleteAlias](http://docs.aws.amazon.com/kms/latest/APIReference/API_DeleteAlias.html) operation\. Deleting an alias has no effect on the underlying CMK\. For details about the Java implementation, see the [deleteAlias method](http://docs.aws.amazon.com/AWSJavaSDK/latest/javadoc/com/amazonaws/services/kms/AWSKMSClient.html#deleteAlias-com.amazonaws.services.kms.model.DeleteAliasRequest-) in the *AWS SDK for Java API Reference*\.
+
+This example uses the `kmsClient` client object that you created in [Creating a Client](programming-client.md)\.
 
 ```
 // Delete an alias for a CMK
@@ -66,12 +65,14 @@ To delete an alias, use the [DeleteAlias](http://docs.aws.amazon.com/kms/latest/
 String aliasName = "alias/projectKey1";
 
 DeleteAliasRequest req  = new DeleteAliasRequest().withAliasName(aliasName);
-kms.deleteAlias(req);
+kmsClient.deleteAlias(req);
 ```
 
 ## Listing Aliases<a name="list-aliases"></a>
 
 To list all aliases, use the [ListAliases](http://docs.aws.amazon.com/kms/latest/APIReference/API_ListAliases.html) operation\. The response includes aliases that are defined by AWS services, but are not associated with a CMK\. For details about the Java implementation, see the [listAliases method](http://docs.aws.amazon.com/AWSJavaSDK/latest/javadoc/com/amazonaws/services/kms/AWSKMSClient.html#listAliases-com.amazonaws.services.kms.model.ListAliasesRequest-) in the *AWS SDK for Java API Reference*\.
+
+This example uses the `kmsClient` client object that you created in [Creating a Client](programming-client.md)\.
 
 ```
 // List the aliases in this AWS account
@@ -79,12 +80,14 @@ To list all aliases, use the [ListAliases](http://docs.aws.amazon.com/kms/latest
 Integer limit = 10;
 
 ListAliasesRequest req = new ListAliasesRequest().withLimit(limit);
-ListAliasesResult result = kms.listAliases(req);
+ListAliasesResult result = kmsClient.listAliases(req);
 ```
 
 ## Updating an Alias<a name="update-alias"></a>
 
 To associate an existing alias with a different CMK, use the [UpdateAlias](http://docs.aws.amazon.com/kms/latest/APIReference/API_UpdateAlias.html) operation\. For details about the Java implementation, see the [updateAlias method](http://docs.aws.amazon.com/AWSJavaSDK/latest/javadoc/com/amazonaws/services/kms/AWSKMSClient.html#updateAlias-com.amazonaws.services.kms.model.UpdateAliasRequest-) in the *AWS SDK for Java API Reference*\.
+
+This example uses the `kmsClient` client object that you created in [Creating a Client](programming-client.md)\.
 
 ```
 // Updating an alias
@@ -96,5 +99,5 @@ UpdateAliasRequest req = new UpdateAliasRequest()
      .withAliasName(aliasName)
      .withTargetKeyId(targetKeyId);
      
-kms.updateAlias(req);
+kmsClient.updateAlias(req);
 ```

@@ -22,7 +22,7 @@ Use caution when creating IAM and key policies based on your VPC endpoint\. If a
 **Regions**  
 AWS KMS supports VPC endpoints in all AWS regions where both [Amazon VPC](http://docs.aws.amazon.com/general/latest/gr/rande.html#vpc_region) and [AWS KMS](http://docs.aws.amazon.com/general/latest/gr/rande.html#kms_region) are available, except for AWS GovCloud \(US\) and EU \(Paris\)\.
 
-
+**Topics**
 + [Create an AWS KMS VPC Endpoint](#create-vpc-endpoint)
 + [Connecting to an AWS KMS VPC Endpoint](#connecting-vpc-endpoint)
 + [Using a VPC Endpoint in a Policy Statement](#vpce-policy)
@@ -32,7 +32,7 @@ AWS KMS supports VPC endpoints in all AWS regions where both [Amazon VPC](http:/
 
 You [create an interface endpoint](http://docs.aws.amazon.com/AmazonVPC/latest/UserGuide/vpce-interface.html#create-interface-endpoint) in your VPC by using the KMS VPC endpoint service in each region\. You can create a VPC endpoint in the AWS Management Console, or by using the [AWS CLI](http://docs.aws.amazon.com/cli/latest/reference/ec2/create-vpc-endpoint.html) or [Amazon EC2 API](http://docs.aws.amazon.com/AWSEC2/latest/APIReference/API_CreateVpcEndpoint.html)\. 
 
-
+**Topics**
 + [Creating an AWS KMS VPC Endpoint \(Console\)](#create-vpc-endpoint-console)
 + [Creating an AWS KMS VPC Endpoint \(AWS CLI\)](#create-vpc-endpoint-cli)
 
@@ -161,9 +161,7 @@ To use private hostnames, the` enableDnsHostnames` and `enableDnsSupport` attrib
 ## Using a VPC Endpoint in a Policy Statement<a name="vpce-policy"></a>
 
 You can use IAM policies and AWS KMS key policies to control access to your AWS KMS customer master keys \(CMKs\)\. You can also use [global condition keys](http://docs.aws.amazon.com/IAM/latest/UserGuide/reference_policies_condition-keys.html#AvailableKeys) to restrict these policies based on VPC endpoint or VPC in the request\.
-
 + Use the `aws:sourceVpce` condition key to grant or restrict access to an AWS KMS CMK based on the VPC endpoint\.
-
 + Use the `aws:sourceVpc` condition key to grant or restrict access to an AWS KMS CMK based on the VPC that hosts the private endpoint\.
 
 **Note**  

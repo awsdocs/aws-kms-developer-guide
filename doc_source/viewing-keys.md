@@ -2,7 +2,7 @@
 
 You can use the [**Encryption keys** section of the AWS Management Console](https://console.aws.amazon.com/iam/home#encryptionKeys) to view customer master keys \(CMKs\), including CMKs that you manage and CMKs that are managed by AWS\. You can also use the operations in the [AWS Key Management Service \(AWS KMS\) API](http://docs.aws.amazon.com/kms/latest/APIReference/), such as [ListKeys](http://docs.aws.amazon.com/kms/latest/APIReference/API_ListKeys.html) and [DescribeKey](http://docs.aws.amazon.com/kms/latest/APIReference/API_DescribeKey.html), to view CMKs\.
 
-
+**Topics**
 + [Viewing CMKs \(Console\)](#viewing-keys-console)
 + [Viewing CMKs \(API\)](#viewing-keys-cli)
 + [Finding the Key ID and ARN](#find-cmk-id-arn)
@@ -30,7 +30,6 @@ The console shows all the CMKs in your AWS account in the chosen region, includi
 **To show detailed information about the CMK**
 
 The details include the Amazon Resource Name \(ARN\), description, key policy, tags, and key rotation settings of the CMK\.
-
 + Choose the alias of the CMK\.   
 ![\[Image NOT FOUND\]](http://docs.aws.amazon.com/kms/latest/developerguide/images/choose-alias.png)
 
@@ -40,7 +39,6 @@ The details include the Amazon Resource Name \(ARN\), description, key policy, t
 **To find CMKs**
 
 You can use the **Filter** box to find CMKs based on their aliases\.
-
 + In the **Filter** box, type all or part of the alias name of a CMK\. Only the CMKs with alias names that match the filter appear\.  
 ![\[Image NOT FOUND\]](http://docs.aws.amazon.com/kms/latest/developerguide/images/filter-alias.png)
 
@@ -48,7 +46,7 @@ You can use the **Filter** box to find CMKs based on their aliases\.
 
 You can use the [AWS Key Management Service \(AWS KMS\) API](http://docs.aws.amazon.com/kms/latest/APIReference/) to view your CMKs\. This section demonstrates several operations that return details about existing CMKs\. The examples use the [AWS Command Line Interface \(AWS CLI\)](https://aws.amazon.com/cli/), but you can use any supported programming language\. 
 
-
+**Topics**
 + [ListKeys: Get the ID and ARN of All CMKs](#viewing-keys-list-keys)
 + [DescribeKey: Get Detailed Information About a CMK](#viewing-keys-describe-key)
 + [GetKeyPolicy: Get the Key Policy Attached to a CMK](#viewing-keys-get-key-policy)
@@ -143,5 +141,4 @@ To identify your AWS KMS CMKs in programs, scripts, and command line interface \
 ![\[Image NOT FOUND\]](http://docs.aws.amazon.com/kms/latest/developerguide/images/find-key-arn.png)
 
 **To find the CMK ID and ARN \(API\)**
-
 + To find the CMK ID and ARN, use the [ListKeys](#viewing-keys-list-keys) operation \(see above\)\.

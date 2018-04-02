@@ -2,7 +2,7 @@
 
 You can use the IAM section of the AWS Management Console to create a customer master key \(CMK\)\. You can also use the [CreateKey](http://docs.aws.amazon.com/kms/latest/APIReference/API_CreateKey.html) operation in the [AWS Key Management Service \(AWS KMS\) API](http://docs.aws.amazon.com/kms/latest/APIReference/)\.
 
-
+**Topics**
 + [Creating CMKs \(Console\)](#create-keys-console)
 + [Creating CMKs \(API\)](#create-keys-api)
 

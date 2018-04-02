@@ -1,9 +1,7 @@
 # Document History<a name="dochistory"></a>
 
 The following table describes the important changes to the documentation since the last release of AWS Key Management Service\.
-
 + **Current API version**: 2014\-11\-01
-
 + **Latest documentation update**: February 15, 2017
 
 
