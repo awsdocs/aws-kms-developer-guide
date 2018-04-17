@@ -26,6 +26,8 @@ The following explains how Amazon EBS uses your CMK:
 
 1. When you attach the encrypted volume to an EC2 instance, Amazon EC2 sends the encrypted data key to AWS KMS with a [Decrypt](http://docs.aws.amazon.com/kms/latest/APIReference/API_Decrypt.html) request\.
 
+     The caller of [AttachVolume](https://docs.aws.amazon.com/AWSEC2/latest/APIReference/API_AttachVolume.html) requires the [CreateGrant](http://docs.aws.amazon.com/kms/latest/APIReference/API_CreateGrant.html) permission on the CMK in order to delegate the [Decrypt](http://docs.aws.amazon.com/kms/latest/APIReference/API_Decrypt.html) permission to Amazon EC2 for the specific EBS volume\.
+
 1. AWS KMS decrypts the encrypted data key and then sends the decrypted \(plaintext\) data key to Amazon EC2\.
 
 1. Amazon EC2 uses the plaintext data key in hypervisor memory to encrypt disk I/O to the EBS volume\. The data key persists in memory as long as the EBS volume is attached to the EC2 instance\.
