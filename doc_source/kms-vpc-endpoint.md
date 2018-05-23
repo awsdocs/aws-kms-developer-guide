@@ -58,7 +58,7 @@ You [create an interface endpoint](http://docs.aws.amazon.com/AmazonVPC/latest/U
 
    This option makes it easier to use the VPC endpoint\. The AWS KMS CLI and SDKs use the standard AWS KMS DNS hostname by default, so you do not need to specify the VPC endpoint URL in applications and commands\.
 
-   This feature works only when the `enableDnsHostnames` and `enableDnsSupport` attributes of your VPC are set to `true`\. To set these attributes, use the [ModifyVpcAttribute](http://docs.aws.amazon.com/AWSEC2/latest/APIReference/API_ModifyVpcAttribute.html) API\.
+   This feature works only when the `enableDnsHostnames` and `enableDnsSupport` attributes of your VPC are set to `true`\. To set these attributes, [update DNS Support for your VPC in the AWS Management Console](https://docs.aws.amazon.com/AmazonVPC/latest/UserGuide/vpc-dns.html#vpc-dns-updating) or use the [ModifyVpcAttribute](http://docs.aws.amazon.com/AWSEC2/latest/APIReference/API_ModifyVpcAttribute.html) API\.
 
    To enable a private DNS hostname, for **Enable Private DNS Name**, select **Enable for this endpoint**\. 
 
