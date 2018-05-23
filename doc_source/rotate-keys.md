@@ -4,7 +4,7 @@ Cryptographic best practices discourage extensive reuse of encryption keys\. To 
 
 When you enable *automatic key rotation* for a customer managed CMK, AWS KMS generates new cryptographic material for the CMK every year\. AWS KMS also saves the CMK's older cryptographic material so it can be used to decrypt data that it encrypted\.
 
-Key rotation changes only the CMK's *backing key*, which is the cryptographic material that is used in encryption operations\. The properties of the CMK do not change, as shown in the following image\. The CMK is the same logical resource, regardless of whether or how many times its backing key changes\.
+Key rotation changes only the CMK's *backing key*, which is the cryptographic material that is used in encryption operations\. The CMK is the same logical resource, regardless of whether or how many times its backing key changes\. The properties of the CMK do not change, as shown in the following image\.
 
 ![\[Image NOT FOUND\]](http://docs.aws.amazon.com/kms/latest/developerguide/images/key-rotation-auto.png)
 
@@ -13,7 +13,9 @@ Automatic key rotation has the following benefits:
 + You do not need to change applications or aliases that refer to the CMK ID or ARN\.
 + After you enable key rotation, AWS KMS rotates the CMK automatically every year\. You don't need to remember or schedule the update\.
 
-However, you might decide to create a new CMK and use it in place of the original CMK\. This has the same effect as rotating the key material in an existing CMK, so it's often thought of as [manually rotating the key](#rotate-keys-manually)\. Manual rotation is a good choice when you want to control the key rotation schedule\. It also provides a way to rotate CMKs with imported key material\.
+However, automatic key rotation has no effect on the data that the CMK protects\. It does not rotate the data keys that the CMK generated or re\-encrypt any data protected by the CMK, and it will not mitigate the effect of a compromised data key\.
+
+You might decide to create a new CMK and use it in place of the original CMK\. This has the same effect as rotating the key material in an existing CMK, so it's often thought of as [manually rotating the key](#rotate-keys-manually)\. Manual rotation is a good choice when you want to control the key rotation schedule\. It also provides a way to rotate CMKs with imported key material\.
 
 **More Information About Key Rotation**  
 Rotating customer managed CMKs might result in extra monthly charges\. For details, see [AWS Key Management Service Pricing](https://aws.amazon.com/kms/pricing/)\. For more detailed information about backing keys and rotation, see the [ KMS Cryptographic Details ](https://d0.awsstatic.com/whitepapers/KMS-Cryptographic-Details.pdf) whitepaper\.

@@ -1,8 +1,8 @@
 # Deleting Imported Key Material<a name="importing-keys-delete-key-material"></a>
 
-When you import key material, you have the option of specifying a time at which the key material expires\. When the key material expires, AWS KMS deletes the key material and the customer master key \(CMK\) becomes unusable\. You can also delete key material on demand\. Whether you wait for the key material to expire or you delete it manually, the effect is the same\. AWS KMS deletes the key material, the CMK's [key state](key-state.md) changes to *pending import*, and the CMK is unusable\. To use the CMK again, you must reimport the same key material\.
+When you import key material, you can specify an expiration date\. When the key material expires, AWS KMS deletes the key material and the customer master key \(CMK\) becomes unusable\. You can also delete key material on demand\. Whether you wait for the key material to expire or you delete it manually, the effect is the same\. AWS KMS deletes the key material, the CMK's [key state](key-state.md) changes to *pending import*, and the CMK is unusable\. To use the CMK again, you must reimport the same key material\.
 
-Deleting key material affects the CMK right away, but you can reverse the deletion of key material by reimporting the same key material into the CMK\. In contrast, [scheduling key deletion](deleting-keys.md#deleting-keys-how-it-works) for a CMK is irreversible\. It deletes the key material and all metadata associated with the CMK, and requires a waiting period of between 7 and 30 days\.
+Deleting key material affects the CMK immediately, but you can reverse the deletion of key material by reimporting the same key material into the CMK\. In contrast, deleting a CMK is irreversible\. If you [schedule key deletion](deleting-keys.md#deleting-keys-how-it-works) and the required waiting period expires, AWS KMS deletes the key material and all metadata associated with the CMK\.
 
 To delete key material, you can use the AWS Management Console or the AWS KMS API\. You can use the API directly by making HTTP requests, or through one of the [AWS SDKs](https://aws.amazon.com/tools/#sdk) or [command line tools](https://aws.amazon.com/tools/#cli)\.
 
@@ -15,35 +15,23 @@ To delete key material, you can use the AWS Management Console or the AWS KMS AP
 
 When you delete key material, the CMK becomes unusable right away\. However, *data encryption keys* that are actively in use by AWS services are not immediately affected\. This means that deleting key material might not immediately affect all of the data and AWS resources protected under the CMK, though they are affected eventually\.
 
-Several [AWS services integrate with AWS KMS](service-integration.md) to protect your data, such as Amazon Elastic Block Store \(Amazon EBS\), Amazon Relational Database Service \(Amazon RDS\), Amazon Simple Storage Service \(Amazon S3\), and others\. Most of these services use *envelope encryption* to protect your data\. Envelope encryption means that the CMK protects a data encryption key \(or *data key*\), and the data key protects your data\. These data keys persist in memory on the AWS service host while the data they are protecting are actively in use\. For more information about how envelope encryption works, see [How Envelope Encryption Works with Supported AWS Services](workflow.md)\.
+Several AWS services integrate with AWS KMS to protect your data\. Some of these services, such as [Amazon EBS](http://docs.aws.amazon.com/kms/latest/developerguide/services-ebs.html) and [Amazon Redshift](http://docs.aws.amazon.com/kms/latest/developerguide/services-redshift.html), use a [customer master key](concepts.md#master_keys) \(CMK\) in AWS KMS to generate a [data key](concepts.md#data-keys), and then use the data key to encrypt your data\. These plaintext data keys persist in memory as long as the data they are protecting is actively in use\.
 
 For example, consider this scenario:
 
-1. You create an encrypted EBS volume, protected under a CMK with imported key material\. This action creates a corresponding request to AWS KMS to generate a unique data key for that volume\.
+1. You create an encrypted EBS volume and specify a CMK with imported key material\. Amazon EBS asks AWS KMS to use your CMK to [generate a encrypted data key](http://docs.aws.amazon.com/kms/latest/APIReference//API_GenerateDataKeyWithoutPlaintext.html) for the volume\. Amazon EBS stores the encrypted data key with the volume\.
 
     
 
-1. AWS KMS generates a new data key, encrypts it with the specified CMK, and then sends the encrypted data key to Amazon EBS to store with the volume until you attach the volume to an Amazon Elastic Compute Cloud \(Amazon EC2\) instance\.
+1. When you attach the EBS volume to an EC2 instance, Amazon EC2 asks AWS KMS to use your CMK to decrypt the EBS volume's encrypted data key\. Amazon EC2 stores the plaintext data key in hypervisor memory and uses it to encrypt disk I/O to the EBS volume\. The data key persists in memory as long as the EBS volume is attached to the EC2 instance\.
 
     
 
-1. You attach the EBS volume to an EC2 instance\. This action creates a corresponding request to AWS KMS to decrypt the EBS volume's encrypted data key\.
+1. You delete the imported key material from the CMK, which makes it unusable\. This has no immediate effect on the EC2 instance or the EBS volume, because Amazon EC2 is using the plaintext data key—not the CMK—to encrypt all disk I/O while the volume is attached to the instance\.
 
     
 
-1. AWS KMS decrypts the encrypted data key and sends the decrypted \(plaintext\) data key to Amazon EC2\.
-
-    
-
-1. Amazon EC2 uses the plaintext data key in hypervisor memory to encrypt disk I/O to the EBS volume while the volume is attached to the EC2 instance\.
-
-    
-
-1. You delete the CMK's imported key material\. This has no immediate effect on the EC2 instance or the EBS volume, because Amazon EC2 is using the plaintext data key—not the CMK—to encrypt all disk I/O while the volume is attached to the instance\.
-
-    
-
-1. When the EBS volume is detached \(due to your explicit request or an event that affects the EBS volume or the EC2 instance\), the plaintext data key is deleted from memory\. The next attempt to attach the encrypted EBS volume to an EC2 instance fails\. It fails because the CMK needed to decrypt the EBS volume's encrypted data key \(step 3 in this scenario\) is unusable \(it has no key material\)\. To use the EBS volume again, you must reimport the same key material into the CMK\.
+1. However, when the encrypted EBS volume is detached from the EC2 instance, Amazon EBS removes the plaintext key from memory\. The next time the encrypted EBS volume is attached to an EC2 instance, the attachment fails, because Amazon EBS cannot use the CMK to decrypt the volume's encrypted data key\. To use the EBS volume again, you must reimport the same key material into the CMK\. 
 
 ## Delete Key Material \(AWS Management Console\)<a name="importing-keys-delete-key-material-console"></a>
 

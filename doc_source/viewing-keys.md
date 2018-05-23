@@ -102,6 +102,8 @@ $ aws kms describe-key --key-id 1234abcd-12ab-34cd-56ef-1234567890ab
 }
 ```
 
+If you use the `DescribeKey` operation on a predefined AWS alias, that is, an AWS alias with no key ID, AWS KMS associates the alias with an [AWS managed CMK](concepts.md#master_keys), and returns its `KeyId` and `Arn` in the response\.
+
 ### GetKeyPolicy: Get the Key Policy Attached to a CMK<a name="viewing-keys-get-key-policy"></a>
 
 The [GetKeyPolicy](http://docs.aws.amazon.com/kms/latest/APIReference/API_GetKeyPolicy.html) operation gets the key policy that is attached to the CMK\. To identify the CMK, use its key ID or key ARN\. You must also specify the policy name, which is always `default`\. \(If your output is difficult to read, add the `--output text` option to your command\.\)

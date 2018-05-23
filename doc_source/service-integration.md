@@ -4,11 +4,9 @@ Many AWS services use AWS KMS to support encryption of your data\. When an AWS s
 
 The following topics discuss in detail how particular services use AWS KMS, including the CMKs they support, how they manage data keys, the permissions they require, and how to track each service's use of the CMKs in your account\.
 
-The first topic explains [envelope encryption](workflow.md) and the methods that many integrated services use to [encrypt](workflow.md#encrypting_user_data) and [decrypt](workflow.md#decrypting_user_data) your data transparently\.
-
 **Topics**
-+ [How Envelope Encryption Works with Supported AWS Services](workflow.md)
 + [AWS CloudTrail](services-cloudtrail.md)
++ [Amazon DynamoDB](services-dynamodb.md)
 + [Amazon Elastic Block Store \(Amazon EBS\)](services-ebs.md)
 + [Amazon Elastic Transcoder](services-et.md)
 + [Amazon EMR](services-emr.md)

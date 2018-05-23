@@ -1,6 +1,6 @@
 # How Amazon EMR Uses AWS KMS<a name="services-emr"></a>
 
-When you use an [Amazon EMR](https://aws.amazon.com/emr/) cluster, you can configure the cluster to encrypt data *at rest*, which means the cluster encrypts data before saving it to a persistent storage location\. You can encrypt data at rest on the EMR File System \(EMRFS\), on the storage volumes of cluster nodes, or both\. To encrypt data at rest, you can use a customer master key \(CMK\) in AWS KMS\. The following topics explain how an Amazon EMR cluster uses a CMK to encrypt data at rest\.
+When you use an [Amazon EMR](https://aws.amazon.com/emr/) cluster, you can configure the cluster to encrypt data *at rest* before saving it to a persistent storage location\. You can encrypt data at rest on the EMR File System \(EMRFS\), on the storage volumes of cluster nodes, or both\. To encrypt data at rest, you can use a customer master key \(CMK\) in AWS KMS\. The following topics explain how an Amazon EMR cluster uses a CMK to encrypt data at rest\.
 
 Amazon EMR clusters also encrypt data *in transit*, which means the cluster encrypts data before sending it through the network\. You cannot use a CMK to encrypt data in transit\. For more information, see [In\-Transit Data Encryption](http://docs.aws.amazon.com/ElasticMapReduce/latest/ReleaseGuide/emr-data-encryption-options.html#emr-encryption-intransit) in the *Amazon EMR Release Guide*\.
 
@@ -27,7 +27,7 @@ The two EMRFS encryption options that use a CMK use the following encryption fea
 
 When you configure an Amazon EMR cluster to encrypt data on EMRFS with SSE\-KMS or CSE\-KMS, you choose the CMK in AWS KMS that you want Amazon S3 or the Amazon EMR cluster to use\. With SSE\-KMS, you can choose the AWS\-managed CMK for Amazon S3 with the alias **aws/s3**, or a custom CMK that you create\. With CSE\-KMS, you must choose a custom CMK that you create\. When you choose a custom CMK, you must ensure that your Amazon EMR cluster has permission to use the CMK\. For more information, see [Add the EMR Instance Role to an AWS KMS CMK](http://docs.aws.amazon.com/ElasticMapReduce/latest/ReleaseGuide/emr-encryption-create-keys.html#emr-awskms-console) in the *Amazon EMR Release Guide*\.
 
-For both SSE\-KMS and CSE\-KMS, the CMK you choose is the master key in an [envelope encryption](workflow.md) workflow\. This means the data is encrypted with a unique data encryption key \(or *data key*\), and this data key is encrypted under the CMK in AWS KMS\. The encrypted data and an encrypted copy of its data key are stored together as a single encrypted object in an S3 bucket\. For more information about how this works, see the following topics\.
+For both SSE\-KMS and CSE\-KMS, the CMK you choose is the master key in an [envelope encryption](concepts.md#enveloping) workflow\. The data is encrypted with a unique data encryption key \(or *data key*\), and this data key is encrypted under the CMK in AWS KMS\. The encrypted data and an encrypted copy of its data key are stored together as a single encrypted object in an S3 bucket\. For more information about how this works, see the following topics\.
 
 **Topics**
 + [Process for Encrypting Data on EMRFS with SSE\-KMS](#emrfs-encryption-sse-kms)
