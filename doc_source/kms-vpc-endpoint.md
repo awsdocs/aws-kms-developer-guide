@@ -20,7 +20,7 @@ You can also use AWS CloudTrail logs to audit your use of KMS keys through the V
 Use caution when creating IAM and key policies based on your VPC endpoint\. If a policy statement requires that requests come from a particular VPC or VPC endpoint, requests from integrated AWS services that use the CMK on your behalf might fail\. For help, see [Using VPC Endpoint Conditions in Policies with AWS KMS Permissions](policy-conditions.md#conditions-aws-vpce)\.
 
 **Regions**  
-AWS KMS supports VPC endpoints in all AWS regions where both [Amazon VPC](http://docs.aws.amazon.com/general/latest/gr/rande.html#vpc_region) and [AWS KMS](http://docs.aws.amazon.com/general/latest/gr/rande.html#kms_region) are available, except for AWS GovCloud \(US\) and EU \(Paris\)\.
+AWS KMS supports VPC endpoints in all AWS regions where both [Amazon VPC](http://docs.aws.amazon.com/general/latest/gr/rande.html#vpc_region) and [AWS KMS](http://docs.aws.amazon.com/general/latest/gr/rande.html#kms_region) are available, except for AWS GovCloud \(US\)\.
 
 **Topics**
 + [Create an AWS KMS VPC Endpoint](#create-vpc-endpoint)
@@ -58,7 +58,7 @@ You [create an interface endpoint](http://docs.aws.amazon.com/AmazonVPC/latest/U
 
    This option makes it easier to use the VPC endpoint\. The AWS KMS CLI and SDKs use the standard AWS KMS DNS hostname by default, so you do not need to specify the VPC endpoint URL in applications and commands\.
 
-   This feature works only when the `enableDnsHostnames` and `enableDnsSupport` attributes of your VPC are set to `true`\. To set these attributes, [update DNS Support for your VPC in the AWS Management Console](https://docs.aws.amazon.com/AmazonVPC/latest/UserGuide/vpc-dns.html#vpc-dns-updating) or use the [ModifyVpcAttribute](http://docs.aws.amazon.com/AWSEC2/latest/APIReference/API_ModifyVpcAttribute.html) API\.
+   This feature works only when the `enableDnsHostnames` and `enableDnsSupport` attributes of your VPC are set to `true`\. To set these attributes, [update DNS support for your VPC](http://docs.aws.amazon.com/AmazonVPC/latest/UserGuide/vpc-dns.html#vpc-dns-updating)\.
 
    To enable a private DNS hostname, for **Enable Private DNS Name**, select **Enable for this endpoint**\. 
 
