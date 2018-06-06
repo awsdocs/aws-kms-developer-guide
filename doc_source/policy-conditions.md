@@ -97,7 +97,7 @@ The following example IAM policy statement prevents users from bypassing the pol
 
 You can also use the `kms:BypassPolicyLockoutSafetyCheck` condition key in an IAM policy or key policy to control access to the `PutKeyPolicy` operation\. The following example policy statement from a key policy prevents users from bypassing the policy lockout safety check when changing the policy of a CMK\. 
 
-Instead of using an explicit `Deny`, this policy statement uses `Allow` with the [Null condition operator](http://docs.aws.amazon.com/IAM/latest/UserGuide/reference_policies_elements.html#Conditions_Null) to allow access only when the request does not include the `BypassPolicyLockoutSafetyCheck` parameter\. When the parameter is not used, the default value is `false`\. This slightly weaker policy statement can be overriden in the rare case that a bypass is necessary\. 
+Instead of using an explicit `Deny`, this policy statement uses `Allow` with the [Null condition operator](http://docs.aws.amazon.com/IAM/latest/UserGuide/reference_policies_elements_condition_operators.html#Conditions_Null) to allow access only when the request does not include the `BypassPolicyLockoutSafetyCheck` parameter\. When the parameter is not used, the default value is `false`\. This slightly weaker policy statement can be overriden in the rare case that a bypass is necessary\. 
 
 ```
 {
@@ -220,7 +220,7 @@ The following example policy statement uses the `kms:EncryptionContextKeys` cond
 
 You can also use the `kms:EncryptionContextKeys` condition key to require an encryption context in cryptographic operations that use the CMK\. 
 
-The following example key policy statement uses the `kms:EncryptionContextKeys` condition key with the [Null condition operator](http://docs.aws.amazon.com/IAM/latest/UserGuide/reference_policies_elements.html#Conditions_Null) to allow access to CMK only when the `kms:EncryptionContextKeys` condition key exists \(is not null\) in the API request\. It does not check the keys or values of the encryption context, only that the encryption context exists\. 
+The following example key policy statement uses the `kms:EncryptionContextKeys` condition key with the [Null condition operator](http://docs.aws.amazon.com/IAM/latest/UserGuide/reference_policies_elements_condition_operators.html#Conditions_Null) to allow access to CMK only when the `kms:EncryptionContextKeys` condition key exists \(is not null\) in the API request\. It does not check the keys or values of the encryption context, only that the encryption context exists\. 
 
 ```
 {
@@ -272,7 +272,7 @@ The following example policy statement uses the `kms:ExpirationModel` condition 
 }
 ```
 
-You can also use the `kms:ExpirationModel` condition key to allow a user to import key material only when the key material expires, without [specifying an expiration date](#conditions-kms-valid-to) in the condition\. The following example policy statement uses the `kms:ExpirationModel` condition key with the [Null condition operator](http://docs.aws.amazon.com/IAM/latest/UserGuide/reference_policies_elements.html#Conditions_Null) to allow a user to import key material only when the request does not have an `ExpirationModel` parameter\. 
+You can also use the `kms:ExpirationModel` condition key to allow a user to import key material only when the key material expires, without [specifying an expiration date](#conditions-kms-valid-to) in the condition\. The following example policy statement uses the `kms:ExpirationModel` condition key with the [Null condition operator](http://docs.aws.amazon.com/IAM/latest/UserGuide/reference_policies_elements_condition_operators.html#Conditions_Null) to allow a user to import key material only when the request does not have an `ExpirationModel` parameter\. 
 
 ```
 {

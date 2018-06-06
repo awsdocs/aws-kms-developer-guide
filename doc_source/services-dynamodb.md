@@ -8,6 +8,12 @@ You enable encryption at rest when you create a table\. Each table is encrypted 
 
 Encryption at rest uses AWS KMS customer master keys in your AWS to protect your DynamoDB tables on disk\. This integration also enables you to audit access to your DynamoDB tables by examining the DynamoDB API calls to AWS KMS in audit logs and trails\.
 
+**Client\-Side Encryption for DynamoDB**
+
+In addition to encryption at rest, which is a *server\-side encryption* feature, AWS provides the [Amazon DynamoDB Encryption Client](http://docs.aws.amazon.com/dynamodb-encryption-client/latest/devguide/)\. This *client\-side encryption* library enables you to protect your data before submitting to the DynamoDB\. With server\-side encryption, your data is encrypted in transit over an HTTPS connection, decrypted at the DynamoDB endpoint, and then re\-encrypted before being stored in DynamoDB\. Client\-side encryption provides end\-to\-end protection for your data from its source to storage in DynamoDB\.
+
+You can use encryption at rest, the DynamoDB Encryption Client, or both\. To help you decide which method is right for your DynamoDB data, see [Client\-Side or Server\-Side Encryption?](http://docs.aws.amazon.com/dynamodb-encryption-client/latest/devguide/client-server-side.html) in the *Amazon DynamoDB Encryption Client Developer Guide*\.
+
 **Topics**
 + [Using CMKs and Data Keys](#dynamodb-encrypt)
 + [Authorizing Use of the Service Default Key](#dynamodb-authz)

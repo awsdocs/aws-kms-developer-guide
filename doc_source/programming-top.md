@@ -11,7 +11,7 @@ You can use the AWS KMS API to perform the following actions, and more\.
 + Generate data keys with or without plaintext\.
 + Generate random data\.
 
-For example code in Java that uses the [AWS SDK for Java](https://aws.amazon.com/sdk-for-java/) to call the AWS KMS API, see the following topics\.
+The sample code in the following topics show how to use the AWS SDKs to call the AWS KMS API\.
 
 **Topics**
 + [Creating a Client](programming-client.md)

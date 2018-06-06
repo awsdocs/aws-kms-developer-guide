@@ -1,6 +1,6 @@
 # Working with Aliases<a name="programming-aliases"></a>
 
-This topic explains how to create, delete, list, and update aliases\.
+The examples in this topic use the AWS KMS API to create, view, update, and delete aliases\.
 
 An *alias* is an optional display name for a [customer master key \(CMK\)](concepts.md#master_keys)\. 
 
@@ -31,17 +31,20 @@ alias/ExampleAlias
 
 **Topics**
 + [Creating an Alias](#create-alias)
-+ [Deleting an Alias](#delete-alias)
 + [Listing Aliases](#list-aliases)
 + [Updating an Alias](#update-alias)
++ [Deleting an Alias](#delete-alias)
 
 ## Creating an Alias<a name="create-alias"></a>
 
 To create an alias, use the [CreateAlias](http://docs.aws.amazon.com/kms/latest/APIReference/API_CreateAlias.html) operation\. The alias must be unique in the account and region\. If you create an alias for a CMK that already has an alias, CreateAlias creates another alias to the same CMK\. It does not replace the existing alias\.
 
-For details about the Java implementation, see the [createAlias method](http://docs.aws.amazon.com/AWSJavaSDK/latest/javadoc/com/amazonaws/services/kms/AWSKMSClient.html#createAlias-com.amazonaws.services.kms.model.CreateAliasRequest-) in the *AWS SDK for Java API Reference*\.
-
 This example uses the `kmsClient` client object that you created in [Creating a Client](programming-client.md)\.
+
+------
+#### [ Java ]
+
+For details, see the [createAlias method](http://docs.aws.amazon.com/AWSJavaSDK/latest/javadoc/com/amazonaws/services/kms/AWSKMSClient.html#createAlias-com.amazonaws.services.kms.model.CreateAliasRequest-) in the *AWS SDK for Java API Reference*\.
 
 ```
 // Create an alias for a CMK
@@ -53,26 +56,37 @@ CreateAliasRequest req = new CreateAliasRequest().withAliasName(aliasName).withT
 kmsClient.createAlias(req);
 ```
 
-## Deleting an Alias<a name="delete-alias"></a>
+------
+#### [ C\# ]
 
-To delete an alias, use the [DeleteAlias](http://docs.aws.amazon.com/kms/latest/APIReference/API_DeleteAlias.html) operation\. Deleting an alias has no effect on the underlying CMK\. For details about the Java implementation, see the [deleteAlias method](http://docs.aws.amazon.com/AWSJavaSDK/latest/javadoc/com/amazonaws/services/kms/AWSKMSClient.html#deleteAlias-com.amazonaws.services.kms.model.DeleteAliasRequest-) in the *AWS SDK for Java API Reference*\.
-
-This example uses the `kmsClient` client object that you created in [Creating a Client](programming-client.md)\.
+For details, see the [CreateAlias method](http://docs.aws.amazon.com/sdkfornet/v3/apidocs/items/KeyManagementService/MKeyManagementServiceCreateAliasCreateAliasRequest.html) in the *AWS SDK for \.NET*\.
 
 ```
-// Delete an alias for a CMK
+// Create an alias for a CMK
 //
 String aliasName = "alias/projectKey1";
+String targetKeyId = "arn:aws:kms:us-west-2:111122223333:key/1234abcd-12ab-34cd-56ef-1234567890ab";
 
-DeleteAliasRequest req  = new DeleteAliasRequest().withAliasName(aliasName);
-kmsClient.deleteAlias(req);
+CreateAliasRequest createAliasRequest = new CreateAliasRequest()
+{
+    AliasName = aliasName,
+    TargetKeyId = targetKeyId
+};
+kmsClient.CreateAlias(createAliasRequest);
 ```
+
+------
 
 ## Listing Aliases<a name="list-aliases"></a>
 
-To list all aliases, use the [ListAliases](http://docs.aws.amazon.com/kms/latest/APIReference/API_ListAliases.html) operation\. The response includes aliases that are defined by AWS services, but are not associated with a CMK\. For details about the Java implementation, see the [listAliases method](http://docs.aws.amazon.com/AWSJavaSDK/latest/javadoc/com/amazonaws/services/kms/AWSKMSClient.html#listAliases-com.amazonaws.services.kms.model.ListAliasesRequest-) in the *AWS SDK for Java API Reference*\.
+To list all aliases, use the [ListAliases](http://docs.aws.amazon.com/kms/latest/APIReference/API_ListAliases.html) operation\. The response includes aliases that are defined by AWS services, but are not associated with a CMK\.
 
 This example uses the `kmsClient` client object that you created in [Creating a Client](programming-client.md)\.
+
+------
+#### [ Java ]
+
+For details about the Java implementation, see the [listAliases method](http://docs.aws.amazon.com/AWSJavaSDK/latest/javadoc/com/amazonaws/services/kms/AWSKMSClient.html#listAliases-com.amazonaws.services.kms.model.ListAliasesRequest-) in the *AWS SDK for Java API Reference*\.
 
 ```
 // List the aliases in this AWS account
@@ -83,11 +97,35 @@ ListAliasesRequest req = new ListAliasesRequest().withLimit(limit);
 ListAliasesResult result = kmsClient.listAliases(req);
 ```
 
+------
+#### [ C\# ]
+
+For details, see the [EnableKey method](http://docs.aws.amazon.com/sdkfornet/v3/apidocs/items/KeyManagementService/MKeyManagementServiceListAliasesListAliasesRequest.html) in the *AWS SDK for \.NET*\.
+
+```
+// List the aliases in this AWS account
+//
+int limit = 10;
+
+ListAliasesRequest listAliasesRequest = new ListAliasesRequest()
+{
+    Limit = limit
+};
+ListAliasesResponse listAliasesResponse = kmsClient.ListAliases(listAliasesRequest);
+```
+
+------
+
 ## Updating an Alias<a name="update-alias"></a>
 
-To associate an existing alias with a different CMK, use the [UpdateAlias](http://docs.aws.amazon.com/kms/latest/APIReference/API_UpdateAlias.html) operation\. For details about the Java implementation, see the [updateAlias method](http://docs.aws.amazon.com/AWSJavaSDK/latest/javadoc/com/amazonaws/services/kms/AWSKMSClient.html#updateAlias-com.amazonaws.services.kms.model.UpdateAliasRequest-) in the *AWS SDK for Java API Reference*\.
+To associate an existing alias with a different CMK, use the [UpdateAlias](http://docs.aws.amazon.com/kms/latest/APIReference/API_UpdateAlias.html) operation\. 
 
 This example uses the `kmsClient` client object that you created in [Creating a Client](programming-client.md)\.
+
+------
+#### [ Java ]
+
+For details about the Java implementation, see the [updateAlias method](http://docs.aws.amazon.com/AWSJavaSDK/latest/javadoc/com/amazonaws/services/kms/AWSKMSClient.html#updateAlias-com.amazonaws.services.kms.model.UpdateAliasRequest-) in the *AWS SDK for Java API Reference*\.
 
 ```
 // Updating an alias
@@ -101,3 +139,64 @@ UpdateAliasRequest req = new UpdateAliasRequest()
      
 kmsClient.updateAlias(req);
 ```
+
+------
+#### [ C\# ]
+
+For details, see the [EnableKey method](http://docs.aws.amazon.com/sdkfornet/v3/apidocs/items/KeyManagementService/MKeyManagementServiceUpdateAliasUpdateAliasRequest.html) in the *AWS SDK for \.NET*\.
+
+```
+// Updating an alias
+//
+String aliasName = "alias/projectKey1";
+String targetKeyId = "arn:aws:kms:us-west-2:111122223333:key/0987dcba-09fe-87dc-65ba-ab0987654321";
+
+UpdateAliasRequest updateAliasRequest = new UpdateAliasRequest()
+{
+    AliasName = aliasName,
+    TargetKeyId = targetKeyId
+};
+
+kmsClient.UpdateAlias(updateAliasRequest);
+```
+
+------
+
+## Deleting an Alias<a name="delete-alias"></a>
+
+To delete an alias, use the [DeleteAlias](http://docs.aws.amazon.com/kms/latest/APIReference/API_DeleteAlias.html) operation\. Deleting an alias has no effect on the underlying CMK\. 
+
+This example uses the `kmsClient` client object that you created in [Creating a Client](programming-client.md)\.
+
+------
+#### [ Java ]
+
+For details, see the [deleteAlias method](http://docs.aws.amazon.com/AWSJavaSDK/latest/javadoc/com/amazonaws/services/kms/AWSKMSClient.html#deleteAlias-com.amazonaws.services.kms.model.DeleteAliasRequest-) in the *AWS SDK for Java API Reference*\.
+
+```
+// Delete an alias for a CMK
+//
+String aliasName = "alias/projectKey1";
+
+DeleteAliasRequest req  = new DeleteAliasRequest().withAliasName(aliasName);
+kmsClient.deleteAlias(req);
+```
+
+------
+#### [ C\# ]
+
+For details, see the [DeleteAlias method](http://docs.aws.amazon.com/sdkfornet/v3/apidocs/items/KeyManagementService/MKeyManagementServiceDeleteAliasDeleteAliasRequest.html) in the *AWS SDK for \.NET*\.
+
+```
+// Delete an alias for a CMK
+//
+String aliasName = "alias/projectKey1";
+
+DeleteAliasRequest deleteAliasRequest = new DeleteAliasRequest()
+{
+    AliasName = aliasName
+};
+kmsClient.DeleteAlias(deleteAliasRequest);
+```
+
+------
