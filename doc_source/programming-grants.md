@@ -86,7 +86,7 @@ ListGrantsResult result = kmsClient.listGrants(req);
 ------
 #### [ C\# ]
 
-For details, see the [EnableKey method](http://docs.aws.amazon.com/sdkfornet/v3/apidocs/items/KeyManagementService/MKeyManagementServiceListGrantsListGrantsRequest.html) in the *AWS SDK for \.NET*\.
+For details, see the [ListGrants method](http://docs.aws.amazon.com/sdkfornet/v3/apidocs/items/KeyManagementService/MKeyManagementServiceListGrantsListGrantsRequest.html) in the *AWS SDK for \.NET*\.
 
 ```
 // Listing grants on a CMK
@@ -130,7 +130,7 @@ kmsClient.retireGrant(req);
 ------
 #### [ C\# ]
 
-For details, see the [retireGrant method](http://docs.aws.amazon.com/sdkfornet/v3/apidocs/items/KeyManagementService/MKeyManagementServiceRetireGrantRetireGrantRequest.html) in the *AWS SDK for \.NET*\.
+For details, see the [RetireGrant method](http://docs.aws.amazon.com/sdkfornet/v3/apidocs/items/KeyManagementService/MKeyManagementServiceRetireGrantRetireGrantRequest.html) in the *AWS SDK for \.NET*\.
 
 ```
 // Retire a grant
@@ -171,7 +171,7 @@ kmsClient.revokeGrant(req);
 ------
 #### [ C\# ]
 
-For details, see the [revokeGrant method](http://docs.aws.amazon.com/sdkfornet/v3/apidocs/items/KeyManagementService/MKeyManagementServiceRevokeGrantRevokeGrantRequest.html) in the *AWS SDK for \.NET*\.
+For details, see the [RevokeGrant method](http://docs.aws.amazon.com/sdkfornet/v3/apidocs/items/KeyManagementService/MKeyManagementServiceRevokeGrantRevokeGrantRequest.html) in the *AWS SDK for \.NET*\.
 
 ```
 // Revoke a grant on a CMK

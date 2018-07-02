@@ -12,7 +12,7 @@ You can specify the VPC endpoint in [AWS KMS API operations](http://docs.aws.ama
 $  aws kms list-keys --endpoint-url https://vpce-0295a3caf8414c94a-dfm9tr04.kms.us-east-1.vpce.amazonaws.com
 ```
 
-If you enable [private DNS hostnames](http://docs.aws.amazon.com/AmazonVPC/latest/UserGuide/vpce-interface.html#vpce-private-dns) for your VPC endpoint, you do not even need to specify the endpoint URL\. The standard AWS KMS DNS hostname that the AWS KMS CLI and SDKs use by default \(`https://kms.<region>.amazonaws.com`\) resolves to your VPC endpoint\.
+If you use the default domain name servers \(**AmazonProvidedDNS**\) and enable [private DNS hostnames](http://docs.aws.amazon.com/AmazonVPC/latest/UserGuide/vpce-interface.html#vpce-private-dns) for your VPC endpoint, you do not need to specify the endpoint URL\. AWS populates your VPC name server with private zone data, so the public KMS endpoint \(`https://kms.<region>.amazonaws.com`\) resolves to your private VPC endpoint\. To enable this feature when using your own name servers, forward requests for the KMS domain to the VPC name server\. 
 
 You can also use AWS CloudTrail logs to audit your use of KMS keys through the VPC endpoint\. And you can use the conditions in IAM and key policies to deny access to any request that does not come from a specified VPC or VPC endpoint\.
 

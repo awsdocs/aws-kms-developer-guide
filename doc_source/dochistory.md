@@ -1,11 +1,28 @@
 # Document History<a name="dochistory"></a>
 
-The following table describes the important changes to the documentation since the last release of AWS Key Management Service\.
-+ **Current API version**: 2014\-11\-01
-+ **Latest documentation update**: February 15, 2017
+This topic describes significant updates to the *AWS Key Management Service Developer Guide*\.
+
+**Topics**
++ [Recent Updates](#recent-updates)
++ [Earlier Updates](#earlier-updates)
+
+## Recent Updates<a name="recent-updates"></a>
+
+The following table describes significant changes to this documentation since January 2018\. In addition to major changes listed here, we also update the documentation frequently to improve the descriptions and examples, and to address the feedback that you send to us\. To be notified about significant changes, use the link in the upper right corner to subscribe to the RSS feed\.
+
+**Current API version**: 2014\-11\-01
+
+| Change | Description | Date | 
+| --- |--- |--- |
+| [New content](http://docs.aws.amazon.com/kms/latest/developerguide/services-dynamodb.html) | Explains [how DynamoDB uses AWS KMS](http://docs.aws.amazon.com/kms/latest/developerguide/services-dynamodb.html) customer master keys to support its server\-side encryption option\. | May 23, 2018 | 
+| [New feature](http://docs.aws.amazon.com/kms/latest/developerguide/kms-vpc-endpoint.html) | Explains how to [use a private endpoint in your VPC](http://docs.aws.amazon.com/kms/latest/developerguide/kms-vpc-endpoint.html) to connect directly to AWS KMS, instead of connecting over the internet\. | January 22, 2018 | 
+
+## Earlier Updates<a name="earlier-updates"></a>
+
+The following table describes the important changes to the AWS Key Management Service Developer Guide prior to 2018\.
 
 
-| Change | Description | Release Date | 
+| Change | Description | Date | 
 | --- | --- | --- | 
 | New content | Added documentation about [Tagging Keys](tagging-keys.md)\. | February 15, 2017 | 
 | New content | Added documentation about [Monitoring Customer Master Keys](monitoring-overview.md) and [Monitoring with Amazon CloudWatch](monitoring-cloudwatch.md)\. | August 31, 2016 | 

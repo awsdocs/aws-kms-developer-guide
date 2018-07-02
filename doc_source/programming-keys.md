@@ -247,7 +247,7 @@ kmsClient.disableKey(req);
 ------
 #### [ C\# ]
 
-For details, see the [EnableKey method](http://docs.aws.amazon.com/sdkfornet/v3/apidocs/items/KeyManagementService/MKeyManagementServiceDisableKeyDisableKeyRequest.html) in the *AWS SDK for \.NET*\.
+For details, see the [DisableKey method](http://docs.aws.amazon.com/sdkfornet/v3/apidocs/items/KeyManagementService/MKeyManagementServiceDisableKeyDisableKeyRequest.html) in the *AWS SDK for \.NET*\.
 
 ```
 // Disable a CMK

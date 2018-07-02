@@ -13,6 +13,11 @@ To create an AWS KMS client in Java, use the client builder\.
 AWSKMS kmsClient = AWSKMSClientBuilder.defaultClient();
 ```
 
+For more information about using the Java client builder, see the following resources\.
++ [Fluent Client Builders](https://aws.amazon.com/blogs/developer/fluent-client-builders/) on the AWS Developer Blog
++ [Creating Service Clients](http://docs.aws.amazon.com/sdk-for-java/v1/developer-guide/creating-clients.html) in the *AWS SDK for Java Developer Guide*
++ [AWSKMSClientBuilder](http://docs.aws.amazon.com/AWSJavaSDK/latest/javadoc/index.html?com/amazonaws/services/kms/AWSKMSClientBuilder.html) in the *AWS SDK for Java API Reference*
+
 ------
 #### [ C\# ]
 
@@ -21,8 +26,3 @@ AmazonKeyManagementServiceClient kmsClient = new AmazonKeyManagementServiceClien
 ```
 
 ------
-
-For more information about using the client builder, see the following resources\.
-+ [Fluent Client Builders](https://aws.amazon.com/blogs/developer/fluent-client-builders/) on the AWS Developer Blog
-+ [Creating Service Clients](http://docs.aws.amazon.com/sdk-for-java/v1/developer-guide/creating-clients.html) in the *AWS SDK for Java Developer Guide*
-+ [AWSKMSClientBuilder](http://docs.aws.amazon.com/AWSJavaSDK/latest/javadoc/index.html?com/amazonaws/services/kms/AWSKMSClientBuilder.html) in the *AWS SDK for Java API Reference*

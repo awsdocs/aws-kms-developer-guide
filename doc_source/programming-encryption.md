@@ -84,7 +84,7 @@ ByteBuffer plainText = kmsClient.decrypt(req).getPlaintext();
 ------
 #### [ C\# ]
 
-For details, see the [EnableKey method](http://docs.aws.amazon.com/sdkfornet/v3/apidocs/items/KeyManagementService/MKeyManagementServiceDecryptDecryptRequest.html) in the *AWS SDK for \.NET*\.
+For details, see the [Decrypt method](http://docs.aws.amazon.com/sdkfornet/v3/apidocs/items/KeyManagementService/MKeyManagementServiceDecryptDecryptRequest.html) in the *AWS SDK for \.NET*\.
 
 ```
 // Decrypt a data key

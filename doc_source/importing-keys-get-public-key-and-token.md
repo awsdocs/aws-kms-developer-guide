@@ -19,7 +19,7 @@ Before you download a public key and import token, you must determine how you wi
 **Note**  
 If you plan to try the [Encrypt Key Material with OpenSSL](importing-keys-encrypt-key-material.md#importing-keys-encrypt-key-material-openssl) proof\-of\-concept example in [Step 3](importing-keys-encrypt-key-material.md), use RSAES\_OAEP\_SHA\_1\.
 
-If your HSM or key management system supports it, we recommending using RSAES\_OAEP\_SHA\_256 to encrypt your key material\. If that option is not available, you should use RSAES\_OAEP\_SHA\_1\. If neither of the OAEP options are available, you must use RSAES\_PKCS1\_V1\_5\. For information about how to encrypt your key material, see the documentation for the hardware security module or key management system that protects your key material\.
+If your HSM or key management system supports it, we recommend using RSAES\_OAEP\_SHA\_256 to encrypt your key material\. If that option is not available, you should use RSAES\_OAEP\_SHA\_1\. If neither of the OAEP options are available, you must use RSAES\_PKCS1\_V1\_5\. For information about how to encrypt your key material, see the documentation for the hardware security module or key management system that protects your key material\.
 
 The public key and import token are valid for 24 hours\. If you don't use them to import key material within 24 hours of downloading them, you must download new ones\.
 
