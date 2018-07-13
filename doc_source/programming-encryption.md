@@ -15,7 +15,7 @@ To encrypt application data, use the server\-side encryption features of an AWS 
 
 The [Encrypt](http://docs.aws.amazon.com/kms/latest/APIReference/API_Encrypt.html) operation is designed to encrypt data keys, but it is not frequently used\. The [GenerateDataKey](http://docs.aws.amazon.com/kms/latest/APIReference/API_GenerateDataKey.html) and [GenerateDataKeyWithoutPlaintext](http://docs.aws.amazon.com/kms/latest/APIReference/API_GenerateDataKeyWithoutPlaintext.html) operations return encrypted data keys\. You might use this method when you are moving encrypted data to a new region and want to encrypt its data key with a CMK in the new region\. 
 
-This example uses the `kmsClient` client object that you created in [Creating a Client](programming-client.md)\.
+This example uses the KMS client object that you created in [Creating a Client](programming-client.md)\.
 
 ------
 #### [ Java ]
@@ -25,8 +25,7 @@ For details, see the [encrypt method](http://docs.aws.amazon.com/AWSJavaSDK/late
 ```
 // Encrypt a data key
 //
-// Replace the fictitious keyID value with a valid key ID, key ARN, or alias of an AWS CMK.
-
+// Replace the following fictitious CMK ARN with a valid CMK ID or ARN
 String keyId = "arn:aws:kms:us-west-2:111122223333:key/1234abcd-12ab-34cd-56ef-1234567890ab";
 ByteBuffer plaintext = ByteBuffer.wrap(new byte[]{1,2,3,4,5,6,7,8,9,0});
 
@@ -42,8 +41,7 @@ For details, see the [Encrypt method](http://docs.aws.amazon.com/sdkfornet/v3/ap
 ```
 // Encrypt a data key
 //
-// Replace the fictitious keyID value with a valid key ID, key ARN, or alias of an AWS CMK.
-
+// Replace the following fictitious CMK ARN with a valid CMK ID or ARN
 String keyId = "arn:aws:kms:us-west-2:111122223333:key/1234abcd-12ab-34cd-56ef-1234567890ab";
 MemoryStream plaintext = new MemoryStream();
 plaintext.Write(new byte[] { 1, 2, 3, 4, 5, 6, 7, 8, 9, 0 }, 0, 10);
@@ -57,6 +55,26 @@ MemoryStream ciphertext = kmsClient.Encrypt(encryptRequest).CiphertextBlob;
 ```
 
 ------
+#### [ Python ]
+
+For details, see the [encrypt method](http://boto3.readthedocs.org/en/latest/reference/services/kms.html#KMS.Client.encrypt) in the AWS SDK for Python \(Boto 3\)\.
+
+```
+# Encrypt a data key
+
+# Replace the following fictitious CMK ARN with a valid CMK ID or ARN
+key_id = 'arn:aws:kms:us-west-2:111122223333:key/1234abcd-12ab-34cd-56ef-1234567890ab'
+plaintext = b'\x01\x02\x03\x04\x05\x06\x07\x08\x09\x00'
+
+response = kms_client.encrypt(
+    KeyId=key_id,
+    Plaintext=plaintext
+)
+
+ciphertext = response['CiphertextBlob']
+```
+
+------
 
 ## Decrypting a Data Key<a name="decryption"></a>
 
@@ -64,7 +82,7 @@ To decrypt a data key, use the [Decrypt](http://docs.aws.amazon.com/kms/latest/A
 
 The `ciphertextBlob` that you specify must be the value of the `CiphertextBlob` field from a [GenerateDataKey](http://docs.aws.amazon.com/kms/latest/APIReference/API_GenerateDataKey.html), [GenerateDataKeyWithoutPlaintext](http://docs.aws.amazon.com/kms/latest/APIReference/API_GenerateDataKeyWithoutPlaintext.html), or [Encrypt](http://docs.aws.amazon.com/kms/latest/APIReference/API_Encrypt.html) response\.
 
-This example uses the `kmsClient` client object that you created in [Creating a Client](programming-client.md)\.
+This example uses the KMS client object that you created in [Creating a Client](programming-client.md)\.
 
 ------
 #### [ Java ]
@@ -101,6 +119,23 @@ MemoryStream plainText = kmsClient.Decrypt(decryptRequest).Plaintext;
 ```
 
 ------
+#### [ Python ]
+
+For details, see the [decrypt method](http://boto3.readthedocs.org/en/latest/reference/services/kms.html#KMS.Client.decrypt) in the AWS SDK for Python \(Boto 3\)\.
+
+```
+# Decrypt a data key
+
+ciphertext = Place your ciphertext here
+
+response = kms_client.decrypt(
+    CiphertextBlob=ciphertext
+)
+
+plaintext = response['Plaintext']
+```
+
+------
 
 ## Re\-Encrypting a Data Key Under a Different Customer Master Key<a name="reencryption"></a>
 
@@ -108,7 +143,7 @@ To decrypt an encrypted data key, and then immediately re\-encrypt the data key 
 
 The `ciphertextBlob` that you specify must be the value of the `CiphertextBlob` field from a [GenerateDataKey](http://docs.aws.amazon.com/kms/latest/APIReference/API_GenerateDataKey.html), [GenerateDataKeyWithoutPlaintext](http://docs.aws.amazon.com/kms/latest/APIReference/API_GenerateDataKeyWithoutPlaintext.html), or [Encrypt](http://docs.aws.amazon.com/kms/latest/APIReference/API_Encrypt.html) response\.
 
-This example uses the `kmsClient` client object that you created in [Creating a Client](programming-client.md)\.
+This example uses the KMS client object that you created in [Creating a Client](programming-client.md)\.
 
 ------
 #### [ Java ]
@@ -120,7 +155,7 @@ For details, see the [reEncrypt method](http://docs.aws.amazon.com/AWSJavaSDK/la
 
 ByteBuffer sourceCiphertextBlob = Place your ciphertext here;
 
-// Replace the fictitious keyID value with a valid key ID, key ARN, or alias of an AWS CMK.
+// Replace the following fictitious CMK ARN with a valid CMK ID or ARN
 String destinationKeyId = "arn:aws:kms:us-west-2:111122223333:key/0987dcba-09fe-87dc-65ba-ab0987654321";
 
 ReEncryptRequest req = new ReEncryptRequest();
@@ -140,7 +175,7 @@ For details, see the [ReEncrypt method](http://docs.aws.amazon.com/sdkfornet/v3/
 MemoryStream sourceCiphertextBlob = new MemoryStream();
 // Write ciphertext to memory stream
 
-// Replace the fictitious keyID value with a valid key ID, key ARN, or alias of an AWS CMK.
+// Replace the following fictitious CMK ARN with a valid CMK ID or ARN
 String destinationKeyId = "arn:aws:kms:us-west-2:111122223333:key/0987dcba-09fe-87dc-65ba-ab0987654321";
 
 ReEncryptRequest reEncryptRequest = new ReEncryptRequest()
@@ -149,6 +184,27 @@ ReEncryptRequest reEncryptRequest = new ReEncryptRequest()
     DestinationKeyId = destinationKeyId
 };
 MemoryStream destinationCipherTextBlob = kmsClient.ReEncrypt(reEncryptRequest).CiphertextBlob;
+```
+
+------
+#### [ Python ]
+
+For details, see the [re\_encrypt method](http://boto3.readthedocs.org/en/latest/reference/services/kms.html#KMS.Client.re_encrypt) in the AWS SDK for Python \(Boto 3\)\.
+
+```
+# Re-encrypt a data key
+
+ciphertext = Place your ciphertext here
+
+# Replace the following fictitious CMK ARN with a valid CMK ID or ARN
+key_id = 'arn:aws:kms:us-west-2:111122223333:key/1234abcd-12ab-34cd-56ef-1234567890ab'
+
+response = kms_client.re_encrypt(
+    CiphertextBlob=ciphertext,
+    DestinationKeyId=key_id
+)
+
+destination_ciphertext_blob = response['CiphertextBlob']
 ```
 
 ------

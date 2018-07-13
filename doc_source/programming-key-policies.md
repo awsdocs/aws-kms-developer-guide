@@ -11,7 +11,7 @@ The examples in this topic use the AWS KMS API to view and change the key polici
 
 To get the names of key policies for a customer master key, use the [ListKeyPolicies](http://docs.aws.amazon.com/kms/latest/APIReference/API_ListKeyPolicies.html) operation\. The only key policy name it returns is **default**\.
 
-This example uses the `kmsClient` client object that you created in [Creating a Client](programming-client.md)\.
+This example uses the KMS client object that you created in [Creating a Client](programming-client.md)\.
 
 ------
 #### [ Java ]
@@ -19,9 +19,9 @@ This example uses the `kmsClient` client object that you created in [Creating a 
 For details about the Java implementation, see the [listKeyPolicies method](http://docs.aws.amazon.com/AWSJavaSDK/latest/javadoc/com/amazonaws/services/kms/AWSKMSClient.html#listKeyPolicies-com.amazonaws.services.kms.model.ListKeyPoliciesRequest-) in the *AWS SDK for Java API Reference*\.
 
 ```
-// List key policy names
+// List key policies
 //
-// Replace the fictitious key ARN with a valid key ID
+// Replace the following fictitious CMK ARN with a valid CMK ID or ARN
 String keyId = "arn:aws:kms:us-west-2:111122223333:key/1234abcd-12ab-34cd-56ef-1234567890ab";
 
 ListKeyPoliciesRequest req = new ListKeyPoliciesRequest().withKeyId(keyId);
@@ -34,9 +34,9 @@ ListKeyPoliciesResult result = kmsClient.listKeyPolicies(req);
 For details, see the [ListKeyPolicies method](http://docs.aws.amazon.com/sdkfornet/v3/apidocs/items/KeyManagementService/MKeyManagementServiceListKeyPoliciesListKeyPoliciesRequest.html) in the *AWS SDK for \.NET*\.
 
 ```
-// List key policy names
+// List key policies
 //
-// Replace the fictitious key ARN with a valid key ID
+// Replace the following fictitious CMK ARN with a valid CMK ID or ARN
 String keyId = "arn:aws:kms:us-west-2:111122223333:key/1234abcd-12ab-34cd-56ef-1234567890ab";
 
 ListKeyPoliciesRequest listKeyPoliciesRequest = new ListKeyPoliciesRequest()
@@ -47,6 +47,22 @@ ListKeyPoliciesResponse listKeyPoliciesResponse = kmsClient.ListKeyPolicies(list
 ```
 
 ------
+#### [ Python ]
+
+For details, see the [list\_key\_policies method](http://boto3.readthedocs.org/en/latest/reference/services/kms.html#KMS.Client.list_key_policies) in the AWS SDK for Python \(Boto 3\)\.
+
+```
+# List key policies
+
+# Replace the following fictitious CMK ARN with a valid CMK ID or ARN
+key_id = 'arn:aws:kms:us-west-2:111122223333:key/1234abcd-12ab-34cd-56ef-1234567890ab'
+
+response = kms_client.list_key_policies(
+    KeyId=key_id
+)
+```
+
+------
 
 ## Getting a Key Policy<a name="get-policy"></a>
 
@@ -54,7 +70,7 @@ To get the key policy for a customer master key, use the [GetKeyPolicy](http://d
 
 GetKeyPolicy requires a policy name\. The only valid policy name is **default**\.
 
-This example uses the `kmsClient` client object that you created in [Creating a Client](programming-client.md)\.
+This example uses the KMS client object that you created in [Creating a Client](programming-client.md)\.
 
 ------
 #### [ Java ]
@@ -64,7 +80,7 @@ For details, see the [getKeyPolicy method](http://docs.aws.amazon.com/AWSJavaSDK
 ```
 // Get the policy for a CMK
 //
-// Replace the following fictitious key ARN with a valid key ID
+// Replace the following fictitious CMK ARN with a valid CMK ID or ARN
 String keyId = "arn:aws:kms:us-west-2:111122223333:key/1234abcd-12ab-34cd-56ef-1234567890ab";
 String policyName = "default";
 
@@ -80,7 +96,7 @@ For details, see the [GetKeyPolicy method](http://docs.aws.amazon.com/sdkfornet/
 ```
 // Get the policy for a CMK
 //
-// Replace the following fictitious key ARN with a valid key ID
+// Replace the following fictitious CMK ARN with a valid CMK ID or ARN
 String keyId = "arn:aws:kms:us-west-2:111122223333:key/1234abcd-12ab-34cd-56ef-1234567890ab";
 String policyName = "default";
 
@@ -93,6 +109,24 @@ GetKeyPolicyResponse getKeyPolicyResponse = kmsClient.GetKeyPolicy(getKeyPolicyR
 ```
 
 ------
+#### [ Python ]
+
+For details, see the [get\_key\_policy method](http://boto3.readthedocs.org/en/latest/reference/services/kms.html#KMS.Client.get_key_policy) in the AWS SDK for Python \(Boto 3\)\.
+
+```
+# Get the policy for a CMK
+
+# Replace the following fictitious CMK ARN with a valid CMK ID or ARN
+key_id = 'arn:aws:kms:us-west-2:111122223333:key/1234abcd-12ab-34cd-56ef-1234567890ab'
+policy_name = 'default'
+
+response = kms_client.get_key_policy(
+    KeyId=key_id,
+    PolicyName=policy_name
+)
+```
+
+------
 
 ## Setting a Key Policy<a name="put-policy"></a>
 
@@ -100,7 +134,7 @@ To establish or change a key policy for a CMK, use the [PutKeyPolicy](http://doc
 
 PutKeyPolicy requires a policy name\. The only valid policy name is **default**\.
 
-This example uses the `kmsClient` client object that you created in [Creating a Client](programming-client.md)\.
+This example uses the KMS client object that you created in [Creating a Client](programming-client.md)\.
 
 ------
 #### [ Java ]
@@ -111,7 +145,7 @@ For details, see the [putKeyPolicy method](http://docs.aws.amazon.com/AWSJavaSDK
 // Set a key policy for a CMK
 //
 
-// Replace the following fictitious key ARN with a valid key ID
+// Replace the following fictitious CMK ARN with a valid CMK ID or ARN
 String keyId = "arn:aws:kms:us-west-2:111122223333:key/1234abcd-12ab-34cd-56ef-1234567890ab";
 String policyName = "default";
 String policy = "{" +
@@ -145,7 +179,7 @@ For details, see the [PutKeyPolicy method](http://docs.aws.amazon.com/sdkfornet/
 // Set a key policy for a CMK
 //
 
-// Replace the following fictitious key ARN with a valid key ID
+// Replace the following fictitious CMK ARN with a valid CMK ID or ARN
 String keyId = "arn:aws:kms:us-west-2:111122223333:key/1234abcd-12ab-34cd-56ef-1234567890ab";
 String policyName = "default";
 String policy = "{" +
@@ -173,6 +207,42 @@ PutKeyPolicyRequest putKeyPolicyRequest = new PutKeyPolicyRequest()
     PolicyName = policyName
 };
 kmsClient.PutKeyPolicy(putKeyPolicyRequest);
+```
+
+------
+#### [ Python ]
+
+For details, see the [put\_key\_policy method](http://boto3.readthedocs.org/en/latest/reference/services/kms.html#KMS.Client.put_key_policy) in the AWS SDK for Python \(Boto 3\)\.
+
+```
+# Set a key policy for a CMK
+
+# Replace the following fictitious CMK ARN with a valid CMK ID or ARN
+key_id = 'arn:aws:kms:us-west-2:111122223333:key/1234abcd-12ab-34cd-56ef-1234567890ab'
+policy_name = 'default'
+policy = """
+{
+    "Version": "2012-10-17",
+    "Statement": [{
+        "Sid": "Allow access for ExampleUser",
+        "Effect": "Allow",
+        "Principal": {"AWS": "arn:aws:iam::111122223333:user/ExampleUser"},
+        "Action": [
+            "kms:Encrypt",
+            "kms:GenerateDataKey*",
+            "kms:Decrypt",
+            "kms:DescribeKey",
+            "kms:ReEncrypt*"
+        ],
+        "Resource": "*"
+    }]
+}"""
+
+response = kms_client.put_key_policy(
+    KeyId=key_id,
+    Policy=policy,
+    PolicyName=policy_name
+)
 ```
 
 ------

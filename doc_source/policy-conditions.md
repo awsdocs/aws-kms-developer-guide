@@ -596,6 +596,7 @@ The following table shows the KMS `ViaService` name for each service that suppor
 | Amazon Lex | lex\.AWS\_region\.amazonaws\.com | 
 | Amazon Redshift | redshift\.AWS\_region\.amazonaws\.com | 
 | Amazon Relational Database Service \(Amazon RDS\) | rds\.AWS\_region\.amazonaws\.com | 
+| AWS Secrets Manager \(Secrets Manager\) | secretsmanager\.AWS\_region\.amazonaws\.com | 
 | Amazon Simple Email Service \(Amazon SES\) | ses\.AWS\_region\.amazonaws\.com | 
 | Amazon Simple Storage Service \(Amazon S3\) | s3\.AWS\_region\.amazonaws\.com | 
 | AWS Snowball | importexport\.AWS\_region\.amazonaws\.com | 

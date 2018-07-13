@@ -22,11 +22,11 @@ Aliases are created in an AWS account and are known only to the account in which
 To specify an alias, use the alias name or alias ARN, as shown in the following example\. In either case, be sure to prepend "alias/" to the alias name\.
 
 ```
-// Fully specified ARN
-arn:aws:kms:us-west-2:111122223333:alias/ExampleAlias
-    
 // Alias name (prefixed with "alias/")
 alias/ExampleAlias
+    
+// Fully specified ARN
+arn:aws:kms:us-west-2:111122223333:alias/ExampleAlias
 ```
 
 **Topics**
@@ -39,7 +39,7 @@ alias/ExampleAlias
 
 To create an alias, use the [CreateAlias](http://docs.aws.amazon.com/kms/latest/APIReference/API_CreateAlias.html) operation\. The alias must be unique in the account and region\. If you create an alias for a CMK that already has an alias, CreateAlias creates another alias to the same CMK\. It does not replace the existing alias\.
 
-This example uses the `kmsClient` client object that you created in [Creating a Client](programming-client.md)\.
+This example uses the KMS client object that you created in [Creating a Client](programming-client.md)\.
 
 ------
 #### [ Java ]
@@ -50,6 +50,7 @@ For details, see the [createAlias method](http://docs.aws.amazon.com/AWSJavaSDK/
 // Create an alias for a CMK
 //
 String aliasName = "alias/projectKey1";
+// Replace the following fictitious CMK ARN with a valid CMK ID or ARN
 String targetKeyId = "arn:aws:kms:us-west-2:111122223333:key/1234abcd-12ab-34cd-56ef-1234567890ab";
 
 CreateAliasRequest req = new CreateAliasRequest().withAliasName(aliasName).withTargetKeyId(targetKeyId);
@@ -65,6 +66,7 @@ For details, see the [CreateAlias method](http://docs.aws.amazon.com/sdkfornet/v
 // Create an alias for a CMK
 //
 String aliasName = "alias/projectKey1";
+// Replace the following fictitious CMK ARN with a valid CMK ID or ARN
 String targetKeyId = "arn:aws:kms:us-west-2:111122223333:key/1234abcd-12ab-34cd-56ef-1234567890ab";
 
 CreateAliasRequest createAliasRequest = new CreateAliasRequest()
@@ -76,12 +78,30 @@ kmsClient.CreateAlias(createAliasRequest);
 ```
 
 ------
+#### [ Python ]
+
+For details, see the [create\_alias method](http://boto3.readthedocs.org/en/latest/reference/services/kms.html#KMS.Client.create_alias) in the AWS SDK for Python \(Boto 3\)\.
+
+```
+# Create an alias for a CMK
+
+alias_name = 'alias/projectKey1'
+# Replace the following fictitious CMK ARN with a valid CMK ID or ARN
+target_key_id = 'arn:aws:kms:us-west-2:111122223333:key/1234abcd-12ab-34cd-56ef-1234567890ab'
+
+response = kms_client.create_alias(
+    AliasName=alias_name,
+    TargetKeyId=key_id
+)
+```
+
+------
 
 ## Listing Aliases<a name="list-aliases"></a>
 
 To list all aliases, use the [ListAliases](http://docs.aws.amazon.com/kms/latest/APIReference/API_ListAliases.html) operation\. The response includes aliases that are defined by AWS services, but are not associated with a CMK\.
 
-This example uses the `kmsClient` client object that you created in [Creating a Client](programming-client.md)\.
+This example uses the KMS client object that you created in [Creating a Client](programming-client.md)\.
 
 ------
 #### [ Java ]
@@ -100,7 +120,7 @@ ListAliasesResult result = kmsClient.listAliases(req);
 ------
 #### [ C\# ]
 
-For details, see the [EnableKey method](http://docs.aws.amazon.com/sdkfornet/v3/apidocs/items/KeyManagementService/MKeyManagementServiceListAliasesListAliasesRequest.html) in the *AWS SDK for \.NET*\.
+For details, see the [listAliases method](http://docs.aws.amazon.com/sdkfornet/v3/apidocs/items/KeyManagementService/MKeyManagementServiceListAliasesListAliasesRequest.html) in the *AWS SDK for \.NET*\.
 
 ```
 // List the aliases in this AWS account
@@ -115,12 +135,25 @@ ListAliasesResponse listAliasesResponse = kmsClient.ListAliases(listAliasesReque
 ```
 
 ------
+#### [ Python ]
+
+For details, see the [list\_aliases method](http://boto3.readthedocs.org/en/latest/reference/services/kms.html#KMS.Client.list_aliases) in the AWS SDK for Python \(Boto 3\)\.
+
+```
+# List the aliases in this AWS account
+
+response = kms_client.list_aliases(
+    Limit=10
+)
+```
+
+------
 
 ## Updating an Alias<a name="update-alias"></a>
 
 To associate an existing alias with a different CMK, use the [UpdateAlias](http://docs.aws.amazon.com/kms/latest/APIReference/API_UpdateAlias.html) operation\. 
 
-This example uses the `kmsClient` client object that you created in [Creating a Client](programming-client.md)\.
+This example uses the KMS client object that you created in [Creating a Client](programming-client.md)\.
 
 ------
 #### [ Java ]
@@ -131,6 +164,7 @@ For details about the Java implementation, see the [updateAlias method](http://d
 // Updating an alias
 //
 String aliasName = "alias/projectKey1";
+// Replace the following fictitious CMK ARN with a valid CMK ID or ARN
 String targetKeyId = "arn:aws:kms:us-west-2:111122223333:key/0987dcba-09fe-87dc-65ba-ab0987654321";
 
 UpdateAliasRequest req = new UpdateAliasRequest()
@@ -149,6 +183,7 @@ For details, see the [EnableKey method](http://docs.aws.amazon.com/sdkfornet/v3/
 // Updating an alias
 //
 String aliasName = "alias/projectKey1";
+// Replace the following fictitious CMK ARN with a valid CMK ID or ARN
 String targetKeyId = "arn:aws:kms:us-west-2:111122223333:key/0987dcba-09fe-87dc-65ba-ab0987654321";
 
 UpdateAliasRequest updateAliasRequest = new UpdateAliasRequest()
@@ -161,12 +196,30 @@ kmsClient.UpdateAlias(updateAliasRequest);
 ```
 
 ------
+#### [ Python ]
+
+For details, see the [update\_aliases method](http://boto3.readthedocs.org/en/latest/reference/services/kms.html#KMS.Client.update_aliases) in the AWS SDK for Python \(Boto 3\)\.
+
+```
+# Updating an alias
+
+alias_name = 'alias/projectKey1'
+# Replace the following fictitious CMK ARN with a valid CMK ID or ARN
+key_id = 'arn:aws:kms:us-west-2:111122223333:key/1234abcd-12ab-34cd-56ef-1234567890ab'
+
+response = kms_client.update_alias(
+    AliasName=alias_name,
+    TargetKeyID=key_id
+)
+```
+
+------
 
 ## Deleting an Alias<a name="delete-alias"></a>
 
 To delete an alias, use the [DeleteAlias](http://docs.aws.amazon.com/kms/latest/APIReference/API_DeleteAlias.html) operation\. Deleting an alias has no effect on the underlying CMK\. 
 
-This example uses the `kmsClient` client object that you created in [Creating a Client](programming-client.md)\.
+This example uses the KMS client object that you created in [Creating a Client](programming-client.md)\.
 
 ------
 #### [ Java ]
@@ -197,6 +250,21 @@ DeleteAliasRequest deleteAliasRequest = new DeleteAliasRequest()
     AliasName = aliasName
 };
 kmsClient.DeleteAlias(deleteAliasRequest);
+```
+
+------
+#### [ Python ]
+
+For details, see the [delete\_alias method](http://boto3.readthedocs.org/en/latest/reference/services/kms.html#KMS.Client.delete_alias) in the AWS SDK for Python \(Boto 3\)\.
+
+```
+# Delete an alias for a CMK
+
+alias_name = 'alias/projectKey1'
+
+response = kms_client.delete_alias(
+    AliasName=alias_name
+)
 ```
 
 ------

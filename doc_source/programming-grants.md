@@ -12,7 +12,7 @@ The examples in this topic use the AWS KMS API to create, view, retire, and revo
 
 To create a grant for an AWS KMS customer master key, use the [CreateGrant](http://docs.aws.amazon.com/kms/latest/APIReference/API_CreateGrant.html) operation\.
 
-This example uses the `kmsClient` client object that you created in [Creating a Client](programming-client.md)\.
+This example uses the KMS client object that you created in [Creating a Client](programming-client.md)\.
 
 ------
 #### [ Java ]
@@ -22,7 +22,7 @@ For details, see the [createGrant method](http://docs.aws.amazon.com/AWSJavaSDK/
 ```
 // Create a grant
 //
-// Replace the following fictitious key ARN with a valid key ID
+// Replace the following fictitious CMK ARN with a valid CMK ID or ARN
 String keyId = "arn:aws:kms:us-west-2:111122223333:key/1234abcd-12ab-34cd-56ef-1234567890ab";
 String granteePrincipal = "arn:aws:iam::111122223333:user/Alice";
 String operation = GrantOperation.Encrypt;
@@ -43,7 +43,7 @@ For details, see the [CreateGrant method](http://docs.aws.amazon.com/sdkfornet/v
 ```
 // Create a grant
 //
-// Replace the following fictitious key ARN with a valid key ID
+// Replace the following fictitious CMK ARN with a valid CMK ID or ARN
 String keyId = "arn:aws:kms:us-west-2:111122223333:key/1234abcd-12ab-34cd-56ef-1234567890ab";
 String granteePrincipal = "arn:aws:iam::111122223333:user/Alice";
 String operation = GrantOperation.Encrypt;
@@ -59,12 +59,32 @@ CreateGrantResponse createGrantResult = kmsClient.CreateGrant(createGrantRequest
 ```
 
 ------
+#### [ Python ]
+
+For details, see the [create\_grant method](http://boto3.readthedocs.org/en/latest/reference/services/kms.html#KMS.Client.create_grant) in the AWS SDK for Python \(Boto 3\)\.
+
+```
+# Create a grant
+
+# Replace the following fictitious CMK ARN with a valid CMK ID or ARN
+key_id = 'arn:aws:kms:us-west-2:111122223333:key/1234abcd-12ab-34cd-56ef-1234567890ab'
+grantee_principal = "arn:aws:iam::111122223333:user/Alice"
+operation = 'Encrypt'
+
+response = kms_client.create_grant(
+    KeyId=key_id,
+    GranteePrincipal=grantee_principal,
+    Operations=operation
+)
+```
+
+------
 
 ## Viewing a Grant<a name="list-grants"></a>
 
 To get detailed information about the grants on an AWS KMS customer master key, use the [ListGrants](http://docs.aws.amazon.com/kms/latest/APIReference/API_ListGrants.html) operation\. 
 
-This example uses the `kmsClient` client object that you created in [Creating a Client](programming-client.md)\.
+This example uses the KMS client object that you created in [Creating a Client](programming-client.md)\.
 
 ------
 #### [ Java ]
@@ -74,12 +94,11 @@ For details about the Java implementation, see the [listGrants method](http://do
 ```
 // Listing grants on a CMK
 //
-// Replace the following fictitious key ARN with a valid key ID
+// Replace the following fictitious CMK ARN with a valid CMK ID or ARN
 String keyId = "arn:aws:kms:us-west-2:111122223333:key/1234abcd-12ab-34cd-56ef-1234567890ab";
 Integer limit = 10;
-String marker = null;
 
-ListGrantsRequest req = new ListGrantsRequest().withKeyId(keyId).withMarker(marker).withLimit(limit);
+ListGrantsRequest req = new ListGrantsRequest().withKeyId(keyId).withLimit(limit);
 ListGrantsResult result = kmsClient.listGrants(req);
 ```
 
@@ -91,18 +110,33 @@ For details, see the [ListGrants method](http://docs.aws.amazon.com/sdkfornet/v3
 ```
 // Listing grants on a CMK
 //
-// Replace the following fictitious key ARN with a valid key ID
+// Replace the following fictitious CMK ARN with a valid CMK ID or ARN
 String keyId = "arn:aws:kms:us-west-2:111122223333:key/1234abcd-12ab-34cd-56ef-1234567890ab";
 int limit = 10;
-String marker = null;
 
 ListGrantsRequest listGrantsRequest = new ListGrantsRequest()
 {
     KeyId = keyId,
-    Limit = limit,
-    Marker = marker
+    Limit = limit
 };
 ListGrantsResponse listGrantsResponse = kmsClient.ListGrants(listGrantsRequest);
+```
+
+------
+#### [ Python ]
+
+For details, see the [list\_grants method](http://boto3.readthedocs.org/en/latest/reference/services/kms.html#KMS.Client.list_grants) in the AWS SDK for Python \(Boto 3\)\.
+
+```
+# Listing grants on a CMK
+
+# Replace the following fictitious CMK ARN with a valid CMK ID or ARN
+key_id = 'arn:aws:kms:us-west-2:111122223333:key/1234abcd-12ab-34cd-56ef-1234567890ab'
+
+response = kms_client.list_grants(
+    KeyId=key_id,
+    Limit=10
+)
 ```
 
 ------
@@ -111,7 +145,7 @@ ListGrantsResponse listGrantsResponse = kmsClient.ListGrants(listGrantsRequest);
 
 To retire a grant for an AWS KMS customer master key, use the [RetireGrant](http://docs.aws.amazon.com/kms/latest/APIReference/API_RetireGrant.html) operation\. You should retire a grant to clean up after you are done using it\.
 
-This example uses the `kmsClient` client object that you created in [Creating a Client](programming-client.md)\.
+This example uses the KMS client object that you created in [Creating a Client](programming-client.md)\.
 
 ------
 #### [ Java ]
@@ -145,12 +179,27 @@ kmsClient.RetireGrant(retireGrantRequest);
 ```
 
 ------
+#### [ Python ]
+
+For details, see the [retire\_grant method](http://boto3.readthedocs.org/en/latest/reference/services/kms.html#KMS.Client.retire_grant) in the AWS SDK for Python \(Boto 3\)\.
+
+```
+# Retire a grant
+
+grant_token = Place your grant token here
+
+response = kms_client.retire_grant(
+    GrantToken=grant_token
+)
+```
+
+------
 
 ## Revoking a Grant<a name="revoke-grant"></a>
 
 To revoke a grant to an AWS KMS customer master key, use the [RevokeGrant](http://docs.aws.amazon.com/kms/latest/APIReference/API_RevokeGrant.html) operation\. You can revoke a grant to explicitly deny operations that depend on it\. 
 
-This example uses the `kmsClient` client object that you created in [Creating a Client](programming-client.md)\.
+This example uses the KMS client object that you created in [Creating a Client](programming-client.md)\.
 
 ------
 #### [ Java ]
@@ -160,7 +209,7 @@ For details, see the [revokeGrant method](http://docs.aws.amazon.com/AWSJavaSDK/
 ```
 // Revoke a grant on a CMK
 //
-// Replace the following fictitious key ARN with a valid key ID
+// Replace the following fictitious CMK ARN with a valid CMK ID or ARN
 String keyId = "arn:aws:kms:us-west-2:111122223333:key/1234abcd-12ab-34cd-56ef-1234567890ab";
 String grantId = "grant1";
 
@@ -176,7 +225,7 @@ For details, see the [RevokeGrant method](http://docs.aws.amazon.com/sdkfornet/v
 ```
 // Revoke a grant on a CMK
 //
-// Replace the following fictitious key ARN with a valid key ID
+// Replace the following fictitious CMK ARN with a valid CMK ID or ARN
 String keyId = "arn:aws:kms:us-west-2:111122223333:key/1234abcd-12ab-34cd-56ef-1234567890ab";
 String grantId = "grant1";
 
@@ -186,6 +235,24 @@ RevokeGrantRequest revokeGrantRequest = new RevokeGrantRequest()
     GrantId = grantId
 };
 kmsClient.RevokeGrant(revokeGrantRequest);
+```
+
+------
+#### [ Python ]
+
+For details, see the [revoke\_grant method](http://boto3.readthedocs.org/en/latest/reference/services/kms.html#KMS.Client.revoke_grant) in the AWS SDK for Python \(Boto 3\)\.
+
+```
+# Revoke a grant on a CMK
+
+// Replace the following fictitious CMK ARN with a valid CMK ID or ARN
+key_id = 'arn:aws:kms:us-west-2:111122223333:key/1234abcd-12ab-34cd-56ef-1234567890ab'
+grant_id = 'grant1'
+
+response = kms_client.revoke_grant(
+    KeyId=key_id,
+    GrantId=grant_id
+)
 ```
 
 ------

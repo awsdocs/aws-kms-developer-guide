@@ -14,6 +14,7 @@ The following table describes significant changes to this documentation since Ja
 
 | Change | Description | Date | 
 | --- |--- |--- |
+| [New content](http://docs.aws.amazon.com/kms/latest/developerguide/services-secrets-manager.html) | Explains [how AWS Secrets Manager uses AWS KMS](http://docs.aws.amazon.com/kms/latest/developerguide/services-secrets-manager.html) customer master keys to encrypt the secret value in a secret\. | July 13, 2018 | 
 | [New content](http://docs.aws.amazon.com/kms/latest/developerguide/services-dynamodb.html) | Explains [how DynamoDB uses AWS KMS](http://docs.aws.amazon.com/kms/latest/developerguide/services-dynamodb.html) customer master keys to support its server\-side encryption option\. | May 23, 2018 | 
 | [New feature](http://docs.aws.amazon.com/kms/latest/developerguide/kms-vpc-endpoint.html) | Explains how to [use a private endpoint in your VPC](http://docs.aws.amazon.com/kms/latest/developerguide/kms-vpc-endpoint.html) to connect directly to AWS KMS, instead of connecting over the internet\. | January 22, 2018 | 
 

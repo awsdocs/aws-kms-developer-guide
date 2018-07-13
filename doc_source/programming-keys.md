@@ -14,7 +14,7 @@ The examples in this topic use the AWS KMS API to create, view, enable, and disa
 
 To create a [customer master key](concepts.md#master_keys), use the [CreateKey](http://docs.aws.amazon.com/kms/latest/APIReference/API_CreateKey.html) operation\.
 
-This example uses the `kmsClient` client object that you created in [Creating a Client](programming-client.md)\.
+This example uses the KMS client object that you created in [Creating a Client](programming-client.md)\.
 
 ------
 #### [ Java ]
@@ -48,12 +48,27 @@ CreateKeyResponse response = kmsClient.CreateKey(req);
 ```
 
 ------
+#### [ Python ]
+
+For details, see the [create\_key method](http://boto3.readthedocs.org/en/latest/reference/services/kms.html#KMS.Client.create_key) in the AWS SDK for Python \(Boto 3\)\.
+
+```
+# Create a CMK
+
+desc = 'Key for protecting critical data'
+
+response = kms_client.create_key(
+    Description=desc
+)
+```
+
+------
 
 ## Generating a Data Key<a name="generate-datakeys"></a>
 
 To generate a data key, use the [GenerateDataKey](http://docs.aws.amazon.com/kms/latest/APIReference/API_GenerateDataKey.html) operation\. This operation returns plaintext and encrypted copies of the data key that it creates\. 
 
-This example uses the `kmsClient` client object that you created in [Creating a Client](programming-client.md)\.
+This example uses the KMS client object that you created in [Creating a Client](programming-client.md)\.
 
 ------
 #### [ Java ]
@@ -63,10 +78,12 @@ For details, see the [generateDataKey method](http://docs.aws.amazon.com/AWSJava
 ```
 // Generate a data key
 //
+// Replace the following fictitious CMK ARN with a valid CMK ID or ARN
 String keyId = "arn:aws:kms:us-west-2:111122223333:key/1234abcd-12ab-34cd-56ef-1234567890ab";
+
 GenerateDataKeyRequest dataKeyRequest = new GenerateDataKeyRequest();
 dataKeyRequest.setKeyId(keyId);
-dataKeyRequest.setKeySpec("AES_128");
+dataKeyRequest.setKeySpec("AES_256");
 
 GenerateDataKeyResult dataKeyResult = kmsClient.generateDataKey(dataKeyRequest);
 
@@ -83,11 +100,12 @@ For details, see the [GenerateDataKey method](http://docs.aws.amazon.com/sdkforn
 ```
 // Generate a data key
 //
+// Replace the following fictitious CMK ARN with a valid CMK ID or ARN
 String keyId = "arn:aws:kms:us-west-2:111122223333:key/1234abcd-12ab-34cd-56ef-1234567890ab";
 GenerateDataKeyRequest dataKeyRequest = new GenerateDataKeyRequest()
 {
     KeyId = keyId,
-    KeySpec = DataKeySpec.AES_128
+    KeySpec = DataKeySpec.AES_256
 };
 
 GenerateDataKeyResponse dataKeyResponse = kmsClient.GenerateDataKey(dataKeyRequest);
@@ -98,6 +116,27 @@ MemoryStream encryptedKey = dataKeyResponse.CiphertextBlob;
 ```
 
 ------
+#### [ Python ]
+
+For details, see the [generate\_date\_key method](http://boto3.readthedocs.org/en/latest/reference/services/kms.html#KMS.Client.generate_data_key) in the AWS SDK for Python \(Boto 3\)\.
+
+```
+# Generate a data key
+
+# Replace the following fictitious CMK ARN with a valid CMK ID or ARN
+key_id = 'arn:aws:kms:us-west-2:111122223333:key/1234abcd-12ab-34cd-56ef-1234567890ab'
+
+response = kms_client.generate_data_key(
+    KeyID=key_id,
+    KeySpec='AES_256'
+)
+
+plaintext_key = response['Plaintext']
+
+encrypted_key = response['CiphertextBlob']
+```
+
+------
 
 ## Viewing a Custom Master Key<a name="describing-keys"></a>
 
@@ -105,7 +144,7 @@ To get detailed information about a customer master key \(CMK\), including the C
 
 DescribeKey does not get aliases\. To get aliases, use the [ListAliases](http://docs.aws.amazon.com/kms/latest/APIReference/API_ListAliases.html) operation\. 
 
-This example uses the `kmsClient` client object that you created in [Creating a Client](programming-client.md)\.
+This example uses the KMS client object that you created in [Creating a Client](programming-client.md)\.
 
 ------
 #### [ Java ]
@@ -115,7 +154,7 @@ For details, see the [describeKey method](http://docs.aws.amazon.com/AWSJavaSDK/
 ```
 // Describe a CMK
 //
-// Replace the fictitious key ARN with a valid one.
+// Replace the following fictitious CMK ARN with a valid CMK ID or ARN
 String keyId = "arn:aws:kms:us-west-2:111122223333:key/1234abcd-12ab-34cd-56ef-1234567890ab";
 
 DescribeKeyRequest req = new DescribeKeyRequest().withKeyId(keyId);
@@ -130,7 +169,7 @@ For details, see the [DescribeKey method](http://docs.aws.amazon.com/sdkfornet/v
 ```
 // Describe a CMK
 //
-// Replace the fictitious key ARN with a valid one.
+// Replace the following fictitious CMK ARN with a valid CMK ID or ARN
 String keyId = "arn:aws:kms:us-west-2:111122223333:key/1234abcd-12ab-34cd-56ef-1234567890ab";
 
 DescribeKeyRequest describeKeyRequest = new DescribeKeyRequest()
@@ -142,12 +181,28 @@ DescribeKeyResponse describeKeyResponse = kmsClient.DescribeKey(describeKeyReque
 ```
 
 ------
+#### [ Python ]
+
+For details, see the [describe\_key method](http://boto3.readthedocs.org/en/latest/reference/services/kms.html#KMS.Client.describe_key) in the AWS SDK for Python \(Boto 3\)\.
+
+```
+# Describe a CMK
+
+# Replace the following fictitious CMK ARN with a valid CMK ID or ARN
+key_id = 'arn:aws:kms:us-west-2:111122223333:key/1234abcd-12ab-34cd-56ef-1234567890ab'
+
+response = kms_client.describe_key(
+    KeyId=key_id
+)
+```
+
+------
 
 ## Getting Key IDs and Key ARNs of Customer Master Keys<a name="listing-keys"></a>
 
 To get the IDs and ARNs of the customer master keys, use the [ListKeys](http://docs.aws.amazon.com/kms/latest/APIReference/API_ListKeys.html) operation\. 
 
-This example uses the `kmsClient` client object that you created in [Creating a Client](programming-client.md)\.
+This example uses the KMS client object that you created in [Creating a Client](programming-client.md)\.
 
 ------
 #### [ Java ]
@@ -158,9 +213,8 @@ For details, see the [listKeys method](http://docs.aws.amazon.com/AWSJavaSDK/lat
 // List CMKs in this account
 //
 Integer limit = 10;
-String marker = null;
 
-ListKeysRequest req = new ListKeysRequest().withMarker(marker).withLimit(limit);
+ListKeysRequest req = new ListKeysRequest().withLimit(limit);
 ListKeysResult result = kmsClient.listKeys(req);
 ```
 
@@ -173,14 +227,25 @@ For details, see the [ListKeys method](http://docs.aws.amazon.com/sdkfornet/v3/a
 // List CMKs in this account
 //
 int limit = 10;
-String marker = null;
 
 ListKeysRequest listKeysRequest = new ListKeysRequest()
 {
-    Marker = marker,
     Limit = limit
 };
 ListKeysResponse listKeysResponse = kmsClient.ListKeys(listKeysRequest);
+```
+
+------
+#### [ Python ]
+
+For details, see the [list\_keys method](http://boto3.readthedocs.org/en/latest/reference/services/kms.html#KMS.Client.list_keys) in the AWS SDK for Python \(Boto 3\)\.
+
+```
+# List CMKs in this account
+
+response = kms_client.list_keys(
+    Limit=10
+)
 ```
 
 ------
@@ -189,7 +254,7 @@ ListKeysResponse listKeysResponse = kmsClient.ListKeys(listKeysRequest);
 
 To enable a disabled customer master key \(CMK\), use the [EnableKey](http://docs.aws.amazon.com/kms/latest/APIReference/API_EnableKey.html) operation\.
 
-This example uses the `kmsClient` client object that you created in [Creating a Client](programming-client.md)\.
+This example uses the KMS client object that you created in [Creating a Client](programming-client.md)\.
 
 ------
 #### [ Java ]
@@ -199,6 +264,7 @@ For details about the Java implementation, see the [enableKey method](http://doc
 ```
 // Enable a CMK
 //
+// Replace the following fictitious CMK ARN with a valid CMK ID or ARN
 String keyId = "arn:aws:kms:us-west-2:111122223333:key/1234abcd-12ab-34cd-56ef-1234567890ab";
 
 EnableKeyRequest req = new EnableKeyRequest().withKeyId(keyId);
@@ -213,6 +279,7 @@ For details, see the [EnableKey method](http://docs.aws.amazon.com/sdkfornet/v3/
 ```
 // Enable a CMK
 //
+// Replace the following fictitious CMK ARN with a valid CMK ID or ARN
 String keyId = "arn:aws:kms:us-west-2:111122223333:key/1234abcd-12ab-34cd-56ef-1234567890ab";
 
 EnableKeyRequest enableKeyRequest = new EnableKeyRequest()
@@ -223,12 +290,28 @@ kmsClient.EnableKey(enableKeyRequest);
 ```
 
 ------
+#### [ Python ]
+
+For details, see the [enable\_key method](http://boto3.readthedocs.org/en/latest/reference/services/kms.html#KMS.Client.enable_key) in the AWS SDK for Python \(Boto 3\)\.
+
+```
+# Enable a CMK
+
+# Replace the following fictitious CMK ARN with a valid CMK ID or ARN
+key_id = 'arn:aws:kms:us-west-2:111122223333:key/1234abcd-12ab-34cd-56ef-1234567890ab'
+
+response = kms_client.enable_key(
+    KeyId=key_id
+)
+```
+
+------
 
 ## Disabling Customer Master Keys<a name="disable-keys"></a>
 
 To disable a CMK, use the [DisableKey](http://docs.aws.amazon.com/kms/latest/APIReference/API_DisableKey.html) operation\. Disabling a CMK prevents it from being used\.
 
-This example uses the `kmsClient` client object that you created in [Creating a Client](programming-client.md)\.
+This example uses the KMS client object that you created in [Creating a Client](programming-client.md)\.
 
 ------
 #### [ Java ]
@@ -238,6 +321,7 @@ For details, see the [disableKey method](http://docs.aws.amazon.com/AWSJavaSDK/l
 ```
 // Disable a CMK
 //
+// Replace the following fictitious CMK ARN with a valid CMK ID or ARN
 String keyId = "arn:aws:kms:us-west-2:111122223333:key/1234abcd-12ab-34cd-56ef-1234567890ab";
 
 DisableKeyRequest req = new DisableKeyRequest().withKeyId(keyId);
@@ -252,6 +336,7 @@ For details, see the [DisableKey method](http://docs.aws.amazon.com/sdkfornet/v3
 ```
 // Disable a CMK
 //
+// Replace the following fictitious CMK ARN with a valid CMK ID or ARN
 String keyId = "arn:aws:kms:us-west-2:111122223333:key/1234abcd-12ab-34cd-56ef-1234567890ab";
 
 DisableKeyRequest disableKeyRequest = new DisableKeyRequest()
@@ -259,6 +344,22 @@ DisableKeyRequest disableKeyRequest = new DisableKeyRequest()
     KeyId = keyId
 };
 kmsClient.DisableKey(disableKeyRequest);
+```
+
+------
+#### [ Python ]
+
+For details, see the [disable\_key method](http://boto3.readthedocs.org/en/latest/reference/services/kms.html#KMS.Client.disable_key) in the AWS SDK for Python \(Boto 3\)\.
+
+```
+# Disable a CMK
+
+# Replace the following fictitious CMK ARN with a valid CMK ID or ARN
+key_id = 'arn:aws:kms:us-west-2:111122223333:key/1234abcd-12ab-34cd-56ef-1234567890ab'
+
+response = kms_client.disable_key(
+    KeyId=key_id
+)
 ```
 
 ------

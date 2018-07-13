@@ -12,6 +12,7 @@ The following topics discuss in detail how particular services use AWS KMS, incl
 + [Amazon EMR](services-emr.md)
 + [Amazon Redshift](services-redshift.md)
 + [Amazon Relational Database Service \(Amazon RDS\)](services-rds.md)
++ [AWS Secrets Manager](services-secrets-manager.md)
 + [Amazon Simple Email Service \(Amazon SES\)](services-ses.md)
 + [Amazon Simple Storage Service \(Amazon S3\)](services-s3.md)
 + [AWS Systems Manager Parameter Store](services-parameter-store.md)

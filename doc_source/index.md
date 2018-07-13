@@ -51,6 +51,7 @@ Amazon's trademarks and trade dress may not be used in
    + [How Amazon EMR Uses AWS KMS](services-emr.md)
    + [How Amazon Redshift Uses AWS KMS](services-redshift.md)
    + [How Amazon Relational Database Service (Amazon RDS) Uses AWS KMS](services-rds.md)
+   + [How AWS Secrets Manager Uses AWS KMS](services-secrets-manager.md)
    + [How Amazon Simple Email Service (Amazon SES) Uses AWS KMS](services-ses.md)
    + [How Amazon Simple Storage Service (Amazon S3) Uses AWS KMS](services-s3.md)
    + [How AWS Systems Manager Parameter Store Uses AWS KMS](services-parameter-store.md)
