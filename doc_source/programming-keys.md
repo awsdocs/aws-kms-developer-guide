@@ -63,6 +63,36 @@ response = kms_client.create_key(
 ```
 
 ------
+#### [ Ruby ]
+
+For details, see the [create\_key](http://docs.aws.amazon.com/sdk-for-ruby/v3/api/Aws/KMS/Client.html#create_key-instance_method) instance method in the [AWS SDK for Ruby](http://docs.aws.amazon.com/sdk-for-ruby/v3/api/Aws/KMS.html)\.
+
+```
+# Create a CMK
+
+desc = 'Key for protecting critical data'
+
+response = kmsClient.create_key({
+  description: desc
+})
+```
+
+------
+#### [ PHP ]
+
+For details, see the [CreateKey method](http://docs.aws.amazon.com/aws-sdk-php/v3/api/api-kms-2014-11-01.html#createkey) in the *AWS SDK for PHP *\.
+
+```
+// Create a CMK
+//
+$desc = "Key for protecting critical data";
+
+$result = $KmsClient->createKey([
+    'Description' => $desc
+]);
+```
+
+------
 
 ## Generating a Data Key<a name="generate-datakeys"></a>
 
@@ -137,6 +167,49 @@ encrypted_key = response['CiphertextBlob']
 ```
 
 ------
+#### [ Ruby ]
+
+For details, see the [generate\_data\_key](http://docs.aws.amazon.com/sdk-for-ruby/v3/api/Aws/KMS/Client.html#generate_data_key-instance_method) instance method in the [AWS SDK for Ruby](http://docs.aws.amazon.com/sdk-for-ruby/v3/api/Aws/KMS.html)\.
+
+```
+# Generate a data key
+
+# Replace the following fictitious CMK ARN with a valid CMK ID or ARN
+keyId = 'arn:aws:kms:us-west-2:111122223333:key/1234abcd-12ab-34cd-56ef-1234567890ab'
+
+response = kmsClient.generate_data_key({
+  key_id: keyId,
+  key_spec: 'AES_256'
+})
+
+plaintextKey = response.plaintext
+
+encryptedKey = response.ciphertext_blob
+```
+
+------
+#### [ PHP ]
+
+For details, see the [GenerateDataKey method](http://docs.aws.amazon.com/aws-sdk-php/v3/api/api-kms-2014-11-01.html#generatedatakey) in the *AWS SDK for PHP *\.
+
+```
+// Generate a data key
+//
+// Replace the following fictitious CMK ARN with a valid CMK ID or ARN
+$keyId = 'arn:aws:kms:us-west-2:111122223333:key/1234abcd-12ab-34cd-56ef-1234567890ab';
+$keySpec = 'AES_256';
+
+$result = $KmsClient->generateDataKey([
+    'KeyId' => $keyId, 
+    'KeySpec' => $keySpec,
+]);
+
+$plaintextKey = $result['Plaintext'];
+
+$encryptedKey = $result['CiphertextBlob'];
+```
+
+------
 
 ## Viewing a Custom Master Key<a name="describing-keys"></a>
 
@@ -197,6 +270,38 @@ response = kms_client.describe_key(
 ```
 
 ------
+#### [ Ruby ]
+
+For details, see the [describe\_key](http://docs.aws.amazon.com/sdk-for-ruby/v3/api/Aws/KMS/Client.html#describe_key-instance_method) instance method in the [AWS SDK for Ruby](http://docs.aws.amazon.com/sdk-for-ruby/v3/api/Aws/KMS.html)\.
+
+```
+# Describe a CMK
+
+# Replace the following fictitious CMK ARN with a valid CMK ID or ARN
+keyId = 'arn:aws:kms:us-west-2:111122223333:key/1234abcd-12ab-34cd-56ef-1234567890ab'
+
+response = kmsClient.describe_key({
+  key_id: keyId
+})
+```
+
+------
+#### [ PHP ]
+
+For details, see the [DescribeKey method](http://docs.aws.amazon.com/aws-sdk-php/v3/api/api-kms-2014-11-01.html#describekey) in the *AWS SDK for PHP *\.
+
+```
+// Describe a CMK
+//
+// Replace the following fictitious CMK ARN with a valid CMK ID or ARN
+$keyId = 'arn:aws:kms:us-west-2:111122223333:key/1234abcd-12ab-34cd-56ef-1234567890ab';
+
+$result = $KmsClient->describeKey([
+    'KeyId' => $keyId, 
+]);
+```
+
+------
 
 ## Getting Key IDs and Key ARNs of Customer Master Keys<a name="listing-keys"></a>
 
@@ -246,6 +351,34 @@ For details, see the [list\_keys method](http://boto3.readthedocs.org/en/latest/
 response = kms_client.list_keys(
     Limit=10
 )
+```
+
+------
+#### [ Ruby ]
+
+For details, see the [list\_keys](http://docs.aws.amazon.com/sdk-for-ruby/v3/api/Aws/KMS/Client.html#list_keys-instance_method) instance method in the [AWS SDK for Ruby](http://docs.aws.amazon.com/sdk-for-ruby/v3/api/Aws/KMS.html)\.
+
+```
+# List CMKS in this account
+
+response = kmsClient.list_keys({
+  limit: 10
+})
+```
+
+------
+#### [ PHP ]
+
+For details, see the [ListKeys method](http://docs.aws.amazon.com/aws-sdk-php/v3/api/api-kms-2014-11-01.html#listkeys) in the *AWS SDK for PHP *\.
+
+```
+// List CMKs in this account
+//
+$limit = 10;
+
+$result = $KmsClient->listKeys([
+    'Limit' => $limit,
+]);
 ```
 
 ------
@@ -306,6 +439,38 @@ response = kms_client.enable_key(
 ```
 
 ------
+#### [ Ruby ]
+
+For details, see the [enable\_key](http://docs.aws.amazon.com/sdk-for-ruby/v3/api/Aws/KMS/Client.html#enable_key-instance_method) instance method in the [AWS SDK for Ruby](http://docs.aws.amazon.com/sdk-for-ruby/v3/api/Aws/KMS.html)\.
+
+```
+# Enable a CMK
+
+# Replace the following fictitious CMK ARN with a valid CMK ID or ARN
+keyId = 'arn:aws:kms:us-west-2:111122223333:key/1234abcd-12ab-34cd-56ef-1234567890ab'
+
+response = kmsClient.enable_key({
+  key_id: keyId
+})
+```
+
+------
+#### [ PHP ]
+
+For details, see the [EnableKey method](http://docs.aws.amazon.com/aws-sdk-php/v3/api/api-kms-2014-11-01.html#enablekey) in the *AWS SDK for PHP *\.
+
+```
+// Enable a CMK
+//
+// Replace the following fictitious CMK ARN with a valid CMK ID or ARN
+$keyId = 'arn:aws:kms:us-west-2:111122223333:key/1234abcd-12ab-34cd-56ef-1234567890ab';
+
+$result = $KmsClient->enableKey([
+    'KeyId' => $keyId, 
+]);
+```
+
+------
 
 ## Disabling Customer Master Keys<a name="disable-keys"></a>
 
@@ -360,6 +525,38 @@ key_id = 'arn:aws:kms:us-west-2:111122223333:key/1234abcd-12ab-34cd-56ef-1234567
 response = kms_client.disable_key(
     KeyId=key_id
 )
+```
+
+------
+#### [ Ruby ]
+
+For details, see the [disable\_key](http://docs.aws.amazon.com/sdk-for-ruby/v3/api/Aws/KMS/Client.html#disable_key-instance_method) instance method in the [AWS SDK for Ruby](http://docs.aws.amazon.com/sdk-for-ruby/v3/api/Aws/KMS.html)\.
+
+```
+# Disable a CMK
+
+# Replace the following fictitious CMK ARN with a valid CMK ID or ARN
+keyId = 'arn:aws:kms:us-west-2:111122223333:key/1234abcd-12ab-34cd-56ef-1234567890ab'
+
+response = kmsClient.disable_key({
+  key_id: keyId
+})
+```
+
+------
+#### [ PHP ]
+
+For details, see the [DisableKey method](http://docs.aws.amazon.com/aws-sdk-php/v3/api/api-kms-2014-11-01.html#disablekey) in the *AWS SDK for PHP*\.
+
+```
+// Disable a CMK
+//
+// Replace the following fictitious CMK ARN with a valid CMK ID or ARN
+$keyId = 'arn:aws:kms:us-west-2:111122223333:key/1234abcd-12ab-34cd-56ef-1234567890ab';
+
+$result = $KmsClient->disableKey([
+    'KeyId' => $keyId, 
+]);
 ```
 
 ------

@@ -68,7 +68,7 @@ For details, see the [create\_grant method](http://boto3.readthedocs.org/en/late
 
 # Replace the following fictitious CMK ARN with a valid CMK ID or ARN
 key_id = 'arn:aws:kms:us-west-2:111122223333:key/1234abcd-12ab-34cd-56ef-1234567890ab'
-grantee_principal = "arn:aws:iam::111122223333:user/Alice"
+grantee_principal = 'arn:aws:iam::111122223333:user/Alice'
 operation = 'Encrypt'
 
 response = kms_client.create_grant(
@@ -76,6 +76,46 @@ response = kms_client.create_grant(
     GranteePrincipal=grantee_principal,
     Operations=operation
 )
+```
+
+------
+#### [ Ruby ]
+
+For details, see the [create\_grant](http://docs.aws.amazon.com/sdk-for-ruby/v3/api/Aws/KMS/Client.html#create_grant-instance_method) instance method in the [AWS SDK for Ruby](http://docs.aws.amazon.com/sdk-for-ruby/v3/api/Aws/KMS.html)\.
+
+```
+# Create a grant
+
+# Replace the following fictitious CMK ARN with a valid CMK ID or ARN
+keyId = 'arn:aws:kms:us-west-2:111122223333:key/1234abcd-12ab-34cd-56ef-1234567890ab'
+granteePrincipal = 'arn:aws:iam::111122223333:user/Alice'
+operation = ['Encrypt']
+
+response = kmsClient.create_grant({
+  key_id: keyId,
+  grantee_principal: granteePrincipal,
+  operations: operation
+})
+```
+
+------
+#### [ PHP ]
+
+For details, see the [CreateGrant method](http://docs.aws.amazon.com/aws-sdk-php/v3/api/api-kms-2014-11-01.html#creategrant) in the *AWS SDK for PHP *\.
+
+```
+// Create a grant
+//
+// Replace the following fictitious CMK ARN with a valid CMK ID or ARN
+$keyId = 'arn:aws:kms:us-west-2:111122223333:key/1234abcd-12ab-34cd-56ef-1234567890ab';
+$granteePrincipal = "arn:aws:iam::111122223333:user/Alice";
+$operation =  ['Encrypt', 'Decrypt']
+
+$result = $KmsClient->createGrant([
+    'GranteePrincipal' => $granteePrincipal,
+    'KeyId' => $keyId, 
+    'Operations' => $operation 
+]);
 ```
 
 ------
@@ -140,6 +180,41 @@ response = kms_client.list_grants(
 ```
 
 ------
+#### [ Ruby ]
+
+For details, see the [list\_grants](http://docs.aws.amazon.com/sdk-for-ruby/v3/api/Aws/KMS/Client.html#list_grants-instance_method) instance method in the [AWS SDK for Ruby](http://docs.aws.amazon.com/sdk-for-ruby/v3/api/Aws/KMS.html)\.
+
+```
+# Listing grants on a CMK
+
+# Replace the following fictitious CMK ARN with a valid CMK ID or ARN
+keyId = 'arn:aws:kms:us-west-2:111122223333:key/1234abcd-12ab-34cd-56ef-1234567890ab'
+
+response = kmsClient.list_grants({
+  key_id: keyId,
+  limit: 10
+})
+```
+
+------
+#### [ PHP ]
+
+For details, see the [ListGrants method](http://docs.aws.amazon.com/aws-sdk-php/v3/api/api-kms-2014-11-01.html#listgrants) in the *AWS SDK for PHP *\.
+
+```
+// Listing grants on a CMK
+//
+// Replace the following fictitious CMK ARN with a valid CMK ID or ARN
+$keyId = 'arn:aws:kms:us-west-2:111122223333:key/1234abcd-12ab-34cd-56ef-1234567890ab';
+$limit = 10;
+
+$result = $KmsClient->listGrants([
+    'KeyId' => $keyId, 
+    'Limit' => $limit,
+]);
+```
+
+------
 
 ## Retiring a Grant<a name="retire-grant"></a>
 
@@ -191,6 +266,36 @@ grant_token = Place your grant token here
 response = kms_client.retire_grant(
     GrantToken=grant_token
 )
+```
+
+------
+#### [ Ruby ]
+
+For details, see the [retire\_grant](http://docs.aws.amazon.com/sdk-for-ruby/v3/api/Aws/KMS/Client.html#retire_grant-instance_method) instance method in the [AWS SDK for Ruby](http://docs.aws.amazon.com/sdk-for-ruby/v3/api/Aws/KMS.html)\.
+
+```
+# Retire a grant
+
+grantToken = Place your grant token here
+
+response = kmsClient.retire_grant({
+  grant_token: grantToken
+})
+```
+
+------
+#### [ PHP ]
+
+For details, see the [RetireGrant method](http://docs.aws.amazon.com/aws-sdk-php/v3/api/api-kms-2014-11-01.html#retiregrant) in the *AWS SDK for PHP *\.
+
+```
+// Retire a grant
+//
+$grantToken = 'Place your grant token here';
+
+$result = $KmsClient->retireGrant([
+    'GrantToken' => $grantToken,
+]);
 ```
 
 ------
@@ -253,6 +358,42 @@ response = kms_client.revoke_grant(
     KeyId=key_id,
     GrantId=grant_id
 )
+```
+
+------
+#### [ Ruby ]
+
+For details, see the [revoke\_grant](http://docs.aws.amazon.com/sdk-for-ruby/v3/api/Aws/KMS/Client.html#revoke_grant-instance_method) instance method in the [AWS SDK for Ruby](http://docs.aws.amazon.com/sdk-for-ruby/v3/api/Aws/KMS.html)\.
+
+```
+# Revoke a grant on a CMK
+
+# Replace the following fictitious CMK ARN with a valid CMK ID or ARN
+keyId = 'arn:aws:kms:us-west-2:111122223333:key/1234abcd-12ab-34cd-56ef-1234567890ab'
+grantId = 'grant1'
+
+response = kmsClient.revoke_grant({
+  key_id: keyId,
+  grant_id: grantId
+})
+```
+
+------
+#### [ PHP ]
+
+For details, see the [RevokeGrant method](http://docs.aws.amazon.com/aws-sdk-php/v3/api/api-kms-2014-11-01.html#revokegrant) in the *AWS SDK for PHP *\.
+
+```
+// Revoke a grant on a CMK
+//
+// Replace the following fictitious CMK ARN with a valid CMK ID or ARN
+$keyId = 'arn:aws:kms:us-west-2:111122223333:key/1234abcd-12ab-34cd-56ef-1234567890ab';
+$grantId = "grant1";
+
+$result = $KmsClient->revokeGrant([
+    'KeyId' => $keyId, 
+    'GrantId' => $grantId,
+]);
 ```
 
 ------

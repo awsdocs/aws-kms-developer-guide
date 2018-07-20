@@ -96,6 +96,43 @@ response = kms_client.create_alias(
 ```
 
 ------
+#### [ Ruby ]
+
+For details, see the [create\_alias](http://docs.aws.amazon.com/sdk-for-ruby/v3/api/Aws/KMS/Client.html#create_alias-instance_method) instance method in the [AWS SDK for Ruby](http://docs.aws.amazon.com/sdk-for-ruby/v3/api/Aws/KMS.html)\.
+
+```
+# Create an alias for a CMK
+
+aliasName = 'alias/projectKey1'
+# Replace the following fictitious CMK ARN with a valid CMK ID or ARN
+targetKeyId = 'arn:aws:kms:us-west-2:111122223333:key/1234abcd-12ab-34cd-56ef-1234567890ab'
+
+response = kmsClient.create_alias({
+  alias_name: aliasName,
+  target_key_id: targetKeyId
+})
+```
+
+------
+#### [ PHP ]
+
+For details, see the [CreateAlias method](http://docs.aws.amazon.com/aws-sdk-php/latest/api-kms-2014-11-01.html#createalias) in the *AWS SDK for \.NET*\.
+
+```
+// Create an alias for a CMK
+//
+$aliasName = "alias/projectKey1";
+// Replace the following fictitious CMK ARN with a valid CMK ID or ARN
+$keyId = 'arn:aws:kms:us-west-2:111122223333:key/1234abcd-12ab-34cd-56ef-1234567890ab';
+
+
+$result = $KmsClient->createAlias([
+    'AliasName' => $aliasName, 
+    'TargetKeyId' =>  $keyId, 
+]);
+```
+
+------
 
 ## Listing Aliases<a name="list-aliases"></a>
 
@@ -148,6 +185,34 @@ response = kms_client.list_aliases(
 ```
 
 ------
+#### [ Ruby ]
+
+For details, see the [list\_aliases](http://docs.aws.amazon.com/sdk-for-ruby/v3/api/Aws/KMS/Client.html#list_aliases-instance_method) instance method in the [AWS SDK for Ruby](http://docs.aws.amazon.com/sdk-for-ruby/v3/api/Aws/KMS.html)\.
+
+```
+# List the aliases in this AWS account
+
+response = kmsClient.list_aliases({
+  limit: 10
+})
+```
+
+------
+#### [ PHP ]
+
+For details, see the [List Aliases method](http://docs.aws.amazon.com/aws-sdk-php/latest/api-kms-2014-11-01.html#listaliases) in the *AWS SDK for PHP*\.
+
+```
+// List the aliases in this AWS account
+//
+$limit = 10;
+
+$result = $KmsClient->listAliases([
+    'Limit' => $limit,
+]);
+```
+
+------
 
 ## Updating an Alias<a name="update-alias"></a>
 
@@ -177,7 +242,7 @@ kmsClient.updateAlias(req);
 ------
 #### [ C\# ]
 
-For details, see the [EnableKey method](http://docs.aws.amazon.com/sdkfornet/v3/apidocs/items/KeyManagementService/MKeyManagementServiceUpdateAliasUpdateAliasRequest.html) in the *AWS SDK for \.NET*\.
+For details, see the [UpdateAlias method](http://docs.aws.amazon.com/sdkfornet/v3/apidocs/items/KeyManagementService/MKeyManagementServiceUpdateAliasUpdateAliasRequest.html) in the *AWS SDK for \.NET*\.
 
 ```
 // Updating an alias
@@ -198,7 +263,7 @@ kmsClient.UpdateAlias(updateAliasRequest);
 ------
 #### [ Python ]
 
-For details, see the [update\_aliases method](http://boto3.readthedocs.org/en/latest/reference/services/kms.html#KMS.Client.update_aliases) in the AWS SDK for Python \(Boto 3\)\.
+For details, see the [update\_alias method](http://boto3.readthedocs.org/en/latest/reference/services/kms.html#KMS.Client.update_alias) in the AWS SDK for Python \(Boto 3\)\.
 
 ```
 # Updating an alias
@@ -211,6 +276,43 @@ response = kms_client.update_alias(
     AliasName=alias_name,
     TargetKeyID=key_id
 )
+```
+
+------
+#### [ Ruby ]
+
+For details, see the [update\_alias](http://docs.aws.amazon.com/sdk-for-ruby/v3/api/Aws/KMS/Client.html#update_alias-instance_method) instance method in the [AWS SDK for Ruby](http://docs.aws.amazon.com/sdk-for-ruby/v3/api/Aws/KMS.html)\.
+
+```
+# Updating an alias
+
+aliasName = 'alias/projectKey1'
+# Replace the following fictitious CMK ARN with a valid CMK ID or ARN
+keyId = 'arn:aws:kms:us-west-2:111122223333:key/1234abcd-12ab-34cd-56ef-1234567890ab'
+
+response = kmsClient.update_alias({
+  alias_name: aliasName,
+  target_key_id: keyId
+})
+```
+
+------
+#### [ PHP ]
+
+For details, see the [UpdateAlias method](http://docs.aws.amazon.com/aws-sdk-php/latest/api-kms-2014-11-01.html#updatealias) in the *AWS SDK for \.NET*\.
+
+```
+// Updating an alias
+//
+$aliasName = "alias/projectKey1";
+
+// Replace the following fictitious CMK ARN with a valid CMK ID or ARN
+$keyId = 'arn:aws:kms:us-west-2:111122223333:key/1234abcd-12ab-34cd-56ef-1234567890ab';
+
+$result = $KmsClient->updateAlias([
+    'AliasName' => $aliasName, 
+    'TargetKeyId' =>  $keyId, 
+]);
 ```
 
 ------
@@ -265,6 +367,36 @@ alias_name = 'alias/projectKey1'
 response = kms_client.delete_alias(
     AliasName=alias_name
 )
+```
+
+------
+#### [ Ruby ]
+
+For details, see the [delete\_alias](http://docs.aws.amazon.com/sdk-for-ruby/v3/api/Aws/KMS/Client.html#delete_alias-instance_method) instance method in the [AWS SDK for Ruby](http://docs.aws.amazon.com/sdk-for-ruby/v3/api/Aws/KMS.html)\.
+
+```
+# Delete an alias for a CMK
+
+aliasName = 'alias/projectKey1'
+
+response = kmsClient.delete_alias({
+  alias_name: aliasName
+})
+```
+
+------
+#### [ PHP ]
+
+For details, see the [DeleteAlias method](http://docs.aws.amazon.com/aws-sdk-php/latest/api-kms-2014-11-01.html#deletealias) in the *AWS SDK for \.NET*\.
+
+```
+// Delete an alias for a CMK
+//
+$aliasName = "alias/projectKey1";
+
+$result = $KmsClient->deleteAlias([
+    'AliasName' => $aliasName, 
+]);
 ```
 
 ------

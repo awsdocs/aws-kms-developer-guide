@@ -63,6 +63,40 @@ response = kms_client.list_key_policies(
 ```
 
 ------
+#### [ Ruby ]
+
+For details, see the [list\_key\_policies](http://docs.aws.amazon.com/sdk-for-ruby/v3/api/Aws/KMS/Client.html#list_key_policies-instance_method) instance method in the [AWS SDK for Ruby](http://docs.aws.amazon.com/sdk-for-ruby/v3/api/Aws/KMS.html)\.
+
+```
+# List key policies
+
+# Replace the following fictitious CMK ARN with a valid CMK ID or ARN
+keyId = 'arn:aws:kms:us-west-2:111122223333:key/1234abcd-12ab-34cd-56ef-1234567890ab'
+
+response = kmsClient.list_key_policies({
+  key_id: keyId
+})
+```
+
+------
+#### [ PHP ]
+
+For details, see the [ListKeyPolicies method](http://docs.aws.amazon.com/aws-sdk-php/v3/api/api-kms-2014-11-01.html#listkeypolicies) in the *AWS SDK for PHP *\.
+
+```
+// List key policies
+//
+// Replace the following fictitious CMK ARN with a valid CMK ID or ARN
+$keyId = 'arn:aws:kms:us-west-2:111122223333:key/1234abcd-12ab-34cd-56ef-1234567890ab';
+$limit = 10;
+
+$result = $KmsClient->listKeyPolicies([
+    'KeyId' => $keyId, 
+    'Limit' => $limit,
+]);
+```
+
+------
 
 ## Getting a Key Policy<a name="get-policy"></a>
 
@@ -127,6 +161,42 @@ response = kms_client.get_key_policy(
 ```
 
 ------
+#### [ Ruby ]
+
+For details, see the [get\_key\_policy](http://docs.aws.amazon.com/sdk-for-ruby/v3/api/Aws/KMS/Client.html#get_key_policy-instance_method) instance method in the [AWS SDK for Ruby](http://docs.aws.amazon.com/sdk-for-ruby/v3/api/Aws/KMS.html)\.
+
+```
+# Get the policy for a CMK
+
+# Replace the following fictitious CMK ARN with a valid CMK ID or ARN
+keyId = 'arn:aws:kms:us-west-2:111122223333:key/1234abcd-12ab-34cd-56ef-1234567890ab'
+policyName = 'default'
+
+response = kmsClient.get_key_policy({
+  key_id: keyId,
+  policy_name: policyName
+})
+```
+
+------
+#### [ PHP ]
+
+For details, see the [GetKeyPolicy method](http://docs.aws.amazon.com/aws-sdk-php/v3/api/api-kms-2014-11-01.html#getkeypolicy) in the *AWS SDK for PHP *\.
+
+```
+// Get the policy for a CMK
+//
+// Replace the following fictitious CMK ARN with a valid CMK ID or ARN
+$keyId = 'arn:aws:kms:us-west-2:111122223333:key/1234abcd-12ab-34cd-56ef-1234567890ab';
+$policyName = "default";
+
+$result = $KmsClient->getKeyPolicy([
+    'KeyId' => $keyId, 
+    'PolicyName' => $policyName
+]);
+```
+
+------
 
 ## Setting a Key Policy<a name="put-policy"></a>
 
@@ -144,7 +214,6 @@ For details, see the [putKeyPolicy method](http://docs.aws.amazon.com/AWSJavaSDK
 ```
 // Set a key policy for a CMK
 //
-
 // Replace the following fictitious CMK ARN with a valid CMK ID or ARN
 String keyId = "arn:aws:kms:us-west-2:111122223333:key/1234abcd-12ab-34cd-56ef-1234567890ab";
 String policyName = "default";
@@ -178,7 +247,6 @@ For details, see the [PutKeyPolicy method](http://docs.aws.amazon.com/sdkfornet/
 ```
 // Set a key policy for a CMK
 //
-
 // Replace the following fictitious CMK ARN with a valid CMK ID or ARN
 String keyId = "arn:aws:kms:us-west-2:111122223333:key/1234abcd-12ab-34cd-56ef-1234567890ab";
 String policyName = "default";
@@ -243,6 +311,83 @@ response = kms_client.put_key_policy(
     Policy=policy,
     PolicyName=policy_name
 )
+```
+
+------
+#### [ Ruby ]
+
+For details, see the [put\_key\_policy](http://docs.aws.amazon.com/sdk-for-ruby/v3/api/Aws/KMS/Client.html#put_key_policy-instance_method) instance method in the [AWS SDK for Ruby](http://docs.aws.amazon.com/sdk-for-ruby/v3/api/Aws/KMS.html)\.
+
+```
+# Set a key policy for a CMK
+
+# Replace the following fictitious CMK ARN with a valid CMK ID or ARN
+keyId = 'arn:aws:kms:us-west-2:111122223333:key/1234abcd-12ab-34cd-56ef-1234567890ab'
+policyName = 'default'
+policy = "{\n
+\n    "Version": "2012-10-17",
+\n    "Statement": [{
+\n        "Sid": "Allow access for ExampleUser",
+\n        "Effect": "Allow",
+\n        "Principal": {"AWS": "arn:aws:iam::111122223333:user/ExampleUser"},
+\n        "Action": [
+\n            "kms:Encrypt",
+\n            "kms:GenerateDataKey*",
+\n            "kms:Decrypt",
+\n            "kms:DescribeKey",
+\n            "kms:ReEncrypt*"
+\n        ],
+\n        "Resource": "*"
+\n    }]
+\n}\n"
+
+response = kmsClient.put_key_policy({
+  key_id: keyId,
+  policy: policy,
+  policy_name: policyName
+})
+```
+
+------
+#### [ PHP ]
+
+For details, see the [PutKeyPolicy method](http://docs.aws.amazon.com/aws-sdk-php/v3/api/api-kms-2014-11-01.html#putkeypolicy) in the *AWS SDK for PHP*\.
+
+```
+// Set a key policy for a CMK
+//
+// Replace the following fictitious CMK ARN with a valid CMK ID or ARN
+$keyId = 'arn:aws:kms:us-west-2:111122223333:key/1234abcd-12ab-34cd-56ef-1234567890ab';
+$policyName = "default";
+
+$result = $KmsClient->putKeyPolicy([
+    'KeyId' => $keyId, 
+    'PolicyName' => $policyName, 
+    'Policy' => '{ 
+        "Version": "2012-10-17", 
+        "Id": "custom-policy-2016-12-07", 
+        "Statement": [ 
+            { "Sid": "Enable IAM User Permissions", 
+            "Effect": "Allow", 
+            "Principal": 
+               { "AWS": "arn:aws:iam::111122223333:user/root" }, 
+            "Action": [ "kms:*" ], 
+            "Resource": "*" }, 
+            { "Sid": "Enable IAM User Permissions", 
+            "Effect": "Allow", 
+            "Principal":
+               { "AWS": "arn:aws:iam::111122223333:user/ExampleUser" }, 
+            "Action": [
+                "kms:Encrypt*",
+                "kms:GenerateDataKey*",
+                "kms:Decrypt*",
+                "kms:DescribeKey*",
+                "kms:ReEncrypt*"
+            ], 
+            "Resource": "*" }
+        ]
+    } ' 
+]);
 ```
 
 ------

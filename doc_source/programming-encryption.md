@@ -75,6 +75,46 @@ ciphertext = response['CiphertextBlob']
 ```
 
 ------
+#### [ Ruby ]
+
+For details, see the [encrypt](http://docs.aws.amazon.com/sdk-for-ruby/v3/api/Aws/KMS/Client.html#encrypt-instance_method) instance method in the [AWS SDK for Ruby](http://docs.aws.amazon.com/sdk-for-ruby/v3/api/Aws/KMS.html)\.
+
+```
+# Encrypt a data key
+
+# Replace the following fictitious CMK ARN with a valid CMK ID or ARN
+keyId = 'arn:aws:kms:us-west-2:111122223333:key/1234abcd-12ab-34cd-56ef-1234567890ab'
+plaintext = "\x01\x02\x03\x04\x05\x06\x07\x08\x09\x00"
+
+response = kmsClient.encrypt({
+  key_id: keyId,
+  plaintext: plaintext
+})
+
+ciphertext = response.ciphertext_blob
+```
+
+------
+#### [ PHP ]
+
+For details, see the [Encrypt method](http://docs.aws.amazon.com/aws-sdk-php/v3/api/api-kms-2014-11-01.html#encrypt) in the *AWS SDK for PHP *\.
+
+```
+// Encrypt a data key
+//
+// Replace the following fictitious CMK ARN with a valid CMK ID or ARN
+$keyId = 'arn:aws:kms:us-west-2:111122223333:key/1234abcd-12ab-34cd-56ef-1234567890ab';
+$message = pack('c*',1,2,3,4,5,6,7,8,9,0);
+
+$result = $KmsClient->encrypt([
+    'KeyId' => $keyId, 
+    'Plaintext' => $message, 
+]);
+
+$ciphertext = $result['CiphertextBlob'];
+```
+
+------
 
 ## Decrypting a Data Key<a name="decryption"></a>
 
@@ -126,13 +166,48 @@ For details, see the [decrypt method](http://boto3.readthedocs.org/en/latest/ref
 ```
 # Decrypt a data key
 
-ciphertext = Place your ciphertext here
+ciphertext = 'Place your ciphertext here'
 
 response = kms_client.decrypt(
     CiphertextBlob=ciphertext
 )
 
 plaintext = response['Plaintext']
+```
+
+------
+#### [ Ruby ]
+
+For details, see the [decrypt](http://docs.aws.amazon.com/sdk-for-ruby/v3/api/Aws/KMS/Client.html#decrypt-instance_method) instance method in the [AWS SDK for Ruby](http://docs.aws.amazon.com/sdk-for-ruby/v3/api/Aws/KMS.html)\.
+
+```
+# Decrypt a data key
+
+ciphertext = 'Place your ciphertext here'
+ciphertext_packed = [ciphertext].pack("H*")
+
+response = kmsClient.decrypt({
+  ciphertext_blob: ciphertext_packed
+})
+
+plaintext = response.plaintext
+```
+
+------
+#### [ PHP ]
+
+For details, see the [Decrypt method](http://docs.aws.amazon.com/aws-sdk-php/v3/api/api-kms-2014-11-01.html#decrypt) in the *AWS SDK for PHP *\.
+
+```
+// Decrypt a data key
+//
+$ciphertext = 'Place your cipher text blob here';
+
+$result = $KmsClient->decrypt([
+     'CiphertextBlob' => $ciphertext
+]);
+
+$plaintext = $result['Plaintext'];
 ```
 
 ------
@@ -194,7 +269,7 @@ For details, see the [re\_encrypt method](http://boto3.readthedocs.org/en/latest
 ```
 # Re-encrypt a data key
 
-ciphertext = Place your ciphertext here
+ciphertext = 'Place your ciphertext here'
 
 # Replace the following fictitious CMK ARN with a valid CMK ID or ARN
 key_id = 'arn:aws:kms:us-west-2:111122223333:key/1234abcd-12ab-34cd-56ef-1234567890ab'
@@ -205,6 +280,47 @@ response = kms_client.re_encrypt(
 )
 
 destination_ciphertext_blob = response['CiphertextBlob']
+```
+
+------
+#### [ Ruby ]
+
+For details, see the [re\_encrypt](http://docs.aws.amazon.com/sdk-for-ruby/v3/api/Aws/KMS/Client.html#re_encrypt-instance_method) instance method in the [AWS SDK for Ruby](http://docs.aws.amazon.com/sdk-for-ruby/v3/api/Aws/KMS.html)\.
+
+```
+# Re-encrypt a data key
+
+ciphertext = 'Place your ciphertext here'
+ciphertext_packed = [ciphertext].pack("H*")
+
+# Replace the following fictitious CMK ARN with a valid CMK ID or ARN
+keyId = 'arn:aws:kms:us-west-2:111122223333:key/1234abcd-12ab-34cd-56ef-1234567890ab'
+
+response = kmsClient.re_encrypt({
+  ciphertext_blob: ciphertext_packed,
+  destination_key_id: keyId
+})
+
+destination_ciphertext_blob = response.ciphertext_blob.unpack('H*')
+```
+
+------
+#### [ PHP ]
+
+For details, see the [ReEncrypt method](http://docs.aws.amazon.com/aws-sdk-php/v3/api/api-kms-2014-11-01.html#reencrypt) in the *AWS SDK for PHP *\.
+
+```
+// Re-encrypt a data key
+
+$ciphertextBlob = 'Place your ciphertext here';
+
+// Replace the following fictitious CMK ARN with a valid CMK ID or ARN
+$keyId = 'arn:aws:kms:us-west-2:111122223333:key/1234abcd-12ab-34cd-56ef-1234567890ab';
+
+$result = $KmsClient->reEncrypt([
+    'CiphertextBlob' => $ciphertextBlob,
+    'DestinationKeyId' => $keyId, 
+]);
 ```
 
 ------
