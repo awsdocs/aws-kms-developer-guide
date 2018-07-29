@@ -4,7 +4,7 @@ The examples in this topic use the AWS KMS API to create, view, update, and dele
 
 An *alias* is an optional display name for a [customer master key \(CMK\)](concepts.md#master_keys)\. 
 
-Each CMK can have multiple aliases, but each alias points to only one CMK\. The alias name must be unique in the AWS account and region\. To simplify code that runs in multiple regions, you can use the same alias name, but point it to a different CMK in each region\. 
+Each CMK can have multiple aliases, but each alias points to only one CMK\. The alias name must be unique in the AWS account and region\. To simplify code that runs in multiple regions, you can use the same alias name but point it to a different CMK in each region\. 
 
 You can use AWS KMS API operations to list, create, and delete aliases\. You can also update an alias, which associates an existing alias with a different CMK\. There is no operation to edit or change an alias name\. If you create an alias for a CMK that already has an alias, the operation creates another alias for the same CMK\. To change an alias name, delete the current alias and then create a new alias for the CMK\.
 
@@ -19,12 +19,12 @@ You can use an alias as the value of the `KeyId` parameter only in the following
 
 Aliases are created in an AWS account and are known only to the account in which you create them\. You cannot use an alias name or alias ARN to identify a CMK in a different AWS account\.
 
-To specify an alias, use the alias name or alias ARN, as shown in the following example\. In either case, be sure to prepend "alias/" to the alias name\.
+To specify an alias, use the alias name or alias ARN, as shown in the following example\. In either case, be sure to prepend `"alias/"` to the alias name\.
 
 ```
-// Alias name (prefixed with "alias/")
-alias/ExampleAlias
-    
+// Fully specified ARN
+arn:aws:kms:us-west-2:111122223333:alias/ExampleAlias
+
 // Fully specified ARN
 arn:aws:kms:us-west-2:111122223333:alias/ExampleAlias
 ```
@@ -37,7 +37,7 @@ arn:aws:kms:us-west-2:111122223333:alias/ExampleAlias
 
 ## Creating an Alias<a name="create-alias"></a>
 
-To create an alias, use the [CreateAlias](http://docs.aws.amazon.com/kms/latest/APIReference/API_CreateAlias.html) operation\. The alias must be unique in the account and region\. If you create an alias for a CMK that already has an alias, CreateAlias creates another alias to the same CMK\. It does not replace the existing alias\.
+To create an alias, use the [CreateAlias](http://docs.aws.amazon.com/kms/latest/APIReference/API_CreateAlias.html) operation\. The alias must be unique in the account and region\. If you create an alias for a CMK that already has an alias, `CreateAlias` creates another alias to the same CMK\. It does not replace the existing alias\.
 
 This example uses the KMS client object that you created in [Creating a Client](programming-client.md)\.
 
@@ -136,7 +136,9 @@ $result = $KmsClient->createAlias([
 
 ## Listing Aliases<a name="list-aliases"></a>
 
-To list all aliases, use the [ListAliases](http://docs.aws.amazon.com/kms/latest/APIReference/API_ListAliases.html) operation\. The response includes aliases that are defined by AWS services, but are not associated with a CMK\.
+To list aliases in the account and region, use the [ListAliases](http://docs.aws.amazon.com/kms/latest/APIReference/API_ListAliases.html) operation\.
+
+By default, the ListAliases command returns all aliases in the account and region\. This includes aliases that you created and associated with your [customer\-managed CMKs](concepts.md#master_keys), and aliases that AWS created and associated with your [AWS managed CMKs](concepts.md#master_keys)\. The response might also include aliases that have no `TargetKeyId` field\. These are predefined aliases that AWS has created but has not yet associated with a CMK\.
 
 This example uses the KMS client object that you created in [Creating a Client](programming-client.md)\.
 
@@ -157,7 +159,7 @@ ListAliasesResult result = kmsClient.listAliases(req);
 ------
 #### [ C\# ]
 
-For details, see the [listAliases method](http://docs.aws.amazon.com/sdkfornet/v3/apidocs/items/KeyManagementService/MKeyManagementServiceListAliasesListAliasesRequest.html) in the *AWS SDK for \.NET*\.
+For details, see the [ListAliases method](http://docs.aws.amazon.com/sdkfornet/v3/apidocs/items/KeyManagementService/MKeyManagementServiceListAliasesListAliasesRequest.html) in the *AWS SDK for \.NET*\.
 
 ```
 // List the aliases in this AWS account
@@ -209,6 +211,91 @@ $limit = 10;
 
 $result = $KmsClient->listAliases([
     'Limit' => $limit,
+]);
+```
+
+------
+
+To list only the aliases that are associated with a particular CMK, use the `KeyId` parameter\. Its value can be the ID or Amazon Resource Name \(ARN\) of any CMK in the region\. You cannot specify an alias name or alias ARN\.
+
+------
+#### [ Java ]
+
+For details about the Java implementation, see the [listAliases method](http://docs.aws.amazon.com/AWSJavaSDK/latest/javadoc/com/amazonaws/services/kms/AWSKMSClient.html#listAliases-com.amazonaws.services.kms.model.ListAliasesRequest-) in the *AWS SDK for Java API Reference*\.
+
+```
+// List the aliases for one CMK
+//
+// Replace the following fictitious CMK ARN with a valid CMK ID or ARN
+String keyId = "arn:aws:kms:us-west-2:111122223333:key/1234abcd-12ab-34cd-56ef-1234567890ab";
+
+ListAliasesRequest req = new ListAliasesRequest().withKeyId(keyId);
+ListAliasesResult result = kmsClient.listAliases(req);
+```
+
+------
+#### [ C\# ]
+
+For details, see the [ListAliases method](http://docs.aws.amazon.com/sdkfornet/v3/apidocs/items/KeyManagementService/MKeyManagementServiceListAliasesListAliasesRequest.html) in the *AWS SDK for \.NET*\.
+
+```
+// List the aliases for one CMK
+//
+// Replace the following fictitious CMK ARN with a valid CMK ID or ARN
+String keyId = "arn:aws:kms:us-west-2:111122223333:key/1234abcd-12ab-34cd-56ef-1234567890ab";
+
+ListAliasesRequest listAliasesRequest = new ListAliasesRequest()
+{
+    KeyId = keyId
+};
+ListAliasesResponse listAliasesResponse = kmsClient.ListAliases(listAliasesRequest);
+```
+
+------
+#### [ Python ]
+
+For details, see the [list\_aliases method](http://boto3.readthedocs.org/en/latest/reference/services/kms.html#KMS.Client.list_aliases) in the AWS SDK for Python \(Boto 3\)\.
+
+```
+# List the aliases for one CMK
+
+# Replace the following fictitious CMK ARN with a valid CMK ID or ARN
+key_id = 'arn:aws:kms:us-west-2:111122223333:key/1234abcd-12ab-34cd-56ef-1234567890ab'
+
+response = kms_client.list_aliases(
+    KeyId=key_id
+)
+```
+
+------
+#### [ Ruby ]
+
+For details, see the [list\_aliases](http://docs.aws.amazon.com/sdk-for-ruby/v3/api/Aws/KMS/Client.html#list_aliases-instance_method) instance method in the [AWS SDK for Ruby](http://docs.aws.amazon.com/sdk-for-ruby/v3/api/Aws/KMS.html)\.
+
+```
+# List the aliases for one CMK
+
+# Replace the following fictitious CMK ARN with a valid CMK ID or ARN
+keyId = 'arn:aws:kms:us-west-2:111122223333:key/1234abcd-12ab-34cd-56ef-1234567890ab'
+
+response = kmsClient.list_aliases({
+  key_id: keyId
+})
+```
+
+------
+#### [ PHP ]
+
+For details, see the [List Aliases method](http://docs.aws.amazon.com/aws-sdk-php/latest/api-kms-2014-11-01.html#listaliases) in the *AWS SDK for PHP*\.
+
+```
+// List the aliases for one CMK
+//
+// Replace the following fictitious CMK ARN with a valid CMK ID or ARN
+$keyId = 'arn:aws:kms:us-west-2:111122223333:key/1234abcd-12ab-34cd-56ef-1234567890ab';
+
+$result = $KmsClient->listAliases([
+    'KeyId' => $keyId,
 ]);
 ```
 

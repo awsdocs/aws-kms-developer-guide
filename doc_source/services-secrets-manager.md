@@ -62,7 +62,7 @@ To encrypt the secret value in a secret, Secrets Manager uses the following proc
 
 To decrypt an encrypted secret value, Secrets Manager must first decrypt the encrypted data key\. Because the data key is encrypted under the CMK for the secret in AWS KMS, Secrets Manager must make a request to AWS KMS\.
 
-To decrypt a encrypted secret value:
+To decrypt an encrypted secret value:
 
 1.  Secrets Manager calls the AWS KMS [Decrypt](http://docs.aws.amazon.com/kms/latest/APIReference/API_Decrypt.html) operation and passes in the encrypted data key\.
 

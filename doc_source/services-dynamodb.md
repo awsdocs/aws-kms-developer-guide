@@ -193,7 +193,7 @@ The event that records the `GenerateDataKey` operation is similar to the followi
 ```
 
 **Decrypt**  
-When you access an encrypted DynamoDB table, DynamoDB needs to decrypt the table key so that it can decrypt the keys below it in the hierarchy\. It then decrypts the data in the table\. To decrypt the table key\. DynamoDB sends a [Decrypt](http://docs.aws.amazon.com/kms/latest/APIReference//API_Decrypt.html) request to AWS KMS that specifies the `aws/dynamodb` service default key in your account\.  
+When you access an encrypted DynamoDB table, DynamoDB needs to decrypt the table key so that it can decrypt the keys below it in the hierarchy\. It then decrypts the data in the table\. To decrypt the table key\. DynamoDB sends a [Decrypt](http://docs.aws.amazon.com/kms/latest/APIReference/API_Decrypt.html) request to AWS KMS that specifies the `aws/dynamodb` service default key in your account\.  
 The event that records the `Decrypt` operation is similar to the following example event\. The user is the principal in your AWS account who is accessing the table\. The parameters include the encrypted table key \(as a ciphertext blob\) and the [encryption context](#dynamodb-encryption-context) that identifies the table and the AWS account\. AWS KMS derives the ID of the service default key from the ciphertext\.   
 
 ```

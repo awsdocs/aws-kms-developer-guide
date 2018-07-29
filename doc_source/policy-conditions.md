@@ -496,7 +496,7 @@ You can use this condition key to control access to the [ReEncrypt](http://docs.
 | --- | --- | --- | --- | 
 |  `kms:RetiringPrincipal`  |  String  |  `CreateGrant`  |  IAM and key policies  | 
 
-You can use this condition key to control access to the [CreateGrant](http://docs.aws.amazon.com/kms/latest/APIReference/API_CreateGrant.html) operation based on the value of the [RetiringPrincipal](http://docs.aws.amazon.com/kms/latest/APIReference/         API_CreateGrant.html#KMS-CreateGrant-request-RetiringPrincipal) parameter in the request\. For example, you can allow a user to create grants to use a CMK only when the `RetiringPrincipal` in the `CreateGrant` request matches the `RetiringPrincipal` in the condition statement\.
+You can use this condition key to control access to the [CreateGrant](http://docs.aws.amazon.com/kms/latest/APIReference/API_CreateGrant.html) operation based on the value of the [RetiringPrincipal](http://docs.aws.amazon.com/kms/latest/APIReference/API_CreateGrant.html#KMS-CreateGrant-request-RetiringPrincipal) parameter in the request\. For example, you can allow a user to create grants to use a CMK only when the `RetiringPrincipal` in the `CreateGrant` request matches the `RetiringPrincipal` in the condition statement\.
 
 The following example policy statement uses the `kms:RetiringPrincipal` condition key to allow a user to create grants for a CMK only when the retiring principal in the grant is either the LimitedAdminRole or the OpsAdmin user\.
 
@@ -534,7 +534,7 @@ The following example policy statement uses the `kms:RetiringPrincipal` conditio
 
 The `kms:ValidTo` condition key controls access to the [ImportKeyMaterial](http://docs.aws.amazon.com/kms/latest/APIReference/API_ImportKeyMaterial.html) operation based on the value of the [ValidTo](http://docs.aws.amazon.com/kms/latest/APIReference/API_ImportKeyMaterial.html#KMS-ImportKeyMaterial-request-ValidTo) parameter in the request, which determines when the imported key material expires\. The value is expressed in [Unix time](https://en.wikipedia.org/wiki/Unix_time)\.
 
-By default, the `ValidTo` parameter is required in an `ImportKeyMaterial` request\. However, if the value of the [ExpirationModel](http://docs.aws.amazon.com/kms/latest/APIReference/API_ImportKeyMaterial.html#KMS-ImportKeyMaterial-request-         ) parameter is `KEY_MATERIAL_DOES_NOT_EXPIRE`, the `ValidTo` parameter is invalid\. You can also use the [kms:ExpirationModel](#conditions-kms-expiration-model) condition key to require the `ExpirationModel` parameter or a specific parameter value\.
+By default, the `ValidTo` parameter is required in an `ImportKeyMaterial` request\. However, if the value of the [ExpirationModel](http://docs.aws.amazon.com/kms/latest/APIReference/API_ImportKeyMaterial.html#KMS-ImportKeyMaterial-request-ExpirationModel) parameter is `KEY_MATERIAL_DOES_NOT_EXPIRE`, the `ValidTo` parameter is invalid\. You can also use the [kms:ExpirationModel](#conditions-kms-expiration-model) condition key to require the `ExpirationModel` parameter or a specific parameter value\.
 
 The following example policy statement uses the `kms:ValidTo` condition key to allow a user to import key material into a CMK only when the `ValidTo` value is less than or equal to `1546257599.0` \(December 31, 2018 11:59:59 PM\)\. 
 

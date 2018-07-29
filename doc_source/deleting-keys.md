@@ -41,7 +41,7 @@ Scheduling a CMK for deletion makes it unusable, but it does not prevent the AWS
 
 For example, consider this scenario:
 
-1. You create an encrypted EBS volume and specify a CMK\. Amazon EBS asks AWS KMS to use your CMK to [generate a encrypted data key](http://docs.aws.amazon.com/kms/latest/APIReference//API_GenerateDataKeyWithoutPlaintext.html) for the volume\. Amazon EBS stores the encrypted data key with the volume\.
+1. You create an encrypted EBS volume and specify a CMK\. Amazon EBS asks AWS KMS to use your CMK to [generate an encrypted data key](http://docs.aws.amazon.com/kms/latest/APIReference/API_GenerateDataKeyWithoutPlaintext.html) for the volume\. Amazon EBS stores the encrypted data key with the volume\.
 
 1. When you attach the EBS volume to an EC2 instance, Amazon EC2 asks AWS KMS to use your CMK to decrypt the EBS volume's encrypted data key\. Amazon EC2 stores the plaintext data key in hypervisor memory and uses it to encrypt disk I/O to the EBS volume\. The data key persists in memory as long as the EBS volume is attached to the EC2 instance\.
 

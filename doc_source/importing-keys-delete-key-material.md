@@ -19,7 +19,7 @@ Several AWS services integrate with AWS KMS to protect your data\. Some of these
 
 For example, consider this scenario:
 
-1. You create an encrypted EBS volume and specify a CMK with imported key material\. Amazon EBS asks AWS KMS to use your CMK to [generate a encrypted data key](http://docs.aws.amazon.com/kms/latest/APIReference//API_GenerateDataKeyWithoutPlaintext.html) for the volume\. Amazon EBS stores the encrypted data key with the volume\.
+1. You create an encrypted EBS volume and specify a CMK with imported key material\. Amazon EBS asks AWS KMS to use your CMK to [generate an encrypted data key](http://docs.aws.amazon.com/kms/latest/APIReference/API_GenerateDataKeyWithoutPlaintext.html) for the volume\. Amazon EBS stores the encrypted data key with the volume\.
 
     
 
