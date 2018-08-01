@@ -1,6 +1,6 @@
 # Creating a Client<a name="programming-client"></a>
 
-To use the [AWS SDK for Java](https://aws.amazon.com/sdk-for-java/), the [AWS SDK for \.NET](https://aws.amazon.com/sdk-for-net/), the [AWS SDK for Python \(Boto 3\)](https://aws.amazon.com/sdk-for-python/), the [AWS SDK for Ruby](http://docs.aws.amazon.com/sdk-for-ruby/v3/api/Aws/KMS.html), or the [AWS SDK for PHP](https://aws.amazon.com/sdk-for-php/) to write code that uses the [AWS Key Management Service \(AWS KMS\) API](http://docs.aws.amazon.com/kms/latest/APIReference/), start by creating an AWS KMS client\.
+To use the [AWS SDK for Java](https://aws.amazon.com/sdk-for-java/), the [AWS SDK for \.NET](https://aws.amazon.com/sdk-for-net/), the [AWS SDK for Python \(Boto 3\)](https://aws.amazon.com/sdk-for-python/), the [AWS SDK for Ruby](http://docs.aws.amazon.com/sdk-for-ruby/v3/api/Aws/KMS.html), the [AWS SDK for PHP](https://aws.amazon.com/sdk-for-php/), or the [AWS SDK for Node.js](https://aws.amazon.com/sdk-for-node-js/) to write code that uses the [AWS Key Management Service \(AWS KMS\) API](http://docs.aws.amazon.com/kms/latest/APIReference/), start by creating an AWS KMS client\.
 
 The client object that you create is used in the example code in the topics that follow\.
 
@@ -56,3 +56,8 @@ $KmsClient = new Aws\Kms\KmsClient([
 ```
 
 ------
+#### [ Node.js ]
+
+```js
+const kms = new AWS.KMS({ apiVersion: '2014-11-01' });
+```

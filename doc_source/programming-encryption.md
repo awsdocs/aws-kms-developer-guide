@@ -211,6 +211,25 @@ $plaintext = $result['Plaintext'];
 ```
 
 ------
+#### [ Node.js ]
+
+For details, see the [Decrypt property](https://docs.aws.amazon.com/AWSJavaScriptSDK/latest/AWS/KMS.html#decrypt-property) in the *AWS SDK for Node.js*\.
+
+```js
+// Decrypt a data key
+//
+const CiphertextBlob = 'Place your cipher text blob here';
+
+kms.decrypt({ CiphertextBlob }, (err, data) => {
+  if (err) console.log(err, err.stack); // an error occurred
+  else {
+      const { Plaintext } = data;
+      ...
+  }
+});
+```
+
+------
 
 ## Re\-Encrypting a Data Key Under a Different Customer Master Key<a name="reencryption"></a>
 
@@ -321,6 +340,24 @@ $result = $KmsClient->reEncrypt([
     'CiphertextBlob' => $ciphertextBlob,
     'DestinationKeyId' => $keyId, 
 ]);
+```
+
+------
+#### [ Node.js ]
+
+For details, see the [ReEncrypt property](https://docs.aws.amazon.com/AWSJavaScriptSDK/latest/AWS/KMS.html#reEncrypt-property) in the *AWS SDK for Node.js*\.
+
+```js
+// Re-encrypt a data key
+
+const CiphertextBlob = 'Place your cipher text blob here';
+
+// Replace the following fictitious CMK ARN with a valid CMK ID or ARN
+const DestinationKeyId = 'arn:aws:kms:us-west-2:111122223333:key/1234abcd-12ab-34cd-56ef-1234567890ab';
+
+kms.reEncrypt({ CiphertextBlob, DestinationKeyId }, (err, data) => {
+  ...
+});
 ```
 
 ------
