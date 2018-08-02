@@ -116,7 +116,7 @@ response = kmsClient.create_alias({
 ------
 #### [ PHP ]
 
-For details, see the [CreateAlias method](http://docs.aws.amazon.com/aws-sdk-php/latest/api-kms-2014-11-01.html#createalias) in the *AWS SDK for \.NET*\.
+For details, see the [CreateAlias method](http://docs.aws.amazon.com/aws-sdk-php/latest/api-kms-2014-11-01.html#createalias) in the *AWS SDK for PHP*\.
 
 ```
 // Create an alias for a CMK
@@ -437,7 +437,7 @@ response = kmsClient.update_alias({
 ------
 #### [ PHP ]
 
-For details, see the [UpdateAlias method](http://docs.aws.amazon.com/aws-sdk-php/latest/api-kms-2014-11-01.html#updatealias) in the *AWS SDK for \.NET*\.
+For details, see the [UpdateAlias method](http://docs.aws.amazon.com/aws-sdk-php/latest/api-kms-2014-11-01.html#updatealias) in the *AWS SDK for PHP*\.
 
 ```
 // Updating an alias
@@ -543,7 +543,7 @@ response = kmsClient.delete_alias({
 ------
 #### [ PHP ]
 
-For details, see the [DeleteAlias method](http://docs.aws.amazon.com/aws-sdk-php/latest/api-kms-2014-11-01.html#deletealias) in the *AWS SDK for \.NET*\.
+For details, see the [DeleteAlias method](http://docs.aws.amazon.com/aws-sdk-php/latest/api-kms-2014-11-01.html#deletealias) in the *AWS SDK for PHP*\.
 
 ```
 // Delete an alias for a CMK
