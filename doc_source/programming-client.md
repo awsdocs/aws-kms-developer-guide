@@ -59,5 +59,5 @@ $KmsClient = new Aws\Kms\KmsClient([
 #### [ Node.js ]
 
 ```js
-const kms = new AWS.KMS({ apiVersion: '2014-11-01' });
+const kmsClient = new AWS.KMS();
 ```

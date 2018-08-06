@@ -102,7 +102,7 @@ For details, see the [createKey property](https://docs.aws.amazon.com/AWSJavaScr
 //
 const Description = 'Key for protecting critical data';
 
-kms.createKey({ Description }, (err, data) => {
+kmsClient.createKey({ Description }, (err, data) => {
     ...
 });
 ```
@@ -234,10 +234,10 @@ For details, see the [GenerateDataKey property](https://docs.aws.amazon.com/AWSJ
 //
 // Replace the following fictitious CMK ARN with a valid CMK ID or ARN
 
-const KeyId =  'arn:aws:kms:us-west-2:111122223333:key/1234abcd-12ab-34cd-56ef-1234567890ab';
+const KeyId = 'arn:aws:kms:us-west-2:111122223333:key/1234abcd-12ab-34cd-56ef-1234567890ab';
 const KeySpec = 'AES_256';
 
-kms.generateDataKey({ KeyId, KeySpec }, (err, data) => {
+kmsClient.generateDataKey({ KeyId, KeySpec }, (err, data) => {
     if (err) console.log(err, err.stack);
     else {
         const { CiphertextBlob, Plaintext } = data;
@@ -348,9 +348,9 @@ For details, see the [DescribeKey property](https://docs.aws.amazon.com/AWSJavaS
 //
 // Replace the following fictitious CMK ARN with a valid CMK ID or ARN
 
-const KeyId =  'arn:aws:kms:us-west-2:111122223333:key/1234abcd-12ab-34cd-56ef-1234567890ab';
+const KeyId = 'arn:aws:kms:us-west-2:111122223333:key/1234abcd-12ab-34cd-56ef-1234567890ab';
 
-kms.describeKey({ KeyId }, (err, data) => {
+kmsClient.describeKey({ KeyId }, (err, data) => {
     ...
 });
 ```
@@ -446,7 +446,7 @@ For details, see the [ListKeys property](https://docs.aws.amazon.com/AWSJavaScri
 
 const Limit = 10;
 
-kms.listKeys({ Limit }, (err, data) => {
+kmsClient.listKeys({ Limit }, (err, data) => {
     ...
 });
 ```
@@ -550,9 +550,9 @@ For details, see the [EnableKey property](https://docs.aws.amazon.com/AWSJavaScr
 //
 // Replace the following fictitious CMK ARN with a valid CMK ID or ARN
 
-const KeyId =  'arn:aws:kms:us-west-2:111122223333:key/1234abcd-12ab-34cd-56ef-1234567890ab';
+const KeyId = 'arn:aws:kms:us-west-2:111122223333:key/1234abcd-12ab-34cd-56ef-1234567890ab';
 
-kms.enableKey({ KeyId }, (err, data) => {
+kmsClient.enableKey({ KeyId }, (err, data) => {
     ...
 });
 ```
@@ -656,9 +656,9 @@ For details, see the [DisableKey property](https://docs.aws.amazon.com/AWSJavaSc
 //
 // Replace the following fictitious CMK ARN with a valid CMK ID or ARN
 
-const KeyId =  'arn:aws:kms:us-west-2:111122223333:key/1234abcd-12ab-34cd-56ef-1234567890ab';
+const KeyId = 'arn:aws:kms:us-west-2:111122223333:key/1234abcd-12ab-34cd-56ef-1234567890ab';
 
-kms.disableKey({ KeyId }, (err, data) => {
+kmsClient.disableKey({ KeyId }, (err, data) => {
     ...
 });
 ```

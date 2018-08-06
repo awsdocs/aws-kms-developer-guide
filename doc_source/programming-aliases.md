@@ -244,7 +244,7 @@ For details, see the [ListAliases property](https://docs.aws.amazon.com/AWSJavaS
 
 const Limit = 10;
 
-kms.listAliases({ Limit }, (err, data) => {
+kmsClient.listAliases({ Limit }, (err, data) => {
   ...
 });
 ```
@@ -345,7 +345,7 @@ For details, see the [ListAliases property](https://docs.aws.amazon.com/AWSJavaS
 // Replace the following fictitious CMK ARN with a valid CMK ID or ARN
 const KeyId = 'arn:aws:kms:us-west-2:111122223333:key/1234abcd-12ab-34cd-56ef-1234567890ab';
 
-kms.listAliases({ KeyId }, (err, data) => {
+kmsClient.listAliases({ KeyId }, (err, data) => {
   ...
 });
 ```
@@ -466,7 +466,7 @@ const AliasName = 'alias/projectKey1';
 // Replace the following fictitious CMK ARN with a valid CMK ID or ARN
 const TargetKeyId = 'arn:aws:kms:us-west-2:111122223333:key/1234abcd-12ab-34cd-56ef-1234567890ab';
 
-kms.updateAlias({ AliasName, TargetKeyId }, (err, data) => {
+kmsClient.updateAlias({ AliasName, TargetKeyId }, (err, data) => {
   ...
 });
 ```
@@ -565,7 +565,7 @@ For details, see the [DeleteAlias property](https://docs.aws.amazon.com/AWSJavaS
 //
 const AliasName = 'alias/projectKey1';
 
-kms.deleteAlias({ AliasName }, (err, data) => {
+kmsClient.deleteAlias({ AliasName }, (err, data) => {
   ...
 });
 ```

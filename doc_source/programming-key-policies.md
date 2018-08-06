@@ -107,9 +107,8 @@ For details, see the [ListKeyPolicies property](https://docs.aws.amazon.com/AWSJ
 // Replace the following fictitious CMK ARN with a valid CMK ID or ARN
 
 const KeyId = 'arn:aws:kms:us-west-2:111122223333:key/1234abcd-12ab-34cd-56ef-1234567890ab';
-const Limit = 10;
 
-kms.listKeyPolicies({ KeyId, Limit }, (err, data) => {
+kmsClient.listKeyPolicies({ KeyId }, (err, data) => {
   ...
 });
 ```
@@ -227,7 +226,7 @@ For details, see the [GetKeyPolicy property](https://docs.aws.amazon.com/AWSJava
 const KeyId = 'arn:aws:kms:us-west-2:111122223333:key/1234abcd-12ab-34cd-56ef-1234567890ab';
 const PolicyName = 'default';
 
-kms.getKeyPolicy({ KeyId, PolicyName }, (err, data) => {
+kmsClient.getKeyPolicy({ KeyId, PolicyName }, (err, data) => {
   ...
 });
 ```
@@ -470,7 +469,7 @@ const Policy = `{
 }`; // The key policy document.
   
 
-kms.putKeyPolicy({ KeyId, Policy, PolicyName }, (err, data) => {
+kmsClient.putKeyPolicy({ KeyId, Policy, PolicyName }, (err, data) => {
   ...
 });
 ```

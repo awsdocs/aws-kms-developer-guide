@@ -132,7 +132,7 @@ const KeyId = 'arn:aws:kms:us-west-2:111122223333:key/1234abcd-12ab-34cd-56ef-12
 const GranteePrincipal = 'arn:aws:iam::111122223333:user/Alice';
 const Operations: [ "Encrypt", "Decrypt"];
 
-kms.createGrant({ KeyId, GranteePrincipal, Operations }, (err, data) => {
+kmsClient.createGrant({ KeyId, GranteePrincipal, Operations }, (err, data) => {
   ...
 });
 ```
@@ -246,7 +246,7 @@ For details, see the [ListGrants property](https://docs.aws.amazon.com/AWSJavaSc
 const KeyId = 'arn:aws:kms:us-west-2:111122223333:key/1234abcd-12ab-34cd-56ef-1234567890ab';
 const Limit = 10;
 
-kms.listGrants({ KeyId, Limit }, (err, data) => {
+kmsClient.listGrants({ KeyId, Limit }, (err, data) => {
   ...
 });
 ```
@@ -346,7 +346,7 @@ For details, see the [RetireGrant property](https://docs.aws.amazon.com/AWSJavaS
 
 const GrantToken = 'Place your grant token here';
 
-kms.retireGrant({ GrantToken }, (err, data) => {
+kmsClient.retireGrant({ GrantToken }, (err, data) => {
   ...
 });
 ```
@@ -462,7 +462,7 @@ For details, see the [RevokeGrant property](https://docs.aws.amazon.com/AWSJavaS
 const KeyId = 'arn:aws:kms:us-west-2:111122223333:key/1234abcd-12ab-34cd-56ef-1234567890ab';
 const GrantId = 'grant1';
 
-kms.revokeGrant({ GrantId, KeyId }, (err, data) => {
+kmsClient.revokeGrant({ GrantId, KeyId }, (err, data) => {
   ...
 });
 ```
