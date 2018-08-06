@@ -101,7 +101,7 @@ response = kmsClient.create_grant({
 ------
 #### [ PHP ]
 
-For details, see the [CreateGrant method](http://docs.aws.amazon.com/aws-sdk-php/v3/api/api-kms-2014-11-01.html#creategrant) in the *AWS SDK for PHP *\.
+For details, see the [CreateGrant method](http://docs.aws.amazon.com/aws-sdk-php/v3/api/api-kms-2014-11-01.html#creategrant) in the *AWS SDK for PHP*\.
 
 ```
 // Create a grant
@@ -199,7 +199,7 @@ response = kmsClient.list_grants({
 ------
 #### [ PHP ]
 
-For details, see the [ListGrants method](http://docs.aws.amazon.com/aws-sdk-php/v3/api/api-kms-2014-11-01.html#listgrants) in the *AWS SDK for PHP *\.
+For details, see the [ListGrants method](http://docs.aws.amazon.com/aws-sdk-php/v3/api/api-kms-2014-11-01.html#listgrants) in the *AWS SDK for PHP*\.
 
 ```
 // Listing grants on a CMK
@@ -286,7 +286,7 @@ response = kmsClient.retire_grant({
 ------
 #### [ PHP ]
 
-For details, see the [RetireGrant method](http://docs.aws.amazon.com/aws-sdk-php/v3/api/api-kms-2014-11-01.html#retiregrant) in the *AWS SDK for PHP *\.
+For details, see the [RetireGrant method](http://docs.aws.amazon.com/aws-sdk-php/v3/api/api-kms-2014-11-01.html#retiregrant) in the *AWS SDK for PHP*\.
 
 ```
 // Retire a grant
@@ -381,7 +381,7 @@ response = kmsClient.revoke_grant({
 ------
 #### [ PHP ]
 
-For details, see the [RevokeGrant method](http://docs.aws.amazon.com/aws-sdk-php/v3/api/api-kms-2014-11-01.html#revokegrant) in the *AWS SDK for PHP *\.
+For details, see the [RevokeGrant method](http://docs.aws.amazon.com/aws-sdk-php/v3/api/api-kms-2014-11-01.html#revokegrant) in the *AWS SDK for PHP*\.
 
 ```
 // Revoke a grant on a CMK

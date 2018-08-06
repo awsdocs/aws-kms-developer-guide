@@ -81,7 +81,7 @@ response = kmsClient.list_key_policies({
 ------
 #### [ PHP ]
 
-For details, see the [ListKeyPolicies method](http://docs.aws.amazon.com/aws-sdk-php/v3/api/api-kms-2014-11-01.html#listkeypolicies) in the *AWS SDK for PHP *\.
+For details, see the [ListKeyPolicies method](http://docs.aws.amazon.com/aws-sdk-php/v3/api/api-kms-2014-11-01.html#listkeypolicies) in the *AWS SDK for PHP*\.
 
 ```
 // List key policies
@@ -179,7 +179,7 @@ response = kmsClient.get_key_policy({
 ------
 #### [ PHP ]
 
-For details, see the [GetKeyPolicy method](http://docs.aws.amazon.com/aws-sdk-php/v3/api/api-kms-2014-11-01.html#getkeypolicy) in the *AWS SDK for PHP *\.
+For details, see the [GetKeyPolicy method](http://docs.aws.amazon.com/aws-sdk-php/v3/api/api-kms-2014-11-01.html#getkeypolicy) in the *AWS SDK for PHP*\.
 
 ```
 // Get the policy for a CMK
