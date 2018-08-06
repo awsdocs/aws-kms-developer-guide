@@ -88,11 +88,9 @@ For details, see the [ListKeyPolicies method](http://docs.aws.amazon.com/aws-sdk
 //
 // Replace the following fictitious CMK ARN with a valid CMK ID or ARN
 $keyId = 'arn:aws:kms:us-west-2:111122223333:key/1234abcd-12ab-34cd-56ef-1234567890ab';
-$limit = 10;
 
 $result = $KmsClient->listKeyPolicies([
-    'KeyId' => $keyId, 
-    'Limit' => $limit,
+    'KeyId' => $keyId,
 ]);
 ```
 
