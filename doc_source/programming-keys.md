@@ -93,6 +93,21 @@ $result = $KmsClient->createKey([
 ```
 
 ------
+#### [ Node.js ]
+
+For details, see the [createKey property](https://docs.aws.amazon.com/AWSJavaScriptSDK/latest/AWS/KMS.html#createKey-property) in the *AWS SDK for Node.js*\.
+
+```js
+// Create a CMK
+//
+const Description = 'Key for protecting critical data';
+
+kmsClient.createKey({ Description }, (err, data) => {
+    ...
+});
+```
+
+------
 
 ## Generating a Data Key<a name="generate-datakeys"></a>
 
@@ -210,6 +225,28 @@ $encryptedKey = $result['CiphertextBlob'];
 ```
 
 ------
+#### [ Node.js ]
+
+For details, see the [GenerateDataKey property](https://docs.aws.amazon.com/AWSJavaScriptSDK/latest/AWS/KMS.html#generateDataKey-property) in the *AWS SDK for Node.js*\.
+
+```js
+// Create a data key
+//
+// Replace the following fictitious CMK ARN with a valid CMK ID or ARN
+
+const KeyId = 'arn:aws:kms:us-west-2:111122223333:key/1234abcd-12ab-34cd-56ef-1234567890ab';
+const KeySpec = 'AES_256';
+
+kmsClient.generateDataKey({ KeyId, KeySpec }, (err, data) => {
+    if (err) console.log(err, err.stack);
+    else {
+        const { CiphertextBlob, Plaintext } = data;
+        ...
+    }
+});
+```
+
+------
 
 ## Viewing a Custom Master Key<a name="describing-keys"></a>
 
@@ -302,6 +339,23 @@ $result = $KmsClient->describeKey([
 ```
 
 ------
+#### [ Node.js ]
+
+For details, see the [DescribeKey property](https://docs.aws.amazon.com/AWSJavaScriptSDK/latest/AWS/KMS.html#describeKey-property) in the *AWS SDK for Node.js*\.
+
+```js
+// Describe a CMK
+//
+// Replace the following fictitious CMK ARN with a valid CMK ID or ARN
+
+const KeyId = 'arn:aws:kms:us-west-2:111122223333:key/1234abcd-12ab-34cd-56ef-1234567890ab';
+
+kmsClient.describeKey({ KeyId }, (err, data) => {
+    ...
+});
+```
+
+------
 
 ## Getting Key IDs and Key ARNs of Customer Master Keys<a name="listing-keys"></a>
 
@@ -379,6 +433,22 @@ $limit = 10;
 $result = $KmsClient->listKeys([
     'Limit' => $limit,
 ]);
+```
+
+------
+#### [ Node.js ]
+
+For details, see the [ListKeys property](https://docs.aws.amazon.com/AWSJavaScriptSDK/latest/AWS/KMS.html#listKeys-property) in the *AWS SDK for Node.js*\.
+
+```js
+// List CMKs in this account
+//
+
+const Limit = 10;
+
+kmsClient.listKeys({ Limit }, (err, data) => {
+    ...
+});
 ```
 
 ------
@@ -471,6 +541,23 @@ $result = $KmsClient->enableKey([
 ```
 
 ------
+#### [ Node.js ]
+
+For details, see the [EnableKey property](https://docs.aws.amazon.com/AWSJavaScriptSDK/latest/AWS/KMS.html#enableKey-property) in the *AWS SDK for Node.js*\.
+
+```js
+// Enable a CMK
+//
+// Replace the following fictitious CMK ARN with a valid CMK ID or ARN
+
+const KeyId = 'arn:aws:kms:us-west-2:111122223333:key/1234abcd-12ab-34cd-56ef-1234567890ab';
+
+kmsClient.enableKey({ KeyId }, (err, data) => {
+    ...
+});
+```
+
+------
 
 ## Disabling Customer Master Keys<a name="disable-keys"></a>
 
@@ -557,6 +644,23 @@ $keyId = 'arn:aws:kms:us-west-2:111122223333:key/1234abcd-12ab-34cd-56ef-1234567
 $result = $KmsClient->disableKey([
     'KeyId' => $keyId, 
 ]);
+```
+
+------
+#### [ Node.js ]
+
+For details, see the [DisableKey property](https://docs.aws.amazon.com/AWSJavaScriptSDK/latest/AWS/KMS.html#disableKey-property) in the *AWS SDK for Node.js*\.
+
+```js
+// Disable a CMK
+//
+// Replace the following fictitious CMK ARN with a valid CMK ID or ARN
+
+const KeyId = 'arn:aws:kms:us-west-2:111122223333:key/1234abcd-12ab-34cd-56ef-1234567890ab';
+
+kmsClient.disableKey({ KeyId }, (err, data) => {
+    ...
+});
 ```
 
 ------
