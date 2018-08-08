@@ -97,7 +97,7 @@ ciphertext = response.ciphertext_blob
 ------
 #### [ PHP ]
 
-For details, see the [Encrypt method](http://docs.aws.amazon.com/aws-sdk-php/v3/api/api-kms-2014-11-01.html#encrypt) in the *AWS SDK for PHP *\.
+For details, see the [Encrypt method](http://docs.aws.amazon.com/aws-sdk-php/v3/api/api-kms-2014-11-01.html#encrypt) in the *AWS SDK for PHP*\.
 
 ```
 // Encrypt a data key
@@ -217,7 +217,7 @@ plaintext = response.plaintext
 ------
 #### [ PHP ]
 
-For details, see the [Decrypt method](http://docs.aws.amazon.com/aws-sdk-php/v3/api/api-kms-2014-11-01.html#decrypt) in the *AWS SDK for PHP *\.
+For details, see the [Decrypt method](http://docs.aws.amazon.com/aws-sdk-php/v3/api/api-kms-2014-11-01.html#decrypt) in the *AWS SDK for PHP*\.
 
 ```
 // Decrypt a data key
@@ -347,7 +347,7 @@ destination_ciphertext_blob = response.ciphertext_blob.unpack('H*')
 ------
 #### [ PHP ]
 
-For details, see the [ReEncrypt method](http://docs.aws.amazon.com/aws-sdk-php/v3/api/api-kms-2014-11-01.html#reencrypt) in the *AWS SDK for PHP *\.
+For details, see the [ReEncrypt method](http://docs.aws.amazon.com/aws-sdk-php/v3/api/api-kms-2014-11-01.html#reencrypt) in the *AWS SDK for PHP*\.
 
 ```
 // Re-encrypt a data key

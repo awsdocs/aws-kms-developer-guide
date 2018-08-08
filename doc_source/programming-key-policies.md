@@ -81,18 +81,16 @@ response = kmsClient.list_key_policies({
 ------
 #### [ PHP ]
 
-For details, see the [ListKeyPolicies method](http://docs.aws.amazon.com/aws-sdk-php/v3/api/api-kms-2014-11-01.html#listkeypolicies) in the *AWS SDK for PHP *\.
+For details, see the [ListKeyPolicies method](http://docs.aws.amazon.com/aws-sdk-php/v3/api/api-kms-2014-11-01.html#listkeypolicies) in the *AWS SDK for PHP*\.
 
 ```
 // List key policies
 //
 // Replace the following fictitious CMK ARN with a valid CMK ID or ARN
 $keyId = 'arn:aws:kms:us-west-2:111122223333:key/1234abcd-12ab-34cd-56ef-1234567890ab';
-$limit = 10;
 
 $result = $KmsClient->listKeyPolicies([
-    'KeyId' => $keyId, 
-    'Limit' => $limit,
+    'KeyId' => $keyId,
 ]);
 ```
 
@@ -198,7 +196,7 @@ response = kmsClient.get_key_policy({
 ------
 #### [ PHP ]
 
-For details, see the [GetKeyPolicy method](http://docs.aws.amazon.com/aws-sdk-php/v3/api/api-kms-2014-11-01.html#getkeypolicy) in the *AWS SDK for PHP *\.
+For details, see the [GetKeyPolicy method](http://docs.aws.amazon.com/aws-sdk-php/v3/api/api-kms-2014-11-01.html#getkeypolicy) in the *AWS SDK for PHP*\.
 
 ```
 // Get the policy for a CMK

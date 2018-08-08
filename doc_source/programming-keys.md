@@ -80,7 +80,7 @@ response = kmsClient.create_key({
 ------
 #### [ PHP ]
 
-For details, see the [CreateKey method](http://docs.aws.amazon.com/aws-sdk-php/v3/api/api-kms-2014-11-01.html#createkey) in the *AWS SDK for PHP *\.
+For details, see the [CreateKey method](http://docs.aws.amazon.com/aws-sdk-php/v3/api/api-kms-2014-11-01.html#createkey) in the *AWS SDK for PHP*\.
 
 ```
 // Create a CMK
@@ -205,7 +205,7 @@ encryptedKey = response.ciphertext_blob
 ------
 #### [ PHP ]
 
-For details, see the [GenerateDataKey method](http://docs.aws.amazon.com/aws-sdk-php/v3/api/api-kms-2014-11-01.html#generatedatakey) in the *AWS SDK for PHP *\.
+For details, see the [GenerateDataKey method](http://docs.aws.amazon.com/aws-sdk-php/v3/api/api-kms-2014-11-01.html#generatedatakey) in the *AWS SDK for PHP*\.
 
 ```
 // Generate a data key
@@ -325,7 +325,7 @@ response = kmsClient.describe_key({
 ------
 #### [ PHP ]
 
-For details, see the [DescribeKey method](http://docs.aws.amazon.com/aws-sdk-php/v3/api/api-kms-2014-11-01.html#describekey) in the *AWS SDK for PHP *\.
+For details, see the [DescribeKey method](http://docs.aws.amazon.com/aws-sdk-php/v3/api/api-kms-2014-11-01.html#describekey) in the *AWS SDK for PHP*\.
 
 ```
 // Describe a CMK
@@ -423,7 +423,7 @@ response = kmsClient.list_keys({
 ------
 #### [ PHP ]
 
-For details, see the [ListKeys method](http://docs.aws.amazon.com/aws-sdk-php/v3/api/api-kms-2014-11-01.html#listkeys) in the *AWS SDK for PHP *\.
+For details, see the [ListKeys method](http://docs.aws.amazon.com/aws-sdk-php/v3/api/api-kms-2014-11-01.html#listkeys) in the *AWS SDK for PHP*\.
 
 ```
 // List CMKs in this account
@@ -527,7 +527,7 @@ response = kmsClient.enable_key({
 ------
 #### [ PHP ]
 
-For details, see the [EnableKey method](http://docs.aws.amazon.com/aws-sdk-php/v3/api/api-kms-2014-11-01.html#enablekey) in the *AWS SDK for PHP *\.
+For details, see the [EnableKey method](http://docs.aws.amazon.com/aws-sdk-php/v3/api/api-kms-2014-11-01.html#enablekey) in the *AWS SDK for PHP*\.
 
 ```
 // Enable a CMK
