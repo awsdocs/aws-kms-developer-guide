@@ -81,19 +81,34 @@ response = kmsClient.list_key_policies({
 ------
 #### [ PHP ]
 
-For details, see the [ListKeyPolicies method](http://docs.aws.amazon.com/aws-sdk-php/v3/api/api-kms-2014-11-01.html#listkeypolicies) in the *AWS SDK for PHP *\.
+For details, see the [ListKeyPolicies method](http://docs.aws.amazon.com/aws-sdk-php/v3/api/api-kms-2014-11-01.html#listkeypolicies) in the *AWS SDK for PHP*\.
 
 ```
 // List key policies
 //
 // Replace the following fictitious CMK ARN with a valid CMK ID or ARN
 $keyId = 'arn:aws:kms:us-west-2:111122223333:key/1234abcd-12ab-34cd-56ef-1234567890ab';
-$limit = 10;
 
 $result = $KmsClient->listKeyPolicies([
-    'KeyId' => $keyId, 
-    'Limit' => $limit,
+    'KeyId' => $keyId,
 ]);
+```
+
+------
+#### [ Node.js ]
+
+For details, see the [ListKeyPolicies property](https://docs.aws.amazon.com/AWSJavaScriptSDK/latest/AWS/KMS.html#listKeyPolicies-property) in the *AWS SDK for Node.js*\.
+
+```js
+// List key policies
+//
+// Replace the following fictitious CMK ARN with a valid CMK ID or ARN
+
+const KeyId = 'arn:aws:kms:us-west-2:111122223333:key/1234abcd-12ab-34cd-56ef-1234567890ab';
+
+kmsClient.listKeyPolicies({ KeyId }, (err, data) => {
+  ...
+});
 ```
 
 ------
@@ -181,7 +196,7 @@ response = kmsClient.get_key_policy({
 ------
 #### [ PHP ]
 
-For details, see the [GetKeyPolicy method](http://docs.aws.amazon.com/aws-sdk-php/v3/api/api-kms-2014-11-01.html#getkeypolicy) in the *AWS SDK for PHP *\.
+For details, see the [GetKeyPolicy method](http://docs.aws.amazon.com/aws-sdk-php/v3/api/api-kms-2014-11-01.html#getkeypolicy) in the *AWS SDK for PHP*\.
 
 ```
 // Get the policy for a CMK
@@ -194,6 +209,24 @@ $result = $KmsClient->getKeyPolicy([
     'KeyId' => $keyId, 
     'PolicyName' => $policyName
 ]);
+```
+
+------
+#### [ Node.js ]
+
+For details, see the [GetKeyPolicy property](https://docs.aws.amazon.com/AWSJavaScriptSDK/latest/AWS/KMS.html#getKeyPolicy-property) in the *AWS SDK for Node.js*\.
+
+```js
+// Get the policy for a CMK
+//
+// Replace the following fictitious CMK ARN with a valid CMK ID or ARN
+
+const KeyId = 'arn:aws:kms:us-west-2:111122223333:key/1234abcd-12ab-34cd-56ef-1234567890ab';
+const PolicyName = 'default';
+
+kmsClient.getKeyPolicy({ KeyId, PolicyName }, (err, data) => {
+  ...
+});
 ```
 
 ------
@@ -388,6 +421,55 @@ $result = $KmsClient->putKeyPolicy([
         ]
     } ' 
 ]);
+```
+
+------
+#### [ Node.js ]
+
+For details, see the [PutKeyPolicy property](https://docs.aws.amazon.com/AWSJavaScriptSDK/latest/AWS/KMS.html#putKeyPolicy-property) in the *AWS SDK for Node.js*\.
+
+```js
+// Set a key policy for a CMK
+//
+// Replace the following fictitious CMK ARN with a valid CMK ID or ARN
+
+const KeyId = 'arn:aws:kms:us-west-2:111122223333:key/1234abcd-12ab-34cd-56ef-1234567890ab';
+const PolicyName = 'default';
+const Policy = `{
+    "Version": "2012-10-17",
+    "Id": "custom-policy-2016-12-07",
+    "Statement": [
+        {
+            "Sid": "Enable IAM User Permissions",
+            "Effect": "Allow",
+            "Principal": {
+                "AWS": "arn:aws:iam::111122223333:root"
+            },
+            "Action": "kms:*",
+            "Resource": "*"
+        },
+        {
+            "Sid": "Enable IAM User Permissions",
+            "Effect": "Allow",
+            "Principal": {
+                "AWS": "arn:aws:iam::111122223333:user/ExampleUser"
+            },
+            "Action": [
+                "kms:Encrypt*",
+                "kms:GenerateDataKey*",
+                "kms:Decrypt*",
+                "kms:DescribeKey*",
+                "kms:ReEncrypt*"
+            ],
+            "Resource": "*"
+        } 
+    ]
+}`; // The key policy document.
+  
+
+kmsClient.putKeyPolicy({ KeyId, Policy, PolicyName }, (err, data) => {
+  ...
+});
 ```
 
 ------

@@ -80,7 +80,7 @@ response = kmsClient.create_key({
 ------
 #### [ PHP ]
 
-For details, see the [CreateKey method](http://docs.aws.amazon.com/aws-sdk-php/v3/api/api-kms-2014-11-01.html#createkey) in the *AWS SDK for PHP *\.
+For details, see the [CreateKey method](http://docs.aws.amazon.com/aws-sdk-php/v3/api/api-kms-2014-11-01.html#createkey) in the *AWS SDK for PHP*\.
 
 ```
 // Create a CMK
@@ -90,6 +90,21 @@ $desc = "Key for protecting critical data";
 $result = $KmsClient->createKey([
     'Description' => $desc
 ]);
+```
+
+------
+#### [ Node.js ]
+
+For details, see the [createKey property](https://docs.aws.amazon.com/AWSJavaScriptSDK/latest/AWS/KMS.html#createKey-property) in the *AWS SDK for Node.js*\.
+
+```js
+// Create a CMK
+//
+const Description = 'Key for protecting critical data';
+
+kmsClient.createKey({ Description }, (err, data) => {
+    ...
+});
 ```
 
 ------
@@ -190,7 +205,7 @@ encryptedKey = response.ciphertext_blob
 ------
 #### [ PHP ]
 
-For details, see the [GenerateDataKey method](http://docs.aws.amazon.com/aws-sdk-php/v3/api/api-kms-2014-11-01.html#generatedatakey) in the *AWS SDK for PHP *\.
+For details, see the [GenerateDataKey method](http://docs.aws.amazon.com/aws-sdk-php/v3/api/api-kms-2014-11-01.html#generatedatakey) in the *AWS SDK for PHP*\.
 
 ```
 // Generate a data key
@@ -207,6 +222,28 @@ $result = $KmsClient->generateDataKey([
 $plaintextKey = $result['Plaintext'];
 
 $encryptedKey = $result['CiphertextBlob'];
+```
+
+------
+#### [ Node.js ]
+
+For details, see the [GenerateDataKey property](https://docs.aws.amazon.com/AWSJavaScriptSDK/latest/AWS/KMS.html#generateDataKey-property) in the *AWS SDK for Node.js*\.
+
+```js
+// Create a data key
+//
+// Replace the following fictitious CMK ARN with a valid CMK ID or ARN
+
+const KeyId = 'arn:aws:kms:us-west-2:111122223333:key/1234abcd-12ab-34cd-56ef-1234567890ab';
+const KeySpec = 'AES_256';
+
+kmsClient.generateDataKey({ KeyId, KeySpec }, (err, data) => {
+    if (err) console.log(err, err.stack);
+    else {
+        const { CiphertextBlob, Plaintext } = data;
+        ...
+    }
+});
 ```
 
 ------
@@ -288,7 +325,7 @@ response = kmsClient.describe_key({
 ------
 #### [ PHP ]
 
-For details, see the [DescribeKey method](http://docs.aws.amazon.com/aws-sdk-php/v3/api/api-kms-2014-11-01.html#describekey) in the *AWS SDK for PHP *\.
+For details, see the [DescribeKey method](http://docs.aws.amazon.com/aws-sdk-php/v3/api/api-kms-2014-11-01.html#describekey) in the *AWS SDK for PHP*\.
 
 ```
 // Describe a CMK
@@ -299,6 +336,23 @@ $keyId = 'arn:aws:kms:us-west-2:111122223333:key/1234abcd-12ab-34cd-56ef-1234567
 $result = $KmsClient->describeKey([
     'KeyId' => $keyId, 
 ]);
+```
+
+------
+#### [ Node.js ]
+
+For details, see the [DescribeKey property](https://docs.aws.amazon.com/AWSJavaScriptSDK/latest/AWS/KMS.html#describeKey-property) in the *AWS SDK for Node.js*\.
+
+```js
+// Describe a CMK
+//
+// Replace the following fictitious CMK ARN with a valid CMK ID or ARN
+
+const KeyId = 'arn:aws:kms:us-west-2:111122223333:key/1234abcd-12ab-34cd-56ef-1234567890ab';
+
+kmsClient.describeKey({ KeyId }, (err, data) => {
+    ...
+});
 ```
 
 ------
@@ -369,7 +423,7 @@ response = kmsClient.list_keys({
 ------
 #### [ PHP ]
 
-For details, see the [ListKeys method](http://docs.aws.amazon.com/aws-sdk-php/v3/api/api-kms-2014-11-01.html#listkeys) in the *AWS SDK for PHP *\.
+For details, see the [ListKeys method](http://docs.aws.amazon.com/aws-sdk-php/v3/api/api-kms-2014-11-01.html#listkeys) in the *AWS SDK for PHP*\.
 
 ```
 // List CMKs in this account
@@ -379,6 +433,22 @@ $limit = 10;
 $result = $KmsClient->listKeys([
     'Limit' => $limit,
 ]);
+```
+
+------
+#### [ Node.js ]
+
+For details, see the [ListKeys property](https://docs.aws.amazon.com/AWSJavaScriptSDK/latest/AWS/KMS.html#listKeys-property) in the *AWS SDK for Node.js*\.
+
+```js
+// List CMKs in this account
+//
+
+const Limit = 10;
+
+kmsClient.listKeys({ Limit }, (err, data) => {
+    ...
+});
 ```
 
 ------
@@ -457,7 +527,7 @@ response = kmsClient.enable_key({
 ------
 #### [ PHP ]
 
-For details, see the [EnableKey method](http://docs.aws.amazon.com/aws-sdk-php/v3/api/api-kms-2014-11-01.html#enablekey) in the *AWS SDK for PHP *\.
+For details, see the [EnableKey method](http://docs.aws.amazon.com/aws-sdk-php/v3/api/api-kms-2014-11-01.html#enablekey) in the *AWS SDK for PHP*\.
 
 ```
 // Enable a CMK
@@ -468,6 +538,23 @@ $keyId = 'arn:aws:kms:us-west-2:111122223333:key/1234abcd-12ab-34cd-56ef-1234567
 $result = $KmsClient->enableKey([
     'KeyId' => $keyId, 
 ]);
+```
+
+------
+#### [ Node.js ]
+
+For details, see the [EnableKey property](https://docs.aws.amazon.com/AWSJavaScriptSDK/latest/AWS/KMS.html#enableKey-property) in the *AWS SDK for Node.js*\.
+
+```js
+// Enable a CMK
+//
+// Replace the following fictitious CMK ARN with a valid CMK ID or ARN
+
+const KeyId = 'arn:aws:kms:us-west-2:111122223333:key/1234abcd-12ab-34cd-56ef-1234567890ab';
+
+kmsClient.enableKey({ KeyId }, (err, data) => {
+    ...
+});
 ```
 
 ------
@@ -557,6 +644,23 @@ $keyId = 'arn:aws:kms:us-west-2:111122223333:key/1234abcd-12ab-34cd-56ef-1234567
 $result = $KmsClient->disableKey([
     'KeyId' => $keyId, 
 ]);
+```
+
+------
+#### [ Node.js ]
+
+For details, see the [DisableKey property](https://docs.aws.amazon.com/AWSJavaScriptSDK/latest/AWS/KMS.html#disableKey-property) in the *AWS SDK for Node.js*\.
+
+```js
+// Disable a CMK
+//
+// Replace the following fictitious CMK ARN with a valid CMK ID or ARN
+
+const KeyId = 'arn:aws:kms:us-west-2:111122223333:key/1234abcd-12ab-34cd-56ef-1234567890ab';
+
+kmsClient.disableKey({ KeyId }, (err, data) => {
+    ...
+});
 ```
 
 ------

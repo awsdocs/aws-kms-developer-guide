@@ -133,6 +133,25 @@ $result = $KmsClient->createAlias([
 ```
 
 ------
+#### [ Node.js ]
+
+For details, see the [CreateAlias property](https://docs.aws.amazon.com/AWSJavaScriptSDK/latest/AWS/KMS.html#createAlias-property) in the *AWS SDK for Node.js*\.
+
+```js
+// Create an alias for a CMK
+//
+
+const AliasName = 'alias/projectKey1';
+
+// Replace the following fictitious CMK ARN with a valid CMK ID or ARN
+const TargetKeyId = 'arn:aws:kms:us-west-2:111122223333:key/1234abcd-12ab-34cd-56ef-1234567890ab';
+
+kms.createAlias({ AliasName, TargetKeyId }, (err, data) => {
+  ...
+});
+```
+
+------
 
 ## Listing Aliases<a name="list-aliases"></a>
 
@@ -212,6 +231,22 @@ $limit = 10;
 $result = $KmsClient->listAliases([
     'Limit' => $limit,
 ]);
+```
+
+------
+#### [ Node.js ]
+
+For details, see the [ListAliases property](https://docs.aws.amazon.com/AWSJavaScriptSDK/latest/AWS/KMS.html#listAliases-property) in the *AWS SDK for Node.js*\.
+
+```js
+// List the aliases in this AWS account
+//
+
+const Limit = 10;
+
+kmsClient.listAliases({ Limit }, (err, data) => {
+  ...
+});
 ```
 
 ------
@@ -297,6 +332,22 @@ $keyId = 'arn:aws:kms:us-west-2:111122223333:key/1234abcd-12ab-34cd-56ef-1234567
 $result = $KmsClient->listAliases([
     'KeyId' => $keyId,
 ]);
+```
+
+------
+#### [ Node.js ]
+
+For details, see the [ListAliases property](https://docs.aws.amazon.com/AWSJavaScriptSDK/latest/AWS/KMS.html#listAliases-property) in the *AWS SDK for Node.js*\.
+
+```js
+// List the aliases for one CMK
+//
+// Replace the following fictitious CMK ARN with a valid CMK ID or ARN
+const KeyId = 'arn:aws:kms:us-west-2:111122223333:key/1234abcd-12ab-34cd-56ef-1234567890ab';
+
+kmsClient.listAliases({ KeyId }, (err, data) => {
+  ...
+});
 ```
 
 ------
@@ -403,6 +454,24 @@ $result = $KmsClient->updateAlias([
 ```
 
 ------
+#### [ Node.js ]
+
+For details, see the [UpdateAlias property](https://docs.aws.amazon.com/AWSJavaScriptSDK/latest/AWS/KMS.html#updateAlias-property) in the *AWS SDK for Node.js*\.
+
+```js
+// Updating an alias
+//
+const AliasName = 'alias/projectKey1';
+
+// Replace the following fictitious CMK ARN with a valid CMK ID or ARN
+const TargetKeyId = 'arn:aws:kms:us-west-2:111122223333:key/1234abcd-12ab-34cd-56ef-1234567890ab';
+
+kmsClient.updateAlias({ AliasName, TargetKeyId }, (err, data) => {
+  ...
+});
+```
+
+------
 
 ## Deleting an Alias<a name="delete-alias"></a>
 
@@ -487,3 +556,16 @@ $result = $KmsClient->deleteAlias([
 ```
 
 ------
+#### [ Node.js ]
+
+For details, see the [DeleteAlias property](https://docs.aws.amazon.com/AWSJavaScriptSDK/latest/AWS/KMS.html#deleteAlias-property) in the *AWS SDK for Node.js*\.
+
+```js
+// Delete an alias for a CMK
+//
+const AliasName = 'alias/projectKey1';
+
+kmsClient.deleteAlias({ AliasName }, (err, data) => {
+  ...
+});
+```
