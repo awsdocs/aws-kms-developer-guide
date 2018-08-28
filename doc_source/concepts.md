@@ -82,7 +82,7 @@ Envelope encryption offers several benefits:
   Encryption operations can be time consuming, particularly when the data being encrypted are large objects\. Instead of re\-encrypting raw data multiple times with different keys, you can re\-encrypt only the data keys that protect the raw data\.
 + **Combining the strengths of multiple algorithms**
 
-  In general, symmetric key algorithms are faster and produce smaller ciphertexts than public key algorithms, but public key algorithms provide inherent separation of roles and easier key management\. You cannot combine the strengths of each strategy\.
+  In general, symmetric key algorithms are faster and produce smaller ciphertexts than public key algorithms, but public key algorithms provide inherent separation of roles and easier key management\. Envelope encryption lets you combine the strengths of each strategy\.
 
 ## Encryption Context<a name="encrypt_context"></a>
 

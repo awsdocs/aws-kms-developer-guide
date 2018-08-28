@@ -119,19 +119,17 @@ $result = $KmsClient->createGrant([
 ```
 
 ------
-#### [ Node.js ]
+#### [ Node\.js ]
 
-For details, see the [CreateGrant property](https://docs.aws.amazon.com/AWSJavaScriptSDK/latest/AWS/KMS.html#createGrant-property) in the *AWS SDK for Node.js*\.
+For details, see the [createGrant property](http://docs.aws.amazon.com/AWSJavaScriptSDK/latest/AWS/KMS.html#createGrant-property) in the *AWS SDK for JavaScript in Node\.js*\.
 
-```js
+```
 // Create a grant
 //
 // Replace the following fictitious CMK ARN with a valid CMK ID or ARN
-
 const KeyId = 'arn:aws:kms:us-west-2:111122223333:key/1234abcd-12ab-34cd-56ef-1234567890ab';
 const GranteePrincipal = 'arn:aws:iam::111122223333:user/Alice';
-const Operations: [ "Encrypt", "Decrypt"];
-
+const Operations: ["Encrypt", "Decrypt"];
 kmsClient.createGrant({ KeyId, GranteePrincipal, Operations }, (err, data) => {
   ...
 });
@@ -234,18 +232,16 @@ $result = $KmsClient->listGrants([
 ```
 
 ------
-#### [ Node.js ]
+#### [ Node\.js ]
 
-For details, see the [ListGrants property](https://docs.aws.amazon.com/AWSJavaScriptSDK/latest/AWS/KMS.html#listGrants-property) in the *AWS SDK for Node.js*\.
+For details, see the [listGrants property](http://docs.aws.amazon.com/AWSJavaScriptSDK/latest/AWS/KMS.html#listGrants-property) in the *AWS SDK for JavaScript in Node\.js*\.
 
-```js
+```
 // Listing grants on a CMK
 //
 // Replace the following fictitious CMK ARN with a valid CMK ID or ARN
-
 const KeyId = 'arn:aws:kms:us-west-2:111122223333:key/1234abcd-12ab-34cd-56ef-1234567890ab';
 const Limit = 10;
-
 kmsClient.listGrants({ KeyId, Limit }, (err, data) => {
   ...
 });
@@ -336,16 +332,14 @@ $result = $KmsClient->retireGrant([
 ```
 
 ------
-#### [ Node.js ]
+#### [ Node\.js ]
 
-For details, see the [RetireGrant property](https://docs.aws.amazon.com/AWSJavaScriptSDK/latest/AWS/KMS.html#retireGrant-property) in the *AWS SDK for Node.js*\.
+For details, see the [retireGrant property](http://docs.aws.amazon.com/AWSJavaScriptSDK/latest/AWS/KMS.html#retireGrant-property) in the *AWS SDK for JavaScript in Node\.js*\.
 
-```js
+```
 // Retire a grant
 //
-
 const GrantToken = 'Place your grant token here';
-
 kmsClient.retireGrant({ GrantToken }, (err, data) => {
   ...
 });
@@ -450,18 +444,16 @@ $result = $KmsClient->revokeGrant([
 ```
 
 ------
-#### [ Node.js ]
+#### [ Node\.js ]
 
-For details, see the [RevokeGrant property](https://docs.aws.amazon.com/AWSJavaScriptSDK/latest/AWS/KMS.html#revokeGrant-property) in the *AWS SDK for Node.js*\.
+For details, see the [revokeGrant property](http://docs.aws.amazon.com/AWSJavaScriptSDK/latest/AWS/KMS.html#revokeGrant-property) in the *AWS SDK for JavaScript in Node\.js*\.
 
-```js
+```
 // Revoke a grant on a CMK
 //
 // Replace the following fictitious CMK ARN with a valid CMK ID or ARN
-
 const KeyId = 'arn:aws:kms:us-west-2:111122223333:key/1234abcd-12ab-34cd-56ef-1234567890ab';
 const GrantId = 'grant1';
-
 kmsClient.revokeGrant({ GrantId, KeyId }, (err, data) => {
   ...
 });

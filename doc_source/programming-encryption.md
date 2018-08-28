@@ -115,22 +115,21 @@ $ciphertext = $result['CiphertextBlob'];
 ```
 
 ------
-#### [ Node.js ]
+#### [ Node\.js ]
 
-For details, see the [Encrypt property](https://docs.aws.amazon.com/AWSJavaScriptSDK/latest/AWS/KMS.html#encrypt-property) in the *AWS SDK for Node.js*\.
+For details, see the [encrypt property](http://docs.aws.amazon.com/AWSJavaScriptSDK/latest/AWS/KMS.html#encrypt-property) in the AWS SDK for JavaScript in Node\.js\.
 
-```js
+```
 // Encrypt a data key
 //
 // Replace the following fictitious CMK ARN with a valid CMK ID or ARN
 const KeyId = 'arn:aws:kms:us-west-2:111122223333:key/1234abcd-12ab-34cd-56ef-1234567890ab';
 const Plaintext = Buffer.from([1, 2, 3, 4, 5, 6, 7, 8, 9, 0]);
-
 kmsClient.encrypt({ KeyId, Plaintext }, (err, data) => {
   if (err) console.log(err, err.stack); // an error occurred
   else {
     const { CiphertextBlob } = data;
-    ...
+      ...
   }
 });
 ```
@@ -232,15 +231,14 @@ $plaintext = $result['Plaintext'];
 ```
 
 ------
-#### [ Node.js ]
+#### [ Node\.js ]
 
-For details, see the [Decrypt property](https://docs.aws.amazon.com/AWSJavaScriptSDK/latest/AWS/KMS.html#decrypt-property) in the *AWS SDK for Node.js*\.
+For details, see the [decrypt property](http://docs.aws.amazon.com/AWSJavaScriptSDK/latest/AWS/KMS.html#decrypt-property)\] in the *AWS SDK for JavaScript in Node\.js*\.
 
-```js
+```
 // Decrypt a data key
 //
 const CiphertextBlob = 'Place your cipher text blob here';
-
 kmsClient.decrypt({ CiphertextBlob }, (err, data) => {
   if (err) console.log(err, err.stack); // an error occurred
   else {
@@ -308,11 +306,10 @@ For details, see the [re\_encrypt method](http://boto3.readthedocs.org/en/latest
 
 ```
 # Re-encrypt a data key
-
 ciphertext = 'Place your ciphertext here'
 
 # Replace the following fictitious CMK ARN with a valid CMK ID or ARN
-key_id = 'arn:aws:kms:us-west-2:111122223333:key/1234abcd-12ab-34cd-56ef-1234567890ab'
+key_id = 'arn:aws:kms:us-west-2:111122223333:key/0987dcba-09fe-87dc-65ba-ab0987654321'
 
 response = kms_client.re_encrypt(
     CiphertextBlob=ciphertext,
@@ -334,7 +331,7 @@ ciphertext = 'Place your ciphertext here'
 ciphertext_packed = [ciphertext].pack("H*")
 
 # Replace the following fictitious CMK ARN with a valid CMK ID or ARN
-keyId = 'arn:aws:kms:us-west-2:111122223333:key/1234abcd-12ab-34cd-56ef-1234567890ab'
+keyId = 'arn:aws:kms:us-west-2:111122223333:key/0987dcba-09fe-87dc-65ba-ab0987654321'
 
 response = kmsClient.re_encrypt({
   ciphertext_blob: ciphertext_packed,
@@ -355,7 +352,7 @@ For details, see the [ReEncrypt method](http://docs.aws.amazon.com/aws-sdk-php/v
 $ciphertextBlob = 'Place your ciphertext here';
 
 // Replace the following fictitious CMK ARN with a valid CMK ID or ARN
-$keyId = 'arn:aws:kms:us-west-2:111122223333:key/1234abcd-12ab-34cd-56ef-1234567890ab';
+$keyId = 'arn:aws:kms:us-west-2:111122223333:key/0987dcba-09fe-87dc-65ba-ab0987654321';
 
 $result = $KmsClient->reEncrypt([
     'CiphertextBlob' => $ciphertextBlob,
@@ -364,18 +361,15 @@ $result = $KmsClient->reEncrypt([
 ```
 
 ------
-#### [ Node.js ]
+#### [ Node\.js ]
 
-For details, see the [ReEncrypt property](https://docs.aws.amazon.com/AWSJavaScriptSDK/latest/AWS/KMS.html#reEncrypt-property) in the *AWS SDK for Node.js*\.
+For details, see the [reEncrypt property](http://docs.aws.amazon.com/AWSJavaScriptSDK/latest/AWS/KMS.html#reEncrypt-property) in the *AWS SDK for JavaScript in Node\.js*\.
 
-```js
+```
 // Re-encrypt a data key
-
 const CiphertextBlob = 'Place your cipher text blob here';
-
 // Replace the following fictitious CMK ARN with a valid CMK ID or ARN
-const DestinationKeyId = 'arn:aws:kms:us-west-2:111122223333:key/1234abcd-12ab-34cd-56ef-1234567890ab';
-
+const DestinationKeyId = 'arn:aws:kms:us-west-2:111122223333:key/0987dcba-09fe-87dc-65ba-ab0987654321';
 kmsClient.reEncrypt({ CiphertextBlob, DestinationKeyId }, (err, data) => {
   ...
 });

@@ -90,20 +90,19 @@ For details, see the [ListKeyPolicies method](http://docs.aws.amazon.com/aws-sdk
 $keyId = 'arn:aws:kms:us-west-2:111122223333:key/1234abcd-12ab-34cd-56ef-1234567890ab';
 
 $result = $KmsClient->listKeyPolicies([
-    'KeyId' => $keyId,
+    'KeyId' => $keyId
 ]);
 ```
 
 ------
-#### [ Node.js ]
+#### [ Node\.js ]
 
-For details, see the [ListKeyPolicies property](https://docs.aws.amazon.com/AWSJavaScriptSDK/latest/AWS/KMS.html#listKeyPolicies-property) in the *AWS SDK for Node.js*\.
+For details, see the [listKeyPolicies property](http://docs.aws.amazon.com/AWSJavaScriptSDK/latest/AWS/KMS.html#listKeyPolicies-property) in the *AWS SDK for JavaScript in Node\.js*\.
 
-```js
+```
 // List key policies
 //
 // Replace the following fictitious CMK ARN with a valid CMK ID or ARN
-
 const KeyId = 'arn:aws:kms:us-west-2:111122223333:key/1234abcd-12ab-34cd-56ef-1234567890ab';
 
 kmsClient.listKeyPolicies({ KeyId }, (err, data) => {
@@ -212,18 +211,16 @@ $result = $KmsClient->getKeyPolicy([
 ```
 
 ------
-#### [ Node.js ]
+#### [ Node\.js ]
 
-For details, see the [GetKeyPolicy property](https://docs.aws.amazon.com/AWSJavaScriptSDK/latest/AWS/KMS.html#getKeyPolicy-property) in the *AWS SDK for Node.js*\.
+For details, see the [getKeyPolicy property](http://docs.aws.amazon.com/AWSJavaScriptSDK/latest/AWS/KMS.html#getKeyPolicy-property) in the *AWS SDK for JavaScript in Node\.js*\.
 
-```js
+```
 // Get the policy for a CMK
 //
 // Replace the following fictitious CMK ARN with a valid CMK ID or ARN
-
 const KeyId = 'arn:aws:kms:us-west-2:111122223333:key/1234abcd-12ab-34cd-56ef-1234567890ab';
 const PolicyName = 'default';
-
 kmsClient.getKeyPolicy({ KeyId, PolicyName }, (err, data) => {
   ...
 });
@@ -424,15 +421,14 @@ $result = $KmsClient->putKeyPolicy([
 ```
 
 ------
-#### [ Node.js ]
+#### [ Node\.js ]
 
-For details, see the [PutKeyPolicy property](https://docs.aws.amazon.com/AWSJavaScriptSDK/latest/AWS/KMS.html#putKeyPolicy-property) in the *AWS SDK for Node.js*\.
+For details, see the [putKeyPolicy property](http://docs.aws.amazon.com/AWSJavaScriptSDK/latest/AWS/KMS.html#putKeyPolicy-property) in the *AWS SDK for Node\.js*\.
 
-```js
+```
 // Set a key policy for a CMK
 //
 // Replace the following fictitious CMK ARN with a valid CMK ID or ARN
-
 const KeyId = 'arn:aws:kms:us-west-2:111122223333:key/1234abcd-12ab-34cd-56ef-1234567890ab';
 const PolicyName = 'default';
 const Policy = `{
@@ -464,9 +460,8 @@ const Policy = `{
             "Resource": "*"
         } 
     ]
-}`; // The key policy document.
+}`; // The key policy document
   
-
 kmsClient.putKeyPolicy({ KeyId, Policy, PolicyName }, (err, data) => {
   ...
 });

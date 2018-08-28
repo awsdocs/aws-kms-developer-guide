@@ -59,7 +59,7 @@ If you are exceeding the requests per second limit for the [GenerateDataKey](htt
 
 **Shared limit**
 
-The API operations in the first row of the following table share a limit of 1200 requests per second\. For example, when you make 600 `GenerateDataKey` and 400 `Decrypt` requests per second, AWS KMS doesn't throttle your requests\. However, when you make 200 `Encrypt` and 1100 `GenerateDataKey` requests per second, AWS KMS throttles your requests because you are making more than 1200 requests per second for operations with the shared limit\.
+The API operations in the first row of the following table share a limit of 5500 \(or 10,000\) requests per second\. For example, with a shared limit of 5500 requests per second, when you make 3000 `GenerateDataKey` requests per second and 1000 `Decrypt` requests per second, AWS KMS doesn't throttle your requests\. However, when you make 5000 `GenerateDataKey` and 1000 `Encrypt` and requests per second, AWS KMS throttles your requests because you are making more than 5500 requests per second for operations with the shared limit\.
 
 The remaining API operations have a unique limit for requests per second, which means the limit is not shared\.
 
@@ -67,7 +67,7 @@ The remaining API operations have a unique limit for requests per second, which 
 
 You can make API requests directly or by using an integrated AWS service that makes API requests to AWS KMS on your behalf\. The limit applies to both kinds of requests\.
 
-For example, you might store data in Amazon S3 using server\-side encryption with AWS KMS \(SSE\-KMS\)\. Each time you upload or download an S3 object that's encrypted with SSE\-KMS, Amazon S3 makes a `GenerateDataKey` \(for uploads\) or `Decrypt` \(for downloads\) request to AWS KMS on your behalf\. These requests count toward your limit, so AWS KMS throttles the requests if you exceed a combined total of 1200 uploads or downloads per second of S3 objects encrypted with SSE\-KMS\.
+For example, you might store data in Amazon S3 using server\-side encryption with AWS KMS \(SSE\-KMS\)\. Each time you upload or download an S3 object that's encrypted with SSE\-KMS, Amazon S3 makes a `GenerateDataKey` \(for uploads\) or `Decrypt` \(for downloads\) request to AWS KMS on your behalf\. These requests count toward your limit, so AWS KMS throttles the requests if you exceed a combined total of 5500 \(or 10,000\) uploads or downloads per second of S3 objects encrypted with SSE\-KMS\.
 
 **Cross\-account requests**
 
@@ -78,7 +78,7 @@ When an application in one AWS account uses a CMK owned by a different account, 
 
 | API operation | Requests per second limit | 
 | --- | --- | 
-|  `Decrypt` `Encrypt` `GenerateDataKey` `GenerateDataKeyWithoutPlaintext` `GenerateRandom` `ReEncrypt`  | 1200 \(shared\) | 
+|  `Decrypt` `Encrypt` `GenerateDataKey` `GenerateDataKeyWithoutPlaintext` `GenerateRandom` `ReEncrypt`  | 5500 \(shared\)10,000 \(shared\) only in the following regions:[\[See the AWS documentation website for more details\]](http://docs.aws.amazon.com/kms/latest/developerguide/limits.html) | 
 | CancelKeyDeletion | 5 | 
 | CreateAlias | 5 | 
 | CreateGrant | 50 | 
