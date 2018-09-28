@@ -124,7 +124,7 @@ $ aws kms list-aliases
     ]
 }            
 
-$ aws kms update-alias --alias-name TestCMK --target-key-id 0987dcba-09fe-87dc-65ba-ab0987654321
+$ aws kms update-alias --alias-name alias/TestCMK --target-key-id 0987dcba-09fe-87dc-65ba-ab0987654321
             
 $ aws kms list-aliases
 {
