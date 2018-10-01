@@ -1,6 +1,6 @@
 # Monitoring with Amazon CloudWatch<a name="monitoring-cloudwatch"></a>
 
-You can monitor your customer master keys \(CMKs\) using Amazon CloudWatch, which collects and processes raw data from AWS KMS into readable, near real\-time metrics\. These data are recorded for a period of two weeks so that you can access historical information and gain a better understanding of the usage of your CMKs and their changes over time\. For more information about Amazon CloudWatch, see the [Amazon CloudWatch User Guide](http://docs.aws.amazon.com/AmazonCloudWatch/latest/monitoring/)\.
+You can monitor your customer master keys \(CMKs\) using Amazon CloudWatch, which collects and processes raw data from AWS KMS into readable, near real\-time metrics\. These data are recorded for a period of two weeks so that you can access historical information and gain a better understanding of the usage of your CMKs and their changes over time\. For more information about Amazon CloudWatch, see the [Amazon CloudWatch User Guide](https://docs.aws.amazon.com/AmazonCloudWatch/latest/monitoring/)\.
 
 **Topics**
 + [AWS KMS Metrics and Dimensions](#kms-metrics-dimensions)
@@ -40,7 +40,7 @@ You can view the AWS KMS metrics using the AWS Management Console and the Amazon
 1. Choose **Per\-Key Metrics** to view the individual metrics and dimensions\.
 
 **To view metrics using the Amazon CloudWatch API**  
-To view AWS KMS metrics using the CloudWatch API, send a [ListMetrics](http://docs.aws.amazon.com/AmazonCloudWatch/latest/APIReference/API_ListMetrics.html) request with `Namespace` set to `AWS/KMS`\. The following example shows how to do this with the [AWS Command Line Interface \(AWS CLI\)](https://aws.amazon.com/cli/)\.
+To view AWS KMS metrics using the CloudWatch API, send a [ListMetrics](https://docs.aws.amazon.com/AmazonCloudWatch/latest/APIReference/API_ListMetrics.html) request with `Namespace` set to `AWS/KMS`\. The following example shows how to do this with the [AWS Command Line Interface \(AWS CLI\)](https://aws.amazon.com/cli/)\.
 
 ```
 $ aws cloudwatch list-metrics --namespace AWS/KMS
@@ -101,7 +101,7 @@ For more information, see [Creating an Amazon CloudWatch Alarm to Detect Usage o
 
 AWS KMS integrates with Amazon CloudWatch Events to notify you of certain events that affect your CMKs\. Each event is represented in [JSON \(JavaScript Object Notation\)](http://json.org) and contains the event name, the date and time when the event occurred, the CMK affected, and more\. You can use CloudWatch Events to collect these events and set up rules that route them to one or more *targets* such as AWS Lambda functions, Amazon SNS topics, Amazon SQS queues, streams in Amazon Kinesis Data Streams, or built\-in targets\.
 
-For more information about using CloudWatch Events with other kinds of events, including those emitted by AWS CloudTrail when it records a read/write API request, see the [Amazon CloudWatch Events User Guide](http://docs.aws.amazon.com/AmazonCloudWatch/latest/events/)\.
+For more information about using CloudWatch Events with other kinds of events, including those emitted by AWS CloudTrail when it records a read/write API request, see the [Amazon CloudWatch Events User Guide](https://docs.aws.amazon.com/AmazonCloudWatch/latest/events/)\.
 
 The following topics describe the CloudWatch Events that AWS KMS creates\.
 

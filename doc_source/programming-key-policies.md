@@ -9,14 +9,14 @@ The examples in this topic use the AWS KMS API to view and change the key polici
 
 ## Listing Key Policy Names<a name="list-policies"></a>
 
-To get the names of key policies for a customer master key, use the [ListKeyPolicies](http://docs.aws.amazon.com/kms/latest/APIReference/API_ListKeyPolicies.html) operation\. The only key policy name it returns is **default**\.
+To get the names of key policies for a customer master key, use the [ListKeyPolicies](https://docs.aws.amazon.com/kms/latest/APIReference/API_ListKeyPolicies.html) operation\. The only key policy name it returns is **default**\.
 
 This example uses the KMS client object that you created in [Creating a Client](programming-client.md)\.
 
 ------
 #### [ Java ]
 
-For details about the Java implementation, see the [listKeyPolicies method](http://docs.aws.amazon.com/AWSJavaSDK/latest/javadoc/com/amazonaws/services/kms/AWSKMSClient.html#listKeyPolicies-com.amazonaws.services.kms.model.ListKeyPoliciesRequest-) in the *AWS SDK for Java API Reference*\.
+For details about the Java implementation, see the [listKeyPolicies method](https://docs.aws.amazon.com/AWSJavaSDK/latest/javadoc/com/amazonaws/services/kms/AWSKMSClient.html#listKeyPolicies-com.amazonaws.services.kms.model.ListKeyPoliciesRequest-) in the *AWS SDK for Java API Reference*\.
 
 ```
 // List key policies
@@ -31,7 +31,7 @@ ListKeyPoliciesResult result = kmsClient.listKeyPolicies(req);
 ------
 #### [ C\# ]
 
-For details, see the [ListKeyPolicies method](http://docs.aws.amazon.com/sdkfornet/v3/apidocs/items/KeyManagementService/MKeyManagementServiceListKeyPoliciesListKeyPoliciesRequest.html) in the *AWS SDK for \.NET*\.
+For details, see the [ListKeyPolicies method](https://docs.aws.amazon.com/sdkfornet/v3/apidocs/items/KeyManagementService/MKeyManagementServiceListKeyPoliciesListKeyPoliciesRequest.html) in the *AWS SDK for \.NET*\.
 
 ```
 // List key policies
@@ -49,7 +49,7 @@ ListKeyPoliciesResponse listKeyPoliciesResponse = kmsClient.ListKeyPolicies(list
 ------
 #### [ Python ]
 
-For details, see the [list\_key\_policies method](http://boto3.readthedocs.org/en/latest/reference/services/kms.html#KMS.Client.list_key_policies) in the AWS SDK for Python \(Boto 3\)\.
+For details, see the [list\_key\_policies method](http://boto3.amazonaws.com/v1/documentation/api/latest/reference/services/kms.html#KMS.Client.list_key_policies) in the AWS SDK for Python \(Boto 3\)\.
 
 ```
 # List key policies
@@ -65,7 +65,7 @@ response = kms_client.list_key_policies(
 ------
 #### [ Ruby ]
 
-For details, see the [list\_key\_policies](http://docs.aws.amazon.com/sdk-for-ruby/v3/api/Aws/KMS/Client.html#list_key_policies-instance_method) instance method in the [AWS SDK for Ruby](http://docs.aws.amazon.com/sdk-for-ruby/v3/api/Aws/KMS.html)\.
+For details, see the [list\_key\_policies](https://docs.aws.amazon.com/sdk-for-ruby/v3/api/Aws/KMS/Client.html#list_key_policies-instance_method) instance method in the [AWS SDK for Ruby](https://docs.aws.amazon.com/sdk-for-ruby/v3/api/Aws/KMS.html)\.
 
 ```
 # List key policies
@@ -81,7 +81,7 @@ response = kmsClient.list_key_policies({
 ------
 #### [ PHP ]
 
-For details, see the [ListKeyPolicies method](http://docs.aws.amazon.com/aws-sdk-php/v3/api/api-kms-2014-11-01.html#listkeypolicies) in the *AWS SDK for PHP*\.
+For details, see the [ListKeyPolicies method](https://docs.aws.amazon.com/aws-sdk-php/v3/api/api-kms-2014-11-01.html#listkeypolicies) in the *AWS SDK for PHP*\.
 
 ```
 // List key policies
@@ -97,7 +97,7 @@ $result = $KmsClient->listKeyPolicies([
 ------
 #### [ Node\.js ]
 
-For details, see the [listKeyPolicies property](http://docs.aws.amazon.com/AWSJavaScriptSDK/latest/AWS/KMS.html#listKeyPolicies-property) in the *AWS SDK for JavaScript in Node\.js*\.
+For details, see the [listKeyPolicies property](https://docs.aws.amazon.com/AWSJavaScriptSDK/latest/AWS/KMS.html#listKeyPolicies-property) in the *AWS SDK for JavaScript in Node\.js*\.
 
 ```
 // List key policies
@@ -114,7 +114,7 @@ kmsClient.listKeyPolicies({ KeyId }, (err, data) => {
 
 ## Getting a Key Policy<a name="get-policy"></a>
 
-To get the key policy for a customer master key, use the [GetKeyPolicy](http://docs.aws.amazon.com/kms/latest/APIReference/API_GetKeyPolicy.html) operation\.
+To get the key policy for a customer master key, use the [GetKeyPolicy](https://docs.aws.amazon.com/kms/latest/APIReference/API_GetKeyPolicy.html) operation\.
 
 GetKeyPolicy requires a policy name\. The only valid policy name is **default**\.
 
@@ -123,7 +123,7 @@ This example uses the KMS client object that you created in [Creating a Client](
 ------
 #### [ Java ]
 
-For details, see the [getKeyPolicy method](http://docs.aws.amazon.com/AWSJavaSDK/latest/javadoc/com/amazonaws/services/kms/AWSKMSClient.html#getKeyPolicy-com.amazonaws.services.kms.model.GetKeyPolicyRequest-) in the *AWS SDK for Java API Reference*\.
+For details, see the [getKeyPolicy method](https://docs.aws.amazon.com/AWSJavaSDK/latest/javadoc/com/amazonaws/services/kms/AWSKMSClient.html#getKeyPolicy-com.amazonaws.services.kms.model.GetKeyPolicyRequest-) in the *AWS SDK for Java API Reference*\.
 
 ```
 // Get the policy for a CMK
@@ -139,7 +139,7 @@ GetKeyPolicyResult result = kmsClient.getKeyPolicy(req);
 ------
 #### [ C\# ]
 
-For details, see the [GetKeyPolicy method](http://docs.aws.amazon.com/sdkfornet/v3/apidocs/items/KeyManagementService/MKeyManagementServiceGetKeyPolicyGetKeyPolicyRequest.html) in the *AWS SDK for \.NET*\.
+For details, see the [GetKeyPolicy method](https://docs.aws.amazon.com/sdkfornet/v3/apidocs/items/KeyManagementService/MKeyManagementServiceGetKeyPolicyGetKeyPolicyRequest.html) in the *AWS SDK for \.NET*\.
 
 ```
 // Get the policy for a CMK
@@ -159,7 +159,7 @@ GetKeyPolicyResponse getKeyPolicyResponse = kmsClient.GetKeyPolicy(getKeyPolicyR
 ------
 #### [ Python ]
 
-For details, see the [get\_key\_policy method](http://boto3.readthedocs.org/en/latest/reference/services/kms.html#KMS.Client.get_key_policy) in the AWS SDK for Python \(Boto 3\)\.
+For details, see the [get\_key\_policy method](http://boto3.amazonaws.com/v1/documentation/api/latest/reference/services/kms.html#KMS.Client.get_key_policy) in the AWS SDK for Python \(Boto 3\)\.
 
 ```
 # Get the policy for a CMK
@@ -177,7 +177,7 @@ response = kms_client.get_key_policy(
 ------
 #### [ Ruby ]
 
-For details, see the [get\_key\_policy](http://docs.aws.amazon.com/sdk-for-ruby/v3/api/Aws/KMS/Client.html#get_key_policy-instance_method) instance method in the [AWS SDK for Ruby](http://docs.aws.amazon.com/sdk-for-ruby/v3/api/Aws/KMS.html)\.
+For details, see the [get\_key\_policy](https://docs.aws.amazon.com/sdk-for-ruby/v3/api/Aws/KMS/Client.html#get_key_policy-instance_method) instance method in the [AWS SDK for Ruby](https://docs.aws.amazon.com/sdk-for-ruby/v3/api/Aws/KMS.html)\.
 
 ```
 # Get the policy for a CMK
@@ -195,7 +195,7 @@ response = kmsClient.get_key_policy({
 ------
 #### [ PHP ]
 
-For details, see the [GetKeyPolicy method](http://docs.aws.amazon.com/aws-sdk-php/v3/api/api-kms-2014-11-01.html#getkeypolicy) in the *AWS SDK for PHP*\.
+For details, see the [GetKeyPolicy method](https://docs.aws.amazon.com/aws-sdk-php/v3/api/api-kms-2014-11-01.html#getkeypolicy) in the *AWS SDK for PHP*\.
 
 ```
 // Get the policy for a CMK
@@ -213,7 +213,7 @@ $result = $KmsClient->getKeyPolicy([
 ------
 #### [ Node\.js ]
 
-For details, see the [getKeyPolicy property](http://docs.aws.amazon.com/AWSJavaScriptSDK/latest/AWS/KMS.html#getKeyPolicy-property) in the *AWS SDK for JavaScript in Node\.js*\.
+For details, see the [getKeyPolicy property](https://docs.aws.amazon.com/AWSJavaScriptSDK/latest/AWS/KMS.html#getKeyPolicy-property) in the *AWS SDK for JavaScript in Node\.js*\.
 
 ```
 // Get the policy for a CMK
@@ -230,7 +230,7 @@ kmsClient.getKeyPolicy({ KeyId, PolicyName }, (err, data) => {
 
 ## Setting a Key Policy<a name="put-policy"></a>
 
-To establish or change a key policy for a CMK, use the [PutKeyPolicy](http://docs.aws.amazon.com/kms/latest/APIReference/API_PutKeyPolicy.html) operation\.
+To establish or change a key policy for a CMK, use the [PutKeyPolicy](https://docs.aws.amazon.com/kms/latest/APIReference/API_PutKeyPolicy.html) operation\.
 
 PutKeyPolicy requires a policy name\. The only valid policy name is **default**\.
 
@@ -239,7 +239,7 @@ This example uses the KMS client object that you created in [Creating a Client](
 ------
 #### [ Java ]
 
-For details, see the [putKeyPolicy method](http://docs.aws.amazon.com/AWSJavaSDK/latest/javadoc/com/amazonaws/services/kms/AWSKMSClient.html#putKeyPolicy-com.amazonaws.services.kms.model.PutKeyPolicyRequest-) in the *AWS SDK for Java API Reference*\.
+For details, see the [putKeyPolicy method](https://docs.aws.amazon.com/AWSJavaSDK/latest/javadoc/com/amazonaws/services/kms/AWSKMSClient.html#putKeyPolicy-com.amazonaws.services.kms.model.PutKeyPolicyRequest-) in the *AWS SDK for Java API Reference*\.
 
 ```
 // Set a key policy for a CMK
@@ -272,7 +272,7 @@ kmsClient.putKeyPolicy(req);
 ------
 #### [ C\# ]
 
-For details, see the [PutKeyPolicy method](http://docs.aws.amazon.com/sdkfornet/v3/apidocs/items/KeyManagementService/MKeyManagementServicePutKeyPolicyPutKeyPolicyRequest.html) in the *AWS SDK for \.NET*\.
+For details, see the [PutKeyPolicy method](https://docs.aws.amazon.com/sdkfornet/v3/apidocs/items/KeyManagementService/MKeyManagementServicePutKeyPolicyPutKeyPolicyRequest.html) in the *AWS SDK for \.NET*\.
 
 ```
 // Set a key policy for a CMK
@@ -310,7 +310,7 @@ kmsClient.PutKeyPolicy(putKeyPolicyRequest);
 ------
 #### [ Python ]
 
-For details, see the [put\_key\_policy method](http://boto3.readthedocs.org/en/latest/reference/services/kms.html#KMS.Client.put_key_policy) in the AWS SDK for Python \(Boto 3\)\.
+For details, see the [put\_key\_policy method](http://boto3.amazonaws.com/v1/documentation/api/latest/reference/services/kms.html#KMS.Client.put_key_policy) in the AWS SDK for Python \(Boto 3\)\.
 
 ```
 # Set a key policy for a CMK
@@ -346,7 +346,7 @@ response = kms_client.put_key_policy(
 ------
 #### [ Ruby ]
 
-For details, see the [put\_key\_policy](http://docs.aws.amazon.com/sdk-for-ruby/v3/api/Aws/KMS/Client.html#put_key_policy-instance_method) instance method in the [AWS SDK for Ruby](http://docs.aws.amazon.com/sdk-for-ruby/v3/api/Aws/KMS.html)\.
+For details, see the [put\_key\_policy](https://docs.aws.amazon.com/sdk-for-ruby/v3/api/Aws/KMS/Client.html#put_key_policy-instance_method) instance method in the [AWS SDK for Ruby](https://docs.aws.amazon.com/sdk-for-ruby/v3/api/Aws/KMS.html)\.
 
 ```
 # Set a key policy for a CMK
@@ -381,7 +381,7 @@ response = kmsClient.put_key_policy({
 ------
 #### [ PHP ]
 
-For details, see the [PutKeyPolicy method](http://docs.aws.amazon.com/aws-sdk-php/v3/api/api-kms-2014-11-01.html#putkeypolicy) in the *AWS SDK for PHP*\.
+For details, see the [PutKeyPolicy method](https://docs.aws.amazon.com/aws-sdk-php/v3/api/api-kms-2014-11-01.html#putkeypolicy) in the *AWS SDK for PHP*\.
 
 ```
 // Set a key policy for a CMK
@@ -423,7 +423,7 @@ $result = $KmsClient->putKeyPolicy([
 ------
 #### [ Node\.js ]
 
-For details, see the [putKeyPolicy property](http://docs.aws.amazon.com/AWSJavaScriptSDK/latest/AWS/KMS.html#putKeyPolicy-property) in the *AWS SDK for Node\.js*\.
+For details, see the [putKeyPolicy property](https://docs.aws.amazon.com/AWSJavaScriptSDK/latest/AWS/KMS.html#putKeyPolicy-property) in the *AWS SDK for Node\.js*\.
 
 ```
 // Set a key policy for a CMK

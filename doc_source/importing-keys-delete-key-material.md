@@ -15,11 +15,11 @@ To delete key material, you can use the AWS Management Console or the AWS KMS AP
 
 When you delete key material, the CMK becomes unusable right away\. However, *data encryption keys* that are actively in use by AWS services are not immediately affected\. This means that deleting key material might not immediately affect all of the data and AWS resources protected under the CMK, though they are affected eventually\.
 
-Several AWS services integrate with AWS KMS to protect your data\. Some of these services, such as [Amazon EBS](http://docs.aws.amazon.com/kms/latest/developerguide/services-ebs.html) and [Amazon Redshift](http://docs.aws.amazon.com/kms/latest/developerguide/services-redshift.html), use a [customer master key](concepts.md#master_keys) \(CMK\) in AWS KMS to generate a [data key](concepts.md#data-keys), and then use the data key to encrypt your data\. These plaintext data keys persist in memory as long as the data they are protecting is actively in use\.
+Several AWS services integrate with AWS KMS to protect your data\. Some of these services, such as [Amazon EBS](https://docs.aws.amazon.com/kms/latest/developerguide/services-ebs.html) and [Amazon Redshift](https://docs.aws.amazon.com/kms/latest/developerguide/services-redshift.html), use a [customer master key](concepts.md#master_keys) \(CMK\) in AWS KMS to generate a [data key](concepts.md#data-keys), and then use the data key to encrypt your data\. These plaintext data keys persist in memory as long as the data they are protecting is actively in use\.
 
 For example, consider this scenario:
 
-1. You create an encrypted EBS volume and specify a CMK with imported key material\. Amazon EBS asks AWS KMS to use your CMK to [generate an encrypted data key](http://docs.aws.amazon.com/kms/latest/APIReference/API_GenerateDataKeyWithoutPlaintext.html) for the volume\. Amazon EBS stores the encrypted data key with the volume\.
+1. You create an encrypted EBS volume and specify a CMK with imported key material\. Amazon EBS asks AWS KMS to use your CMK to [generate an encrypted data key](https://docs.aws.amazon.com/kms/latest/APIReference/API_GenerateDataKeyWithoutPlaintext.html) for the volume\. Amazon EBS stores the encrypted data key with the volume\.
 
     
 
@@ -53,7 +53,7 @@ You can use the AWS Management Console to delete key material\.
 
 ## Delete Key Material \(AWS KMS API\)<a name="importing-keys-delete-key-material-api"></a>
 
-To use the [AWS KMS API](http://docs.aws.amazon.com/kms/latest/APIReference/) to delete key material, send a [DeleteImportedKeyMaterial](http://docs.aws.amazon.com/kms/latest/APIReference/API_DeleteImportedKeyMaterial.html) request\. The following example shows how to do this with the [AWS CLI](https://aws.amazon.com/cli/)\.
+To use the [AWS KMS API](https://docs.aws.amazon.com/kms/latest/APIReference/) to delete key material, send a [DeleteImportedKeyMaterial](https://docs.aws.amazon.com/kms/latest/APIReference/API_DeleteImportedKeyMaterial.html) request\. The following example shows how to do this with the [AWS CLI](https://aws.amazon.com/cli/)\.
 
 Replace `1234abcd-12ab-34cd-56ef-1234567890ab` with the key ID of the CMK whose key material you want to delete\. You can use the CMK's key ID or ARN but you cannot use an alias for this operation\.
 

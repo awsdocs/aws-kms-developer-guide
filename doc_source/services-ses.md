@@ -2,7 +2,7 @@
 
 You can use Amazon Simple Email Service \(Amazon SES\) to receive email, and \(optionally\) to encrypt the received email messages before storing them in an Amazon Simple Storage Service \(Amazon S3\) bucket that you choose\. When you configure Amazon SES to encrypt email messages, you must choose the KMS customer master key \(CMK\) under which Amazon SES encrypts the messages\. You can choose the default CMK in your account for Amazon SES with the alias **aws/ses**, or you can choose a custom CMK that you created separately in AWS KMS\.
 
-For more information about receiving email using Amazon SES, go to [Receiving Email with Amazon SES](http://docs.aws.amazon.com/ses/latest/DeveloperGuide/receiving-email.html) in the *Amazon Simple Email Service Developer Guide*\.
+For more information about receiving email using Amazon SES, go to [Receiving Email with Amazon SES](https://docs.aws.amazon.com/ses/latest/DeveloperGuide/receiving-email.html) in the *Amazon Simple Email Service Developer Guide*\.
 
 **Topics**
 + [Overview of Amazon SES Encryption Using AWS KMS](#services-ses-overview)
@@ -14,7 +14,7 @@ For more information about receiving email using Amazon SES, go to [Receiving Em
 
 When you configure Amazon SES to receive email and encrypt the email messages before saving them to your S3 bucket, the process works like this:
 
-1. You [create a receipt rule](http://docs.aws.amazon.com/ses/latest/DeveloperGuide/receiving-email-receipt-rules.html) for Amazon SES, specifying the S3 action, an S3 bucket for storage, and a KMS customer master key \(CMK\) for encryption\.
+1. You [create a receipt rule](https://docs.aws.amazon.com/ses/latest/DeveloperGuide/receiving-email-receipt-rules.html) for Amazon SES, specifying the S3 action, an S3 bucket for storage, and a KMS customer master key \(CMK\) for encryption\.
 
 1. Amazon SES receives an email message that matches your receipt rule\.
 
@@ -49,7 +49,7 @@ For more information about encryption context, go to [Encryption Context](encryp
 
 ## Giving Amazon SES Permission to Use Your AWS KMS Customer Master Key \(CMK\)<a name="services-ses-permissions"></a>
 
-You can use the default customer master key \(CMK\) in your account for Amazon SES with the alias **aws/ses**, or you can use a custom CMK you create\. If you use the default CMK for Amazon SES, you don't need to perform any steps to give Amazon SES permission to use it\. However, to specify a custom CMK when you [add the S3 action](http://docs.aws.amazon.com/ses/latest/DeveloperGuide/receiving-email-action-s3.html) to your Amazon SES receipt rule, you must ensure that Amazon SES has permission to use the CMK to encrypt your email messages\. To give Amazon SES permission to use your custom CMK, add the following statement to your CMK's [key policy](key-policies.md):
+You can use the default customer master key \(CMK\) in your account for Amazon SES with the alias **aws/ses**, or you can use a custom CMK you create\. If you use the default CMK for Amazon SES, you don't need to perform any steps to give Amazon SES permission to use it\. However, to specify a custom CMK when you [add the S3 action](https://docs.aws.amazon.com/ses/latest/DeveloperGuide/receiving-email-action-s3.html) to your Amazon SES receipt rule, you must ensure that Amazon SES has permission to use the CMK to encrypt your email messages\. To give Amazon SES permission to use your custom CMK, add the following statement to your CMK's [key policy](key-policies.md):
 
 ```
 {
@@ -80,13 +80,13 @@ For more information about the encryption context that Amazon SES uses when encr
 ## Retrieving and Decrypting Email Messages<a name="services-ses-decrypt"></a>
 
 Amazon SES does not have permission to decrypt your encrypted email messages and cannot decrypt them for you\. You must write code to retrieve your email messages from Amazon S3 and decrypt them\. To make this easier, use the Amazon S3 encryption client\. The following AWS SDKs include the Amazon S3 encryption client:
-+ [AWS SDK for Java](https://aws.amazon.com/sdk-for-java/) – See [http://docs.aws.amazon.com/AWSJavaSDK/latest/javadoc/index.html?com/amazonaws/services/s3/AmazonS3EncryptionClient.html](http://docs.aws.amazon.com/AWSJavaSDK/latest/javadoc/index.html?com/amazonaws/services/s3/AmazonS3EncryptionClient.html) in the *AWS SDK for Java API Reference*\.
-+ [AWS SDK for Ruby](https://aws.amazon.com/sdk-for-ruby/) – See [http://docs.aws.amazon.com/sdk-for-ruby/v3/api/Aws/S3/Encryption/Client.html](http://docs.aws.amazon.com/sdk-for-ruby/v3/api/Aws/S3/Encryption/Client.html) in the *AWS SDK for Ruby API Reference*\.
-+ [AWS SDK for \.NET](https://aws.amazon.com/sdk-for-net/) – See [http://docs.aws.amazon.com/sdkfornet/v3/apidocs/index.html?page=S3/TS3EncryptionS3EncryptionClient.html&tocid=Amazon_S3_Encryption_AmazonS3EncryptionClient](http://docs.aws.amazon.com/sdkfornet/v3/apidocs/index.html?page=S3/TS3EncryptionS3EncryptionClient.html&tocid=Amazon_S3_Encryption_AmazonS3EncryptionClient) in the *AWS SDK for \.NET API Reference*\.
-+ [AWS SDK for Go](https://aws.amazon.com/sdk-for-go/) – See [http://docs.aws.amazon.com/sdk-for-go/api/service/s3/s3crypto/](http://docs.aws.amazon.com/sdk-for-go/api/service/s3/s3crypto/) in the *AWS SDK for Go API Reference*\.
++ [AWS SDK for Java](https://aws.amazon.com/sdk-for-java/) – See [https://docs.aws.amazon.com/AWSJavaSDK/latest/javadoc/index.html?com/amazonaws/services/s3/AmazonS3EncryptionClient.html](https://docs.aws.amazon.com/AWSJavaSDK/latest/javadoc/index.html?com/amazonaws/services/s3/AmazonS3EncryptionClient.html) in the *AWS SDK for Java API Reference*\.
++ [AWS SDK for Ruby](https://aws.amazon.com/sdk-for-ruby/) – See [https://docs.aws.amazon.com/sdk-for-ruby/v3/api/Aws/S3/Encryption/Client.html](https://docs.aws.amazon.com/sdk-for-ruby/v3/api/Aws/S3/Encryption/Client.html) in the *AWS SDK for Ruby API Reference*\.
++ [AWS SDK for \.NET](https://aws.amazon.com/sdk-for-net/) – See [https://docs.aws.amazon.com/sdkfornet/v3/apidocs/index.html?page=S3/TS3EncryptionS3EncryptionClient.html&tocid=Amazon_S3_Encryption_AmazonS3EncryptionClient](https://docs.aws.amazon.com/sdkfornet/v3/apidocs/index.html?page=S3/TS3EncryptionS3EncryptionClient.html&tocid=Amazon_S3_Encryption_AmazonS3EncryptionClient) in the *AWS SDK for \.NET API Reference*\.
++ [AWS SDK for Go](https://aws.amazon.com/sdk-for-go/) – See [https://docs.aws.amazon.com/sdk-for-go/api/service/s3/s3crypto/](https://docs.aws.amazon.com/sdk-for-go/api/service/s3/s3crypto/) in the *AWS SDK for Go API Reference*\.
 
 The Amazon S3 encryption client simplifies the work of constructing the necessary requests to Amazon S3 to retrieve the encrypted email message and to AWS KMS to decrypt the message's encrypted data key, and of decrypting the email message\. For example, to successfully decrypt the encrypted data key you must pass the same encryption context that Amazon SES passed when requesting the data key from AWS KMS \([Step 3](#SES-requests-data-key) in the [Overview of Amazon SES Encryption Using AWS KMS](#services-ses-overview)\)\. The Amazon S3 encryption client handles this, and much of the other work, for you\.
 
 For sample code that uses the Amazon S3 encryption client in the AWS SDK for Java to do client\-side decryption, see the following:
-+ [Example: Client\-Side Encryption \(Option 1: Using an AWS KMS–Managed Customer Master Key \(AWS SDK for Java\)\)](http://docs.aws.amazon.com/AmazonS3/latest/dev/client-side-using-kms-java.html) in the *Amazon Simple Storage Service Developer Guide*\.
++ [Example: Client\-Side Encryption \(Option 1: Using an AWS KMS–Managed Customer Master Key \(AWS SDK for Java\)\)](https://docs.aws.amazon.com/AmazonS3/latest/dev/client-side-using-kms-java.html) in the *Amazon Simple Storage Service Developer Guide*\.
 + [Amazon S3 Encryption with AWS Key Management Service](https://aws.amazon.com/blogs/developer/amazon-s3-encryption-with-aws-key-management-service/) on the AWS Developer Blog\.

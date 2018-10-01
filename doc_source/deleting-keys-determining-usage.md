@@ -113,4 +113,4 @@ When you later download this object from Amazon S3, Amazon S3 sends a `Decrypt` 
 
 All AWS KMS API activity is logged by CloudTrail\. By evaluating these log entries, you might be able to determine the past usage of a particular CMK, and this might help you determine whether or not you want to delete it\.
 
-To see more examples of how AWS KMS API activity appears in your CloudTrail log files, go to [Logging AWS KMS API Calls with AWS CloudTrail](logging-using-cloudtrail.md)\. For more information about CloudTrail go to the [AWS CloudTrail User Guide](http://docs.aws.amazon.com/awscloudtrail/latest/userguide/)\.
+To see more examples of how AWS KMS API activity appears in your CloudTrail log files, go to [Logging AWS KMS API Calls with AWS CloudTrail](logging-using-cloudtrail.md)\. For more information about CloudTrail go to the [AWS CloudTrail User Guide](https://docs.aws.amazon.com/awscloudtrail/latest/userguide/)\.

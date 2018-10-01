@@ -2,7 +2,7 @@
 
 You can use [Amazon WorkSpaces](https://aws.amazon.com/workspaces/) to provision a cloud\-based desktop \(a *WorkSpace*\) for each of your end users\. When you launch a new WorkSpace, you can choose to encrypt its volumes and decide which AWS KMS customer master key \(CMK\) to use for the encryption\. You can choose your account's default CMK for Amazon WorkSpaces \(use the alias **aws/workspaces**\), or you can choose a custom CMK that you created separately in AWS KMS\.
 
-For more information about creating WorkSpaces with encrypted volumes, go to [Encrypt a WorkSpace](http://docs.aws.amazon.com/workspaces/latest/adminguide/wsp_encrypt_workspace.html) in the *Amazon WorkSpaces Administration Guide*\.
+For more information about creating WorkSpaces with encrypted volumes, go to [Encrypt a WorkSpace](https://docs.aws.amazon.com/workspaces/latest/adminguide/wsp_encrypt_workspace.html) in the *Amazon WorkSpaces Administration Guide*\.
 
 **Topics**
 + [Overview of Amazon WorkSpaces Encryption Using AWS KMS](#services-workspaces-overview)
@@ -13,7 +13,7 @@ For more information about creating WorkSpaces with encrypted volumes, go to [En
 
 When you create WorkSpaces with encrypted volumes, Amazon WorkSpaces uses Amazon Elastic Block Store \(Amazon EBS\) to create and manage those volumes\. Both services use your KMS customer master key \(CMK\) to work with the encrypted volumes\. For more information about EBS volume encryption, see the following documentation:
 + [How Amazon Elastic Block Store \(Amazon EBS\) Uses AWS KMS](services-ebs.md) in this guide
-+ [Amazon EBS Encryption](http://docs.aws.amazon.com/AWSEC2/latest/UserGuide/EBSEncryption.html) in the *Amazon EC2 User Guide for Windows Instances*
++ [Amazon EBS Encryption](https://docs.aws.amazon.com/AWSEC2/latest/UserGuide/EBSEncryption.html) in the *Amazon EC2 User Guide for Windows Instances*
 
 When you launch WorkSpaces with encrypted volumes, the end\-to\-end process works like this:
 
@@ -25,7 +25,7 @@ When you launch WorkSpaces with encrypted volumes, the end\-to\-end process work
 
 1. <a name="WSP-KMS-creates-data-key"></a>AWS KMS creates a new data key, encrypts it under your CMK, and then sends the encrypted data key to Amazon EBS\.
 
-1. <a name="WSP-uses-EBS-to-attach-encrypted-volume"></a>Amazon WorkSpaces uses Amazon EBS to attach the encrypted volume to your WorkSpace, at which time Amazon EBS sends the encrypted data key to AWS KMS with a [http://docs.aws.amazon.com/kms/latest/APIReference/API_Decrypt.html](http://docs.aws.amazon.com/kms/latest/APIReference/API_Decrypt.html) request and specifies the WorkSpace user's `Sid` and directory ID as well as the volume ID as encryption context\.
+1. <a name="WSP-uses-EBS-to-attach-encrypted-volume"></a>Amazon WorkSpaces uses Amazon EBS to attach the encrypted volume to your WorkSpace, at which time Amazon EBS sends the encrypted data key to AWS KMS with a [https://docs.aws.amazon.com/kms/latest/APIReference/API_Decrypt.html](https://docs.aws.amazon.com/kms/latest/APIReference/API_Decrypt.html) request and specifies the WorkSpace user's `Sid` and directory ID as well as the volume ID as encryption context\.
 
 1. AWS KMS uses your CMK to decrypt the data key, and then sends the plaintext data key to Amazon EBS\.
 
@@ -33,11 +33,11 @@ When you launch WorkSpaces with encrypted volumes, the end\-to\-end process work
 
 1. Amazon EBS stores the encrypted data key \(received at [Step 4](#WSP-KMS-creates-data-key)\) with the volume metadata for future use in case you reboot or rebuild the WorkSpace\.
 
-1. When you use the AWS Management Console to remove a WorkSpace \(or use the [http://docs.aws.amazon.com/workspaces/latest/devguide/API_TerminateWorkspaces.html](http://docs.aws.amazon.com/workspaces/latest/devguide/API_TerminateWorkspaces.html) action in the Amazon WorkSpaces API\), Amazon WorkSpaces and Amazon EBS retire the grants that allowed them to use your CMK for that WorkSpace\.
+1. When you use the AWS Management Console to remove a WorkSpace \(or use the [https://docs.aws.amazon.com/workspaces/latest/devguide/API_TerminateWorkspaces.html](https://docs.aws.amazon.com/workspaces/latest/devguide/API_TerminateWorkspaces.html) action in the Amazon WorkSpaces API\), Amazon WorkSpaces and Amazon EBS retire the grants that allowed them to use your CMK for that WorkSpace\.
 
 ## Amazon WorkSpaces Encryption Context<a name="services-workspaces-encryptioncontext"></a>
 
-Amazon WorkSpaces doesn't use your customer master key \(CMK\) directly for cryptographic operations \(such as [http://docs.aws.amazon.com/kms/latest/APIReference/API_Encrypt.html](http://docs.aws.amazon.com/kms/latest/APIReference/API_Encrypt.html), [http://docs.aws.amazon.com/kms/latest/APIReference/API_Decrypt.html](http://docs.aws.amazon.com/kms/latest/APIReference/API_Decrypt.html), [http://docs.aws.amazon.com/kms/latest/APIReference/API_GenerateDataKey.html](http://docs.aws.amazon.com/kms/latest/APIReference/API_GenerateDataKey.html), etc\.\), which means Amazon WorkSpaces doesn't send requests to AWS KMS that include encryption context\. However, when Amazon EBS requests an encrypted data key for the encrypted volumes of your WorkSpaces \([Step 3](#WSP-EBS-requests-encrypted-volume-data-key) in the [Overview of Amazon WorkSpaces Encryption Using AWS KMS](#services-workspaces-overview)\) and when it requests a plaintext copy of that data key \([Step 5](#WSP-uses-EBS-to-attach-encrypted-volume)\), it includes encryption context in the request\. The encryption context provides additional authenticated information that AWS KMS uses to ensure data integrity\. The encryption context is also written to your AWS CloudTrail log files, which can help you understand why a given customer master key \(CMK\) was used\. Amazon EBS uses the following for the encryption context:
+Amazon WorkSpaces doesn't use your customer master key \(CMK\) directly for cryptographic operations \(such as [https://docs.aws.amazon.com/kms/latest/APIReference/API_Encrypt.html](https://docs.aws.amazon.com/kms/latest/APIReference/API_Encrypt.html), [https://docs.aws.amazon.com/kms/latest/APIReference/API_Decrypt.html](https://docs.aws.amazon.com/kms/latest/APIReference/API_Decrypt.html), [https://docs.aws.amazon.com/kms/latest/APIReference/API_GenerateDataKey.html](https://docs.aws.amazon.com/kms/latest/APIReference/API_GenerateDataKey.html), etc\.\), which means Amazon WorkSpaces doesn't send requests to AWS KMS that include encryption context\. However, when Amazon EBS requests an encrypted data key for the encrypted volumes of your WorkSpaces \([Step 3](#WSP-EBS-requests-encrypted-volume-data-key) in the [Overview of Amazon WorkSpaces Encryption Using AWS KMS](#services-workspaces-overview)\) and when it requests a plaintext copy of that data key \([Step 5](#WSP-uses-EBS-to-attach-encrypted-volume)\), it includes encryption context in the request\. The encryption context provides additional authenticated information that AWS KMS uses to ensure data integrity\. The encryption context is also written to your AWS CloudTrail log files, which can help you understand why a given customer master key \(CMK\) was used\. Amazon EBS uses the following for the encryption context:
 + The `sid` of the AWS Directory Service user that is associated with the WorkSpace
 + The directory ID of the AWS Directory Service directory that is associated with the WorkSpace
 + The volume ID of the encrypted volume
@@ -65,7 +65,7 @@ Even though the WorkSpaces administrators don't use the CMK directly, they need 
 
 1. [Give the WorkSpaces administrators extra permissions with an IAM policy](#workspaces-permissions-iam-policy)
 
-WorkSpaces administrators also need permission to use Amazon WorkSpaces\. For more information about these permissions, go to [Controlling Access to Amazon WorkSpaces Resources](http://docs.aws.amazon.com/workspaces/latest/adminguide/wsp_iam.html) in the *Amazon WorkSpaces Administration Guide*\.
+WorkSpaces administrators also need permission to use Amazon WorkSpaces\. For more information about these permissions, go to [Controlling Access to Amazon WorkSpaces Resources](https://docs.aws.amazon.com/workspaces/latest/adminguide/wsp_iam.html) in the *Amazon WorkSpaces Administration Guide*\.
 
 ### Part 1: Adding WorkSpaces Administrators to a CMK's Key Users<a name="workspaces-permissions-key-users"></a>
 
@@ -87,15 +87,15 @@ To add WorkSpaces administrators to the list of key users in a CMK's key policy,
 
 **To add WorkSpaces administrators as key users for a CMK \(AWS CLI\)**
 
-1. Use the [http://docs.aws.amazon.com/cli/latest/reference/kms/get-key-policy.html](http://docs.aws.amazon.com/cli/latest/reference/kms/get-key-policy.html) command to retrieve the existing key policy, and then save the policy document to a file\.
+1. Use the [https://docs.aws.amazon.com/cli/latest/reference/kms/get-key-policy.html](https://docs.aws.amazon.com/cli/latest/reference/kms/get-key-policy.html) command to retrieve the existing key policy, and then save the policy document to a file\.
 
 1. Open the policy document in your preferred text editor\. Add the IAM users and roles that correspond to your WorkSpaces administrators to the policy statements that [give permission to key users](key-policies.md#key-policy-default-allow-users)\. Then save the file\.
 
-1. Use the [http://docs.aws.amazon.com/cli/latest/reference/kms/put-key-policy.html](http://docs.aws.amazon.com/cli/latest/reference/kms/put-key-policy.html) command to apply the key policy to the CMK\.
+1. Use the [https://docs.aws.amazon.com/cli/latest/reference/kms/put-key-policy.html](https://docs.aws.amazon.com/cli/latest/reference/kms/put-key-policy.html) command to apply the key policy to the CMK\.
 
 ### Part 2: Giving WorkSpaces Administrators Extra Permissions with an IAM Policy<a name="workspaces-permissions-iam-policy"></a>
 
-In addition to the permissions in the key users section of the [default key policy](key-policies.md#key-policy-default), WorkSpaces administrators need some permissions in an IAM user policy that applies to them\. For information about creating and editing IAM user policies, go to [Working with Managed Policies](http://docs.aws.amazon.com/IAM/latest/UserGuide/access_policies_managed-using.html) and [Working with Inline Policies](http://docs.aws.amazon.com/IAM/latest/UserGuide/access_policies_inline-using.html) in the *IAM User Guide*\.
+In addition to the permissions in the key users section of the [default key policy](key-policies.md#key-policy-default), WorkSpaces administrators need some permissions in an IAM user policy that applies to them\. For information about creating and editing IAM user policies, go to [Working with Managed Policies](https://docs.aws.amazon.com/IAM/latest/UserGuide/access_policies_managed-using.html) and [Working with Inline Policies](https://docs.aws.amazon.com/IAM/latest/UserGuide/access_policies_inline-using.html) in the *IAM User Guide*\.
 
 At minimum, WorkSpaces administrators need permission to create [grants](grants.md) for the custom CMK\(s\) that they will use with Amazon WorkSpaces\. To use the [AWS Management Console](https://console.aws.amazon.com/console/home) to create WorkSpaces with encrypted volumes, WorkSpaces administrators also need permission to list aliases and list keys, which are actions that the console performs on behalf of WorkSpaces administrators to display a list of available CMKs\.
 

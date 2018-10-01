@@ -10,14 +10,14 @@ The examples in this topic use the AWS KMS API to create, view, retire, and revo
 
 ## Creating a Grant<a name="create-grant"></a>
 
-To create a grant for an AWS KMS customer master key, use the [CreateGrant](http://docs.aws.amazon.com/kms/latest/APIReference/API_CreateGrant.html) operation\.
+To create a grant for an AWS KMS customer master key, use the [CreateGrant](https://docs.aws.amazon.com/kms/latest/APIReference/API_CreateGrant.html) operation\.
 
 This example uses the KMS client object that you created in [Creating a Client](programming-client.md)\.
 
 ------
 #### [ Java ]
 
-For details, see the [createGrant method](http://docs.aws.amazon.com/AWSJavaSDK/latest/javadoc/com/amazonaws/services/kms/AWSKMSClient.html#createGrant-com.amazonaws.services.kms.model.CreateGrantRequest-) in the *AWS SDK for Java API Reference*\.
+For details, see the [createGrant method](https://docs.aws.amazon.com/AWSJavaSDK/latest/javadoc/com/amazonaws/services/kms/AWSKMSClient.html#createGrant-com.amazonaws.services.kms.model.CreateGrantRequest-) in the *AWS SDK for Java API Reference*\.
 
 ```
 // Create a grant
@@ -38,7 +38,7 @@ CreateGrantResult result = kmsClient.createGrant(req);
 ------
 #### [ C\# ]
 
-For details, see the [CreateGrant method](http://docs.aws.amazon.com/sdkfornet/v3/apidocs/items/KeyManagementService/MKeyManagementServiceCreateGrantCreateGrantRequest.html) in the *AWS SDK for \.NET*\.
+For details, see the [CreateGrant method](https://docs.aws.amazon.com/sdkfornet/v3/apidocs/items/KeyManagementService/MKeyManagementServiceCreateGrantCreateGrantRequest.html) in the *AWS SDK for \.NET*\.
 
 ```
 // Create a grant
@@ -61,7 +61,7 @@ CreateGrantResponse createGrantResult = kmsClient.CreateGrant(createGrantRequest
 ------
 #### [ Python ]
 
-For details, see the [create\_grant method](http://boto3.readthedocs.org/en/latest/reference/services/kms.html#KMS.Client.create_grant) in the AWS SDK for Python \(Boto 3\)\.
+For details, see the [create\_grant method](http://boto3.amazonaws.com/v1/documentation/api/latest/reference/services/kms.html#KMS.Client.create_grant) in the AWS SDK for Python \(Boto 3\)\.
 
 ```
 # Create a grant
@@ -81,7 +81,7 @@ response = kms_client.create_grant(
 ------
 #### [ Ruby ]
 
-For details, see the [create\_grant](http://docs.aws.amazon.com/sdk-for-ruby/v3/api/Aws/KMS/Client.html#create_grant-instance_method) instance method in the [AWS SDK for Ruby](http://docs.aws.amazon.com/sdk-for-ruby/v3/api/Aws/KMS.html)\.
+For details, see the [create\_grant](https://docs.aws.amazon.com/sdk-for-ruby/v3/api/Aws/KMS/Client.html#create_grant-instance_method) instance method in the [AWS SDK for Ruby](https://docs.aws.amazon.com/sdk-for-ruby/v3/api/Aws/KMS.html)\.
 
 ```
 # Create a grant
@@ -101,7 +101,7 @@ response = kmsClient.create_grant({
 ------
 #### [ PHP ]
 
-For details, see the [CreateGrant method](http://docs.aws.amazon.com/aws-sdk-php/v3/api/api-kms-2014-11-01.html#creategrant) in the *AWS SDK for PHP*\.
+For details, see the [CreateGrant method](https://docs.aws.amazon.com/aws-sdk-php/v3/api/api-kms-2014-11-01.html#creategrant) in the *AWS SDK for PHP*\.
 
 ```
 // Create a grant
@@ -121,7 +121,7 @@ $result = $KmsClient->createGrant([
 ------
 #### [ Node\.js ]
 
-For details, see the [createGrant property](http://docs.aws.amazon.com/AWSJavaScriptSDK/latest/AWS/KMS.html#createGrant-property) in the *AWS SDK for JavaScript in Node\.js*\.
+For details, see the [createGrant property](https://docs.aws.amazon.com/AWSJavaScriptSDK/latest/AWS/KMS.html#createGrant-property) in the *AWS SDK for JavaScript in Node\.js*\.
 
 ```
 // Create a grant
@@ -139,14 +139,14 @@ kmsClient.createGrant({ KeyId, GranteePrincipal, Operations }, (err, data) => {
 
 ## Viewing a Grant<a name="list-grants"></a>
 
-To get detailed information about the grants on an AWS KMS customer master key, use the [ListGrants](http://docs.aws.amazon.com/kms/latest/APIReference/API_ListGrants.html) operation\. 
+To get detailed information about the grants on an AWS KMS customer master key, use the [ListGrants](https://docs.aws.amazon.com/kms/latest/APIReference/API_ListGrants.html) operation\. 
 
 This example uses the KMS client object that you created in [Creating a Client](programming-client.md)\.
 
 ------
 #### [ Java ]
 
-For details about the Java implementation, see the [listGrants method](http://docs.aws.amazon.com/AWSJavaSDK/latest/javadoc/com/amazonaws/services/kms/AWSKMSClient.html#listGrants-com.amazonaws.services.kms.model.ListGrantsRequest-) in the *AWS SDK for Java API Reference*\.
+For details about the Java implementation, see the [listGrants method](https://docs.aws.amazon.com/AWSJavaSDK/latest/javadoc/com/amazonaws/services/kms/AWSKMSClient.html#listGrants-com.amazonaws.services.kms.model.ListGrantsRequest-) in the *AWS SDK for Java API Reference*\.
 
 ```
 // Listing grants on a CMK
@@ -162,7 +162,7 @@ ListGrantsResult result = kmsClient.listGrants(req);
 ------
 #### [ C\# ]
 
-For details, see the [ListGrants method](http://docs.aws.amazon.com/sdkfornet/v3/apidocs/items/KeyManagementService/MKeyManagementServiceListGrantsListGrantsRequest.html) in the *AWS SDK for \.NET*\.
+For details, see the [ListGrants method](https://docs.aws.amazon.com/sdkfornet/v3/apidocs/items/KeyManagementService/MKeyManagementServiceListGrantsListGrantsRequest.html) in the *AWS SDK for \.NET*\.
 
 ```
 // Listing grants on a CMK
@@ -182,7 +182,7 @@ ListGrantsResponse listGrantsResponse = kmsClient.ListGrants(listGrantsRequest);
 ------
 #### [ Python ]
 
-For details, see the [list\_grants method](http://boto3.readthedocs.org/en/latest/reference/services/kms.html#KMS.Client.list_grants) in the AWS SDK for Python \(Boto 3\)\.
+For details, see the [list\_grants method](http://boto3.amazonaws.com/v1/documentation/api/latest/reference/services/kms.html#KMS.Client.list_grants) in the AWS SDK for Python \(Boto 3\)\.
 
 ```
 # Listing grants on a CMK
@@ -199,7 +199,7 @@ response = kms_client.list_grants(
 ------
 #### [ Ruby ]
 
-For details, see the [list\_grants](http://docs.aws.amazon.com/sdk-for-ruby/v3/api/Aws/KMS/Client.html#list_grants-instance_method) instance method in the [AWS SDK for Ruby](http://docs.aws.amazon.com/sdk-for-ruby/v3/api/Aws/KMS.html)\.
+For details, see the [list\_grants](https://docs.aws.amazon.com/sdk-for-ruby/v3/api/Aws/KMS/Client.html#list_grants-instance_method) instance method in the [AWS SDK for Ruby](https://docs.aws.amazon.com/sdk-for-ruby/v3/api/Aws/KMS.html)\.
 
 ```
 # Listing grants on a CMK
@@ -216,7 +216,7 @@ response = kmsClient.list_grants({
 ------
 #### [ PHP ]
 
-For details, see the [ListGrants method](http://docs.aws.amazon.com/aws-sdk-php/v3/api/api-kms-2014-11-01.html#listgrants) in the *AWS SDK for PHP*\.
+For details, see the [ListGrants method](https://docs.aws.amazon.com/aws-sdk-php/v3/api/api-kms-2014-11-01.html#listgrants) in the *AWS SDK for PHP*\.
 
 ```
 // Listing grants on a CMK
@@ -234,7 +234,7 @@ $result = $KmsClient->listGrants([
 ------
 #### [ Node\.js ]
 
-For details, see the [listGrants property](http://docs.aws.amazon.com/AWSJavaScriptSDK/latest/AWS/KMS.html#listGrants-property) in the *AWS SDK for JavaScript in Node\.js*\.
+For details, see the [listGrants property](https://docs.aws.amazon.com/AWSJavaScriptSDK/latest/AWS/KMS.html#listGrants-property) in the *AWS SDK for JavaScript in Node\.js*\.
 
 ```
 // Listing grants on a CMK
@@ -251,14 +251,14 @@ kmsClient.listGrants({ KeyId, Limit }, (err, data) => {
 
 ## Retiring a Grant<a name="retire-grant"></a>
 
-To retire a grant for an AWS KMS customer master key, use the [RetireGrant](http://docs.aws.amazon.com/kms/latest/APIReference/API_RetireGrant.html) operation\. You should retire a grant to clean up after you are done using it\.
+To retire a grant for an AWS KMS customer master key, use the [RetireGrant](https://docs.aws.amazon.com/kms/latest/APIReference/API_RetireGrant.html) operation\. You should retire a grant to clean up after you are done using it\.
 
 This example uses the KMS client object that you created in [Creating a Client](programming-client.md)\.
 
 ------
 #### [ Java ]
 
-For details, see the [retireGrant method](http://docs.aws.amazon.com/AWSJavaSDK/latest/javadoc/com/amazonaws/services/kms/AWSKMSClient.html#retireGrant-com.amazonaws.services.kms.model.RetireGrantRequest-) in the *AWS SDK for Java API Reference*\.
+For details, see the [retireGrant method](https://docs.aws.amazon.com/AWSJavaSDK/latest/javadoc/com/amazonaws/services/kms/AWSKMSClient.html#retireGrant-com.amazonaws.services.kms.model.RetireGrantRequest-) in the *AWS SDK for Java API Reference*\.
 
 ```
 // Retire a grant
@@ -272,7 +272,7 @@ kmsClient.retireGrant(req);
 ------
 #### [ C\# ]
 
-For details, see the [RetireGrant method](http://docs.aws.amazon.com/sdkfornet/v3/apidocs/items/KeyManagementService/MKeyManagementServiceRetireGrantRetireGrantRequest.html) in the *AWS SDK for \.NET*\.
+For details, see the [RetireGrant method](https://docs.aws.amazon.com/sdkfornet/v3/apidocs/items/KeyManagementService/MKeyManagementServiceRetireGrantRetireGrantRequest.html) in the *AWS SDK for \.NET*\.
 
 ```
 // Retire a grant
@@ -289,7 +289,7 @@ kmsClient.RetireGrant(retireGrantRequest);
 ------
 #### [ Python ]
 
-For details, see the [retire\_grant method](http://boto3.readthedocs.org/en/latest/reference/services/kms.html#KMS.Client.retire_grant) in the AWS SDK for Python \(Boto 3\)\.
+For details, see the [retire\_grant method](http://boto3.amazonaws.com/v1/documentation/api/latest/reference/services/kms.html#KMS.Client.retire_grant) in the AWS SDK for Python \(Boto 3\)\.
 
 ```
 # Retire a grant
@@ -304,7 +304,7 @@ response = kms_client.retire_grant(
 ------
 #### [ Ruby ]
 
-For details, see the [retire\_grant](http://docs.aws.amazon.com/sdk-for-ruby/v3/api/Aws/KMS/Client.html#retire_grant-instance_method) instance method in the [AWS SDK for Ruby](http://docs.aws.amazon.com/sdk-for-ruby/v3/api/Aws/KMS.html)\.
+For details, see the [retire\_grant](https://docs.aws.amazon.com/sdk-for-ruby/v3/api/Aws/KMS/Client.html#retire_grant-instance_method) instance method in the [AWS SDK for Ruby](https://docs.aws.amazon.com/sdk-for-ruby/v3/api/Aws/KMS.html)\.
 
 ```
 # Retire a grant
@@ -319,7 +319,7 @@ response = kmsClient.retire_grant({
 ------
 #### [ PHP ]
 
-For details, see the [RetireGrant method](http://docs.aws.amazon.com/aws-sdk-php/v3/api/api-kms-2014-11-01.html#retiregrant) in the *AWS SDK for PHP*\.
+For details, see the [RetireGrant method](https://docs.aws.amazon.com/aws-sdk-php/v3/api/api-kms-2014-11-01.html#retiregrant) in the *AWS SDK for PHP*\.
 
 ```
 // Retire a grant
@@ -334,7 +334,7 @@ $result = $KmsClient->retireGrant([
 ------
 #### [ Node\.js ]
 
-For details, see the [retireGrant property](http://docs.aws.amazon.com/AWSJavaScriptSDK/latest/AWS/KMS.html#retireGrant-property) in the *AWS SDK for JavaScript in Node\.js*\.
+For details, see the [retireGrant property](https://docs.aws.amazon.com/AWSJavaScriptSDK/latest/AWS/KMS.html#retireGrant-property) in the *AWS SDK for JavaScript in Node\.js*\.
 
 ```
 // Retire a grant
@@ -349,14 +349,14 @@ kmsClient.retireGrant({ GrantToken }, (err, data) => {
 
 ## Revoking a Grant<a name="revoke-grant"></a>
 
-To revoke a grant to an AWS KMS customer master key, use the [RevokeGrant](http://docs.aws.amazon.com/kms/latest/APIReference/API_RevokeGrant.html) operation\. You can revoke a grant to explicitly deny operations that depend on it\. 
+To revoke a grant to an AWS KMS customer master key, use the [RevokeGrant](https://docs.aws.amazon.com/kms/latest/APIReference/API_RevokeGrant.html) operation\. You can revoke a grant to explicitly deny operations that depend on it\. 
 
 This example uses the KMS client object that you created in [Creating a Client](programming-client.md)\.
 
 ------
 #### [ Java ]
 
-For details, see the [revokeGrant method](http://docs.aws.amazon.com/AWSJavaSDK/latest/javadoc/com/amazonaws/services/kms/AWSKMSClient.html#revokeGrant-com.amazonaws.services.kms.model.RevokeGrantRequest-) in the *AWS SDK for Java API Reference*\.
+For details, see the [revokeGrant method](https://docs.aws.amazon.com/AWSJavaSDK/latest/javadoc/com/amazonaws/services/kms/AWSKMSClient.html#revokeGrant-com.amazonaws.services.kms.model.RevokeGrantRequest-) in the *AWS SDK for Java API Reference*\.
 
 ```
 // Revoke a grant on a CMK
@@ -372,7 +372,7 @@ kmsClient.revokeGrant(req);
 ------
 #### [ C\# ]
 
-For details, see the [RevokeGrant method](http://docs.aws.amazon.com/sdkfornet/v3/apidocs/items/KeyManagementService/MKeyManagementServiceRevokeGrantRevokeGrantRequest.html) in the *AWS SDK for \.NET*\.
+For details, see the [RevokeGrant method](https://docs.aws.amazon.com/sdkfornet/v3/apidocs/items/KeyManagementService/MKeyManagementServiceRevokeGrantRevokeGrantRequest.html) in the *AWS SDK for \.NET*\.
 
 ```
 // Revoke a grant on a CMK
@@ -392,7 +392,7 @@ kmsClient.RevokeGrant(revokeGrantRequest);
 ------
 #### [ Python ]
 
-For details, see the [revoke\_grant method](http://boto3.readthedocs.org/en/latest/reference/services/kms.html#KMS.Client.revoke_grant) in the AWS SDK for Python \(Boto 3\)\.
+For details, see the [revoke\_grant method](http://boto3.amazonaws.com/v1/documentation/api/latest/reference/services/kms.html#KMS.Client.revoke_grant) in the AWS SDK for Python \(Boto 3\)\.
 
 ```
 # Revoke a grant on a CMK
@@ -410,7 +410,7 @@ response = kms_client.revoke_grant(
 ------
 #### [ Ruby ]
 
-For details, see the [revoke\_grant](http://docs.aws.amazon.com/sdk-for-ruby/v3/api/Aws/KMS/Client.html#revoke_grant-instance_method) instance method in the [AWS SDK for Ruby](http://docs.aws.amazon.com/sdk-for-ruby/v3/api/Aws/KMS.html)\.
+For details, see the [revoke\_grant](https://docs.aws.amazon.com/sdk-for-ruby/v3/api/Aws/KMS/Client.html#revoke_grant-instance_method) instance method in the [AWS SDK for Ruby](https://docs.aws.amazon.com/sdk-for-ruby/v3/api/Aws/KMS.html)\.
 
 ```
 # Revoke a grant on a CMK
@@ -428,7 +428,7 @@ response = kmsClient.revoke_grant({
 ------
 #### [ PHP ]
 
-For details, see the [RevokeGrant method](http://docs.aws.amazon.com/aws-sdk-php/v3/api/api-kms-2014-11-01.html#revokegrant) in the *AWS SDK for PHP*\.
+For details, see the [RevokeGrant method](https://docs.aws.amazon.com/aws-sdk-php/v3/api/api-kms-2014-11-01.html#revokegrant) in the *AWS SDK for PHP*\.
 
 ```
 // Revoke a grant on a CMK
@@ -446,7 +446,7 @@ $result = $KmsClient->revokeGrant([
 ------
 #### [ Node\.js ]
 
-For details, see the [revokeGrant property](http://docs.aws.amazon.com/AWSJavaScriptSDK/latest/AWS/KMS.html#revokeGrant-property) in the *AWS SDK for JavaScript in Node\.js*\.
+For details, see the [revokeGrant property](https://docs.aws.amazon.com/AWSJavaScriptSDK/latest/AWS/KMS.html#revokeGrant-property) in the *AWS SDK for JavaScript in Node\.js*\.
 
 ```
 // Revoke a grant on a CMK

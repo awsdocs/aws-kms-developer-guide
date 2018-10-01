@@ -37,14 +37,14 @@ arn:aws:kms:us-west-2:111122223333:alias/ExampleAlias
 
 ## Creating an Alias<a name="create-alias"></a>
 
-To create an alias, use the [CreateAlias](http://docs.aws.amazon.com/kms/latest/APIReference/API_CreateAlias.html) operation\. The alias must be unique in the account and region\. If you create an alias for a CMK that already has an alias, `CreateAlias` creates another alias to the same CMK\. It does not replace the existing alias\.
+To create an alias, use the [CreateAlias](https://docs.aws.amazon.com/kms/latest/APIReference/API_CreateAlias.html) operation\. The alias must be unique in the account and region\. If you create an alias for a CMK that already has an alias, `CreateAlias` creates another alias to the same CMK\. It does not replace the existing alias\.
 
 This example uses the KMS client object that you created in [Creating a Client](programming-client.md)\.
 
 ------
 #### [ Java ]
 
-For details, see the [createAlias method](http://docs.aws.amazon.com/AWSJavaSDK/latest/javadoc/com/amazonaws/services/kms/AWSKMSClient.html#createAlias-com.amazonaws.services.kms.model.CreateAliasRequest-) in the *AWS SDK for Java API Reference*\.
+For details, see the [createAlias method](https://docs.aws.amazon.com/AWSJavaSDK/latest/javadoc/com/amazonaws/services/kms/AWSKMSClient.html#createAlias-com.amazonaws.services.kms.model.CreateAliasRequest-) in the *AWS SDK for Java API Reference*\.
 
 ```
 // Create an alias for a CMK
@@ -60,7 +60,7 @@ kmsClient.createAlias(req);
 ------
 #### [ C\# ]
 
-For details, see the [CreateAlias method](http://docs.aws.amazon.com/sdkfornet/v3/apidocs/items/KeyManagementService/MKeyManagementServiceCreateAliasCreateAliasRequest.html) in the *AWS SDK for \.NET*\.
+For details, see the [CreateAlias method](https://docs.aws.amazon.com/sdkfornet/v3/apidocs/items/KeyManagementService/MKeyManagementServiceCreateAliasCreateAliasRequest.html) in the *AWS SDK for \.NET*\.
 
 ```
 // Create an alias for a CMK
@@ -80,7 +80,7 @@ kmsClient.CreateAlias(createAliasRequest);
 ------
 #### [ Python ]
 
-For details, see the [create\_alias method](http://boto3.readthedocs.org/en/latest/reference/services/kms.html#KMS.Client.create_alias) in the AWS SDK for Python \(Boto 3\)\.
+For details, see the [create\_alias method](http://boto3.amazonaws.com/v1/documentation/api/latest/reference/services/kms.html#KMS.Client.create_alias) in the AWS SDK for Python \(Boto 3\)\.
 
 ```
 # Create an alias for a CMK
@@ -98,7 +98,7 @@ response = kms_client.create_alias(
 ------
 #### [ Ruby ]
 
-For details, see the [create\_alias](http://docs.aws.amazon.com/sdk-for-ruby/v3/api/Aws/KMS/Client.html#create_alias-instance_method) instance method in the [AWS SDK for Ruby](http://docs.aws.amazon.com/sdk-for-ruby/v3/api/Aws/KMS.html)\.
+For details, see the [create\_alias](https://docs.aws.amazon.com/sdk-for-ruby/v3/api/Aws/KMS/Client.html#create_alias-instance_method) instance method in the [AWS SDK for Ruby](https://docs.aws.amazon.com/sdk-for-ruby/v3/api/Aws/KMS.html)\.
 
 ```
 # Create an alias for a CMK
@@ -116,7 +116,7 @@ response = kmsClient.create_alias({
 ------
 #### [ PHP ]
 
-For details, see the [CreateAlias method](http://docs.aws.amazon.com/aws-sdk-php/latest/api-kms-2014-11-01.html#createalias) in the *AWS SDK for PHP*\.
+For details, see the [CreateAlias method](https://docs.aws.amazon.com/aws-sdk-php/latest/api-kms-2014-11-01.html#createalias) in the *AWS SDK for PHP*\.
 
 ```
 // Create an alias for a CMK
@@ -135,7 +135,7 @@ $result = $KmsClient->createAlias([
 ------
 #### [ Node\.js ]
 
-For details, see the [createAlias property](http://docs.aws.amazon.com/AWSJavaScriptSDK/latest/AWS/KMS.html#createAlias-property) in the *AWS SDK for JavaScript in Node\.js*\.
+For details, see the [createAlias property](https://docs.aws.amazon.com/AWSJavaScriptSDK/latest/AWS/KMS.html#createAlias-property) in the *AWS SDK for JavaScript in Node\.js*\.
 
 ```
 // Create an alias for a CMK
@@ -153,7 +153,7 @@ kmsClient.createAlias({ AliasName, TargetKeyId }, (err, data) => {
 
 ## Listing Aliases<a name="list-aliases"></a>
 
-To list aliases in the account and region, use the [ListAliases](http://docs.aws.amazon.com/kms/latest/APIReference/API_ListAliases.html) operation\.
+To list aliases in the account and region, use the [ListAliases](https://docs.aws.amazon.com/kms/latest/APIReference/API_ListAliases.html) operation\.
 
 By default, the ListAliases command returns all aliases in the account and region\. This includes aliases that you created and associated with your [customer\-managed CMKs](concepts.md#master_keys), and aliases that AWS created and associated with your [AWS managed CMKs](concepts.md#master_keys)\. The response might also include aliases that have no `TargetKeyId` field\. These are predefined aliases that AWS has created but has not yet associated with a CMK\.
 
@@ -162,7 +162,7 @@ This example uses the KMS client object that you created in [Creating a Client](
 ------
 #### [ Java ]
 
-For details about the Java implementation, see the [listAliases method](http://docs.aws.amazon.com/AWSJavaSDK/latest/javadoc/com/amazonaws/services/kms/AWSKMSClient.html#listAliases-com.amazonaws.services.kms.model.ListAliasesRequest-) in the *AWS SDK for Java API Reference*\.
+For details about the Java implementation, see the [listAliases method](https://docs.aws.amazon.com/AWSJavaSDK/latest/javadoc/com/amazonaws/services/kms/AWSKMSClient.html#listAliases-com.amazonaws.services.kms.model.ListAliasesRequest-) in the *AWS SDK for Java API Reference*\.
 
 ```
 // List the aliases in this AWS account
@@ -176,7 +176,7 @@ ListAliasesResult result = kmsClient.listAliases(req);
 ------
 #### [ C\# ]
 
-For details, see the [ListAliases method](http://docs.aws.amazon.com/sdkfornet/v3/apidocs/items/KeyManagementService/MKeyManagementServiceListAliasesListAliasesRequest.html) in the *AWS SDK for \.NET*\.
+For details, see the [ListAliases method](https://docs.aws.amazon.com/sdkfornet/v3/apidocs/items/KeyManagementService/MKeyManagementServiceListAliasesListAliasesRequest.html) in the *AWS SDK for \.NET*\.
 
 ```
 // List the aliases in this AWS account
@@ -193,7 +193,7 @@ ListAliasesResponse listAliasesResponse = kmsClient.ListAliases(listAliasesReque
 ------
 #### [ Python ]
 
-For details, see the [list\_aliases method](http://boto3.readthedocs.org/en/latest/reference/services/kms.html#KMS.Client.list_aliases) in the AWS SDK for Python \(Boto 3\)\.
+For details, see the [list\_aliases method](http://boto3.amazonaws.com/v1/documentation/api/latest/reference/services/kms.html#KMS.Client.list_aliases) in the AWS SDK for Python \(Boto 3\)\.
 
 ```
 # List the aliases in this AWS account
@@ -206,7 +206,7 @@ response = kms_client.list_aliases(
 ------
 #### [ Ruby ]
 
-For details, see the [list\_aliases](http://docs.aws.amazon.com/sdk-for-ruby/v3/api/Aws/KMS/Client.html#list_aliases-instance_method) instance method in the [AWS SDK for Ruby](http://docs.aws.amazon.com/sdk-for-ruby/v3/api/Aws/KMS.html)\.
+For details, see the [list\_aliases](https://docs.aws.amazon.com/sdk-for-ruby/v3/api/Aws/KMS/Client.html#list_aliases-instance_method) instance method in the [AWS SDK for Ruby](https://docs.aws.amazon.com/sdk-for-ruby/v3/api/Aws/KMS.html)\.
 
 ```
 # List the aliases in this AWS account
@@ -219,7 +219,7 @@ response = kmsClient.list_aliases({
 ------
 #### [ PHP ]
 
-For details, see the [List Aliases method](http://docs.aws.amazon.com/aws-sdk-php/latest/api-kms-2014-11-01.html#listaliases) in the *AWS SDK for PHP*\.
+For details, see the [List Aliases method](https://docs.aws.amazon.com/aws-sdk-php/latest/api-kms-2014-11-01.html#listaliases) in the *AWS SDK for PHP*\.
 
 ```
 // List the aliases in this AWS account
@@ -234,7 +234,7 @@ $result = $KmsClient->listAliases([
 ------
 #### [ Node\.js ]
 
-For details, see the [listAliases property](http://docs.aws.amazon.com/AWSJavaScriptSDK/latest/AWS/KMS.html#listAliases-property) in the *AWS SDK for JavaScript in Node\.js*\.
+For details, see the [listAliases property](https://docs.aws.amazon.com/AWSJavaScriptSDK/latest/AWS/KMS.html#listAliases-property) in the *AWS SDK for JavaScript in Node\.js*\.
 
 ```
 // List the aliases in this AWS account
@@ -252,7 +252,7 @@ To list only the aliases that are associated with a particular CMK, use the `Key
 ------
 #### [ Java ]
 
-For details about the Java implementation, see the [listAliases method](http://docs.aws.amazon.com/AWSJavaSDK/latest/javadoc/com/amazonaws/services/kms/AWSKMSClient.html#listAliases-com.amazonaws.services.kms.model.ListAliasesRequest-) in the *AWS SDK for Java API Reference*\.
+For details about the Java implementation, see the [listAliases method](https://docs.aws.amazon.com/AWSJavaSDK/latest/javadoc/com/amazonaws/services/kms/AWSKMSClient.html#listAliases-com.amazonaws.services.kms.model.ListAliasesRequest-) in the *AWS SDK for Java API Reference*\.
 
 ```
 // List the aliases for one CMK
@@ -267,7 +267,7 @@ ListAliasesResult result = kmsClient.listAliases(req);
 ------
 #### [ C\# ]
 
-For details, see the [ListAliases method](http://docs.aws.amazon.com/sdkfornet/v3/apidocs/items/KeyManagementService/MKeyManagementServiceListAliasesListAliasesRequest.html) in the *AWS SDK for \.NET*\.
+For details, see the [ListAliases method](https://docs.aws.amazon.com/sdkfornet/v3/apidocs/items/KeyManagementService/MKeyManagementServiceListAliasesListAliasesRequest.html) in the *AWS SDK for \.NET*\.
 
 ```
 // List the aliases for one CMK
@@ -285,7 +285,7 @@ ListAliasesResponse listAliasesResponse = kmsClient.ListAliases(listAliasesReque
 ------
 #### [ Python ]
 
-For details, see the [list\_aliases method](http://boto3.readthedocs.org/en/latest/reference/services/kms.html#KMS.Client.list_aliases) in the AWS SDK for Python \(Boto 3\)\.
+For details, see the [list\_aliases method](http://boto3.amazonaws.com/v1/documentation/api/latest/reference/services/kms.html#KMS.Client.list_aliases) in the AWS SDK for Python \(Boto 3\)\.
 
 ```
 # List the aliases for one CMK
@@ -301,7 +301,7 @@ response = kms_client.list_aliases(
 ------
 #### [ Ruby ]
 
-For details, see the [list\_aliases](http://docs.aws.amazon.com/sdk-for-ruby/v3/api/Aws/KMS/Client.html#list_aliases-instance_method) instance method in the [AWS SDK for Ruby](http://docs.aws.amazon.com/sdk-for-ruby/v3/api/Aws/KMS.html)\.
+For details, see the [list\_aliases](https://docs.aws.amazon.com/sdk-for-ruby/v3/api/Aws/KMS/Client.html#list_aliases-instance_method) instance method in the [AWS SDK for Ruby](https://docs.aws.amazon.com/sdk-for-ruby/v3/api/Aws/KMS.html)\.
 
 ```
 # List the aliases for one CMK
@@ -317,7 +317,7 @@ response = kmsClient.list_aliases({
 ------
 #### [ PHP ]
 
-For details, see the [List Aliases method](http://docs.aws.amazon.com/aws-sdk-php/latest/api-kms-2014-11-01.html#listaliases) in the *AWS SDK for PHP*\.
+For details, see the [List Aliases method](https://docs.aws.amazon.com/aws-sdk-php/latest/api-kms-2014-11-01.html#listaliases) in the *AWS SDK for PHP*\.
 
 ```
 // List the aliases for one CMK
@@ -333,7 +333,7 @@ $result = $KmsClient->listAliases([
 ------
 #### [ Node\.js ]
 
-For details, see the [listAliases property](http://docs.aws.amazon.com/AWSJavaScriptSDK/latest/AWS/KMS.html#listAliases-property) in the *AWS SDK for JavaScript in Node\.js*\.
+For details, see the [listAliases property](https://docs.aws.amazon.com/AWSJavaScriptSDK/latest/AWS/KMS.html#listAliases-property) in the *AWS SDK for JavaScript in Node\.js*\.
 
 ```
 // List the aliases for one CMK
@@ -349,14 +349,14 @@ kmsClient.listAliases({ KeyId }, (err, data) => {
 
 ## Updating an Alias<a name="update-alias"></a>
 
-To associate an existing alias with a different CMK, use the [UpdateAlias](http://docs.aws.amazon.com/kms/latest/APIReference/API_UpdateAlias.html) operation\. 
+To associate an existing alias with a different CMK, use the [UpdateAlias](https://docs.aws.amazon.com/kms/latest/APIReference/API_UpdateAlias.html) operation\. 
 
 This example uses the KMS client object that you created in [Creating a Client](programming-client.md)\.
 
 ------
 #### [ Java ]
 
-For details about the Java implementation, see the [updateAlias method](http://docs.aws.amazon.com/AWSJavaSDK/latest/javadoc/com/amazonaws/services/kms/AWSKMSClient.html#updateAlias-com.amazonaws.services.kms.model.UpdateAliasRequest-) in the *AWS SDK for Java API Reference*\.
+For details about the Java implementation, see the [updateAlias method](https://docs.aws.amazon.com/AWSJavaSDK/latest/javadoc/com/amazonaws/services/kms/AWSKMSClient.html#updateAlias-com.amazonaws.services.kms.model.UpdateAliasRequest-) in the *AWS SDK for Java API Reference*\.
 
 ```
 // Updating an alias
@@ -375,7 +375,7 @@ kmsClient.updateAlias(req);
 ------
 #### [ C\# ]
 
-For details, see the [UpdateAlias method](http://docs.aws.amazon.com/sdkfornet/v3/apidocs/items/KeyManagementService/MKeyManagementServiceUpdateAliasUpdateAliasRequest.html) in the *AWS SDK for \.NET*\.
+For details, see the [UpdateAlias method](https://docs.aws.amazon.com/sdkfornet/v3/apidocs/items/KeyManagementService/MKeyManagementServiceUpdateAliasUpdateAliasRequest.html) in the *AWS SDK for \.NET*\.
 
 ```
 // Updating an alias
@@ -396,7 +396,7 @@ kmsClient.UpdateAlias(updateAliasRequest);
 ------
 #### [ Python ]
 
-For details, see the [update\_alias method](http://boto3.readthedocs.org/en/latest/reference/services/kms.html#KMS.Client.update_alias) in the AWS SDK for Python \(Boto 3\)\.
+For details, see the [update\_alias method](http://boto3.amazonaws.com/v1/documentation/api/latest/reference/services/kms.html#KMS.Client.update_alias) in the AWS SDK for Python \(Boto 3\)\.
 
 ```
 # Updating an alias
@@ -414,7 +414,7 @@ response = kms_client.update_alias(
 ------
 #### [ Ruby ]
 
-For details, see the [update\_alias](http://docs.aws.amazon.com/sdk-for-ruby/v3/api/Aws/KMS/Client.html#update_alias-instance_method) instance method in the [AWS SDK for Ruby](http://docs.aws.amazon.com/sdk-for-ruby/v3/api/Aws/KMS.html)\.
+For details, see the [update\_alias](https://docs.aws.amazon.com/sdk-for-ruby/v3/api/Aws/KMS/Client.html#update_alias-instance_method) instance method in the [AWS SDK for Ruby](https://docs.aws.amazon.com/sdk-for-ruby/v3/api/Aws/KMS.html)\.
 
 ```
 # Updating an alias
@@ -432,7 +432,7 @@ response = kmsClient.update_alias({
 ------
 #### [ PHP ]
 
-For details, see the [UpdateAlias method](http://docs.aws.amazon.com/aws-sdk-php/latest/api-kms-2014-11-01.html#updatealias) in the *AWS SDK for PHP*\.
+For details, see the [UpdateAlias method](https://docs.aws.amazon.com/aws-sdk-php/latest/api-kms-2014-11-01.html#updatealias) in the *AWS SDK for PHP*\.
 
 ```
 // Updating an alias
@@ -451,7 +451,7 @@ $result = $KmsClient->updateAlias([
 ------
 #### [ Node\.js ]
 
-For details, see the [updateAlias property](http://docs.aws.amazon.com/AWSJavaScriptSDK/latest/AWS/KMS.html#updateAlias-property) in the *AWS SDK for JavaScript in Node\.js*\.
+For details, see the [updateAlias property](https://docs.aws.amazon.com/AWSJavaScriptSDK/latest/AWS/KMS.html#updateAlias-property) in the *AWS SDK for JavaScript in Node\.js*\.
 
 ```
 // Updating an alias
@@ -469,14 +469,14 @@ kmsClient.updateAlias({ AliasName, TargetKeyId }, (err, data) => {
 
 ## Deleting an Alias<a name="delete-alias"></a>
 
-To delete an alias, use the [DeleteAlias](http://docs.aws.amazon.com/kms/latest/APIReference/API_DeleteAlias.html) operation\. Deleting an alias has no effect on the underlying CMK\. 
+To delete an alias, use the [DeleteAlias](https://docs.aws.amazon.com/kms/latest/APIReference/API_DeleteAlias.html) operation\. Deleting an alias has no effect on the underlying CMK\. 
 
 This example uses the KMS client object that you created in [Creating a Client](programming-client.md)\.
 
 ------
 #### [ Java ]
 
-For details, see the [deleteAlias method](http://docs.aws.amazon.com/AWSJavaSDK/latest/javadoc/com/amazonaws/services/kms/AWSKMSClient.html#deleteAlias-com.amazonaws.services.kms.model.DeleteAliasRequest-) in the *AWS SDK for Java API Reference*\.
+For details, see the [deleteAlias method](https://docs.aws.amazon.com/AWSJavaSDK/latest/javadoc/com/amazonaws/services/kms/AWSKMSClient.html#deleteAlias-com.amazonaws.services.kms.model.DeleteAliasRequest-) in the *AWS SDK for Java API Reference*\.
 
 ```
 // Delete an alias for a CMK
@@ -490,7 +490,7 @@ kmsClient.deleteAlias(req);
 ------
 #### [ C\# ]
 
-For details, see the [DeleteAlias method](http://docs.aws.amazon.com/sdkfornet/v3/apidocs/items/KeyManagementService/MKeyManagementServiceDeleteAliasDeleteAliasRequest.html) in the *AWS SDK for \.NET*\.
+For details, see the [DeleteAlias method](https://docs.aws.amazon.com/sdkfornet/v3/apidocs/items/KeyManagementService/MKeyManagementServiceDeleteAliasDeleteAliasRequest.html) in the *AWS SDK for \.NET*\.
 
 ```
 // Delete an alias for a CMK
@@ -507,7 +507,7 @@ kmsClient.DeleteAlias(deleteAliasRequest);
 ------
 #### [ Python ]
 
-For details, see the [delete\_alias method](http://boto3.readthedocs.org/en/latest/reference/services/kms.html#KMS.Client.delete_alias) in the AWS SDK for Python \(Boto 3\)\.
+For details, see the [delete\_alias method](http://boto3.amazonaws.com/v1/documentation/api/latest/reference/services/kms.html#KMS.Client.delete_alias) in the AWS SDK for Python \(Boto 3\)\.
 
 ```
 # Delete an alias for a CMK
@@ -522,7 +522,7 @@ response = kms_client.delete_alias(
 ------
 #### [ Ruby ]
 
-For details, see the [delete\_alias](http://docs.aws.amazon.com/sdk-for-ruby/v3/api/Aws/KMS/Client.html#delete_alias-instance_method) instance method in the [AWS SDK for Ruby](http://docs.aws.amazon.com/sdk-for-ruby/v3/api/Aws/KMS.html)\.
+For details, see the [delete\_alias](https://docs.aws.amazon.com/sdk-for-ruby/v3/api/Aws/KMS/Client.html#delete_alias-instance_method) instance method in the [AWS SDK for Ruby](https://docs.aws.amazon.com/sdk-for-ruby/v3/api/Aws/KMS.html)\.
 
 ```
 # Delete an alias for a CMK
@@ -537,7 +537,7 @@ response = kmsClient.delete_alias({
 ------
 #### [ PHP ]
 
-For details, see the [DeleteAlias method](http://docs.aws.amazon.com/aws-sdk-php/latest/api-kms-2014-11-01.html#deletealias) in the *AWS SDK for PHP*\.
+For details, see the [DeleteAlias method](https://docs.aws.amazon.com/aws-sdk-php/latest/api-kms-2014-11-01.html#deletealias) in the *AWS SDK for PHP*\.
 
 ```
 // Delete an alias for a CMK
@@ -552,7 +552,7 @@ $result = $KmsClient->deleteAlias([
 ------
 #### [ Node\.js ]
 
-For details, see the [deleteAlias property](http://docs.aws.amazon.com/AWSJavaScriptSDK/latest/AWS/KMS.html#deleteAlias-property)\) in the *AWS SDK for JavaScript in Node\.js*\.
+For details, see the [deleteAlias property](https://docs.aws.amazon.com/AWSJavaScriptSDK/latest/AWS/KMS.html#deleteAlias-property)\) in the *AWS SDK for JavaScript in Node\.js*\.
 
 ```
 // Delete an alias for a CMK

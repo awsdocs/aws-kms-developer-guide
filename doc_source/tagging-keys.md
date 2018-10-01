@@ -1,12 +1,12 @@
 # Tagging Keys<a name="tagging-keys"></a>
 
-You can use the [**Encryption keys** section of the AWS Management Console](https://console.aws.amazon.com/iam/home#encryptionKeys) to add, change, and delete tags for customer master keys \(CMKs\) that you manage\. You can also use the operations in the [AWS Key Management Service \(AWS KMS\) API](http://docs.aws.amazon.com/kms/latest/APIReference/) to manage CMK tags\. You cannot tag AWS managed CMKs\.
+You can use the [**Encryption keys** section of the AWS Management Console](https://console.aws.amazon.com/iam/home#encryptionKeys) to add, change, and delete tags for customer master keys \(CMKs\) that you manage\. You can also use the operations in the [AWS Key Management Service \(AWS KMS\) API](https://docs.aws.amazon.com/kms/latest/APIReference/) to manage CMK tags\. You cannot tag AWS managed CMKs\.
 
 Each tag consists of a *tag key* and a *tag value*, both of which you define\. For example, the tag key might be "Cost Center" and the tag value might be "87654\."
 
 You might use a tag to categorize and track your AWS costs\. You can apply tags that represent business categories \(such as cost centers, application names, or owners\) to organize your costs across multiple services\. When you add tags to your AWS resources, AWS generates a cost allocation report with usage and costs aggregated by tags\. You can use this report to view your AWS KMS costs in terms of projects or applications, instead of viewing all AWS KMS costs as a single line item\.
 
-For more information about using tags for cost allocation, see [Using Cost Allocation Tags](http://docs.aws.amazon.com/awsaccountbilling/latest/aboutv2/cost-alloc-tags.html) in the *AWS Billing and Cost Management User Guide*\. For information about the rules that apply to tag keys and tag values, see [User\-Defined Tag Restrictions](http://docs.aws.amazon.com/awsaccountbilling/latest/aboutv2/allocation-tag-restrictions.html) in the *AWS Billing and Cost Management User Guide*\.
+For more information about using tags for cost allocation, see [Using Cost Allocation Tags](https://docs.aws.amazon.com/awsaccountbilling/latest/aboutv2/cost-alloc-tags.html) in the *AWS Billing and Cost Management User Guide*\. For information about the rules that apply to tag keys and tag values, see [User\-Defined Tag Restrictions](https://docs.aws.amazon.com/awsaccountbilling/latest/aboutv2/allocation-tag-restrictions.html) in the *AWS Billing and Cost Management User Guide*\.
 
 **Topics**
 + [Managing CMK Tags \(Console\)](#manage-tags)
@@ -35,7 +35,7 @@ You cannot tag AWS managed CMKs, which are denoted by the orange AWS icon\.
 
 ## Managing CMK Tags \(API\)<a name="manage-tags-api"></a>
 
-You can use the [AWS Key Management Service \(AWS KMS\) API](http://docs.aws.amazon.com/kms/latest/APIReference/) to add, delete, and list tags for the CMKs that you manage\. These examples use the [AWS Command Line Interface \(AWS CLI\)](https://aws.amazon.com/cli/), but you can use any supported programming language\. 
+You can use the [AWS Key Management Service \(AWS KMS\) API](https://docs.aws.amazon.com/kms/latest/APIReference/) to add, delete, and list tags for the CMKs that you manage\. These examples use the [AWS Command Line Interface \(AWS CLI\)](https://aws.amazon.com/cli/), but you can use any supported programming language\. 
 
 You cannot tag AWS managed CMKs\.
 
@@ -46,7 +46,7 @@ You cannot tag AWS managed CMKs\.
 
 ### TagResource: Add or Change Tags for a CMK<a name="tagging-keys-tag-resource"></a>
 
-The [TagResource](http://docs.aws.amazon.com/kms/latest/APIReference/API_TagResource.html) operation adds one or more tags to a CMK\.
+The [TagResource](https://docs.aws.amazon.com/kms/latest/APIReference/API_TagResource.html) operation adds one or more tags to a CMK\.
 
 You can also use **TagResource** to change the values for an existing tag\. To replace tag values, specify the same tag key with different values\. To add values to a tag, specify the tag key with both new and existing values\.
 
@@ -58,11 +58,11 @@ $ aws kms tag-resource --key-id 1234abcd-12ab-34cd-56ef-1234567890ab /
                               TagKey=Department,TagValue=Finance
 ```
 
-When this command is successful, it does not return any output\. To view the tags on a CMK, use the [ListResourceTags](http://docs.aws.amazon.com/kms/latest/APIReference/API_ListResourceTags.html) operation\.
+When this command is successful, it does not return any output\. To view the tags on a CMK, use the [ListResourceTags](https://docs.aws.amazon.com/kms/latest/APIReference/API_ListResourceTags.html) operation\.
 
 ### ListResourceTags: Get the Tags for a CMK<a name="tagging-keys-list-resource-tags"></a>
 
-The [ListResourceTags](http://docs.aws.amazon.com/kms/latest/APIReference/API_ListResourceTags.html) operation gets the tags for a CMK\. The `key-id` parameter is required\.
+The [ListResourceTags](https://docs.aws.amazon.com/kms/latest/APIReference/API_ListResourceTags.html) operation gets the tags for a CMK\. The `key-id` parameter is required\.
 
 For example, the following command gets the tags for the specified CMK\.
 
@@ -85,7 +85,7 @@ $ aws kms list-resource-tags --key-id 1234abcd-12ab-34cd-56ef-1234567890ab
 
 ### UntagResource: Delete Tags from a CMK<a name="tagging-keys-untag-resource"></a>
 
-The [UntagResource](http://docs.aws.amazon.com/kms/latest/APIReference/API_UntagResource.html) operation deletes tags from a CMK\. The `key-id` and `tag-keys` parameters are required\.
+The [UntagResource](https://docs.aws.amazon.com/kms/latest/APIReference/API_UntagResource.html) operation deletes tags from a CMK\. The `key-id` and `tag-keys` parameters are required\.
 
 For example, this command deletes the **Purpose** tag and all of its values from the specified CMK\.
 

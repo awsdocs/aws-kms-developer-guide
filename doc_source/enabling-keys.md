@@ -33,21 +33,21 @@ You cannot disable AWS managed CMKs, which are denoted by the orange AWS icon\.
 
 ## Enabling and Disabling CMKs \(API\)<a name="enabling-keys-api"></a>
 
-The [EnableKey](http://docs.aws.amazon.com/kms/latest/APIReference/API_EnableKey.html) operation enables a disabled AWS KMS customer master key \(CMK\)\. These examples use the [AWS Command Line Interface \(AWS CLI\)](https://aws.amazon.com/cli/), but you can use any supported programming language\. The `key-id` parameter is required\.
+The [EnableKey](https://docs.aws.amazon.com/kms/latest/APIReference/API_EnableKey.html) operation enables a disabled AWS KMS customer master key \(CMK\)\. These examples use the [AWS Command Line Interface \(AWS CLI\)](https://aws.amazon.com/cli/), but you can use any supported programming language\. The `key-id` parameter is required\.
 
-This operation does not return any output\. To see the key status, use the [DescribeKey](http://docs.aws.amazon.com/kms/latest/APIReference/API_DescribeKey.html) operation\.
+This operation does not return any output\. To see the key status, use the [DescribeKey](https://docs.aws.amazon.com/kms/latest/APIReference/API_DescribeKey.html) operation\.
 
 ```
 $ aws kms enable-key --key-id 1234abcd-12ab-34cd-56ef-1234567890ab
 ```
 
-The [DisableKey](http://docs.aws.amazon.com/kms/latest/APIReference/API_DisableKey.html) operation disables an enabled CMK\. The `key-id` parameter is required\.
+The [DisableKey](https://docs.aws.amazon.com/kms/latest/APIReference/API_DisableKey.html) operation disables an enabled CMK\. The `key-id` parameter is required\.
 
 ```
 $ aws kms disable-key --key-id 1234abcd-12ab-34cd-56ef-1234567890ab
 ```
 
-This operation does not return any output\. To see the key status, use the [DescribeKey](http://docs.aws.amazon.com/kms/latest/APIReference/API_DescribeKey.html) operation, and see the Enabled field\.
+This operation does not return any output\. To see the key status, use the [DescribeKey](https://docs.aws.amazon.com/kms/latest/APIReference/API_DescribeKey.html) operation, and see the Enabled field\.
 
 ```
 $ aws kms describe-key --key-id 1234abcd-12ab-34cd-56ef-1234567890ab

@@ -5,7 +5,7 @@ When you [use the AWS Management Console to create a customer master key \(CMK\)
 When you create a new CMK, the latest version of the default key policy is added to the CMK\. However, existing CMKs continue to use their existing key policy—that is, new versions of the default key policy are *not* automatically applied to existing CMKs\. Instead, the console alerts you that a newer version is available and prompts you to upgrade it\.
 
 **Note**  
-The console alerts you only when you are using the default key policy that was applied when you created the CMK\. If you manually modified the key policy document using the console's *policy view* or the [PutKeyPolicy](http://docs.aws.amazon.com/kms/latest/APIReference/API_PutKeyPolicy.html) API operation, the console does not alert you when new permissions are available\.
+The console alerts you only when you are using the default key policy that was applied when you created the CMK\. If you manually modified the key policy document using the console's *policy view* or the [PutKeyPolicy](https://docs.aws.amazon.com/kms/latest/APIReference/API_PutKeyPolicy.html) API operation, the console does not alert you when new permissions are available\.
 
 For information about the permissions that are added to a key policy when you upgrade it, see [Changes to the Default Key Policy](#key-policy-changes)\. Upgrading to the latest version of the key policy should not cause problems because it only adds permissions; it doesn't remove any\. We recommend keeping your key policies up to date unless you have a specific reason not to\.
 

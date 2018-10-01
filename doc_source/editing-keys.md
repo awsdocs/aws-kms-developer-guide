@@ -2,7 +2,7 @@
 
 You can use the key detail page of the **Encryption keys** section of the AWS Management Console to edit some of the properties of the customer master keys \(CMKs\) that you manage\. You can change the description, add and remove administrators and users, manage tags, and enable and disable key rotation\. 
 
-You can also use the operations in the [AWS Key Management Service \(AWS KMS\) API](http://docs.aws.amazon.com/kms/latest/APIReference/) to edit the CMKs that you manage\. You cannot changes the properties of AWS managed CMKs\.
+You can also use the operations in the [AWS Key Management Service \(AWS KMS\) API](https://docs.aws.amazon.com/kms/latest/APIReference/) to edit the CMKs that you manage\. You cannot changes the properties of AWS managed CMKs\.
 
 **Topics**
 + [Editing CMKs \(console\)](#editing-keys-console)
@@ -53,7 +53,7 @@ Use the controls in the **Key Rotation** section of the page to enable and disab
 
 ## Editing CMKs \(API\)<a name="editing-keys-cli"></a>
 
-You can use the [AWS Key Management Service \(AWS KMS\) API](http://docs.aws.amazon.com/kms/latest/APIReference/) to edit your customer\-managed CMKs\. These examples use the [AWS Command Line Interface \(AWS CLI\)](https://aws.amazon.com/cli/), but you can use any supported programming language\. This section demonstrates several operations that return details about existing CMKs\.
+You can use the [AWS Key Management Service \(AWS KMS\) API](https://docs.aws.amazon.com/kms/latest/APIReference/) to edit your customer\-managed CMKs\. These examples use the [AWS Command Line Interface \(AWS CLI\)](https://aws.amazon.com/cli/), but you can use any supported programming language\. This section demonstrates several operations that return details about existing CMKs\.
 
 You cannot edit the properties of AWS managed CMKs\.
 
@@ -67,7 +67,7 @@ For information about adding, deleting, and editing tags, see [Tagging Keys](tag
 
 ### UpdateKeyDescription: Change the Description of a CMK<a name="editing-keys-edit-description"></a>
 
-The [UpdateKeyDescription](http://docs.aws.amazon.com/kms/latest/APIReference/API_UpdateKeyDescription.html) operation adds or changes the description of a CMK\. To see the description, use the [DescribeKey](http://docs.aws.amazon.com/kms/latest/APIReference/API_DescribeKey.html) operation\.
+The [UpdateKeyDescription](https://docs.aws.amazon.com/kms/latest/APIReference/API_UpdateKeyDescription.html) operation adds or changes the description of a CMK\. To see the description, use the [DescribeKey](https://docs.aws.amazon.com/kms/latest/APIReference/API_DescribeKey.html) operation\.
 
 For example, this call to the `UpdateKeyDescription` operation changes the description of the specified CMK\.
 
@@ -99,10 +99,10 @@ $ aws kms describe-key --key-id 1234abcd-12ab-34cd-56ef-1234567890ab
 
 ### PutKeyPolicy: Change the Key Policy for a CMK<a name="editing-keys-edit-key-policy"></a>
 
-The [PutKeyPolicy](http://docs.aws.amazon.com/kms/latest/APIReference/API_PutKeyPolicy.html) operation changes the key policy of the CMK to the policy that you specify\. The policy includes permissions for administrators, users, and roles\. For a detailed example, see [PutKeyPolicy Examples](http://docs.aws.amazon.com/kms/latest/APIReference/API_PutKeyPolicy.html#API_PutKeyPolicy_Examples)\.
+The [PutKeyPolicy](https://docs.aws.amazon.com/kms/latest/APIReference/API_PutKeyPolicy.html) operation changes the key policy of the CMK to the policy that you specify\. The policy includes permissions for administrators, users, and roles\. For a detailed example, see [PutKeyPolicy Examples](https://docs.aws.amazon.com/kms/latest/APIReference/API_PutKeyPolicy.html#API_PutKeyPolicy_Examples)\.
 
 ### Enable and Disable Key Rotation<a name="editing-keys-enable-key-rotation"></a>
 
-The [EnableKeyRotation](http://docs.aws.amazon.com/kms/latest/APIReference/API_EnableKeyRotation.html) operation enables [automatic rotation](rotate-keys.md) of the cryptographic material in a CMK\. The [DisableKeyRotation](http://docs.aws.amazon.com/kms/latest/APIReference/API_DisableKeyRotation.html) operation disables it\. The [GetKeyRotationStatus](http://docs.aws.amazon.com/kms/latest/APIReference/API_GetKeyRotationStatus.html) operation returns a Boolean value that tells you whether automatic key rotation is enabled \(**true**\) or disabled \(**false**\)\. 
+The [EnableKeyRotation](https://docs.aws.amazon.com/kms/latest/APIReference/API_EnableKeyRotation.html) operation enables [automatic rotation](rotate-keys.md) of the cryptographic material in a CMK\. The [DisableKeyRotation](https://docs.aws.amazon.com/kms/latest/APIReference/API_DisableKeyRotation.html) operation disables it\. The [GetKeyRotationStatus](https://docs.aws.amazon.com/kms/latest/APIReference/API_GetKeyRotationStatus.html) operation returns a Boolean value that tells you whether automatic key rotation is enabled \(**true**\) or disabled \(**false**\)\. 
 
 For an example, see [Rotating Customer Master Keys](rotate-keys.md)\.

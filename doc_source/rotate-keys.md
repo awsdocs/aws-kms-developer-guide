@@ -46,7 +46,7 @@ Key rotation in AWS KMS is a cryptographic best practice that is designed to be 
 + **AWS managed CMKs\.** You cannot manage key rotation for AWS managed CMKs\. AWS KMS automatically rotates AWS managed keys every three years \(1095 days\)\.
 
    
-+ **Logging key rotation\.** When AWS KMS rotates a CMK, it writes the **KMS CMK Rotation** event to [Amazon CloudWatch Events](http://docs.aws.amazon.com/AmazonCloudWatch/latest/events/)\. You can use this event to verify that the CMK was rotated\. 
++ **Logging key rotation\.** When AWS KMS rotates a CMK, it writes the **KMS CMK Rotation** event to [Amazon CloudWatch Events](https://docs.aws.amazon.com/AmazonCloudWatch/latest/events/)\. You can use this event to verify that the CMK was rotated\. 
 
 ## How to Enable and Disable Automatic Key Rotation<a name="rotating-keys-enable-disable"></a>
 
@@ -75,11 +75,11 @@ If a CMK is disabled or pending deletion, the **Key Rotation** check box is clea
 
 ### Enabling and Disabling Key Rotation with the API<a name="rotate-keys-api"></a>
 
-You can use the [AWS Key Management Service \(AWS KMS\) API](http://docs.aws.amazon.com/kms/latest/APIReference/) to enable and disable automatic key rotation, and view the current rotation status of any customer managed CMK\. These examples use the [AWS Command Line Interface \(AWS CLI\)](https://aws.amazon.com/cli/), but you can use any supported programming language\. 
+You can use the [AWS Key Management Service \(AWS KMS\) API](https://docs.aws.amazon.com/kms/latest/APIReference/) to enable and disable automatic key rotation, and view the current rotation status of any customer managed CMK\. These examples use the [AWS Command Line Interface \(AWS CLI\)](https://aws.amazon.com/cli/), but you can use any supported programming language\. 
 
-The [EnableKeyRotation](http://docs.aws.amazon.com/kms/latest/APIReference/API_EnableKeyRotation.html) operation enables automatic key rotation for the specified CMK\. The [DisableKeyRotation](http://docs.aws.amazon.com/kms/latest/APIReference/API_DisableKeyRotation.html) operation disables it\. To identify the CMK, use its key ID, key ARN, alias name, or alias ARN\. By default, key rotation is disabled for customer managed CMKs\.
+The [EnableKeyRotation](https://docs.aws.amazon.com/kms/latest/APIReference/API_EnableKeyRotation.html) operation enables automatic key rotation for the specified CMK\. The [DisableKeyRotation](https://docs.aws.amazon.com/kms/latest/APIReference/API_DisableKeyRotation.html) operation disables it\. To identify the CMK, use its key ID, key ARN, alias name, or alias ARN\. By default, key rotation is disabled for customer managed CMKs\.
 
-The following example enables key rotation on the specified CMK and uses the [GetKeyRotationStatus](http://docs.aws.amazon.com/kms/latest/APIReference/API_GetKeyRotationStatus.html) operation to see the result\. Then, it disables key rotation and, again, uses **GetKeyRotationStatus** to see the change\.
+The following example enables key rotation on the specified CMK and uses the [GetKeyRotationStatus](https://docs.aws.amazon.com/kms/latest/APIReference/API_GetKeyRotationStatus.html) operation to see the result\. Then, it disables key rotation and, again, uses **GetKeyRotationStatus** to see the change\.
 
 ```
 $ aws kms enable-key-rotation --key-id 1234abcd-12ab-34cd-56ef-1234567890ab
@@ -110,7 +110,7 @@ When you begin using the new CMK, be sure to keep the original CMK enabled so th
 
 Because the new CMK is a different resource from the current CMK, it has a different key ID and ARN\. When you change CMKs, you need to update references to the CMK ID or ARN in your applications\. Aliases, which associate a friendly name with a CMK, make this process easier\. Use an alias to refer to a CMK in your applications\. Then, when you want to change the CMK that the application uses, change the target CMK of the alias\.
 
-To update the target CMK of an alias, use [UpdateAlias](http://docs.aws.amazon.com/kms/latest/APIReference/API_UpdateAlias.html) operation in the AWS KMS API\. For example, this command updates the TestCMK alias to point to a new CMK\. Because the operation does not return any output, the example uses the [ListAliases](http://docs.aws.amazon.com/kms/latest/APIReference/API_ListAliases.html) operation to show that the alias is now associated with a different CMK\.
+To update the target CMK of an alias, use [UpdateAlias](https://docs.aws.amazon.com/kms/latest/APIReference/API_UpdateAlias.html) operation in the AWS KMS API\. For example, this command updates the TestCMK alias to point to a new CMK\. Because the operation does not return any output, the example uses the [ListAliases](https://docs.aws.amazon.com/kms/latest/APIReference/API_ListAliases.html) operation to show that the alias is now associated with a different CMK\.
 
 ```
 $ aws kms list-aliases

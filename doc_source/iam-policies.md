@@ -3,7 +3,7 @@
 You can use IAM policies in combination with [key policies](key-policies.md) to control access to your customer master keys \(CMKs\) in AWS KMS\.
 
 **Note**  
-This section discusses using IAM in the context of AWS KMS\. It doesn't provide detailed information about the IAM service\. For complete IAM documentation, see the [IAM User Guide](http://docs.aws.amazon.com/IAM/latest/UserGuide/)\.
+This section discusses using IAM in the context of AWS KMS\. It doesn't provide detailed information about the IAM service\. For complete IAM documentation, see the [IAM User Guide](https://docs.aws.amazon.com/IAM/latest/UserGuide/)\.
 
 Policies attached to IAM identities \(that is, users, groups, and roles\) are called *identity\-based policies* \(or *IAM policies*\), and policies attached to resources outside of IAM are called *resource\-based policies*\. In AWS KMS, you must attach resource\-based policies to your CMKs\. These are called *key policies*\. All KMS CMKs have a key policy, and you must use it to control access to a CMK\. IAM policies by themselves are not sufficient to allow access to a CMK, though you can use them in combination with a CMK's key policy\. To do so, ensure that CMK's key policy includes the [policy statement that enables IAM policies](key-policies.md#key-policy-default-allow-root-enable-iam)\.
 
@@ -17,7 +17,7 @@ Policies attached to IAM identities \(that is, users, groups, and roles\) are ca
 
 You can use IAM policies in the following ways:
 + **Attach a permissions policy to a user or a group** – You can attach a policy that allows an IAM user or group of users to, for example, create new CMKs\.
-+ **Attach a permissions policy to a role for federation or cross\-account permissions** – You can attach an IAM policy to an IAM role to enable identity federation, allow cross\-account permissions, or give permissions to applications running on EC2 instances\. For more information about the various use cases for IAM roles, see [IAM Roles](http://docs.aws.amazon.com/IAM/latest/UserGuide/id_roles.html) in the *IAM User Guide*\.
++ **Attach a permissions policy to a role for federation or cross\-account permissions** – You can attach an IAM policy to an IAM role to enable identity federation, allow cross\-account permissions, or give permissions to applications running on EC2 instances\. For more information about the various use cases for IAM roles, see [IAM Roles](https://docs.aws.amazon.com/IAM/latest/UserGuide/id_roles.html) in the *IAM User Guide*\.
 
 The following example shows an IAM policy with AWS KMS permissions\. This policy allows the IAM identities to which it is attached to retrieve a list of all CMKs and aliases\.
 
@@ -51,7 +51,7 @@ You don't need to allow minimum console permissions for users that are working w
 
 ## AWS Managed \(Predefined\) Policies for AWS KMS<a name="aws-managed-policies"></a>
 
-AWS addresses many common use cases by providing standalone IAM policies that are created and managed by AWS\. These are called *AWS managed policies*\. AWS managed policies provide the necessary permissions for common use cases so you don't have to investigate which permissions are needed\. For more information, see [AWS Managed Policies](http://docs.aws.amazon.com/IAM/latest/UserGuide/access_policies_managed-vs-inline.html#aws-managed-policies) in the *IAM User Guide*\.
+AWS addresses many common use cases by providing standalone IAM policies that are created and managed by AWS\. These are called *AWS managed policies*\. AWS managed policies provide the necessary permissions for common use cases so you don't have to investigate which permissions are needed\. For more information, see [AWS Managed Policies](https://docs.aws.amazon.com/IAM/latest/UserGuide/access_policies_managed-vs-inline.html#aws-managed-policies) in the *IAM User Guide*\.
 
 AWS provides one AWS managed policy for AWS KMS called [AWSKeyManagementServicePowerUser](https://console.aws.amazon.com/iam/home#policies/arn:aws:iam::aws:policy/AWSKeyManagementServicePowerUser)\. This policy allows the following permissions:
 + Allows users to list all CMKs and aliases\.
@@ -159,7 +159,7 @@ The following policy allows a user to successfully request that AWS KMS encrypt 
 
 ### Prevent a User from Disabling or Deleting Any CMKs<a name="iam-policy-example-deny-disable-delete"></a>
 
-The following policy prevents a user from disabling or deleting any CMKs, even when another IAM policy or a key policy allows these permissions\. A policy that explicitly denies permissions overrides all other policies, even those that explicitly allow the same permissions\. For more information, see [Determining Whether a Request is Allowed or Denied](http://docs.aws.amazon.com/IAM/latest/UserGuide/reference_policies_evaluation-logic.html#policy-eval-denyallow) in the *IAM User Guide*\.
+The following policy prevents a user from disabling or deleting any CMKs, even when another IAM policy or a key policy allows these permissions\. A policy that explicitly denies permissions overrides all other policies, even those that explicitly allow the same permissions\. For more information, see [Determining Whether a Request is Allowed or Denied](https://docs.aws.amazon.com/IAM/latest/UserGuide/reference_policies_evaluation-logic.html#policy-eval-denyallow) in the *IAM User Guide*\.
 
 ```
 {

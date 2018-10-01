@@ -11,7 +11,7 @@ You can use Amazon Elastic Transcoder to convert media files stored in an Amazon
 
 ## Encrypting the input file<a name="et-encrypt-input"></a>
 
-Before you can use Elastic Transcoder, you must [create an Amazon S3 bucket](http://docs.aws.amazon.com/AmazonS3/latest/user-guide/CreatingaBucket.html) and upload your media file into it\. You can encrypt the file before uploading by using AES client\-side encryption or after uploading by using Amazon S3 server\-side encryption\.
+Before you can use Elastic Transcoder, you must [create an Amazon S3 bucket](https://docs.aws.amazon.com/AmazonS3/latest/user-guide/CreatingaBucket.html) and upload your media file into it\. You can encrypt the file before uploading by using AES client\-side encryption or after uploading by using Amazon S3 server\-side encryption\.
 
 If you choose client\-side encryption using AES, you are responsible for encrypting the file before uploading it to Amazon S3, and you must provide Elastic Transcoder access to the encryption key\. You do this by using an AWS KMS customer master key \(CMK\) to protect the AES encryption key you used to encrypt the media file\.
 
@@ -20,7 +20,7 @@ If you choose server\-side encryption, you are allowing Amazon S3 to perform all
 + The AWS\-managed CMK for Amazon S3, a master key that is owned by your account but managed by AWS
 + Any customer\-managed CMK that you create by using AWS KMS
 
-You can request encryption and the master key you want by using the Amazon S3 console or the appropriate Amazon S3 APIs\. For more information about how Amazon S3 performs encryption, see [Protecting Data Using Encryption](http://docs.aws.amazon.com/AmazonS3/latest/dev/UsingEncryption.html) in the *Amazon Simple Storage Service Developer Guide*\.
+You can request encryption and the master key you want by using the Amazon S3 console or the appropriate Amazon S3 APIs\. For more information about how Amazon S3 performs encryption, see [Protecting Data Using Encryption](https://docs.aws.amazon.com/AmazonS3/latest/dev/UsingEncryption.html) in the *Amazon Simple Storage Service Developer Guide*\.
 
 When you use an AWS KMS CMK as the master key \(the AWS\-managed CMK for Amazon S3 in your account or a customer\-managed CMK\) to protect the input file, Amazon S3 and AWS KMS interact in the following manner:
 
@@ -34,7 +34,7 @@ When you use an AWS KMS CMK as the master key \(the AWS\-managed CMK for Amazon 
 
 ## Decrypting the input file<a name="et-decrypt-input"></a>
 
-If you choose Amazon S3 server\-side encryption to encrypt the input file, Elastic Transcoder does not decrypt the file\. Instead, Elastic Transcoder relies on Amazon S3 to perform decryption depending on the [settings you specify when you create a job](http://docs.aws.amazon.com/elastictranscoder/latest/developerguide/job-settings.html) and a pipeline\. 
+If you choose Amazon S3 server\-side encryption to encrypt the input file, Elastic Transcoder does not decrypt the file\. Instead, Elastic Transcoder relies on Amazon S3 to perform decryption depending on the [settings you specify when you create a job](https://docs.aws.amazon.com/elastictranscoder/latest/developerguide/job-settings.html) and a pipeline\. 
 
 The following combination of settings are available\.
 
@@ -84,11 +84,11 @@ When you specify that an AWS KMS CMK \(the AWS\-managed CMK for Amazon S3 in you
 
 When you specify that your provided AES key be used to encrypt the output file, the AES key must be encrypted using a CMK in AWS KMS\. Elastic Transcoder, AWS KMS, and you interact in the following manner:
 
-1. You encrypt your AES key by calling the [Encrypt](http://docs.aws.amazon.com/kms/latest/APIReference/API_Encrypt.html) operation in the AWS KMS API\. AWS KMS encrypts the key by using the specified CMK\. You specify which CMK to use when you are creating the pipeline\.
+1. You encrypt your AES key by calling the [Encrypt](https://docs.aws.amazon.com/kms/latest/APIReference/API_Encrypt.html) operation in the AWS KMS API\. AWS KMS encrypts the key by using the specified CMK\. You specify which CMK to use when you are creating the pipeline\.
 
 1. You specify the file containing the encrypted AES key when you create the Elastic Transcoder job\.
 
-1. Elastic Transcoder decrypts the key by calling the [Decrypt](http://docs.aws.amazon.com/kms/latest/APIReference/API_Decrypt.html) operation in the AWS KMS API, passing the encrypted key as ciphertext\.
+1. Elastic Transcoder decrypts the key by calling the [Decrypt](https://docs.aws.amazon.com/kms/latest/APIReference/API_Decrypt.html) operation in the AWS KMS API, passing the encrypted key as ciphertext\.
 
 1. Elastic Transcoder uses the decrypted AES key to encrypt the output media file and then deletes the decrypted AES key from memory\. Only the encrypted copy you originally defined in the job is saved to disk\.
 
@@ -113,7 +113,7 @@ The CMK can be used to decrypt the data key at the following points:
 + Elastic Transcoder decrypts your provided data key when it needs to use the data key to encrypt the output file or decrypt the input file\.
 + You decrypt a data key generated by Elastic Transcoder and use it to decrypt output files\.
 
-For more information, see [HLS Content Protection](http://docs.aws.amazon.com/elastictranscoder/latest/developerguide/content-protection.html) in the *Amazon Elastic Transcoder Developer Guide*\.
+For more information, see [HLS Content Protection](https://docs.aws.amazon.com/elastictranscoder/latest/developerguide/content-protection.html) in the *Amazon Elastic Transcoder Developer Guide*\.
 
 ## Elastic Transcoder Encryption Context<a name="et-encryption-context"></a>
 
@@ -133,4 +133,4 @@ The encryption context is written to CloudTrail logs to help you understand how 
 }
 ```
 
-For more information about how to configure Elastic Transcoder jobs to use one of the supported encryption options, see [Data Encryption Options](http://docs.aws.amazon.com/elastictranscoder/latest/developerguide/encryption.html) in the *Amazon Elastic Transcoder Developer Guide*\.
+For more information about how to configure Elastic Transcoder jobs to use one of the supported encryption options, see [Data Encryption Options](https://docs.aws.amazon.com/elastictranscoder/latest/developerguide/encryption.html) in the *Amazon Elastic Transcoder Developer Guide*\.

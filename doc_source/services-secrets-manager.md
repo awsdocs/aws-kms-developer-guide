@@ -1,6 +1,6 @@
 # How AWS Secrets Manager Uses AWS KMS<a name="services-secrets-manager"></a>
 
-[AWS Secrets Manager](http://docs.aws.amazon.com/secretsmanager/latest/userguide/Introduction.html) is an AWS service that encrypts and stores your secrets, and transparently decrypts and returns them to you in plaintext\. It's designed especially to store application secrets, such as login credentials, that change periodically and should not be hard\-coded or stored in plaintext in the application\. In place of hard\-coded credentials or table lookups, your application calls Secrets Manager\.
+[AWS Secrets Manager](https://docs.aws.amazon.com/secretsmanager/latest/userguide/Introduction.html) is an AWS service that encrypts and stores your secrets, and transparently decrypts and returns them to you in plaintext\. It's designed especially to store application secrets, such as login credentials, that change periodically and should not be hard\-coded or stored in plaintext in the application\. In place of hard\-coded credentials or table lookups, your application calls Secrets Manager\.
 
 Secrets Manager also supports features that periodically rotate the secrets associated with commonly used databases\. It always encrypts newly rotated secrets before they are stored\.
 
@@ -18,7 +18,7 @@ Secrets Manager integrates with AWS Key Management Service \(AWS KMS\) to encryp
 
 To protect a secret, Secrets Manager encrypts the *secret value* in a secret\.
 
-In Secrets Manager, a [secret](http://docs.aws.amazon.com/secretsmanager/latest/userguide/terms-concepts.html#term_secret) consists of a *secret value*, also known as *protected secret text* or *encrypted secret data*, and related metadata and version information\. The secret value can be any string or binary data of up to 4096 bytes, but it is typically a collection of name\-value pairs that comprise the login information for a server or database\.
+In Secrets Manager, a [secret](https://docs.aws.amazon.com/secretsmanager/latest/userguide/terms-concepts.html#term_secret) consists of a *secret value*, also known as *protected secret text* or *encrypted secret data*, and related metadata and version information\. The secret value can be any string or binary data of up to 4096 bytes, but it is typically a collection of name\-value pairs that comprise the login information for a server or database\.
 
 Secrets Manager always encrypts the entire secret value before it stores the secret\. It decrypts the secret value transparently whenever you get or change the secret value\. There is no option to enable or disable encryption\. To encrypt and decrypt the secret value, Secrets Manager uses AWS KMS\.
 
@@ -36,9 +36,9 @@ Each secret is associated with an AWS managed or customer managed [customer mast
 
 When you create a new secret, you can specify any customer managed CMK in the account and region, or the AWS managed CMK for Secrets Manager, `aws/secretsmanager`\. If you do not specify a CMK, or you select the console default value, **DefaultEncryptionKey**, Secrets Manager creates the `aws/secretsmanager` CMK, if it does not exist, and associates it with the secret\. You can use the same CMK or different CMKs for each secret in your account\.
 
-You can change the CMK for a secret at any time, either in the Secrets Manager console, or by using the [UpdateSecret](UpdateSecret) operation\. When you change the CMK, Secrets Manager does not re\-encrypt the existing secret value under the new CMK\. However, the next time that the secret value changes, Secrets Manager encrypts it under the new CMK\.
+You can change the CMK for a secret at any time, either in the Secrets Manager console, or by using the [UpdateSecret](https://docs.aws.amazon.com/secretsmanager/latest/apireference/API_UpdateSecret.html) operation\. When you change the CMK, Secrets Manager does not re\-encrypt the existing secret value under the new CMK\. However, the next time that the secret value changes, Secrets Manager encrypts it under the new CMK\.
 
-To find the CMK that is associated with a secret, use the [ListSecrets](http://docs.aws.amazon.com/secretsmanager/latest/apireference/API_ListSecrets.html) or [DecribeSecret](http://docs.aws.amazon.com/secretsmanager/latest/apireference/API_DescribeSecret.html) operations\. When the secret is associated with the AWS managed CMK for Secrets Manager \(`aws/secretsmanager`\), these operations do not return a CMK identifier\.
+To find the CMK that is associated with a secret, use the [ListSecrets](https://docs.aws.amazon.com/secretsmanager/latest/apireference/API_ListSecrets.html) or [DescribeSecret](https://docs.aws.amazon.com/secretsmanager/latest/apireference/API_DescribeSecret.html) operations\. When the secret is associated with the AWS managed CMK for Secrets Manager \(`aws/secretsmanager`\), these operations do not return a CMK identifier\.
 
 Secrets Manager does not use the CMK to encrypt the secret value directly\. Instead, it uses the CMK to generate and encrypt a unique data key, and it uses the data key to encrypt the secret value\.
 
@@ -52,7 +52,7 @@ The secret value is ultimately protected by the CMK, which never leaves AWS KMS 
 
 To encrypt the secret value in a secret, Secrets Manager uses the following process\.
 
-1. Secrets Manager calls the AWS KMS [GenerateDataKey](http://docs.aws.amazon.com/kms/latest/APIReference/API_GenerateDataKey.html) operation with the ID of the CMK for the secret and a request for a 256\-bit AES symmetric key\. AWS KMS returns a plaintext data key and a copy of that data key encrypted under the CMK\.
+1. Secrets Manager calls the AWS KMS [GenerateDataKey](https://docs.aws.amazon.com/kms/latest/APIReference/API_GenerateDataKey.html) operation with the ID of the CMK for the secret and a request for a 256\-bit AES symmetric key\. AWS KMS returns a plaintext data key and a copy of that data key encrypted under the CMK\.
 
 1. Secrets Manager uses the plaintext data key and the Advanced Encryption Standard \(AES\) algorithm to encrypt the secret value outside of AWS KMS\. It removes the plaintext key from memory as soon as possible after using it\.
 
@@ -64,7 +64,7 @@ To decrypt an encrypted secret value, Secrets Manager must first decrypt the enc
 
 To decrypt an encrypted secret value:
 
-1.  Secrets Manager calls the AWS KMS [Decrypt](http://docs.aws.amazon.com/kms/latest/APIReference/API_Decrypt.html) operation and passes in the encrypted data key\.
+1.  Secrets Manager calls the AWS KMS [Decrypt](https://docs.aws.amazon.com/kms/latest/APIReference/API_Decrypt.html) operation and passes in the encrypted data key\.
 
 1. AWS KMS uses the CMK for the secret to decrypt the data key\. It returns the plaintext data key\.
 
@@ -77,17 +77,17 @@ Secrets Manager uses the [customer master key](concepts.md#master_keys) \(CMK\) 
 The following Secrets Manager operations trigger a request to use your AWS KMS CMK\.
 
 **GenerateDataKey**  
-Secrets Manager calls the AWS KMS [GenerateDataKey](http://docs.aws.amazon.com/kms/latest/APIReference/API_GenerateDataKey.html) operation in response to the following Secrets Manager operations\.  
-+ [CreateSecret](http://docs.aws.amazon.com/secretsmanager/latest/apireference/API_CreateSecret.html) – If the new secret includes a secret value, Secrets Manager requests a new data key to encrypt it\. 
-+ [PutSecretValue](http://docs.aws.amazon.com/secretsmanager/latest/apireference/API_PutSecretValue.html)– Secrets Manager requests a new data key to encrypt the specified secret value\.
-+ [UpdateSecret](http://docs.aws.amazon.com/secretsmanager/latest/apireference/API_UpdateSecret.html) – If the update changes the secret value, Secrets Manager requests a new data key to encrypt the new secret value\.
-The [RotateSecret](http://docs.aws.amazon.com/secretsmanager/latest/apireference/API_RotateSecret.html) operation does not call `GenerateDataKey`, because it does not change the secret value\. However, if the Lambda function that `RotateSecret` invokes changes the secret value, its call to the `PutSecretValue` operation triggers a `GenerateDataKey` request\.
+Secrets Manager calls the AWS KMS [GenerateDataKey](https://docs.aws.amazon.com/kms/latest/APIReference/API_GenerateDataKey.html) operation in response to the following Secrets Manager operations\.  
++ [CreateSecret](https://docs.aws.amazon.com/secretsmanager/latest/apireference/API_CreateSecret.html) – If the new secret includes a secret value, Secrets Manager requests a new data key to encrypt it\. 
++ [PutSecretValue](https://docs.aws.amazon.com/secretsmanager/latest/apireference/API_PutSecretValue.html)– Secrets Manager requests a new data key to encrypt the specified secret value\.
++ [UpdateSecret](https://docs.aws.amazon.com/secretsmanager/latest/apireference/API_UpdateSecret.html) – If the update changes the secret value, Secrets Manager requests a new data key to encrypt the new secret value\.
+The [RotateSecret](https://docs.aws.amazon.com/secretsmanager/latest/apireference/API_RotateSecret.html) operation does not call `GenerateDataKey`, because it does not change the secret value\. However, if the Lambda function that `RotateSecret` invokes changes the secret value, its call to the `PutSecretValue` operation triggers a `GenerateDataKey` request\.
 
 **Decrypt**  
-To decrypt an encrypted secret value, Secrets Manager calls the AWS KMS [Decrypt](http://docs.aws.amazon.com/secretsmanager/latest/apireference/API_Decrypt.html) operation to decrypt the encrypted data key in the secret\. Then, it uses the plaintext data key to decrypt the encrypted secret value\.  
-Secrets Manager calls the [Decrypt](http://docs.aws.amazon.com/secretsmanager/latest/apireference/API_Decrypt.html) operation in response to the following Secrets Manager operations\.   
-+ [GetSecretValue](http://docs.aws.amazon.com/secretsmanager/latest/apireference/API_GetSecretValue.html) – Secrets Manager decrypts the secret value before returning it to the caller\.
-+ [PutSecretValue](http://docs.aws.amazon.com/secretsmanager/latest/apireference/API_PutSecretValue.html) and [UpdateSecret](http://docs.aws.amazon.com/secretsmanager/latest/apireference/API_UpdateSecret.html) – Most `PutSecretValue` and `UpdateSecret` requests do not trigger a `Decrypt` operation\. However, when a `PutSecretValue` or `UpdateSecret` request attempts to change the secret value in an existing version of a secret, Secrets Manager decrypts the existing secret value and compares it to the secret value in the request to confirm that they are the same\. This action ensures the that Secrets Manager operations are idempotent\.
+To decrypt an encrypted secret value, Secrets Manager calls the AWS KMS [Decrypt](https://docs.aws.amazon.com/secretsmanager/latest/apireference/API_Decrypt.html) operation to decrypt the encrypted data key in the secret\. Then, it uses the plaintext data key to decrypt the encrypted secret value\.  
+Secrets Manager calls the [Decrypt](https://docs.aws.amazon.com/secretsmanager/latest/apireference/API_Decrypt.html) operation in response to the following Secrets Manager operations\.   
++ [GetSecretValue](https://docs.aws.amazon.com/secretsmanager/latest/apireference/API_GetSecretValue.html) – Secrets Manager decrypts the secret value before returning it to the caller\.
++ [PutSecretValue](https://docs.aws.amazon.com/secretsmanager/latest/apireference/API_PutSecretValue.html) and [UpdateSecret](https://docs.aws.amazon.com/secretsmanager/latest/apireference/API_UpdateSecret.html) – Most `PutSecretValue` and `UpdateSecret` requests do not trigger a `Decrypt` operation\. However, when a `PutSecretValue` or `UpdateSecret` request attempts to change the secret value in an existing version of a secret, Secrets Manager decrypts the existing secret value and compares it to the secret value in the request to confirm that they are the same\. This action ensures the that Secrets Manager operations are idempotent\.
  
 
 **Validating Access to the CMK**  
@@ -105,18 +105,18 @@ To use the AWS KMS customer master key \(CMK\) for a secret on your behalf, the 
 
 To allow the CMK to be used only for requests that originate in Secrets Manager, you can use the [kms:ViaService condition key](policy-conditions.md#conditions-kms-via-service) with the `secretsmanager.<region>.amazonaws.com` value\.
 
-You can also use the keys or values in the [encryption context](#asm-encryption-context) as a condition for using the CMK for cryptographic operations\. For example, you can use a [string condition operator](https://docs.aws.amazon.com/IAM/latest/UserGuide/reference_policies_elements_condition_operators.html#Conditions_String) in an IAM or key policy document, or use a [grant constraint](http://docs.aws.amazon.com/kms/latest/APIReference/API_GrantConstraints.html) in a grant\.
+You can also use the keys or values in the [encryption context](#asm-encryption-context) as a condition for using the CMK for cryptographic operations\. For example, you can use a [string condition operator](https://docs.aws.amazon.com/IAM/latest/UserGuide/reference_policies_elements_condition_operators.html#Conditions_String) in an IAM or key policy document, or use a [grant constraint](https://docs.aws.amazon.com/kms/latest/APIReference/API_GrantConstraints.html) in a grant\.
 
 ### Key Policy of the AWS Customer Master Key<a name="asm-policies"></a>
 
 The key policy for the AWS managed CMK for Secrets Manager gives users permission to use the CMK for specified operations only when Secrets Manager makes the request on the user's behalf\. The key policy does not allow any user to use the CMK directly\.
 
-This key policy, like the policies of all [AWS managed keys](concepts.md#master_keys), is established by the service\. You cannot change it, but you can view it at any time\. To get the key policy for the Secrets Manager CMK in your account, use the [GetKeyPolicy](http://docs.aws.amazon.com/kms/latest/APIReference/API_GetKeyPolicy.html) operation\. 
+This key policy, like the policies of all [AWS managed keys](concepts.md#master_keys), is established by the service\. You cannot change it, but you can view it at any time\. To get the key policy for the Secrets Manager CMK in your account, use the [GetKeyPolicy](https://docs.aws.amazon.com/kms/latest/APIReference/API_GetKeyPolicy.html) operation\. 
 
 The policy statements in the key policy have the following effect:
 + Allow users in the account to use the CMK for cryptographic operations only when the request comes from Secrets Manager on their behalf\. The `kms:ViaService` condition key enforces this restriction\.
 + Allows the AWS account to create IAM policies that allow users to view CMK properties and revoke grants\.
-+ Although Secrets Manager does not use grants to gain access to the CMK, the policy also allows Secrets Manager to [create grants](grants.md) for the CMK on the user's behalf and allows the account to [revoke any grant](http://docs.aws.amazon.com/kms/latest/APIReference/API_RevokeGrant.html) that allows Secrets Manager to use the CMK\. These are standard elements of policy document for an AWS managed CMK\.
++ Although Secrets Manager does not use grants to gain access to the CMK, the policy also allows Secrets Manager to [create grants](grants.md) for the CMK on the user's behalf and allows the account to [revoke any grant](https://docs.aws.amazon.com/kms/latest/APIReference/API_RevokeGrant.html) that allows Secrets Manager to use the CMK\. These are standard elements of policy document for an AWS managed CMK\.
 
 The following is a key policy for an example AWS managed CMK for Secrets Manager\.
 
@@ -156,7 +156,7 @@ eKey" ],
 
 An [encryption context](concepts.md#encrypt_context) is a set of key–value pairs that contain arbitrary nonsecret data\. When you include an encryption context in a request to encrypt data, AWS KMS cryptographically binds the encryption context to the encrypted data\. To decrypt the data, you must pass in the same encryption context\. 
 
-In its [GenerateDataKey](http://docs.aws.amazon.com/kms/latest/APIReference/API_GenerateDataKey.html) and [Decrypt](http://docs.aws.amazon.com/kms/latest/APIReference/API_Decrypt.html) requests to AWS KMS, Secrets Manager uses an encryption context with two name–value pairs that identify the secret and its version, as shown in the following example\. The names do not vary, but combined encryption context values will be different for each secret value\.
+In its [GenerateDataKey](https://docs.aws.amazon.com/kms/latest/APIReference/API_GenerateDataKey.html) and [Decrypt](https://docs.aws.amazon.com/kms/latest/APIReference/API_Decrypt.html) requests to AWS KMS, Secrets Manager uses an encryption context with two name–value pairs that identify the secret and its version, as shown in the following example\. The names do not vary, but combined encryption context values will be different for each secret value\.
 
 ```
 "encryptionContext": {
@@ -165,7 +165,7 @@ In its [GenerateDataKey](http://docs.aws.amazon.com/kms/latest/APIReference/API_
 }
 ```
 
-You can use the encryption context to identify these cryptographic operation in audit records and logs, such as [AWS CloudTrail](http://docs.aws.amazon.com/awscloudtrail/latest/userguide/cloudtrail-user-guide.html) and Amazon CloudWatch Logs, and as a condition for authorization in policies and grants\.
+You can use the encryption context to identify these cryptographic operation in audit records and logs, such as [AWS CloudTrail](https://docs.aws.amazon.com/awscloudtrail/latest/userguide/cloudtrail-user-guide.html) and Amazon CloudWatch Logs, and as a condition for authorization in policies and grants\.
 
 The Secrets Manager encryption context consists of two name\-value pairs\.
 + **SecretARN** – The first name–value pair identifies the secret\. The key is `SecretARN`\. The value is the Amazon Resource Name \(ARN\) of the secret\.
@@ -174,7 +174,7 @@ The Secrets Manager encryption context consists of two name\-value pairs\.
   "SecretARN": "ARN of an Secrets Manager secret"
   ```
 
-  For example:
+  For example, if the ARN of the secret is `arn:aws:secretsmanager:us-west-2:111122223333:secret:test-secret-a1b2c3`, the encryption context would include the following pair\.
 
   ```
   "SecretARN": "arn:aws:secretsmanager:us-west-2:111122223333:secret:test-secret-a1b2c3"
@@ -185,13 +185,13 @@ The Secrets Manager encryption context consists of two name\-value pairs\.
   "SecretVersionId": "<version-id>"
   ```
 
-  For example:
+  For example, if the version ID of the secret is `EXAMPLE1-90ab-cdef-fedc-ba987SECRET1`, the encryption context would include the following pair\.
 
   ```
   "SecretVersionId": "EXAMPLE1-90ab-cdef-fedc-ba987SECRET1"
   ```
 
-When you establish or change the CMK for a secret, Secrets Manager sends [GenerateDataKey](http://docs.aws.amazon.com/kms/latest/APIReference/API_GenerateDataKey.html) and [Decrypt](http://docs.aws.amazon.com/kms/latest/APIReference/API_Decrypt.html) requests to AWS KMS to validate that the caller has permission to use the CMK for these operations\. It discards the responses; it does not use them on the secret value\.
+When you establish or change the CMK for a secret, Secrets Manager sends [GenerateDataKey](https://docs.aws.amazon.com/kms/latest/APIReference/API_GenerateDataKey.html) and [Decrypt](https://docs.aws.amazon.com/kms/latest/APIReference/API_Decrypt.html) requests to AWS KMS to validate that the caller has permission to use the CMK for these operations\. It discards the responses; it does not use them on the secret value\.
 
 In these validation requests, the value of the `SecretARN` is the actual ARN of the secret, but the `SecretVersionId` value is `RequestToValidateKeyAccess`, as shown in the following example encryption context\. This special value helps you to identify validation requests in logs and audit trails\.
 
@@ -210,7 +210,7 @@ In the past, Secrets Manager validation requests did not include an encryption c
 You can use AWS CloudTrail and Amazon CloudWatch Logs to track the requests that Secrets Manager sends to AWS KMS on your behalf\.
 
 **GenerateDataKey**  
-When you [create or change](#asm-using-cmk) the secret value in a secret, Secrets Manager sends a *[GenerateDataKey](http://docs.aws.amazon.com/kms/latest/APIReference/API_GenerateDataKey.html)* request to AWS KMS that specifies the CMK for the secret\.   
+When you [create or change](#asm-using-cmk) the secret value in a secret, Secrets Manager sends a *[GenerateDataKey](https://docs.aws.amazon.com/kms/latest/APIReference/API_GenerateDataKey.html)* request to AWS KMS that specifies the CMK for the secret\.   
 The event that records the `GenerateDataKey` operation is similar to the following example event\. The request is invoked by `secretsmanager.amazonaws.com`\. The parameters include the Amazon Resource Name \(ARN\) of the CMK for the secret, a key specifier that requires a 256\-bit key, and the [encryption context](#asm-encryption-context) that identifies the secret and version\.  
 
 ```
@@ -261,7 +261,7 @@ The event that records the `GenerateDataKey` operation is similar to the followi
 ```
 
 **Decrypt**  
-Whenever you [get or change](#asm-using-cmk) the secret value of a secret, Secrets Manager sends a [Decrypt](http://docs.aws.amazon.com/kms/latest/APIReference/API_Decrypt.html) request to AWS KMS to decrypt the encrypted data key\.  
+Whenever you [get or change](#asm-using-cmk) the secret value of a secret, Secrets Manager sends a [Decrypt](https://docs.aws.amazon.com/kms/latest/APIReference/API_Decrypt.html) request to AWS KMS to decrypt the encrypted data key\.  
 The event that records the `Decrypt` operation is similar to the following example event\. The user is the principal in your AWS account who is accessing the table\. The parameters include the encrypted table key \(as a ciphertext blob\) and the [encryption context](#asm-encryption-context) that identifies the table and the AWS account\. AWS KMS derives the ID of the CMK from the ciphertext\.   
 
 ```

@@ -39,15 +39,15 @@ You can use AWS KMS [customer master keys](#master_keys) \(CMKs\) to generate, e
 
 **Create a data key**
 
-To create a data key, call the [GenerateDataKey](http://docs.aws.amazon.com/kms/latest/APIReference/API_GenerateDataKey.html) operation\. AWS KMS uses the CMK that you specify to generate a data key\. The operation returns a plaintext copy of the data key and a copy of the data key encrypted under the CMK, as shown in the following image\.
+To create a data key, call the [GenerateDataKey](https://docs.aws.amazon.com/kms/latest/APIReference/API_GenerateDataKey.html) operation\. AWS KMS uses the CMK that you specify to generate a data key\. The operation returns a plaintext copy of the data key and a copy of the data key encrypted under the CMK, as shown in the following image\.
 
 ![\[Generate a data key\]](http://docs.aws.amazon.com/kms/latest/developerguide/images/generate-data-key.png)
 
-AWS KMS also supports the [GenerateDataKeyWithoutPlaintext](https://docs.aws.amazon.com/kms/latest/APIReference/API_GenerateDataKeyWithoutPlaintext.html) operation, which returns only an encrypted data key\. When you need to use the data key, ask AWS KMS to [decrypt](http://docs.aws.amazon.com/kms/latest/APIReference/API_Decrypt.html) it\.
+AWS KMS also supports the [GenerateDataKeyWithoutPlaintext](https://docs.aws.amazon.com/kms/latest/APIReference/API_GenerateDataKeyWithoutPlaintext.html) operation, which returns only an encrypted data key\. When you need to use the data key, ask AWS KMS to [decrypt](https://docs.aws.amazon.com/kms/latest/APIReference/API_Decrypt.html) it\.
 
 **Encrypt data with a data key**
 
-AWS KMS cannot use a data key to encrypt data, but you can use the data key outside of KMS, such as by using OpenSSL or a cryptographic library like the [AWS Encryption SDK](http://docs.aws.amazon.com/encryption-sdk/latest/developer-guide/)\.
+AWS KMS cannot use a data key to encrypt data, but you can use the data key outside of KMS, such as by using OpenSSL or a cryptographic library like the [AWS Encryption SDK](https://docs.aws.amazon.com/encryption-sdk/latest/developer-guide/)\.
 
 After using the plaintext data key to encrypt data, remove it from memory as soon as possible\. You can safely store the encrypted data key with the encrypted data so it is available to decrypt the data\.
 
@@ -55,7 +55,7 @@ After using the plaintext data key to encrypt data, remove it from memory as soo
 
 **Decrypt data with a data key**
 
-To decrypt your data, pass the encrypted data key to the [Decrypt](http://docs.aws.amazon.com/kms/latest/APIReference/API_Decrypt.html) operation\. AWS KMS uses your CMK to decrypt the data key and then it returns the plaintext data key\. Use the plaintext data key to decrypt your data and then remove the plaintext data key from memory as soon as possible\.
+To decrypt your data, pass the encrypted data key to the [Decrypt](https://docs.aws.amazon.com/kms/latest/APIReference/API_Decrypt.html) operation\. AWS KMS uses your CMK to decrypt the data key and then it returns the plaintext data key\. Use the plaintext data key to decrypt your data and then remove the plaintext data key from memory as soon as possible\.
 
 The following diagram shows how to use the Decrypt operation to decrypt an encrypted data key\.
 
@@ -86,11 +86,9 @@ Envelope encryption offers several benefits:
 
 ## Encryption Context<a name="encrypt_context"></a>
 
-All AWS KMS cryptographic operations accept an *encryption context*, an optional set of key–value pairs that can contain additional contextual information about the data\. 
+All AWS KMS cryptographic operations accept an *encryption context*, an optional set of key–value pairs that can contain additional contextual information about the data\. When you provide an encryption context to an AWS KMS encryption operation, you must supply the same encryption context to the corresponding decryption operation\. Otherwise, the request to decrypt fails\. 
 
-When you provide an encryption context to an AWS KMS encryption operation, you must supply the same encryption context to the corresponding decryption operation\. Otherwise, the request to decrypt fails\. 
-
-The encryption context is not secret\. It appears in [AWS CloudTrail Logs](logging-using-cloudtrail.md) so you can use it to identify and categorize your cryptographic operations in logs and audits\. You can also [use the encryption context as a condition](policy-conditions.md#conditions-kms-encryption-context) in policy statements that control access to AWS KMS operations\.
+The encryption context is not secret\. It appears in plaintext in [AWS CloudTrail Logs](logging-using-cloudtrail.md) so you can use it to identify and categorize your cryptographic operations in logs and audits\.
 
 For example, [Amazon Simple Storage Service](services-s3.md#s3-encryption-context) \(Amazon S3\) uses an encryption context in which the key is `aws:s3:arn` and the value is the S3 bucket path to the file that is being encrypted\.
 
@@ -99,6 +97,8 @@ For example, [Amazon Simple Storage Service](services-s3.md#s3-encryption-contex
     "aws:s3:arn": "arn:aws:s3:::bucket_name/file_name"
 },
 ```
+
+You can also use the encryption context to refine or limit access to customer master keys \(CMKs\) in your account\. You can use the encryption context [as a constraint in grants](grants.md) and as a *[condition in policy statements](policy-conditions.md)*\. 
 
 For detailed information about the encryption context, see [Encryption Context](encryption-context.md)\.
 
@@ -112,21 +112,21 @@ A *grant* is another mechanism for providing permissions, an alternative to the 
 
 ## Grant Tokens<a name="grant_token"></a>
 
-When you create a grant, the permissions specified in the grant might not take effect immediately due to [eventual consistency](https://en.wikipedia.org/wiki/Eventual_consistency)\. If you need to mitigate the potential delay, use the *grant token* that you receive in the response to your [CreateGrant](http://docs.aws.amazon.com/kms/latest/APIReference/API_CreateGrant.html) API request\. You can pass the grant token with some AWS KMS API requests to make the permissions in the grant take effect immediately\. The following AWS KMS API operations accept grant tokens:
-+ [CreateGrant](http://docs.aws.amazon.com/kms/latest/APIReference/API_CreateGrant.html)
-+ [Decrypt](http://docs.aws.amazon.com/kms/latest/APIReference/API_Decrypt.html)
-+ [DescribeKey](http://docs.aws.amazon.com/kms/latest/APIReference/API_DescribeKey.html)
-+ [Encrypt](http://docs.aws.amazon.com/kms/latest/APIReference/API_Encrypt.html)
-+ [GenerateDataKey](http://docs.aws.amazon.com/kms/latest/APIReference/API_GenerateDataKey.html)
-+ [GenerateDataKeyWithoutPlaintext](http://docs.aws.amazon.com/kms/latest/APIReference/API_GenerateDataKeyWithoutPlaintext.html)
-+ [ReEncrypt](http://docs.aws.amazon.com/kms/latest/APIReference/API_ReEncrypt.html)
-+ [RetireGrant](http://docs.aws.amazon.com/kms/latest/APIReference/API_RetireGrant.html)
+When you create a grant, the permissions specified in the grant might not take effect immediately due to [eventual consistency](https://en.wikipedia.org/wiki/Eventual_consistency)\. If you need to mitigate the potential delay, use the *grant token* that you receive in the response to your [CreateGrant](https://docs.aws.amazon.com/kms/latest/APIReference/API_CreateGrant.html) API request\. You can pass the grant token with some AWS KMS API requests to make the permissions in the grant take effect immediately\. The following AWS KMS API operations accept grant tokens:
++ [CreateGrant](https://docs.aws.amazon.com/kms/latest/APIReference/API_CreateGrant.html)
++ [Decrypt](https://docs.aws.amazon.com/kms/latest/APIReference/API_Decrypt.html)
++ [DescribeKey](https://docs.aws.amazon.com/kms/latest/APIReference/API_DescribeKey.html)
++ [Encrypt](https://docs.aws.amazon.com/kms/latest/APIReference/API_Encrypt.html)
++ [GenerateDataKey](https://docs.aws.amazon.com/kms/latest/APIReference/API_GenerateDataKey.html)
++ [GenerateDataKeyWithoutPlaintext](https://docs.aws.amazon.com/kms/latest/APIReference/API_GenerateDataKeyWithoutPlaintext.html)
++ [ReEncrypt](https://docs.aws.amazon.com/kms/latest/APIReference/API_ReEncrypt.html)
++ [RetireGrant](https://docs.aws.amazon.com/kms/latest/APIReference/API_RetireGrant.html)
 
 A grant token is not a secret\. The grant token contains information about who the grant is for and therefore who can use it to cause the grant's permissions to take effect more quickly\.
 
 ## Auditing CMK Usage<a name="auditing_key_use"></a>
 
-You can use AWS CloudTrail to audit key usage\. CloudTrail creates log files that contain a history of AWS API calls and related events for your account\. These log files include all AWS KMS API requests made with the AWS Management Console, AWS SDKs, and command line tools, as well as those made through integrated AWS services\. You can use these log files to get information about when the CMK was used, the operation that was requested, the identity of the requester, the IP address that the request came from, and so on\. For more information, see [Logging AWS KMS API Calls with AWS CloudTrail](logging-using-cloudtrail.md) and the [AWS CloudTrail User Guide](http://docs.aws.amazon.com/awscloudtrail/latest/userguide/)\.
+You can use AWS CloudTrail to audit key usage\. CloudTrail creates log files that contain a history of AWS API calls and related events for your account\. These log files include all AWS KMS API requests made with the AWS Management Console, AWS SDKs, and command line tools, as well as those made through integrated AWS services\. You can use these log files to get information about when the CMK was used, the operation that was requested, the identity of the requester, the IP address that the request came from, and so on\. For more information, see [Logging AWS KMS API Calls with AWS CloudTrail](logging-using-cloudtrail.md) and the [AWS CloudTrail User Guide](https://docs.aws.amazon.com/awscloudtrail/latest/userguide/)\.
 
 ## Key Management Infrastructure<a name="key_management"></a>
 

@@ -3,7 +3,7 @@
 Every AWS resource belongs to an AWS account, and permissions to create or access the resources are defined in permissions policies in that account\. An account administrator can attach permissions policies to IAM identities \(that is, users, groups, and roles\), and some services \(including AWS KMS\) also support attaching permissions policies to other kinds of resources\.
 
 **Note**  
-An *account administrator* \(or administrator user\) is a user with administrator permissions\. For more information, see [Creating an Admin User and Group](http://docs.aws.amazon.com/IAM/latest/UserGuide/getting-started_create-admin-group.html) in the *IAM User Guide*\.
+An *account administrator* \(or administrator user\) is a user with administrator permissions\. For more information, see [Creating an Admin User and Group](https://docs.aws.amazon.com/IAM/latest/UserGuide/getting-started_create-admin-group.html) in the *IAM User Guide*\.
 
 When managing permissions, you decide who gets the permissions, the resources they get permissions for, and the specific actions allowed\.
 
@@ -70,7 +70,7 @@ A policy is a document that describes a set of permissions\. The following are t
 + **Resource** – In an IAM policy, you use an Amazon Resource Name \(ARN\) to specify the resource that the policy applies to\. For more information, see [AWS KMS Resources and Operations](#kms-resources-operations)\. In a key policy, you use `"*"` for the resource, which effectively means "this CMK\." A key policy applies only to the CMK it is attached to\.
 
    
-+ **Action** – You use actions to specify the API operations you want to allow or deny\. For example, the `kms:Encrypt` action corresponds to the AWS KMS [Encrypt](http://docs.aws.amazon.com/kms/latest/APIReference/API_Encrypt.html) API operation\.
++ **Action** – You use actions to specify the API operations you want to allow or deny\. For example, the `kms:Encrypt` action corresponds to the AWS KMS [Encrypt](https://docs.aws.amazon.com/kms/latest/APIReference/API_Encrypt.html) API operation\.
 
    
 + **Effect** – You use the effect to specify whether to allow or deny the permissions\. If you don't explicitly allow access to a resource, access is implicitly denied\. You can also explicitly deny access to a resource, which you might do to make sure that a user cannot access it, even when a different policy allows access\.

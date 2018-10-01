@@ -10,7 +10,7 @@ To determine the full extent of who or what currently has access to a customer m
 
 ## Understanding Policy Evaluation<a name="policy-evaluation"></a>
 
-When authorizing access to a CMK, AWS KMS evaluates the key policy attached to the CMK, all grants that apply to the CMK, and all IAM policies attached to the IAM user or role making the request\. In many cases, AWS KMS must evaluate the CMK's key policy and IAM policies together to determine whether access to the CMK is allowed or denied\. To do this, AWS KMS uses a process similar to the one described at [Determining Whether a Request is Allowed or Denied](http://docs.aws.amazon.com/IAM/latest/UserGuide/reference_policies_evaluation-logic.html#policy-eval-denyallow) in the *IAM User Guide*\. Remember, though, that IAM policies by themselves are not sufficient to allow access to a KMS CMK\. The CMK's key policy must also allow access\.
+When authorizing access to a CMK, AWS KMS evaluates the key policy attached to the CMK, all grants that apply to the CMK, and all IAM policies attached to the IAM user or role making the request\. In many cases, AWS KMS must evaluate the CMK's key policy and IAM policies together to determine whether access to the CMK is allowed or denied\. To do this, AWS KMS uses a process similar to the one described at [Determining Whether a Request is Allowed or Denied](https://docs.aws.amazon.com/IAM/latest/UserGuide/reference_policies_evaluation-logic.html#policy-eval-denyallow) in the *IAM User Guide*\. Remember, though, that IAM policies by themselves are not sufficient to allow access to a KMS CMK\. The CMK's key policy must also allow access\.
 
 For example, assume that you have two CMKs and three users, all in the same AWS account\. The CMKs and users have the following policies:
 + CMK1's key policy [allows access to the AWS account \(root user\) and thereby enables IAM policies to allow access to CMK1](key-policies.md#key-policy-default-allow-root-enable-iam)\.
@@ -29,7 +29,7 @@ Charlie cannot access CMK1 or CMK2 because all AWS KMS actions are denied in his
 
 You can examine the key policy in two ways:
 + If the CMK was created in the AWS Management Console, you can use the console's *default view* on the key details page to view the principals listed in the key policy\. If you can view the key policy in this way, it means the key policy [allows access with IAM policies](key-policies.md#key-policy-default-allow-root-enable-iam)\. Be sure to [examine IAM policies](#determining-access-iam-policies) to determine the complete list of principals that can access the CMK\.
-+ You can use the [GetKeyPolicy](http://docs.aws.amazon.com/kms/latest/APIReference/API_GetKeyPolicy.html) operation in the AWS KMS API to retrieve a copy of the key policy document, and then examine the document\. You can also view the policy document in the AWS Management Console\.
++ You can use the [GetKeyPolicy](https://docs.aws.amazon.com/kms/latest/APIReference/API_GetKeyPolicy.html) operation in the AWS KMS API to retrieve a copy of the key policy document, and then examine the document\. You can also view the policy document in the AWS Management Console\.
 
 **Contents**
 + [Examining the Key Policy in the AWS Management Console](#determining-access-key-policy-console)
@@ -57,7 +57,7 @@ The IAM users, roles, and AWS accounts listed here are the ones that have been e
 
 You can view the key policy document in a couple of ways:
 + Use the key details page of the AWS Management Console \(see the preceding section for instructions\)\.
-+ Use the [GetKeyPolicy](http://docs.aws.amazon.com/kms/latest/APIReference/API_GetKeyPolicy.html) operation in the AWS KMS API to retrieve a copy of the key policy document\.
++ Use the [GetKeyPolicy](https://docs.aws.amazon.com/kms/latest/APIReference/API_GetKeyPolicy.html) operation in the AWS KMS API to retrieve a copy of the key policy document\.
 
 Examine the key policy document and take note of all principals specified in each policy statement's `Principal` element\. The IAM users, IAM roles, and AWS accounts in the `Principal` elements are those that have access to this CMK\.
 
@@ -140,7 +140,7 @@ In the preceding policy statement, `arn:aws:iam::111122223333:role/EncryptionApp
 ```
 In the preceding policy statement, `arn:aws:iam::111122223333:role/EncryptionApp` refers to the IAM role named EncryptionApp in AWS account 111122223333\. Principals that can assume this role are allowed to perform the actions listed in the policy statement\. These actions, when combined with the actions allowed in **Example policy statement 3**, are those necessary to delegate use of the CMK to most [AWS services that integrate with AWS KMS](service-integration.md), specifically the services that use [grants](grants.md)\. The `Condition` element ensures that the delegation is allowed only when the delegate is an AWS service that integrates with AWS KMS and uses grants for authorization\.
 
-To learn all the different ways you can specify a principal in a key policy document, see [Specifying a Principal](http://docs.aws.amazon.com/IAM/latest/UserGuide/reference_policies_elements.html#Principal_specifying) in the *IAM User Guide*\.
+To learn all the different ways you can specify a principal in a key policy document, see [Specifying a Principal](https://docs.aws.amazon.com/IAM/latest/UserGuide/reference_policies_elements.html#Principal_specifying) in the *IAM User Guide*\.
 
 To learn more about AWS KMS key policies, see [Using Key Policies in AWS KMS](key-policies.md)\.
 
@@ -182,11 +182,11 @@ You can view the results of the simulation in the **Results** section\. Repeat s
 
 You can use the IAM API to examine IAM policies programmatically\. The following steps provide a general overview of how to do this:
 
-1. For each AWS account listed as a principal in the CMK's key policy \(that is, each *root account* listed in this format: `"Principal": {"AWS": "arn:aws:iam::111122223333:root"}`\), use the [ListUsers](http://docs.aws.amazon.com/IAM/latest/APIReference/API_ListUsers.html) and [ListRoles](http://docs.aws.amazon.com/IAM/latest/APIReference/API_ListRoles.html) operations in the IAM API to retrieve a list of every IAM user and role in the account\.
+1. For each AWS account listed as a principal in the CMK's key policy \(that is, each *root account* listed in this format: `"Principal": {"AWS": "arn:aws:iam::111122223333:root"}`\), use the [ListUsers](https://docs.aws.amazon.com/IAM/latest/APIReference/API_ListUsers.html) and [ListRoles](https://docs.aws.amazon.com/IAM/latest/APIReference/API_ListRoles.html) operations in the IAM API to retrieve a list of every IAM user and role in the account\.
 
-1. For each IAM user and role in the list, use the [SimulatePrincipalPolicy](http://docs.aws.amazon.com/IAM/latest/APIReference/API_SimulatePrincipalPolicy.html) operation in the IAM API, passing in the following parameters:
+1. For each IAM user and role in the list, use the [SimulatePrincipalPolicy](https://docs.aws.amazon.com/IAM/latest/APIReference/API_SimulatePrincipalPolicy.html) operation in the IAM API, passing in the following parameters:
    + For `PolicySourceArn`, specify the Amazon Resource Name \(ARN\) of a user or role from your list\. You can specify only one `PolicySourceArn` for each `SimulatePrincipalPolicy` API request, so you must call this API multiple times, once for each IAM user and role in your list\.
-   + For the `ActionNames` list, specify every AWS KMS API action to simulate\. To simulate all AWS KMS API actions, use `kms:*`\. To test individual AWS KMS API actions, precede each API action with "`kms:`", for example "`kms:ListKeys`"\. For a complete list of all AWS KMS API actions, see [Actions](http://docs.aws.amazon.com/kms/latest/APIReference/API_Operations.html) in the *AWS Key Management Service API Reference*\.
+   + For the `ActionNames` list, specify every AWS KMS API action to simulate\. To simulate all AWS KMS API actions, use `kms:*`\. To test individual AWS KMS API actions, precede each API action with "`kms:`", for example "`kms:ListKeys`"\. For a complete list of all AWS KMS API actions, see [Actions](https://docs.aws.amazon.com/kms/latest/APIReference/API_Operations.html) in the *AWS Key Management Service API Reference*\.
    + \(Optional\) To determine whether the IAM users or roles have access to specific KMS CMKs, use the `ResourceArns` parameter to specify a list of the Amazon Resource Names \(ARNs\) of the CMKs\. To determine whether the IAM users or roles have access to any CMK, do not use the `ResourceArns` parameter\.
 
 IAM responds to each `SimulatePrincipalPolicy` API request with an evaluation decision: `allowed`, `explicitDeny`, or `implicitDeny`\. For each response that contains an evaluation decision of `allowed`, the response will also contain the name of the specific AWS KMS API action that is allowed and, if applicable, the ARN of the CMK that was used in the evaluation\.
@@ -195,7 +195,7 @@ IAM responds to each `SimulatePrincipalPolicy` API request with an evaluation de
 
 Grants are advanced mechanisms for specifying permissions that you or an AWS service integrated with AWS KMS can use to specify how and when a CMK can be used\. Grants are attached to a CMK, and each grant contains the principal who receives permission to use the CMK and a list of operations that are allowed\. Grants are an alternative to the key policy, and are useful for specific use cases\. For more information, see [Using Grants](grants.md)\.
 
-To retrieve a list of grants attached to a CMK, use the AWS KMS [ListGrants](http://docs.aws.amazon.com/kms/latest/APIReference/API_ListGrants.html) API \(or [list\-grants](http://docs.aws.amazon.com/cli/latest/reference/kms/list-grants.html) AWS CLI command\)\. You can examine the grants for a CMK to determine who or what currently has access to use the CMK via those grants\. For example, the following is a JSON representation of a grant that was obtained from the [list\-grants](http://docs.aws.amazon.com/cli/latest/reference/kms/list-grants.html) command in the AWS CLI\.
+To retrieve a list of grants attached to a CMK, use the AWS KMS [ListGrants](https://docs.aws.amazon.com/kms/latest/APIReference/API_ListGrants.html) API \(or [list\-grants](https://docs.aws.amazon.com/cli/latest/reference/kms/list-grants.html) AWS CLI command\)\. You can examine the grants for a CMK to determine who or what currently has access to use the CMK via those grants\. For example, the following is a JSON representation of a grant that was obtained from the [list\-grants](https://docs.aws.amazon.com/cli/latest/reference/kms/list-grants.html) command in the AWS CLI\.
 
 ```
 {"Grants": [{
@@ -213,7 +213,7 @@ To retrieve a list of grants attached to a CMK, use the AWS KMS [ListGrants](htt
 
 To find out who or what has access to use the CMK, look for the `"GranteePrincipal"` element\. In the preceding example, the grantee principal is an assumed role user associated with the EC2 instance i\-5d476fab, which the EC2 infrastructure uses to attach the encrypted EBS volume vol\-5cccfb4e to the instance\. In this case, the EC2 infrastructure role has permission to use the CMK because you previously created an encrypted EBS volume protected by this CMK, and then attached the volume to an EC2 instance\.
 
-The following is another example of a JSON representation of a grant that was obtained from the [list\-grants](http://docs.aws.amazon.com/cli/latest/reference/kms/list-grants.html) command in the AWS CLI\. In the following example, the grantee principal is another AWS account\.
+The following is another example of a JSON representation of a grant that was obtained from the [list\-grants](https://docs.aws.amazon.com/cli/latest/reference/kms/list-grants.html) command in the AWS CLI\. In the following example, the grantee principal is another AWS account\.
 
 ```
 {"Grants": [{

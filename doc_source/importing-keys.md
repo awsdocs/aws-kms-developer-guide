@@ -80,7 +80,7 @@ You can identify CMKs that require imported key material in the AWS KMS console 
    + To find the value of the `Origin` property of a particular CMK, choose the alias for the CMK\. The `Origin` property value appears in the **Key Material** section of the page\.
 
 **To identify the value of the `Origin` property of CMKs \(AWS KMS API\)**  
-Use the [DescribeKey](http://docs.aws.amazon.com/kms/latest/APIReference/API_DescribeKey.html) operation\. The response includes the `Origin` property of the CMK, as shown in the following example\.
+Use the [DescribeKey](https://docs.aws.amazon.com/kms/latest/APIReference/API_DescribeKey.html) operation\. The response includes the `Origin` property of the CMK, as shown in the following example\.
 
 ```
 $ aws kms describe-key --key-id 1234abcd-12ab-34cd-56ef-1234567890ab

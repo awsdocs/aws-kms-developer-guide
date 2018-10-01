@@ -1,10 +1,10 @@
 # Encrypting and Decrypting Data Keys<a name="programming-encryption"></a>
 
-The examples in this topic use the [Encrypt](http://docs.aws.amazon.com/kms/latest/APIReference/API_Encrypt.html), [Decrypt](http://docs.aws.amazon.com/kms/latest/APIReference/API_Decrypt.html), and [ReEncrypt](http://docs.aws.amazon.com/kms/latest/APIReference/API_ReEncrypt.html) operations in the AWS KMS API\. 
+The examples in this topic use the [Encrypt](https://docs.aws.amazon.com/kms/latest/APIReference/API_Encrypt.html), [Decrypt](https://docs.aws.amazon.com/kms/latest/APIReference/API_Decrypt.html), and [ReEncrypt](https://docs.aws.amazon.com/kms/latest/APIReference/API_ReEncrypt.html) operations in the AWS KMS API\. 
 
 These operations are designed to encrypt and decrypt [data keys](concepts.md#data-keys)\. They use an AWS KMS [customer master key](concepts.md#master_keys) \(CMK\) in the encryption operations and they cannot accept more than 4 KB \(4096 bytes\) of data\. Although you might use them to encrypt small amounts of data, such as a password or RSA key, they are not designed to encrypt application data\.
 
-To encrypt application data, use the server\-side encryption features of an AWS service, or a client\-side encryption library, such as the [AWS Encryption SDK](http://docs.aws.amazon.com/encryption-sdk/latest/developer-guide/) or the [Amazon S3 encryption client](http://docs.aws.amazon.com/AmazonS3/latest/dev/UsingClientSideEncryption.html)\. 
+To encrypt application data, use the server\-side encryption features of an AWS service, or a client\-side encryption library, such as the [AWS Encryption SDK](https://docs.aws.amazon.com/encryption-sdk/latest/developer-guide/) or the [Amazon S3 encryption client](https://docs.aws.amazon.com/AmazonS3/latest/dev/UsingClientSideEncryption.html)\. 
 
 **Topics**
 + [Encrypting a Data Key](#encryption)
@@ -13,14 +13,14 @@ To encrypt application data, use the server\-side encryption features of an AWS 
 
 ## Encrypting a Data Key<a name="encryption"></a>
 
-The [Encrypt](http://docs.aws.amazon.com/kms/latest/APIReference/API_Encrypt.html) operation is designed to encrypt data keys, but it is not frequently used\. The [GenerateDataKey](http://docs.aws.amazon.com/kms/latest/APIReference/API_GenerateDataKey.html) and [GenerateDataKeyWithoutPlaintext](http://docs.aws.amazon.com/kms/latest/APIReference/API_GenerateDataKeyWithoutPlaintext.html) operations return encrypted data keys\. You might use this method when you are moving encrypted data to a new region and want to encrypt its data key with a CMK in the new region\. 
+The [Encrypt](https://docs.aws.amazon.com/kms/latest/APIReference/API_Encrypt.html) operation is designed to encrypt data keys, but it is not frequently used\. The [GenerateDataKey](https://docs.aws.amazon.com/kms/latest/APIReference/API_GenerateDataKey.html) and [GenerateDataKeyWithoutPlaintext](https://docs.aws.amazon.com/kms/latest/APIReference/API_GenerateDataKeyWithoutPlaintext.html) operations return encrypted data keys\. You might use this method when you are moving encrypted data to a new region and want to encrypt its data key with a CMK in the new region\. 
 
 This example uses the KMS client object that you created in [Creating a Client](programming-client.md)\.
 
 ------
 #### [ Java ]
 
-For details, see the [encrypt method](http://docs.aws.amazon.com/AWSJavaSDK/latest/javadoc/com/amazonaws/services/kms/AWSKMSClient.html#encrypt-com.amazonaws.services.kms.model.EncryptRequest-) in the *AWS SDK for Java API Reference*\.
+For details, see the [encrypt method](https://docs.aws.amazon.com/AWSJavaSDK/latest/javadoc/com/amazonaws/services/kms/AWSKMSClient.html#encrypt-com.amazonaws.services.kms.model.EncryptRequest-) in the *AWS SDK for Java API Reference*\.
 
 ```
 // Encrypt a data key
@@ -36,7 +36,7 @@ ByteBuffer ciphertext = kmsClient.encrypt(req).getCiphertextBlob();
 ------
 #### [ C\# ]
 
-For details, see the [Encrypt method](http://docs.aws.amazon.com/sdkfornet/v3/apidocs/items/KeyManagementService/MKeyManagementServiceEncryptEncryptRequest.html) in the *AWS SDK for \.NET*\.
+For details, see the [Encrypt method](https://docs.aws.amazon.com/sdkfornet/v3/apidocs/items/KeyManagementService/MKeyManagementServiceEncryptEncryptRequest.html) in the *AWS SDK for \.NET*\.
 
 ```
 // Encrypt a data key
@@ -57,7 +57,7 @@ MemoryStream ciphertext = kmsClient.Encrypt(encryptRequest).CiphertextBlob;
 ------
 #### [ Python ]
 
-For details, see the [encrypt method](http://boto3.readthedocs.org/en/latest/reference/services/kms.html#KMS.Client.encrypt) in the AWS SDK for Python \(Boto 3\)\.
+For details, see the [encrypt method](http://boto3.amazonaws.com/v1/documentation/api/latest/reference/services/kms.html#KMS.Client.encrypt) in the AWS SDK for Python \(Boto 3\)\.
 
 ```
 # Encrypt a data key
@@ -77,7 +77,7 @@ ciphertext = response['CiphertextBlob']
 ------
 #### [ Ruby ]
 
-For details, see the [encrypt](http://docs.aws.amazon.com/sdk-for-ruby/v3/api/Aws/KMS/Client.html#encrypt-instance_method) instance method in the [AWS SDK for Ruby](http://docs.aws.amazon.com/sdk-for-ruby/v3/api/Aws/KMS.html)\.
+For details, see the [encrypt](https://docs.aws.amazon.com/sdk-for-ruby/v3/api/Aws/KMS/Client.html#encrypt-instance_method) instance method in the [AWS SDK for Ruby](https://docs.aws.amazon.com/sdk-for-ruby/v3/api/Aws/KMS.html)\.
 
 ```
 # Encrypt a data key
@@ -97,7 +97,7 @@ ciphertext = response.ciphertext_blob
 ------
 #### [ PHP ]
 
-For details, see the [Encrypt method](http://docs.aws.amazon.com/aws-sdk-php/v3/api/api-kms-2014-11-01.html#encrypt) in the *AWS SDK for PHP*\.
+For details, see the [Encrypt method](https://docs.aws.amazon.com/aws-sdk-php/v3/api/api-kms-2014-11-01.html#encrypt) in the *AWS SDK for PHP*\.
 
 ```
 // Encrypt a data key
@@ -117,7 +117,7 @@ $ciphertext = $result['CiphertextBlob'];
 ------
 #### [ Node\.js ]
 
-For details, see the [encrypt property](http://docs.aws.amazon.com/AWSJavaScriptSDK/latest/AWS/KMS.html#encrypt-property) in the AWS SDK for JavaScript in Node\.js\.
+For details, see the [encrypt property](https://docs.aws.amazon.com/AWSJavaScriptSDK/latest/AWS/KMS.html#encrypt-property) in the AWS SDK for JavaScript in Node\.js\.
 
 ```
 // Encrypt a data key
@@ -138,16 +138,16 @@ kmsClient.encrypt({ KeyId, Plaintext }, (err, data) => {
 
 ## Decrypting a Data Key<a name="decryption"></a>
 
-To decrypt a data key, use the [Decrypt](http://docs.aws.amazon.com/kms/latest/APIReference/API_Decrypt.html) operation\.
+To decrypt a data key, use the [Decrypt](https://docs.aws.amazon.com/kms/latest/APIReference/API_Decrypt.html) operation\.
 
-The `ciphertextBlob` that you specify must be the value of the `CiphertextBlob` field from a [GenerateDataKey](http://docs.aws.amazon.com/kms/latest/APIReference/API_GenerateDataKey.html), [GenerateDataKeyWithoutPlaintext](http://docs.aws.amazon.com/kms/latest/APIReference/API_GenerateDataKeyWithoutPlaintext.html), or [Encrypt](http://docs.aws.amazon.com/kms/latest/APIReference/API_Encrypt.html) response\.
+The `ciphertextBlob` that you specify must be the value of the `CiphertextBlob` field from a [GenerateDataKey](https://docs.aws.amazon.com/kms/latest/APIReference/API_GenerateDataKey.html), [GenerateDataKeyWithoutPlaintext](https://docs.aws.amazon.com/kms/latest/APIReference/API_GenerateDataKeyWithoutPlaintext.html), or [Encrypt](https://docs.aws.amazon.com/kms/latest/APIReference/API_Encrypt.html) response\.
 
 This example uses the KMS client object that you created in [Creating a Client](programming-client.md)\.
 
 ------
 #### [ Java ]
 
-For details, see the [decrypt method](http://docs.aws.amazon.com/AWSJavaSDK/latest/javadoc/com/amazonaws/services/kms/AWSKMSClient.html#decrypt-com.amazonaws.services.kms.model.DecryptRequest-) in the *AWS SDK for Java API Reference*\.
+For details, see the [decrypt method](https://docs.aws.amazon.com/AWSJavaSDK/latest/javadoc/com/amazonaws/services/kms/AWSKMSClient.html#decrypt-com.amazonaws.services.kms.model.DecryptRequest-) in the *AWS SDK for Java API Reference*\.
 
 ```
 // Decrypt a data key
@@ -162,7 +162,7 @@ ByteBuffer plainText = kmsClient.decrypt(req).getPlaintext();
 ------
 #### [ C\# ]
 
-For details, see the [Decrypt method](http://docs.aws.amazon.com/sdkfornet/v3/apidocs/items/KeyManagementService/MKeyManagementServiceDecryptDecryptRequest.html) in the *AWS SDK for \.NET*\.
+For details, see the [Decrypt method](https://docs.aws.amazon.com/sdkfornet/v3/apidocs/items/KeyManagementService/MKeyManagementServiceDecryptDecryptRequest.html) in the *AWS SDK for \.NET*\.
 
 ```
 // Decrypt a data key
@@ -181,7 +181,7 @@ MemoryStream plainText = kmsClient.Decrypt(decryptRequest).Plaintext;
 ------
 #### [ Python ]
 
-For details, see the [decrypt method](http://boto3.readthedocs.org/en/latest/reference/services/kms.html#KMS.Client.decrypt) in the AWS SDK for Python \(Boto 3\)\.
+For details, see the [decrypt method](http://boto3.amazonaws.com/v1/documentation/api/latest/reference/services/kms.html#KMS.Client.decrypt) in the AWS SDK for Python \(Boto 3\)\.
 
 ```
 # Decrypt a data key
@@ -198,7 +198,7 @@ plaintext = response['Plaintext']
 ------
 #### [ Ruby ]
 
-For details, see the [decrypt](http://docs.aws.amazon.com/sdk-for-ruby/v3/api/Aws/KMS/Client.html#decrypt-instance_method) instance method in the [AWS SDK for Ruby](http://docs.aws.amazon.com/sdk-for-ruby/v3/api/Aws/KMS.html)\.
+For details, see the [decrypt](https://docs.aws.amazon.com/sdk-for-ruby/v3/api/Aws/KMS/Client.html#decrypt-instance_method) instance method in the [AWS SDK for Ruby](https://docs.aws.amazon.com/sdk-for-ruby/v3/api/Aws/KMS.html)\.
 
 ```
 # Decrypt a data key
@@ -216,7 +216,7 @@ plaintext = response.plaintext
 ------
 #### [ PHP ]
 
-For details, see the [Decrypt method](http://docs.aws.amazon.com/aws-sdk-php/v3/api/api-kms-2014-11-01.html#decrypt) in the *AWS SDK for PHP*\.
+For details, see the [Decrypt method](https://docs.aws.amazon.com/aws-sdk-php/v3/api/api-kms-2014-11-01.html#decrypt) in the *AWS SDK for PHP*\.
 
 ```
 // Decrypt a data key
@@ -233,7 +233,7 @@ $plaintext = $result['Plaintext'];
 ------
 #### [ Node\.js ]
 
-For details, see the [decrypt property](http://docs.aws.amazon.com/AWSJavaScriptSDK/latest/AWS/KMS.html#decrypt-property)\] in the *AWS SDK for JavaScript in Node\.js*\.
+For details, see the [decrypt property](https://docs.aws.amazon.com/AWSJavaScriptSDK/latest/AWS/KMS.html#decrypt-property)\] in the *AWS SDK for JavaScript in Node\.js*\.
 
 ```
 // Decrypt a data key
@@ -252,16 +252,16 @@ kmsClient.decrypt({ CiphertextBlob }, (err, data) => {
 
 ## Re\-Encrypting a Data Key Under a Different Customer Master Key<a name="reencryption"></a>
 
-To decrypt an encrypted data key, and then immediately re\-encrypt the data key under a different customer master key \(CMK\), use the [ReEncrypt](http://docs.aws.amazon.com/kms/latest/APIReference/API_ReEncrypt.html) operation\. The operations are performed entirely on the server side within AWS KMS, so they never expose your plaintext outside of AWS KMS\.
+To decrypt an encrypted data key, and then immediately re\-encrypt the data key under a different customer master key \(CMK\), use the [ReEncrypt](https://docs.aws.amazon.com/kms/latest/APIReference/API_ReEncrypt.html) operation\. The operations are performed entirely on the server side within AWS KMS, so they never expose your plaintext outside of AWS KMS\.
 
-The `ciphertextBlob` that you specify must be the value of the `CiphertextBlob` field from a [GenerateDataKey](http://docs.aws.amazon.com/kms/latest/APIReference/API_GenerateDataKey.html), [GenerateDataKeyWithoutPlaintext](http://docs.aws.amazon.com/kms/latest/APIReference/API_GenerateDataKeyWithoutPlaintext.html), or [Encrypt](http://docs.aws.amazon.com/kms/latest/APIReference/API_Encrypt.html) response\.
+The `ciphertextBlob` that you specify must be the value of the `CiphertextBlob` field from a [GenerateDataKey](https://docs.aws.amazon.com/kms/latest/APIReference/API_GenerateDataKey.html), [GenerateDataKeyWithoutPlaintext](https://docs.aws.amazon.com/kms/latest/APIReference/API_GenerateDataKeyWithoutPlaintext.html), or [Encrypt](https://docs.aws.amazon.com/kms/latest/APIReference/API_Encrypt.html) response\.
 
 This example uses the KMS client object that you created in [Creating a Client](programming-client.md)\.
 
 ------
 #### [ Java ]
 
-For details, see the [reEncrypt method](http://docs.aws.amazon.com/AWSJavaSDK/latest/javadoc/com/amazonaws/services/kms/AWSKMSClient.html#reEncrypt-com.amazonaws.services.kms.model.ReEncryptRequest-) in the *AWS SDK for Java API Reference*\.
+For details, see the [reEncrypt method](https://docs.aws.amazon.com/AWSJavaSDK/latest/javadoc/com/amazonaws/services/kms/AWSKMSClient.html#reEncrypt-com.amazonaws.services.kms.model.ReEncryptRequest-) in the *AWS SDK for Java API Reference*\.
 
 ```
 // Re-encrypt a data key
@@ -280,7 +280,7 @@ ByteBuffer destinationCipherTextBlob = kmsClient.reEncrypt(req).getCiphertextBlo
 ------
 #### [ C\# ]
 
-For details, see the [ReEncrypt method](http://docs.aws.amazon.com/sdkfornet/v3/apidocs/items/KeyManagementService/MKeyManagementServiceReEncryptReEncryptRequest.html) in the *AWS SDK for \.NET*\.
+For details, see the [ReEncrypt method](https://docs.aws.amazon.com/sdkfornet/v3/apidocs/items/KeyManagementService/MKeyManagementServiceReEncryptReEncryptRequest.html) in the *AWS SDK for \.NET*\.
 
 ```
 // Re-encrypt a data key
@@ -302,7 +302,7 @@ MemoryStream destinationCipherTextBlob = kmsClient.ReEncrypt(reEncryptRequest).C
 ------
 #### [ Python ]
 
-For details, see the [re\_encrypt method](http://boto3.readthedocs.org/en/latest/reference/services/kms.html#KMS.Client.re_encrypt) in the AWS SDK for Python \(Boto 3\)\.
+For details, see the [re\_encrypt method](http://boto3.amazonaws.com/v1/documentation/api/latest/reference/services/kms.html#KMS.Client.re_encrypt) in the AWS SDK for Python \(Boto 3\)\.
 
 ```
 # Re-encrypt a data key
@@ -322,7 +322,7 @@ destination_ciphertext_blob = response['CiphertextBlob']
 ------
 #### [ Ruby ]
 
-For details, see the [re\_encrypt](http://docs.aws.amazon.com/sdk-for-ruby/v3/api/Aws/KMS/Client.html#re_encrypt-instance_method) instance method in the [AWS SDK for Ruby](http://docs.aws.amazon.com/sdk-for-ruby/v3/api/Aws/KMS.html)\.
+For details, see the [re\_encrypt](https://docs.aws.amazon.com/sdk-for-ruby/v3/api/Aws/KMS/Client.html#re_encrypt-instance_method) instance method in the [AWS SDK for Ruby](https://docs.aws.amazon.com/sdk-for-ruby/v3/api/Aws/KMS.html)\.
 
 ```
 # Re-encrypt a data key
@@ -344,7 +344,7 @@ destination_ciphertext_blob = response.ciphertext_blob.unpack('H*')
 ------
 #### [ PHP ]
 
-For details, see the [ReEncrypt method](http://docs.aws.amazon.com/aws-sdk-php/v3/api/api-kms-2014-11-01.html#reencrypt) in the *AWS SDK for PHP*\.
+For details, see the [ReEncrypt method](https://docs.aws.amazon.com/aws-sdk-php/v3/api/api-kms-2014-11-01.html#reencrypt) in the *AWS SDK for PHP*\.
 
 ```
 // Re-encrypt a data key
@@ -363,7 +363,7 @@ $result = $KmsClient->reEncrypt([
 ------
 #### [ Node\.js ]
 
-For details, see the [reEncrypt property](http://docs.aws.amazon.com/AWSJavaScriptSDK/latest/AWS/KMS.html#reEncrypt-property) in the *AWS SDK for JavaScript in Node\.js*\.
+For details, see the [reEncrypt property](https://docs.aws.amazon.com/AWSJavaScriptSDK/latest/AWS/KMS.html#reEncrypt-property) in the *AWS SDK for JavaScript in Node\.js*\.
 
 ```
 // Re-encrypt a data key

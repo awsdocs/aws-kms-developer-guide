@@ -10,7 +10,7 @@ You might choose to delete a CMK for one or more of the following reasons:
 + To reduce the number of CMKs that count against your [limit](limits.md)
 
 **Note**  
-If you [close or delete your AWS account](http://docs.aws.amazon.com/awsaccountbilling/latest/aboutv2/close-account.html), your CMKs become inaccessible and you are no longer billed for them\. You do not need to schedule deletion of your CMKs separate from closing the account\.
+If you [close or delete your AWS account](https://docs.aws.amazon.com/awsaccountbilling/latest/aboutv2/close-account.html), your CMKs become inaccessible and you are no longer billed for them\. You do not need to schedule deletion of your CMKs separate from closing the account\.
 
 **Topics**
 + [How Deleting Customer Master Keys Works](#deleting-keys-how-it-works)
@@ -35,13 +35,13 @@ Use the waiting period to ensure that you don't need the CMK now or in the futur
 
 ### How Deleting Customer Master Keys Affects AWS Services Integrated With AWS KMS<a name="deleting-keys-how-it-affects-aws-services-integrated-with-kms"></a>
 
-Several AWS services integrate with AWS KMS to protect your data\. Some of these services, such as [Amazon EBS](http://docs.aws.amazon.com/kms/latest/developerguide/services-ebs.html) and [Amazon Redshift](http://docs.aws.amazon.com/kms/latest/developerguide/services-redshift.html), use a [customer master key](concepts.md#master_keys) \(CMK\) in AWS KMS to generate a [data key](concepts.md#data-keys), and then use the data key to encrypt your data\. These plaintext data keys persist in memory as long as the data they are protecting is actively in use\.
+Several AWS services integrate with AWS KMS to protect your data\. Some of these services, such as [Amazon EBS](https://docs.aws.amazon.com/kms/latest/developerguide/services-ebs.html) and [Amazon Redshift](https://docs.aws.amazon.com/kms/latest/developerguide/services-redshift.html), use a [customer master key](concepts.md#master_keys) \(CMK\) in AWS KMS to generate a [data key](concepts.md#data-keys), and then use the data key to encrypt your data\. These plaintext data keys persist in memory as long as the data they are protecting is actively in use\.
 
 Scheduling a CMK for deletion makes it unusable, but it does not prevent the AWS service from using data keys in memory to encrypt and decrypt your data\. The service is not affected until it needs to use the CMK that is pending deletion or deleted\.
 
 For example, consider this scenario:
 
-1. You create an encrypted EBS volume and specify a CMK\. Amazon EBS asks AWS KMS to use your CMK to [generate an encrypted data key](http://docs.aws.amazon.com/kms/latest/APIReference/API_GenerateDataKeyWithoutPlaintext.html) for the volume\. Amazon EBS stores the encrypted data key with the volume\.
+1. You create an encrypted EBS volume and specify a CMK\. Amazon EBS asks AWS KMS to use your CMK to [generate an encrypted data key](https://docs.aws.amazon.com/kms/latest/APIReference/API_GenerateDataKeyWithoutPlaintext.html) for the volume\. Amazon EBS stores the encrypted data key with the volume\.
 
 1. When you attach the EBS volume to an EC2 instance, Amazon EC2 asks AWS KMS to use your CMK to decrypt the EBS volume's encrypted data key\. Amazon EC2 stores the plaintext data key in hypervisor memory and uses it to encrypt disk I/O to the EBS volume\. The data key persists in memory as long as the EBS volume is attached to the EC2 instance\.
 
@@ -101,7 +101,7 @@ The CMK status changes from **Pending Deletion** to **Disabled**\. To use the CM
 
 ### Scheduling and Canceling Key Deletion \(AWS CLI\)<a name="deleting-keys-scheduling-key-deletion-cli"></a>
 
-Use the [http://docs.aws.amazon.com/cli/latest/reference/kms/schedule-key-deletion.html](http://docs.aws.amazon.com/cli/latest/reference/kms/schedule-key-deletion.html) command to schedule key deletion from the AWS CLI as shown in the following example\.
+Use the [https://docs.aws.amazon.com/cli/latest/reference/kms/schedule-key-deletion.html](https://docs.aws.amazon.com/cli/latest/reference/kms/schedule-key-deletion.html) command to schedule key deletion from the AWS CLI as shown in the following example\.
 
 ```
 $ aws kms schedule-key-deletion --key-id 1234abcd-12ab-34cd-56ef-1234567890ab --pending-window-in-days 10
@@ -116,7 +116,7 @@ When used successfully, the AWS CLI returns output like the output shown in the 
 }
 ```
 
-Use the [http://docs.aws.amazon.com/cli/latest/reference/kms/cancel-key-deletion.html](http://docs.aws.amazon.com/cli/latest/reference/kms/cancel-key-deletion.html) command to cancel key deletion from the AWS CLI as shown in the following example\.
+Use the [https://docs.aws.amazon.com/cli/latest/reference/kms/cancel-key-deletion.html](https://docs.aws.amazon.com/cli/latest/reference/kms/cancel-key-deletion.html) command to cancel key deletion from the AWS CLI as shown in the following example\.
 
 ```
 $ aws kms cancel-key-deletion --key-id 1234abcd-12ab-34cd-56ef-1234567890ab
@@ -194,7 +194,7 @@ You can use the AWS Command Line Interface to add permissions for scheduling and
 
 **To add permission to schedule and cancel key deletion**
 
-1. Use the [http://docs.aws.amazon.com/cli/latest/reference/kms/get-key-policy.html](http://docs.aws.amazon.com/cli/latest/reference/kms/get-key-policy.html) command to retrieve the existing key policy, and then save the policy document to a file\.
+1. Use the [https://docs.aws.amazon.com/cli/latest/reference/kms/get-key-policy.html](https://docs.aws.amazon.com/cli/latest/reference/kms/get-key-policy.html) command to retrieve the existing key policy, and then save the policy document to a file\.
 
 1. Open the policy document in your preferred text editor, add the `kms:ScheduleKeyDeletion` and `kms:CancelKeyDeletion` permissions to the policy statement that gives permissions to the key administrators \(for example, the policy statement with `"Sid": "Allow access for Key Administrators"`\), and save the file\. The following example shows a policy statement with these two permissions:
 
@@ -221,4 +221,4 @@ You can use the AWS Command Line Interface to add permissions for scheduling and
    }
    ```
 
-1. Use the [http://docs.aws.amazon.com/cli/latest/reference/kms/put-key-policy.html](http://docs.aws.amazon.com/cli/latest/reference/kms/put-key-policy.html) command to apply the key policy to the CMK\.
+1. Use the [https://docs.aws.amazon.com/cli/latest/reference/kms/put-key-policy.html](https://docs.aws.amazon.com/cli/latest/reference/kms/put-key-policy.html) command to apply the key policy to the CMK\.

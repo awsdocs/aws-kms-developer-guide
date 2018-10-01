@@ -64,21 +64,21 @@ You can use the console to modify a key policy document with the console's *poli
 
 ### Using the AWS KMS API<a name="key-policy-modifying-how-to-api"></a>
 
-You can use the AWS KMS API to modify a key policy document\. The following steps use the [AWS KMS HTTP API](http://docs.aws.amazon.com/kms/latest/APIReference/)\. You can perform the same operations with the [AWS SDKs](https://aws.amazon.com/tools/#sdk) or [AWS command line tools](https://aws.amazon.com/tools/#cli), which is often easier than using the HTTP API\. For the operations and syntax to use for other SDKs and tools, consult the reference documentation for that particular SDK or tool\. For sample code that uses the AWS SDK for Java, see [Working with Key Policies](programming-key-policies.md)\.
+You can use the AWS KMS API to modify a key policy document\. The following steps use the [AWS KMS HTTP API](https://docs.aws.amazon.com/kms/latest/APIReference/)\. You can perform the same operations with the [AWS SDKs](https://aws.amazon.com/tools/#sdk) or [AWS command line tools](https://aws.amazon.com/tools/#cli), which is often easier than using the HTTP API\. For the operations and syntax to use for other SDKs and tools, consult the reference documentation for that particular SDK or tool\. For sample code that uses the AWS SDK for Java, see [Working with Key Policies](programming-key-policies.md)\.
 
 **To modify a key policy document \(API\)**
 
-1. Use [GetKeyPolicy](http://docs.aws.amazon.com/kms/latest/APIReference/API_GetKeyPolicy.html) to retrieve the existing key policy document, and then save the key policy document to a file\.
+1. Use [GetKeyPolicy](https://docs.aws.amazon.com/kms/latest/APIReference/API_GetKeyPolicy.html) to retrieve the existing key policy document, and then save the key policy document to a file\.
 
 1. Open the key policy document in your preferred text editor, edit the key policy document, and then save the file\.
 
-1. Use [PutKeyPolicy](http://docs.aws.amazon.com/kms/latest/APIReference/API_PutKeyPolicy.html) to apply the updated key policy document to the CMK\.
+1. Use [PutKeyPolicy](https://docs.aws.amazon.com/kms/latest/APIReference/API_PutKeyPolicy.html) to apply the updated key policy document to the CMK\.
 
 ## Allowing Multiple IAM Users to Access a CMK<a name="key-policy-modifying-multiple-iam-users"></a>
 
 IAM groups are not valid principals in a key policy\. To allow multiple IAM users to access a CMK, do one of the following:
 + Add each IAM user to the key policy\. This approach requires that you update the key policy each time the list of authorized users changes\.
-+ Ensure that the key policy includes the statement that [enables IAM policies to allow access to the CMK](key-policies.md#key-policy-default-allow-root-enable-iam)\. Then [create an IAM policy](http://docs.aws.amazon.com/IAM/latest/UserGuide/access_policies_managed-using.html#create-managed-policy-console) that allows access to the CMK, and then [attach that policy to an IAM group](http://docs.aws.amazon.com/IAM/latest/UserGuide/access_policies_managed-using.html#attach-managed-policy-console) that contains the authorized IAM users\. Using this approach, you don't need to modify any policies when the list of authorized users changes\. Instead, you only need to add or remove those users from the appropriate IAM group\.
++ Ensure that the key policy includes the statement that [enables IAM policies to allow access to the CMK](key-policies.md#key-policy-default-allow-root-enable-iam)\. Then [create an IAM policy](https://docs.aws.amazon.com/IAM/latest/UserGuide/access_policies_managed-using.html#create-managed-policy-console) that allows access to the CMK, and then [attach that policy to an IAM group](https://docs.aws.amazon.com/IAM/latest/UserGuide/access_policies_managed-using.html#attach-managed-policy-console) that contains the authorized IAM users\. Using this approach, you don't need to modify any policies when the list of authorized users changes\. Instead, you only need to add or remove those users from the appropriate IAM group\.
 
 For more information about how AWS KMS key policies and IAM policies work together, see [Understanding Policy Evaluation](determining-access.md#policy-evaluation)\.
 
@@ -106,7 +106,7 @@ For an example of JSON syntax that adds an external account to the `Principal` e
 
 ### Adding or modifying an IAM Policy to Allow Access to a CMK in Another AWS Account<a name="key-policy-modifying-external-accounts-iam"></a>
 
-After you add the external account to the CMK's key policy, you then add an IAM policy \(or modify an existing one\) to the users or roles in the external account\. In this scenario, users or roles in account 111122223333 need to use a CMK that is in account 444455556666\. To allow this, you [create an IAM policy](http://docs.aws.amazon.com/IAM/latest/UserGuide/access_policies_managed-using.html#create-managed-policy-console) in account 111122223333 that allows access to the CMK in account 444455556666, and then [attach the policy](http://docs.aws.amazon.com/IAM/latest/UserGuide/access_policies_managed-using.html#attach-managed-policy-console) to the users or roles in account 111122223333\. The following example shows a policy that allows access to a CMK in account 444455556666\.
+After you add the external account to the CMK's key policy, you then add an IAM policy \(or modify an existing one\) to the users or roles in the external account\. In this scenario, users or roles in account 111122223333 need to use a CMK that is in account 444455556666\. To allow this, you [create an IAM policy](https://docs.aws.amazon.com/IAM/latest/UserGuide/access_policies_managed-using.html#create-managed-policy-console) in account 111122223333 that allows access to the CMK in account 444455556666, and then [attach the policy](https://docs.aws.amazon.com/IAM/latest/UserGuide/access_policies_managed-using.html#attach-managed-policy-console) to the users or roles in account 111122223333\. The following example shows a policy that allows access to a CMK in account 444455556666\.
 
 ```
 {

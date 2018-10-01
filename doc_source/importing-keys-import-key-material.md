@@ -36,7 +36,7 @@ You can use the AWS Management Console to import key material\. If you just comp
 
 ## Import Key Material \(AWS KMS API\)<a name="importing-keys-import-key-material-api"></a>
 
-To use the [AWS KMS API](http://docs.aws.amazon.com/kms/latest/APIReference/) to import key material, send an [ImportKeyMaterial](http://docs.aws.amazon.com/kms/latest/APIReference/API_ImportKeyMaterial.html) request\. The following example shows how to do this with the [AWS CLI](https://aws.amazon.com/cli/)\.
+To use the [AWS KMS API](https://docs.aws.amazon.com/kms/latest/APIReference/) to import key material, send an [ImportKeyMaterial](https://docs.aws.amazon.com/kms/latest/APIReference/API_ImportKeyMaterial.html) request\. The following example shows how to do this with the [AWS CLI](https://aws.amazon.com/cli/)\.
 
 This example specifies an expiration time for the key material\. To import key material with no expiration, replace `KEY_MATERIAL_EXPIRES` with `KEY_MATERIAL_DOES_NOT_EXPIRE` and omit the `--valid-to` parameter\.
 

@@ -2,17 +2,17 @@
 
 You can connect directly to AWS KMS through a private endpoint in your VPC instead of connecting over the internet\. When you use a VPC endpoint, communication between your VPC and AWS KMS is conducted entirely within the AWS network\.
 
-AWS KMS supports [Amazon Virtual Private Cloud](http://docs.aws.amazon.com/AmazonVPC/latest/UserGuide/VPC_Introduction.html) \(Amazon VPC\) [interface endpoints](http://docs.aws.amazon.com/AmazonVPC/latest/UserGuide/vpce-interface.html) that are powered by [AWS PrivateLink](http://docs.aws.amazon.com/AmazonVPC/latest/UserGuide/VPC_Introduction.html#what-is-privatelink)\. Each VPC endpoint is represented by one or more [Elastic Network Interfaces](http://docs.aws.amazon.com/AWSEC2/latest/UserGuide/using-eni.html) \(ENIs\) with private IP addresses in your VPC subnets\. 
+AWS KMS supports [Amazon Virtual Private Cloud](https://docs.aws.amazon.com/vpc/latest/userguide/VPC_Introduction.html) \(Amazon VPC\) [interface endpoints](https://docs.aws.amazon.com/vpc/latest/userguide/vpce-interface.html) that are powered by [AWS PrivateLink](https://docs.aws.amazon.com/vpc/latest/userguide/VPC_Introduction.html#what-is-privatelink)\. Each VPC endpoint is represented by one or more [Elastic Network Interfaces](https://docs.aws.amazon.com/AWSEC2/latest/UserGuide/using-eni.html) \(ENIs\) with private IP addresses in your VPC subnets\. 
 
 The VPC interface endpoint connects your VPC directly to AWS KMS without an internet gateway, NAT device, VPN connection, or AWS Direct Connect connection\. The instances in your VPC do not need public IP addresses to communicate with AWS KMS\. 
 
-You can specify the VPC endpoint in [AWS KMS API operations](http://docs.aws.amazon.com/kms/latest/APIReference/) and [AWS CLI commands](http://docs.aws.amazon.com/cli/latest/reference/kms/index.html)\. For example, the following command uses the endpoint\-url parameter to specify a VPC endpoint in an AWS CLI command to AWS KMS\. 
+You can specify the VPC endpoint in [AWS KMS API operations](https://docs.aws.amazon.com/kms/latest/APIReference/) and [AWS CLI commands](https://docs.aws.amazon.com/cli/latest/reference/kms/index.html)\. For example, the following command uses the endpoint\-url parameter to specify a VPC endpoint in an AWS CLI command to AWS KMS\. 
 
 ```
 $  aws kms list-keys --endpoint-url https://vpce-0295a3caf8414c94a-dfm9tr04.kms.us-east-1.vpce.amazonaws.com
 ```
 
-If you use the default domain name servers \(**AmazonProvidedDNS**\) and enable [private DNS hostnames](http://docs.aws.amazon.com/AmazonVPC/latest/UserGuide/vpce-interface.html#vpce-private-dns) for your VPC endpoint, you do not need to specify the endpoint URL\. AWS populates your VPC name server with private zone data, so the public KMS endpoint \(`https://kms.<region>.amazonaws.com`\) resolves to your private VPC endpoint\. To enable this feature when using your own name servers, forward requests for the KMS domain to the VPC name server\. 
+If you use the default domain name servers \(**AmazonProvidedDNS**\) and enable [private DNS hostnames](https://docs.aws.amazon.com/vpc/latest/userguide/vpce-interface.html#vpce-private-dns) for your VPC endpoint, you do not need to specify the endpoint URL\. AWS populates your VPC name server with private zone data, so the public KMS endpoint \(`https://kms.<region>.amazonaws.com`\) resolves to your private VPC endpoint\. To enable this feature when using your own name servers, forward requests for the KMS domain to the VPC name server\. 
 
 You can also use AWS CloudTrail logs to audit your use of KMS keys through the VPC endpoint\. And you can use the conditions in IAM and key policies to deny access to any request that does not come from a specified VPC or VPC endpoint\.
 
@@ -20,7 +20,7 @@ You can also use AWS CloudTrail logs to audit your use of KMS keys through the V
 Use caution when creating IAM and key policies based on your VPC endpoint\. If a policy statement requires that requests come from a particular VPC or VPC endpoint, requests from integrated AWS services that use the CMK on your behalf might fail\. For help, see [Using VPC Endpoint Conditions in Policies with AWS KMS Permissions](policy-conditions.md#conditions-aws-vpce)\.
 
 **Regions**  
-AWS KMS supports VPC endpoints in all AWS regions where both [Amazon VPC](http://docs.aws.amazon.com/general/latest/gr/rande.html#vpc_region) and [AWS KMS](http://docs.aws.amazon.com/general/latest/gr/rande.html#kms_region) are available, except for AWS GovCloud \(US\)\.
+AWS KMS supports VPC endpoints in all AWS regions where both [Amazon VPC](https://docs.aws.amazon.com/general/latest/gr/rande.html#vpc_region) and [AWS KMS](https://docs.aws.amazon.com/general/latest/gr/rande.html#kms_region) are available, except for AWS GovCloud \(US\)\.
 
 **Topics**
 + [Create an AWS KMS VPC Endpoint](#create-vpc-endpoint)
@@ -30,7 +30,7 @@ AWS KMS supports VPC endpoints in all AWS regions where both [Amazon VPC](http:/
 
 ## Create an AWS KMS VPC Endpoint<a name="create-vpc-endpoint"></a>
 
-You [create an interface endpoint](http://docs.aws.amazon.com/AmazonVPC/latest/UserGuide/vpce-interface.html#create-interface-endpoint) in your VPC by using the KMS VPC endpoint service in each region\. You can create a VPC endpoint in the AWS Management Console, or by using the [AWS CLI](http://docs.aws.amazon.com/cli/latest/reference/ec2/create-vpc-endpoint.html) or [Amazon EC2 API](http://docs.aws.amazon.com/AWSEC2/latest/APIReference/API_CreateVpcEndpoint.html)\. 
+You [create an interface endpoint](https://docs.aws.amazon.com/vpc/latest/userguide/vpce-interface.html#create-interface-endpoint) in your VPC by using the KMS VPC endpoint service in each region\. You can create a VPC endpoint in the AWS Management Console, or by using the [AWS CLI](https://docs.aws.amazon.com/cli/latest/reference/ec2/create-vpc-endpoint.html) or [Amazon EC2 API](https://docs.aws.amazon.com/AWSEC2/latest/APIReference/API_CreateVpcEndpoint.html)\. 
 
 **Topics**
 + [Creating an AWS KMS VPC Endpoint \(Console\)](#create-vpc-endpoint-console)
@@ -58,29 +58,29 @@ You [create an interface endpoint](http://docs.aws.amazon.com/AmazonVPC/latest/U
 
    This option makes it easier to use the VPC endpoint\. The AWS KMS CLI and SDKs use the standard AWS KMS DNS hostname by default, so you do not need to specify the VPC endpoint URL in applications and commands\.
 
-   This feature works only when the `enableDnsHostnames` and `enableDnsSupport` attributes of your VPC are set to `true`\. To set these attributes, [update DNS support for your VPC](http://docs.aws.amazon.com/AmazonVPC/latest/UserGuide/vpc-dns.html#vpc-dns-updating)\.
+   This feature works only when the `enableDnsHostnames` and `enableDnsSupport` attributes of your VPC are set to `true`\. To set these attributes, [update DNS support for your VPC](https://docs.aws.amazon.com/vpc/latest/userguide/vpc-dns.html#vpc-dns-updating)\.
 
    To enable a private DNS hostname, for **Enable Private DNS Name**, select **Enable for this endpoint**\. 
 
 1. For **Security group**, select or create a security group\.
 
-   You can use [security groups](http://docs.aws.amazon.com/AmazonVPC/latest/UserGuide/VPC_SecurityGroups.html) to control access to your endpoint, much like you would use a firewall\.
+   You can use [security groups](https://docs.aws.amazon.com/vpc/latest/userguide/VPC_SecurityGroups.html) to control access to your endpoint, much like you would use a firewall\.
 
 1. Choose **Create endpoint**\.
 
 The results show the VPC endpoint, including the VPC endpoint ID and the DNS names that you use to [connect to your VPC endpoint](#connecting-vpc-endpoint)\. 
 
-You can also use the Amazon VPC tools to view and manage your endpoint, including creating a notification for an endpoint, changing properties of the endpoint, and deleting the endpoint\. For instructions, see [Interface VPC Endpoints](http://docs.aws.amazon.com/AmazonVPC/latest/UserGuide/vpce-interface.html)\.
+You can also use the Amazon VPC tools to view and manage your endpoint, including creating a notification for an endpoint, changing properties of the endpoint, and deleting the endpoint\. For instructions, see [Interface VPC Endpoints](https://docs.aws.amazon.com/vpc/latest/userguide/vpce-interface.html)\.
 
 ![\[Creating an endpoint in the VPC console\]](http://docs.aws.amazon.com/kms/latest/developerguide/images/create-vpc-endpoint.png)
 
 ### Creating an AWS KMS VPC Endpoint \(AWS CLI\)<a name="create-vpc-endpoint-cli"></a>
 
-You can use the [create\-vpc\-endpoint](http://docs.aws.amazon.com/cli/latest/reference/ec2/create-vpc-endpoint.html) command in the AWS CLI to create a VPC endpoint that connects to AWS KMS\. 
+You can use the [create\-vpc\-endpoint](https://docs.aws.amazon.com/cli/latest/reference/ec2/create-vpc-endpoint.html) command in the AWS CLI to create a VPC endpoint that connects to AWS KMS\. 
 
 Be sure to use `interface` as the VPC endpoint type and a service name value that includes `kms` and the region where your VPC is located\. 
 
-The command does not include the `PrivateDnsNames` parameter because its default value is true\. To disable this option, you can include the parameter with a value of `false`\. Private DNS names are available only when the `enableDnsHostnames` and `enableDnsSupport` attributes of your VPC are set to `true`\. To set these attributes, use the [ModifyVpcAttribute](http://docs.aws.amazon.com/AWSEC2/latest/APIReference/API_ModifyVpcAttribute.html) API\.
+The command does not include the `PrivateDnsNames` parameter because its default value is true\. To disable this option, you can include the parameter with a value of `false`\. Private DNS names are available only when the `enableDnsHostnames` and `enableDnsSupport` attributes of your VPC are set to `true`\. To set these attributes, use the [ModifyVpcAttribute](https://docs.aws.amazon.com/AWSEC2/latest/APIReference/API_ModifyVpcAttribute.html) API\.
 
 The following diagram shows the syntax of the command\. 
 
@@ -148,7 +148,7 @@ $  aws ec2 create-vpc-endpoint --vpc-id vpc-1a2b3c4d \
 
 You can connect to AWS KMS through the VPC endpoint by using the AWS CLI or an AWS SDK\. To specify the VPC endpoint, use its DNS name\. 
 
-For example, this [list\-keys](http://docs.aws.amazon.com/cli/latest/reference/kms/list-keys.html) command uses the `endpoint-url` parameter to specify the VPC endpoint\. To use a command like this, replace the example VPC endpoint ID with one in your account\.
+For example, this [list\-keys](https://docs.aws.amazon.com/cli/latest/reference/kms/list-keys.html) command uses the `endpoint-url` parameter to specify the VPC endpoint\. To use a command like this, replace the example VPC endpoint ID with one in your account\.
 
 ```
 aws kms list-keys --endpoint-url https://vpce-0295a3caf8414c94a-dfm9tr04.kms.us-east-1.vpce.amazonaws.com
@@ -156,17 +156,17 @@ aws kms list-keys --endpoint-url https://vpce-0295a3caf8414c94a-dfm9tr04.kms.us-
 
 If you enabled private hostnames when you created your VPC endpoint, you do not need to specify the VPC endpoint URL in your CLI commands or application configuration\. The standard AWS KMS DNS hostname \(https://kms\.*<region>*\.amazonaws\.com\) resolves to your VPC endpoint\. The AWS CLI and SDKs use this hostname by default, so you can begin using the VPC endpoint without changing anything in your scripts and application\. 
 
-To use private hostnames, the` enableDnsHostnames` and `enableDnsSupport` attributes of your VPC must be set to true\. To set these attributes, use the [ModifyVpcAttribute](http://docs.aws.amazon.com/AWSEC2/latest/APIReference/API_ModifyVpcAttribute.html) API\. 
+To use private hostnames, the` enableDnsHostnames` and `enableDnsSupport` attributes of your VPC must be set to true\. To set these attributes, use the [ModifyVpcAttribute](https://docs.aws.amazon.com/AWSEC2/latest/APIReference/API_ModifyVpcAttribute.html) API\. 
 
 ## Using a VPC Endpoint in a Policy Statement<a name="vpce-policy"></a>
 
-You can use IAM policies and AWS KMS key policies to control access to your AWS KMS customer master keys \(CMKs\)\. You can also use [global condition keys](http://docs.aws.amazon.com/IAM/latest/UserGuide/reference_policies_condition-keys.html#AvailableKeys) to restrict these policies based on VPC endpoint or VPC in the request\.
+You can use IAM policies and AWS KMS key policies to control access to your AWS KMS customer master keys \(CMKs\)\. You can also use [global condition keys](https://docs.aws.amazon.com/IAM/latest/UserGuide/reference_policies_condition-keys.html#AvailableKeys) to restrict these policies based on VPC endpoint or VPC in the request\.
 + Use the `aws:sourceVpce` condition key to grant or restrict access to an AWS KMS CMK based on the VPC endpoint\.
 + Use the `aws:sourceVpc` condition key to grant or restrict access to an AWS KMS CMK based on the VPC that hosts the private endpoint\.
 
 **Note**  
 Use caution when creating IAM and key policies based on your VPC endpoint\. If a policy statement requires that requests come from a particular VPC or VPC endpoint, requests from integrated AWS services that use the CMK on your behalf might fail\. For help, see [Using VPC Endpoint Conditions in Policies with AWS KMS Permissions](policy-conditions.md#conditions-aws-vpce)\.  
-Also, the `aws:sourceIP` condition key is not effective when the request comes from an [Amazon VPC endpoint](https://docs.aws.amazon.com/AmazonVPC/latest/UserGuide/vpc-endpoints.html)\. To restrict requests to a VPC endpoint, use the `aws:sourceVpce` or `aws:sourceVpc` condition keys\. For more information, see [VPC Endpoints \- Controlling the Use of Endpoints](http://docs.aws.amazon.com/AmazonVPC/latest/UserGuide/vpc-endpoints.html#vpc-endpoints-iam-access) in the *Amazon VPC User Guide*\. 
+Also, the `aws:sourceIP` condition key is not effective when the request comes from an [Amazon VPC endpoint](https://docs.aws.amazon.com/vpc/latest/userguide/vpc-endpoints.html)\. To restrict requests to a VPC endpoint, use the `aws:sourceVpce` or `aws:sourceVpc` condition keys\. For more information, see [VPC Endpoints \- Controlling the Use of Endpoints](https://docs.aws.amazon.com/vpc/latest/userguide/vpc-endpoints.html#vpc-endpoints-iam-access) in the *Amazon VPC User Guide*\. 
 
 For example, the following sample key policy allows a user to perform encryption operations with a CMK only when the request comes through the specified VPC endpoint\. 
 

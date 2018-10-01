@@ -1,6 +1,6 @@
 # Creating Keys<a name="create-keys"></a>
 
-You can use the IAM section of the AWS Management Console to create a customer master key \(CMK\)\. You can also use the [CreateKey](http://docs.aws.amazon.com/kms/latest/APIReference/API_CreateKey.html) operation in the [AWS Key Management Service \(AWS KMS\) API](http://docs.aws.amazon.com/kms/latest/APIReference/)\.
+You can use the IAM section of the AWS Management Console to create a customer master key \(CMK\)\. You can also use the [CreateKey](https://docs.aws.amazon.com/kms/latest/APIReference/API_CreateKey.html) operation in the [AWS Key Management Service \(AWS KMS\) API](https://docs.aws.amazon.com/kms/latest/APIReference/)\.
 
 **Topics**
 + [Creating CMKs \(Console\)](#create-keys-console)
@@ -57,13 +57,13 @@ Administrators of the external accounts must also allow access to the CMK by cre
 **Tip**  
 To refer to your new CMK programmatically and in command line interface operations, you need a key ID or key ARN\.  
 The key ID is displayed in the [**Encryption keys** section](https://console.aws.amazon.com/iam/home#encryptionKeys) of the IAM console\. To find the key ARN, in the **Encryption keys** section, choose the region, and then choose the CMK alias\.   
-You can also find the CMK ID and ARN by using the [ListKeys operation](http://docs.aws.amazon.com/kms/latest/APIReference/API_ListKeys.html) in the AWS KMS API\. For details, see [Finding the Key ID and ARN](viewing-keys.md#find-cmk-id-arn)\. 
+You can also find the CMK ID and ARN by using the [ListKeys operation](https://docs.aws.amazon.com/kms/latest/APIReference/API_ListKeys.html) in the AWS KMS API\. For details, see [Finding the Key ID and ARN](viewing-keys.md#find-cmk-id-arn)\. 
 
 ## Creating CMKs \(API\)<a name="create-keys-api"></a>
 
-The [CreateKey](http://docs.aws.amazon.com/kms/latest/APIReference/API_CreateKey.html) operation creates a new AWS KMS customer master key \(CMK\)\. These examples use the [AWS Command Line Interface \(AWS CLI\)](https://aws.amazon.com/cli/), but you can use any supported programming language\. 
+The [CreateKey](https://docs.aws.amazon.com/kms/latest/APIReference/API_CreateKey.html) operation creates a new AWS KMS customer master key \(CMK\)\. These examples use the [AWS Command Line Interface \(AWS CLI\)](https://aws.amazon.com/cli/), but you can use any supported programming language\. 
 
-This operation has no required parameters\. However, if you are creating a key with no key material, the `Origin` parameter is required\. You might also want to use the `Policy` parameter to specify a key policy\. You can change the key policy \([PutKeyPolicy](http://docs.aws.amazon.com/kms/latest/APIReference/API_PutKeyPolicy.html)\) and add optional elements, such as a [description](http://docs.aws.amazon.com/kms/latest/APIReference/API_DescribeKey.html) and [tags](http://docs.aws.amazon.com/kms/latest/APIReference/API_TagResource.html) at any time\.
+This operation has no required parameters\. However, if you are creating a key with no key material, the `Origin` parameter is required\. You might also want to use the `Policy` parameter to specify a key policy\. You can change the key policy \([PutKeyPolicy](https://docs.aws.amazon.com/kms/latest/APIReference/API_PutKeyPolicy.html)\) and add optional elements, such as a [description](https://docs.aws.amazon.com/kms/latest/APIReference/API_DescribeKey.html) and [tags](https://docs.aws.amazon.com/kms/latest/APIReference/API_TagResource.html) at any time\.
 
 The following is an example of a call to the `CreateKey` operation with no parameters\.
 
@@ -87,7 +87,7 @@ $ aws kms create-key
 
 If you do not specify a key policy for your new CMK, the [default key policy](key-policies.md#key-policy-default) that `CreateKey` applies is different from the default key policy that the console applies when you use it to create a new CMK\. 
 
-For example, this call to the [GetKeyPolicy](http://docs.aws.amazon.com/kms/latest/APIReference/API_GetKeyPolicy.html) operation returns the key policy that `CreateKey` applies\. It gives the AWS account root user access to the CMK and allows it to create AWS Identity and Access Management \(IAM\) policies for the CMK\. For detailed information about IAM policies and key policies for CMKs, see [Authentication and Access Control for AWS KMS](control-access.md)
+For example, this call to the [GetKeyPolicy](https://docs.aws.amazon.com/kms/latest/APIReference/API_GetKeyPolicy.html) operation returns the key policy that `CreateKey` applies\. It gives the AWS account root user access to the CMK and allows it to create AWS Identity and Access Management \(IAM\) policies for the CMK\. For detailed information about IAM policies and key policies for CMKs, see [Authentication and Access Control for AWS KMS](control-access.md)
 
 ```
 $ aws kms get-key-policy --key-id 1234abcd-12ab-34cd-56ef-1234567890ab --policy-name default --output text

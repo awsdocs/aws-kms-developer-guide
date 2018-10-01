@@ -70,7 +70,7 @@ After you complete this step, proceed to [Step 3: Encrypt the Key Material](impo
 
 ## Download the Public Key and Import Token \(AWS KMS API\)<a name="importing-keys-get-public-key-and-token-api"></a>
 
-To use the [AWS KMS API](http://docs.aws.amazon.com/kms/latest/APIReference/) to download the public key and import token, send a [GetParametersForImport](http://docs.aws.amazon.com/kms/latest/APIReference/API_GetParametersForImport.html) request that specifies the CMK for which you are downloading these items\. The following example shows how to do this with the [AWS CLI](https://aws.amazon.com/cli/)\.
+To use the [AWS KMS API](https://docs.aws.amazon.com/kms/latest/APIReference/) to download the public key and import token, send a [GetParametersForImport](https://docs.aws.amazon.com/kms/latest/APIReference/API_GetParametersForImport.html) request that specifies the CMK for which you are downloading these items\. The following example shows how to do this with the [AWS CLI](https://aws.amazon.com/cli/)\.
 
 This example specifies `RSAES_OAEP_SHA_1` as the encryption option\. To specify a different option, replace `RSAES_OAEP_SHA_1` with `RSAES_OAEP_SHA_256` or `RSAES_PKCS1_V1_5`\. Replace `1234abcd-12ab-34cd-56ef-1234567890ab` with the key ID of the CMK for which to download the public key and import token\. You can use the CMK's key ID or Amazon Resource Name \(ARN\), but you cannot use an alias for this operation\.
 

@@ -15,7 +15,7 @@ If you need to exceed these limits, please visit the [AWS Support Center](https:
 | [Requests per second](#requests-per-second) | Varies by API operation; see [table](#requests-per-second-table)\. | All CMKs | 
 
 **Note**  
-If you are exceeding the [requests per second](#requests-per-second) limit, consider using the [data key caching](http://docs.aws.amazon.com/encryption-sdk/latest/developer-guide/data-key-caching.html) feature of the AWS Encryption SDK\. Reusing data keys, rather than requesting a new data key for every encryption operation, might reduce the frequency of your requests to AWS KMS\. 
+If you are exceeding the [requests per second](#requests-per-second) limit, consider using the [data key caching](https://docs.aws.amazon.com/encryption-sdk/latest/developer-guide/data-key-caching.html) feature of the AWS Encryption SDK\. Reusing data keys, rather than requesting a new data key for every encryption operation, might reduce the frequency of your requests to AWS KMS\. 
 
 ## Customer Master Keys \(CMKs\): 1000<a name="customer-master-keys-limit"></a>
 
@@ -55,7 +55,7 @@ This limit applies to all CMKs, including [AWS managed CMKs](concepts.md#master_
 
 **Note**  
 If you need to exceed these limits, please visit the [AWS Support Center](https://console.aws.amazon.com/support/home) and create a case\.   
-If you are exceeding the requests per second limit for the [GenerateDataKey](http://docs.aws.amazon.com/kms/latest/APIReference/API_GenerateDataKey.html) API operation, consider using the [data key caching](http://docs.aws.amazon.com/encryption-sdk/latest/developer-guide/data-key-caching.html) feature of the AWS Encryption SDK\. Reusing data keys might reduce the frequency of your requests to AWS KMS\. 
+If you are exceeding the requests per second limit for the [GenerateDataKey](https://docs.aws.amazon.com/kms/latest/APIReference/API_GenerateDataKey.html) API operation, consider using the [data key caching](https://docs.aws.amazon.com/encryption-sdk/latest/developer-guide/data-key-caching.html) feature of the AWS Encryption SDK\. Reusing data keys might reduce the frequency of your requests to AWS KMS\. 
 
 **Shared limit**
 

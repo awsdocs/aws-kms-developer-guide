@@ -1,6 +1,6 @@
 # Viewing Keys<a name="viewing-keys"></a>
 
-You can use the [**Encryption keys** section of the AWS Management Console](https://console.aws.amazon.com/iam/home#encryptionKeys) to view customer master keys \(CMKs\), including CMKs that you manage and CMKs that are managed by AWS\. You can also use the operations in the [AWS Key Management Service \(AWS KMS\) API](http://docs.aws.amazon.com/kms/latest/APIReference/), such as [ListKeys](http://docs.aws.amazon.com/kms/latest/APIReference/API_ListKeys.html), [DescribeKey](http://docs.aws.amazon.com/kms/latest/APIReference/API_DescribeKey.html), and [ListAliases](http://docs.aws.amazon.com/kms/latest/APIReference/API_ListAliases.html), to view information about CMKs\.
+You can use the [**Encryption keys** section of the AWS Management Console](https://console.aws.amazon.com/iam/home#encryptionKeys) to view customer master keys \(CMKs\), including CMKs that you manage and CMKs that are managed by AWS\. You can also use the operations in the [AWS Key Management Service \(AWS KMS\) API](https://docs.aws.amazon.com/kms/latest/APIReference/), such as [ListKeys](https://docs.aws.amazon.com/kms/latest/APIReference/API_ListKeys.html), [DescribeKey](https://docs.aws.amazon.com/kms/latest/APIReference/API_DescribeKey.html), and [ListAliases](https://docs.aws.amazon.com/kms/latest/APIReference/API_ListAliases.html), to view information about CMKs\.
 
 **Topics**
 + [Viewing CMKs \(Console\)](#viewing-keys-console)
@@ -44,7 +44,7 @@ You can use the **Filter** box to find CMKs based on their aliases\.
 
 ## Viewing CMKs \(API\)<a name="viewing-keys-cli"></a>
 
-You can use the [AWS Key Management Service \(AWS KMS\) API](http://docs.aws.amazon.com/kms/latest/APIReference/) to view your CMKs\. Several operations return details about existing CMKs\. The following examples use the [AWS Command Line Interface \(AWS CLI\)](https://aws.amazon.com/cli/), but you can use any supported programming language\. 
+You can use the [AWS Key Management Service \(AWS KMS\) API](https://docs.aws.amazon.com/kms/latest/APIReference/) to view your CMKs\. Several operations return details about existing CMKs\. The following examples use the [AWS Command Line Interface \(AWS CLI\)](https://aws.amazon.com/cli/), but you can use any supported programming language\. 
 
 **Topics**
 + [ListKeys: Get the ID and ARN of All CMKs](#viewing-keys-list-keys)
@@ -54,7 +54,7 @@ You can use the [AWS Key Management Service \(AWS KMS\) API](http://docs.aws.ama
 
 ### ListKeys: Get the ID and ARN of All CMKs<a name="viewing-keys-list-keys"></a>
 
-The [ListKeys](http://docs.aws.amazon.com/kms/latest/APIReference/API_ListKeys.html) operation returns the ID and Amazon Resource Name \(ARN\) of all CMKs in the account and region\. To see the aliases and key IDs of your CMKs that have aliases, use the [ListAliases](http://docs.aws.amazon.com/kms/latest/APIReference/API_ListAliases.html) operation\. 
+The [ListKeys](https://docs.aws.amazon.com/kms/latest/APIReference/API_ListKeys.html) operation returns the ID and Amazon Resource Name \(ARN\) of all CMKs in the account and region\. To see the aliases and key IDs of your CMKs that have aliases, use the [ListAliases](https://docs.aws.amazon.com/kms/latest/APIReference/API_ListAliases.html) operation\. 
 
 For example, this call to the `ListKeys` operation returns the ID and ARN of each CMK in this fictitious account\.
 
@@ -80,7 +80,7 @@ $ aws kms list-keys
 
 ### DescribeKey: Get Detailed Information About a CMK<a name="viewing-keys-describe-key"></a>
 
-The [DescribeKey](http://docs.aws.amazon.com/kms/latest/APIReference/API_DescribeKey.html) operation returns details about the specified CMK\. To identify the CMK, use its key ID, key ARN, alias name, or alias ARN\. 
+The [DescribeKey](https://docs.aws.amazon.com/kms/latest/APIReference/API_DescribeKey.html) operation returns details about the specified CMK\. To identify the CMK, use its key ID, key ARN, alias name, or alias ARN\. 
 
 For example, this call to `DescribeKey` returns information about an existing CMK\. The fields in the response vary with the key state and the key origin\.
 
@@ -107,7 +107,7 @@ You can use the `DescribeKey` operation on a predefined AWS alias, that is, an A
 
 ### GetKeyPolicy: Get the Key Policy Attached to a CMK<a name="viewing-keys-get-key-policy"></a>
 
-The [GetKeyPolicy](http://docs.aws.amazon.com/kms/latest/APIReference/API_GetKeyPolicy.html) operation gets the key policy that is attached to the CMK\. To identify the CMK, use its key ID or key ARN\. You must also specify the policy name, which is always `default`\. \(If your output is difficult to read, add the `--output text` option to your command\.\)
+The [GetKeyPolicy](https://docs.aws.amazon.com/kms/latest/APIReference/API_GetKeyPolicy.html) operation gets the key policy that is attached to the CMK\. To identify the CMK, use its key ID or key ARN\. You must also specify the policy name, which is always `default`\. \(If your output is difficult to read, add the `--output text` option to your command\.\)
 
 ```
 $ aws kms get-key-policy --key-id 1234abcd-12ab-34cd-56ef-1234567890ab --policy-name default
@@ -129,9 +129,9 @@ $ aws kms get-key-policy --key-id 1234abcd-12ab-34cd-56ef-1234567890ab --policy-
 
 ### ListAliases: View CMKs by Alias Name<a name="viewing-keys-list-aliases"></a>
 
-The [ListAliases](http://docs.aws.amazon.com/kms/latest/APIReference/API_ListAliases.html) operation returns aliases in the account and region\. The `TargetKeyId` in the response displays the key ID of the CMK that the alias refers to, if any\.
+The [ListAliases](https://docs.aws.amazon.com/kms/latest/APIReference/API_ListAliases.html) operation returns aliases in the account and region\. The `TargetKeyId` in the response displays the key ID of the CMK that the alias refers to, if any\.
 
-By default, the ListAliases command returns all aliases in the account and region\. This includes [aliases that you created](http://docs.aws.amazon.com/kms/latest/APIReference/API_CreateAlias.html) and associated with your [customer\-managed CMKs](concepts.md#master_keys), and aliases that AWS created and associated with [AWS managed CMKs](concepts.md#master_keys) in your account\. You can recognize AWS aliases because their names have the format `aws/<service-name>`, such as `aws/dynamodb`\.
+By default, the ListAliases command returns all aliases in the account and region\. This includes [aliases that you created](https://docs.aws.amazon.com/kms/latest/APIReference/API_CreateAlias.html) and associated with your [customer\-managed CMKs](concepts.md#master_keys), and aliases that AWS created and associated with [AWS managed CMKs](concepts.md#master_keys) in your account\. You can recognize AWS aliases because their names have the format `aws/<service-name>`, such as `aws/dynamodb`\.
 
 The response might also include aliases that have no `TargetKeyId` field, such as the `aws/redshift` alias in this example\. These are predefined aliases that AWS has created but has not yet associated with a CMK\.
 

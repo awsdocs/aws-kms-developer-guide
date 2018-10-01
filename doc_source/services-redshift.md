@@ -16,7 +16,7 @@ Data encryption keys encrypt data blocks in the cluster\. Each data block is ass
 
 The database key encrypts data encryption keys in the cluster\. The database key is a randomly\-generated AES\-256 key\. It is stored on disk in a separate network from the Amazon Redshift cluster and passed to the cluster across a secure channel\. 
 
-The cluster key encrypts the database key for the Amazon Redshift cluster\. You can use AWS KMS, AWS CloudHSM, or an external hardware security module \(HSM\) to manage the cluster key\. See the [ Amazon Redshift Database Encryption ](http://docs.aws.amazon.com/redshift/latest/mgmt/working-with-db-encryption.html) documentation for more details\. 
+The cluster key encrypts the database key for the Amazon Redshift cluster\. You can use AWS KMS, AWS CloudHSM, or an external hardware security module \(HSM\) to manage the cluster key\. See the [ Amazon Redshift Database Encryption ](https://docs.aws.amazon.com/redshift/latest/mgmt/working-with-db-encryption.html) documentation for more details\. 
 
 If the master key resides in AWS KMS, it encrypts the cluster key\. You can request encryption by checking the appropriate box in the Amazon Redshift console\. You can specify a customer\-managed master key to use by choosing one from the list that appears below the encryption box\. If you do not specify a customer\-managed key, the AWS\-managed key for Amazon Redshift under your account will be used\. 
 

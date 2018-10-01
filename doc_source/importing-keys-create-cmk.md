@@ -72,7 +72,7 @@ Proceed to [Step 2: Download the Public Key and Import Token](importing-keys-get
 
 ## Create a CMK with No Key Material \(AWS KMS API\)<a name="importing-keys-create-cmk-api"></a>
 
-To use the [AWS KMS API](http://docs.aws.amazon.com/kms/latest/APIReference/) to create a CMK with no key material, send a [CreateKey](http://docs.aws.amazon.com/kms/latest/APIReference/API_CreateKey.html) request with the `Origin` parameter set to `EXTERNAL`\. The following example shows how to do this with the [AWS Command Line Interface \(AWS CLI\)](https://aws.amazon.com/cli/)\.
+To use the [AWS KMS API](https://docs.aws.amazon.com/kms/latest/APIReference/) to create a CMK with no key material, send a [CreateKey](https://docs.aws.amazon.com/kms/latest/APIReference/API_CreateKey.html) request with the `Origin` parameter set to `EXTERNAL`\. The following example shows how to do this with the [AWS Command Line Interface \(AWS CLI\)](https://aws.amazon.com/cli/)\.
 
 ```
 $ aws kms create-key --origin EXTERNAL

@@ -14,9 +14,10 @@ The following table describes significant changes to this documentation since Ja
 
 | Change | Description | Date | 
 | --- |--- |--- |
-| [New content](http://docs.aws.amazon.com/kms/latest/developerguide/services-secrets-manager.html) | Explains [how AWS Secrets Manager uses AWS KMS](http://docs.aws.amazon.com/kms/latest/developerguide/services-secrets-manager.html) customer master keys to encrypt the secret value in a secret\. | July 13, 2018 | 
-| [New content](http://docs.aws.amazon.com/kms/latest/developerguide/services-dynamodb.html) | Explains [how DynamoDB uses AWS KMS](http://docs.aws.amazon.com/kms/latest/developerguide/services-dynamodb.html) customer master keys to support its server\-side encryption option\. | May 23, 2018 | 
-| [New feature](http://docs.aws.amazon.com/kms/latest/developerguide/kms-vpc-endpoint.html) | Explains how to [use a private endpoint in your VPC](http://docs.aws.amazon.com/kms/latest/developerguide/kms-vpc-endpoint.html) to connect directly to AWS KMS, instead of connecting over the internet\. | January 22, 2018 | 
+| [Limit change](https://docs.aws.amazon.com/kms/latest/developerguide/limits.html#requests-per-second) | Changed the shared [requests\-per\-second](https://docs.aws.amazon.com/kms/latest/developerguide/limits.html#requests-per-second) limit on customer master keys\. | August 21, 2018 | 
+| [New content](https://docs.aws.amazon.com/kms/latest/developerguide/services-secrets-manager.html) | Explains [how AWS Secrets Manager uses AWS KMS](https://docs.aws.amazon.com/kms/latest/developerguide/services-secrets-manager.html) customer master keys to encrypt the secret value in a secret\. | July 13, 2018 | 
+| [New content](https://docs.aws.amazon.com/kms/latest/developerguide/services-dynamodb.html) | Explains [how DynamoDB uses AWS KMS](https://docs.aws.amazon.com/kms/latest/developerguide/services-dynamodb.html) customer master keys to support its server\-side encryption option\. | May 23, 2018 | 
+| [New feature](https://docs.aws.amazon.com/kms/latest/developerguide/kms-vpc-endpoint.html) | Explains how to [use a private endpoint in your VPC](https://docs.aws.amazon.com/kms/latest/developerguide/kms-vpc-endpoint.html) to connect directly to AWS KMS, instead of connecting over the internet\. | January 22, 2018 | 
 
 ## Earlier Updates<a name="earlier-updates"></a>
 
@@ -47,8 +48,8 @@ The following table describes the important changes to the AWS Key Management Se
 | Update | Updated the [Limits](limits.md) page to explain the new requests per second limits\. | August 31, 2015 | 
 | New content | Added information about the charges for using AWS KMS\. See [AWS KMS Pricing](overview.md#pricing)\. | August 14, 2015 | 
 | New content | Added requests per second to the AWS KMS [Limits](limits.md)\. | June 11, 2015 | 
-| New content | Added a new Java code sample demonstrating use of the [http://docs.aws.amazon.com/kms/latest/APIReference/API_UpdateAlias.html](http://docs.aws.amazon.com/kms/latest/APIReference/API_UpdateAlias.html) API\. See [Updating an Alias](programming-aliases.md#update-alias)\. | June 1, 2015 | 
-| Update | Moved the [AWS Key Management Service regions table](http://docs.aws.amazon.com/general/latest/gr/rande.html#kms_region) to the AWS General Reference\. | May 29, 2015 | 
+| New content | Added a new Java code sample demonstrating use of the [https://docs.aws.amazon.com/kms/latest/APIReference/API_UpdateAlias.html](https://docs.aws.amazon.com/kms/latest/APIReference/API_UpdateAlias.html) API\. See [Updating an Alias](programming-aliases.md#update-alias)\. | June 1, 2015 | 
+| Update | Moved the [AWS Key Management Service regions table](https://docs.aws.amazon.com/general/latest/gr/rande.html#kms_region) to the AWS General Reference\. | May 29, 2015 | 
 | New content | Added documentation about [How Amazon EMR Uses AWS KMS](services-emr.md)\. | January 28, 2015 | 
 | New content | Added documentation about [How Amazon WorkMail Uses AWS KMS](services-wm.md)\. | January 28, 2015 | 
 | New content | Added documentation about [How Amazon Relational Database Service \(Amazon RDS\) Uses AWS KMS](services-rds.md)\. | January 6, 2015 | 
