@@ -9,9 +9,9 @@ Key policies are the primary way to control access to customer master keys \(CMK
 
 ## Overview of Key Policies<a name="key-policy-overview"></a>
 
-A key policy is a document that uses [JSON \(JavaScript Object Notation\)](http://json.org/) to specify permissions\. You can work with these JSON documents directly, or you can use the AWS Management Console to work with them using a graphical interface called the *default view*\. For more information about the console's default view for key policies, see [Default Key Policy](#key-policy-default) and [Modifying a Key Policy](key-policy-modifying.md)\.
+A key policy is a document that uses [JSON \(JavaScript Object Notation\)](http://json.org/) to specify permissions\. You can work with these JSON documents directly, or you can use the AWS Management Console to work with them using a graphical interface called the *default view*\. For more information about the console's default view for key policies, see [Default Key Policy](#key-policy-default) and [Changing a Key Policy](key-policy-modifying.md)\.
 
-Key policy documents share a common JSON syntax with other permissions policies in AWS, and have the following basic structure:
+A key policy document cannot exceed 32 KB \(32,768 bytes\)\. Key policy documents use the same JSON syntax as other permissions policies in AWS and have the following basic structure:
 
 ```
 {

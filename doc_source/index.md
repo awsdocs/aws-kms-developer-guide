@@ -25,7 +25,7 @@ Amazon's trademarks and trade dress may not be used in
 + [Authentication and Access Control for AWS KMS](control-access.md)
    + [Overview of Managing Access to Your AWS KMS Resources](control-access-overview.md)
    + [Using Key Policies in AWS KMS](key-policies.md)
-      + [Modifying a Key Policy](key-policy-modifying.md)
+      + [Changing a Key Policy](key-policy-modifying.md)
       + [Keeping Key Policies Up to Date](key-policy-upgrading.md)
    + [Using IAM Policies with AWS KMS](iam-policies.md)
    + [AWS KMS API Permissions: Actions and Resources Reference](kms-api-permissions-reference.md)

@@ -10,6 +10,7 @@ If you need to exceed these limits, please visit the [AWS Support Center](https:
 | --- | --- | --- | 
 | [Customer Master Keys \(CMKs\)](#customer-master-keys-limit) | 1000 | Customer\-managed CMKs | 
 | [Aliases](#aliases-limit) | 1100 | Customer\-created aliases | 
+| [Key policy document size](#key-policy-limit) | 32 KB \(32,768 bytes\) | All CMKs | 
 | [Grants per CMK](#grants-per-key) | 2500 | Customer\-managed CMKs | 
 | [Grants for a given principal per CMK](#grants-per-principal-per-key) | 500 | All CMKs | 
 | [Requests per second](#requests-per-second) | Varies by API operation; see [table](#requests-per-second-table)\. | All CMKs | 
@@ -30,6 +31,14 @@ You can create up to 1100 aliases in your account\. Aliases that AWS creates in 
 An *alias* is a display name that you can map to a CMK\. Each alias is mapped to exactly one CMK and multiple aliases can map to the same CMK\. 
 
 If you use a [support case](https://console.aws.amazon.com/support/home) to increase your CMK limit, you might also need to request an increase in the number of aliases\.
+
+## Key policy document size: 32 KB<a name="key-policy-limit"></a>
+
+The maximum length of each key policy document is 32 KB \(32,768 bytes\)\. If the document exceeds this length, operations that use the key policy document to set or change the key policy fail\. If you must exceed this limit, create a [support case](https://console.aws.amazon.com/support/home)\.
+
+A [key policy document](key-policies.md#key-policy-overview) is a collection of policy statements in JSON format\. The statements in the key policy document control access to the CMK resource\. You may also use IAM policies and grants to control access to the CMK, but every CMK must have a key policy document\. 
+
+You can create a key policy document by using the [default view](key-policy-modifying.md#key-policy-modifying-how-to-console-default-view) or [policy view](key-policy-modifying.md#key-policy-modifying-how-to-console-policy-view) in the AWS Management Console, or by using the [PutKeyPolicy](https://docs.aws.amazon.com/kms/latest/APIReference/API_PutKeyPolicy.html) API operation\. All of these techniques involve an underlying key policy document\.
 
 ## Grants per CMK: 2500<a name="grants-per-key"></a>
 

@@ -34,10 +34,10 @@ The following table describes the important changes to the AWS Key Management Se
 | Update | Updated the [Limits](limits.md) page to reflect new default limits\. | May 31, 2016 | 
 | Update | Updated the [Limits](limits.md) page to reflect new default limits, and updated the [Grant Tokens](concepts.md#grant_token) documentation to improve clarity and accuracy\. | April 11, 2016 | 
 | New content | Added documentation about [Allowing Multiple IAM Users to Access a CMK](key-policy-modifying.md#key-policy-modifying-multiple-iam-users) and [Using the IP Address Condition](policy-conditions.md#conditions-aws-ip-address)\. | February 17, 2016 | 
-| Update | Updated the [Using Key Policies in AWS KMS](key-policies.md) and [Modifying a Key Policy](key-policy-modifying.md) pages to improve clarity and accuracy\. | February 17, 2016 | 
+| Update | Updated the [Using Key Policies in AWS KMS](key-policies.md) and [Changing a Key Policy](key-policy-modifying.md) pages to improve clarity and accuracy\. | February 17, 2016 | 
 | Update | Updated the [Getting Started](getting-started.md) topic pages to improve clarity\. | January 5, 2016 | 
 | New content | Added documentation about [How AWS CloudTrail Uses AWS KMS](services-cloudtrail.md)\. | November 18, 2015 | 
-| New content | Added instructions for [Modifying a Key Policy](key-policy-modifying.md)\. | November 18, 2015 | 
+| New content | Added instructions for [Changing a Key Policy](key-policy-modifying.md)\. | November 18, 2015 | 
 | Update | Updated the documentation about [How Amazon Relational Database Service \(Amazon RDS\) Uses AWS KMS](services-rds.md)\. | November 18, 2015 | 
 | New content | Added documentation about [How Amazon WorkSpaces Uses AWS KMS](services-workspaces.md)\. | November 6, 2015 | 
 | Update | Updated the [Using Key Policies in AWS KMS](key-policies.md) page to improve clarity\. | October 22, 2015 | 
