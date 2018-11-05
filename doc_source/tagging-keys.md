@@ -1,10 +1,8 @@
 # Tagging Keys<a name="tagging-keys"></a>
 
-You can use the [**Encryption keys** section of the AWS Management Console](https://console.aws.amazon.com/iam/home#encryptionKeys) to add, change, and delete tags for customer master keys \(CMKs\) that you manage\. You can also use the operations in the [AWS Key Management Service \(AWS KMS\) API](https://docs.aws.amazon.com/kms/latest/APIReference/) to manage CMK tags\. You cannot tag AWS managed CMKs\.
+You can add, change, and delete tags for [customer managed CMKs](concepts.md#master_keys)\. Each tag consists of a *tag key* and a *tag value* that you define\. For example, the tag key might be "Cost Center" and the tag value might be "87654\."
 
-Each tag consists of a *tag key* and a *tag value*, both of which you define\. For example, the tag key might be "Cost Center" and the tag value might be "87654\."
-
-You might use a tag to categorize and track your AWS costs\. You can apply tags that represent business categories \(such as cost centers, application names, or owners\) to organize your costs across multiple services\. When you add tags to your AWS resources, AWS generates a cost allocation report with usage and costs aggregated by tags\. You can use this report to view your AWS KMS costs in terms of projects or applications, instead of viewing all AWS KMS costs as a single line item\.
+When you add tags to your AWS resources, AWS generates a cost allocation report with usage and costs aggregated by tags\. You can use this feature to track AWS KMS costs for a project, application, or cost center\.
 
 For more information about using tags for cost allocation, see [Using Cost Allocation Tags](https://docs.aws.amazon.com/awsaccountbilling/latest/aboutv2/cost-alloc-tags.html) in the *AWS Billing and Cost Management User Guide*\. For information about the rules that apply to tag keys and tag values, see [User\-Defined Tag Restrictions](https://docs.aws.amazon.com/awsaccountbilling/latest/aboutv2/allocation-tag-restrictions.html) in the *AWS Billing and Cost Management User Guide*\.
 
@@ -14,7 +12,7 @@ For more information about using tags for cost allocation, see [Using Cost Alloc
 
 ## Managing CMK Tags \(Console\)<a name="manage-tags"></a>
 
-You can manage tags for your CMKs from the IAM section of the AWS Management Console\. You can add tags to a CMK when you [create it](create-keys.md)\. You can also use the console's key details page to manage, add, edit, and delete tags for a CMK\. For more information, see [Editing Keys](editing-keys.md)\. 
+You can manage tags for your CMKs from the IAM section of the AWS Management Console\. You can add tags to a CMK when you [create it](create-keys.md) in the console\. Then, add, edit, and delete tags at any time\. For more information, see [Editing Keys](editing-keys.md)\. 
 
 **To manage tags for your CMKs \(console\)**
 

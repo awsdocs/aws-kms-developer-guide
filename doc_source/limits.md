@@ -1,6 +1,6 @@
 # Limits<a name="limits"></a>
 
-AWS KMS objects have limits that apply to each region and each AWS account\. Some limits apply to all objects\. Others apply only to objects that you create, but not to objects that AWS services create in your account\. 
+AWS KMS resources have limits that apply to each region and each AWS account\. Some limits apply to all resources\. Others apply only to resources that you create, but not to resources that AWS services create in your account\. Resources that you use, but that aren't in your AWS account, such as [AWS owned CMKs](concepts.md#aws-owned-cmk), do not count against these limits\.
 
 **Important**  
 If you need to exceed these limits, please visit the [AWS Support Center](https://console.aws.amazon.com/support/home) and create a case\. 
@@ -10,23 +10,23 @@ If you need to exceed these limits, please visit the [AWS Support Center](https:
 | --- | --- | --- | 
 | [Customer Master Keys \(CMKs\)](#customer-master-keys-limit) | 1000 | Customer\-managed CMKs | 
 | [Aliases](#aliases-limit) | 1100 | Customer\-created aliases | 
-| [Key policy document size](#key-policy-limit) | 32 KB \(32,768 bytes\) | All CMKs | 
+| [Key policy document size](#key-policy-limit) | 32 KB \(32,768 bytes\) | Customer managed CMKsAWS managed CMKs | 
 | [Grants per CMK](#grants-per-key) | 2500 | Customer\-managed CMKs | 
-| [Grants for a given principal per CMK](#grants-per-principal-per-key) | 500 | All CMKs | 
-| [Requests per second](#requests-per-second) | Varies by API operation; see [table](#requests-per-second-table)\. | All CMKs | 
+| [Grants for a given principal per CMK](#grants-per-principal-per-key) | 500 | Customer managed CMKsAWS managed CMKs | 
+| [Requests per second](#requests-per-second) | Varies by API operation; see [table](#requests-per-second-table)\. | Customer managed CMKsAWS managed CMKs | 
 
 **Note**  
 If you are exceeding the [requests per second](#requests-per-second) limit, consider using the [data key caching](https://docs.aws.amazon.com/encryption-sdk/latest/developer-guide/data-key-caching.html) feature of the AWS Encryption SDK\. Reusing data keys, rather than requesting a new data key for every encryption operation, might reduce the frequency of your requests to AWS KMS\. 
 
 ## Customer Master Keys \(CMKs\): 1000<a name="customer-master-keys-limit"></a>
 
-You can have up to 1000 [customer managed CMKs](concepts.md#master_keys) per region\. This limit applies to all customer managed CMKs regardless of their [key state](key-state.md)\. [AWS managed CMKs](concepts.md#master_keys) do not count against this limit\.
+You can have up to 1000 [customer managed CMKs](concepts.md#customer-cmk) in each Region of your AWS account\. This limit applies to all customer managed CMKs regardless of their [key state](key-state.md)\. [AWS managed CMKs](concepts.md#aws-managed-cmk) and [AWS owned CMKs](concepts.md#aws-owned-cmk) do not count against this limit\.
 
 You can create a [support case](https://console.aws.amazon.com/support/home) to request more CMKs in a region; however, managing a large number of CMKs from the AWS Management Console may be slower than acceptable\. If you have a large number of CMKs in a region, we recommend managing them programmatically with the [AWS SDKs](https://aws.amazon.com/tools/#sdk) or [AWS Command Line Tools](https://aws.amazon.com/tools/#cli)\.
 
 ## Aliases: 1100<a name="aliases-limit"></a>
 
-You can create up to 1100 aliases in your account\. Aliases that AWS creates in your account, such as aws/*<service\-name>*, do not count against this limit\. 
+You can create up to 1100 aliases in each region of your account\. Aliases that AWS creates in your account, such as aws/*<service\-name>*, do not count against this limit\. 
 
 An *alias* is a display name that you can map to a CMK\. Each alias is mapped to exactly one CMK and multiple aliases can map to the same CMK\. 
 
@@ -36,13 +36,13 @@ If you use a [support case](https://console.aws.amazon.com/support/home) to incr
 
 The maximum length of each key policy document is 32 KB \(32,768 bytes\)\. If the document exceeds this length, operations that use the key policy document to set or change the key policy fail\. If you must exceed this limit, create a [support case](https://console.aws.amazon.com/support/home)\.
 
-A [key policy document](key-policies.md#key-policy-overview) is a collection of policy statements in JSON format\. The statements in the key policy document control access to the CMK resource\. You may also use IAM policies and grants to control access to the CMK, but every CMK must have a key policy document\. 
+A [key policy document](key-policies.md#key-policy-overview) is a collection of policy statements in JSON format\. The statements in the key policy document determine who has permission to use the CMK and how they can use it\. You may also use IAM policies and grants to control access to the CMK, but every CMK must have a key policy document\. 
 
 You can create a key policy document by using the [default view](key-policy-modifying.md#key-policy-modifying-how-to-console-default-view) or [policy view](key-policy-modifying.md#key-policy-modifying-how-to-console-policy-view) in the AWS Management Console, or by using the [PutKeyPolicy](https://docs.aws.amazon.com/kms/latest/APIReference/API_PutKeyPolicy.html) API operation\. All of these techniques involve an underlying key policy document\.
 
 ## Grants per CMK: 2500<a name="grants-per-key"></a>
 
-Each [customer managed CMK](concepts.md#master_keys) can have up to 2500 grants, including the grants created by [AWS services that are integrated with AWS KMS](https://aws.amazon.com/kms/details/#integration)\. This limit does not apply to [AWS managed CMKs](concepts.md#master_keys)\.
+Each [customer managed CMK](concepts.md#customer-cmk) can have up to 2500 grants, including the grants created by [AWS services that are integrated with AWS KMS](https://aws.amazon.com/kms/details/#integration)\. This limit does not apply to [AWS managed CMKs](concepts.md#aws-managed-cmk)\.
 
 One effect of this limit is that you cannot create more than 2500 resources that use the same CMK\. For example, you cannot create more than 2500 [encrypted EBS volumes](services-ebs.md) that use the same CMK\.
 
@@ -52,7 +52,7 @@ You or an AWS service integrated with AWS KMS can use a grant to limit how and w
 
 ## Grants for a given principal per CMK: 500<a name="grants-per-principal-per-key"></a>
 
-For a given CMK, no more than 500 grants can specify the same grantee principal\. This limit applies to all CMKs, including [AWS managed CMKs](concepts.md#master_keys)\.
+For a given CMK, no more than 500 grants can specify the same grantee principal\. This limit applies to all CMKs, including [AWS managed CMKs](concepts.md#aws-managed-cmk)\.
 
 For example, you might want to encrypt multiple Amazon EBS volumes and attach them to a single Amazon Elastic Compute Cloud \(Amazon EC2\) instance\. A unique grant is created for each encrypted volume and all of these grants have the same grantee principal \(an IAM assumed\-role user associated with the EC2 instance\)\. Each grant gives permission to use the specified CMK to decrypt an EBS volume's unique data encryption key\. For each CMK, you can have up to 500 grants that specify the same EC2 instance as the grantee principal\. This effectively means that you can have no more than 500 encrypted EBS volumes per EC2 instance for a given CMK\.
 
@@ -60,7 +60,7 @@ For example, you might want to encrypt multiple Amazon EBS volumes and attach th
 
 AWS KMS throttles API requests at different limits depending on the API operation\. Throttling means that AWS KMS rejects an otherwise valid request because the request exceeds the limit for the number of requests per second\. When a request is throttled, AWS KMS returns a `ThrottlingException` error\. [The following table](#requests-per-second-table) lists each API operation and the point at which AWS KMS throttles requests for that operation\.
 
-This limit applies to all CMKs, including [AWS managed CMKs](concepts.md#master_keys)\.
+This limit applies to all CMKs, including [AWS managed CMKs](concepts.md#aws-managed-cmk)\.
 
 **Note**  
 If you need to exceed these limits, please visit the [AWS Support Center](https://console.aws.amazon.com/support/home) and create a case\.   

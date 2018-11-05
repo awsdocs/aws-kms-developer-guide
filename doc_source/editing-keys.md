@@ -43,6 +43,7 @@ Use the controls in the **Key Users** area in the **Key Policy** section of the 
 
 **Add, edit, and remove tags**  
 Use the controls in the **Tags** section of the page\.  
+When you add tags to your AWS resources, AWS generates a cost allocation report with usage and costs aggregated by tags\. For information about tagging CMKs, see [Tagging Keys](tagging-keys.md)\.  
 
 ![\[Tags section of the console's key details page\]](http://docs.aws.amazon.com/kms/latest/developerguide/images/console-tags.png)
 

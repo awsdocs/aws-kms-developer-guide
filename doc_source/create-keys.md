@@ -20,7 +20,7 @@ You can use the AWS Management Console to create customer master keys \(CMKs\)\.
 
 1. Choose **Create key**\.
 
-1. Type an alias for the CMK\. An alias cannot begin with **aws**\. Aliases that begin with **aws** are reserved by Amazon Web Services to represent AWS\-managed CMKs in your account\.
+1. Type an alias for the CMK\. An alias cannot begin with **aws/**\. The **aws/** prefix is reserved by Amazon Web Services to represent AWS\-managed CMKs in your account\.
 
    An alias is a display name that you can use to identify the CMK\. We recommend that you choose an alias that indicates the type of data you plan to protect or the application you plan to use with the CMK\.
 
@@ -31,6 +31,8 @@ You can use the AWS Management Console to create customer master keys \(CMKs\)\.
 1. Choose **Next Step**\.
 
 1. \(Optional\) Type a tag key and an optional tag value\. To add more than one tag to the CMK, choose **Add tag**\.
+
+   When you add tags to your AWS resources, AWS generates a cost allocation report with usage and costs aggregated by tags\. For information about tagging CMKs, see [Tagging Keys](tagging-keys.md)\.
 
 1. Choose **Next Step**\.
 

@@ -3,7 +3,7 @@
 Learn the basic terms and concepts in AWS Key Management Service \(AWS KMS\) and how they work together to help protect your data\.
 
 **Topics**
-+ [Customer Master Keys](#master_keys)
++ [Customer Master Keys \(CMKs\)](#master_keys)
 + [Data Keys](#data-keys)
 + [Envelope Encryption](#enveloping)
 + [Encryption Context](#encrypt_context)
@@ -13,23 +13,46 @@ Learn the basic terms and concepts in AWS Key Management Service \(AWS KMS\) and
 + [Auditing CMK Usage](#auditing_key_use)
 + [Key Management Infrastructure](#key_management)
 
-## Customer Master Keys<a name="master_keys"></a>
+## Customer Master Keys \(CMKs\)<a name="master_keys"></a>
 
-The primary resources in AWS KMS are *customer master keys* \(CMKs\)\. You can use a CMK to encrypt and decrypt up to 4 kilobytes \(4096 bytes\) of data\. Typically, you use CMKs to generate, encrypt, and decrypt the [data keys](#data-keys) that you use outside of AWS KMS to encrypt your data\. This strategy is known as [envelope encryption](#enveloping)\.
+The primary resources in AWS KMS are *customer master keys* \(CMKs\)\. You can use a CMK to encrypt and decrypt up to 4 KB \(4096 bytes\) of data\. Typically, you use CMKs to generate, encrypt, and decrypt the [data keys](#data-keys) that you use outside of AWS KMS to encrypt your data\. This strategy is known as [envelope encryption](#enveloping)\.
 
-AWS KMS stores, tracks, and protects your CMKs\. When you want to use a CMK, you access it through AWS KMS\. CMKs never leave AWS KMS unencrypted\. This strategy differs from data keys that AWS KMS returns to you, optionally in plaintext\. AWS KMS does not store, manage, or track your data keys\.
+CMKs are created in AWS KMS and never leave AWS KMS unencrypted\.  To use or manage your CMK, you access them through AWS KMS\. This strategy differs from [data keys](#data-keys)\. AWS KMS does not store, manage, or track your data keys\. You must use them outside of AWS KMS\.
 
-There are two types of CMKs in AWS accounts:
-+ **Customer managed CMKs** are CMKs that you create, manage, and use\. This includes [enabling and disabling the CMK](enabling-keys.md), [rotating its cryptographic material](rotate-keys.md), and [establishing the IAM policies and key policies](control-access.md) that govern access to the CMK, as well as using the CMK in cryptographic operations\. You can allow an AWS service to use a customer managed CMK on your behalf, but you retain control of the CMK\.
+There are three types of CMKs in AWS accounts: customer managed CMKs, AWS managed CMKs, and AWS owned CMKs\. 
 
-   
-+ **AWS managed CMKs** are CMKs in your account that are created, managed, and used on your behalf by an AWS service that is integrated with AWS KMS\. This CMK is unique to your AWS account and region\. Only the service that created the AWS managed CMK can use it\. 
 
-   
+| Type of CMK | Can view | Can manage | Used only for my AWS account | 
+| --- | --- | --- | --- | 
+| [Customer managed CMK](#customer-cmk) | Yes | Yes | Yes | 
+| [AWS managed CMK](#aws-managed-cmk) | Yes | No | Yes | 
+| [AWS owned CMK](#aws-owned-cmk) | No | No | No | 
 
-  You can recognize AWS managed CMKs because their aliases have the format `aws/service-name`, such as `aws/redshift`\. Typically, a service creates its AWS managed CMK in your account when you set up the service or the first time you use the CMK\. 
+[AWS services that integrate with AWS KMS](service-integration.md) differ in their support for CMKs\. Some services encrypt your data by default with an AWS owned CMK\. Some encrypt under AWS managed CMKs that they create in your account\. Other services allow you specify a customer managed CMK that you have created\. And others support all types of CMKs to allow you the ease of an AWS owned CMK, the visibility of an AWS managed CMK, or the control of a customer\-managed CMK\.
 
-The AWS services that integrate with AWS KMS can use it in many different ways\. Some services create AWS managed CMKs in your account\. Other services require that you specify a customer managed CMK that you have created\. And, others support both types of CMKs to allow you the ease of an AWS managed CMK or the control of a customer\-managed CMK\.
+### Customer managed CMKs<a name="customer-cmk"></a>
+
+*Customer managed CMKs* are CMKs in your AWS account that you create, own, and manage\. You have full control over these CMKs, including establishing and maintaining their [key policies, IAM policies, and grants](control-access.md), [enabling and disabling](enabling-keys.md) them, [rotating their cryptographic material](rotate-keys.md), [adding tags](tagging-keys.md), [creating aliases](programming-aliases.md) that refer to the CMK, and [scheduling the CMKs for deletion](deleting-keys.md)\. 
+
+You can use your customer managed CMKs in cryptographic operations and audit their use in AWS CloudTrail logs\. In addition, many [AWS services that integrate with AWS KMS](service-integration.md) let you specify a customer managed CMK to protect the data that they store and manage for you\. 
+
+Customer managed CMKs incur a monthly fee and a fee for use in excess of the free tier\. They are counted against the AWS KMS [limits](limits.md) for your account\. For details, see [AWS Key Management Service Pricing](aws.amazon.comkms/pricing/) and [Limits](limits.md)\.
+
+### AWS managed CMKs<a name="aws-managed-cmk"></a>
+
+*AWS managed CMKs* are CMKs in your account that are created, managed, and used on your behalf by an AWS service that integrates with AWS KMS\. You can identify AWS managed CMKs by their aliases, which have the format `aws/service-name`, such as `aws/redshift`\. 
+
+You can view the AWS managed CMKs in your account, view their key policies, and audit their use in AWS CloudTrail logs\. However, you cannot manage these CMKs or change their permissions\. And, you cannot use AWS managed CMKs in cryptographic operations directly; the service that creates them uses them on your behalf\. To view the key policy for an AWS managed CMK, use the [GetKeyPolicy](https://docs.aws.amazon.com/kms/latest/APIReference/API_GetKeyPolicy.html) operation\. You cannot view the key policy in the AWS Management Console, or change it by any means\. 
+
+You do not pay a monthly fee for AWS managed CMKs\. They can be subject to fees for use in excess of the free tier, but some AWS services cover these costs for you\. For details, see the encryption section of the service documentation\. AWS managed CMKs do not count against limits on the number of CMKs in each region of your account, but when they are used on behalf of a principal in your account, they count against request rate limits\. For details, see [AWS Key Management Service Pricing](aws.amazon.comkms/pricing/) and [Limits](limits.md)\.
+
+### AWS owned CMKs<a name="aws-owned-cmk"></a>
+
+*AWS owned CMKs* are not in your AWS account\. They are part of a collection of CMKs that AWS owns and manages for use in multiple AWS accounts\. AWS services can use AWS owned CMKs to protect your data\. 
+
+You cannot view, manage, or use AWS owned CMKs, or audit their use\. However, you do not need to do any work or change any programs to protect the keys that encrypt your data\. 
+
+You are not charged a monthly fee or a usage fee for use of AWS owned CMKs and they do not count against AWS KMS limits for your account\.
 
 ## Data Keys<a name="data-keys"></a>
 

@@ -2,9 +2,7 @@
 
 The examples in this topic use the AWS KMS API to create, view, update, and delete aliases\.
 
-An *alias* is an optional display name for a [customer master key \(CMK\)](concepts.md#master_keys)\. 
-
-Each CMK can have multiple aliases, but each alias points to only one CMK\. The alias name must be unique in the AWS account and region\. To simplify code that runs in multiple regions, you can use the same alias name but point it to a different CMK in each region\. 
+An *alias* is an optional display name for a [customer master key \(CMK\)](concepts.md#master_keys)\. Each CMK can have multiple aliases, but each alias points to only one CMK\. The alias name must be unique in the AWS account and region\. To simplify code that runs in multiple regions, you can use the same alias name but point it to a different CMK in each region\. 
 
 You can use AWS KMS API operations to list, create, and delete aliases\. You can also update an alias, which associates an existing alias with a different CMK\. There is no operation to edit or change an alias name\. If you create an alias for a CMK that already has an alias, the operation creates another alias for the same CMK\. To change an alias name, delete the current alias and then create a new alias for the CMK\.
 
@@ -38,6 +36,8 @@ arn:aws:kms:us-west-2:111122223333:alias/ExampleAlias
 ## Creating an Alias<a name="create-alias"></a>
 
 To create an alias, use the [CreateAlias](https://docs.aws.amazon.com/kms/latest/APIReference/API_CreateAlias.html) operation\. The alias must be unique in the account and region\. If you create an alias for a CMK that already has an alias, `CreateAlias` creates another alias to the same CMK\. It does not replace the existing alias\.
+
+You cannot create an alias that begins with `aws/`\. The `aws/` prefix is reserved by Amazon Web Services for [AWS managed CMKs](concepts.md#master_keys)\.
 
 This example uses the KMS client object that you created in [Creating a Client](programming-client.md)\.
 
