@@ -22,7 +22,7 @@ The **RSAES\_OAEP\_SHA\_1** encryption algorithm works best with this example\. 
    $ openssl rand -out PlaintextKeyMaterial.bin 32
    ```
 
-1. Use the following command to encrypt the key material with the public key that you downloaded previously \(see [Download the Public Key and Import Token \(AWS KMS API\)](importing-keys-get-public-key-and-token.md#importing-keys-get-public-key-and-token-api)\) and save it in a file named `EncryptedKeyMaterial.bin`\. Replace `PublicKey.bin>` with the name of the file that contains the public key\. If you downloaded the public key from the console, this file is named wrappingKey\_*CMK\_key\_ID*\_*timestamp* \(for example, `wrappingKey_f44c4e20-f83c-48f4-adc6-a1ef38829760_0809092909`\)\.
+1. Use the following command to encrypt the key material with the public key that you downloaded previously \(see [Downloading the Public Key and Import Token \(KMS API\)](importing-keys-get-public-key-and-token.md#importing-keys-get-public-key-and-token-api)\) and save it in a file named `EncryptedKeyMaterial.bin`\. Replace `PublicKey.bin>` with the name of the file that contains the public key\. If you downloaded the public key from the console, this file is named wrappingKey\_*CMK\_key\_ID*\_*timestamp* \(for example, `wrappingKey_f44c4e20-f83c-48f4-adc6-a1ef38829760_0809092909`\)\.
 
    ```
    $ openssl rsautl -encrypt \

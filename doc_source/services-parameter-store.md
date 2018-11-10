@@ -1,6 +1,6 @@
 # How AWS Systems Manager Parameter Store Uses AWS KMS<a name="services-parameter-store"></a>
 
-With AWS Systems Manager Parameter Store, you can create [Secure String parameters](https://docs.aws.amazon.com/systems-manager/latest/userguide/sysman-paramstore-about.html#sysman-paramstore-securestring), which are parameters that have a plaintext parameter name and an encrypted parameter value\. Parameter Store uses AWS KMS to encrypt and decrypt the parameter values of Secure String parameters
+With AWS Systems Manager Parameter Store, you can create [Secure String parameters](https://docs.aws.amazon.com/systems-manager/latest/userguide/sysman-paramstore-about.html#sysman-paramstore-securestring), which are parameters that have a plaintext parameter name and an encrypted parameter value\. Parameter Store uses AWS KMS to encrypt and decrypt the parameter values of Secure String parameters\.
 
 With [Parameter Store](https://docs.aws.amazon.com/systems-manager/latest/userguide/systems-manager-paramstore.html) you can create, store, and manage data as parameters with values\. You can create a parameter in Parameter Store and use it in multiple applications and services subject to policies and permissions that you design\. When you need to change a parameter value, you change one instance, rather than managing an error\-prone change to numerous sources\. Parameter Store supports a hierarchical structure for parameter names, so you can qualify a parameter for specific uses\. 
 
@@ -90,7 +90,7 @@ The following workflow shows how Parameter Store uses an AWS KMS CMK\.
 
 You can use IAM policies to allow or deny permission for a user to call the Systems Manager `PutParameter` and `GetParameter` operations\.
 
-Also, if you are using customer managed CMKs, you can use IAM policies and key policies to allow or deny permission to use the CMKs in calls to the AWS KMS `Encrypt` and `Decrypt` operations\. However, you cannot establish access control policies for the default `aws/ssm` CMK\. For detailed information about controlling access to customer managed AWS KMS CMKs, see [Authentication and Access Control for AWS KMS](control-access.md)\.
+Also, if you are using customer managed CMKs, you can use IAM policies and key policies to manage encrypt and decrypt permissions\. However, you cannot establish access control policies for the default `aws/ssm` CMK\. For detailed information about controlling access to customer managed CMKs, see [Authentication and Access Control for AWS KMS](control-access.md)\.
 
 The following example shows an IAM policy that allows the user to call the Systems Manager `GetParameter` operation on all parameters in the `/ReadableParameters` path\. The policy also allows the user to call the AWS KMS `Decrypt` operation on the specified customer managed CMK\.
 
@@ -188,6 +188,6 @@ To perform any operation on a Secure String parameter, Parameter Store must be a
 + The CMK is not found\. 
 
   This typically happens when you use an incorrect identifier for the CMK\. [Find the correct identifiers](viewing-keys.md#find-cmk-id-arn) for the CMK and try the command again\. 
-+ The CMK is not enabled\. When this occurs, Parameter Store returns an InvalidKeyId exception with a detailed error message from AWS KMS\.
++ The CMK is not enabled\. When this occurs, Parameter Store returns an InvalidKeyId exception with a detailed error message from AWS KMS\. If the CMK state is `Disabled`, [enable it](enabling-keys.md)\. If it is `Pending Import`, complete the [import procedure](importing-keys.md)\. If the key state is `Pending Deletion`, [cancel the key deletion](deleting-keys.md#deleting-keys-scheduling-key-deletion) or use a different CMK\. 
 
-  To find the status of a CMK, use the [Status column](viewing-keys.md#viewing-keys-console) of the **Encryption keys** page of the [IAM console](https://console.aws.amazon.com/iam/home?#home) or the [DescribeKey](https://docs.aws.amazon.com/kms/latest/APIReference/API_DescribeKey.html) operation in the AWS KMS API\. If the CMK state is disabled, [enable it](enabling-keys.md)\. If it is pending import, you must complete the [import procedure](importing-keys.md)\. If the CMK is pending deletion, you must use a different CMK or [cancel the key deletion](deleting-keys.md#deleting-keys-scheduling-key-deletion)\. 
+  To find the [key state](key-state.md) of a CMK in the AWS KMS console, on the **Customer managed keys** or **AWS managed keys** page, see the [Status column](viewing-keys.md#viewing-keys-console)\. To find the status of a CMK using the AWS KMS API, use the [DescribeKey](https://docs.aws.amazon.com/kms/latest/APIReference/API_DescribeKey.html) operation\. 

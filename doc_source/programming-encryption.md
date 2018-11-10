@@ -15,7 +15,7 @@ To encrypt application data, use the server\-side encryption features of an AWS 
 
 The [Encrypt](https://docs.aws.amazon.com/kms/latest/APIReference/API_Encrypt.html) operation is designed to encrypt data keys, but it is not frequently used\. The [GenerateDataKey](https://docs.aws.amazon.com/kms/latest/APIReference/API_GenerateDataKey.html) and [GenerateDataKeyWithoutPlaintext](https://docs.aws.amazon.com/kms/latest/APIReference/API_GenerateDataKeyWithoutPlaintext.html) operations return encrypted data keys\. You might use this method when you are moving encrypted data to a new region and want to encrypt its data key with a CMK in the new region\. 
 
-This example uses the KMS client object that you created in [Creating a Client](programming-client.md)\.
+This example uses the `kmsClient` client object that you created in [Creating a Client](programming-client.md)\.
 
 ------
 #### [ Java ]
@@ -142,7 +142,7 @@ To decrypt a data key, use the [Decrypt](https://docs.aws.amazon.com/kms/latest/
 
 The `ciphertextBlob` that you specify must be the value of the `CiphertextBlob` field from a [GenerateDataKey](https://docs.aws.amazon.com/kms/latest/APIReference/API_GenerateDataKey.html), [GenerateDataKeyWithoutPlaintext](https://docs.aws.amazon.com/kms/latest/APIReference/API_GenerateDataKeyWithoutPlaintext.html), or [Encrypt](https://docs.aws.amazon.com/kms/latest/APIReference/API_Encrypt.html) response\.
 
-This example uses the KMS client object that you created in [Creating a Client](programming-client.md)\.
+This example uses the `kmsClient` client object that you created in [Creating a Client](programming-client.md)\.
 
 ------
 #### [ Java ]
@@ -256,7 +256,7 @@ To decrypt an encrypted data key, and then immediately re\-encrypt the data key 
 
 The `ciphertextBlob` that you specify must be the value of the `CiphertextBlob` field from a [GenerateDataKey](https://docs.aws.amazon.com/kms/latest/APIReference/API_GenerateDataKey.html), [GenerateDataKeyWithoutPlaintext](https://docs.aws.amazon.com/kms/latest/APIReference/API_GenerateDataKeyWithoutPlaintext.html), or [Encrypt](https://docs.aws.amazon.com/kms/latest/APIReference/API_Encrypt.html) response\.
 
-This example uses the KMS client object that you created in [Creating a Client](programming-client.md)\.
+This example uses the `kmsClient` client object that you created in [Creating a Client](programming-client.md)\.
 
 ------
 #### [ Java ]

@@ -1,13 +1,15 @@
 # How Key State Affects Use of a Customer Master Key<a name="key-state"></a>
 
-A customer master key \(CMK\) is always in one of the following states: `Enabled`, `Disabled`, `PendingImport`, or `PendingDeletion`\. The following table shows whether AWS KMS API operations that run on a CMK in each state can be expected to succeed \(✓\), fail \(X\), or succeed only under certain conditions \(?\)\. The result often differs for CMKs with imported key material\.
+A customer master key \(CMK\) is always in one of the following states: **Enabled**, **Disabled**, **Pending import**, or **Pending deletion**\. In the AWS Management Console, the key state appears in the **Status** field\. To find the key state of a CMK by using the AWS KMS API, use the [DescribeKey](https://docs.aws.amazon.com/kms/latest/APIReference/API_DescribeKey.html) operation\.
+
+The following table shows whether AWS KMS API operations that run on a CMK in each state can be expected to succeed \(✓\), fail \(X\), or succeed only under certain conditions \(?\)\. The result often differs for CMKs with imported key material\.
 
 The `CreateKey` and `GenerateRandom` API operations have an not\-applicable \(N/A\) result because they do not use an existing CMK\.
 
 
 ****  
 
-| API | Enabled | Disabled | Pending Import | Pending Deletion | 
+| API | Enabled | Disabled | Pending import | Pending deletion | 
 | --- | --- | --- | --- | --- | 
 | CancelKeyDeletion | ![\[Image NOT FOUND\]](http://docs.aws.amazon.com/kms/latest/developerguide/images/icon-disabled-pending-deletion.png)\[4\] | ![\[Image NOT FOUND\]](http://docs.aws.amazon.com/kms/latest/developerguide/images/icon-disabled-pending-deletion.png)\[4\] | ![\[Image NOT FOUND\]](http://docs.aws.amazon.com/kms/latest/developerguide/images/icon-disabled-pending-deletion.png)\[4\] | ![\[Image NOT FOUND\]](http://docs.aws.amazon.com/kms/latest/developerguide/images/icon-successful.png) | 
 | CreateAlias | ![\[Image NOT FOUND\]](http://docs.aws.amazon.com/kms/latest/developerguide/images/icon-successful.png) | ![\[Image NOT FOUND\]](http://docs.aws.amazon.com/kms/latest/developerguide/images/icon-successful.png) | ![\[Image NOT FOUND\]](http://docs.aws.amazon.com/kms/latest/developerguide/images/icon-successful.png) | ![\[Image NOT FOUND\]](http://docs.aws.amazon.com/kms/latest/developerguide/images/icon-disabled-pending-deletion.png)\[3\] | 

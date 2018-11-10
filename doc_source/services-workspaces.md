@@ -1,6 +1,6 @@
 # How Amazon WorkSpaces Uses AWS KMS<a name="services-workspaces"></a>
 
-You can use [Amazon WorkSpaces](https://aws.amazon.com/workspaces/) to provision a cloud\-based desktop \(a *WorkSpace*\) for each of your end users\. When you launch a new WorkSpace, you can choose to encrypt its volumes and decide which AWS KMS customer master key \(CMK\) to use for the encryption\. You can choose your account's default CMK for Amazon WorkSpaces \(use the alias **aws/workspaces**\), or you can choose a custom CMK that you created separately in AWS KMS\.
+You can use [Amazon WorkSpaces](https://aws.amazon.com/workspaces/) to provision a cloud\-based desktop \(a *WorkSpace*\) for each of your end users\. When you launch a new WorkSpace, you can choose to encrypt its volumes and decide which AWS KMS customer master key \(CMK\) to use for the encryption\. You can choose the AWS managed CMK for Amazon WorkSpaces \(**aws/workspaces**\) or a customer managed CMK\.
 
 For more information about creating WorkSpaces with encrypted volumes, go to [Encrypt a WorkSpace](https://docs.aws.amazon.com/workspaces/latest/adminguide/wsp_encrypt_workspace.html) in the *Amazon WorkSpaces Administration Guide*\.
 
@@ -55,51 +55,51 @@ For more information about encryption context, see [Encryption Context](encrypti
 
 ## Giving Amazon WorkSpaces Permission to Use A CMK On Your Behalf<a name="services-workspaces-permissions"></a>
 
-You can use your account's default customer master key \(CMK\) for Amazon WorkSpaces with the alias **aws/workspaces**, or you can use a custom CMK that you create\. If you use the default CMK for Amazon WorkSpaces, you don't need to perform any steps to give Amazon WorkSpaces permission to use it\. AWS KMS automatically specifies the necessary permissions in the [key policy](key-policies.md) for the default CMK\.
+You can protect your workspace data under the AWS managed CMK for Amazon WorkSpaces \(**aws/workspaces**\) or a customer managed CMK\. If you use a customer managed CMK, you need to give Amazon WorkSpaces permission to use the CMK on behalf of the Amazon WorkSpaces administrators in your account\. The AWS managed CMK for Amazon WorkSpaces has the required permissions by default\.
 
-To use a custom CMK, the WorkSpaces administrators who create WorkSpaces with encrypted volumes must have permission to use the CMK\. The WorkSpaces administrators don't use the CMK directly\. Simply creating a WorkSpace with encrypted volumes implicitly creates the [grant](grants.md) that gives Amazon WorkSpaces permission to use the CMK on the administrator's behalf\.
-
-Even though the WorkSpaces administrators don't use the CMK directly, they need permission to use the CMK because they can only grant permissions that they have\. To give WorkSpaces administrators permission to use a CMK, do these things:
+To prepare your customer managed CMK for use with Amazon WorkSpaces, use the following procedure\.
 
 1. [Add the WorkSpaces administrators to the list of key users in the CMK's key policy](#workspaces-permissions-key-users)
 
-1. [Give the WorkSpaces administrators extra permissions with an IAM policy](#workspaces-permissions-iam-policy)
+1. [Give the WorkSpaces administrators additional permissions with an IAM policy](#workspaces-permissions-iam-policy)
 
-WorkSpaces administrators also need permission to use Amazon WorkSpaces\. For more information about these permissions, go to [Controlling Access to Amazon WorkSpaces Resources](https://docs.aws.amazon.com/workspaces/latest/adminguide/wsp_iam.html) in the *Amazon WorkSpaces Administration Guide*\.
+Amazon WorkSpaces administrators also need permission to use Amazon WorkSpaces\. For more information about these permissions, go to [Controlling Access to Amazon WorkSpaces Resources](https://docs.aws.amazon.com/workspaces/latest/adminguide/wsp_iam.html) in the *Amazon WorkSpaces Administration Guide*\.
 
 ### Part 1: Adding WorkSpaces Administrators to a CMK's Key Users<a name="workspaces-permissions-key-users"></a>
 
-To add WorkSpaces administrators to the list of key users in a CMK's key policy, you can use the AWS Management Console or the AWS Command Line Interface \(AWS CLI\)\.
+To give Amazon WorkSpaces administrators the permissions that they require, you can use the AWS Management Console or the AWS KMS API\.
 
-**To add WorkSpaces administrators as key users for a CMK \(console\)**
+**Topics**
++ [To add WorkSpaces administrators as key users for a CMK \(Console\)](#workspaces-permissions-users-console)
++ [To add WorkSpaces administrators as key users for a CMK \(KMS API\)](#workspaces-permissions-users-api)
 
-1. Sign in to the AWS Management Console and open the AWS Identity and Access Management \(IAM\) console at [https://console\.aws\.amazon\.com/iam/](https://console.aws.amazon.com/iam/)\.
+#### To add WorkSpaces administrators as key users for a CMK \(Console\)<a name="workspaces-permissions-users-console"></a>
 
-1. In the left navigation pane, choose **Encryption keys**\.
+1. Sign in to the AWS Management Console and open the AWS Key Management Service \(AWS KMS\) console at [https://console\.aws\.amazon\.com/kms](https://console.aws.amazon.com/kms)\.
 
-1. For **Region**, choose the appropriate AWS Region\. Do not use the region selector in the navigation bar \(top right corner\)\.
+1. To change the AWS Region, use the Region selector in the upper\-right corner of the page\.
 
-1. Choose the alias of the CMK that WorkSpaces administrators will use\.
+1. In the navigation pane, choose **Customer managed keys**\.
 
-1. In the **Key Policy** section, under **Key Users**, choose **Add**\.
+1. Choose the key ID or alias of your preferred customer managed CMK\.
+
+1. In the **Key policy** section, under **Key users**, choose **Add**\.
 
 1. In the list of IAM users and roles, select the users and roles that correspond to your WorkSpaces administrators, and then choose **Attach**\.
 
-**To add WorkSpaces administrators as key users for a CMK \(AWS CLI\)**
+#### To add WorkSpaces administrators as key users for a CMK \(KMS API\)<a name="workspaces-permissions-users-api"></a>
 
-1. Use the [https://docs.aws.amazon.com/cli/latest/reference/kms/get-key-policy.html](https://docs.aws.amazon.com/cli/latest/reference/kms/get-key-policy.html) command to retrieve the existing key policy, and then save the policy document to a file\.
+1. Use the [GetKeyPolicy](https://docs.aws.amazon.com/kms/latest/APIReference/API_GetKeyPolicy.html) operation to get the existing key policy, and then save the policy document to a file\.
 
 1. Open the policy document in your preferred text editor\. Add the IAM users and roles that correspond to your WorkSpaces administrators to the policy statements that [give permission to key users](key-policies.md#key-policy-default-allow-users)\. Then save the file\.
 
-1. Use the [https://docs.aws.amazon.com/cli/latest/reference/kms/put-key-policy.html](https://docs.aws.amazon.com/cli/latest/reference/kms/put-key-policy.html) command to apply the key policy to the CMK\.
+1. Use the [PutKeyPolicy](https://docs.aws.amazon.com/kms/latest/APIReference/API_PutKeyPolicy.html) operation to apply the key policy to the CMK\.
 
-### Part 2: Giving WorkSpaces Administrators Extra Permissions with an IAM Policy<a name="workspaces-permissions-iam-policy"></a>
+### Part 2: Giving WorkSpaces Administrators Extra Permissions<a name="workspaces-permissions-iam-policy"></a>
 
-In addition to the permissions in the key users section of the [default key policy](key-policies.md#key-policy-default), WorkSpaces administrators need some permissions in an IAM user policy that applies to them\. For information about creating and editing IAM user policies, go to [Working with Managed Policies](https://docs.aws.amazon.com/IAM/latest/UserGuide/access_policies_managed-using.html) and [Working with Inline Policies](https://docs.aws.amazon.com/IAM/latest/UserGuide/access_policies_inline-using.html) in the *IAM User Guide*\.
+If you are using a customer managed CMK to protect your Amazon WorkSpaces data, in addition to the permissions in the key users section of the [default key policy](key-policies.md#key-policy-default), WorkSpaces administrators need permission to create [grants](grants.md) on the CMK\. Also, if they use the [AWS Management Console](https://console.aws.amazon.com/console/home) to create WorkSpaces with encrypted volumes, WorkSpaces administrators need permission to list aliases and list keys\. For information about creating and editing IAM user policies, go to [Working with Managed Policies](https://docs.aws.amazon.com/IAM/latest/UserGuide/access_policies_managed-using.html) and [Working with Inline Policies](https://docs.aws.amazon.com/IAM/latest/UserGuide/access_policies_inline-using.html) in the *IAM User Guide*\.
 
-At minimum, WorkSpaces administrators need permission to create [grants](grants.md) for the custom CMK\(s\) that they will use with Amazon WorkSpaces\. To use the [AWS Management Console](https://console.aws.amazon.com/console/home) to create WorkSpaces with encrypted volumes, WorkSpaces administrators also need permission to list aliases and list keys, which are actions that the console performs on behalf of WorkSpaces administrators to display a list of available CMKs\.
-
-To give these permissions to your WorkSpaces administrators, add an IAM policy similar to the following example to your WorkSpaces administrators\. Replace `arn:aws:kms:us-west-2:111122223333:key/1234abcd-12ab-34cd-56ef-1234567890ab` in the first policy statement with the ARN\(s\) of the CMK\(s\) that WorkSpaces administrators will use when they create WorkSpaces with encrypted volumes\. If your WorkSpaces administrators will launch WorkSpaces with only the Amazon WorkSpaces API \(not with the console\), you can omit the second statement with the `"kms:ListAliases"` and `"kms:ListKeys"` permissions\.
+To give these permissions to your WorkSpaces administrators, use an IAM policy\. Add an policy statement similar to the following example to the IAM policy for each WorkSpaces administrator\. Replace the example CMK ARN \(`arn:aws:kms:us-west-2:111122223333:key/1234abcd-12ab-34cd-56ef-1234567890ab`\) with a valid one\. If your WorkSpaces administrators use only the Amazon WorkSpaces API \(not the console\), you can omit the second policy statement with the `"kms:ListAliases"` and `"kms:ListKeys"` permissions\.
 
 ```
 {

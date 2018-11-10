@@ -1,6 +1,6 @@
 # Getting Started<a name="getting-started"></a>
 
-To create, view, edit, tag, enable, disable, and delete customer master keys \(CMKs\) in AWS Key Management Service \(AWS KMS\), you can use the [AWS Management Console](https://console.aws.amazon.com/iam/) or the [AWS Key Management Service API Reference](https://docs.aws.amazon.com/kms/latest/APIReference/) [AWS KMS API](https://docs.aws.amazon.com/kms/latest/APIReference/), including the [AWS CLI](https://docs.aws.amazon.com/cli/latest/reference/kms/index.html) and [AWS Tools for PowerShell](https://docs.aws.amazon.com/powershell/latest/reference/items/AWS_Key_Management_Service_cmdlets.html)\. For instructions, see the following topics\.
+You can use the [AWS Management Console](https://console.aws.amazon.com/iam/) and [AWS KMS API operations](https://docs.aws.amazon.com/kms/latest/APIReference/) to create, view, edit, tag, enable, disable, topics\.
 
 **Topics**
 + [Creating Keys](create-keys.md)

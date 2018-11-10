@@ -69,17 +69,34 @@ When you create a CMK with no key material, the value of the `Origin` property o
 
 You can identify CMKs that require imported key material in the AWS KMS console or by using the AWS KMS API\.
 
-**To identify the value of the `Origin` property of CMKs \(console\)**
+### To identify the value of the `Origin` property of CMKs \(Console\)<a name="identify-imported-keys-console"></a>
+
+**Note**  
+AWS KMS recently introduced a new console that makes it easier for you to organize and manage your KMS resources\. It is available in all AWS Regions that AWS KMS supports except for AWS GovCloud \(US\)\. We encourage you to try the new AWS KMS console at [https://console\.aws\.amazon\.com/kms](https://console.aws.amazon.com/kms)\.  
+The original console will remain available for a brief period to give you time to familiarize yourself with the new one\. To use the original console, choose **Encryption Keys** in the IAM console or go to [https://console\.aws\.amazon\.com/iam/home?\#/encryptionKeys](https://console.aws.amazon.com/iam/home?#/encryptionKeys)\. Please share your feedback by choosing **Feedback** in either console or in the lower\-right corner of this page\.
+
+#### To identify the value of the `Origin` property of CMKs \(new console\)<a name="identify-imported-keys-kms-console"></a>
+
+1. Open the AWS KMS console at [https://console\.aws\.amazon\.com/kms](https://console.aws.amazon.com/kms)\.
+
+1. To change the AWS Region, use the Region selector in the upper\-right corner of the page\.
+
+1. Use either of the following techniques to view the `Origin` property of your CMKs\.
+   + To add an **Origin** column to your CMK table, in the upper right corner, choose the **Settings** icon\. Choose **Origin** and choose **Confirm**\. The **Origin** column makes it easy to identify CMKs with an `EXTERNAL` origin property value\.
+   + To find the value of the `Origin` property of a particular CMK, choose the key ID or alias of the CMK\. The `Origin` property value appears in the **General configuration** section\.
+
+#### To identify the value of the `Origin` property of CMKs \(original console\)<a name="identify-imported-keys-iam-console"></a>
 
 1. Open the **Encryption Keys** section of the AWS Identity and Access Management \(IAM\) console at [https://console\.aws\.amazon\.com/iam/home\#encryptionKeys](https://console.aws.amazon.com/iam/home#encryptionKeys)\.
 
 1. For **Region**, choose the appropriate AWS region\. Do not use the region selector in the navigation bar \(top right corner\)\.
 
 1. Use either of the following techniques to view the `Origin` property of your CMKs\.
-   + To add an **Origin** column to your CMK table, in the upper right corner, choose the **Settings** icon\. Choose **Origin** and choose **Close**\. The **Origin** column makes it easy to identify CMKs with an EXTERNAL origin property value\.
-   + To find the value of the `Origin` property of a particular CMK, choose the alias for the CMK\. The `Origin` property value appears in the **Key Material** section of the page\.
+   + To add an **Origin** column to your CMK table, in the upper right corner, choose the **Settings** icon\. Choose **Origin** and choose **Close**\. The **Origin** column makes it easy to identify CMKs with an `EXTERNAL` origin property value\.
+   + To find the value of the `Origin` property of a particular CMK, choose the alias for the CMK\. If the origin is external, the `Origin` property value appears in the **Key Material** section\.
 
-**To identify the value of the `Origin` property of CMKs \(AWS KMS API\)**  
+### To identify the value of the `Origin` property of CMKs \(KMS API\)<a name="identify-imported-keys-api"></a>
+
 Use the [DescribeKey](https://docs.aws.amazon.com/kms/latest/APIReference/API_DescribeKey.html) operation\. The response includes the `Origin` property of the CMK, as shown in the following example\.
 
 ```

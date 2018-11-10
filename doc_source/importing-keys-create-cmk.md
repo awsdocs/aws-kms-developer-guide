@@ -7,32 +7,72 @@ A CMK with no key material is in the *pending import* state and is not available
 To create a CMK with no key material, you can use the AWS Management Console or the AWS KMS API\. You can use the API directly by making HTTP requests, or through one of the [AWS SDKs](https://aws.amazon.com/tools/#sdk) or [command line tools](https://aws.amazon.com/tools/#cli)\.
 
 **Topics**
-+ [Create a CMK with No Key Material \(AWS Management Console\)](#importing-keys-create-cmk-console)
-+ [Create a CMK with No Key Material \(AWS KMS API\)](#importing-keys-create-cmk-api)
++ [Creating a CMK with No Key Material \(Console\)](#importing-keys-create-cmk-console)
++ [Creating a CMK with No Key Material \(KMS API\)](#importing-keys-create-cmk-api)
 
-## Create a CMK with No Key Material \(AWS Management Console\)<a name="importing-keys-create-cmk-console"></a>
+## Creating a CMK with No Key Material \(Console\)<a name="importing-keys-create-cmk-console"></a>
 
-You can use the AWS Management Console to create a CMK with no key material\. Before you do this, you can configure the console to show additional columns in the list of KMS CMKs to more easily distinguish your CMKs with imported key material\.
-
-**To show additional columns in the list of KMS CMKs**
-
-1. Sign in to the AWS Management Console and open the AWS Identity and Access Management \(IAM\) console at [https://console\.aws\.amazon\.com/iam/](https://console.aws.amazon.com/iam/)\.
-
-1. In the left navigation pane, choose **Encryption keys**\.
-
-1. For **Region**, choose the appropriate AWS Region\. Do not use the region selector in the navigation bar \(top right corner\)\.
-
-1. Choose the settings button \(![\[Image NOT FOUND\]](http://docs.aws.amazon.com/kms/latest/developerguide/images/console-icon-settings.png)\) in the upper\-right corner of the page\.
-
-1. Select the check boxes for **Expiration Date** and **Origin**, and then choose **Close**\.
-
-**To create a CMK with no key material \(console\)**
+You can use the AWS Management Console to create a CMK with no key material\. Before you do this, you can configure the console to show the **Origin** column in the list of CMKs\. Imported keys have an **Origin** value of **External**\.
 
 You need to create a CMK for the imported key material only once\. To reimport the same key material into an existing CMK, see [Step 2: Download the Public Key and Import Token](importing-keys-get-public-key-and-token.md)\.
 
-1. Sign in to the AWS Management Console and open the AWS Identity and Access Management \(IAM\) console at [https://console\.aws\.amazon\.com/iam/](https://console.aws.amazon.com/iam/)\.
+**Note**  
+AWS KMS recently introduced a new console that makes it easier for you to organize and manage your KMS resources\. It is available in all AWS Regions that AWS KMS supports except for AWS GovCloud \(US\)\. We encourage you to try the new AWS KMS console at [https://console\.aws\.amazon\.com/kms](https://console.aws.amazon.com/kms)\.  
+The original console will remain available for a brief period to give you time to familiarize yourself with the new one\. To use the original console, choose **Encryption Keys** in the IAM console or go to [https://console\.aws\.amazon\.com/iam/home?\#/encryptionKeys](https://console.aws.amazon.com/iam/home?#/encryptionKeys)\. Please share your feedback by choosing **Feedback** in either console or in the lower\-right corner of this page\.
 
-1. In the left navigation pane, choose **Encryption keys**\.
+### To create a CMK with no key material \(new console\)<a name="import-keys-kms-console"></a>
+
+1. Sign in to the AWS Management Console and open the AWS Key Management Service \(AWS KMS\) console at [https://console\.aws\.amazon\.com/kms](https://console.aws.amazon.com/kms)\.
+
+1. To change the AWS Region, use the Region selector in the upper\-right corner of the page\.
+
+1. In the navigation pane, choose **Customer managed keys**\.
+
+1. Choose **Create key**\.
+
+1. Type an alias and \(optionally\) a description for the CMK\. 
+
+   Choose **Next**\.
+
+1. Choose **Advanced options**\.
+
+1. For **Key material origin**, choose **External**\. 
+
+   Then select the check box next to **I understand the security, availability, and durability implications of using an imported key** to indicate that you understand the implications of using imported key material\. To read about these implications, choose **security, availability, and durability implications**\.
+
+   Choose **Next**\.
+
+1. \(Optional\)\. On the **Add tags** page, add tags that identify or categorize your CMK\. 
+
+   Choose **Next**\.
+
+1. In the **Key administrators** section, select the IAM users and roles who can manage the CMK\. For more information, see [Allows Key Administrators to Administer the CMK](key-policies.md#key-policy-default-allow-administrators)\. 
+**Note**  
+IAM policies can give other IAM users and roles permission to manage the CMK\.
+
+1. \(Optional\) To prevent the selected IAM users and roles from deleting this CMK, in the **Key deletion** section at the bottom of the page, clear the **Allow key administrators to delete this key** check box\.
+
+   Choose **Next**\.
+
+1. In the **This account** section, select the IAM users and roles in this AWS account who can use the CMK in cryptographic operations\. For more information, see [Allows Key Users to Use the CMK](key-policies.md#key-policy-default-allow-users)\.
+**Note**  
+IAM policies can give other IAM users and roles permission to use the CMK\.
+
+1. \(Optional\) You can allow other AWS accounts to use this CMK for cryptographic operations\. To do so, in the **Other AWS accounts** section at the bottom of the page, choose **Add another AWS account** and enter the AWS account identification number of an external account\. To add multiple external accounts, repeat this step\.
+**Note**  
+To allow principals in the external accounts to use the CMK, Administrators of the external account must create IAM policies that provide these permissions\. For more information, see [Allowing External AWS Accounts to Access a CMK](key-policy-modifying.md#key-policy-modifying-external-accounts)\.
+
+   Choose **Next**\.
+
+1. On the **Review and edit key policy** page, review and edit the policy document for the new CMK\. When you're done, choose **Finish** \.
+
+   If the operation succeeds, you have created a CMK with no key material\. Its status is **Pending import\.** To continue the process now, see [Downloading the Public Key and Import Token \(Console\)](importing-keys-get-public-key-and-token.md#importing-keys-get-public-key-and-token-console)\. To continue the process later, choose **Cancel**\.
+
+Next: [Step 2: Download the Public Key and Import Token](importing-keys-get-public-key-and-token.md)\.
+
+### To create a CMK with no key material \(original console\)<a name="import-keys-iam-console"></a>
+
+1. Sign in to the AWS Management Console and go to [https://console\.aws\.amazon\.com/iam/home?\#/encryptionKeys](https://console.aws.amazon.com/iam/home?#/encryptionKeys)\.
 
 1. For **Region**, choose the appropriate AWS Region\. Do not use the region selector in the navigation bar \(top right corner\)\.
 
@@ -42,7 +82,11 @@ You need to create a CMK for the imported key material only once\. To reimport t
 
 1. Choose **Advanced Options**\.
 
-1. For **Key Material Origin**, choose **External**\. Then select the check box next to **I understand the security, availability, and durability implications of using an imported key** to indicate that you understand the implications of using imported key material\. To read about these implications, choose the **security, availability, and durability implications** link\.
+1. For **Key Material Origin**, choose **External**\. Then select the check box next to **I understand the security, availability, and durability implications of using an imported key** to indicate that you understand the implications of using imported key material\. To read about these implications, choose **security, availability, and durability implications**\.
+
+   Choose **Next Step**\.
+
+1. \(Optional\)\. On the **Add Tags** page, add tags that identify or categorize your CMK\. 
 
    Choose **Next Step**\.
 
@@ -64,13 +108,13 @@ Administrators of the external accounts must also allow access to the CMK by cre
 
 1. Choose **Finish** to create the CMK\.
 
-   After you complete this step, the console displays the **Import key material** wizard\. To continue the process now, see [Download the Public Key and Import Token \(AWS Management Console\)](importing-keys-get-public-key-and-token.md#importing-keys-get-public-key-and-token-console)\.
+   After you complete this step, the console displays the **Import key material** wizard\. To continue the process now, see [Downloading the Public Key and Import Token \(Console\)](importing-keys-get-public-key-and-token.md#importing-keys-get-public-key-and-token-console)\.
 
-   Otherwise, choose **Skip and do this later**\. To find your CMK in the list, you can show additional columns as described previously, or you can look in the **Status** column for **Pending Import**\. Your new CMK remains in the **Pending Import** state until you import key material as described in the following steps\.
+   Otherwise, choose **Skip and do this later**\. Your new CMK remains in the **Pending Import** state until you import key material as described in the following steps\.
 
 Proceed to [Step 2: Download the Public Key and Import Token](importing-keys-get-public-key-and-token.md)\.
 
-## Create a CMK with No Key Material \(AWS KMS API\)<a name="importing-keys-create-cmk-api"></a>
+## Creating a CMK with No Key Material \(KMS API\)<a name="importing-keys-create-cmk-api"></a>
 
 To use the [AWS KMS API](https://docs.aws.amazon.com/kms/latest/APIReference/) to create a CMK with no key material, send a [CreateKey](https://docs.aws.amazon.com/kms/latest/APIReference/API_CreateKey.html) request with the `Origin` parameter set to `EXTERNAL`\. The following example shows how to do this with the [AWS Command Line Interface \(AWS CLI\)](https://aws.amazon.com/cli/)\.
 

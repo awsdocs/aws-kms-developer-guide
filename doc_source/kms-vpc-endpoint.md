@@ -19,7 +19,7 @@ You can also use AWS CloudTrail logs to audit your use of KMS keys through the V
 **Note**  
 Use caution when creating IAM and key policies based on your VPC endpoint\. If a policy statement requires that requests come from a particular VPC or VPC endpoint, requests from integrated AWS services that use the CMK on your behalf might fail\. For help, see [Using VPC Endpoint Conditions in Policies with AWS KMS Permissions](policy-conditions.md#conditions-aws-vpce)\.
 
-**Regions**  
+**Supported AWS Regions**  
 AWS KMS supports VPC endpoints in all AWS regions where both [Amazon VPC](https://docs.aws.amazon.com/general/latest/gr/rande.html#vpc_region) and [AWS KMS](https://docs.aws.amazon.com/general/latest/gr/rande.html#kms_region) are available, except for AWS GovCloud \(US\)\.
 
 **Topics**
@@ -33,10 +33,10 @@ AWS KMS supports VPC endpoints in all AWS regions where both [Amazon VPC](https:
 You [create an interface endpoint](https://docs.aws.amazon.com/vpc/latest/userguide/vpce-interface.html#create-interface-endpoint) in your VPC by using the KMS VPC endpoint service in each region\. You can create a VPC endpoint in the AWS Management Console, or by using the [AWS CLI](https://docs.aws.amazon.com/cli/latest/reference/ec2/create-vpc-endpoint.html) or [Amazon EC2 API](https://docs.aws.amazon.com/AWSEC2/latest/APIReference/API_CreateVpcEndpoint.html)\. 
 
 **Topics**
-+ [Creating an AWS KMS VPC Endpoint \(Console\)](#create-vpc-endpoint-console)
++ [Creating an AWS KMS VPC Endpoint \(VPC Console\)](#create-vpc-endpoint-console)
 + [Creating an AWS KMS VPC Endpoint \(AWS CLI\)](#create-vpc-endpoint-cli)
 
-### Creating an AWS KMS VPC Endpoint \(Console\)<a name="create-vpc-endpoint-console"></a>
+### Creating an AWS KMS VPC Endpoint \(VPC Console\)<a name="create-vpc-endpoint-console"></a>
 
 1. Sign in to the AWS Management Console and open the Amazon VPC console at [https://console\.aws\.amazon\.com/vpc/](https://console.aws.amazon.com/vpc/)\.
 

@@ -54,13 +54,39 @@ You can use the AWS KMS console or the AWS KMS API to enable and disable automat
 
 When you enable automatic key rotation, AWS KMS rotates the CMK 365 days after the enable date and every 365 days thereafter\.
 
-### Enabling and Disabling Key Rotation in the Console<a name="rotate-keys-console"></a>
+**Topics**
++ [Enabling and Disabling Key Rotation \(Console\)](#rotate-keys-console)
++ [Enabling and Disabling Key Rotation \(KMS API\)](#rotate-keys-api)
 
-To enable or disable automatic key rotation, start at the key details page for the CMK\.
+### Enabling and Disabling Key Rotation \(Console\)<a name="rotate-keys-console"></a>
 
-1. Sign in to the AWS Management Console and open the AWS Identity and Access Management \(IAM\) console at [https://console\.aws\.amazon\.com/iam/](https://console.aws.amazon.com/iam/)\.
+**Note**  
+AWS KMS recently introduced a new console that makes it easier for you to organize and manage your KMS resources\. It is available in all AWS Regions that AWS KMS supports except for AWS GovCloud \(US\)\. We encourage you to try the new AWS KMS console at [https://console\.aws\.amazon\.com/kms](https://console.aws.amazon.com/kms)\.  
+The original console will remain available for a brief period to give you time to familiarize yourself with the new one\. To use the original console, choose **Encryption Keys** in the IAM console or go to [https://console\.aws\.amazon\.com/iam/home?\#/encryptionKeys](https://console.aws.amazon.com/iam/home?#/encryptionKeys)\. Please share your feedback by choosing **Feedback** in either console or in the lower\-right corner of this page\.
 
-1. In the left navigation pane, choose **Encryption keys**\.
+#### Enable and Disable Key Rotation \(new console\)<a name="rotate-keys-kms-console"></a>
+
+1. Sign in to the AWS Management Console and open the AWS Key Management Service \(AWS KMS\) console at [https://console\.aws\.amazon\.com/kms](https://console.aws.amazon.com/kms)\.
+
+1. To change the AWS Region, use the Region selector in the upper\-right corner of the page\.
+
+1. In the navigation pane, choose **Customer managed keys**\. \(You cannot enable or disable rotation of AWS managed keys\. They are automatically rotated every three years\.\)
+
+1. Choose the alias or key ID of a CMK\.
+
+1. Under **General configuration**, choose the **Key rotation** tab\.
+
+   If the CMK was created without key material \(its **Origin** is **EXTERNAL**\), there is no **Key rotation** tab\. You cannot automatically rotate these CMK, but you can [rotate them manually](#rotate-keys-manually)\.
+
+1. Select or clear the **Automatically rotate this CMK every year** check box\. 
+**Note**  
+If a CMK is disabled or pending deletion, the **Automatically rotate this CMK every year** check box is cleared, and you cannot change it\. The key rotation status is restored when you enable the CMK or cancel deletion\. For details, see [How Automatic Key Rotation Works](#rotate-keys-how-it-works) and [How Key State Affects Use of a Customer Master Key](key-state.md)\.
+
+1. Choose **Save**\.
+
+#### Enable and Disable Key Rotation \(original console\)<a name="rotate-keys-iam-console"></a>
+
+1. Sign in to the AWS Management Console and go to [https://console\.aws\.amazon\.com/iam/home?\#/encryptionKeys](https://console.aws.amazon.com/iam/home?#/encryptionKeys)\.
 
 1. For **Region**, choose the appropriate AWS Region\. Do not use the region selector in the navigation bar \(top right corner\)\.
 
@@ -70,10 +96,10 @@ You cannot edit AWS managed CMKs, which are identified by the orange AWS icon\.
 
 1. Use the controls in the **Key Rotation** section of the page\.
 **Note**  
-If a CMK is disabled or pending deletion, the **Key Rotation** check box is cleared, and you cannot change it\. This reminds you that AWS KMS does not rotate CMKs while they are disabled or pending deletion\. The key rotation status is restored when you re\-enable the CMK or cancel deletion\. For details, see [How Automatic Key Rotation Works](#rotate-keys-how-it-works)\.  
+If a CMK is disabled or pending deletion, the **Key Rotation** check box is cleared, and you cannot change it\. This reminds you that AWS KMS does not rotate CMKs while they are disabled or pending deletion\. The key rotation status is restored when you re\-enable the CMK or cancel deletion\. For details, see [How Automatic Key Rotation Works](#rotate-keys-how-it-works) and [How Key State Affects Use of a Customer Master Key](key-state.md)\.  
 ![\[Image NOT FOUND\]](http://docs.aws.amazon.com/kms/latest/developerguide/images/console-rotate-key.png)
 
-### Enabling and Disabling Key Rotation with the API<a name="rotate-keys-api"></a>
+### Enabling and Disabling Key Rotation \(KMS API\)<a name="rotate-keys-api"></a>
 
 You can use the [AWS Key Management Service \(AWS KMS\) API](https://docs.aws.amazon.com/kms/latest/APIReference/) to enable and disable automatic key rotation, and view the current rotation status of any customer managed CMK\. These examples use the [AWS Command Line Interface \(AWS CLI\)](https://aws.amazon.com/cli/), but you can use any supported programming language\. 
 

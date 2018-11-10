@@ -12,7 +12,7 @@ The examples in this topic use the AWS KMS API to create, view, retire, and revo
 
 To create a grant for an AWS KMS customer master key, use the [CreateGrant](https://docs.aws.amazon.com/kms/latest/APIReference/API_CreateGrant.html) operation\.
 
-This example uses the KMS client object that you created in [Creating a Client](programming-client.md)\.
+This example uses the `kmsClient` client object that you created in [Creating a Client](programming-client.md)\.
 
 ------
 #### [ Java ]
@@ -141,7 +141,7 @@ kmsClient.createGrant({ KeyId, GranteePrincipal, Operations }, (err, data) => {
 
 To get detailed information about the grants on an AWS KMS customer master key, use the [ListGrants](https://docs.aws.amazon.com/kms/latest/APIReference/API_ListGrants.html) operation\. 
 
-This example uses the KMS client object that you created in [Creating a Client](programming-client.md)\.
+This example uses the `kmsClient` client object that you created in [Creating a Client](programming-client.md)\.
 
 ------
 #### [ Java ]
@@ -253,7 +253,7 @@ kmsClient.listGrants({ KeyId, Limit }, (err, data) => {
 
 To retire a grant for an AWS KMS customer master key, use the [RetireGrant](https://docs.aws.amazon.com/kms/latest/APIReference/API_RetireGrant.html) operation\. You should retire a grant to clean up after you are done using it\.
 
-This example uses the KMS client object that you created in [Creating a Client](programming-client.md)\.
+This example uses the `kmsClient` client object that you created in [Creating a Client](programming-client.md)\.
 
 ------
 #### [ Java ]
@@ -351,7 +351,7 @@ kmsClient.retireGrant({ GrantToken }, (err, data) => {
 
 To revoke a grant to an AWS KMS customer master key, use the [RevokeGrant](https://docs.aws.amazon.com/kms/latest/APIReference/API_RevokeGrant.html) operation\. You can revoke a grant to explicitly deny operations that depend on it\. 
 
-This example uses the KMS client object that you created in [Creating a Client](programming-client.md)\.
+This example uses the `kmsClient` client object that you created in [Creating a Client](programming-client.md)\.
 
 ------
 #### [ Java ]
