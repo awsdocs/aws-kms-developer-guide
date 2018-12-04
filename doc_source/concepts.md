@@ -28,7 +28,7 @@ There are three types of CMKs in AWS accounts: customer managed CMKs, AWS manage
 | [AWS managed CMK](#aws-managed-cmk) | Yes | No | Yes | 
 | [AWS owned CMK](#aws-owned-cmk) | No | No | No | 
 
-[AWS services that integrate with AWS KMS](service-integration.md) differ in their support for CMKs\. Some services encrypt your data by default with an AWS owned CMK\. Some encrypt under AWS managed CMKs that they create in your account\. Other services allow you specify a customer managed CMK that you have created\. And others support all types of CMKs to allow you the ease of an AWS owned CMK, the visibility of an AWS managed CMK, or the control of a customer\-managed CMK\.
+[AWS services that integrate with AWS KMS](service-integration.md) differ in their support for CMKs\. Some services encrypt your data by default with an AWS owned CMK\. Some encrypt under AWS managed CMKs that they create in your account\. Other services allow you specify a customer managed CMK that you have created\. And others support all types of CMKs to allow you the ease of an AWS owned CMK, the visibility of an AWS managed CMK, or the control of a customer managed CMK\.
 
 ### Customer managed CMKs<a name="customer-cmk"></a>
 
@@ -127,11 +127,11 @@ For detailed information about the encryption context, see [Encryption Context](
 
 ## Key Policies<a name="key_permissions"></a>
 
-When you create a CMK, you determine who can use and manage that CMK\. These permissions are contained in a document called the *key policy*\. You can use the key policy to add, remove, or change permissions at any time for a customer\-managed CMK, but you cannot edit the key policy for an AWS\-managed CMK\. For more information, see [Authentication and Access Control for AWS KMS](control-access.md)\.
+When you create a CMK, you determine who can use and manage that CMK\. These permissions are contained in a document called the *key policy*\. You can use the key policy to add, remove, or change permissions at any time for a customer managed CMK, but you cannot edit the key policy for an AWS managed CMK\. For more information, see [Authentication and Access Control for AWS KMS](control-access.md)\.
 
 ## Grants<a name="grant"></a>
 
-A *grant* is another mechanism for providing permissions, an alternative to the key policy\. You can use grants to give long\-term access that allows AWS principals to use your customer\-managed CMKs\. For more information, see [Using Grants](grants.md)\.
+A *grant* is another mechanism for providing permissions, an alternative to the key policy\. You can use grants to give long\-term access that allows AWS principals to use your customer managed CMKs\. For more information, see [Using Grants](grants.md)\.
 
 ## Grant Tokens<a name="grant_token"></a>
 

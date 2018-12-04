@@ -1,6 +1,6 @@
 # How Amazon Simple Storage Service \(Amazon S3\) Uses AWS KMS<a name="services-s3"></a>
 
-This topic discusses how to protect data at rest within Amazon S3 data centers by using AWS KMS\. There are two ways to use AWS KMS with Amazon S3\. You can use server\-side encryption to protect your data with a customer master key or you can use a AWS KMS customer master key with the Amazon S3 encryption client to protect your data on the client side\. 
+This topic discusses how to protect data at rest within Amazon S3 data centers by using AWS KMS\. There are two ways to use AWS KMS with Amazon S3\. You can use server\-side encryption to protect your data with a master key or you can use a AWS KMS customer master key \(CMK\) with the Amazon S3 encryption client to protect your data on the client side\. 
 
 **Topics**
 + [Server\-Side Encryption: Using SSE\-KMS](#sse)
@@ -16,8 +16,8 @@ You can protect data at rest in Amazon S3 by using three different modes of serv
 
 You can request encryption and the master key you want by using the Amazon S3 console or API\. In the console, check the appropriate box to perform encryption and select your key from the list\. For the Amazon S3 API, specify encryption and choose your key by setting the appropriate headers in a GET or PUT request\. For more information, see [ Protecting Data Using Server\-Side Encryption with AWS KMS\-Managed Keys \(SSE\-KMS\)\. ](https://docs.aws.amazon.com/AmazonS3/latest/dev/UsingKMSEncryption.html) 
 
-You can choose a specific customer\-managed master key or accept the AWS\-managed key for Amazon S3 under your account\. If you choose to encrypt your data, AWS KMS and Amazon S3 perform the following actions:
-+ Amazon S3 requests a plaintext data key and a copy of the key encrypted by using the specified customer\-managed master key or the AWS\-managed master key\.
+You can choose a specific customer managed CMK or accept the AWS managed CMK for Amazon S3 under your account\. If you choose to encrypt your data, AWS KMS and Amazon S3 perform the following actions:
++ Amazon S3 requests a plaintext data key and a copy of the key encrypted by using the specified customer managed CMK or the AWS managed CMK\.
 + AWS KMS creates a data key, encrypts it by using the master key, and sends both the plaintext data key and the encrypted data key to Amazon S3\.
 + Amazon S3 encrypts the data using the data key and removes the plaintext key from memory as soon as possible after use\. 
 + Amazon S3 stores the encrypted data key as metadata with the encrypted data\. 

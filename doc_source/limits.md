@@ -8,10 +8,11 @@ If you need to exceed these limits, please visit the [AWS Support Center](https:
 
 | Resource | Default Limit | Applies To | 
 | --- | --- | --- | 
-| [Customer Master Keys \(CMKs\)](#customer-master-keys-limit) | 1000 | Customer\-managed CMKs | 
-| [Aliases](#aliases-limit) | 1100 | Customer\-created aliases | 
+| [Customer Master Keys \(CMKs\)](#customer-master-keys-limit) | 1000 | Customer managed CMKs | 
+| [Aliases](#aliases-limit) | 1100 | Customer created aliases | 
 | [Key policy document size](#key-policy-limit) | 32 KB \(32,768 bytes\) | Customer managed CMKsAWS managed CMKs | 
-| [Grants per CMK](#grants-per-key) | 2500 | Customer\-managed CMKs | 
+| [Key policy document size](#key-policy-limit) | 32 KB \(32,768 bytes\) | Customer managed CMKsAWS managed CMKs | 
+| [Grants per CMK](#grants-per-key) | 2500 | Customer managed CMKs | 
 | [Grants for a given principal per CMK](#grants-per-principal-per-key) | 500 | Customer managed CMKsAWS managed CMKs | 
 | [Requests per second](#requests-per-second) | Varies by API operation; see [table](#requests-per-second-table)\. | Customer managed CMKsAWS managed CMKs | 
 
@@ -82,12 +83,19 @@ For example, you might store data in Amazon S3 using server\-side encryption wit
 
 When an application in one AWS account uses a CMK owned by a different account, that's known as a cross\-account request\. For cross\-account requests, AWS KMS throttles the account that makes the requests, not the account that owns the CMK\. For example, you might have applications in accounts A and B that both use a CMK in account C\. In this scenario, the limit for requests per second applies separately to accounts A and B, not to account C\.
 
+**Custom key stores**
+
+Cryptographic operations that use CMKs in a [custom key store](custom-key-store-overview.md) are throttled when they reach a rate of 400 operations per second for a single custom key store\. This throttle limit is shared by all cryptographic operations and all CMKs in each custom key store\. Unlike other limits, you cannot raise this limit by creating a case in the AWS Support Center\.
+
+**Note**  
+If the AWS CloudHSM cluster that is associated with the custom key store is processing numerous commands, including those from other applications, you might get a `ThrottlingException` at a rate lower than 400 operations per second\. If this occurs, lower your request rate and try the commands again\.
+
 
 **Requests per second limit for each AWS KMS API operation**  
 
 | API operation | Requests per second limit | 
 | --- | --- | 
-|  `Decrypt` `Encrypt` `GenerateDataKey` `GenerateDataKeyWithoutPlaintext` `GenerateRandom` `ReEncrypt`  | 5500 \(shared\)10,000 \(shared\) only in the following regions:[\[See the AWS documentation website for more details\]](http://docs.aws.amazon.com/kms/latest/developerguide/limits.html) | 
+|  `Decrypt` `Encrypt` `GenerateDataKey` `GenerateDataKeyWithoutPlaintext` `GenerateRandom` `ReEncrypt`  | 5500 \(shared\)10,000 \(shared\) only in the following regions:[\[See the AWS documentation website for more details\]](http://docs.aws.amazon.com/kms/latest/developerguide/limits.html)400 \(shared\) for each [custom key store](custom-key-store-overview.md)\. | 
 | CancelKeyDeletion | 5 | 
 | CreateAlias | 5 | 
 | CreateGrant | 50 | 

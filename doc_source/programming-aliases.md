@@ -155,7 +155,7 @@ kmsClient.createAlias({ AliasName, TargetKeyId }, (err, data) => {
 
 To list aliases in the account and region, use the [ListAliases](https://docs.aws.amazon.com/kms/latest/APIReference/API_ListAliases.html) operation\.
 
-By default, the ListAliases command returns all aliases in the account and region\. This includes aliases that you created and associated with your [customer\-managed CMKs](concepts.md#master_keys), and aliases that AWS created and associated with your [AWS managed CMKs](concepts.md#master_keys)\. The response might also include aliases that have no `TargetKeyId` field\. These are predefined aliases that AWS has created but has not yet associated with a CMK\.
+By default, the ListAliases command returns all aliases in the account and region\. This includes aliases that you created and associated with your [customer managed CMKs](concepts.md#master_keys), and aliases that AWS created and associated with your [AWS managed CMKs](concepts.md#master_keys)\. The response might also include aliases that have no `TargetKeyId` field\. These are predefined aliases that AWS has created but has not yet associated with a CMK\.
 
 This example uses the `kmsClient` client object that you created in [Creating a Client](programming-client.md)\.
 

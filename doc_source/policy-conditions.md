@@ -127,7 +127,7 @@ Instead of using an explicit `Deny`, this policy statement uses `Allow` with the
 
 You can use this condition key to allow or deny access to all identities \(IAM users and roles\) in an AWS account\. In key policies, you use the `Principal` element to specify the identities to which the policy statement applies\. The syntax for the `Principal` element does not provide a way to specify all identities in an AWS account\. But you can achieve this effect by combining this condition key with a `Principal` element that specifies all AWS identities\.
 
-For example, the following policy statement demonstrates how to use the `kms:CallerAccount` condition key\. This policy statement is in the key policy for the AWS\-managed CMK for Amazon EBS\. It combines a `Principal` element that specifies all AWS identities with the `kms:CallerAccount` condition key to effectively allow access to all identities in AWS account 111122223333\. It contains an additional AWS KMS condition key \(`kms:ViaService`\) to further limit the permissions by only allowing requests that come through Amazon EBS\. For more information, see [kms:ViaService](#conditions-kms-via-service)\.
+For example, the following policy statement demonstrates how to use the `kms:CallerAccount` condition key\. This policy statement is in the key policy for the AWS managed CMK for Amazon EBS\. It combines a `Principal` element that specifies all AWS identities with the `kms:CallerAccount` condition key to effectively allow access to all identities in AWS account 111122223333\. It contains an additional AWS KMS condition key \(`kms:ViaService`\) to further limit the permissions by only allowing requests that come through Amazon EBS\. For more information, see [kms:ViaService](#conditions-kms-via-service)\.
 
 ```
 {
@@ -566,7 +566,9 @@ The following example policy statement uses the `kms:GranteePrincipal` condition
 | --- | --- | --- | --- | 
 |  `kms:KeyOrigin`  |  String  |  `CreateKey`  |  IAM policies  | 
 
-You can use this condition key to control access to the [CreateKey](https://docs.aws.amazon.com/kms/latest/APIReference/API_CreateKey.html) operation based on the value of the [Origin](https://docs.aws.amazon.com/kms/latest/APIReference/API_CreateKey.html#KMS-CreateKey-request-Origin) parameter in the request\. For example, you can allow a user to create a CMK only when KMS generates the key material, or only when the [key material is imported](importing-keys.md) from an external source\. Valid values for `Origin` are `AWS_KMS` and `EXTERNAL`\. 
+You can use this condition key to control access to the [CreateKey](https://docs.aws.amazon.com/kms/latest/APIReference/API_CreateKey.html) operation based on the value of the [Origin](https://docs.aws.amazon.com/kms/latest/APIReference/API_CreateKey.html#KMS-CreateKey-request-Origin) parameter in the request\. Valid values for `Origin` are `AWS_KMS`, `AWS_CLOUDHSM`, and `EXTERNAL`\. 
+
+For example, you can allow a user to create a CMK only when the key material is generated in KMS \(`AWS_KMS`\), only when the key material is generated in an AWS CloudHSM cluster that is associated with a [custom key store](custom-key-store-overview.md) \(`AWS_CLOUDHSM`\), or only when the [key material is imported](importing-keys.md) from an external source \(`EXTERNAL`\)\. 
 
 The following example policy statement uses the `kms:KeyOrigin` condition key to allow a user to create a CMK only when the key origin is EXTERNAL, that is, the key material is imported\.
 
@@ -691,7 +693,7 @@ The following example policy statement allows a user to import key material into
 | --- | --- | --- | --- | 
 |  `kms:ViaService`  |  String  |  The `kms:ViaService` condition key is valid for all AWS KMS operations *except*: `CreateKey`, `GenerateRandom`, `ListAliases`, `ListKeys`, `ListRetirableGrants`, `RetireGrant`\.  |  IAM and key policies  | 
 
-The `kms:ViaService` condition key limits use of a [customer\-managed CMK](concepts.md#master_keys) to requests from particular AWS services\. \(AWS managed CMKs in your account, such as aws/s3, are always restricted to the AWS service that created them\.\)
+The `kms:ViaService` condition key limits use of a [customer managed CMK](concepts.md#master_keys) to requests from particular AWS services\. \(AWS managed CMKs in your account, such as aws/s3, are always restricted to the AWS service that created them\.\)
 
 For example, you can use `kms:ViaService` to allow a user to use a customer managed CMK only for requests that Amazon S3 makes on their behalf\. Or you can use it to deny the user permission to a CMK when a request on their behalf comes from AWS Lambda\. 
 

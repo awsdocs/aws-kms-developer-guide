@@ -44,3 +44,5 @@ The following pages describe how to manage permissions for AWS KMS\. We recommen
 + [AWS KMS API Permissions Reference](kms-api-permissions-reference.md)
 + [Using Policy Conditions](policy-conditions.md)
 + [Using Grants](grants.md)
++ [Using Service\-Linked Roles](using-service-linked-roles.md)
++ [Determining Access](determining-access.md)

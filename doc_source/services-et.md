@@ -17,12 +17,12 @@ If you choose client\-side encryption using AES, you are responsible for encrypt
 
 If you choose server\-side encryption, you are allowing Amazon S3 to perform all encryption and decryption of files on your behalf\. You can configure Amazon S3 to use one of three different master keys to protect the unique data key used to encrypt your file:
 + The Amazon S3 master key, a key that is owned and managed by AWS
-+ The AWS\-managed CMK for Amazon S3, a master key that is owned by your account but managed by AWS
-+ Any customer\-managed CMK that you create by using AWS KMS
++ The AWS managed CMK for Amazon S3, a master key that is owned by your account but managed by AWS
++ Any customer managed CMK that you create by using AWS KMS
 
 You can request encryption and the master key you want by using the Amazon S3 console or the appropriate Amazon S3 APIs\. For more information about how Amazon S3 performs encryption, see [Protecting Data Using Encryption](https://docs.aws.amazon.com/AmazonS3/latest/dev/UsingEncryption.html) in the *Amazon Simple Storage Service Developer Guide*\.
 
-When you use an AWS KMS CMK as the master key \(the AWS\-managed CMK for Amazon S3 in your account or a customer\-managed CMK\) to protect the input file, Amazon S3 and AWS KMS interact in the following manner:
+When you use an AWS KMS CMK as the master key \(the AWS managed CMK for Amazon S3 in your account or a customer managed CMK\) to protect the input file, Amazon S3 and AWS KMS interact in the following manner:
 
 1. Amazon S3 requests a plaintext data key and a copy of the data key encrypted under the specified CMK\.
 
@@ -44,8 +44,8 @@ The following combination of settings are available\.
 | Encryption mode | AWS KMS key | Meaning | 
 | --- | --- | --- | 
 | S3 | Default | Amazon S3 creates and manages the keys used to encrypt and decrypt the media file\. The process is opaque to the user\. | 
-| S3\-AWS\-KMS | Default | Amazon S3 uses a data key encrypted by the default AWS\-managed CMK for Amazon S3 in your account to encrypt the media file\. | 
-| S3\-AWS\-KMS | Custom \(with ARN\) | Amazon S3 uses a data key encrypted by the specified customer\-managed CMK to encrypt the media file\. | 
+| S3\-AWS\-KMS | Default | Amazon S3 uses a data key encrypted by the default AWS managed CMK for Amazon S3 in your account to encrypt the media file\. | 
+| S3\-AWS\-KMS | Custom \(with ARN\) | Amazon S3 uses a data key encrypted by the specified customer managed CMK to encrypt the media file\. | 
 
 When **S3\-AWS\-KMS** is specified, Amazon S3 and AWS KMS work together in the following manner to perform the decryption\.
 
@@ -67,12 +67,12 @@ Elastic Transcoder encrypts the output file depending on how you specify the enc
 | Encryption mode | AWS KMS key | Meaning | 
 | --- | --- | --- | 
 | S3 | Default | Amazon S3 creates and manages the keys used to encrypt the output file\. | 
-| S3\-AWS\-KMS | Default | Amazon S3 uses a data key created by AWS KMS and encrypted by the AWS\-managed CMK for Amazon S3 in your account\. | 
-| S3\-AWS\-KMS | Custom \(with ARN\) | Amazon S3 uses a data key encrypted by using the customer\-managed CMK specified by the ARN to encrypt the media file\. | 
-| AES\- | Default | Elastic Transcoder uses the AWS\-managed CMK for Amazon S3 in your account to decrypt the specified AES key you provide and uses that key to encrypt the output file\. | 
-| AES\- | Custom \(with ARN\) | Elastic Transcoder uses the customer\-managed CMK specified by the ARN to decrypt the specified AES key you provide and uses that key to encrypt the output file\. | 
+| S3\-AWS\-KMS | Default | Amazon S3 uses a data key created by AWS KMS and encrypted by the AWS managed CMK for Amazon S3 in your account\. | 
+| S3\-AWS\-KMS | Custom \(with ARN\) | Amazon S3 uses a data key encrypted by using the customer managed CMK specified by the ARN to encrypt the media file\. | 
+| AES\- | Default | Elastic Transcoder uses the AWS managed CMK for Amazon S3 in your account to decrypt the specified AES key you provide and uses that key to encrypt the output file\. | 
+| AES\- | Custom \(with ARN\) | Elastic Transcoder uses the customer managed CMK specified by the ARN to decrypt the specified AES key you provide and uses that key to encrypt the output file\. | 
 
-When you specify that an AWS KMS CMK \(the AWS\-managed CMK for Amazon S3 in your account or a customer\-managed CMK\) be used to encrypt the output file, Amazon S3 and AWS KMS interact in the following manner:
+When you specify that an AWS KMS CMK \(the AWS managed CMK for Amazon S3 in your account or a customer managed CMK\) be used to encrypt the output file, Amazon S3 and AWS KMS interact in the following manner:
 
 1. Amazon S3 requests a plaintext data key and a copy of the data key encrypted by using the specified CMK\.
 

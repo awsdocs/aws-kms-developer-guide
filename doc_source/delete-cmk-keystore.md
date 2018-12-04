@@ -1,0 +1,12 @@
+# Scheduling Deletion of CMKs from a Custom Key Store<a name="delete-cmk-keystore"></a>
+
+When you are certain that you will not need to use a customer master key \(CMK\) for any cryptographic operation, you can [schedule the deletion of the CMK](deleting-keys.md)\. Use the same procedure that you would use to schedule the deletion of any CMK from AWS KMS\. In addition, keep your custom key store connected so AWS KMS can delete the corresponding key material from the associated AWS CloudHSM cluster when the waiting period expires\.
+
+**Warning**  
+Deleting a CMK is a destructive and potentially dangerous operation that prevents you from recovering all data encrypted under the CMK\. Before scheduling deletion of the CMK, [examine past usage](deleting-keys-determining-usage.md) of the CMK and [create a Amazon CloudWatch alarm](deleting-keys-creating-cloudwatch-alarm.md) that alerts you when someone tries to use the CMK while it is pending deletion\. Whenever possible, [disable the CMK](enabling-keys.md), instead of deleting it\.
+
+If you schedule deletion of a CMK from a custom key store, its [key state](key-state.md) changes to **Pending deletion**\. The CMK remains in the **Pending deletion** state throughout the waiting period, even if the CMK becomes unavailable because you have [disconnected the custom key store](disconnect-keystore.md)\. This allows you to cancel the deletion of the CMK at any time during the waiting period\.
+
+When the waiting period expires, AWS KMS deletes the CMK from AWS KMS\. Then AWS KMS makes a best effort to delete the key material from the associated AWS CloudHSM cluster\. If AWS KMS cannot delete the key material, such as when the key store is disconnected from AWS KMS, you might need to manually [delete the orphaned key material](fix-keystore.md#fix-keystore-orphaned-key) from the cluster\. 
+
+AWS KMS does not delete the key material from cluster backups\. Even if you delete the CMK from AWS KMS and delete its key material from your AWS CloudHSM cluster, clusters created from backups might contain the deleted key material\. To permanently delete the key material [view the creation date](view-cmk-keystore.md) of the CMK\. Then [delete all cluster backups](https://docs.aws.amazon.com/cloudhsm/latest/userguide/delete-restore-backup.html) that might contain the key material\. 

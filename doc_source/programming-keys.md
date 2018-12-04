@@ -172,7 +172,7 @@ For details, see the [generate\_date\_key method](http://boto3.amazonaws.com/v1/
 key_id = 'arn:aws:kms:us-west-2:111122223333:key/1234abcd-12ab-34cd-56ef-1234567890ab'
 
 response = kms_client.generate_data_key(
-    KeyID=key_id,
+    KeyId=key_id,
     KeySpec='AES_256'
 )
 

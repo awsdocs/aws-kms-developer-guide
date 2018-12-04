@@ -18,7 +18,7 @@ The database key encrypts data encryption keys in the cluster\. The database key
 
 The cluster key encrypts the database key for the Amazon Redshift cluster\. You can use AWS KMS, AWS CloudHSM, or an external hardware security module \(HSM\) to manage the cluster key\. See the [ Amazon Redshift Database Encryption ](https://docs.aws.amazon.com/redshift/latest/mgmt/working-with-db-encryption.html) documentation for more details\. 
 
-If the master key resides in AWS KMS, it encrypts the cluster key\. You can request encryption by checking the appropriate box in the Amazon Redshift console\. You can specify a customer\-managed master key to use by choosing one from the list that appears below the encryption box\. If you do not specify a customer\-managed key, the AWS\-managed key for Amazon Redshift under your account will be used\. 
+If the master key resides in AWS KMS, it encrypts the cluster key\. You can request encryption by checking the appropriate box in the Amazon Redshift console\. You can specify a customer managed master key to use by choosing one from the list that appears below the encryption box\. If you do not specify a customer managed CMK, the AWS managed key for Amazon Redshift under your account will be used\. 
 
 ## Encryption Context<a name="rs-encryptioncontext"></a>
 
@@ -31,6 +31,6 @@ Each service that is integrated with AWS KMS specifies an encryption context whe
 },
 ```
 
- You can search on the cluster name in your CloudTrail logs to understand what operations were performed by using a customer master key\. The operations include cluster encryption, cluster decryption, and generating data keys\. 
+ You can search on the cluster name in your CloudTrail logs to understand what operations were performed by using a customer master key \(CMK\)\. The operations include cluster encryption, cluster decryption, and generating data keys\. 
 
 For more information, see [Encryption Context](encryption-context.md)\.

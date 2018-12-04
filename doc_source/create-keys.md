@@ -24,7 +24,7 @@ The original console will remain available for a brief period to give you time t
 
 1. Choose **Create key**\.
 
-1. Type an alias for the CMK\. The alias name cannot begin with **aws/**\. The **aws/** prefix is reserved by Amazon Web Services to represent AWS\-managed CMKs in your account\.
+1. Type an alias for the CMK\. The alias name cannot begin with **aws/**\. The **aws/** prefix is reserved by Amazon Web Services to represent AWS managed CMKs in your account\.
 
    An alias is a display name that you can use to identify the CMK\. We recommend that you choose an alias that indicates the type of data you plan to protect or the application you plan to use with the CMK\.
 
