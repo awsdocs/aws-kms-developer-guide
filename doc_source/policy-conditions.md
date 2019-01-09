@@ -34,9 +34,7 @@ Also, the `aws:sourceIP` condition key is not effective when the request comes f
 
 ### Using VPC Endpoint Conditions in Policies with AWS KMS Permissions<a name="conditions-aws-vpce"></a>
 
-[AWS KMS supports Amazon Virtual Private Cloud \(Amazon VPC\) endpoints](kms-vpc-endpoint.md) that are powered by [AWS PrivateLink](https://docs.aws.amazon.com/vpc/latest/userguide/VPC_Introduction.html#what-is-privatelink)\. You can use the following [global condition keys](https://docs.aws.amazon.com/IAM/latest/UserGuide/reference_policies_condition-keys.html#AvailableKeys) in IAM policies to allow or deny access to a particular VPC or VPC endpoint\.
-
-You can also use these condition keys in [AWS KMS key policies](kms-vpc-endpoint.md#vpce-policy) to restrict access to AWS KMS CMKs to requests from the VPC or VPC endpoint\. 
+[AWS KMS supports Amazon Virtual Private Cloud \(Amazon VPC\) endpoints](kms-vpc-endpoint.md) that are powered by [AWS PrivateLink](https://docs.aws.amazon.com/vpc/latest/userguide/VPC_Introduction.html#what-is-privatelink)\. You can use the following [global condition keys](https://docs.aws.amazon.com/IAM/latest/UserGuide/reference_policies_condition-keys.html#AvailableKeys) in IAM policies to allow or deny access to a particular VPC or VPC endpoint\. You can also use these global condition keys in [AWS KMS key policies](kms-vpc-endpoint.md#vpce-policy) to restrict access to AWS KMS CMKs to requests from the VPC or VPC endpoint\. 
 + `aws:SourceVpc` limits access to requests from the specified VPC\. 
 + `aws:SourceVpce` limits access to requests from the specified VPC endpoint\. 
 

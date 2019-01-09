@@ -31,14 +31,15 @@ You can use the following automated monitoring tools to watch your CMKs and repo
 
 ### Manual Monitoring Tools<a name="monitoring-tools-manual"></a>
 
-Another important part of monitoring CMKs involves manually monitoring those items that the CloudWatch alarms and events don't cover\. The AWS KMS, CloudWatch, AWS Trusted Advisor, and other AWS console dashboards provide an at\-a\-glance view of the state of your AWS environment\.
+Another important part of monitoring CMKs involves manually monitoring those items that the CloudWatch alarms and events don't cover\. The AWS KMS, CloudWatch, AWS Trusted Advisor, and other AWS dashboards provide an at\-a\-glance view of the state of your AWS environment\.
 
-You can [customize](viewing-keys.md#viewing-keys-console) the [AWS KMS console dashboard](https://console.aws.amazon.com/kms) to display the following information about each CMK: 
+You can [customize](viewing-keys.md#viewing-keys-console) the **AWS Managed Keys** and **Customer Managed Keys** pages of the [AWS KMS console](https://console.aws.amazon.com/kms) to display the following information about each CMK: 
++ Key ID
 + Status
 + Creation date
++ Expiration date \(for CMKs with [imported key material](importing-keys.md)\)
 + Origin
-+ Expiration date \(for CMKs whose origin is `EXTERNAL`\)
-+ Scheduled deletion date \(for CMKs that are pending deletion\)
++ Custom key store ID \(for CMKs in [custom key stores](custom-key-store-overview.md)\)
 
 The [CloudWatch console dashboard](https://console.aws.amazon.com/cloudwatch/home) shows the following:
 + Current alarms and status

@@ -22,9 +22,6 @@ To specify an alias, use the alias name or alias ARN, as shown in the following 
 ```
 // Fully specified ARN
 arn:aws:kms:us-west-2:111122223333:alias/ExampleAlias
-
-// Fully specified ARN
-arn:aws:kms:us-west-2:111122223333:alias/ExampleAlias
 ```
 
 **Topics**

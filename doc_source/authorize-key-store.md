@@ -30,7 +30,15 @@ When designing your custom key store, be sure that the principals who use and ma
 
 ## Authorizing AWS KMS to Manage AWS CloudHSM and Amazon EC2 Resources<a name="authorize-kms"></a>
 
-To support your custom key stores, AWS KMS needs permission to get information about your AWS CloudHSM clusters\. It also needs permission to create the network infrastructure that connects your custom key store to its AWS CloudHSM cluster\. To get these permissions, AWS KMS creates the **AWSServiceRoleForKeyManagementServiceCustomKeyStores** service\-linked role in your AWS account\. Users who create custom key stores must have permission to create service\-linked roles\.
+To support your custom key stores, AWS KMS needs permission to get information about your AWS CloudHSM clusters\. It also needs permission to create the network infrastructure that connects your custom key store to its AWS CloudHSM cluster\. To get these permissions, AWS KMS creates the **AWSServiceRoleForKeyManagementServiceCustomKeyStores** service\-linked role in your AWS account\. Users who create custom key stores must have the `iam:CreateServiceLinkedRole` permission that allows them to create service\-linked roles\.
+
+**Topics**
++ [About the AWS KMS Service\-Linked Role](#about-key-store-slr)
++ [Create the Service\-Linked Role](#create-key-store-slr)
++ [Edit the Service\-Linked Role Description](#edit-key-store-slr)
++ [Delete the Service\-Linked Role](#delete-key-store-slr)
+
+### About the AWS KMS Service\-Linked Role<a name="about-key-store-slr"></a>
 
 A [service\-linked role](https://docs.aws.amazon.com/IAM/latest/UserGuide/using-service-linked-roles.html) is an IAM role that gives one AWS service permission to call other AWS services on your behalf\. It's designed to make it easier for you to use the features of multiple integrated AWS services without having to create and maintain complex IAM policies\.
 
@@ -43,30 +51,22 @@ For custom key stores, AWS KMS creates the **AWSServiceRoleForKeyManagementServi
 + [ec2:DescribeSecurityGroups](https://docs.aws.amazon.com/AWSEC2/latest/APIReference/API_DescribeSecurityGroups.html)
 + [ec2:RevokeSecurityGroupEgress](https://docs.aws.amazon.com/AWSEC2/latest/APIReference/API_RevokeSecurityGroupEgress.html)
 
-Only AWS KMS can assume this service\-linked role\. It is limited to the operations that AWS KMS needs in order to view your clusters and connect a custom key store to its AWS CloudHSM cluster\. It does not give AWS KMS any additional permissions\. For example, AWS KMS does not have permission to create, manage, or delete your AWS CloudHSM clusters, HSMs, or backups\.
+Because the **AWSServiceRoleForKeyManagementServiceCustomKeyStores** service\-linked role trusts only `cks.kms.amazonaws.com`, only AWS KMS can assume this service\-linked role\. This role is limited to the operations that AWS KMS needs to view your AWS CloudHSM clusters and to connect a custom key store to its associated AWS CloudHSM cluster\. It does not give AWS KMS any additional permissions\. For example, AWS KMS does not have permission to create, manage, or delete your AWS CloudHSM clusters, HSMs, or backups\.
 
-Like the custom key stores feature, the **AWSServiceRoleForKeyManagementServiceCustomKeyStores** role is supported in all AWS Regions where both AWS KMS and AWS CloudHSM are available, except for AWS GovCloud \(US\-West\)\. For a list of AWSRegions that each service supports, see [AWS Key Management Service](https://docs.aws.amazon.com/general/latest/gr/rande.html#kms_region) and [AWS CloudHSM](https://docs.aws.amazon.com/general/latest/gr/rande.html#cloudhsm_region)\.
+**Regions**
 
-**Create the Service\-Linked Role**
+Like the custom key stores feature, the **AWSServiceRoleForKeyManagementServiceCustomKeyStores** role is supported in all AWS Regions where both AWS KMS and AWS CloudHSM are available, except for EU \(Stockholm\), AWS GovCloud \(US\-East\), and AWS GovCloud \(US\-West\)\. For a list of AWS Regions that each service supports, see [AWS Key Management Service](https://docs.aws.amazon.com/general/latest/gr/rande.html#kms_region) and [AWS CloudHSM](https://docs.aws.amazon.com/general/latest/gr/rande.html#cloudhsm_region)\.
 
-AWS KMS automatically creates the **AWSServiceRoleForKeyManagementServiceCustomKeyStores** service\-linked role in your AWS account when you create a custom key store, if the role does not already exist\. You cannot create this service\-linked role directly\.
+For more information about how AWS services use service\-linked roles, see [Using Service\-Linked Roles](https://docs.aws.amazon.com/IAM/latest/UserGuide/using-service-linked-roles.html) in the IAM User Guide\.
 
-**Edit the Service\-Linked Role Description**
+### Create the Service\-Linked Role<a name="create-key-store-slr"></a>
+
+AWS KMS automatically creates the **AWSServiceRoleForKeyManagementServiceCustomKeyStores** service\-linked role in your AWS account when you create a custom key store, if the role does not already exist\. You cannot create or re\-create this service\-linked role directly\. 
+
+### Edit the Service\-Linked Role Description<a name="edit-key-store-slr"></a>
 
 You cannot edit the role name or the policy statements in the **AWSServiceRoleForKeyManagementServiceCustomKeyStores** service\-linked role, but you can edit role description\. For instructions, see [Editing a Service\-Linked Role](https://docs.aws.amazon.com/IAM/latest/UserGuide/using-service-linked-roles.html#edit-service-linked-role) in the *IAM User Guide*\.
 
-**Delete the Service\-Linked Role**
+### Delete the Service\-Linked Role<a name="delete-key-store-slr"></a>
 
-AWS KMS does not delete the **AWSServiceRoleForKeyManagementServiceCustomKeyStores** service\-linked role\. 
-
-If you have [deleted all of your custom key stores](delete-keystore.md) and do not plan to create any new ones, we recommend that you delete the **AWSServiceRoleForKeyManagementServiceCustomKeyStores** role\. AWS KMS prevents you from deleting this service\-linked role if you have any custom key stores in any Region of your AWS account\. 
-
-To delete the service\-linked role:
-
-1. [Delete all AWS KMS custom key stores](delete-keystore.md) from all Regions of your AWS account\.
-
-1. Use the IAM console, the IAM CLI, or the IAM API to delete the service\-linked role\. For instructions, see [Deleting a Service\-Linked Role](https://docs.aws.amazon.com/IAM/latest/UserGuide/using-service-linked-roles.html#delete-service-linked-role) in the *IAM User Guide*\.
-**Note**  
-If AWS KMS is using the role when you try to delete it, the deletion might fail\. If that happens, wait for a few minutes and try the operation again\.
-
-For more information about how AWS services use service\-linked roles, see [Using Service\-Linked Roles](https://docs.aws.amazon.com/IAM/latest/UserGuide/using-service-linked-roles.html) in the IAM User Guide\.
+AWS KMS does not delete the **AWSServiceRoleForKeyManagementServiceCustomKeyStores** service\-linked role from your AWS account\.  If you have [deleted all of your custom key stores](delete-keystore.md) and do not plan to create any new ones, you no longer need this service\-linked role\. AWS KMS does not assume this role or use its permissions unless you have active custom key stores\. However, there is currently no procedure for deleting the **AWSServiceRoleForKeyManagementServiceCustomKeyStores** service\-linked role\.
