@@ -38,7 +38,7 @@ To create and manage a custom key store, you use features of AWS KMS and AWS Clo
 
 1. Now, you can [create customer master keys \(CMKs\) in your custom key store](create-cmk-keystore.md)\. Just specify the custom key store when you create the CMK\.
 
-If you get stuck at any point, you can find help in the [Troubleshooting a Custom Key Store](fix-keystore.md) topic\. If your question is not answered, use the feedback link at the bottom of each page of this guide or post a question on the [AWS KMS Discussion Forum](https://forums.aws.amazon.com/forumID=182)\.
+If you get stuck at any point, you can find help in the [Troubleshooting a Custom Key Store](fix-keystore.md) topic\. If your question is not answered, use the feedback link at the bottom of each page of this guide or post a question on the [AWS Key Management Service Discussion Forum](https://forums.aws.amazon.com/forum.jspa?forumID=182)\.
 
 **Limits**
 

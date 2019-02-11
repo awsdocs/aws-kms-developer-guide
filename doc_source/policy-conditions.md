@@ -765,9 +765,9 @@ The following example shows a policy statement from a key policy for an AWS mana
 | --- | --- | --- | --- | 
 |  `kms:WrappingAlgorithm`  |  String  |  `GetParametersForImport`  |  IAM and key policies  | 
 
-This condition key controls access to the [GetParametersForImport](https://docs.aws.amazon.com/kms/latest/APIReference/API_CreateKey.html) operation based on the value of the [WrappingAlgorithm](https://docs.aws.amazon.com/kms/latest/APIReference/API_GetParametersForImport.html#KMS-GetParametersForImport-request-WrappingAlgorithm) parameter in the request\. You can use this condition to require principals to use a particular algorithm to encrypt key material during the import process Requests for the required public key and import token fail when they specify a different wrapping algorithm\.
+This condition key controls access to the [GetParametersForImport](https://docs.aws.amazon.com/kms/latest/APIReference/API_GetParametersForImport.html) operation based on the value of the [WrappingAlgorithm](https://docs.aws.amazon.com/kms/latest/APIReference/API_GetParametersForImport.html#KMS-GetParametersForImport-request-WrappingAlgorithm) parameter in the request\. You can use this condition to require principals to use a particular algorithm to encrypt key material during the import process\. Requests for the required public key and import token fail when they specify a different wrapping algorithm\.
 
-The following example policy statement uses the `kms:WrappingAlgorithm` condition key to fail if the `WrappingAlgorithm` in the request is `RSAES_OAEP_SHA_1`\. The operation succeeds, and returns a public key and import token, for any other `WrappingAlgorithm` value\. 
+The following example policy statement uses the `kms:WrappingAlgorithm` condition key to give the example user permission to call the `GetParametersForImport` operation, but prevents them from using the `RSAES_OAEP_SHA_1` wrapping algorithm\. When the `WrappingAlgorithm` in the `GetParametersForImport` request is `RSAES_OAEP_SHA_1`, the operation fails\.
 
 ```
 {
@@ -797,7 +797,7 @@ The following example policy statement uses the `kms:WrappingAlgorithm` conditio
 | --- | --- | --- | --- | 
 |  `kms:WrappingKeySpec`  |  String  |  `GetParametersForImport`  |  IAM and key policies  | 
 
-This condition key controls access to the [GetParametersForImport](https://docs.aws.amazon.com/kms/latest/APIReference/API_CreateKey.html) operation based on the value of the [WrappingKeySpec](https://docs.aws.amazon.com/kms/latest/APIReference/API_GetParametersForImport.html#KMS-GetParametersForImport-request-WrappingKeySpec) parameter in the request\. You can use this condition to require principals to use a particular type of public key during the import process\. If the request specifies a different key type, it fails\.
+This condition key controls access to the [GetParametersForImport](https://docs.aws.amazon.com/kms/latest/APIReference/API_GetParametersForImport.html) operation based on the value of the [WrappingKeySpec](https://docs.aws.amazon.com/kms/latest/APIReference/API_GetParametersForImport.html#KMS-GetParametersForImport-request-WrappingKeySpec) parameter in the request\. You can use this condition to require principals to use a particular type of public key during the import process\. If the request specifies a different key type, it fails\.
 
 Because the only valid value for the `WrappingKeySpec` parameter value is `RSA_2048`, preventing users from using this value effectively prevents them from using the `GetParametersForImport` operation\. 
 
@@ -812,7 +812,7 @@ The following example policy statement uses the `kms:WrappingAlgorithm` conditio
   "Action": "kms:GetParametersForImport",
   "Resource": "*",
   "Condition": {
-    "StringNotEquals": {
+    "StringEquals": {
       "kms:WrappingKeySpec": "RSA_2048"
     }
   }

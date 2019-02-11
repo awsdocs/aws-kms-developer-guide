@@ -4,7 +4,7 @@
 
 When an encryption context is provided in an encryption request, it is cryptographically bound to the ciphertext such that the same encryption context is required to decrypt \(or decrypt and re\-encrypt\) the data\. If the encryption context provided in the decryption request is not an exact, case\-sensitive match, the decrypt request fails\. Only the order of the encryption context pairs can vary\.
 
-The encryption context is never included in the ciphertext that AWS KMS returns for any encryption operation\. However, it logged by AWS CloudTrail\.
+The encryption context is never included in the ciphertext that AWS KMS returns for any encryption operation\. However, it is logged by AWS CloudTrail\.
 
 To learn how to use encryption context to protect the integrity of encrypted data, see the post [How to Protect the Integrity of Your Encrypted Data by Using AWS Key Management Service and EncryptionContext](https://aws.amazon.com/blogs/security/how-to-protect-the-integrity-of-your-encrypted-data-by-using-aws-key-management-service-and-encryptioncontext/) on the AWS Security Blog\.
 

@@ -14,8 +14,8 @@ For information about the permissions that are added to a key policy when you up
 You can use the AWS Management Console to learn whether a newer version of the default key policy is available\.
 
 **Note**  
-AWS KMS recently introduced a new console that makes it easier for you to organize and manage your KMS resources\. It is available in all [AWS Regions that AWS KMS supports](url-kms-regions) except for AWS GovCloud \(US\-East\) and AWS GovCloud \(US\-West\)\. We encourage you to try the new AWS KMS console at [https://console\.aws\.amazon\.com/kms](https://console.aws.amazon.com/kms)\.  
-The original console will remain available for a brief period to give you time to familiarize yourself with the new one\. To use the original console, choose **Encryption Keys** in the IAM console or go to [https://console\.aws\.amazon\.com/iam/home?\#/encryptionKeys](https://console.aws.amazon.com/iam/home?#/encryptionKeys)\. Please share your feedback by choosing **Feedback** in either console or in the lower\-right corner of this page\.
+AWS KMS recently introduced a new console that makes it easier for you to organize and manage your KMS resources\. We encourage you to try it at [https://console\.aws\.amazon\.com/kms](https://console.aws.amazon.com/kms)\.  
+The original console will remain available for a brief period to give you time to familiarize yourself with the new one\. To use the original console, choose **Encryption Keys** in the IAM console or go to [https://console\.aws\.amazon\.com/iam/home\#encryptionKeys](https://console.aws.amazon.com/iam/home#encryptionKeys)\. Please share your feedback by choosing **Feedback** in either console or in the lower\-right corner of this page\.
 
 ### To find a newer version of the default key policy \(new console\)<a name="new-version-kms-console"></a>
 
@@ -35,7 +35,7 @@ The original console will remain available for a brief period to give you time t
 
 ### To find a newer version of the default key policy \(original console\)<a name="new-version-iam-console"></a>
 
-1. Sign in to the AWS Management Console and go to [https://console\.aws\.amazon\.com/iam/home?\#/encryptionKeys](https://console.aws.amazon.com/iam/home?#/encryptionKeys)\.
+1. Sign in to the AWS Management Console and go to [https://console\.aws\.amazon\.com/iam/home\#encryptionKeys](https://console.aws.amazon.com/iam/home#encryptionKeys)\.
 
 1. For **Region**, choose the appropriate AWS Region\. Do not use the region selector in the navigation bar \(top right corner\)\.
 

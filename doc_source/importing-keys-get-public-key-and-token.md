@@ -30,8 +30,8 @@ To download the public key and import token, you can use the AWS Management Cons
 You can use the AWS Management Console to download the public key and import token\.
 
 **Note**  
-AWS KMS recently introduced a new console that makes it easier for you to organize and manage your KMS resources\. It is available in all [AWS Regions that AWS KMS supports](url-kms-regions) except for AWS GovCloud \(US\-East\) and AWS GovCloud \(US\-West\)\. We encourage you to try the new AWS KMS console at [https://console\.aws\.amazon\.com/kms](https://console.aws.amazon.com/kms)\.  
-The original console will remain available for a brief period to give you time to familiarize yourself with the new one\. To use the original console, choose **Encryption Keys** in the IAM console or go to [https://console\.aws\.amazon\.com/iam/home?\#/encryptionKeys](https://console.aws.amazon.com/iam/home?#/encryptionKeys)\. Please share your feedback by choosing **Feedback** in either console or in the lower\-right corner of this page\.
+AWS KMS recently introduced a new console that makes it easier for you to organize and manage your KMS resources\. We encourage you to try it at [https://console\.aws\.amazon\.com/kms](https://console.aws.amazon.com/kms)\.  
+The original console will remain available for a brief period to give you time to familiarize yourself with the new one\. To use the original console, choose **Encryption Keys** in the IAM console or go to [https://console\.aws\.amazon\.com/iam/home\#encryptionKeys](https://console.aws.amazon.com/iam/home#encryptionKeys)\. Please share your feedback by choosing **Feedback** in either console or in the lower\-right corner of this page\.
 
 ### To download the public key and import token \(new console\)<a name="download-token-kms-console"></a>
 
@@ -74,7 +74,7 @@ You can use the AWS Management Console to download the public key and import tok
 
 1. If you just completed the steps to [create a CMK with no key material](importing-keys-create-cmk.md#importing-keys-create-cmk-console), skip to [Step 6](#id-wrap-step-old)\.
 
-1. Sign in to the AWS Management Console and go to [https://console\.aws\.amazon\.com/iam/home?\#/encryptionKeys](https://console.aws.amazon.com/iam/home?#/encryptionKeys)\.
+1. Sign in to the AWS Management Console and go to [https://console\.aws\.amazon\.com/iam/home\#encryptionKeys](https://console.aws.amazon.com/iam/home#encryptionKeys)\.
 
 1. For **Region**, choose the appropriate AWS Region\. Do not use the region selector in the navigation bar \(top right corner\)\.
 

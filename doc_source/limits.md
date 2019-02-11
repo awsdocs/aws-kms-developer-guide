@@ -11,7 +11,6 @@ If you need to exceed these limits, please visit the [AWS Support Center](https:
 | [Customer Master Keys \(CMKs\)](#customer-master-keys-limit) | 1000 | Customer managed CMKs | 
 | [Aliases](#aliases-limit) | 1100 | Customer created aliases | 
 | [Key policy document size](#key-policy-limit) | 32 KB \(32,768 bytes\) | Customer managed CMKsAWS managed CMKs | 
-| [Key policy document size](#key-policy-limit) | 32 KB \(32,768 bytes\) | Customer managed CMKsAWS managed CMKs | 
 | [Grants per CMK](#grants-per-key) | 2500 | Customer managed CMKs | 
 | [Grants for a given principal per CMK](#grants-per-principal-per-key) | 500 | Customer managed CMKsAWS managed CMKs | 
 | [Requests per second](#requests-per-second) | Varies by API operation; see [table](#requests-per-second-table)\. | Customer managed CMKsAWS managed CMKs | 

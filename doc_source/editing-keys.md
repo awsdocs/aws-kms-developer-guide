@@ -15,8 +15,8 @@ Users who have the required permissions can change the properties of a customer 
 You can [view](viewing-keys.md), but not edit, the properties of AWS managed CMKs\. To view the key policy for an AWS managed CMK, use the [GetKeyPolicy](https://docs.aws.amazon.com/kms/latest/APIReference/API_GetKeyPolicy.html) operation\.
 
 **Note**  
-AWS KMS recently introduced a new console that makes it easier for you to organize and manage your KMS resources\. It is available in all [AWS Regions that AWS KMS supports](url-kms-regions) except for AWS GovCloud \(US\-East\) and AWS GovCloud \(US\-West\)\. We encourage you to try the new AWS KMS console at [https://console\.aws\.amazon\.com/kms](https://console.aws.amazon.com/kms)\.  
-The original console will remain available for a brief period to give you time to familiarize yourself with the new one\. To use the original console, choose **Encryption Keys** in the IAM console or go to [https://console\.aws\.amazon\.com/iam/home?\#/encryptionKeys](https://console.aws.amazon.com/iam/home?#/encryptionKeys)\. Please share your feedback by choosing **Feedback** in either console or in the lower\-right corner of this page\.
+AWS KMS recently introduced a new console that makes it easier for you to organize and manage your KMS resources\. We encourage you to try it at [https://console\.aws\.amazon\.com/kms](https://console.aws.amazon.com/kms)\.  
+The original console will remain available for a brief period to give you time to familiarize yourself with the new one\. To use the original console, choose **Encryption Keys** in the IAM console or go to [https://console\.aws\.amazon\.com/iam/home\#encryptionKeys](https://console.aws.amazon.com/iam/home#encryptionKeys)\. Please share your feedback by choosing **Feedback** in either console or in the lower\-right corner of this page\.
 
 ### To edit a customer managed CMK \(new console\)<a name="edit-keys-kms-console"></a>
 
@@ -92,7 +92,7 @@ You can enable and disable [automatic rotation](rotate-keys.md) of the cryptogra
 
 **Navigate to the CMK details page**  
 
-1. Sign in to the AWS Management Console and go to [https://console\.aws\.amazon\.com/iam/home?\#/encryptionKeys](https://console.aws.amazon.com/iam/home?#/encryptionKeys)\.
+1. Sign in to the AWS Management Console and go to [https://console\.aws\.amazon\.com/iam/home\#encryptionKeys](https://console.aws.amazon.com/iam/home#encryptionKeys)\.
 
 1. For **Region**, choose the appropriate AWS Region\. Do not use the region selector in the navigation bar \(top right corner\)\.
 

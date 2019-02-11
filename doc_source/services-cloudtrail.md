@@ -199,4 +199,4 @@ When you encrypt CloudTrail log files with AWS KMS–Managed Keys \(SSE\-KMS\), 
 + If you enable this feature in two regions in a single AWS account, you can expect approximately 576 AWS KMS API requests per day \(2 x 288\)\.
 + If you enable this feature in two regions in each of three AWS accounts, you can expect approximately 1,728 AWS KMS API requests per day \(6 x 288\)\.
 
-These numbers represent only the AWS KMS API requests that occur when CloudTrail puts a log file into your S3 bucket\. Each time [you get an encrypted log file from your S3 bucket](#cloudtrail-details-get-log-file) it results in an additional AWS KMS API request\.
+These numbers represent only the AWS KMS calls that result from `PUT` requests\. They do not count the [decrypt](https://docs.aws.amazon.com/kms/latest/APIReference/API_Decrypt.html) calls to AWS KMS that result from `GET` requests when you get an encrypted log file from your S3 bucket\.
