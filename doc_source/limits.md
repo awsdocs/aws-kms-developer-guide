@@ -42,7 +42,7 @@ You can create a key policy document by using the [default view](key-policy-modi
 
 ## Grants per CMK: 2500<a name="grants-per-key"></a>
 
-Each [customer managed CMK](concepts.md#customer-cmk) can have up to 2500 grants, including the grants created by [AWS services that are integrated with AWS KMS](https://aws.amazon.com/kms/details/#integration)\. This limit does not apply to [AWS managed CMKs](concepts.md#aws-managed-cmk)\.
+Each [customer managed CMK](concepts.md#customer-cmk) can have up to 2500 grants, including the grants created by [AWS services that are integrated with AWS KMS](https://aws.amazon.com/kms/features/#AWS_Service_Integration)\. This limit does not apply to [AWS managed CMKs](concepts.md#aws-managed-cmk)\.
 
 One effect of this limit is that you cannot create more than 2500 resources that use the same CMK\. For example, you cannot create more than 2500 [encrypted EBS volumes](services-ebs.md) that use the same CMK\.
 
@@ -96,14 +96,19 @@ If the AWS CloudHSM cluster that is associated with the custom key store is proc
 | --- | --- | 
 |  `Decrypt` `Encrypt` `GenerateDataKey` `GenerateDataKeyWithoutPlaintext` `GenerateRandom` `ReEncrypt`  | 5500 \(shared\)10,000 \(shared\) only in the following regions:[\[See the AWS documentation website for more details\]](http://docs.aws.amazon.com/kms/latest/developerguide/limits.html)400 \(shared\) for each [custom key store](custom-key-store-overview.md)\. | 
 | CancelKeyDeletion | 5 | 
+| ConnectCustomKeyStore | 5 | 
 | CreateAlias | 5 | 
+| CreateCustomKeyStore | 5 | 
 | CreateGrant | 50 | 
 | CreateKey | 5 | 
 | DeleteAlias | 5 | 
+| DeleteCustomKeyStore | 5 | 
 | DeleteImportedKeyMaterial | 5 | 
+| DescribeCustomKeyStores | 5 | 
 | DescribeKey | 30 | 
 | DisableKey | 5 | 
 | DisableKeyRotation | 5 | 
+| DisconnectCustomKeyStore | 5 | 
 | EnableKey | 5 | 
 | EnableKeyRotation | 5 | 
 | GetKeyPolicy | 30 | 
@@ -123,4 +128,5 @@ If the AWS CloudHSM cluster that is associated with the custom key store is proc
 | TagResource | 5 | 
 | UntagResource | 5 | 
 | UpdateAlias | 5 | 
+| UpdateCustomKeyStore | 5 | 
 | UpdateKeyDescription | 5 | 

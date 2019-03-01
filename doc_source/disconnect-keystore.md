@@ -102,7 +102,7 @@ $ aws kms describe-custom-key stores --custom-key-store-id cks-1234567890abcdef0
 }
 ```
 
-If the `ConnectionState` value is failed, the `ConnectionErrorCode` element indicates the reason for the failure\. In this case, AWS KMS could not find a AWS CloudHSM cluster in your account with the cluster ID `cluster-1a23b4cdefg`\. If you deleted the cluster, you can [restore it from a backup](https://docs.aws.amazon.com/cloudhsm/latest/userguide/create-cluster-from-backup.html) of the original cluster and then [edit the cluster ID](update-keystore.md) for the custom key store\. 
+If the `ConnectionState` value is failed, the `ConnectionErrorCode` element indicates the reason for the failure\. In this case, AWS KMS could not find an AWS CloudHSM cluster in your account with the cluster ID `cluster-1a23b4cdefg`\. If you deleted the cluster, you can [restore it from a backup](https://docs.aws.amazon.com/cloudhsm/latest/userguide/create-cluster-from-backup.html) of the original cluster and then [edit the cluster ID](update-keystore.md) for the custom key store\. 
 
 ```
 $ aws kms describe-custom-key stores --custom-key-store-id cks-1234567890abcdef0

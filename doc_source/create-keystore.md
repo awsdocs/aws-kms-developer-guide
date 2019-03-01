@@ -23,9 +23,20 @@ The AWS CloudHSM cluster that you select must have the following characteristics
 + **The cluster must be active**\. 
 
   You must create the cluster, initialize it, install the AWS CloudHSM client software for your platform, and then activate the cluster\. For detailed instructions, see the[ Getting Started](https://docs.aws.amazon.com/cloudhsm/latest/userguide/getting-started.html) section of the *AWS CloudHSM User Guide*\.
+
+   
 + **The cluster must be in the same account and Region** as the AWS KMS custom key store\. You cannot associate a custom key store in one region with a cluster in a different region\. To create a multi\-region key infrastructure, you must create key stores and clusters in each region\.
+
+   
 + **The cluster cannot be associated with** another custom key store in the account\. Each custom key store must be associated with a different AWS CloudHSM cluster\. You cannot specify a cluster that is already associated with a custom key store or a cluster that shares a backup history with an associated cluster\. Clusters that share a backup history have the same cluster certificate\. To view the cluster certificate of a cluster, use the AWS CloudHSM console or the [DescribeClusters](https://docs.aws.amazon.com/cloudhsm/latest/APIReference/API_DescribeClusters.html) operation\.
+
+   
 + The cluster must be configured with private subnets in **at least two Availability Zones** in the Region\. Because AWS CloudHSM is not supported in all Availability Zones, we recommend that you create private subnets in all Availability Zones in the region\. You cannot reconfigure the subnets for an existing cluster, but you can [create a cluster from a backup](https://docs.aws.amazon.com/cloudhsm/latest/userguide/create-cluster-from-backup.html) with different subnets in the cluster configuration\. 
+
+   
++ The [security group for the cluster](https://docs.aws.amazon.com/cloudhsm/latest/userguide/configure-sg.html) \(cloudhsm\-cluster\-*<cluster\-id>*\-sg\) must include inbound rules and outbound rules that allow TCP traffic on ports 2223\-2225\. The **Source** in the inbound rules and the **Destination** in the outbound rules must match the security group ID\. These rules are set by default when you create the cluster\. Do not delete or change them\.
+
+   
 + **The cluster must contain at least two active HSMs** in different Availability Zones\. To verify the number of HSMs, use the AWS CloudHSM console or the [DescribeClusters](https://docs.aws.amazon.com/cloudhsm/latest/APIReference/API_DescribeClusters.html) operation\. If necessary, you can [add an HSM](https://docs.aws.amazon.com/cloudhsm/latest/userguide/add-remove-hsm.html#add-hsm)\.
 
 **Find the Trust Anchor Certificate**  

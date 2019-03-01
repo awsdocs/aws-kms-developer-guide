@@ -7,6 +7,7 @@ This topic discusses how Amazon WorkMail uses AWS KMS to encrypt email messages\
 + [Amazon WorkMail Encryption](#wm-encrypt)
 + [Authorizing Use of the CMK](#wm-authorizing-cmk)
 + [Amazon WorkMail Encryption Context](#wm-encryptioncontext)
++ [Monitoring Amazon WorkMail Interaction with AWS KMS](#wm-cloudtrail-logs)
 
 ## Amazon WorkMail Overview<a name="wm-overview"></a>
 
@@ -46,6 +47,13 @@ Amazon WorkMail uses a symmetric mailbox encryption key to protect message keys\
 ### A Unique Encryption Key for Each Message<a name="workmail-message-key"></a>
 
 When a message is added to the mailbox, Amazon WorkMail generates a unique 256\-bit AES symmetric encryption key for the message outside of AWS KMS\. It uses this *message key* to encrypt the message\. Amazon WorkMail encrypts the message key under the mailbox key and stores the encrypted message key with the message\. Then, it encrypts the mailbox key under the CMK for the organization\.
+
+### Creating a New Mailbox<a name="workmail-create-mailbox"></a>
+
+When Amazon WorkMail creates a new mailbox, it uses the following process to prepare the mailbox to hold encrypted messages\.
++ Amazon WorkMail generates a unique 256\-bit AES symmetric encryption key for the mailbox outside of AWS KMS\.
++ Amazon WorkMail calls the AWS KMS [Encrypt](https://docs.aws.amazon.com/kms/latest/developerguide/API_Encrypt.html) operation\. It passes in the mailbox key and the identifier of the customer master key \(CMK\) for the organization\. AWS KMS returns a ciphertext of the mailbox key encrypted under the CMK\.
++ Amazon WorkMail stores the encrypted mailbox key with the mailbox metadata\.
 
 ### Encrypting a Mailbox Message<a name="workmail-encrypt"></a>
 
@@ -115,14 +123,14 @@ The following is a key policy for an example AWS managed CMK for Amazon WorkMail
     "Condition" : {
       "StringEquals" : {
         "kms:ViaService" : "workmail.us-east-1.amazonaws.com",
-        "kms:CallerAccount" : "945472616890"
+        "kms:CallerAccount" : "111122223333"
       }
     }
   }, {
     "Sid" : "Allow direct access to key metadata to the account",
     "Effect" : "Allow",
     "Principal" : {
-      "AWS" : "arn:aws:iam::945472616890:root"
+      "AWS" : "arn:aws:iam::111122223333:root"
     },
     "Action" : [ "kms:Describe*", "kms:List*", "kms:Get*", "kms:RevokeGrant" ],
     "Resource" : "*"
@@ -158,4 +166,91 @@ For example, the following encryption context includes an example organization A
 
 ```
 "aws:workmail:arn":"arn:aws:workmail:us-east-2:111122223333:organization/m-68755160c4cb4e29a2b2f8fb58f359d7"
+```
+
+## Monitoring Amazon WorkMail Interaction with AWS KMS<a name="wm-cloudtrail-logs"></a>
+
+You can use AWS CloudTrail and Amazon CloudWatch Logs to track the requests that Amazon WorkMail sends to AWS KMS on your behalf\.
+
+### Encrypt<a name="wm-cloudtrail-encrypt"></a>
+
+When you create a new mailbox, Amazon WorkMail generates a mailbox key and calls AWS KMS to encrypt the mailbox key\. Amazon WorkMail sends an [Encrypt](https://docs.aws.amazon.com/kms/latest/APIReference/API_Encrypt.html) request to AWS KMS with the plaintext mailbox key and an identifier for the CMK of the Amazon WorkMail organization\.
+
+The event that records the `Encrypt` operation is similar to the following example event\. The user is the Amazon WorkMail service\. The parameters include the CMK ID \(`keyId`\) and the encryption context for the Amazon WorkMail organization\. Amazon WorkMail also passes in the mailbox key, but that is not recorded in the CloudTrail log\.
+
+```
+{
+    "eventVersion": "1.05",
+    "userIdentity": {
+        "type": "AWSService",
+        "invokedBy": "workmail.eu-west-1.amazonaws.com"
+    },
+    "eventTime": "2019-02-19T10:01:09Z",
+    "eventSource": "kms.amazonaws.com",
+    "eventName": "Encrypt",
+    "awsRegion": "eu-west-1",
+    "sourceIPAddress": "workmail.eu-west-1.amazonaws.com",
+    "userAgent": "workmail.eu-west-1.amazonaws.com",
+    "requestParameters": {
+        "encryptionContext": {
+            "aws:workmail:arn": "arn:aws:workmail:eu-west-1:111122223333:organization/m-c6981ff7642446fa8772ba99c690e455"
+        },
+        "keyId": "arn:aws:kms:eu-west-1:111122223333:key/1a2b3c4d-5e6f-1a2b-3c4d-5e6f1a2b3c4d"
+    },
+    "responseElements": null,
+    "requestID": "76e96b96-7e24-4faf-a2d6-08ded2eaf63c",
+    "eventID": "d5a59c18-128a-4082-aa5b-729f7734626a",
+    "readOnly": true,
+    "resources": [
+        {
+            "ARN": "arn:aws:kms:eu-west-1:111122223333:key/1a2b3c4d-5e6f-1a2b-3c4d-5e6f1a2b3c4d",
+            "accountId": "111122223333",
+            "type": "AWS::KMS::Key"
+        }
+    ],
+    "eventType": "AwsApiCall",
+    "recipientAccountId": "111122223333",
+    "sharedEventID": "d08e60f1-097e-4a00-b7e9-10bc3872d50c"
+}
+```
+
+### Decrypt<a name="wm-cloudtrail-decrypt"></a>
+
+When you add, view, or delete a mailbox message, Amazon WorkMail asks AWS KMS to decrypt the mailbox key\. Amazon WorkMail sends an [Decrypt](https://docs.aws.amazon.com/kms/latest/APIReference/API_Decrypt.html) request to AWS KMS with the encrypted mailbox key and an identifier for the CMK of the Amazon WorkMail organization\.
+
+The event that records the `Decrypt` operation is similar to the following example event\. The user is the Amazon WorkMail service\. The parameters include the encrypted mailbox key \(as a ciphertext blob\), which is not recorded in the log, and the encryption context for the Amazon WorkMail organization\. AWS KMS derives the ID of the CMK from the ciphertext\.
+
+```
+{
+    "eventVersion": "1.05",
+    "userIdentity": {
+        "type": "AWSService",
+        "invokedBy": "workmail.eu-west-1.amazonaws.com"
+    },
+    "eventTime": "2019-02-20T11:51:10Z",
+    "eventSource": "kms.amazonaws.com",
+    "eventName": "Decrypt",
+    "awsRegion": "eu-west-1",
+    "sourceIPAddress": "workmail.eu-west-1.amazonaws.com",
+    "userAgent": "workmail.eu-west-1.amazonaws.com",
+    "requestParameters": {
+        "encryptionContext": {
+            "aws:workmail:arn": "arn:aws:workmail:eu-west-1:111122223333:organization/m-c6981ff7642446fa8772ba99c690e455"
+        }
+    },
+    "responseElements": null,
+    "requestID": "4a32dda1-34d9-4100-9718-674b8e0782c9",
+    "eventID": "ea9fd966-98e9-4b7b-b377-6e5a397a71de",
+    "readOnly": true,
+    "resources": [
+        {
+            "ARN": "arn:aws:kms:eu-west-1:111122223333:key/1a2b3c4d-5e6f-1a2b-3c4d-5e6f1a2b3c4d",
+            "accountId": "111122223333",
+            "type": "AWS::KMS::Key"
+        }
+    ],
+    "eventType": "AwsApiCall",
+    "recipientAccountId": "111122223333",
+    "sharedEventID": "241e1e5b-ff64-427a-a5b3-7949164d0214"
+}
 ```

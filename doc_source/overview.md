@@ -2,7 +2,7 @@
 
 AWS Key Management Service \(AWS KMS\) is a managed service that makes it easy for you to create and control the encryption keys used to encrypt your data\. The master keys that you create in AWS KMS are protected by [FIPS 140\-2 validated cryptographic modules](https://csrc.nist.gov/projects/cryptographic-module-validation-program/Certificate/3139)\.
 
-AWS KMS is integrated with most [other AWS services](https://aws.amazon.com/kms/details/#integration) that encrypt your data with encryption keys that you manage\. AWS KMS is also integrated with [AWS CloudTrail](https://docs.aws.amazon.com/awscloudtrail/latest/userguide/) to provide encryption key usage logs to help meet your auditing, regulatory and compliance needs\.
+AWS KMS is integrated with most [other AWS services](https://aws.amazon.com/kms/features/#AWS_Service_Integration) that encrypt your data with encryption keys that you manage\. AWS KMS is also integrated with [AWS CloudTrail](https://docs.aws.amazon.com/awscloudtrail/latest/userguide/) to provide encryption key usage logs to help meet your auditing, regulatory and compliance needs\.
 
 You can perform the following management actions on your AWS KMS master keys:
 + Create, describe, and list master keys
@@ -30,3 +30,6 @@ AWS KMS is integrated with AWS CloudTrail, a service that delivers log files to 
 <a name="pricing"></a>
 **AWS KMS Pricing**  
 As with other AWS products, there are no contracts or minimum commitments for using AWS KMS\. For more information about AWS KMS pricing, see [AWS Key Management Service Pricing](https://aws.amazon.com/kms/pricing/)\.
+
+**Service Level Agreement**  
+AWS Key Management Service is backed by a [service level agreement](https://aws.amazon.com/kms/sla/) that defines our service availability policy\.

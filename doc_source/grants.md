@@ -4,7 +4,7 @@ AWS KMS supports two resource\-based access control mechanisms: [key policies](k
 
 You can also use key policies to allow other principals to access a CMK, but key policies work best for relatively static permission assignments\. Also, key policies use the standard permissions model for AWS policies in which users either have or do not have permission to perform an action with a resource\. For example, users with the `kms:PutKeyPolicy` permission for a CMK can completely replace the key policy for a CMK with a different key policy of their choice\. To enable more granular permissions management, use grants\.
 
-For Java code examples that demonstrate how to work with grants, see [Working with Grants](programming-grants.md)\.
+For code examples that demonstrate how to work with grants, see [Working with Grants](programming-grants.md)\.
 
 **Create a Grant**
 

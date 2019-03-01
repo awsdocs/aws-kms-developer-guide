@@ -44,7 +44,7 @@ Take care to avoid a situation like the [IP address condition keys](#conditions-
 
 ## AWS KMS Condition Keys<a name="conditions-kms"></a>
 
-AWS KMS provides an additional set of predefined condition keys that you can use in key policies and IAM policies\. These condition keys are specific to AWS KMS\. For example, you can use the `kms:EncryptionContext` condition key to require a particular [encryption context](encryption-context.md) when controlling access to a KMS customer master key \(CMK\)\.
+AWS KMS provides an additional set of predefined condition keys that you can use in key policies and IAM policies\. These condition keys are specific to AWS KMS\. For example, you can use the `kms:EncryptionContext` condition key to require a particular [encryption context](encryption-context.md) when controlling access to an AWS KMS customer master key \(CMK\)\.
 
 The following topics describe each AWS KMS condition key and include example policy statements that demonstrate policy syntax\.
 
@@ -691,45 +691,9 @@ The following example policy statement allows a user to import key material into
 | --- | --- | --- | --- | 
 |  `kms:ViaService`  |  String  |  The `kms:ViaService` condition key is valid for all AWS KMS operations *except*: `CreateKey`, `GenerateRandom`, `ListAliases`, `ListKeys`, `ListRetirableGrants`, `RetireGrant`\.  |  IAM and key policies  | 
 
-The `kms:ViaService` condition key limits use of a [customer managed CMK](concepts.md#master_keys) to requests from particular AWS services\. \(AWS managed CMKs in your account, such as aws/s3, are always restricted to the AWS service that created them\.\)
+The `kms:ViaService` condition key limits use of an AWS KMS [customer master key](concepts.md#master_keys) \(CMK\) to requests from specified AWS services\. You can specify one or more services in each `kms:ViaService` condition key\. 
 
-For example, you can use `kms:ViaService` to allow a user to use a customer managed CMK only for requests that Amazon S3 makes on their behalf\. Or you can use it to deny the user permission to a CMK when a request on their behalf comes from AWS Lambda\. 
-
-The `kms:ViaService` condition key is valid in IAM and key policy statements\. The services that you specify must be integrated with AWS KMS, support customer managed CMKs, and support the `kms:ViaService` condition key\. You can specify one or more services in each `kms:ViaService` condition key\. 
-
-**Important**  
-When you use the `kms:ViaService` condition key, verify that the principals have the following permissions:  
-Permission to use the CMK\. The principal needs to grant these permissions to the integrated service so the service can use the customer managed CMK on behalf of the principal\. For more information, see [How AWS Services use AWS KMS](service-integration.md)\.
-Permission to use the integrated service\. For details about giving users access to an AWS service that integrates with AWS KMS, consult the documentation for the integrated service\.
-
-The following table shows the KMS `ViaService` name for each service that supports customer managed CMKs and the `kms:ViaService` condition key\. The services in this table might not be available in all regions\.
-
-
-**Services that support the `kms:ViaService` condition key**  
-
-| Service Name | KMS ViaService Name | 
-| --- | --- | 
-| Amazon Connect | connect\.AWS\_region\.amazonaws\.com | 
-| AWS Database Migration Service \(AWS DMS\) | dms\.AWS\_region\.amazonaws\.com | 
-| Amazon EC2 Systems Manager | ssm\.AWS\_region\.amazonaws\.com | 
-| Amazon Elastic Block Store \(Amazon EBS\) | ec2\.AWS\_region\.amazonaws\.com \(EBS only\) | 
-| Amazon Elastic File System | elasticfilesystem\.AWS\_region\.amazonaws\.com | 
-| Amazon Elasticsearch Service | es\.AWS\_region\.amazonaws\.com | 
-| Amazon Kinesis | kinesis\.AWS\_region\.amazonaws\.com | 
-| Amazon Kinesis Video Streams | kinesisvideo\.AWS\_region\.amazonaws\.com | 
-| AWS Lambda | lambda\.AWS\_region\.amazonaws\.com | 
-| Amazon Lex | lex\.AWS\_region\.amazonaws\.com | 
-| Amazon Redshift | redshift\.AWS\_region\.amazonaws\.com | 
-| Amazon Relational Database Service \(Amazon RDS\) | rds\.AWS\_region\.amazonaws\.com | 
-| AWS Secrets Manager \(Secrets Manager\) | secretsmanager\.AWS\_region\.amazonaws\.com | 
-| Amazon Simple Email Service \(Amazon SES\) | ses\.AWS\_region\.amazonaws\.com | 
-| Amazon Simple Storage Service \(Amazon S3\) | s3\.AWS\_region\.amazonaws\.com | 
-| AWS Snowball | importexport\.AWS\_region\.amazonaws\.com | 
-| Amazon SQS | sqs\.AWS\_region\.amazonaws\.com | 
-| Amazon WorkMail | workmail\.AWS\_region\.amazonaws\.com | 
-| Amazon WorkSpaces | workspaces\.AWS\_region\.amazonaws\.com | 
-
-The following example shows a policy statement from a key policy for an AWS managed CMK\. The policy statement uses the `kms:ViaService` condition key to allow the CMK to be used for the specified actions only when the request comes from Amazon EBS or Amazon RDS in the US West \(Oregon\) region\. 
+For example, the following statement from a key policy uses the `kms:ViaService` condition key to allow a [customer managed CMK](concepts.md#customer-cmk) to be used for the specified actions only when the request comes from Amazon EC2 or Amazon RDS in the US West \(Oregon\) region on behalf of `ExampleUser`\.
 
 ```
 {
@@ -757,6 +721,73 @@ The following example shows a policy statement from a key policy for an AWS mana
   }
 }
 ```
+
+You can also use a `kms:ViaService` condition key to deny permission to use a CMK when the request comes from particular services\. For example, the following policy statement from a key policy uses a `kms:ViaService` condition key to prevent a customer managed CMK from being used for `Encrypt` operations when the request comes from AWS Lambda on behalf of `ExampleUser`\.
+
+```
+{
+  "Effect": "Deny",
+  "Principal": {
+    "AWS": "arn:aws:iam::111122223333:user/ExampleUser"
+  },
+  "Action": [
+    "kms:Encrypt"    
+  ],
+  "Resource": "*",
+  "Condition": {
+    "StringEquals": {
+      "kms:ViaService": [
+        "lambda.us-west-2.amazonaws.com"        
+      ]
+    }
+  }
+}
+```
+
+**Important**  
+When you use the `kms:ViaService` condition key, the service makes the request on behalf of a principal in the AWS account\. These principals must have the following permissions:  
+Permission to use the CMK\. The principal needs to grant these permissions to the integrated service so the service can use the customer managed CMK on behalf of the principal\. For more information, see [How AWS Services use AWS KMS](service-integration.md)\.
+Permission to use the integrated service\. For details about giving users access to an AWS service that integrates with AWS KMS, consult the documentation for the integrated service\.
+
+All [AWS managed CMKs](concepts.md#aws-managed-cmk) use a `kms:ViaService` condition key in their key policy document\. This condition allows the CMK to be used only for requests that come from the service that created the CMK\. To see the key policy for an AWS managed CMK, use the [GetKeyPolicy](https://docs.aws.amazon.com/kms/latest/APIReference/API_GetKeyPolicy.html) operation\. 
+
+The `kms:ViaService` condition key is valid in IAM and key policy statements\. The services that you specify must be [integrated with AWS KMS](https://aws.amazon.com/kms/features/#AWS_Service_Integration) and support the `kms:ViaService` condition key\.
+
+The following table lists AWS services that are integrated with AWS KMS, support customer managed CMKs, and support the use of the `kms:ViaService` condition key in customer managed CMKs\. The services in this table might not be available in all regions\.
+
+
+**Services that support the `kms:ViaService` condition key in customer managed CMKs**  
+
+| Service Name | KMS ViaService Name | 
+| --- | --- | 
+| AWS Backup | backup\.AWS\_region\.amazonaws\.com | 
+| Amazon Connect | connect\.AWS\_region\.amazonaws\.com | 
+| AWS Database Migration Service \(AWS DMS\) | dms\.AWS\_region\.amazonaws\.com | 
+| AWS Directory Service | directoryservice\.AWS\_region\.amazonaws\.com | 
+| Amazon EC2 Systems Manager | ssm\.AWS\_region\.amazonaws\.com | 
+| Amazon Elastic Block Store \(Amazon EBS\) | ec2\.AWS\_region\.amazonaws\.com \(EBS only\) | 
+| Amazon Elastic File System | elasticfilesystem\.AWS\_region\.amazonaws\.com | 
+| Amazon Elasticsearch Service | es\.AWS\_region\.amazonaws\.com | 
+| Amazon FSx | fsx\.AWS\_region\.amazonaws\.com | 
+| AWS Glue | glue\.AWS\_region\.amazonaws\.com | 
+| Amazon Kinesis | kinesis\.AWS\_region\.amazonaws\.com | 
+| Amazon Kinesis Video Streams | kinesisvideo\.AWS\_region\.amazonaws\.com | 
+| AWS Lambda | lambda\.AWS\_region\.amazonaws\.com | 
+| Amazon Lex | lex\.AWS\_region\.amazonaws\.com | 
+| Amazon Managed Streaming for Kafka | kafka\.AWS\_region\.amazonaws\.com | 
+| Amazon Neptune | rds\.AWS\_region\.amazonaws\.com | 
+| Amazon Redshift | redshift\.AWS\_region\.amazonaws\.com | 
+| Amazon Relational Database Service \(Amazon RDS\) | rds\.AWS\_region\.amazonaws\.com | 
+| Amazon RDS Performance Insights | rds\.AWS\_region\.amazonaws\.com | 
+| AWS Secrets Manager \(Secrets Manager\) | secretsmanager\.AWS\_region\.amazonaws\.com | 
+| Amazon Simple Email Service \(Amazon SES\) | ses\.AWS\_region\.amazonaws\.com | 
+| Amazon Simple Notification Service \(Amazon SNS\) | sns\.AWS\_region\.amazonaws\.com | 
+| Amazon Simple Storage Service \(Amazon S3\) | s3\.AWS\_region\.amazonaws\.com | 
+| AWS Snowball | importexport\.AWS\_region\.amazonaws\.com | 
+| Amazon SQS | sqs\.AWS\_region\.amazonaws\.com | 
+| Amazon WorkMail | workmail\.AWS\_region\.amazonaws\.com | 
+| Amazon WorkSpaces | workspaces\.AWS\_region\.amazonaws\.com | 
+| AWS X\-Ray | xray\.AWS\_region\.amazonaws\.com | 
 
 ### kms:WrappingAlgorithm<a name="conditions-kms-wrapping-algorithm"></a>
 

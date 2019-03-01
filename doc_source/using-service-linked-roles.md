@@ -14,6 +14,6 @@ AWS KMS uses a service\-linked role named **AWSServiceRoleForKeyManagementServic
 
 The **AWSServiceRoleForKeyManagementServiceCustomKeyStores** service\-linked role trusts `cks.kms.amazonaws.com` to assume the role\. As a result, only AWS KMS can assume this service\-linked role\. 
 
-The permissions in the role are limited to the actions that AWS KMS performs to connect a custom key store to a AWS CloudHSM cluster\. It does not give AWS KMS any additional permissions\. For example, AWS KMS does not have permission to create, manage, or delete your AWS CloudHSM clusters, HSMs, or backups\.
+The permissions in the role are limited to the actions that AWS KMS performs to connect a custom key store to an AWS CloudHSM cluster\. It does not give AWS KMS any additional permissions\. For example, AWS KMS does not have permission to create, manage, or delete your AWS CloudHSM clusters, HSMs, or backups\.
 
 For more information about the **AWSServiceRoleForKeyManagementServiceCustomKeyStores** role, including a list of permissions and instructions for how to view the role, edit the role description, delete the role, and have AWS KMS recreate it for you, see [Authorizing AWS KMS to Manage AWS CloudHSM and Amazon EC2 Resources](authorize-key-store.md#authorize-kms)\.

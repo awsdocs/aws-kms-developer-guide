@@ -20,7 +20,7 @@ You can also use AWS CloudTrail logs to audit your use of KMS keys through the V
 Use caution when creating IAM and key policies based on your VPC endpoint\. If a policy statement requires that requests come from a particular VPC or VPC endpoint, requests from integrated AWS services that use the CMK on your behalf might fail\. For help, see [Using VPC Endpoint Conditions in Policies with AWS KMS Permissions](policy-conditions.md#conditions-aws-vpce)\.
 
 **Supported AWS Regions**  
-AWS KMS supports VPC endpoints in all AWS regions where both [Amazon VPC](https://docs.aws.amazon.com/general/latest/gr/rande.html#vpc_region) and [AWS KMS](https://docs.aws.amazon.com/general/latest/gr/rande.html#kms_region) are available, except for AWS GovCloud \(US\)\.
+AWS KMS supports VPC endpoints in all AWS regions where both [Amazon VPC](https://docs.aws.amazon.com/general/latest/gr/rande.html#vpc_region) and [AWS KMS](https://docs.aws.amazon.com/general/latest/gr/rande.html#kms_region) are available, except for Asia Pacific \(Osaka\-Local\), AWS GovCloud \(US\-East\), and AWS GovCloud \(US\-West\)\.
 
 **Topics**
 + [Create an AWS KMS VPC Endpoint](#create-vpc-endpoint)

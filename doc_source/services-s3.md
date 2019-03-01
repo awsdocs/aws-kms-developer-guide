@@ -1,6 +1,6 @@
 # How Amazon Simple Storage Service \(Amazon S3\) Uses AWS KMS<a name="services-s3"></a>
 
-This topic discusses how to protect data at rest within Amazon S3 data centers by using AWS KMS\. There are two ways to use AWS KMS with Amazon S3\. You can use server\-side encryption to protect your data with a master key or you can use a AWS KMS customer master key \(CMK\) with the Amazon S3 encryption client to protect your data on the client side\. 
+This topic discusses how to protect data at rest within Amazon S3 data centers by using AWS KMS\. There are two ways to use AWS KMS with Amazon S3\. You can use server\-side encryption to protect your data with a master key or you can use an AWS KMS customer master key \(CMK\) with the Amazon S3 encryption client to protect your data on the client side\. 
 
 **Topics**
 + [Server\-Side Encryption: Using SSE\-KMS](#sse)
