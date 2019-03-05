@@ -22,7 +22,7 @@ If the master key resides in AWS KMS, it encrypts the cluster key\. You can requ
 
 ## Encryption Context<a name="rs-encryptioncontext"></a>
 
-Each service that is integrated with AWS KMS specifies an encryption context when requesting data keys, encrypting, and decrypting\. The encryption context is additional authenticated information that AWS KMS uses to check for data integrity\. That is, when an encryption context is specified for an encryption operation, the service also specifies it for the decryption operation or decryption will not succeed\. Amazon Redshift uses the cluster ID and the creation time for the encryption context\. In the `requestParameters` field of a CloudTrail log file, the encryption context will look similar to this\. 
+Each service that is integrated with AWS KMS specifies an [encryption context](concepts.md#encrypt_context) when requesting data keys, encrypting, and decrypting\. The encryption context is [additional authenticated data](https://docs.aws.amazon.com/crypto/latest/userguide/cryptography-concepts.html#term-aad) \(AAD\) that AWS KMS uses to check for data integrity\. That is, when an encryption context is specified for an encryption operation, the service also specifies it for the decryption operation or decryption will not succeed\. Amazon Redshift uses the cluster ID and the creation time for the encryption context\. In the `requestParameters` field of a CloudTrail log file, the encryption context will look similar to this\. 
 
 ```
 "encryptionContext": {
@@ -32,5 +32,3 @@ Each service that is integrated with AWS KMS specifies an encryption context whe
 ```
 
  You can search on the cluster name in your CloudTrail logs to understand what operations were performed by using a customer master key \(CMK\)\. The operations include cluster encryption, cluster decryption, and generating data keys\. 
-
-For more information, see [Encryption Context](encryption-context.md)\.

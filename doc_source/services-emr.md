@@ -51,7 +51,7 @@ The decryption process works like this:
 
 1. The cluster requests an encrypted data object from an S3 bucket\.
 
-1. Amazon S3 extracts the encrypted data key from the S3 object, and then sends the encrypted data key to AWS KMS with a [Decrypt](https://docs.aws.amazon.com/kms/latest/APIReference/API_Decrypt.html) request\. The request includes encryption context; for more information, see [Encryption Context](#emr-encryption-context)\.
+1. Amazon S3 extracts the encrypted data key from the S3 object, and then sends the encrypted data key to AWS KMS with a [Decrypt](https://docs.aws.amazon.com/kms/latest/APIReference/API_Decrypt.html) request\. The request includes an [encryption context](concepts.md#encrypt_context)\.
 
 1. AWS KMS decrypts the encrypted data key using the same CMK that was used to encrypt it, and then sends the decrypted \(plaintext\) data key to Amazon S3\.
 
@@ -79,7 +79,7 @@ The decryption process works like this:
 
 1. Amazon S3 sends the encrypted object to the cluster\.
 
-1. The cluster extracts the encrypted data key from the encrypted object, and then sends the encrypted data key to AWS KMS with a [Decrypt](https://docs.aws.amazon.com/kms/latest/APIReference/API_Decrypt.html) request\. The request includes encryption context; for more information, see [Encryption Context](#emr-encryption-context)\.
+1. The cluster extracts the encrypted data key from the encrypted object, and then sends the encrypted data key to AWS KMS with a [Decrypt](https://docs.aws.amazon.com/kms/latest/APIReference/API_Decrypt.html) request\. The request includes [encryption context](concepts.md#encrypt_context)\.
 
 1. AWS KMS decrypts the encrypted data key using the same CMK that was used to encrypt it, and then sends the decrypted \(plaintext\) data key to the cluster\.
 
@@ -107,7 +107,7 @@ When you enable local disk encryption using a CMK, the encryption process works 
 
 ## Encryption Context<a name="emr-encryption-context"></a>
 
-Each AWS service that is integrated with AWS KMS can specify *encryption context* when it uses AWS KMS to generate data keys or to encrypt or decrypt data\. Encryption context is additional authenticated information that AWS KMS uses to check for data integrity\. When a service specifies encryption context for an encryption operation, it must specify the same encryption context for the corresponding decryption operation or decryption will fail\. Encryption context is also written to AWS CloudTrail log files, which can help you understand why a given CMK was used\. For more information about encryption context, see [Encryption Context](encryption-context.md)\.
+Each AWS service that is integrated with AWS KMS can specify an [encryption context](concepts.md#encrypt_context) when it uses AWS KMS to generate data keys or to encrypt or decrypt data\. Encryption context is additional authenticated information that AWS KMS uses to check for data integrity\. When a service specifies encryption context for an encryption operation, it must specify the same encryption context for the corresponding decryption operation or decryption will fail\. Encryption context is also written to AWS CloudTrail log files, which can help you understand why a given CMK was used\. 
 
 The following section explain the encryption context that is used in each Amazon EMR encryption scenario that uses a CMK\.
 

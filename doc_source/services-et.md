@@ -13,16 +13,16 @@ You can use Amazon Elastic Transcoder to convert media files stored in an Amazon
 
 Before you can use Elastic Transcoder, you must [create an Amazon S3 bucket](https://docs.aws.amazon.com/AmazonS3/latest/user-guide/CreatingaBucket.html) and upload your media file into it\. You can encrypt the file before uploading by using AES client\-side encryption or after uploading by using Amazon S3 server\-side encryption\.
 
-If you choose client\-side encryption using AES, you are responsible for encrypting the file before uploading it to Amazon S3, and you must provide Elastic Transcoder access to the encryption key\. You do this by using an AWS KMS customer master key \(CMK\) to protect the AES encryption key you used to encrypt the media file\.
+If you choose client\-side encryption using AES, you are responsible for encrypting the file before uploading it to Amazon S3, and you must provide Elastic Transcoder access to the encryption key\. You do this by using an AWS KMS [customer master key](concepts.md#master_keys) \(CMK\) to protect the AES encryption key you used to encrypt the media file\.
 
 If you choose server\-side encryption, you are allowing Amazon S3 to perform all encryption and decryption of files on your behalf\. You can configure Amazon S3 to use one of three different master keys to protect the unique data key used to encrypt your file:
 + The Amazon S3 master key, a key that is owned and managed by AWS
-+ The AWS managed CMK for Amazon S3, a master key that is owned by your account but managed by AWS
-+ Any customer managed CMK that you create by using AWS KMS
++ The [AWS managed CMK](concepts.md#aws-managed-cmk) for Amazon S3, a master key that is owned by your account, but managed by AWS
++ Any [customer managed CMK](concepts.md#customer-cmk) that you create by using AWS KMS
 
 You can request encryption and the master key you want by using the Amazon S3 console or the appropriate Amazon S3 APIs\. For more information about how Amazon S3 performs encryption, see [Protecting Data Using Encryption](https://docs.aws.amazon.com/AmazonS3/latest/dev/UsingEncryption.html) in the *Amazon Simple Storage Service Developer Guide*\.
 
-When you use an AWS KMS CMK as the master key \(the AWS managed CMK for Amazon S3 in your account or a customer managed CMK\) to protect the input file, Amazon S3 and AWS KMS interact in the following manner:
+When you protect your input file by using the AWS managed CMK for Amazon S3 in your account or a customer managed CMK, Amazon S3 and AWS KMS interact in the following manner:
 
 1. Amazon S3 requests a plaintext data key and a copy of the data key encrypted under the specified CMK\.
 
@@ -72,9 +72,9 @@ Elastic Transcoder encrypts the output file depending on how you specify the enc
 | AES\- | Default | Elastic Transcoder uses the AWS managed CMK for Amazon S3 in your account to decrypt the specified AES key you provide and uses that key to encrypt the output file\. | 
 | AES\- | Custom \(with ARN\) | Elastic Transcoder uses the customer managed CMK specified by the ARN to decrypt the specified AES key you provide and uses that key to encrypt the output file\. | 
 
-When you specify that an AWS KMS CMK \(the AWS managed CMK for Amazon S3 in your account or a customer managed CMK\) be used to encrypt the output file, Amazon S3 and AWS KMS interact in the following manner:
+When you specify that the AWS managed CMK for Amazon S3 in your account or a customer managed CMK is used to encrypt the output file, Amazon S3 and AWS KMS interact in the following manner:
 
-1. Amazon S3 requests a plaintext data key and a copy of the data key encrypted by using the specified CMK\.
+1. Amazon S3 requests a plaintext data key and a copy of the data key encrypted under the specified CMK\.
 
 1. AWS KMS creates a data key, encrypts it under the CMK, and sends both the plaintext data key and the encrypted data key to Amazon S3\.
 
@@ -95,13 +95,13 @@ When you specify that your provided AES key be used to encrypt the output file, 
 1. You can download the encrypted output file and decrypt it locally by using the original AES key that you defined\.
 
 **Important**  
-Your private encryption keys are never stored by AWS\. Therefore, it is important that you safely and securely manage your keys\. If you lose them, you won't be able to decrypt your data\.
+AWS never stores your private encryption keys\. Therefore, it is important that you manage your keys safely and securely\. If you lose them, you won't be able to decrypt your data\.
 
 ## HLS Content Protection<a name="et-hls"></a>
 
-HTTP Live Streaming \(HLS\) is an adaptive streaming protocol\. Elastic Transcoder supports HLS by breaking your input file into smaller individual files called media segments\. A set of corresponding individual media segments contain the same material encoded at different bit rates, thereby enabling the player to select the stream that best fits the available bandwidth\. Elastic Transcoder also creates playlists that contain metadata for the various segments that are available to be streamed\.
+HTTP Live Streaming \(HLS\) is an adaptive streaming protocol\. Elastic Transcoder supports HLS by breaking your input file into smaller individual files called *media segments*\. A set of corresponding individual media segments contain the same material encoded at different bit rates, thereby enabling the player to select the stream that best fits the available bandwidth\. Elastic Transcoder also creates playlists that contain metadata for the various segments that are available to be streamed\.
 
-You can use AES\-128 encryption to protect the transcoded media segments\. When you enable HLS content protection, each media segment is encrypted using an AES\-128 encryption key\. When the content is viewed, the player downloads the key and decrypts the media segments during the playback process\.
+When you enable *HLS content protection*, each media segment is encrypted using a 128\-bit AES encryption key\. When the content is viewed, during the playback process, the player downloads the key and decrypts the media segments\.
 
 Two types of keys are used: an AWS KMS CMK and a data key\. You must create a CMK to use to encrypt and decrypt the data key\. Elastic Transcoder uses the data key to encrypt and decrypt media segments\. The data key must be AES\-128\. All variations and segments of the same content are encrypted using the same data key\. You can provide a data key or have Elastic Transcoder create it for you\.
 
@@ -117,7 +117,7 @@ For more information, see [HLS Content Protection](https://docs.aws.amazon.com/e
 
 ## Elastic Transcoder Encryption Context<a name="et-encryption-context"></a>
 
-An [encryption context](encryption-context.md) is a set of key–value pairs that contain arbitrary nonsecret data\. When you include an encryption context in a request to encrypt data, AWS KMS cryptographically binds the encryption context to the encrypted data\. To decrypt the data, you must pass in the same encryption context\. 
+An [encryption context](concepts.md#encrypt_context) is a set of key–value pairs that contain arbitrary nonsecret data\. When you include an encryption context in a request to encrypt data, AWS KMS cryptographically binds the encryption context to the encrypted data\. To decrypt the data, you must pass in the same encryption context\. 
 
 Elastic Transcoder uses the same encryption context in all AWS KMS API requests to generate data keys, encrypt, and decrypt\.
 
