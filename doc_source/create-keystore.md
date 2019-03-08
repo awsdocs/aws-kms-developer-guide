@@ -88,7 +88,7 @@ When the procedure is successful, the new custom key store appears in the list o
 
 ## Create a Custom Key Store \(API\)<a name="create-keystore-api"></a>
 
-The [CreateCustomKeyStore](https://docs.aws.amazon.com/kms/latest/APIReference/API_CreateCustomKeyStore) operation creates a new [custom key store](key-store-concepts.md#concept-custom-key-store) that is associated with an AWS CloudHSM cluster in the account and Region\. These examples use the AWS Command Line Interface \(AWS CLI\), but you can use any supported programming language\.
+The [CreateCustomKeyStore](https://docs.aws.amazon.com/kms/latest/APIReference/API_CreateCustomKeyStore.html) operation creates a new [custom key store](key-store-concepts.md#concept-custom-key-store) that is associated with an AWS CloudHSM cluster in the account and Region\. These examples use the AWS Command Line Interface \(AWS CLI\), but you can use any supported programming language\.
 
 The `CreateCustomKeyStore` operation requires the following parameter values\.
 + CustomKeyStoreName – A friendly name for the custom key store that is unique in the account\.
