@@ -5,7 +5,7 @@ New custom key stores are not connected\. Before you can create and use customer
 You are not required to connect your custom key store\. You can leave a custom key store in a disconnected state indefinitely and connect it only when you need to use it\. However, you might want to test the connection periodically to verify that the settings are correct and it can be connected\.
 
 **Note**  
-Custom key stores have a `DISCONNECTED` status only when the key store has never been connected or you explicitly disconnect it\. If your custom key store status is `CONNECTED` but you are having trouble using it, make sure that its associated AWS CloudHSM cluster is active and contains at least one active HSMs\. For help with connection failures, see [Troubleshooting a Custom Key Store](fix-keystore.md)
+Custom key stores have a `DISCONNECTED` status only when the key store has never been connected or you explicitly disconnect it\. If your custom key store status is `CONNECTED` but you are having trouble using it, make sure that its associated AWS CloudHSM cluster is active and contains at least one active HSMs\. For help with connection failures, see [Troubleshooting a Custom Key Store](fix-keystore.md)\.
 
 **Connecting a Custom Key Store**
 

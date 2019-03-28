@@ -14,6 +14,8 @@ The following table describes significant changes to this documentation since Ja
 
 | Change | Description | Date | 
 | --- |--- |--- |
+| [Limit change](https://docs.aws.amazon.com/kms/latest/developerguide/limits.html) | Changed the resource limits on customer master keys \(CMKs\), aliases, and grants per CMK\. | March 27, 2019 | 
+| [Limit change](https://docs.aws.amazon.com/kms/latest/developerguide/limits.html#rps-key-stores) | Changed the shared requests\-per\-second throttle limit on cryptographic operations that use customer master keys \(CMKs\) in a custom key store\. | March 7, 2019 | 
 | [New feature](https://docs.aws.amazon.com/kms/latest/developerguide/custom-key-store-overview.html) | Explains how to create and manage AWS KMS [custom key stores](https://docs.aws.amazon.com/kms/latest/developerguide/custom-key-store-overview.html)\. Each key store is backed by an AWS CloudHSM cluster that you own and control\. | November 26, 2018 | 
 | [New console](https://docs.aws.amazon.com/kms/latest/developerguide/create-keys.html#create-keys-console) | Explains how to use the new AWS KMS console, which is independent of the IAM console\. The original console, and instructions for using it, will remain available for a brief period to give you time to familiarize yourself with the new console\. | November 7, 2018 | 
 | [Limit change](https://docs.aws.amazon.com/kms/latest/developerguide/limits.html#requests-per-second) | Changed the shared [requests\-per\-second](https://docs.aws.amazon.com/kms/latest/developerguide/limits.html#requests-per-second) limit on customer master keys\. | August 21, 2018 | 

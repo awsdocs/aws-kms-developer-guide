@@ -2,7 +2,9 @@
 
 [Amazon DynamoDB](https://docs.aws.amazon.com/amazondynamodb/latest/developerguide/Introduction.html) is a fully managed, scalable NoSQL database service\. DynamoDB integrates with AWS Key Management Service \(AWS KMS\) to support the [encryption at rest](https://docs.aws.amazon.com/amazondynamodb/latest/developerguide/EncryptionAtRest.html) server\-side encryption feature\.
 
-With *encryption at rest*, DynamoDB transparently encrypts all customer data in a DynamoDB table, including its primary key and local and global [secondary indexes](https://docs.aws.amazon.com/amazondynamodb/latest/developerguide/HowItWorks.CoreComponents.html#HowItWorks.CoreComponents.SecondaryIndexes), whenever the table is persisted to disk\. \(If your table has a sort key, some of the sort keys that mark range boundaries are stored in plaintext in the table metadata\.\) When you access your table, DynamoDB decrypts the table data transparently\. You do not need to change your applications to use or manage encrypted tables\.
+With *encryption at rest*, DynamoDB transparently encrypts all customer data in a DynamoDB table, including its primary key and local and global [secondary indexes](https://docs.aws.amazon.com/amazondynamodb/latest/developerguide/HowItWorks.CoreComponents.html#HowItWorks.CoreComponents.SecondaryIndexes), whenever the table is persisted to disk\. \(If your table has a sort key, some of the sort keys that mark range boundaries are stored in plaintext in the table metadata\.\) When you access your table, DynamoDB decrypts the table data transparently\. You do not need to change your applications to use or manage encrypted tables\. 
+
+Encryption at rest also protects [DynamoDB streams](https://docs.aws.amazon.com/amazondynamodb/latest/developerguide/Streams.html), [global tables](https://docs.aws.amazon.com/amazondynamodb/latest/developerguide/GlobalTables.html), and [backups](https://docs.aws.amazon.com/amazondynamodb/latest/developerguide/BackupRestore.html) whenever these objects are saved to durable media\. Statements about tables in this topic apply to these objects, too\.
 
 All DynamoDB tables are encrypted\. There is no option to enable or disable encryption for new or existing tables\. By default, all tables are encrypted under an [AWS owned customer master key](concepts.md#aws-owned-cmk) \(CMK\) in the DynamoDB service account\. However, you can select an option to encrypt some or all of your tables under an [AWS managed CMK](concepts.md#aws-managed-cmk) for DynamoDB in your account\. Encryption at rest does not support [customer managed CMKs](concepts.md#customer-cmk)\.
 
@@ -23,7 +25,7 @@ You can use the DynamoDB Encryption Client along with encryption at rest\. To he
 
 ## Using CMKs and Data Keys<a name="dynamodb-encrypt"></a>
 
-The DynamoDB encryption at rest feature uses an AWS KMS customer master key \(CMK\) and a hierarchy of data keys to protect your table data\. 
+The DynamoDB encryption at rest feature uses an AWS KMS customer master key \(CMK\) and a hierarchy of data keys to protect your table data\. DynamoDB uses the same key hierarchy to protect DynamoDB streams, global tables, and backups when they are written to durable media\.
 
 **Customer Master Key \(CMK\)**  
 Encryption at rest protects your DynamoDB tables under an AWS KMS customer master key \(CMK\)\. By default, it uses an [AWS owned CMK](concepts.md#aws-owned-cmk), but DynamoDB supports an option to encrypt some or all of your tables under an [AWS managed CMK](concepts.md#aws-managed-cmk) for DynamoDB \(`aws/dynamodb`\) in your AWS account\. You can select the CMK for a table when you create or update the table, and you can make a different choice for each table\. The encryption at rest feature does not support the use of [customer managed CMKs](concepts.md#customer-cmk)\.  

@@ -456,15 +456,11 @@ The following example policy statement uses the `kms:GrantConstraintType` condit
 
 | AWS KMS Condition Keys | Condition Type | API Operations | Policy Type | 
 | --- | --- | --- | --- | 
-|  `kms:GrantIsForAWSResource`  |  Boolean  |  `CreateGrant`  |  IAM and key policies  | 
+|  `kms:GrantIsForAWSResource`  |  Boolean  |  `CreateGrant` `ListGrants` `RevokeGrant` |  IAM and key policies  | 
 
-You can use this condition key to control access to the [CreateGrant](https://docs.aws.amazon.com/kms/latest/APIReference/API_CreateGrant.html) operation based on whether the grant is created in the context of an [AWS service integrated with AWS KMS](service-integration.md)\. This condition key is set to `true` when one of the following integrated services is used to create the grant:
-+ Amazon Elastic Block Store \(Amazon EBS\) – For more information, see [How Amazon Elastic Block Store \(Amazon EBS\) Uses AWS KMS](services-ebs.md)\.
-+ Amazon Relational Database Service \(Amazon RDS\) – For more information, see [How Amazon Relational Database Service \(Amazon RDS\) Uses AWS KMS](services-rds.md)\.
-+ Amazon Redshift – For more information, see [How Amazon Redshift Uses AWS KMS](services-redshift.md)\.
-+ AWS Certificate Manager \(ACM\) – For more information, see [ACM Private Key Security](https://docs.aws.amazon.com/acm/latest/userguide/kms.html) in the *AWS Certificate Manager User Guide*\.
+Allows or denies access to the [CreateGrant](https://docs.aws.amazon.com/kms/latest/APIReference/API_CreateGrant.html), [ListGrants](https://docs.aws.amazon.com/kms/latest/APIReference/API_ListGrants.html), or [RevokeGrant](https://docs.aws.amazon.com/kms/latest/APIReference/API_RevokeGrant.html) operations when any of the [AWS services that is integrated with AWS KMS](https://aws.amazon.com/kms/features/#AWS_Service_Integration) performs the grant operation on the user's behalf\. This condition key does not affect the user's permissions to perform the grant operation directly\.
 
-For example, the following policy statement uses the `kms:GrantIsForAWSResource` condition key to allow a user to create grants only through one of the integrated services in the preceding list\. It does not allow the user to create grants directly\. The example shows a policy statement in a key policy\.
+For example, the following key policy statement uses the `kms:GrantIsForAWSResource` condition key\. It allows a user to create grants on this CMK only when the grant is created on the user's behalf by any one of the integrated services\. It does not allow the user to create grants directly\.
 
 ```
 {
@@ -497,7 +493,7 @@ For example, the following policy statement uses the `kms:GrantIsForAWSResource`
 
 You can use this condition key to control access to the [CreateGrant](https://docs.aws.amazon.com/kms/latest/APIReference/API_CreateGrant.html) operation based on the grant operations in the request\. For example, you can allow a user to create grants that delegate permission to encrypt but not decrypt\.
 
-The following example policy statement uses the `kms:GrantOperations` condition key to allow a user to create grants that delegate permission to encrypt and reencrypt when this CMK is the destination CMK\. The example shows a policy statement in a key policy\.
+The following example policy statement uses the `kms:GrantOperations` condition key to allow a user to create grants that delegate permission to encrypt and re\-encrypt when this CMK is the destination CMK\. The example shows a policy statement in a key policy\.
 
 ```
 {
