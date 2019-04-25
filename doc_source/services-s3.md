@@ -10,9 +10,9 @@ This topic discusses how to protect data at rest within Amazon S3 data centers b
 ## Server\-Side Encryption: Using SSE\-KMS<a name="sse"></a>
 
 You can protect data at rest in Amazon S3 by using three different modes of server\-side encryption: SSE\-S3, SSE\-C, or SSE\-KMS\. 
-+ SSE\-S3 requires that Amazon S3 manage the data and master encryption keys\. For more information about SSE\-S3, see [Protecting Data Using Server\-Side Encryption with AWS\-Managed Encryption Keys\. ](https://docs.aws.amazon.com/AmazonS3/latest/dev/UsingServerSideEncryption.html) 
++ SSE\-S3 requires that Amazon S3 manage the data and master encryption keys\. For more information about SSE\-S3, see [Protecting Data Using Server\-Side Encryption with Amazon S3\-Managed Encryption Keys \(SSE\-S3\)](https://docs.aws.amazon.com/AmazonS3/latest/dev/UsingServerSideEncryption.html)\.
 + SSE\-C requires that you manage the encryption key\. For more information about SSE\-C, see [Protecting Data Using Server\-Side Encryption with Customer\-Provided Encryption Keys \(SSE\-C\)\. ](https://docs.aws.amazon.com/AmazonS3/latest/dev/ServerSideEncryptionCustomerKeys.html) 
-+ SSE\-KMS requires that AWS manage the data key but you manage the master key in AWS KMS\. 
++ SSE\-KMS requires that AWS manage the data key but you manage the [customer master key](concepts.md#master_keys) in AWS KMS\. 
 
 The remainder of this topic discusses how to protect data by using server\-side encryption with AWS KMS\-managed keys \(SSE\-KMS\)\. 
 

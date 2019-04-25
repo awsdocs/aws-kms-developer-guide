@@ -36,7 +36,7 @@ To create an alias, use the [CreateAlias](https://docs.aws.amazon.com/kms/latest
 
 You cannot create an alias that begins with `aws/`\. The `aws/` prefix is reserved by Amazon Web Services for [AWS managed CMKs](concepts.md#master_keys)\.
 
-This example uses the `kmsClient` client object that you created in [Creating a Client](programming-client.md)\.
+This example uses the AWS KMS client object that you created in [Creating a Client](programming-client.md)\.
 
 ------
 #### [ Java ]
@@ -154,7 +154,7 @@ To list aliases in the account and region, use the [ListAliases](https://docs.aw
 
 By default, the ListAliases command returns all aliases in the account and region\. This includes aliases that you created and associated with your [customer managed CMKs](concepts.md#master_keys), and aliases that AWS created and associated with your [AWS managed CMKs](concepts.md#master_keys)\. The response might also include aliases that have no `TargetKeyId` field\. These are predefined aliases that AWS has created but has not yet associated with a CMK\.
 
-This example uses the `kmsClient` client object that you created in [Creating a Client](programming-client.md)\.
+This example uses the AWS KMS client object that you created in [Creating a Client](programming-client.md)\.
 
 ------
 #### [ Java ]
@@ -348,7 +348,7 @@ kmsClient.listAliases({ KeyId }, (err, data) => {
 
 To associate an existing alias with a different CMK, use the [UpdateAlias](https://docs.aws.amazon.com/kms/latest/APIReference/API_UpdateAlias.html) operation\. 
 
-This example uses the `kmsClient` client object that you created in [Creating a Client](programming-client.md)\.
+This example uses the AWS KMS client object that you created in [Creating a Client](programming-client.md)\.
 
 ------
 #### [ Java ]
@@ -468,7 +468,7 @@ kmsClient.updateAlias({ AliasName, TargetKeyId }, (err, data) => {
 
 To delete an alias, use the [DeleteAlias](https://docs.aws.amazon.com/kms/latest/APIReference/API_DeleteAlias.html) operation\. Deleting an alias has no effect on the underlying CMK\. 
 
-This example uses the `kmsClient` client object that you created in [Creating a Client](programming-client.md)\.
+This example uses the AWS KMS client object that you created in [Creating a Client](programming-client.md)\.
 
 ------
 #### [ Java ]

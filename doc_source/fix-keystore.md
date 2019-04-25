@@ -56,6 +56,9 @@ When the connection status of a custom key store is `FAILED`, you must [disconne
 + `INSUFFICIENT_CLOUDHSM_HSMS` indicates that the associated AWS CloudHSM cluster does not contain any HSMs\. To connect, the cluster must have at least one HSM\. To find the number of HSMs in the cluster, use the [DescribeClusters](https://docs.aws.amazon.com/cloudhsm/latest/APIReference/API_DescribeClusters.html) API operation\. To resolve this error, [add at least one HSM](https://docs.aws.amazon.com/cloudhsm/latest/userguide/create-hsm.html) to the cluster\. If you add multiple HSMs, it's best to create them in different Availability Zones\.
 
    
++ `INTERNAL_ERROR` indicates that AWS KMS could not complete the request due to an internal error\. Retry the request\. For `ConnectCustomKeyStore` requests, disconnect the custom key store before trying to connect again\.
+
+   
 + `INVALID_CREDENTIALS` indicates that AWS KMS cannot log into the associated AWS CloudHSM cluster because it doesn't have the correct `kmsuser` account password\. For help with this error, see [How to Fix Invalid `kmsuser` Credentials](#fix-keystore-password)\.
 
    

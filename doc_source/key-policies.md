@@ -86,7 +86,7 @@ Even though key administrators do not have permissions to use the CMK to encrypt
 
 You can add IAM users and roles to the list of key administrators when you create the CMK\. You can also edit the list with the console's default view for key policies, as shown in the following image\. The default view for key policies is available on the key details page for each CMK\.
 
-![\[Key administrators in the console's default key policy, default view\]](http://docs.aws.amazon.com/kms/latest/developerguide/images/console-key-policy-administrators.png)
+![\[Key administrators in the console's default key policy, default view\]](http://docs.aws.amazon.com/kms/latest/developerguide/images/console-key-policy-administrators-sm.png)
 
 When you use the console's default view to modify the list of key administrators, the console modifies the `Principal` element in a particular statement in the key policy\. This statement is called the *key administrators statement*\. The following example shows the key administrators statement\.
 
@@ -292,4 +292,4 @@ The following example shows a complete key policy\. This key policy combines the
 
 The following image shows an example of what this key policy looks like when viewed with the console's default view for key policies\.
 
-![\[Key policy in the console's default view for key policies\]](http://docs.aws.amazon.com/kms/latest/developerguide/images/console-key-policy-full.png)
+![\[Key policy in the console's default view for key policies\]](http://docs.aws.amazon.com/kms/latest/developerguide/images/console-key-policy-full-sm.png)

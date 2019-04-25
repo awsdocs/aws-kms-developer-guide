@@ -14,7 +14,7 @@ The examples in this topic use the AWS KMS API to create, view, enable, and disa
 
 To create a [customer master key](concepts.md#master_keys), use the [CreateKey](https://docs.aws.amazon.com/kms/latest/APIReference/API_CreateKey.html) operation\.
 
-This example uses the `kmsClient` client object that you created in [Creating a Client](programming-client.md)\.
+This example uses the AWS KMS client object that you created in [Creating a Client](programming-client.md)\.
 
 ------
 #### [ Java ]
@@ -113,7 +113,7 @@ kmsClient.createKey({ Description }, (err, data) => {
 
 To generate a data key, use the [GenerateDataKey](https://docs.aws.amazon.com/kms/latest/APIReference/API_GenerateDataKey.html) operation\. This operation returns plaintext and encrypted copies of the data key that it creates\. 
 
-This example uses the `kmsClient` client object that you created in [Creating a Client](programming-client.md)\.
+This example uses the AWS KMS client object that you created in [Creating a Client](programming-client.md)\.
 
 ------
 #### [ Java ]
@@ -252,7 +252,7 @@ To get detailed information about a customer master key \(CMK\), including the C
 
 DescribeKey does not get aliases\. To get aliases, use the [ListAliases](https://docs.aws.amazon.com/kms/latest/APIReference/API_ListAliases.html) operation\. 
 
-This example uses the `kmsClient` client object that you created in [Creating a Client](programming-client.md)\.
+This example uses the AWS KMS client object that you created in [Creating a Client](programming-client.md)\.
 
 ------
 #### [ Java ]
@@ -357,7 +357,7 @@ kmsClient.describeKey({ KeyId }, (err, data) => {
 
 To get the IDs and ARNs of the customer master keys, use the [ListKeys](https://docs.aws.amazon.com/kms/latest/APIReference/API_ListKeys.html) operation\. 
 
-This example uses the `kmsClient` client object that you created in [Creating a Client](programming-client.md)\.
+This example uses the AWS KMS client object that you created in [Creating a Client](programming-client.md)\.
 
 ------
 #### [ Java ]
@@ -451,7 +451,7 @@ kmsClient.listKeys({ Limit }, (err, data) => {
 
 To enable a disabled customer master key \(CMK\), use the [EnableKey](https://docs.aws.amazon.com/kms/latest/APIReference/API_EnableKey.html) operation\.
 
-This example uses the `kmsClient` client object that you created in [Creating a Client](programming-client.md)\.
+This example uses the AWS KMS client object that you created in [Creating a Client](programming-client.md)\.
 
 ------
 #### [ Java ]
@@ -555,7 +555,7 @@ kmsClient.enableKey({ KeyId }, (err, data) => {
 
 To disable a CMK, use the [DisableKey](https://docs.aws.amazon.com/kms/latest/APIReference/API_DisableKey.html) operation\. Disabling a CMK prevents it from being used\.
 
-This example uses the `kmsClient` client object that you created in [Creating a Client](programming-client.md)\.
+This example uses the AWS KMS client object that you created in [Creating a Client](programming-client.md)\.
 
 ------
 #### [ Java ]

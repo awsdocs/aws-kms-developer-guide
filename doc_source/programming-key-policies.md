@@ -11,7 +11,7 @@ The examples in this topic use the AWS KMS API to view and change the key polici
 
 To get the names of key policies for a customer master key, use the [ListKeyPolicies](https://docs.aws.amazon.com/kms/latest/APIReference/API_ListKeyPolicies.html) operation\. The only key policy name it returns is **default**\.
 
-This example uses the `kmsClient` client object that you created in [Creating a Client](programming-client.md)\.
+This example uses the AWS KMS client object that you created in [Creating a Client](programming-client.md)\.
 
 ------
 #### [ Java ]
@@ -118,7 +118,7 @@ To get the key policy for a customer master key, use the [GetKeyPolicy](https://
 
 GetKeyPolicy requires a policy name\. The only valid policy name is **default**\.
 
-This example uses the `kmsClient` client object that you created in [Creating a Client](programming-client.md)\.
+This example uses the AWS KMS client object that you created in [Creating a Client](programming-client.md)\.
 
 ------
 #### [ Java ]
@@ -234,7 +234,7 @@ To establish or change a key policy for a CMK, use the [PutKeyPolicy](https://do
 
 PutKeyPolicy requires a policy name\. The only valid policy name is **default**\.
 
-This example uses the `kmsClient` client object that you created in [Creating a Client](programming-client.md)\.
+This example uses the AWS KMS client object that you created in [Creating a Client](programming-client.md)\.
 
 ------
 #### [ Java ]

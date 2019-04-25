@@ -10,7 +10,7 @@ The client object that you create is used in the example code in the topics that
 To create an AWS KMS client in Java, use the client builder\.
 
 ```
-AWSKMS kmsClient = AWSKMSClientBuilder.defaultClient();
+AWSKMS kmsClient = AWSKMSClientBuilder.standard().build();
 ```
 
 For more information about using the Java client builder, see the following resources\.

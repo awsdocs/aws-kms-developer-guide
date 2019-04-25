@@ -12,7 +12,7 @@ The examples in this topic use the AWS KMS API to create, view, retire, and revo
 
 To create a grant for an AWS KMS customer master key, use the [CreateGrant](https://docs.aws.amazon.com/kms/latest/APIReference/API_CreateGrant.html) operation\.
 
-This example uses the `kmsClient` client object that you created in [Creating a Client](programming-client.md)\.
+This example uses the AWS KMS client object that you created in [Creating a Client](programming-client.md)\.
 
 ------
 #### [ Java ]
@@ -23,16 +23,16 @@ For details, see the [createGrant method](https://docs.aws.amazon.com/AWSJavaSDK
 // Create a grant
 //
 // Replace the following fictitious CMK ARN with a valid CMK ID or ARN
-String keyId = "arn:aws:kms:us-west-2:111122223333:key/1234abcd-12ab-34cd-56ef-1234567890ab";
+String keyId = "&example-key-arn-1;";
 String granteePrincipal = "arn:aws:iam::111122223333:user/Alice";
-String operation = GrantOperation.Encrypt;
+String operation = GrantOperation.GenerateDataKey.toString();
 
-CreateGrantRequest req = new CreateGrantRequest();
-req.setKeyId(keyId);
-req.setGranteePrincipal(granteePrincipal);
-req.setOperation(operation);
+CreateGrantRequest request = new CreateGrantRequest()
+    .withKeyId(keyId)
+    .withGranteePrincipal(granteePrincipal)
+    .withOperations(operation);
 
-CreateGrantResult result = kmsClient.createGrant(req);
+CreateGrantResult result = kmsClient.createGrant(request);
 ```
 
 ------
@@ -46,7 +46,7 @@ For details, see the [CreateGrant method](https://docs.aws.amazon.com/sdkfornet/
 // Replace the following fictitious CMK ARN with a valid CMK ID or ARN
 String keyId = "arn:aws:kms:us-west-2:111122223333:key/1234abcd-12ab-34cd-56ef-1234567890ab";
 String granteePrincipal = "arn:aws:iam::111122223333:user/Alice";
-String operation = GrantOperation.Encrypt;
+String operation = GrantOperation.GenerateDataKey;
 
 CreateGrantRequest createGrantRequest = new CreateGrantRequest()
 {
@@ -69,7 +69,7 @@ For details, see the [create\_grant method](http://boto3.amazonaws.com/v1/docume
 # Replace the following fictitious CMK ARN with a valid CMK ID or ARN
 key_id = 'arn:aws:kms:us-west-2:111122223333:key/1234abcd-12ab-34cd-56ef-1234567890ab'
 grantee_principal = 'arn:aws:iam::111122223333:user/Alice'
-operation = 'Encrypt'
+operation = ['GenerateDataKey']
 
 response = kms_client.create_grant(
     KeyId=key_id,
@@ -89,7 +89,7 @@ For details, see the [create\_grant](https://docs.aws.amazon.com/sdk-for-ruby/v3
 # Replace the following fictitious CMK ARN with a valid CMK ID or ARN
 keyId = 'arn:aws:kms:us-west-2:111122223333:key/1234abcd-12ab-34cd-56ef-1234567890ab'
 granteePrincipal = 'arn:aws:iam::111122223333:user/Alice'
-operation = ['Encrypt']
+operation = ['GenerateDataKey']
 
 response = kmsClient.create_grant({
   key_id: keyId,
@@ -109,7 +109,7 @@ For details, see the [CreateGrant method](https://docs.aws.amazon.com/aws-sdk-ph
 // Replace the following fictitious CMK ARN with a valid CMK ID or ARN
 $keyId = 'arn:aws:kms:us-west-2:111122223333:key/1234abcd-12ab-34cd-56ef-1234567890ab';
 $granteePrincipal = "arn:aws:iam::111122223333:user/Alice";
-$operation = ['Encrypt', 'Decrypt']
+$operation = ['GenerateDataKey']
 
 $result = $KmsClient->createGrant([
     'GranteePrincipal' => $granteePrincipal,
@@ -129,7 +129,7 @@ For details, see the [createGrant property](https://docs.aws.amazon.com/AWSJavaS
 // Replace the following fictitious CMK ARN with a valid CMK ID or ARN
 const KeyId = 'arn:aws:kms:us-west-2:111122223333:key/1234abcd-12ab-34cd-56ef-1234567890ab';
 const GranteePrincipal = 'arn:aws:iam::111122223333:user/Alice';
-const Operations: ["Encrypt", "Decrypt"];
+const Operations: ["GenerateDataKey"];
 kmsClient.createGrant({ KeyId, GranteePrincipal, Operations }, (err, data) => {
   ...
 });
@@ -141,7 +141,7 @@ kmsClient.createGrant({ KeyId, GranteePrincipal, Operations }, (err, data) => {
 
 To get detailed information about the grants on an AWS KMS customer master key, use the [ListGrants](https://docs.aws.amazon.com/kms/latest/APIReference/API_ListGrants.html) operation\. 
 
-This example uses the `kmsClient` client object that you created in [Creating a Client](programming-client.md)\.
+This example uses the AWS KMS client object that you created in [Creating a Client](programming-client.md)\.
 
 ------
 #### [ Java ]
@@ -253,7 +253,7 @@ kmsClient.listGrants({ KeyId, Limit }, (err, data) => {
 
 To retire a grant for an AWS KMS customer master key, use the [RetireGrant](https://docs.aws.amazon.com/kms/latest/APIReference/API_RetireGrant.html) operation\. You should retire a grant to clean up after you are done using it\.
 
-This example uses the `kmsClient` client object that you created in [Creating a Client](programming-client.md)\.
+This example uses the AWS KMS client object that you created in [Creating a Client](programming-client.md)\.
 
 ------
 #### [ Java ]
@@ -351,7 +351,7 @@ kmsClient.retireGrant({ GrantToken }, (err, data) => {
 
 To revoke a grant to an AWS KMS customer master key, use the [RevokeGrant](https://docs.aws.amazon.com/kms/latest/APIReference/API_RevokeGrant.html) operation\. You can revoke a grant to explicitly deny operations that depend on it\. 
 
-This example uses the `kmsClient` client object that you created in [Creating a Client](programming-client.md)\.
+This example uses the AWS KMS client object that you created in [Creating a Client](programming-client.md)\.
 
 ------
 #### [ Java ]

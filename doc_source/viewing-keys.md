@@ -12,8 +12,8 @@ You can use [AWS Management Console](https://console.aws.amazon.com/kms) or the 
 You can see a list of your customer managed keys in the AWS Management Console\.
 
 **Note**  
-AWS KMS recently introduced a new console that makes it easier for you to organize and manage your KMS resources\. We encourage you to try it at [https://console\.aws\.amazon\.com/kms](https://console.aws.amazon.com/kms)\.  
-The original console will remain available for a brief period to give you time to familiarize yourself with the new one\. To use the original console, choose **Encryption Keys** in the IAM console or go to [https://console\.aws\.amazon\.com/iam/home\#encryptionKeys](https://console.aws.amazon.com/iam/home#encryptionKeys)\. Please share your feedback by choosing **Feedback** in either console or in the lower\-right corner of this page\.
+AWS KMS recently introduced a new console that makes it easier for you to organize and manage your KMS resources\. We encourage you to try it at [https://console\.aws\.amazon\.com/kms](https://console.aws.amazon.com/kms)\. Please share your feedback by choosing **Feedback** in either console or in the lower\-right corner of this page\.  
+The original console will remain available for a brief period to give you time to familiarize yourself with the new one\. To use the original console, go to [https://console\.aws\.amazon\.com/iam/home\#encryptionKeys](https://console.aws.amazon.com/iam/home#encryptionKeys)\.
 
 ### To view your CMKs \(new console\)<a name="viewing-keys-kms-console"></a>
 
@@ -28,7 +28,7 @@ The original console will remain available for a brief period to give you time t
 To view [AWS managed CMKs](concepts.md#aws-managed-cmk) that are missing an alias, use the **Customer managed keys** page\.
 
 **To find your CMKs**
-+ On the **AWS managed keys** or **Customer managed keys** page, in the filter box, enter all or part of the alias name or key ID of a CMK\. The filter searches all [AWS managed CMKs](concepts.md#aws-managed-cmk) or all [customer managed CMKs](concepts.md#customer-cmk), even if you have too many to display on the current page\. It displays only the CMKs with alias names or key IDs that include the filtered phrase\.
++ On the **AWS managed keys** or **Customer managed keys** page, in the filter box, enter all or part of the alias name or key ID of a CMK\. The filter searches all [AWS managed CMKs](concepts.md#aws-managed-cmk) or all [customer managed CMKs](concepts.md#customer-cmk), even if you have too many to display on the current page\. It displays only the CMKs with alias names or key IDs that include the filtered phrase\. The key ID filter is case\-sensitive; the alias name filter is not case\-sensitive\.
 
   For example, when you type `exam` in the filter on the **Customer managed keys** page, only customer managed CMKs with `exam` in their alias or key ID fields are displayed, as shown in the following image\.  
 ![\[\]](http://docs.aws.amazon.com/kms/latest/developerguide/images/console-filter.png)
@@ -234,8 +234,8 @@ $ aws kms list-aliases --key-id arn:aws:kms:us-west-2:111122223333:key/1234abcd-
 To identify your AWS KMS CMKs in programs, scripts, and command line interface \(CLI\) commands, you use the ID of the CMK or its Amazon Resource Name \(ARN\)\. Cryptographic operations also let you use the CMK alias\.
 
 **Note**  
-AWS KMS recently introduced a new console that makes it easier for you to organize and manage your KMS resources\. We encourage you to try it at [https://console\.aws\.amazon\.com/kms](https://console.aws.amazon.com/kms)\.  
-The original console will remain available for a brief period to give you time to familiarize yourself with the new one\. To use the original console, choose **Encryption Keys** in the IAM console or go to [https://console\.aws\.amazon\.com/iam/home\#encryptionKeys](https://console.aws.amazon.com/iam/home#encryptionKeys)\. Please share your feedback by choosing **Feedback** in either console or in the lower\-right corner of this page\.
+AWS KMS recently introduced a new console that makes it easier for you to organize and manage your KMS resources\. We encourage you to try it at [https://console\.aws\.amazon\.com/kms](https://console.aws.amazon.com/kms)\. Please share your feedback by choosing **Feedback** in either console or in the lower\-right corner of this page\.  
+The original console will remain available for a brief period to give you time to familiarize yourself with the new one\. To use the original console, go to [https://console\.aws\.amazon\.com/iam/home\#encryptionKeys](https://console.aws.amazon.com/iam/home#encryptionKeys)\.
 
 ### To find the CMK ID and ARN \(new console\)<a name="find-cmk-arn"></a>
 
@@ -255,7 +255,7 @@ The original console will remain available for a brief period to give you time t
 
 **To navigate to the CMK display**
 
-1. Go to the original AWS KMS console at https://console\.aws\.amazon\.com/iam/home\#encryptionKeys\.
+1. Go to the original AWS KMS console at [https://console\.aws\.amazon\.com/iam/home\#encryptionKeys](https://console.aws.amazon.com/iam/home#encryptionKeys)\.
 
 1. For **Region**, choose the appropriate AWS Region\. Do not use the region selector in the navigation bar \(top right corner\)\.
 

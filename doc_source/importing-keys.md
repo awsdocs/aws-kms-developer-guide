@@ -72,8 +72,8 @@ You can identify CMKs that require imported key material in the AWS KMS console 
 ### To identify the value of the `Origin` property of CMKs \(Console\)<a name="identify-imported-keys-console"></a>
 
 **Note**  
-AWS KMS recently introduced a new console that makes it easier for you to organize and manage your KMS resources\. We encourage you to try it at [https://console\.aws\.amazon\.com/kms](https://console.aws.amazon.com/kms)\.  
-The original console will remain available for a brief period to give you time to familiarize yourself with the new one\. To use the original console, choose **Encryption Keys** in the IAM console or go to [https://console\.aws\.amazon\.com/iam/home\#encryptionKeys](https://console.aws.amazon.com/iam/home#encryptionKeys)\. Please share your feedback by choosing **Feedback** in either console or in the lower\-right corner of this page\.
+AWS KMS recently introduced a new console that makes it easier for you to organize and manage your KMS resources\. We encourage you to try it at [https://console\.aws\.amazon\.com/kms](https://console.aws.amazon.com/kms)\. Please share your feedback by choosing **Feedback** in either console or in the lower\-right corner of this page\.  
+The original console will remain available for a brief period to give you time to familiarize yourself with the new one\. To use the original console, go to [https://console\.aws\.amazon\.com/iam/home\#encryptionKeys](https://console.aws.amazon.com/iam/home#encryptionKeys)\.
 
 #### To identify the value of the `Origin` property of CMKs \(new console\)<a name="identify-imported-keys-kms-console"></a>
 
@@ -87,9 +87,9 @@ The original console will remain available for a brief period to give you time t
 
 #### To identify the value of the `Origin` property of CMKs \(original console\)<a name="identify-imported-keys-iam-console"></a>
 
-1. Open the **Encryption Keys** section of the AWS Identity and Access Management \(IAM\) console at [https://console\.aws\.amazon\.com/iam/home\#encryptionKeys](https://console.aws.amazon.com/iam/home#encryptionKeys)\.
+1. Go to the original AWS KMS console at [https://console\.aws\.amazon\.com/iam/home\#encryptionKeys](https://console.aws.amazon.com/iam/home#encryptionKeys)\.
 
-1. For **Region**, choose the appropriate AWS region\. Do not use the region selector in the navigation bar \(top right corner\)\.
+1. For **Region**, choose the appropriate AWS Region\. Do not use the region selector in the navigation bar \(top right corner\)\.
 
 1. Use either of the following techniques to view the `Origin` property of your CMKs\.
    + To add an **Origin** column to your CMK table, in the upper right corner, choose the **Settings** icon\. Choose **Origin** and choose **Close**\. The **Origin** column makes it easy to identify CMKs with an `EXTERNAL` origin property value\.
