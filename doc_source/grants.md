@@ -6,16 +6,16 @@ You can also use key policies to allow other principals to access a CMK, but key
 
 For code examples that demonstrate how to work with grants, see [Working with Grants](programming-grants.md)\.
 
-**Create a Grant**
+## Create a Grant<a name="grant-create"></a>
 
-To create a grant, call the [CreateGrant](https://docs.aws.amazon.com/kms/latest/APIReference/API_CreateGrant.html) API operation\. Specify a CMK, the grantee principal that the grant allows to use the CMK, and a list of allowed operations\. The `CreateGrant` operation returns a grant ID that you can use to identify the grant in subsequent operations\. To customize the grant, use optional `Constraints` parameters to define [grant constraints](https://docs.aws.amazon.com/kms/latest/APIReference/API_GrantConstraints.html) 
+To create a grant, call the [CreateGrant](https://docs.aws.amazon.com/kms/latest/APIReference/API_CreateGrant.html) API operation\. Specify a CMK, the grantee principal that the grant allows to use the CMK, and a list of allowed operations\. The `CreateGrant` operation returns a grant ID that you can use to identify the grant in subsequent operations\. To customize the grant, use optional `Constraints` parameters to define [grant constraints](https://docs.aws.amazon.com/kms/latest/APIReference/API_GrantConstraints.html)\.
 
 Grants can be revoked \(canceled\) by any user who has the [kms:RevokeGrant](https://docs.aws.amazon.com/kms/latest/APIReference/API_RevokeGrant.html) permission on the CMK\. Grants can be retired by any of the following:
 + The AWS account \(root user\) in which the grant was created
 + The retiring principal in the grant, if any
 + The grantee principal, if the grant includes [kms:RetireGrant](https://docs.aws.amazon.com/kms/latest/APIReference/API_RetireGrant.html) permission
 
-**Grant Constraints**
+## Grant Constraints<a name="grant-constraints"></a>
 
 [Grant constraints](https://docs.aws.amazon.com/kms/latest/APIReference/API_GrantConstraints.html) set conditions on the permissions that the grantee principal can perform\. Grants have two supported constraints, both of which involve the [encryption context](concepts.md#encrypt_context) in a request for a cryptographic operation:
 + `EncryptionContextEquals` specifies that the grant applies only when the encryption context pairs in the request are an exact, case\-sensitive match for the encryption context pairs in the grant constraint\. The pairs can appear in any order, but the keys and values in each pair cannot vary\.
@@ -37,7 +37,7 @@ However, the following encryption context values would not satisfy the constrain
 + `{"department":"finance","classification":"public"}`
 + `{"Classification":"Public","Customer":"12345"}`
 
-**Authorizing CreateGrant in a Key Policy**
+## Authorizing CreateGrant in a Key Policy<a name="grant-authorization"></a>
 
 When you create a key policy to control access to the [CreateGrant](https://docs.aws.amazon.com/kms/latest/APIReference/API_CreateGrant.html) API operation, you can use one or more policy conditions to limit the permission\. AWS KMS supports all of the following grant\-related condition keys\. For detailed information about these condition keys, see [AWS KMS Condition Keys](policy-conditions.md#conditions-kms)\.
 + [kms:GrantConstraintType](policy-conditions.md#conditions-kms-grant-constraint-type)
@@ -46,7 +46,7 @@ When you create a key policy to control access to the [CreateGrant](https://docs
 + [kms:GranteePrincipal](policy-conditions.md#conditions-kms-grantee-principal)
 + [kms:RetiringPrincipal](policy-conditions.md#conditions-kms-retiring-principal)
 
-**Granting CreateGrant Permission**
+## Granting CreateGrant Permission<a name="grant-creategrant"></a>
 
 When a grant includes permission to call the `CreateGrant` operation, the grant only allows the grantee principal to create grants that are equally restrictive or more restrictive\. 
 

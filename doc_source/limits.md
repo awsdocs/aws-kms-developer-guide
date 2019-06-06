@@ -10,9 +10,9 @@ If you need to exceed these limits, please visit the [AWS Support Center](https:
 | --- | --- | --- | 
 | [Customer Master Keys \(CMKs\)](#customer-master-keys-limit) | 10,000 | Customer managed CMKs | 
 | [Aliases](#aliases-limit) | 10,000 | Customer created aliases | 
-| [Key policy document size](#key-policy-limit) | 32 KB \(32,768 bytes\) | Customer managed CMKsAWS managed CMKs | 
 | [Grants per CMK](#grants-per-key) | 10,000 | Customer managed CMKs | 
 | [Grants for a given principal per CMK](#grants-per-principal-per-key) | 500 | Customer managed CMKsAWS managed CMKs | 
+| [Key policy document size](#key-policy-limit) | 32 KB \(32,768 bytes\) | Customer managed CMKsAWS managed CMKs | 
 | [Requests per second](#requests-per-second) | Varies by API operation; see [table](#requests-per-second-table)\. | Customer managed CMKsAWS managed CMKs | 
 
 **Note**  
@@ -32,14 +32,6 @@ An *alias* is a display name that you can map to a CMK\. Each alias is mapped to
 
 If you use a [support case](https://console.aws.amazon.com/support/home) to increase your CMK limit, you might also need to request an increase in the number of aliases\.
 
-## Key Policy Document Size: 32 KB<a name="key-policy-limit"></a>
-
-The maximum length of each key policy document is 32 KB \(32,768 bytes\)\. If the document exceeds this length, operations that use the key policy document to set or change the key policy fail\. If you must exceed this limit, create a [support case](https://console.aws.amazon.com/support/home)\.
-
-A [key policy document](key-policies.md#key-policy-overview) is a collection of policy statements in JSON format\. The statements in the key policy document determine who has permission to use the CMK and how they can use it\. You may also use IAM policies and grants to control access to the CMK, but every CMK must have a key policy document\. 
-
-You can create a key policy document by using the [default view](key-policy-modifying.md#key-policy-modifying-how-to-console-default-view) or [policy view](key-policy-modifying.md#key-policy-modifying-how-to-console-policy-view) in the AWS Management Console, or by using the [PutKeyPolicy](https://docs.aws.amazon.com/kms/latest/APIReference/API_PutKeyPolicy.html) API operation\. All of these techniques involve an underlying key policy document\.
-
 ## Grants per CMK: 10,000<a name="grants-per-key"></a>
 
 Each [customer managed CMK](concepts.md#customer-cmk) can have up to 10,000 grants, including the grants created by [AWS services that are integrated with AWS KMS](https://aws.amazon.com/kms/features/#AWS_Service_Integration)\. This limit does not apply to [AWS managed CMKs](concepts.md#aws-managed-cmk)\.
@@ -55,6 +47,14 @@ You or an AWS service integrated with AWS KMS can use a grant to limit how and w
 For a given CMK, no more than 500 grants can specify the same grantee principal\. This limit applies to all CMKs, including [AWS managed CMKs](concepts.md#aws-managed-cmk)\.
 
 For example, you might want to encrypt multiple Amazon EBS volumes and attach them to a single Amazon Elastic Compute Cloud \(Amazon EC2\) instance\. A unique grant is created for each encrypted volume and all of these grants have the same grantee principal \(an IAM assumed\-role user associated with the EC2 instance\)\. Each grant gives permission to use the specified CMK to decrypt an EBS volume's unique data encryption key\. For each CMK, you can have up to 500 grants that specify the same EC2 instance as the grantee principal\. This effectively means that you can have no more than 500 encrypted EBS volumes per EC2 instance for a given CMK\.
+
+## Key Policy Document Size: 32 KB<a name="key-policy-limit"></a>
+
+The maximum length of each key policy document is 32 KB \(32,768 bytes\)\. If the document exceeds this length, operations that use the key policy document to set or change the key policy fail\. If you must exceed this limit, create a [support case](https://console.aws.amazon.com/support/home)\.
+
+A [key policy document](key-policies.md#key-policy-overview) is a collection of policy statements in JSON format\. The statements in the key policy document determine who has permission to use the CMK and how they can use it\. You may also use IAM policies and grants to control access to the CMK, but every CMK must have a key policy document\. 
+
+You can create a key policy document by using the [default view](key-policy-modifying.md#key-policy-modifying-how-to-console-default-view) or [policy view](key-policy-modifying.md#key-policy-modifying-how-to-console-policy-view) in the AWS Management Console, or by using the [PutKeyPolicy](https://docs.aws.amazon.com/kms/latest/APIReference/API_PutKeyPolicy.html) API operation\. All of these techniques involve an underlying key policy document\.
 
 ## Requests per Second: Varies<a name="requests-per-second"></a>
 

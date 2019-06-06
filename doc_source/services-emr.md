@@ -2,9 +2,9 @@
 
 When you use an [Amazon EMR](https://aws.amazon.com/emr/) cluster, you can configure the cluster to encrypt data *at rest* before saving it to a persistent storage location\. You can encrypt data at rest on the EMR File System \(EMRFS\), on the storage volumes of cluster nodes, or both\. To encrypt data at rest, you can use a customer master key \(CMK\) in AWS KMS\. The following topics explain how an Amazon EMR cluster uses a CMK to encrypt data at rest\.
 
-Amazon EMR clusters also encrypt data *in transit*, which means the cluster encrypts data before sending it through the network\. You cannot use a CMK to encrypt data in transit\. For more information, see [In\-Transit Data Encryption](https://docs.aws.amazon.com/ElasticMapReduce/latest/ReleaseGuide/emr-data-encryption-options.html#emr-encryption-intransit) in the *Amazon EMR Release Guide*\.
+Amazon EMR clusters also encrypt data *in transit*, which means the cluster encrypts data before sending it through the network\. You cannot use a CMK to encrypt data in transit\. For more information, see [In\-Transit Data Encryption](https://docs.aws.amazon.com/emr/latest/ManagementGuide/emr-data-encryption-options.html#emr-encryption-intransit) in the *Amazon EMR Management Guide*\.
 
-For more information about all the encryption options available in Amazon EMR, see [Understanding Encryption Options with Amazon EMR](https://docs.aws.amazon.com/ElasticMapReduce/latest/ReleaseGuide/emr-data-encryption-options.html) in the *Amazon EMR Release Guide*\.
+For more information about all the encryption options available in Amazon EMR, see [Encryption Options](https://docs.aws.amazon.com/emr/latest/ManagementGuide/emr-data-encryption-options.html) in the *Amazon EMR Management Guide*\.
 
 **Topics**
 + [Encrypting Data on the EMR File System \(EMRFS\)](#emrfs-encryption)
@@ -17,7 +17,7 @@ Amazon EMR clusters use two distributed files systems:
 + The Hadoop Distributed File System \(HDFS\)\. HDFS encryption does not use a CMK in AWS KMS\.
 
    
-+ The EMR File System \(EMRFS\)\. EMRFS is an implementation of HDFS that allows Amazon EMR clusters to store data in Amazon Simple Storage Service \(Amazon S3\)\. EMRFS supports four encryption options, two of which use a CMK in AWS KMS\. For more information about all four of the EMRFS encryption options, see [At\-Rest Encryption for Amazon S3 with EMRFS](https://docs.aws.amazon.com/ElasticMapReduce/latest/ReleaseGuide/emr-data-encryption-options.html#emr-encryption-s3) in the *Amazon EMR Release Guide*\.
++ The EMR File System \(EMRFS\)\. EMRFS is an implementation of HDFS that allows Amazon EMR clusters to store data in Amazon Simple Storage Service \(Amazon S3\)\. EMRFS supports four encryption options, two of which use a CMK in AWS KMS\. For more information about all four of the EMRFS encryption options, see [Encryption Options](https://docs.aws.amazon.com/emr/latest/ManagementGuide/emr-data-encryption-options.html) in the *Amazon EMR Management Guide*\.
 
 The two EMRFS encryption options that use a CMK use the following encryption features offered by Amazon S3:
 + [Server\-Side Encryption with AWS KMS\-Managed Keys \(SSE\-KMS\)](https://docs.aws.amazon.com/AmazonS3/latest/dev/UsingKMSEncryption.html)\. With SSE\-KMS, the Amazon EMR cluster sends data to Amazon S3, and then Amazon S3 uses a CMK to encrypt the data before saving it to an S3 bucket\. For more information about how this works, see [Process for Encrypting Data on EMRFS with SSE\-KMS](#emrfs-encryption-sse-kms)\.
@@ -25,7 +25,7 @@ The two EMRFS encryption options that use a CMK use the following encryption fea
    
 + [Client\-Side Encryption with AWS KMS\-Managed Keys \(CSE\-KMS\)](https://docs.aws.amazon.com/AmazonS3/latest/dev/UsingClientSideEncryption.html)\. With CSE\-KMS, the Amazon EMR cluster uses a CMK to encrypt data before sending it to Amazon S3 for storage\. For more information about how this works, see [Process for Encrypting Data on EMRFS with CSE\-KMS](#emrfs-encryption-cse-kms)\.
 
-When you configure an Amazon EMR cluster to encrypt data on EMRFS with SSE\-KMS or CSE\-KMS, you choose the CMK in AWS KMS that you want Amazon S3 or the Amazon EMR cluster to use\. With SSE\-KMS, you can choose the AWS managed CMK for Amazon S3 with the alias **aws/s3**, or a custom CMK that you create\. With CSE\-KMS, you must choose a custom CMK that you create\. When you choose a custom CMK, you must ensure that your Amazon EMR cluster has permission to use the CMK\. For more information, see [Add the EMR Instance Role to an AWS KMS CMK](https://docs.aws.amazon.com/ElasticMapReduce/latest/ReleaseGuide/emr-encryption-create-keys.html#emr-awskms-console) in the *Amazon EMR Release Guide*\.
+When you configure an Amazon EMR cluster to encrypt data on EMRFS with SSE\-KMS or CSE\-KMS, you choose the CMK in AWS KMS that you want Amazon S3 or the Amazon EMR cluster to use\. With SSE\-KMS, you can choose the AWS managed CMK for Amazon S3 with the alias **aws/s3**, or a custom CMK that you create\. With CSE\-KMS, you must choose a custom CMK that you create\. When you choose a custom CMK, you must ensure that your Amazon EMR cluster has permission to use the CMK\. For more information, see [Using AWS KMS Customer Master Keys \(CMKs\) for Encryption](https://docs.aws.amazon.com/emr/latest/ManagementGuide/emr-encryption-enable.html#emr-awskms-keys) in the *Amazon EMR Management Guide*\.
 
 For both SSE\-KMS and CSE\-KMS, the CMK you choose is the master key in an [envelope encryption](concepts.md#enveloping) workflow\. The data is encrypted with a unique data encryption key \(or *data key*\), and this data key is encrypted under the CMK in AWS KMS\. The encrypted data and an encrypted copy of its data key are stored together as a single encrypted object in an S3 bucket\. For more information about how this works, see the following topics\.
 
@@ -89,7 +89,7 @@ The decryption process works like this:
 
 An Amazon EMR cluster is a collection of Amazon Elastic Compute Cloud \(Amazon EC2\) instances\. Each instance in the cluster is called a *cluster node* or *node*\. Each node can have two types of storage volumes: instance store volumes, and Amazon Elastic Block Store \(Amazon EBS\) volumes\. You can configure the cluster to use [Linux Unified Key Setup \(LUKS\)](https://gitlab.com/cryptsetup/cryptsetup/blob/master/README.md) to encrypt both types of storage volumes on the nodes \(but not the boot volume of each node\)\. This is called *local disk encryption*\.
 
-When you enable local disk encryption for a cluster, you can choose to encrypt the LUKS master key with a CMK in AWS KMS\. You must choose a custom CMK that you create; you cannot use an AWS managed CMK\. When you choose a custom CMK, you must ensure that your Amazon EMR cluster has permission to use the CMK\. For more information, see [Add the EMR Instance Role to an AWS KMS CMK](https://docs.aws.amazon.com/ElasticMapReduce/latest/ReleaseGuide/emr-encryption-create-keys.html#emr-awskms-console) in the *Amazon EMR Release Guide*\.
+When you enable local disk encryption for a cluster, you can choose to encrypt the LUKS master key with a CMK in AWS KMS\. You must choose a custom CMK that you create; you cannot use an AWS managed CMK\. When you choose a custom CMK, you must ensure that your Amazon EMR cluster has permission to use the CMK\. For more information, see [Using AWS KMS Customer Master Keys \(CMKs\) for Encryption](https://docs.aws.amazon.com/emr/latest/ManagementGuide/emr-encryption-enable.html#emr-awskms-keys) in the *Amazon EMR Management Guide*\.
 
 When you enable local disk encryption using a CMK, the encryption process works like this:
 

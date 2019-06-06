@@ -42,7 +42,7 @@ For instructions on creating your `kmsuser` CU account, see [Create the `kmsuser
 
 ## CMKs in a Custom Key Store<a name="concept-cmk-key-store"></a>
 
-You can use the AWS Management Console or AWS KMS API to create a [customer master key](concepts.md#master_keys) \(CMK\) in a custom key store\. You use the same the technique that you would use on any AWS KMS CMK\. The only difference is that you must identify the custom key store and specify that origin of the key material is the AWS CloudHSM cluster\. 
+You can use the AWS Management Console or AWS KMS API to create a [customer master key](concepts.md#master_keys) \(CMK\) in a custom key store\. You use the same technique that you would use on any AWS KMS CMK\. The only difference is that you must identify the custom key store and specify that origin of the key material is the AWS CloudHSM cluster\. 
 
 When you [create a CMK in a custom key store](create-cmk-keystore.md), AWS KMS creates the CMK in AWS KMS and it generates a 256\-bit, persistent, non\-exportable Advanced Encryption Standard \(AES\) symmetric backing key in its associated cluster\. Although AWS CloudHSM supports symmetric and asymmetric keys of different types, AWS KMS and custom key stores only support AES symmetric keys\.
 

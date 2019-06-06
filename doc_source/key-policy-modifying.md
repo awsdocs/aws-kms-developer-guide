@@ -121,7 +121,7 @@ IAM groups are not valid principals in a key policy\. To allow multiple IAM user
 + Add each IAM user to the key policy\. This approach requires that you update the key policy each time the list of authorized users changes\.
 + Ensure that the key policy includes the statement that [enables IAM policies to allow access to the CMK](key-policies.md#key-policy-default-allow-root-enable-iam)\. Then [create an IAM policy](https://docs.aws.amazon.com/IAM/latest/UserGuide/access_policies_managed-using.html#create-managed-policy-console) that allows access to the CMK, and then [attach that policy to an IAM group](https://docs.aws.amazon.com/IAM/latest/UserGuide/access_policies_managed-using.html#attach-managed-policy-console) that contains the authorized IAM users\. Using this approach, you don't need to change any policies when the list of authorized users changes\. Instead, you only need to add or remove those users from the appropriate IAM group\.
 
-For more information about how AWS KMS key policies and IAM policies work together, see [Understanding Policy Evaluation](determining-access.md#policy-evaluation)\.
+For more information about how AWS KMS key policies and IAM policies work together, see [Troubleshooting Key Access](policy-evaluation.md)\.
 
 ## Allowing External AWS Accounts to Access a CMK<a name="key-policy-modifying-external-accounts"></a>
 
