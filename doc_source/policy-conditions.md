@@ -198,7 +198,7 @@ This policy allows the principal to use the CMK in a `GenerateDataKey` request o
   "Action": "kms:GenerateDataKey",
   "Resource": "*",
   "Condition": {
-    ""ForAnyValue:StringEquals": {
+    "ForAnyValue:StringEquals": {
       "kms:EncryptionContext:AppName": "ExampleApp"
     }
   }
