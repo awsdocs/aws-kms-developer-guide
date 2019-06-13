@@ -255,7 +255,7 @@ The final example also shows an IAM policy that can be used for standard or adva
 
 ## Parameter Store Encryption Context<a name="parameter-store-encryption-context"></a>
 
-An *encryption context* is a set of key–\-value pairs that contain arbitrary nonsecret data\. When you include an encryption context in a request to encrypt data, AWS KMS cryptographically binds the encryption context to the encrypted data\. To decrypt the data, you must pass in the same encryption context\. 
+An *encryption context* is a set of key–value pairs that contain arbitrary nonsecret data\. When you include an encryption context in a request to encrypt data, AWS KMS cryptographically binds the encryption context to the encrypted data\. To decrypt the data, you must pass in the same encryption context\. 
 
 You can also use the encryption context to identify a cryptographic operation in audit records and logs\. The encryption context appears in plaintext in logs, such as [AWS CloudTrail](https://docs.aws.amazon.com/awscloudtrail/latest/userguide/cloudtrail-user-guide.html) logs\. 
 

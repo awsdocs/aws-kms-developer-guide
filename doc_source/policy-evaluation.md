@@ -5,32 +5,32 @@ When authorizing access to a customer master key \(CMK\), AWS KMS evaluates the 
 + All IAM policies that are attached to the IAM user or role making the request\. IAM policies that govern a principal's use of a CMK are always defined in the principal's AWS account\.
 + All grants that apply to the CMK\.
 
-AWS KMS evaluates the CMK's [key policy](determining-access-key-policy.md), [IAM policies](determining-access-iam-policies.md), and [grants](determining-access-grants.md) together to determine whether access to the CMK is allowed or denied\. To do this, AWS KMS uses a process similar to the one depicted in the following flow chart\. The following flow chart provides a visual representation of the policy evaluation process\.
+AWS KMS evaluates the CMK's [key policy](determining-access-key-policy.md), [IAM policies](determining-access-iam-policies.md), and [grants](determining-access-grants.md) together to determine whether access to the CMK is allowed or denied\. To do this, AWS KMS uses a process similar to the one depicted in the following flowchart\. The following flowchart provides a visual representation of the policy evaluation process\.
 
-![\[Flow chart that describes the policy evaluation process\]](http://docs.aws.amazon.com/kms/latest/developerguide/images/kms-auth-flow.png)
+![\[Flowchart that describes the policy evaluation process\]](http://docs.aws.amazon.com/kms/latest/developerguide/images/kms-auth-flow.png)
 
-This flow chart is divided into two parts\. The parts appear to be sequential, but they are typically evaluated at the same time\.
-+ *Use Authorization* determines whether you are permitted to use a CMK based on its key policy, IAM policies, and grants\.
+This flowchart is divided into two parts\. The parts appear to be sequential, but they are typically evaluated at the same time\.
++ *Use authorization* determines whether you are permitted to use a CMK based on its key policy, IAM policies, and grants\.
 + *Key trust* determines whether you should trust a CMK that you are permitted to use\. In general, you trust the resources in your AWS account\. But, you can also feel confident about using CMKs in a different AWS account if a grant or IAM policy in your account allows you to use the CMK\.
 
-You can use this flow chart to discover why a caller was allowed or denied permission to use a CMK\. You can also use it to evaluate your policies and grants\. For example, the flow chart shows that a caller can be denied access either by an explicit DENY statement or by the lack of an explicit ALLOW statement in the key policy, IAM policy, or grant\.
+You can use this flowchart to discover why a caller was allowed or denied permission to use a CMK\. You can also use it to evaluate your policies and grants\. For example, the flowchart shows that a caller can be denied access by an explicit `DENY` statement, or by the absence of an explicit `ALLOW` statement, in the key policy, IAM policy, or grant\.
 
-Let's use the flow chart to explain some common permission scenarios\.
+The flowchart can explain some common permission scenarios\.
 
 **Topics**
-+ [Example 1: User is denied access to a CMK in their AWS account](#example-no-iam)
++ [Example 1: User Is Denied Access to a CMK in Their AWS Account](#example-no-iam)
 + [Example 2: User Assumes Role with Permission to Use a CMK in a Different AWS Account](#example-cross-acct)
 
-## Example 1: User is denied access to a CMK in their AWS account<a name="example-no-iam"></a>
+## Example 1: User Is Denied Access to a CMK in Their AWS Account<a name="example-no-iam"></a>
 
 Alice is an IAM user in the 111122223333 AWS account\. She was denied access to a CMK in same AWS account\. Why can't Alice use the CMK?
 
-In this case, Alice is denied access to the CMK because there is no key policy, IAM policy, or grant that gives her the required permissions\. Even though the CMK's key policy allows the AWS account to use IAM policies to control access to the CMK, there is no IAM policy that gives Alice permission to use the CMK\.
+In this case, Alice is denied access to the CMK because there is no key policy, IAM policy, or grant that gives her the required permissions\. The CMK's key policy allows the AWS account to use IAM policies to control access to the CMK, but no IAM policy gives Alice permission to use the CMK\.
 
-![\[Flow chart that describes the policy evaluation process\]](http://docs.aws.amazon.com/kms/latest/developerguide/images/kms-auth-flow-Alice.png)
+![\[Flowchart that describes the policy evaluation process\]](http://docs.aws.amazon.com/kms/latest/developerguide/images/kms-auth-flow-Alice.png)
 
-Let's examine the relevant policies for this example\.
-+ The CMK that Alice wants to use has the [default key policy](key-policies.md#key-policy-default)\. This policy [allows the AWS account](key-policies.md#key-policy-default-allow-root-enable-iam) that owns that CMK to use IAM policies to control access to the CMK\. This key policy satisfies the *Does the key policy ALLOW the callers account to use IAM policies to control access to the key?* condition in the flowchart\.
+Consider the relevant policies for this example\.
++ The CMK that Alice wants to use has the [default key policy](key-policies.md#key-policy-default)\. This policy [allows the AWS account](key-policies.md#key-policy-default-allow-root-enable-iam) that owns the CMK to use IAM policies to control access to the CMK\. This key policy satisfies the *Does the key policy ALLOW the callers account to use IAM policies to control access to the key?* condition in the flowchart\.
 
   ```
   {
@@ -47,26 +47,26 @@ Let's examine the relevant policies for this example\.
     } ]
   }
   ```
-+ However, there is no key policy, IAM policy, or grant that gives Alice permission to use the CMK\. Therefore, Alice is denied permission to use the CMK\.
++ However, no key policy, IAM policy, or grant gives Alice permission to use the CMK\. Therefore, Alice is denied permission to use the CMK\.
 
 ## Example 2: User Assumes Role with Permission to Use a CMK in a Different AWS Account<a name="example-cross-acct"></a>
 
 Bob is a user in account 1 \(111122223333\)\. He is allowed to use a CMK in account 2 \(444455556666\) in cryptographic operations\. How is this possible?
 
 **Tip**  
-When evaluating cross\-account permissions, remember that the key policy is specified in the CMK's account and IAM policy is specified in the caller's account, even when the caller is in a different account\.
+When evaluating cross\-account permissions, remember that the key policy is specified in the CMK's account\. The IAM policy is specified in the caller's account, even when the caller is in a different account\.
 + The key policy for the CMK in account 2 allows account 2 to use IAM policies to control access to the CMK\. 
 + The key policy for the CMK in account 2 allows account 1 to use the CMK in cryptographic operations\. However, account 1 must use IAM policies to give its principals access to the CMK\.
 + An IAM policy in account 1 allows the `ExampleRole` role to use the CMK in account 2 for cryptographic operations\.
 + Bob, a user in account 1, has permission to assume the `ExampleRole` role\.
 + Bob can trust this CMK, because even though it is not in his account, an IAM policy in his account gives him explicit permission to use this CMK\.
 
-![\[Flow chart that describes the policy evaluation process\]](http://docs.aws.amazon.com/kms/latest/developerguide/images/kms-auth-flow-Bob.png)
+![\[Flowchart that describes the policy evaluation process\]](http://docs.aws.amazon.com/kms/latest/developerguide/images/kms-auth-flow-Bob.png)
 
-Let's look at the policies that let Bob, a user in account 1, use the CMK in account 2\.
+Consider the policies that let Bob, a user in account 1, use the CMK in account 2\.
 + The key policy for the CMK allows account 2 \(444455556666, the account that owns the CMK\) to use IAM policies to control access to the CMK\. This key policy also allows account 1 \(111122223333\) to use the CMK in cryptographic operations \(specified in the `Action` element of the policy statement\)\. However, no one in account 1 can use the CMK in account 2 until account 1 defines IAM policies that give the principals access to the CMK\.
 
-  In the flow chart, this key policy in account 2 satisfies the *Does the key policy ALLOW the caller's account to use IAM policies to control access to the key?* condition\. 
+  In the flowchart, this key policy in account 2 satisfies the *Does the key policy ALLOW the caller's account to use IAM policies to control access to the key?* condition\. 
 
   ```
   {
@@ -106,7 +106,7 @@ Let's look at the policies that let Bob, a user in account 1, use the CMK in acc
 
   Cross\-account IAM policies like this one are effective only when the key policy for the CMK in account 2 gives account 1 permission to use the CMK\. Also, account 1 can only give its principals permission to perform the actions that the key policy gave to the account\.
 
-  In the flow chart, this satisfies the *Does an IAM policy allow the caller to perform this action?* condition\.
+  In the flowchart, this satisfies the *Does an IAM policy allow the caller to perform this action?* condition\.
 
   ```
   {
