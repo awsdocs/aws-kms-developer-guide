@@ -27,7 +27,7 @@ For more information, see the [CloudTrail userIdentity Element](https://docs.aws
 
 A *trail* is a configuration that enables delivery of events as log files to an Amazon S3 bucket that you specify\. CloudTrail log files contain one or more log entries\. An *event* represents a single request from any source and includes information about the requested action, the date and time of the action, request parameters, and so on\. CloudTrail log files are not an ordered stack trace of the public API calls, so they do not appear in any specific order\. 
 
-For examples of what these CloudTrail log entries look like, see the following topics\.
+For examples CloudTrail log entries for each API request, see the following topics\.
 
 **Topics**
 + [CreateAlias](ct-createalias.md)

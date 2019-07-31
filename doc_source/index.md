@@ -28,6 +28,7 @@ Amazon's trademarks and trade dress may not be used in
       + [Changing a Key Policy](key-policy-modifying.md)
       + [Keeping Key Policies Up to Date](key-policy-upgrading.md)
    + [Using IAM Policies with AWS KMS](iam-policies.md)
+   + [Allowing Users in Other Accounts to Use a CMK](key-policy-modifying-external-accounts.md)
    + [AWS KMS API Permissions: Actions and Resources Reference](kms-api-permissions-reference.md)
    + [Using Policy Conditions with AWS KMS](policy-conditions.md)
    + [Using Grants](grants.md)

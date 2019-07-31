@@ -155,7 +155,7 @@ The default key policy gives key users permissions to allow these integrated ser
 
 The default key policy gives key users permissions to use a CMK with *all* of the integrated services that use grants, or none of them\. You cannot use the default key policy to allow key users to use a CMK with some of the integrated services but not others\. However, you can create a custom key policy to do this\. For more information, see the [kms:ViaService](policy-conditions.md#conditions-kms-via-service) condition key\.
 
-You can add IAM users, IAM roles, and external AWS accounts to the list of key users when you create the CMK\. You can also edit the list with the console's default view for key policies, as shown in the following image\. The default view for key policies is on the key details page\.
+You can add IAM users, IAM roles, and other AWS accounts to the list of key users when you create the CMK\. You can also edit the list with the console's default view for key policies, as shown in the following image\. The default view for key policies is on the key details page\. For more information about allowing users in other AWS accounts to use the CMK, see [Allowing Users in Other Accounts to Use a CMK](key-policy-modifying-external-accounts.md)\.
 
 ![\[Key users in the console's default key policy, default view\]](http://docs.aws.amazon.com/kms/latest/developerguide/images/console-key-policy-users.png)
 

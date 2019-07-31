@@ -43,7 +43,7 @@ AWS KMS provides a set of API operations to work with your AWS KMS resources\. F
 
 ## Managing Access to AWS KMS CMKs<a name="managing-access"></a>
 
-The primary way to manage access to your AWS KMS CMKs is with *policies*\. Policies are documents that describe who has access to what\. Policies attached to an IAM identity are called *identity\-based policies* \(or *IAM polices*\), and policies attached to other kinds of resources are called *resource\-based policies*\. In AWS KMS, you must attach resource\-based policies to your customer master keys \(CMKs\)\. These are called *key policies*\. All KMS CMKs have a key policy\.
+The primary way to manage access to your AWS KMS CMKs is with *policies*\. Policies are documents that describe who has access to what\. Policies attached to an IAM identity are called *identity\-based policies* \(or *IAM policies*\), and policies attached to other kinds of resources are called *resource\-based policies*\. In AWS KMS, you must attach resource\-based policies to your customer master keys \(CMKs\)\. These are called *key policies*\. All KMS CMKs have a key policy\.
 
 You can control access to your KMS CMKs in these ways:
 + **Use the key policy** – You must use the key policy to control access to a CMK\. You can use the key policy alone to control access, which means the full scope of access to the CMK is defined in a single document \(the key policy\)\.
@@ -54,7 +54,7 @@ You can control access to your KMS CMKs in these ways:
    
 + **Use grants in combination with the key policy** – You can use grants in combination with the key policy to allow access to a CMK\. Controlling access this way enables you to allow access to the CMK in the key policy, and to allow users to delegate their access to others\.
 
-For most AWS services, IAM policies are the only way to control access to the service's resources\. Some services offer resource\-based policies or other access control mechanisms to complement IAM policies, but these are generally optional and you can control access to the resources in these services with only IAM policies\. This is not the case for AWS KMS, however\. To allow access to a KMS CMK, you must use the key policy, either alone or in combination with IAM polices or grants\. IAM policies by themselves are not sufficient to allow access to a CMK, though you can use them in combination with a CMK's key policy\.
+For most AWS services, IAM policies are the only way to control access to the service's resources\. Some services offer resource\-based policies or other access control mechanisms to complement IAM policies, but these are generally optional and you can control access to the resources in these services with only IAM policies\. This is not the case for AWS KMS, however\. To allow access to a KMS CMK, you must use the key policy, either alone or in combination with IAM policies or grants\. IAM policies by themselves are not sufficient to allow access to a CMK, though you can use them in combination with a CMK's key policy\.
 
 For more information about using key policies, see [Using Key Policies](key-policies.md)\.
 

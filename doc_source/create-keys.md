@@ -56,7 +56,7 @@ The AWS account \(root user\) has full permissions by default\. As a result, any
 
 1. \(Optional\) You can allow other AWS accounts to use this CMK for cryptographic operations\. To do so, in the **Other AWS accounts** section at the bottom of the page, choose **Add another AWS account** and enter the AWS account identification number of an external account\. To add multiple external accounts, repeat this step\.
 **Note**  
-To allow principals in the external accounts to use the CMK, Administrators of the external account must create IAM policies that provide these permissions\. For more information, see [Allowing External AWS Accounts to Access a CMK](key-policy-modifying.md#key-policy-modifying-external-accounts)\.
+To allow principals in the external accounts to use the CMK, Administrators of the external account must create IAM policies that provide these permissions\. For more information, see [Allowing Users in Other Accounts to Use a CMK](key-policy-modifying-external-accounts.md)\.
 
 1. Choose **Next**\.
 
@@ -105,7 +105,7 @@ The AWS account \(root user\) has full permissions by default\. As a result, any
 
 1. \(Optional\) You can use the controls at the bottom of the page to specify other AWS accounts that can use this CMK to encrypt and decrypt data\. To do so, choose **Add an External Account** and then type the intended AWS account ID\. Repeat as necessary to add more than one external account\.
 **Note**  
-Administrators of the external accounts must also allow access to the CMK by creating IAM policies for their users\. For more information, see [Allowing External AWS Accounts to Access a CMK](key-policy-modifying.md#key-policy-modifying-external-accounts)\.
+Administrators of the external accounts must also allow access to the CMK by creating IAM policies for their users\. For more information, see [Allowing Users in Other Accounts to Use a CMK](key-policy-modifying-external-accounts.md)\.
 
 1. Choose **Next Step**\.
 

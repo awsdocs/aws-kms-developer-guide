@@ -63,7 +63,7 @@ The AWS account \(root user\) has full permissions by default\. As a result, any
 
 1. To change the other AWS accounts that can use the CMK in cryptographic operations, in the **Other AWS accounts** section, choose **Add other AWS accounts**\.
 **Note**  
-Adding an external account does not allow users and roles in the account to use the CMK\. To allow users an roles in an external account to use the CMK, an administrator of the external account must add IAM policies that provide these permissions\. For more information, see [Allowing External AWS Accounts to Access a CMK](key-policy-modifying.md#key-policy-modifying-external-accounts)\.
+Adding an external account does not allow users and roles in the account to use the CMK\. To allow users an roles in an external account to use the CMK, an administrator of the external account must add IAM policies that provide these permissions\. For more information, see [Allowing Users in Other Accounts to Use a CMK](key-policy-modifying-external-accounts.md)\.
    + To add accounts, choose **Add another AWS account**, type the account number\. 
    + To remove accounts, on the row with the account number, choose **Remove**\. 
 

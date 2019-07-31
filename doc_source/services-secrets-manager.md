@@ -107,7 +107,7 @@ To allow the CMK to be used only for requests that originate in Secrets Manager,
 
 You can also use the keys or values in the [encryption context](#asm-encryption-context) as a condition for using the CMK for cryptographic operations\. For example, you can use a [string condition operator](https://docs.aws.amazon.com/IAM/latest/UserGuide/reference_policies_elements_condition_operators.html#Conditions_String) in an IAM or key policy document, or use a [grant constraint](https://docs.aws.amazon.com/kms/latest/APIReference/API_GrantConstraints.html) in a grant\.
 
-### Key Policy of the AWS Customer Master Key<a name="asm-policies"></a>
+### Key Policy of the AWS Managed CMK<a name="asm-policies"></a>
 
 The key policy for the AWS managed CMK for Secrets Manager gives users permission to use the CMK for specified operations only when Secrets Manager makes the request on the user's behalf\. The key policy does not allow any user to use the CMK directly\.
 

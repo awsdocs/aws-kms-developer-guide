@@ -19,7 +19,7 @@ The encryption status of an EBS volume is determined when you create the volume\
 
 ## Using CMKs and Data Keys<a name="ebs-cmk"></a>
 
-When you [create an encrypted Amazon EBS volume](https://docs.aws.amazon.com/AWSEC2/latest/UserGuide/ebs-creating-volume.html), you specify an AWS KMS customer master key \(CMK\)\. By default, Amazon EBS uses the [AWS managed CMK](concepts.md#master_keys) for Amazon EBS in your account\. However, you can specify a [customer master key \(CMK\)](concepts.md#master_keys)\. 
+When you [create an encrypted Amazon EBS volume](https://docs.aws.amazon.com/AWSEC2/latest/UserGuide/ebs-creating-volume.html), you specify an AWS KMS customer master key \(CMK\)\. By default, Amazon EBS uses the [AWS managed CMK](concepts.md#aws-managed-cmk) for Amazon EBS in your account\. However, you can specify a [customer managed CMK](concepts.md#customer-cmk)\. 
 
 Amazon EBS uses the CMK that you specify to generate a unique data key for each volume\. It stores an encrypted copy of the data key with the volume\. Then, when you attach the volume to an Amazon EC2 instance, Amazon EBS uses the data key to encrypt all disk I/O to the volume\.
 
