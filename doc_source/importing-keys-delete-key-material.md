@@ -31,12 +31,6 @@ For example, consider this scenario:
 
 You can use the AWS Management Console to delete key material\.
 
-**Note**  
-AWS KMS recently introduced a new console that makes it easier for you to organize and manage your KMS resources\. We encourage you to try it at [https://console\.aws\.amazon\.com/kms](https://console.aws.amazon.com/kms)\. Please share your feedback by choosing **Feedback** in either console or in the lower\-right corner of this page\.  
-The original console will remain available for a brief period to give you time to familiarize yourself with the new one\. To use the original console, go to [https://console\.aws\.amazon\.com/iam/home\#encryptionKeys](https://console.aws.amazon.com/iam/home#encryptionKeys)\.
-
-### To delete key material \(new console\)<a name="delete-key-material-kms-console"></a>
-
 1. Sign in to the AWS Management Console and open the AWS Key Management Service \(AWS KMS\) console at [https://console\.aws\.amazon\.com/kms](https://console.aws.amazon.com/kms)\.
 
 1. To change the AWS Region, use the Region selector in the upper\-right corner of the page\.
@@ -48,18 +42,6 @@ The original console will remain available for a brief period to give you time t
    + Choose the alias or key ID of a CMK with imported key material\. In the **Key Material** section of the page, choose **Delete key material**\.
 
 1. Confirm that you want to delete the key material and then choose **Delete key material**\. The CMK's status, which corresponds to its [key state](key-state.md), changes to **Pending import**\.
-
-### To delete key material \(original console\)<a name="delete-key-material-kms-console"></a>
-
-1. Sign in to the AWS Management Console and go to [https://console\.aws\.amazon\.com/iam/home\#encryptionKeys](https://console.aws.amazon.com/iam/home#encryptionKeys)\.
-
-1. For **Region**, choose the appropriate AWS Region\. Do not use the region selector in the navigation bar \(top right corner\)\.
-
-1. Choose one of the following:
-   + Select the check box for the CMK whose key material you want to delete\. Choose **Key actions**, **Delete key material**\.
-   + Choose the alias of the CMK whose key material you want to delete\. In the **Key Material** section of the page, choose **Delete key material**\.
-
-1. Confirm that you want to delete the key material and then choose **Delete key material**\. The CMK's [key state](key-state.md) changes to `PendingImport`\.
 
 ## Delete Key Material \(KMS API\)<a name="importing-keys-delete-key-material-api"></a>
 

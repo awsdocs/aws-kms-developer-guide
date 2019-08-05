@@ -33,12 +33,6 @@ You can use the console to change a key policy with a graphical interface called
 
 If the following steps don't match what you see in the console, it might mean that this key policy was not created by the console\. Or it might mean that the key policy has been modified in a way that the console's default view does not support\. In that case, follow the steps at [Using the AWS Management Console Policy View](#key-policy-modifying-how-to-console-policy-view) or [Using the AWS KMS API](#key-policy-modifying-how-to-api)\.
 
-**Note**  
-AWS KMS recently introduced a new console that makes it easier for you to organize and manage your KMS resources\. We encourage you to try it at [https://console\.aws\.amazon\.com/kms](https://console.aws.amazon.com/kms)\. Please share your feedback by choosing **Feedback** in either console or in the lower\-right corner of this page\.  
-The original console will remain available for a brief period to give you time to familiarize yourself with the new one\. To use the original console, go to [https://console\.aws\.amazon\.com/iam/home\#encryptionKeys](https://console.aws.amazon.com/iam/home#encryptionKeys)\.
-
-#### To change a key policy using the console default view \(new console\)<a name="default-view-kms-console"></a>
-
 1. Sign in to the AWS Management Console and open the AWS Key Management Service \(AWS KMS\) console at [https://console\.aws\.amazon\.com/kms](https://console.aws.amazon.com/kms)\.
 
 1. To change the AWS Region, use the Region selector in the upper\-right corner of the page\.
@@ -53,27 +47,9 @@ The original console will remain available for a brief period to give you time t
    + To add or remove [key administrators](key-policies.md#key-policy-default-allow-administrators), and to allow or prevent key administrators from [deleting the CMK](deleting-keys.md), use the controls in the **Key administrators** section of the page\. Key administrators manage the CMK, including enabling and disabling it, setting key policy, and [enabling key rotation](rotate-keys.md)\.
    + To add or remove [key users](key-policies.md#key-policy-default-allow-users), and to allow or disallow external AWS accounts to use the CMK, use the controls in the **Key users** section of the page\. Key users can use the CMK in cryptographic operations, such as encrypting, decrypting, re\-encrypting, and generating data keys\.
 
-#### To change a key policy using the console default view \(original console\)<a name="default-view-iam-console"></a>
-
-1. Sign in to the AWS Management Console and go to [https://console\.aws\.amazon\.com/iam/home\#encryptionKeys](https://console.aws.amazon.com/iam/home#encryptionKeys)\.
-
-1. For **Region**, choose the appropriate AWS Region\. Do not use the region selector in the navigation bar \(top right corner\)\.
-
-1. Choose the alias of the CMK whose key policy you want to change\.
-
-1. Decide what to change\.
-   + To add or remove [key administrators](key-policies.md#key-policy-default-allow-administrators), and to allow or disallow key administrators to [delete the CMK](deleting-keys.md), use the controls in the **Key Administrators** area in the **Key Policy** section of the page\.
-   + To add or remove [key users](key-policies.md#key-policy-default-allow-users), and to allow or disallow external AWS accounts to use the CMK, use the controls in the **Key Users** area in the **Key Policy** section of the page\.
-
 ### Using the AWS Management Console Policy View<a name="key-policy-modifying-how-to-console-policy-view"></a>
 
 You can use the console to change a key policy document with the console's *policy view*\.
-
-**Note**  
-AWS KMS recently introduced a new console that makes it easier for you to organize and manage your KMS resources\. We encourage you to try it at [https://console\.aws\.amazon\.com/kms](https://console.aws.amazon.com/kms)\. Please share your feedback by choosing **Feedback** in either console or in the lower\-right corner of this page\.  
-The original console will remain available for a brief period to give you time to familiarize yourself with the new one\. To use the original console, go to [https://console\.aws\.amazon\.com/iam/home\#encryptionKeys](https://console.aws.amazon.com/iam/home#encryptionKeys)\.
-
-#### To change a key policy document using the console policy view \(new console\)<a name="policy-view-kms-console"></a>
 
 1. Sign in to the AWS Management Console and open the AWS Key Management Service \(AWS KMS\) console at [https://console\.aws\.amazon\.com/kms](https://console.aws.amazon.com/kms)\.
 
@@ -88,19 +64,6 @@ The original console will remain available for a brief period to give you time t
 1. In the **Key Policy** section, choose **Switch to policy view**\.
 
 1. Edit the key policy document, and then choose **Save changes**\.
-
-#### To change a key policy document using the console policy view \(original console\)<a name="policy-view-iam-console"></a>
-
-1. Sign in to the AWS Management Console and go to [https://console\.aws\.amazon\.com/iam/home\#encryptionKeys](https://console.aws.amazon.com/iam/home#encryptionKeys)\.
-
-1. For **Region**, choose the appropriate AWS Region\. Do not use the region selector in the navigation bar \(top right corner\)\.
-
-1. Choose the alias of the CMK whose key policy document you want to edit\.
-
-1. On the **Key Policy** line, choose **Switch to policy view**\.  
-![\[Switch to policy view in the console\]](http://docs.aws.amazon.com/kms/latest/developerguide/images/console-key-policy-switch-to-policy-view.png)
-
-1. Edit the key policy document, and then choose **Save Changes**\.
 
 ### Using the AWS KMS API<a name="key-policy-modifying-how-to-api"></a>
 

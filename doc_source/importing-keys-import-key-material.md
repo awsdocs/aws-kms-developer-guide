@@ -16,12 +16,6 @@ To import key material, you can use the AWS Management Console or the AWS KMS AP
 
 You can use the AWS Management Console to import key material\.
 
-**Note**  
-AWS KMS recently introduced a new console that makes it easier for you to organize and manage your KMS resources\. We encourage you to try it at [https://console\.aws\.amazon\.com/kms](https://console.aws.amazon.com/kms)\. Please share your feedback by choosing **Feedback** in either console or in the lower\-right corner of this page\.  
-The original console will remain available for a brief period to give you time to familiarize yourself with the new one\. To use the original console, go to [https://console\.aws\.amazon\.com/iam/home\#encryptionKeys](https://console.aws.amazon.com/iam/home#encryptionKeys)\.
-
-### To import key material \(new console\)<a name="import-key-material-kms-console"></a>
-
 1. If you are on the **Download wrapping key and import token** page, skip to [Step 7](#id-key-materials-step)\.
 
 1. Sign in to the AWS Management Console and open the AWS Key Management Service \(AWS KMS\) console at [https://console\.aws\.amazon\.com/kms](https://console.aws.amazon.com/kms)\.
@@ -43,28 +37,6 @@ The original console will remain available for a brief period to give you time t
 1. Under **Choose an expiration option**, you determine whether the key material expires\. To set an expiration date and time, choose **Key material expires**, and use the calendar to select a date and time\.
 
 1. Choose **Finish** or **Upload key material**\.
-
-### To import key material \(original console\)<a name="import-key-material-iam-console"></a>
-
-1. If you just completed the optional final step of [downloading the public key and import token with the console](importing-keys-get-public-key-and-token.md#importing-keys-get-public-key-and-token-console), skip to [Step 6](#id-key-materials-step-old)\.
-
-1. Sign in to the AWS Management Console and go to [https://console\.aws\.amazon\.com/iam/home\#encryptionKeys](https://console.aws.amazon.com/iam/home#encryptionKeys)\.
-
-1. For **Region**, choose the appropriate AWS Region\. Do not use the region selector in the navigation bar \(top right corner\)\.
-
-1. Choose the alias of the CMK for which you downloaded the public key and import token\.
-
-1. In the **Key Material** section, choose **Upload key material**\.
-
-   The **Key material** section appears only when the CMK was created with no key material\. These CMKs have an **Origin** value of **EXTERNAL**\. You cannot import key material into a CMK with any other **Origin** value\. For information about creating CMKs with imported key material, see [Importing Key Material in AWS Key Management Service \(AWS KMS\)](importing-keys.md)\.
-
-1. <a name="id-key-materials-step-old"></a>In the **Specify key material details** section, for **Encrypted key material**, choose the file that contains your encrypted key material\. For **Import token**, choose the file that contains the import token that you [downloaded previously](importing-keys-get-public-key-and-token.md#importing-keys-get-public-key-and-token-console)\.
-
-1. In the **Choose an expiration option** section, choose whether the key material expires\. If you choose expiration, type a date and a time in the corresponding boxes\.
-
-1. Choose **Upload key material**\. 
-
-   To close the window, choose **Cancel**\.
 
 ## Import Key Material \(KMS API\)<a name="importing-keys-import-key-material-api"></a>
 

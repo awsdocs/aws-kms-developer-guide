@@ -13,12 +13,6 @@ For information about the permissions that are added to a key policy when you up
 
 You can use the AWS Management Console to learn whether a newer version of the default key policy is available\.
 
-**Note**  
-AWS KMS recently introduced a new console that makes it easier for you to organize and manage your KMS resources\. We encourage you to try it at [https://console\.aws\.amazon\.com/kms](https://console.aws.amazon.com/kms)\. Please share your feedback by choosing **Feedback** in either console or in the lower\-right corner of this page\.  
-The original console will remain available for a brief period to give you time to familiarize yourself with the new one\. To use the original console, go to [https://console\.aws\.amazon\.com/iam/home\#encryptionKeys](https://console.aws.amazon.com/iam/home#encryptionKeys)\.
-
-### To find a newer version of the default key policy \(new console\)<a name="new-version-kms-console"></a>
-
 1. Sign in to the AWS Management Console and open the AWS Key Management Service \(AWS KMS\) console at [https://console\.aws\.amazon\.com/kms](https://console.aws.amazon.com/kms)\.
 
 1. To change the AWS Region, use the Region selector in the upper\-right corner of the page\.
@@ -32,15 +26,6 @@ The original console will remain available for a brief period to give you time t
    When a newer version of the default key policy is available, the console displays the following alert\.
 
    **A newer version of the default key policy is available\. Preview and upgrade to the new key policy\.**
-
-### To find a newer version of the default key policy \(original console\)<a name="new-version-iam-console"></a>
-
-1. Sign in to the AWS Management Console and go to [https://console\.aws\.amazon\.com/iam/home\#encryptionKeys](https://console.aws.amazon.com/iam/home#encryptionKeys)\.
-
-1. For **Region**, choose the appropriate AWS Region\. Do not use the region selector in the navigation bar \(top right corner\)\.
-
-1. Choose the alias of the CMK whose key policy you want to see\. When a newer version of the default key policy is available, the console displays the following alert\.  
-![\[Key policy upgrade alert on the console's key details page\]](http://docs.aws.amazon.com/kms/latest/developerguide/images/console-key-policy-upgrade.png)
 
 ## Upgrading to the latest version of the default key policy<a name="update-default-policy"></a>
 

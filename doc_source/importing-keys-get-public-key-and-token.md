@@ -29,12 +29,6 @@ To download the public key and import token, you can use the AWS Management Cons
 
 You can use the AWS Management Console to download the public key and import token\.
 
-**Note**  
-AWS KMS recently introduced a new console that makes it easier for you to organize and manage your KMS resources\. We encourage you to try it at [https://console\.aws\.amazon\.com/kms](https://console.aws.amazon.com/kms)\. Please share your feedback by choosing **Feedback** in either console or in the lower\-right corner of this page\.  
-The original console will remain available for a brief period to give you time to familiarize yourself with the new one\. To use the original console, go to [https://console\.aws\.amazon\.com/iam/home\#encryptionKeys](https://console.aws.amazon.com/iam/home#encryptionKeys)\.
-
-### To download the public key and import token \(new console\)<a name="download-token-kms-console"></a>
-
 1. If you just completed the steps to [create a CMK with no key material](importing-keys-create-cmk.md#importing-keys-create-cmk-console) and you are on the **Download wrapping key and import token** page, skip to [Step 7](#id-wrap-step)\.
 
 1. Sign in to the AWS Management Console and open the AWS Key Management Service \(AWS KMS\) console at [https://console\.aws\.amazon\.com/kms](https://console.aws.amazon.com/kms)\.
@@ -67,45 +61,6 @@ You can import key material into a CMK only when its **Origin** is **EXTERNAL**\
    + A text file named README\_*CMK\_key\_ID*\_*timestamp*\.txt \(for example, `README_f44c4e20-f83c-48f4-adc6-a1ef38829760_0809092909.txt`\)\. This file contains information about the wrapping key \(public key\), the wrapping algorithm to use to encrypt your key material, and the date and time when the wrapping key \(public key\) and import token expire\.
 
 1. To continue the process, see [encrypt your key material](importing-keys-encrypt-key-material.md)\. 
-
-### To download the public key and import token \(original console\)<a name="download-token-iam-console"></a>
-
-You can use the AWS Management Console to download the public key and import token\. If you just completed the steps to [create a CMK with no key material](importing-keys-create-cmk.md#importing-keys-create-cmk-console), skip to [Step 6](#id-wrap-step-old)\.
-
-1. If you just completed the steps to [create a CMK with no key material](importing-keys-create-cmk.md#importing-keys-create-cmk-console), skip to [Step 6](#id-wrap-step-old)\.
-
-1. Sign in to the AWS Management Console and go to [https://console\.aws\.amazon\.com/iam/home\#encryptionKeys](https://console.aws.amazon.com/iam/home#encryptionKeys)\.
-
-1. For **Region**, choose the appropriate AWS Region\. Do not use the region selector in the navigation bar \(top right corner\)\.
-
-1. Choose the alias of the CMK for which you are downloading the public key and import token\.
-**Tip**  
-You can import key material into a CMK only when its **Origin** is **EXTERNAL**\. This indicates that the CMK was created with no key material\. To add the **Origin** column to your table, in the upper\-right corner of the page, choose the settings icon \(![\[Image NOT FOUND\]](http://docs.aws.amazon.com/kms/latest/developerguide/images/console-icon-settings.png)\)\. 
-
-1. In the **Key Material** section of the page, choose **Download wrapping key and import token**\.
-
-   The **Key material** section appears only when the CMK was created with no key material\. These CMKs have an **Origin** value of **EXTERNAL**\. You cannot import key material into a CMK with any other **Origin** value\. For information about creating CMKs with imported key material, see [Importing Key Material in AWS Key Management Service \(AWS KMS\)](importing-keys.md)\.
-
-1. <a name="id-wrap-step-old"></a>For **Select wrapping algorithm**, choose the option that you will use to encrypt your key material\. For more information about the options, see the preceding section\.
-
-   If you plan to try the [ Encrypt Key Material with OpenSSL](importing-keys-encrypt-key-material.md#importing-keys-encrypt-key-material-openssl) proof\-of\-concept example in [Step 3](importing-keys-encrypt-key-material.md), choose RSAES\_OAEP\_SHA\_1\.
-
-1. Choose **Download wrapping key and import token**, and then save the file\.
-
-1. Decompress the `.zip` file that you saved in the previous step \(`ImportParameters.zip`\)\.
-
-   The folder contains the following files:
-   + The wrapping key \(public key\), in a file named wrappingKey\_*CMK\_key\_ID*\_*timestamp* \(for example, `wrappingKey_f44c4e20-f83c-48f4-adc6-a1ef38829760_0809092909`\)\. This is a 2048\-bit RSA public key\.
-   + The import token, in a file named importToken\_*CMK\_key\_ID*\_*timestamp* \(for example, `importToken_f44c4e20-f83c-48f4-adc6-a1ef38829760_0809092909`\)\.
-   + A text file named README\_*CMK\_key\_ID*\_*timestamp*\.txt \(for example, `README_f44c4e20-f83c-48f4-adc6-a1ef38829760_0809092909.txt`\)\. This file contains information about the wrapping key \(public key\), the wrapping algorithm to use to encrypt your key material, and the date and time when the wrapping key \(public key\) and import token expire\.
-
-   To continue the process now, proceed to the next step\. Otherwise, choose **Skip and do this later** and then proceed to [Step 3: Encrypt the Key Material](importing-keys-encrypt-key-material.md)\.
-
-1. \(Optional\) To continue the process now, [encrypt your key material](importing-keys-encrypt-key-material.md)\. Then do one of the following:
-   + If you are in the **Import key material** wizard, select the check box for **I am ready to upload my exported key material** and choose **Next**\.
-   + If you are in the key details page, choose **Upload key material**\.
-
-After you complete this step, proceed to [Step 3: Encrypt the Key Material](importing-keys-encrypt-key-material.md)\.
 
 ## Downloading the Public Key and Import Token \(KMS API\)<a name="importing-keys-get-public-key-and-token-api"></a>
 

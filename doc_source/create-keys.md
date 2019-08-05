@@ -1,6 +1,6 @@
 # Creating Keys<a name="create-keys"></a>
 
-You can create customer master key \(CMK\) in the AWS Management Console or by using the [CreateKey](https://docs.aws.amazon.com/kms/latest/APIReference/API_CreateKey.html) operation\.
+You can create [customer master keys](concepts.md#master_keys) \(CMKs\) in the AWS Management Console or by using the [CreateKey](https://docs.aws.amazon.com/kms/latest/APIReference/API_CreateKey.html) operation\.
 
 **Topics**
 + [Creating CMKs \(Console\)](#create-keys-console)
@@ -9,12 +9,6 @@ You can create customer master key \(CMK\) in the AWS Management Console or by u
 ## Creating CMKs \(Console\)<a name="create-keys-console"></a>
 
 You can use the AWS Management Console to create customer master keys \(CMKs\)\.
-
-**Note**  
-AWS KMS recently introduced a new console that makes it easier for you to organize and manage your KMS resources\. We encourage you to try it at [https://console\.aws\.amazon\.com/kms](https://console.aws.amazon.com/kms)\. Please share your feedback by choosing **Feedback** in either console or in the lower\-right corner of this page\.  
-The original console will remain available for a brief period to give you time to familiarize yourself with the new one\. To use the original console, go to [https://console\.aws\.amazon\.com/iam/home\#encryptionKeys](https://console.aws.amazon.com/iam/home#encryptionKeys)\.
-
-### To create a new CMK \(new console\)<a name="create-key-kms-console"></a>
 
 1. Sign in to the AWS Management Console and open the AWS Key Management Service \(AWS KMS\) console at [https://console\.aws\.amazon\.com/kms](https://console.aws.amazon.com/kms)\.
 
@@ -61,53 +55,6 @@ To allow principals in the external accounts to use the CMK, Administrators of t
 1. Choose **Next**\.
 
 1. Review the key policy document that was created from your choices\. You can edit it, too\. 
-
-1. Choose **Finish** to create the CMK\.
-
-**Tip**  
-To use your new CMK programmatically and in command line interface operations, you need a key ID or key ARN\. For detailed instructions, see [Finding the Key ID and ARN](viewing-keys.md#find-cmk-id-arn)
-
-### To create a new CMK \(original console\)<a name="create-key-iam-console"></a>
-
-1. Sign in to the AWS Management Console and go to [https://console\.aws\.amazon\.com/iam/home\#encryptionKeys](https://console.aws.amazon.com/iam/home#encryptionKeys)\.
-
-1. For **Region**, choose the appropriate AWS Region\. Do not use the region selector in the navigation bar \(top right corner\)\.
-
-1. Choose **Create key**\.
-
-1. Type an alias for the CMK\. The alias name cannot begin with `aws`\. The `aws` prefix is reserved by Amazon Web Services to identify [AWS managed CMKs](concepts.md#master_keys) in your account\.
-
-   An alias is a display name that you can use to identify the CMK\. We recommend that you choose an alias that indicates the type of data you plan to protect or the application you plan to use with the CMK\. 
-
-   Aliases are required when you create a CMK in the AWS Management Console\. They are optional when you use the [CreateKey](https://docs.aws.amazon.com/kms/latest/APIReference/API_CreateKey.html) operation\.
-
-1. \(Optional\) Type a description for the CMK\.
-
-   We recommend that you choose a description that explains the type of data you plan to protect or the application you plan to use with the CMK\.
-
-1. Choose **Next Step**\.
-
-1. \(Optional\) Type a [tag key](tagging-keys.md) and an optional tag value\. To add more than one tag to the CMK, choose **Add tag**\.
-
-1. Choose **Next Step**\.
-
-1. Select which IAM users and roles can administer the CMK\.
-**Note**  
-The AWS account \(root user\) has full permissions by default\. As a result, any IAM users and roles whose attached policies allow the appropriate permissions can also administer the CMK\.
-
-1. \(Optional\) To prevent the IAM users and roles that you chose in the previous step from deleting this CMK, clear the box at the bottom of the page for **Allow key administrators to delete this key\.**
-
-1. Choose **Next Step**\.
-
-1. Select which IAM users and roles can use the CMK to encrypt and decrypt data with the AWS KMS API\.
-**Note**  
-The AWS account \(root user\) has full permissions by default\. As a result, any IAM users and roles whose attached policies allow the appropriate permissions can also use the CMK\.
-
-1. \(Optional\) You can use the controls at the bottom of the page to specify other AWS accounts that can use this CMK to encrypt and decrypt data\. To do so, choose **Add an External Account** and then type the intended AWS account ID\. Repeat as necessary to add more than one external account\.
-**Note**  
-Administrators of the external accounts must also allow access to the CMK by creating IAM policies for their users\. For more information, see [Allowing Users in Other Accounts to Use a CMK](key-policy-modifying-external-accounts.md)\.
-
-1. Choose **Next Step**\.
 
 1. Choose **Finish** to create the CMK\.
 

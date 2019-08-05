@@ -14,12 +14,6 @@ Users who have the required permissions can change the properties of a customer 
 
 You can [view](viewing-keys.md), but not edit, the properties of AWS managed CMKs\. To view the key policy for an AWS managed CMK, use the [GetKeyPolicy](https://docs.aws.amazon.com/kms/latest/APIReference/API_GetKeyPolicy.html) operation\.
 
-**Note**  
-AWS KMS recently introduced a new console that makes it easier for you to organize and manage your KMS resources\. We encourage you to try it at [https://console\.aws\.amazon\.com/kms](https://console.aws.amazon.com/kms)\. Please share your feedback by choosing **Feedback** in either console or in the lower\-right corner of this page\.  
-The original console will remain available for a brief period to give you time to familiarize yourself with the new one\. To use the original console, go to [https://console\.aws\.amazon\.com/iam/home\#encryptionKeys](https://console.aws.amazon.com/iam/home#encryptionKeys)\.
-
-### To edit a customer managed CMK \(new console\)<a name="edit-keys-kms-console"></a>
-
 **Navigate to the CMK details page**  
 
 1. Sign in to the AWS Management Console and open the AWS Key Management Service \(AWS KMS\) console at [https://console\.aws\.amazon\.com/kms](https://console.aws.amazon.com/kms)\.
@@ -87,45 +81,6 @@ You can enable and disable [automatic rotation](rotate-keys.md) of the cryptogra
 1. To enable automatic key rotation, check the **Automatically rotate this CMK every year** check box\. To disable automatic key rotation, clear the check box\.
 
 1. To save your changes, choose **Save**\.
-
-### To edit a customer managed CMK \(original console\)<a name="edit-keys-iam-console"></a>
-
-**Navigate to the CMK details page**  
-
-1. Sign in to the AWS Management Console and go to [https://console\.aws\.amazon\.com/iam/home\#encryptionKeys](https://console.aws.amazon.com/iam/home#encryptionKeys)\.
-
-1. For **Region**, choose the appropriate AWS Region\. Do not use the region selector in the navigation bar \(top right corner\)\.
-
-1. Choose the alias of the CMK whose details you want to see\.
-**Note**  
-You cannot edit AWS managed CMKs, which are denoted by the orange AWS icon\.
-
-On the key details page, you can view and edit the CMK\.
-
-**Change the description**  
-In the **Summary** section, type a brief description of the CMK in the **Description** box\. To save your changes, choose **Save Changes**\.  
-
-![\[Summary section of the console's key details page\]](http://docs.aws.amazon.com/kms/latest/developerguide/images/console-summary.png)
-
-**Add and remove key administrators, and allow or disallow key administrators to delete the CMK**  
-Use the controls in the **Key Administrators** area in the **Key Policy** section of the page\.  
-
-![\[Key administrators area in the console's key policy section\]](http://docs.aws.amazon.com/kms/latest/developerguide/images/console-key-policy-administrators.png)
-
-**Add and remove key users, and allow and disallow external AWS accounts to use the CMK**  
-Use the controls in the **Key Users** area in the **Key Policy** section of the page\.  
-
-![\[Key users area in the console's key policy section\]](http://docs.aws.amazon.com/kms/latest/developerguide/images/console-key-policy-users.png)
-
-**Add, edit, and remove tags**  
-Use the controls in the **Tags** section of the page\.  
-
-![\[Tags section of the console's key details page\]](http://docs.aws.amazon.com/kms/latest/developerguide/images/console-tags.png)
-
-**Enable or disable rotation**  
-Use the controls in the **Key Rotation** section of the page to enable and disable [automatic rotation](rotate-keys.md) of the cryptographic material in a customer managed CMK\.  
-
-![\[Key rotation section of the console's key details page\]](http://docs.aws.amazon.com/kms/latest/developerguide/images/console-rotation.png)
 
 ## Editing CMKs \(KMS API\)<a name="editing-keys-cli"></a>
 

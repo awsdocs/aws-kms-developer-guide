@@ -14,12 +14,6 @@ For more information about using tags for cost allocation, see [Using Cost Alloc
 
 You can add, edit, and delete tags for your customer managed CMKs in the AWS Management Console\. You can add tags to a CMK when you [create it](create-keys.md) and edit them at any time\. You cannot edit the tags of CMKs that are pending deletion\. For more information, see [Editing Keys](editing-keys.md)\. 
 
-**Note**  
-AWS KMS recently introduced a new console that makes it easier for you to organize and manage your KMS resources\. We encourage you to try it at [https://console\.aws\.amazon\.com/kms](https://console.aws.amazon.com/kms)\. Please share your feedback by choosing **Feedback** in either console or in the lower\-right corner of this page\.  
-The original console will remain available for a brief period to give you time to familiarize yourself with the new one\. To use the original console, go to [https://console\.aws\.amazon\.com/iam/home\#encryptionKeys](https://console.aws.amazon.com/iam/home#encryptionKeys)\.
-
-### To manage tags for your CMKs \(new console\)<a name="tagging-keys-kms-console"></a>
-
 1. Sign in to the AWS Management Console and open the AWS Key Management Service \(AWS KMS\) console at [https://console\.aws\.amazon\.com/kms](https://console.aws.amazon.com/kms)\.
 
 1. To change the AWS Region, use the Region selector in the upper\-right corner of the page\.
@@ -33,21 +27,6 @@ The original console will remain available for a brief period to give you time t
 1. Use the controls to add, edit, or delete tags\. The tag name must be unique in the account and region\.
 
 1. To save your changes, choose **Save changes**\.
-
-### To manage tags for your CMKs \(original console\)<a name="tagging-keys-iam-console"></a>
-
-1. Sign in to the AWS Management Console and go to [https://console\.aws\.amazon\.com/iam/home\#encryptionKeys](https://console.aws.amazon.com/iam/home#encryptionKeys)\.
-
-1. For **Region**, choose the appropriate AWS Region\. Do not use the region selector in the navigation bar \(top right corner\)\.
-
-1. Select the check box next to the alias of the CMKs whose tags you want to manage\.
-**Note**  
-You cannot tag AWS managed CMKs, which are denoted by the orange AWS icon\.
-
-1. Choose **Key actions**, **Add or edit tags**\.
-
-1. Use the controls in the **Add or edit tags** window\. To save your changes, choose **Save Changes**\.  
-![\[Add or edit tags window in the Encryption Keys section of the IAM console\]](http://docs.aws.amazon.com/kms/latest/developerguide/images/console-tags-modal.png)
 
 ## Managing CMK Tags \(KMS API\)<a name="manage-tags-api"></a>
 

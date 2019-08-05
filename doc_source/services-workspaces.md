@@ -67,11 +67,7 @@ Amazon WorkSpaces administrators also need permission to use Amazon WorkSpaces\.
 
 To give Amazon WorkSpaces administrators the permissions that they require, you can use the AWS Management Console or the AWS KMS API\.
 
-**Note**  
-AWS KMS recently introduced a new console that makes it easier for you to organize and manage your KMS resources\. We encourage you to try it at [https://console\.aws\.amazon\.com/kms](https://console.aws.amazon.com/kms)\. Please share your feedback by choosing **Feedback** in either console or in the lower\-right corner of this page\.  
-The original console will remain available for a brief period to give you time to familiarize yourself with the new one\. To use the original console, go to [https://console\.aws\.amazon\.com/iam/home\#encryptionKeys](https://console.aws.amazon.com/iam/home#encryptionKeys)\.
-
-#### To add WorkSpaces administrators as key users for a CMK \(new console\)<a name="workspaces-permissions-users-console"></a>
+#### To add WorkSpaces administrators as key users for a CMK \(Console\)<a name="workspaces-permissions-users-console"></a>
 
 1. Sign in to the AWS Management Console and open the AWS Key Management Service \(AWS KMS\) console at [https://console\.aws\.amazon\.com/kms](https://console.aws.amazon.com/kms)\.
 
@@ -80,18 +76,6 @@ The original console will remain available for a brief period to give you time t
 1. In the navigation pane, choose **Customer managed keys**\.
 
 1. Choose the key ID or alias of your preferred customer managed CMK\.
-
-1. In the **Key policy** section, under **Key users**, choose **Add**\.
-
-1. In the list of IAM users and roles, select the users and roles that correspond to your WorkSpaces administrators, and then choose **Attach**\.
-
-#### To add WorkSpaces administrators as key users for a CMK \(original console\)<a name="workspaces-permissions-users-iam-console"></a>
-
-1. Sign in to the AWS Management Console and go to [https://console\.aws\.amazon\.com/iam/home\#encryptionKeys](https://console.aws.amazon.com/iam/home#encryptionKeys)\.
-
-1. For **Region**, choose the appropriate AWS Region\. Do not use the region selector in the navigation bar \(top right corner\)\.
-
-1. Choose the alias of your preferred customer managed CMK\.
 
 1. In the **Key policy** section, under **Key users**, choose **Add**\.
 

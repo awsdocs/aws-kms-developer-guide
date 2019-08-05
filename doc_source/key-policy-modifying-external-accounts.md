@@ -2,7 +2,7 @@
 
 You can allow IAM users or roles in one AWS account to use a customer master key \(CMK\) in a different AWS account\. You can add these permissions when you create the CMK or change the permissions for an existing CMK\.
 
-To give permission to users and roles in another account, you must use two different types of policies:
+To give permission to use a CMK to users and roles in another account, you must use two different types of policies:
 + The **key policy** for the CMK must give the external account \(or users and roles in the external account\) permission to use the CMK\. The key policy is in the account that owns the CMK\.
 + You must attach **IAM policies** to IAM users and roles in the external account\. These IAM policies delegate the permissions that are specified in the key policy\.
 
@@ -12,90 +12,7 @@ To edit the key policy, you can use the [Policy View](key-policy-modifying.md#ke
 
 For help with editing IAM policies, see [Using IAM Policies with AWS KMS](iam-policies.md)\. 
 
-For an example that shows how the key policy and IAM policies work together to allow use of a CMK in a different account, see [ Example 2: User Assumes Role with Permission to Use a CMK in a Different AWS Account   Bob is a user in account 1 \(111122223333\)\. He is allowed to use a CMK in account 2 \(444455556666\) in cryptographic operations\. How is this possible?  When evaluating cross\-account permissions, remember that the key policy is specified in the CMK's account\. The IAM policy is specified in the caller's account, even when the caller is in a different account\.    The key policy for the CMK in account 2 allows account 2 to use IAM policies to control access to the CMK\.    The key policy for the CMK in account 2 allows account 1 to use the CMK in cryptographic operations\. However, account 1 must use IAM policies to give its principals access to the CMK\.   An IAM policy in account 1 allows the `ExampleRole` role to use the CMK in account 2 for cryptographic operations\.   Bob, a user in account 1, has permission to assume the `ExampleRole` role\.   Bob can trust this CMK, because even though it is not in his account, an IAM policy in his account gives him explicit permission to use this CMK\.   
-
-![\[Flowchart that describes the policy evaluation process\]](http://docs.aws.amazon.com/kms/latest/developerguide/images/kms-auth-flow-Bob.png) Consider the policies that let Bob, a user in account 1, use the CMK in account 2\.   The key policy for the CMK allows account 2 \(444455556666, the account that owns the CMK\) to use IAM policies to control access to the CMK\. This key policy also allows account 1 \(111122223333\) to use the CMK in cryptographic operations \(specified in the `Action` element of the policy statement\)\. However, no one in account 1 can use the CMK in account 2 until account 1 defines IAM policies that give the principals access to the CMK\. In the flowchart, this key policy in account 2 satisfies the *Does the key policy ALLOW the caller's account to use IAM policies to control access to the key?* condition\.  
-
-  ```
-  {
-      "Id": "key-policy-acct-2",
-      "Version": "2012-10-17",
-      "Statement": [
-          {
-              "Sid": "Permission to use IAM policies",
-              "Effect": "Allow",
-              "Principal": {
-                  "AWS": "arn:aws:iam::444455556666:root"
-              },
-              "Action": "kms:*",
-              "Resource": "*"
-          },
-          {
-              "Sid": "Allow account 1 to use this CMK",
-              "Effect": "Allow",
-              "Principal": {
-                  "AWS": "arn:aws:iam::111122223333:root"
-              },
-              "Action": [
-                  "kms:Encrypt",
-                  "kms:Decrypt",
-                  "kms:ReEncryptFrom",
-                  "kms:ReEncryptTo",
-                  "kms:GenerateDataKey",
-                  "kms:GenerateDataKeyWithoutPlaintext",
-                  "kms:DescribeKey"
-              ],
-              "Resource": "*"
-          }
-      ]
-  }
-  ```   An IAM policy in the caller's AWS account \(account 1, 111122223333\) gives the `ExampleRole` role in account 1 permission to perform cryptographic operations using the CMK in account 2 \(444455556666\)\. The `Action` element gives the role the same permissions that the key policy in account 2 gave to account 1\. Cross\-account IAM policies like this one are effective only when the key policy for the CMK in account 2 gives account 1 permission to use the CMK\. Also, account 1 can only give its principals permission to perform the actions that the key policy gave to the account\. In the flowchart, this satisfies the *Does an IAM policy allow the caller to perform this action?* condition\. 
-
-  ```
-  {
-      "Version": "2012-10-17",
-      "Statement": [
-          {
-              "Principal": { "arn:aws:iam::111122223333:role/ExampleRole" }
-              "Effect": "Allow",
-              "Action": [
-                  "kms:Encrypt",
-                  "kms:Decrypt",
-                  "kms:ReEncryptFrom",
-                  "kms:ReEncryptTo",
-                  "kms:GenerateDataKey",
-                  "kms:GenerateDataKeyWithoutPlaintext",
-                  "kms:DescribeKey"
-              ],
-              "Resource": [
-                  "arn:aws:kms:us-west-2:444455556666:key/1234abcd-12ab-34cd-56ef-1234567890ab"
-              ]
-          }
-      ]
-  }
-  ```   The last required element is the definition of the `ExampleRole` role in account 1\. The `AssumeRolePolicyDocument` in the role allows Bob to assume the `ExampleRole` role\. 
-
-  ```
-  {
-      "Role": {
-          "Arn": "arn:aws:iam::111122223333:role/ExampleRole",
-          "CreateDate": "2019-05-16T00:09:25Z",
-          "AssumeRolePolicyDocument": {
-              "Version": "2012-10-17",
-              "Statement": {
-                  "Principal": {
-                      "AWS": "arn:aws:iam::111122223333:user/bob"
-                  },
-                  "Effect": "Allow",
-                  "Action": "sts:AssumeRole"
-              }
-          },
-          "Path": "/",
-          "RoleName": "ExampleRole",
-          "RoleId": "AROA4KJY2TU23Y7NK62MV"
-      }
-  }
-  ```    ](policy-evaluation.md#example-cross-acct)\.
+For an example that shows how the key policy and IAM policies work together to allow use of a CMK in a different account, see [Example 2: User Assumes Role with Permission to Use a CMK in a Different AWS Account](policy-evaluation.md#example-cross-acct)\.
 
 **Topics**
 + [Step 1: Add a Key Policy Statement in the Local Account](#cross-account-key-policy)
@@ -133,7 +50,7 @@ For example, assume that you want to allow account 444455556666 to use a CMK in 
 }
 ```
 
-If you prefer, you can specify particular external users and roles in the key policy instead of giving permission to the external account\. However, those users and roles cannot use the CMK until IAM administrators in the external account attach the proper IAM policies to their identities\. The IAM policies can give permission to all or a subset of the external users and roles that are specified in the key policy\. And they can allow all or a subset of the actions specified in the key policy\. 
+Instead of giving permission to the external account, you can specify particular external users and roles in the key policy \. However, those users and roles cannot use the CMK until IAM administrators in the external account attach the proper IAM policies to their identities\. The IAM policies can give permission to all or a subset of the external users and roles that are specified in the key policy\. And they can allow all or a subset of the actions specified in the key policy\. 
 
 Specifying identities in a key policy restricts the permissions that IAM administrators in the external account can provide\. However, it makes policy management with two accounts more complex\. For example, assume that you need to add a user or role\. You must add that identity to the key policy in the account that owns the CMK and create IAM policies in the identity's account\.
 
@@ -201,7 +118,7 @@ The following example IAM policy allows the principal to use the CMK in account 
 Note the following details about this policy:
 + Unlike key policies, IAM policy statements do not contain the `Principal` element\. In IAM policies, the principal is the identity to which the policy is attached\. 
 + The `Resource` element in the IAM policy identifies the CMK that the principal can use\. To specify a CMK, add its [Amazon Resource Name \(ARN\)](control-access-overview.md#kms-resources-operations) to the `Resource` element\. You can specify more than one CMK in the policy statement\. But if you don't specify particular CMKs in the `Resource` element, you might inadvertently give access to more CMKs than you intend\.
-+ To allow the external user to use the CMK with [AWS services that integrate with AWS KMS,](https://aws.amazon.com//kms/features/#AWS_Service_Integration) you might need to add permissions to the key policy or the IAM policy\. For details, see [Using External CMKs with AWS Services](#cross-account-service)\.
++ To allow the external user to use the CMK with [AWS services that integrate with AWS KMS,](https://aws.amazon.com/kms/features/#AWS_Service_Integration) you might need to add permissions to the key policy or the IAM policy\. For details, see [Using External CMKs with AWS Services](#cross-account-service)\.
 
 For more information about working with IAM policies, see [Using IAM Policies](iam-policies.md)\.
 

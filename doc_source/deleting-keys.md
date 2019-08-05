@@ -69,12 +69,6 @@ Before you can delete a CMK, you must have permission to do so\. If you rely on 
 
 You can schedule and cancel key deletion in the AWS Management Console\.
 
-**Note**  
-AWS KMS recently introduced a new console that makes it easier for you to organize and manage your KMS resources\. We encourage you to try it at [https://console\.aws\.amazon\.com/kms](https://console.aws.amazon.com/kms)\. Please share your feedback by choosing **Feedback** in either console or in the lower\-right corner of this page\.  
-The original console will remain available for a brief period to give you time to familiarize yourself with the new one\. To use the original console, go to [https://console\.aws\.amazon\.com/iam/home\#encryptionKeys](https://console.aws.amazon.com/iam/home#encryptionKeys)\.
-
-#### To schedule and cancel key deletion \(new console\)<a name="delete-keys-kms-console"></a>
-
 **To schedule key deletion**
 
 1. Sign in to the AWS Management Console and open the AWS Key Management Service \(AWS KMS\) console at [https://console\.aws\.amazon\.com/kms](https://console.aws.amazon.com/kms)\.
@@ -108,34 +102,6 @@ The CMK status changes to **Pending deletion**\.
 1. Choose **Key actions**, **Cancel key deletion**\.
 
 The CMK status changes from **Pending deletion** to **Disabled**\. To use the CMK, you must [enable it](enabling-keys.md)\.
-
-#### To schedule and cancel key deletion \(original console\)<a name="delete-keys-iam-console"></a>
-
-**To schedule key deletion**
-
-1. Sign in to the AWS Management Console and go to [https://console\.aws\.amazon\.com/iam/home\#encryptionKeys](https://console.aws.amazon.com/iam/home#encryptionKeys)\.
-
-1. For **Region**, choose the appropriate AWS Region\. Do not use the region selector in the navigation bar \(top right corner\)\.
-
-1. Select the check box next to the CMK that you want to delete\.
-
-1. Choose **Key Actions**, **Schedule key deletion**\.
-
-1. For **Waiting period \(in days\)**, type a number of days between 7 and 30\. Choose **Schedule deletion**\.
-
-The CMK status changes to **Pending Deletion**\.
-
-**To cancel key deletion**
-
-1. Go to the original AWS KMS console at [https://console\.aws\.amazon\.com/iam/home\#encryptionKeys](https://console.aws.amazon.com/iam/home#encryptionKeys)\.
-
-1. For **Region**, choose the appropriate AWS Region\. Do not use the region selector in the navigation bar \(top right corner\)\.
-
-1. Select the check box next to the CMK that you want to recover\.
-
-1. Choose **Key Actions**, **Cancel key deletion**\.
-
-The CMK status changes from **Pending Deletion** to **Disabled**\. To use the CMK, you must [enable it](enabling-keys.md)\.
 
 ### Scheduling and Canceling Key Deletion \(AWS CLI\)<a name="deleting-keys-scheduling-key-deletion-cli"></a>
 
@@ -210,12 +176,6 @@ The following procedures describe how to add permissions to a key policy using t
 
 You can use the AWS Management Console to add permissions for scheduling and canceling key deletion\.
 
-**Note**  
-AWS KMS recently introduced a new console that makes it easier for you to organize and manage your KMS resources\. We encourage you to try it at [https://console\.aws\.amazon\.com/kms](https://console.aws.amazon.com/kms)\. Please share your feedback by choosing **Feedback** in either console or in the lower\-right corner of this page\.  
-The original console will remain available for a brief period to give you time to familiarize yourself with the new one\. To use the original console, go to [https://console\.aws\.amazon\.com/iam/home\#encryptionKeys](https://console.aws.amazon.com/iam/home#encryptionKeys)\.
-
-#### To add permission to schedule and cancel key deletion \(new console\)<a name="policy-delete-key-kms-console"></a>
-
 1. Sign in to the AWS Management Console and open the AWS Key Management Service \(AWS KMS\) console at [https://console\.aws\.amazon\.com/kms](https://console.aws.amazon.com/kms)\.
 
 1. To change the AWS Region, use the Region selector in the upper\-right corner of the page\.
@@ -227,20 +187,6 @@ The original console will remain available for a brief period to give you time t
 1. In the **Key policy** section, under **Key deletion**, select **Allow key administrators to delete this key** and then choose **Save changes**\.
 **Note**  
 If you do not see the **Allow key administrators to delete this key** option, this usually means that you have changed this key policy using the AWS KMS API\. In this case, you must update the key policy document manually\. Add the `kms:ScheduleKeyDeletion` and `kms:CancelKeyDeletion` permissions to the key administrators statement \(`"Sid": "Allow access for Key Administrators"`\) in the key policy, and then choose **Save changes**\. 
-
-#### To add permission to schedule and cancel key deletion \(original console\)<a name="policy-delete-key-iam-console"></a>
-
-1. Sign in to the AWS Management Console and go to [https://console\.aws\.amazon\.com/iam/home\#encryptionKeys](https://console.aws.amazon.com/iam/home#encryptionKeys)\.
-
-1. For **Region**, choose the appropriate AWS Region\. Do not use the region selector in the navigation bar \(top right corner\)\.
-
-1. Choose the alias of the CMK whose permissions you want to change\.
-
-1. In the **Key Policy** section, under **Key Deletion**, select **Allow key administrators to delete this key** and then choose **Save Changes**\.
-**Note**  
-If you do not see the **Allow key administrators to delete this key** option, this likely means that you have previously modified this key policy using the AWS KMS API\. In this case, you must update the key policy document manually\. Add the `kms:ScheduleKeyDeletion` and `kms:CancelKeyDeletion` permissions to the key administrators statement \(`"Sid": "Allow access for Key Administrators"`\) in the key policy, and then choose **Save Changes**\.   
-
-![\[Image NOT FOUND\]](http://docs.aws.amazon.com/kms/latest/developerguide/images/kms-console-add-permissions-schedule-cancel-key-deletion.png)
 
 ### Adding Permission to Schedule and Cancel Key Deletion \(AWS CLI\)<a name="deleting-keys-adding-permission-cli"></a>
 

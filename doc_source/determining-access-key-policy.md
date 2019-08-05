@@ -12,12 +12,6 @@ You can examine the key policy in two ways:
 
 Authorized users can view and change the policy document for a customer master key \(CMK\) in the **Key Policy** section of the AWS Management Console\.
 
-**Note**  
-AWS KMS recently introduced a new console that makes it easier for you to organize and manage your KMS resources\. We encourage you to try it at [https://console\.aws\.amazon\.com/kms](https://console.aws.amazon.com/kms)\. Please share your feedback by choosing **Feedback** in either console or in the lower\-right corner of this page\.  
-The original console will remain available for a brief period to give you time to familiarize yourself with the new one\. To use the original console, go to [https://console\.aws\.amazon\.com/iam/home\#encryptionKeys](https://console.aws.amazon.com/iam/home#encryptionKeys)\.
-
-### To examine a key policy \(new console\)<a name="determine-access-kms-console"></a>
-
 1. Sign in to the AWS Management Console and open the AWS Key Management Service \(AWS KMS\) console at [https://console\.aws\.amazon\.com/kms](https://console.aws.amazon.com/kms)\.
 
 1. To change the AWS Region, use the Region selector in the upper\-right corner of the page\.
@@ -29,20 +23,6 @@ The original console will remain available for a brief period to give you time t
 1. Under **Key policy**, the **Key administrators** section displays the list of IAM users and roles that can manage the CMK\. The **Key users** section lists the users, roles, and AWS accounts that can use this CMK in cryptographic operations\.
 **Important**  
 The IAM users, roles, and AWS accounts listed here are the ones that have been explicitly granted access in the key policy\. If you use IAM policies to allow access to CMKs, other IAM users and roles might have access to this CMK, even if they are not listed here\. Take care to [examine all IAM policies](determining-access-iam-policies.md) in this account to determine whether they allow access to this CMK\.
-
-1. \(Optional\) To view the key policy document, choose **Switch to policy view**\.
-
-### To examine a key policy \(original console\)<a name="determine-access-iam-console"></a>
-
-1. Sign in to the AWS Management Console and go to [https://console\.aws\.amazon\.com/iam/home\#encryptionKeys](https://console.aws.amazon.com/iam/home#encryptionKeys)\.
-
-1. For **Region**, choose the appropriate AWS Region\. Do not use the region selector in the navigation bar \(top right corner\)\.
-
-1. In the list of CMKs, choose the alias of the CMK that you want to examine\.
-
-1. In the **Key Policy** section of the key details page, find the list of IAM users and roles in the **Key Administrators** section, and another list in the **Key Users** section\. The listed users, roles, and AWS accounts all have access to manage or use this CMK\.
-**Important**  
-The IAM users, roles, and AWS accounts listed here are the ones that have been explicitly granted access in the key policy\. If you use IAM policies to allow access to CMKs, other IAM users and roles might have access to this CMK, even if they are not listed here\. Take care to [examine all IAM policies](determining-access-iam-policies.md) in this account to determine if they allow access to this CMK\.
 
 1. \(Optional\) To view the key policy document, choose **Switch to policy view**\.
 
