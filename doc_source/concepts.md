@@ -28,7 +28,7 @@ There are three types of CMKs in AWS accounts: customer managed CMKs, AWS manage
 | [AWS managed CMK](#aws-managed-cmk) | Yes | No | Yes | 
 | [AWS owned CMK](#aws-owned-cmk) | No | No | No | 
 
-[AWS services that integrate with AWS KMS](service-integration.md) differ in their support for CMKs\. Some services encrypt your data by default with an AWS owned CMK\. Some encrypt under AWS managed CMKs that they create in your account\. Other services allow you specify a customer managed CMK that you have created\. And others support all types of CMKs to allow you the ease of an AWS owned CMK, the visibility of an AWS managed CMK, or the control of a customer managed CMK\.
+[AWS services that integrate with AWS KMS](service-integration.md) differ in their support for CMKs\. Some AWS services encrypt your data by default with an AWS owned CMK or an AWS managed CMK\. Other AWS services offer to encrypt your data under a customer managed CMK that you choose\. And other AWS services support all types of CMKs to allow you the ease of an AWS owned CMK, the visibility of an AWS managed CMK, or the control of a customer managed CMK\.
 
 ### Customer managed CMKs<a name="customer-cmk"></a>
 
