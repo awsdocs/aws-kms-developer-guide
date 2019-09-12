@@ -397,7 +397,7 @@ For details, see the [revoke\_grant method](http://boto3.amazonaws.com/v1/docume
 ```
 # Revoke a grant on a CMK
 
-// Replace the following fictitious CMK ARN with a valid CMK ID or ARN
+# Replace the following fictitious CMK ARN with a valid CMK ID or ARN
 key_id = 'arn:aws:kms:us-west-2:111122223333:key/1234abcd-12ab-34cd-56ef-1234567890ab'
 grant_id = 'grant1'
 

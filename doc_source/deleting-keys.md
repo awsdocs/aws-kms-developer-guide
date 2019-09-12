@@ -4,7 +4,9 @@ Deleting a customer master key \(CMK\) in AWS Key Management Service \(AWS KMS\)
 
 Before deleting a CMK, you might want to know how many ciphertexts were encrypted under that CMK\. AWS KMS does not store this information and does not store any of the ciphertexts\. To get this information, you must determine on your own the past usage of a CMK\. For some guidance that might help you do this, go to [Determining Past Usage of a Customer Master Key](deleting-keys-determining-usage.md)\.
 
-You might choose to delete a CMK for one or more of the following reasons:
+AWS KMS never deletes your CMKs unless you explicitly schedule them for deletion and the mandatory waiting period expires\. 
+
+However, you might choose to delete a CMK for one or more of the following reasons:
 + To complete the key lifecycle for CMKs that you no longer need
 + To avoid the management overhead and [costs](https://aws.amazon.com/kms/pricing/) associated with maintaining unused CMKs
 + To reduce the number of CMKs that count against your [limit](limits.md)

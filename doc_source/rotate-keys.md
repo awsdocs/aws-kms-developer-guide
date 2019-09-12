@@ -2,7 +2,7 @@
 
 Cryptographic best practices discourage extensive reuse of encryption keys\. To create new cryptographic material for your AWS Key Management Service \(AWS KMS\) customer master keys \(CMKs\), you can create new CMKs, and then change your applications or aliases to use the new CMKs\. Or, you can enable automatic key rotation for an existing CMK\. 
 
-When you enable *automatic key rotation* for a customer managed CMK, AWS KMS generates new cryptographic material for the CMK every year\. AWS KMS also saves the CMK's older cryptographic material so it can be used to decrypt data that it encrypted\.
+When you enable *automatic key rotation* for a customer managed CMK, AWS KMS generates new cryptographic material for the CMK every year\. AWS KMS also saves the CMK's older cryptographic material in perpetuity so it can be used to decrypt data that it encrypted\. AWS KMS does not delete any rotated key material until you [delete the CMK](deleting-keys.md)\.
 
 Key rotation changes only the CMK's *backing key*, which is the cryptographic material that is used in encryption operations\. The CMK is the same logical resource, regardless of whether or how many times its backing key changes\. The properties of the CMK do not change, as shown in the following image\.
 
@@ -46,10 +46,10 @@ Key rotation in AWS KMS is a cryptographic best practice that is designed to be 
 + **Imported CMKs\.** Automatic key rotation is not available for CMKs that have [imported key material](importing-keys.md) \(the value of the **Origin** field is **External**\), but you can [rotate these CMKs manually](#rotate-keys-manually)\. 
 
    
-+ **AWS managed CMKs\.** You cannot manage key rotation for AWS managed CMKs\. AWS KMS automatically rotates AWS managed keys every three years \(1095 days\)\.
++ **AWS managed CMKs\.** You cannot manage key rotation for [AWS managed CMKs](concepts.md#aws-managed-cmk)\. AWS KMS automatically rotates AWS managed CMKs every three years \(1095 days\)\.
 
    
-+ **Logging key rotation\.** When AWS KMS rotates a CMK, it writes the **KMS CMK Rotation** event to [Amazon CloudWatch Events](https://docs.aws.amazon.com/AmazonCloudWatch/latest/events/)\. You can use this event to verify that the CMK was rotated\. 
++ **Monitoring key rotation\.** When AWS KMS automatically rotates the key material for an AWS managed CMK or customer managed CMK, it writes the **KMS CMK Rotation** event to [Amazon CloudWatch Events](https://docs.aws.amazon.com/AmazonCloudWatch/latest/events/)\. You can use this event to verify that the CMK was rotated\.
 
 ## How to Enable and Disable Automatic Key Rotation<a name="rotating-keys-enable-disable"></a>
 

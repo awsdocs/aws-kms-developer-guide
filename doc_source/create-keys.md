@@ -26,7 +26,9 @@ You can use the AWS Management Console to create customer master keys \(CMKs\)\.
 
 1. \(Optional\) Type a description for the CMK\.
 
-   We recommend that you choose a description that explains the type of data you plan to protect or the application you plan to use with the CMK\.
+   Enter a description that explains the type of data you plan to protect or the application you plan to use with the CMK\. Don't use the description format that's used for [AWS managed CMKs](concepts.md#aws-managed-cmk)\. The *Default master key that protects my \.\.\. when no other key is defined* description format is reserved for AWS managed CMKs\.
+
+   You can add a description now or update it any time unless the [key state](key-state.md) is `Pending Deletion`\. To add, change, or delete the description of an existing customer managed CMK, [edit the CMK](editing-keys.md#editing-keys-console) in the AWS Management Console or use the [UpdateKeyDescription](https://docs.aws.amazon.com/kms/latest/APIReference/API_UpdateKeyDescription.html) operation\.
 
 1. Choose **Next**\.
 

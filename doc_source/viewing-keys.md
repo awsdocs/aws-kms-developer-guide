@@ -27,6 +27,13 @@ To view [AWS managed CMKs](concepts.md#aws-managed-cmk) that are missing an alia
   For example, when you type `exam` in the filter on the **Customer managed keys** page, only customer managed CMKs with `exam` in their alias or key ID fields are displayed, as shown in the following image\.  
 ![\[\]](http://docs.aws.amazon.com/kms/latest/developerguide/images/console-filter.png)
 
+**To display more information about your CMK**
++ On the **AWS managed keys** or **Customer managed keys** page, choose the alias or key ID of the CMK\. 
+
+The details include the CMK ID, Amazon Resource Name \(ARN\), alias, description, key policy, tags, and key rotation settings of a CMK\.
+
+The Alias section lists only one alias\. To find all aliases associated with the CMK, use the [ListAliases](https://docs.aws.amazon.com/kms/latest/APIReference/API_ListAliases.html) operation\.
+
 **To customize the CMK display**
 
 The display shows all the CMKs of each type in your AWS account and region\. By default, the page displays the alias, key ID, status, and creation date for each CMK, but you can customize it to show the information that you need\.
@@ -34,13 +41,6 @@ The display shows all the CMKs of each type in your AWS account and region\. By 
 1. On the **AWS managed keys** or **Customer managed keys** page, choose the settings icon \(![\[Image NOT FOUND\]](http://docs.aws.amazon.com/kms/latest/developerguide/images/console-icon-settings-new.png)\) in the upper\-right corner of the page\.
 
 1. On the **Preferences** page, choose your preferred settings, and then choose **Confirm**\.
-
-**To display more information about your CMK**
-+ On the **AWS managed keys** or **Customer managed keys** page, choose the alias or key ID of the CMK\. 
-
-The details include the CMK ID, Amazon Resource Name \(ARN\), alias, description, key policy, tags, and key rotation settings of a CMK\.
-
-The Alias section lists only one alias\. To find all aliases associated with the CMK, use the [ListAliases](https://docs.aws.amazon.com/kms/latest/APIReference/API_ListAliases.html) operation\.
 
 ## Viewing CMKs \(KMS API\)<a name="viewing-keys-cli"></a>
 

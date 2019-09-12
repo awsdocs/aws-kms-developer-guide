@@ -15,14 +15,22 @@ Learn the basic terms and concepts in AWS Key Management Service \(AWS KMS\) and
 
 ## Customer Master Keys \(CMKs\)<a name="master_keys"></a>
 
-The primary resources in AWS KMS are *customer master keys* \(CMKs\)\. You can use a CMK to encrypt and decrypt up to 4 KB \(4096 bytes\) of data\. Typically, you use CMKs to generate, encrypt, and decrypt the [data keys](#data-keys) that you use outside of AWS KMS to encrypt your data\. This strategy is known as [envelope encryption](#enveloping)\.
+Customer master keys are the primary resources in AWS KMS
 
-CMKs are created in AWS KMS and never leave AWS KMS unencrypted\.  To use or manage your CMK, you access them through AWS KMS\. This strategy differs from [data keys](#data-keys)\. AWS KMS does not store, manage, or track your data keys\. You must use them outside of AWS KMS\.
+A *customer master key* \(CMK\) is a logical representation of a master key\. The CMK includes metadata, such as the key ID, creation date, description, and key state\. The CMK also contains the key material used to encrypt and decrypt data\.
+
+You can use a CMK to encrypt and decrypt up to 4 KB \(4096 bytes\) of data\. Typically, you use CMKs to generate, encrypt, and decrypt the [data keys](#data-keys) that you use outside of AWS KMS to encrypt your data\. This strategy is known as [envelope encryption](#enveloping)\.
+
+CMKs are created in AWS KMS and never leave AWS KMS unencrypted\.  To manage your CMK, you can use the AWS Management Console or the [AWS KMS API](https://docs.aws.amazon.com/kms/latest/APIReference/)\. To use a CMK in cryptographic operations, you must use the AWS KMS API\. This strategy differs from [data keys](#data-keys)\. AWS KMS does not store, manage, or track your data keys\. You must use them outside of AWS KMS\.
+
+By default, AWS KMS creates the key material for a CMK\. You cannot extract, export, view, or manage this key material\. Also, you cannot delete this key material; you must [delete the CMK](deleting-keys.md)\. However, you can [import your own key material](importing-keys.md) into a CMK or create the key material for a CMK in the AWS CloudHSM cluster associated with an [AWS KMS custom key store](custom-key-store-overview.md)\.
+
+For information about creating and managing CMKs, see [Getting Started](getting-started.md)\. For information about using CMKs, see the [AWS Key Management Service API Reference](https://docs.aws.amazon.com/kms/latest/APIReference/)\. 
 
 There are three types of CMKs in AWS accounts: customer managed CMKs, AWS managed CMKs, and AWS owned CMKs\. 
 
 
-| Type of CMK | Can view | Can manage | Used only for my AWS account | 
+| Type of CMK | Can view CMK metadata | Can manage CMK | Used only for my AWS account | 
 | --- | --- | --- | --- | 
 | [Customer managed CMK](#customer-cmk) | Yes | Yes | Yes | 
 | [AWS managed CMK](#aws-managed-cmk) | Yes | No | Yes | 
@@ -111,7 +119,7 @@ Envelope encryption offers several benefits:
 
 All AWS KMS cryptographic operations \(the [https://docs.aws.amazon.com/kms/latest/APIReference/API_Encrypt.html](https://docs.aws.amazon.com/kms/latest/APIReference/API_Encrypt.html), [https://docs.aws.amazon.com/kms/latest/APIReference/API_Decrypt.html](https://docs.aws.amazon.com/kms/latest/APIReference/API_Decrypt.html), [https://docs.aws.amazon.com/kms/latest/APIReference/API_ReEncrypt.html](https://docs.aws.amazon.com/kms/latest/APIReference/API_ReEncrypt.html), [https://docs.aws.amazon.com/kms/latest/APIReference/API_GenerateDataKey.html](https://docs.aws.amazon.com/kms/latest/APIReference/API_GenerateDataKey.html), and [https://docs.aws.amazon.com/kms/latest/APIReference/API_GenerateDataKeyWithoutPlaintext.html](https://docs.aws.amazon.com/kms/latest/APIReference/API_GenerateDataKeyWithoutPlaintext.html)\) accept an *encryption context*, an optional set of key–value pairs that can contain additional contextual information about the data\. AWS KMS uses the encryption context as [additional authenticated data](https://docs.aws.amazon.com/crypto/latest/userguide/cryptography-concepts.html#term-aad) \(AAD\) to support [authenticated encryption](https://docs.aws.amazon.com/crypto/latest/userguide/cryptography-concepts.html#define-authenticated-encryption)\. 
 
-When an encryption context is provided in an encryption request, it is cryptographically bound to the ciphertext such that the same encryption context is required to decrypt \(or decrypt and re\-encrypt\) the data\. If the encryption context provided in the decryption request is not an exact, case\-sensitive match, the decrypt request fails\. Only the order of the key-value pairs in the encryption context can vary\.
+When an encryption context is provided in an encryption request, it is cryptographically bound to the ciphertext such that the same encryption context is required to decrypt \(or decrypt and re\-encrypt\) the data\. If the encryption context provided in the decryption request is not an exact, case\-sensitive match, the decrypt request fails\. Only the order of the key\-value pairs in the encryption context can vary\.
 
 The encryption context is not secret\. It appears in plaintext in [AWS CloudTrail Logs](logging-using-cloudtrail.md) so you can use it to identify and categorize your cryptographic operations\.
 

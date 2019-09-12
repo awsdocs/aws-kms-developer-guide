@@ -25,11 +25,13 @@ You can [view](viewing-keys.md), but not edit, the properties of AWS managed CMK
 1. Choose the alias or key ID of the CMK that you want to edit\. Now, use the controls on the key details page to view and change the properties of the CMK\.
 
 **Change the CMK description**  
-You can change the description of your CMK unless it is pending deletion\. The description is optional\.  
+You can add, change, or delete the description of your CMK unless its [key state](key-state.md) is `Pending Deletion`\. The description is optional\.  
 
 1. In the upper\-right corner, choose **Edit**\.
 
-1. For **Description**, type a brief description of the CMK\.
+1. For **Description**, type a brief description of the CMK\. You can also delete an existing description\.
+
+   Enter a description that explains the type of data you plan to protect or the application you plan to use with the CMK\. The *Default master key that protects my \.\.\. when no other key is defined* description format is reserved for [AWS managed CMKs](concepts.md#aws-managed-cmk)\.
 
 1. To save your changes, choose **Save**\.
 
@@ -98,7 +100,7 @@ For information about adding, deleting, and editing tags, see [Tagging Keys](tag
 
 ### UpdateKeyDescription: Change the Description of a CMK<a name="editing-keys-edit-description"></a>
 
-The [UpdateKeyDescription](https://docs.aws.amazon.com/kms/latest/APIReference/API_UpdateKeyDescription.html) operation adds or changes the description of a CMK\. To see the description, use the [DescribeKey](https://docs.aws.amazon.com/kms/latest/APIReference/API_DescribeKey.html) operation\.
+The [UpdateKeyDescription](https://docs.aws.amazon.com/kms/latest/APIReference/API_UpdateKeyDescription.html) operation replaces the description of the CMK with the one that you specify\. You can use it to add, change, or delete the description of a CMK\. To see the description, use the [DescribeKey](https://docs.aws.amazon.com/kms/latest/APIReference/API_DescribeKey.html) operation\.
 
 For example, this call to the `UpdateKeyDescription` operation changes the description of the specified CMK\.
 

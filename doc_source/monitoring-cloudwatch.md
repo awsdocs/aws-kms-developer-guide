@@ -112,7 +112,9 @@ The following topics describe the CloudWatch Events that AWS KMS creates\.
 
 ### KMS CMK Rotation<a name="kms-events-rotation"></a>
 
-When you enable [annual rotation of a CMK's key material](rotate-keys.md), AWS KMS creates new key material for the CMK each year and sends a corresponding event to CloudWatch Events\. The following is an example of this event\.
+When you enable [automatic key rotation](rotate-keys.md) for a [customer managed CMK](concepts.md#customer-cmk), AWS KMS creates new key material for the CMK each year\. The key material for [AWS managed CMKs](concepts.md#aws-managed-cmk) is automatically rotated every three years\. 
+
+Whenever AWS KMS rotates key material, it sends a KMS CMK Rotation event to CloudWatch Events\. The following is an example of this event\.
 
 ```
 {
