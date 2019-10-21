@@ -2,7 +2,7 @@
 
 After you [create CMKs in a custom key store](create-cmk-keystore.md), you can use them for cryptographic operations — [Encrypt](https://docs.aws.amazon.com/kms/latest/APIReference/API_Encrypt.html), [Decrypt](https://docs.aws.amazon.com/kms/latest/APIReference/API_Decrypt.html), [GenerateDataKey](https://docs.aws.amazon.com/kms/latest/APIReference/API_GenerateDataKey.html), [GenerateDataKeyWithoutPlaintext](https://docs.aws.amazon.com/kms/latest/APIReference/API_GenerateDataKeyWithoutPlaintext.html), and [ReEncrypt](https://docs.aws.amazon.com/kms/latest/APIReference/API_ReEncrypt.html) — just as you would for any CMK\. In the request, you identify the CMK by its ID or alias; you do not need to specify the custom key store or AWS CloudHSM cluster\. The response includes the same fields that are returned for any CMK\.
 
-However, when you use a CMK in a custom key store, the cryptographic operation is performed entirely within the AWS CloudHSM cluster that is associated with the custom key store The operation uses the key material in the cluster that is associated with the CMK that you chose\.
+However, when you use a CMK in a custom key store, the cryptographic operation is performed entirely within the AWS CloudHSM cluster that is associated with the custom key store\. The operation uses the key material in the cluster that is associated with the CMK that you chose\.
 
 To make this possible, the following conditions are required\.
 + The [key state](key-state.md) of the CMK must be `Enabled`\. To find the key state, use the **Status** field in the [AWS Management Console](view-cmk-keystore.md) or the `KeyState` field in the [DescribeKey](https://docs.aws.amazon.com/kms/latest/APIReference/API_DescribeKey.html) response\.
