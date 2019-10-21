@@ -23,7 +23,7 @@ For details, see the [createGrant method](https://docs.aws.amazon.com/AWSJavaSDK
 // Create a grant
 //
 // Replace the following fictitious CMK ARN with a valid CMK ID or ARN
-String keyId = "&example-key-arn-1;";
+String keyId = "arn:aws:kms:us-west-2:111122223333:key/1234abcd-12ab-34cd-56ef-1234567890ab";
 String granteePrincipal = "arn:aws:iam::111122223333:user/Alice";
 String operation = GrantOperation.GenerateDataKey.toString();
 

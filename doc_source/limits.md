@@ -113,7 +113,7 @@ If the AWS CloudHSM cluster that is associated with the custom key store is proc
 | DeleteCustomKeyStore | 5 | 
 | DeleteImportedKeyMaterial | 5 | 
 | DescribeCustomKeyStores | 5 | 
-| DescribeKey | 30 | 
+| DescribeKey | 100 | 
 | DisableKey | 5 | 
 | DisableKeyRotation | 5 | 
 | DisconnectCustomKeyStore | 5 | 
@@ -123,11 +123,11 @@ If the AWS CloudHSM cluster that is associated with the custom key store is proc
 | GetKeyRotationStatus | 30 | 
 | GetParametersForImport | 0\.25 \(AWS KMS throttles requests when the rate is more than 1 per 4 seconds\) | 
 | ImportKeyMaterial | 5 | 
-| ListAliases | 5 | 
-| ListGrants | 5 | 
-| ListKeyPolicies | 5 | 
-| ListKeys | 5 | 
-| ListResourceTags | 5 | 
+| ListAliases | 100 | 
+| ListGrants | 100 | 
+| ListKeyPolicies | 100 | 
+| ListKeys | 100 | 
+| ListResourceTags | 100 | 
 | ListRetirableGrants | 5 | 
 | PutKeyPolicy | 5 | 
 | RetireGrant | 15 | 

@@ -205,6 +205,8 @@ This policy allows the principal to use the CMK in a `GenerateDataKey` request o
 }
 ```
 
+#### Requiring multiple encryption context pairs<a name="conditions-kms-encryption-context-many"></a>
+
 To require more than one encryption context pair, you can include multiple instances of the `kms:EncryptionContext:` condition\. For example, the following example policy statement uses the `ForAllValues` operator to require both of the following encryption context pairs \(and no others\)\. The order in which the pairs are specified does not matter\.
 + `"AppName": "ExampleApp"`
 + `"FilePath": "/var/opt/secrets/"`
@@ -225,6 +227,8 @@ To require more than one encryption context pair, you can include multiple insta
   }
 }
 ```
+
+#### Case sensitivity of the encryption context condition<a name="conditions-kms-encryption-context-case"></a>
 
 The encryption context that is specified in a decryption operation must be an exact, case\-sensitive match for the encryption context that is specified in the encryption operation\. Only the order of pairs in an encryption context with multiple pair can vary\.
 
@@ -268,7 +272,7 @@ To require a case\-sensitive encryption context key, use the [kms:EncryptionCont
 }
 ```
 
-To require a case\-sensitive evaluation of both the encryption context key and value, use the `kms:EncryptionContextKey` and `kms:EncryptionContext:` policy conditions together in the same policy statement\. For example, in the following example policy statement, because the `StringEquals` operator is case sensitive, both the encryption context key and the encryption context value are case sensitive\.
+To require a case\-sensitive evaluation of both the encryption context key and value, use the `kms:EncryptionContextKeys` and `kms:EncryptionContext:` policy conditions together in the same policy statement\. For example, in the following example policy statement, because the `StringEquals` operator is case sensitive, both the encryption context key and the encryption context value are case sensitive\.
 
 ```
 {
@@ -280,8 +284,80 @@ To require a case\-sensitive evaluation of both the encryption context key and v
   "Resource": "*",
   "Condition": {
     "ForAnyValue:StringEquals": {
-      "kms:EncryptionContextKey": "AppName",
+      "kms:EncryptionContextKeys": "AppName",
       "kms:EncryptionContext:AppName": "ExampleApp"
+    }
+  }
+}
+```
+
+#### Using variables in an encryption context condition<a name="conditions-kms-encryption-context-variables"></a>
+
+The key and value in an encryption context pair must be simple literal strings\. They cannot be integers or objects, or any type that is not fully resolved\. If you use a different type, such as an integer or float, AWS KMS interprets it as a literal string\.
+
+```
+"encryptionContext": {
+    "department": "10103.0"
+}
+```
+
+However, the value in the `kms:EncryptionContext:` condition key pair can be an [IAM policy variable](https://docs.aws.amazon.com/IAM/latest/UserGuide/reference_policies_variables.html)\. These policy variables are resolved at runtime based on values in the request\. For example, `aws:CurrentTime `resolves to the time of the request and `aws:username` resolves to the friendly name of the caller\.
+
+You can use these policy variables to create a policy statement with a condition that requires very specific information in an encryption context, such as the caller's user name\. Because it contains a variable, you can use the same policy statement for all users who can assume the role\. You don't have to write a separate policy statement for each user\.
+
+Consider a situation where you want to all users who can assume a role to use the same CMK to encrypt and decrypt their data\. However, you want to allow them to decrypt only the data that they encrypted\. Start by requiring that every request to AWS KMS include an encryption context where the key is `user` and the value is the caller's AWS user name, such as the following one\.
+
+```
+"encryptionContext": {
+    "user": "bob"
+}
+```
+
+Then, to enforce this requirement, you can use a policy statement like the one in the following example\. This policy statement gives the `TestTeam` role permission to encrypt and decrypt data with the CMK\. However, the permission is valid only when the encryption context in the request includes a `"user": "<username>"` pair\. To represent the user name, the condition uses the [https://docs.aws.amazon.com/IAM/latest/UserGuide/reference_policies_variables.html#policy-vars-infotouse](https://docs.aws.amazon.com/IAM/latest/UserGuide/reference_policies_variables.html#policy-vars-infotouse) policy variable\.
+
+When the request is evaluated, the caller's user name replaces the variable in the condition\. As such, the condition requires an encryption context of `"user": "bob"` for "bob" and `"user": "alice"` for "alice\."
+
+```
+{
+  "Effect": "Allow",
+  "Principal": {
+    "AWS": "arn:aws:iam::111122223333:role/TestTeam"
+  },
+  "Action": [
+    "kms:Decrypt",
+    "kms:Encrypt"
+  ]
+  "Resource": "*",
+  "Condition": {
+    "ForAnyValue:StringEquals": {
+       "kms:EncryptionContext:user": "${aws:username}"
+    }
+  }
+}
+```
+
+You can use an IAM policy variable only in the value of the `kms:EncryptionContext:` condition key pair\. You cannot use a variable in the key\.
+
+You can also use [provider\-specific context keys](https://docs.aws.amazon.com/IAM/latest/UserGuide/id_roles_providers_oidc_user-id.html) in variables\. These context keys uniquely identify users who logged into AWS by using web identity federation\. 
+
+Like all variables, these variables can be used only in the `kms:EncryptionContext:` policy condition, not in the actual encryption context\. And they can be used only in the value of the condition, not in the key\.
+
+For example, the following key policy statement is similar to the previous one\. However, the condition requires an encryption context where the key is `sub` and the value uniquely identifies a user logged into a Amazon Cognito user pool\. For details about identifying users and roles in Amazon Cognito, see [IAM Roles](https://docs.aws.amazon.com/cognito/latest/developerguide/iam-roles.html) in the [Amazon Cognito Developer Guide](https://docs.aws.amazon.com/cognito/latest/developerguide/)\.
+
+```
+{
+  "Effect": "Allow",
+  "Principal": {
+    "AWS": "arn:aws:iam::111122223333:role/TestTeam"
+  },
+  "Action": [
+    "kms:Decrypt",
+    "kms:Encrypt"
+  ]
+  "Resource": "*",
+  "Condition": {
+    "ForAnyValue:StringEquals": {
+       "kms:EncryptionContext:sub": "${cognito-identity.amazonaws.com:sub}"
     }
   }
 }
@@ -646,7 +722,7 @@ The following example policy statement allows a user to create grants for the CM
   "Action": "kms:CreateGrant",
   "Resource": "*",
   "Condition": {
-    "ForAnyValue:StringEquals": {
+    "StringEquals": {
       "kms:RetiringPrincipal": [ 
          "arn:aws:iam::111122223333:role/LimitedAdminRole",
          "arn:aws:iam::111122223333:user/OpsAdmin"
@@ -724,7 +800,7 @@ For example, the following statement from a key policy uses the `kms:ViaService`
   ],
   "Resource": "*",
   "Condition": {
-    "ForAnyValue:StringEquals": {
+    "StringEquals": {
       "kms:ViaService": [
         "ec2.us-west-2.amazonaws.com",
         "rds.us-west-2.amazonaws.com"
@@ -747,10 +823,8 @@ You can also use a `kms:ViaService` condition key to deny permission to use a CM
   ],
   "Resource": "*",
   "Condition": {
-    "ForAnyValue:StringEquals": {
-      "kms:ViaService": [
-        "lambda.us-west-2.amazonaws.com"        
-      ]
+    "StringEquals": {
+      "kms:ViaService": {"lambda.us-west-2.amazonaws.com"}
     }
   }
 }
