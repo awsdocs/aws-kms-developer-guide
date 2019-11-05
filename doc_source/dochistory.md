@@ -14,6 +14,8 @@ The following table describes significant changes to this documentation since Ja
 
 | Change | Description | Date | 
 | --- |--- |--- |
+| [New feature](https://docs.aws.amazon.com/kms/latest/developerguide/pqtls.html) | Explains how to use [hybrid post\-quantum key exchange](https://docs.aws.amazon.com/kms/latest/developerguide/pqtls.html) algorithms in TLS for your calls to AWS KMS\. | November 4, 2019 | 
+| [Limit change](https://docs.aws.amazon.com/kms/latest/developerguide/limits.html) | Increased the resource limits for some APIs that manage CMKs\. | September 18, 2019 | 
 | [Limit change](https://docs.aws.amazon.com/kms/latest/developerguide/limits.html) | Changed the resource limits on customer master keys \(CMKs\), aliases, and grants per CMK\. | March 27, 2019 | 
 | [Limit change](https://docs.aws.amazon.com/kms/latest/developerguide/limits.html#rps-key-stores) | Changed the shared requests\-per\-second throttle limit on cryptographic operations that use customer master keys \(CMKs\) in a custom key store\. | March 7, 2019 | 
 | [New feature](https://docs.aws.amazon.com/kms/latest/developerguide/custom-key-store-overview.html) | Explains how to create and manage AWS KMS [custom key stores](https://docs.aws.amazon.com/kms/latest/developerguide/custom-key-store-overview.html)\. Each key store is backed by an AWS CloudHSM cluster that you own and control\. | November 26, 2018 | 

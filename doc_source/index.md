@@ -65,6 +65,7 @@ Amazon's trademarks and trade dress may not be used in
       + [Scheduling Deletion of CMKs from a Custom Key Store](delete-cmk-keystore.md)
    + [Troubleshooting a Custom Key Store](fix-keystore.md)
 + [Connecting to AWS KMS Through a VPC Endpoint](kms-vpc-endpoint.md)
++ [Using Hybrid Post-Quantum TLS with AWS KMS](pqtls.md)
 + [How Key State Affects Use of a Customer Master Key](key-state.md)
 + [How AWS Services use AWS KMS](service-integration.md)
    + [How AWS CloudTrail Uses AWS KMS](services-cloudtrail.md)
