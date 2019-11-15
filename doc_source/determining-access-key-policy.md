@@ -1,36 +1,10 @@
 # Examining the Key Policy<a name="determining-access-key-policy"></a>
 
-You can examine the key policy in two ways:
-+ If the CMK was created in the AWS Management Console, you can use the console's *default view* on the key details page to view the principals listed in the key policy\. If you can view the key policy in this way, it means the key policy [allows access with IAM policies](key-policies.md#key-policy-default-allow-root-enable-iam)\. Be sure to [examine IAM policies](determining-access-iam-policies.md) to determine the complete list of principals that can access the CMK\.
-+ You can use the [GetKeyPolicy](https://docs.aws.amazon.com/kms/latest/APIReference/API_GetKeyPolicy.html) operation in the AWS KMS API to retrieve a copy of the key policy document, and then examine the document\. You can also view the policy document in the AWS Management Console\.
+[Key policies](key-policies.md) are the primary way to control access to AWS KMS customer master keys \(CMKs\)\.
 
-**Contents**
-+ [Examining the Key Policy \(Console\)](#determining-access-key-policy-console)
-+ [Examining the Key Policy Document \(KMS API\)](#determining-access-key-policy-document)
+When a key policy consists of or includes the [default key policy](key-policies.md#key-policy-default-allow-root-enable-iam), the key policy allows IAM administrators in the account to use IAM policies to control access to the CMK\. Also, if the key policy gives [another AWS account](key-policy-modifying-external-accounts.md) permission to use the CMK, the IAM administrators in the external account can use IAM policies to delegate those permissions\. To determine the complete list of principals that can access the CMK, [examine IAM the policies](determining-access-iam-policies.md)\. 
 
-## Examining the Key Policy \(Console\)<a name="determining-access-key-policy-console"></a>
-
-Authorized users can view and change the policy document for a customer master key \(CMK\) in the **Key Policy** section of the AWS Management Console\.
-
-1. Sign in to the AWS Management Console and open the AWS Key Management Service \(AWS KMS\) console at [https://console\.aws\.amazon\.com/kms](https://console.aws.amazon.com/kms)\.
-
-1. To change the AWS Region, use the Region selector in the upper\-right corner of the page\.
-
-1. In the navigation pane, choose **Customer managed keys**\.
-
-1. In the list of CMK, choose the alias or key ID of the CMK that you want to examine\.
-
-1. Under **Key policy**, the **Key administrators** section displays the list of IAM users and roles that can manage the CMK\. The **Key users** section lists the users, roles, and AWS accounts that can use this CMK in cryptographic operations\.
-**Important**  
-The IAM users, roles, and AWS accounts listed here are the ones that have been explicitly granted access in the key policy\. If you use IAM policies to allow access to CMKs, other IAM users and roles might have access to this CMK, even if they are not listed here\. Take care to [examine all IAM policies](determining-access-iam-policies.md) in this account to determine whether they allow access to this CMK\.
-
-1. \(Optional\) To view the key policy document, choose **Switch to policy view**\.
-
-## Examining the Key Policy Document \(KMS API\)<a name="determining-access-key-policy-document"></a>
-
-You can view the key policy document in a couple of ways:
-+ Use the key details page of the AWS Management Console \(see the preceding section for instructions\)\.
-+ To get the key policy document, use the [GetKeyPolicy](https://docs.aws.amazon.com/kms/latest/APIReference/API_GetKeyPolicy.html) operation in the AWS KMS API\.
+To view the key policy of an AWS KMS [customer managed CMK](concepts.md#customer-cmk) or [AWS managed CMK](concepts.md#aws-managed-cmk) in your account, use the AWS Management Console or the [GetKeyPolicy](https://docs.aws.amazon.com/kms/latest/APIReference/API_GetKeyPolicy.html) operation in the AWS KMS API\. To view the key policy, you must have `kms:GetKeyPolicy` permissions for the CMK\. For instructions for viewing the key policy for a CMK, see [Viewing a Key Policy](key-policy-viewing.md)\.
 
 Examine the key policy document and take note of all principals specified in each policy statement's `Principal` element\. The IAM users, IAM roles, and AWS accounts in the `Principal` elements are those that have access to this CMK\.
 

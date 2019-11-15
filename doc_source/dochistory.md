@@ -14,6 +14,7 @@ The following table describes significant changes to this documentation since Ja
 
 | Change | Description | Date | 
 | --- |--- |--- |
+| [Updated feature](https://docs.aws.amazon.com/kms/latest/developerguide/key-policy-viewing.html) | You can view the key policy of AWS managed CMKs in the AWS KMS console\. This feature used to be limited to customer managed CMKs\. | November 15, 2019 | 
 | [New feature](https://docs.aws.amazon.com/kms/latest/developerguide/pqtls.html) | Explains how to use [hybrid post\-quantum key exchange](https://docs.aws.amazon.com/kms/latest/developerguide/pqtls.html) algorithms in TLS for your calls to AWS KMS\. | November 4, 2019 | 
 | [Limit change](https://docs.aws.amazon.com/kms/latest/developerguide/limits.html) | Increased the resource limits for some APIs that manage CMKs\. | September 18, 2019 | 
 | [Limit change](https://docs.aws.amazon.com/kms/latest/developerguide/limits.html) | Changed the resource limits on customer master keys \(CMKs\), aliases, and grants per CMK\. | March 27, 2019 | 

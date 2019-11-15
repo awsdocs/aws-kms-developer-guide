@@ -54,7 +54,7 @@ Customer managed CMKs incur a monthly fee and a fee for use in excess of the fre
 
 *AWS managed CMKs* are CMKs in your account that are created, managed, and used on your behalf by an AWS service that is integrated with AWS KMS\. 
 
-You can view the AWS managed CMKs in your account, view their key policies, and audit their use in AWS CloudTrail logs\. However, you cannot manage these CMKs or change their permissions\. And, you cannot use AWS managed CMKs in cryptographic operations directly; the service that creates them uses them on your behalf\. To view the key policy for an AWS managed CMK, use the [GetKeyPolicy](https://docs.aws.amazon.com/kms/latest/APIReference/API_GetKeyPolicy.html) operation\. You cannot view the key policy in the AWS Management Console, or change it by any means\.
+You can [view the AWS managed CMKs](viewing-keys.md) in your account, [view their key policies](key-policy-viewing.md), and [audit their use](logging-using-cloudtrail.md) in AWS CloudTrail logs\. However, you cannot manage these CMKs or change their key policies\. And, you cannot use AWS managed CMKs in cryptographic operations directly; the service that creates them uses them on your behalf\. 
 
 AWS managed CMKs appear on the **AWS managed keys** page of the AWS Management Console for AWS KMS\. You can also identify most AWS managed CMKs by their aliases, which have the format `aws/service-name`, such as `aws/redshift`\. To definitively identify an AWS managed CMK, use the [DescribeKey](https://docs.aws.amazon.com/kms/latest/APIReference/API_DescribeKey.html) API operation\. For AWS managed CMKs, the value of the `KeyManager` field of the `DescribeKey` response is `AWS`\.
 

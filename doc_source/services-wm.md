@@ -100,7 +100,7 @@ You can also use the keys or values in the [encryption context](#wm-encryptionco
 
 The key policy for the AWS managed CMK for Amazon WorkMail gives users permission to use the CMK for specified operations only when Amazon WorkMail makes the request on the user's behalf\. The key policy does not allow any user to use the CMK directly\.
 
-This key policy, like the policies of all [AWS managed keys](https://docs.aws.amazon.com/kms/latest/developerguide/concepts.html#master_keys), is established by the service\. You cannot change it, but you can view it at any time\. To get the key policy for the Amazon WorkMail CMK in your account, use the [GetKeyPolicy](https://docs.aws.amazon.com/kms/latest/APIReference/API_GetKeyPolicy.html) operation\.
+ This key policy, like the policies of all [AWS managed keys](https://docs.aws.amazon.com/kms/latest/developerguide/concepts.html#master_keys), is established by the service\. You cannot change the key policy, but you can view it at any time\. For details, see [Viewing a Key Policy](key-policy-viewing.md)\.
 
 The policy statements in the key policy have the following effect:
 + Allow users in the account and Region to use the CMK for cryptographic operations and to create grants, but only when the request comes from Amazon WorkMail on their behalf\. The `kms:ViaService` condition key enforces this restriction\.

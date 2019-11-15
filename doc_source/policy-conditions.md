@@ -824,7 +824,9 @@ You can also use a `kms:ViaService` condition key to deny permission to use a CM
   "Resource": "*",
   "Condition": {
     "StringEquals": {
-      "kms:ViaService": {"lambda.us-west-2.amazonaws.com"}
+      "kms:ViaService": [
+          "lambda.us-west-2.amazonaws.com"
+      ]
     }
   }
 }

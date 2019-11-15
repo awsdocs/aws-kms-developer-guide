@@ -111,7 +111,7 @@ You can also use the keys or values in the [encryption context](#asm-encryption-
 
 The key policy for the AWS managed CMK for Secrets Manager gives users permission to use the CMK for specified operations only when Secrets Manager makes the request on the user's behalf\. The key policy does not allow any user to use the CMK directly\.
 
-This key policy, like the policies of all [AWS managed keys](concepts.md#master_keys), is established by the service\. You cannot change it, but you can view it at any time\. To get the key policy for the Secrets Manager CMK in your account, use the [GetKeyPolicy](https://docs.aws.amazon.com/kms/latest/APIReference/API_GetKeyPolicy.html) operation\. 
+This key policy, like the policies of all [AWS managed keys](concepts.md#master_keys), is established by the service\. You cannot change the key policy, but you can view it at any time\. For details, see [Viewing a Key Policy](key-policy-viewing.md)\.
 
 The policy statements in the key policy have the following effect:
 + Allow users in the account to use the CMK for cryptographic operations only when the request comes from Secrets Manager on their behalf\. The `kms:ViaService` condition key enforces this restriction\.

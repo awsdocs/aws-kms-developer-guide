@@ -22,7 +22,7 @@ For an example that shows how the key policy and IAM policies work together to a
 
 ## Step 1: Add a Key Policy Statement in the Local Account<a name="cross-account-key-policy"></a>
 
-The key policy for a CMK is the primary determinant of who can access the CMK and which operations they can perform\. The key policy is always in the account that owns the CMK\. Unlike IAM policies, key policies do specify a resource\. The resource is the CMK that is associated with the key policy\.
+The key policy for a CMK is the primary determinant of who can access the CMK and which operations they can perform\. The key policy is always in the account that owns the CMK\. Unlike IAM policies, key policies do not specify a resource\. The resource is the CMK that is associated with the key policy\.
 
 To give an external account permission to use the CMK, add a statement to the key policy that specifies the external account\. In the `Principal` element of the key policy, enter the Amazon Resource Name \(ARN\) of the external account\.
 
