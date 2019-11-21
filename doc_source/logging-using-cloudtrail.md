@@ -2,6 +2,8 @@
 
 AWS KMS is integrated with AWS CloudTrail, a service that provides a record of actions performed by a user, role, or an AWS service in AWS KMS\. CloudTrail captures all API calls for AWS KMS as events, including calls from the AWS KMS console and from code calls to the AWS KMS APIs\. If you create a trail, you can enable continuous delivery of CloudTrail events to an Amazon S3 bucket, including events for AWS KMS\. If you don't configure a trail, you can still view the most recent events in the CloudTrail console in **Event history**\. Using the information collected by CloudTrail, you can determine the request that was made to AWS KMS, the IP address from which the request was made, who made the request, when it was made, and additional details\.
 
+Although, by default, all AWS KMS actions are logged as CloudTrail events, you can exclude AWS KMS actions from a CloudTrail trail\. For details, see [Excluding AWS KMS Events from a Trail](#filtering-kms-events)\.
+
 To learn more about CloudTrail, see the [AWS CloudTrail User Guide](https://docs.aws.amazon.com/awscloudtrail/latest/userguide/)\. To learn about other ways to monitor the use of your CMKs, see [Monitoring Customer Master Keys](monitoring-overview.md)\.
 
 ## AWS KMS Information in CloudTrail<a name="kms-info-in-cloudtrail"></a>
@@ -22,6 +24,25 @@ Every event or log entry contains information about who generated the request\. 
 + Whether the request was made by another AWS service\.
 
 For more information, see the [CloudTrail userIdentity Element](https://docs.aws.amazon.com/awscloudtrail/latest/userguide/cloudtrail-event-reference-user-identity.html)\.
+
+## Excluding AWS KMS Events from a Trail<a name="filtering-kms-events"></a>
+
+Most AWS KMS users rely on the events in a CloudTrail trail to provide a record of the use and management of their AWS KMS resources\. The trail can be an valuable source of data for auditing critical events, such as creating, disabling, and deleting customer master keys \(CMKs\), changing key policy, and the use of your CMKs by AWS services on your behalf\. In some cases, the metadata in a CloudTrail log entry, such as the [encryption context](concepts.md#encrypt_context) in an encryption operation, can help you to avoid or resolve errors\.
+
+However, because AWS KMS can generate a large number of events, AWS CloudTrail lets you exclude AWS KMS events from a trail\. This per\-trail setting excludes all AWS KMS events; you cannot exclude particular AWS KMS events\.
+
+**Warning**  
+Excluding AWS KMS events from a CloudTrail Log can obscure actions that use your CMKs\. Be cautious when giving principals the `cloudtrail:PutEventSelectors` permission that is required to perform this operation\.
+
+To exclude AWS KMS events from a trail: 
++ In the CloudTrail console, use the **Log Key Management Service events** setting when you [create a trail](https://docs.aws.amazon.com/awscloudtrail/latest/userguide/cloudtrail-create-a-trail-using-the-console-first-time.html) or [update a trail](https://docs.aws.amazon.com/awscloudtrail/latest/userguide/cloudtrail-update-a-trail-console.html)\. For instructions, see [Logging Management Events with the AWS Management Console](https://docs.aws.amazon.com/awscloudtrail/latest/userguide/logging-management-and-data-events-with-cloudtrail.html) in the AWS CloudTrail User Guide\.
+
+   
++ In the CloudTrail API, use the [PutEventSelectors](https://docs.aws.amazon.com/awscloudtrail/latest/APIReference/API_PutEventSelectors.html) operation\. Add the `ExcludeManagementEventSources` attribute to your event selectors with a value of `kms.amazonaws.com`\. For an example, see [Example: A trail that does not log AWS Key Management Service events](https://docs.aws.amazon.com/awscloudtrail/latest/userguide/cloudtrail-additional-cli-commands.html#configuring-event-selector-example-kms) in the AWS CloudTrail User Guide\.
+
+You can disable this exclusion at any time by changing the console setting or the event selectors for a trail\. The trail will then start recording AWS KMS events\. However, it cannot recover AWS KMS events that occurred while the exclusion was effective\.
+
+When you exclude KMS events by using the console or API, the resulting CloudTrail `PutEventSelectors` API operation is also logged in your CloudTrail Logs\. If KMS events don't appear in your CloudTrail Logs, look for a `PutEventSelectors` event with the `ExcludeManagementEventSources` attribute set to `kms.amazonaws.com`\.
 
 ## Understanding AWS KMS Log File Entries<a name="understanding-kms-entries"></a>
 

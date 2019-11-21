@@ -59,7 +59,7 @@ For encrypted snapshots created with the Amazon EC2 [CopySnapshot](https://docs.
 
 ## Detecting Amazon EBS Failures<a name="ebs-failures"></a>
 
-To create an encrypted EBS volume or attach the volume to an EC2 instance, Amazon EBS and the Amazon EC2 infrastructure must be able to use the CMK that you specified for EBS volume encryption\. When the CMK is not usable—for example, when it its [key state](key-state.md) is not `Enabled` —the volume creation or volume attachment fails\.
+To create an encrypted EBS volume or attach the volume to an EC2 instance, Amazon EBS and the Amazon EC2 infrastructure must be able to use the CMK that you specified for EBS volume encryption\. When the CMK is not usable—for example, when its [key state](key-state.md) is not `Enabled` —the volume creation or volume attachment fails\.
 
  In this case, Amazon EBS sends an *event* to Amazon CloudWatch Events to notify you about the failure\. With CloudWatch Events, you can establish rules that trigger automatic actions in response to these events\. For more information, see [Amazon CloudWatch Events for Amazon EBS](https://docs.aws.amazon.com/AWSEC2/latest/UserGuide/ebs-cloud-watch-events.html) in the *Amazon EC2 User Guide for Linux Instances*, especially the following sections:
 + [Invalid Encryption Key on Volume Attach or Reattach](https://docs.aws.amazon.com/AWSEC2/latest/UserGuide/ebs-cloud-watch-events.html#attach-fail-key)
