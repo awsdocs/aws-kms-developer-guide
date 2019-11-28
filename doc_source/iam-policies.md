@@ -82,12 +82,13 @@ The following policy allows users read\-only access to the AWS KMS console\. Tha
   "Statement": {
     "Effect": "Allow",
     "Action": [
-      "kms:ListKeys",
-      "kms:ListAliases",
       "kms:DescribeKey",
-      "kms:ListKeyPolicies",
       "kms:GetKeyPolicy",
       "kms:GetKeyRotationStatus",
+      "kms:GetPublicKey",
+      "kms:ListKeys",
+      "kms:ListAliases",
+      "kms:ListKeyPolicies",      
       "iam:ListUsers",
       "iam:ListRoles"
     ],

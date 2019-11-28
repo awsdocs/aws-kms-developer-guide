@@ -5,6 +5,9 @@ Learn the basic terms and concepts in AWS Key Management Service \(AWS KMS\) and
 **Topics**
 + [Customer Master Keys \(CMKs\)](#master_keys)
 + [Data Keys](#data-keys)
++ [Data Key Pairs](#data-key-pairs)
++ [Key Spec](#key-spec)
++ [Key Usage](#key-usage)
 + [Envelope Encryption](#enveloping)
 + [Encryption Context](#encrypt_context)
 + [Key Policies](#key_permissions)
@@ -19,9 +22,9 @@ Customer master keys are the primary resources in AWS KMS\.
 
 A *customer master key* \(CMK\) is a logical representation of a master key\. The CMK includes metadata, such as the key ID, creation date, description, and key state\. The CMK also contains the key material used to encrypt and decrypt data\.
 
-You can use a CMK to encrypt and decrypt up to 4 KB \(4096 bytes\) of data\. Typically, you use CMKs to generate, encrypt, and decrypt the [data keys](#data-keys) that you use outside of AWS KMS to encrypt your data\. This strategy is known as [envelope encryption](#enveloping)\.
+AWS KMS supports symmetric and asymmetric CMKs\. A *symmetric CMK* represents a 256\-bit key that is used for encryption and decryption\. An *asymmetric CMK* represents an RSA key pair that is used for encryption and decryption or signing and verification \(but not both\), or an elliptic curve \(ECC\) key pair that is used for signing and verification\. For detailed information about symmetric and asymmetric CMKs, see [Using Symmetric and Asymmetric Keys](symmetric-asymmetric.md)\.
 
-CMKs are created in AWS KMS and never leave AWS KMS unencrypted\.  To manage your CMK, you can use the AWS Management Console or the [AWS KMS API](https://docs.aws.amazon.com/kms/latest/APIReference/)\. To use a CMK in cryptographic operations, you must use the AWS KMS API\. This strategy differs from [data keys](#data-keys)\. AWS KMS does not store, manage, or track your data keys\. You must use them outside of AWS KMS\.
+CMKs are created in AWS KMS\. Symmetric CMKs and the private keys of asymmetric CMKs never leave AWS KMS unencrypted\.  To manage your CMK, you can use the AWS Management Console or the [AWS KMS API](https://docs.aws.amazon.com/kms/latest/APIReference/)\. To use a CMK in cryptographic operations, you must use the AWS KMS API\. This strategy differs from [data keys](#data-keys)\. AWS KMS does not store, manage, or track your data keys\. You must use them outside of AWS KMS\.
 
 By default, AWS KMS creates the key material for a CMK\. You cannot extract, export, view, or manage this key material\. Also, you cannot delete this key material; you must [delete the CMK](deleting-keys.md)\. However, you can [import your own key material](importing-keys.md) into a CMK or create the key material for a CMK in the AWS CloudHSM cluster associated with an [AWS KMS custom key store](custom-key-store-overview.md)\.
 
@@ -36,7 +39,7 @@ There are three types of CMKs in AWS accounts: customer managed CMKs, AWS manage
 | [AWS managed CMK](#aws-managed-cmk) | Yes | No | Yes | 
 | [AWS owned CMK](#aws-owned-cmk) | No | No | No | 
 
-To distinguish customer managed CMKs from AWS managed CMKs, use the `KeyManager` field in the [DescribeKey](https://docs.aws.amazon.com/kms/latest/APIReference/API_DescribeKey.html) API operation response\. For customer managed CMKs, the `KeyManager` value is `Customer`\. For AWS managed CMKs, the `KeyManager` value is `AWS`\.
+To distinguish customer managed CMKs from AWS managed CMKs, use the `KeyManager` field in the [DescribeKey](https://docs.aws.amazon.com/kms/latest/APIReference/API_DescribeKey.html) operation response\. For customer managed CMKs, the `KeyManager` value is `Customer`\. For AWS managed CMKs, the `KeyManager` value is `AWS`\.
 
 [AWS services that integrate with AWS KMS](service-integration.md) differ in their support for CMKs\. Some AWS services encrypt your data by default with an AWS owned CMK or an AWS managed CMK\. Other AWS services offer to encrypt your data under a customer managed CMK that you choose\. And other AWS services support all types of CMKs to allow you the ease of an AWS owned CMK, the visibility of an AWS managed CMK, or the control of a customer managed CMK\.
 
@@ -44,7 +47,7 @@ To distinguish customer managed CMKs from AWS managed CMKs, use the `KeyManager`
 
 *Customer managed CMKs* are CMKs in your AWS account that you create, own, and manage\. You have full control over these CMKs, including establishing and maintaining their [key policies, IAM policies, and grants](control-access.md), [enabling and disabling](enabling-keys.md) them, [rotating their cryptographic material](rotate-keys.md), [adding tags](tagging-keys.md), [creating aliases](programming-aliases.md) that refer to the CMK, and [scheduling the CMKs for deletion](deleting-keys.md)\. 
 
-Customer managed CMKs appear on the **Customer managed keys** page of the AWS Management Console for AWS KMS\. To definitively identify a customer managed CMK, use the [DescribeKey](https://docs.aws.amazon.com/kms/latest/APIReference/API_DescribeKey.html) API operation\. For customer managed CMKs, the value of the `KeyManager` field of the `DescribeKey` response is `CUSTOMER`\.
+Customer managed CMKs appear on the **Customer managed keys** page of the AWS Management Console for AWS KMS\. To definitively identify a customer managed CMK, use the [DescribeKey](https://docs.aws.amazon.com/kms/latest/APIReference/API_DescribeKey.html) operation\. For customer managed CMKs, the value of the `KeyManager` field of the `DescribeKey` response is `CUSTOMER`\.
 
 You can use your customer managed CMKs in cryptographic operations and audit their use in AWS CloudTrail logs\. In addition, many [AWS services that integrate with AWS KMS](service-integration.md) let you specify a customer managed CMK to protect the data that they store and manage for you\. 
 
@@ -56,7 +59,7 @@ Customer managed CMKs incur a monthly fee and a fee for use in excess of the fre
 
 You can [view the AWS managed CMKs](viewing-keys.md) in your account, [view their key policies](key-policy-viewing.md), and [audit their use](logging-using-cloudtrail.md) in AWS CloudTrail logs\. However, you cannot manage these CMKs or change their key policies\. And, you cannot use AWS managed CMKs in cryptographic operations directly; the service that creates them uses them on your behalf\. 
 
-AWS managed CMKs appear on the **AWS managed keys** page of the AWS Management Console for AWS KMS\. You can also identify most AWS managed CMKs by their aliases, which have the format `aws/service-name`, such as `aws/redshift`\. To definitively identify an AWS managed CMK, use the [DescribeKey](https://docs.aws.amazon.com/kms/latest/APIReference/API_DescribeKey.html) API operation\. For AWS managed CMKs, the value of the `KeyManager` field of the `DescribeKey` response is `AWS`\.
+AWS managed CMKs appear on the **AWS managed keys** page of the AWS Management Console for AWS KMS\. You can also identify most AWS managed CMKs by their aliases, which have the format `aws/service-name`, such as `aws/redshift`\. To definitively identify an AWS managed CMK, use the [DescribeKey](https://docs.aws.amazon.com/kms/latest/APIReference/API_DescribeKey.html) operation\. For AWS managed CMKs, the value of the `KeyManager` field of the `DescribeKey` response is `AWS`\.
 
 You do not pay a monthly fee for AWS managed CMKs\. They can be subject to fees for use in excess of the free tier, but some AWS services cover these costs for you\. For details, see the encryption section of the service documentation\. AWS managed CMKs do not count against limits on the number of CMKs in each Region of your account\. But when they are used on behalf of a principal in your account, these CMKs count against request rate limits\. For details, see [AWS Key Management Service Pricing](https://aws.amazon.com/kms/pricing/) and [Limits](limits.md)\.
 
@@ -98,6 +101,96 @@ The following diagram shows how to use the `Decrypt` operation to decrypt an enc
 
 ![\[Decrypting a data key\]](http://docs.aws.amazon.com/kms/latest/developerguide/images/decrypt.png)
 
+## Data Key Pairs<a name="data-key-pairs"></a>
+
+*Data key pairs* consist of a mathematically public key and private key\. They are designed to be used for client\-side encryption and decryption or signing and verification outside of AWS KMS\. 
+
+**Note**  
+Asymmetric CMKs and asymmetric data key pairs are supported by AWS KMS only in the following AWS Regions: US East \(N\. Virginia\), US West \(Oregon\), Asia Pacific \(Sydney\), Asia Pacific \(Tokyo\), and EU \(Ireland\)\.
+
+Unlike the data key pairs that tools like OpenSSL generate, AWS KMS protects the private key in each data key pair under a symmetric CMK in AWS KMS that you specify\. However, AWS KMS does not store, manage, or track your data key pairs, or perform cryptographic operations with data key pairs\. You must use and manage data key pairs outside of AWS KMS\.
+
+AWS KMS supports the following types of data key pairs:
++ RSA key pairs: RSA\_2048, RSA\_3072, and RSA\_4096
++ Elliptic curve key pairs, ECC\_NIST\_P256, ECC\_NIST\_P384, ECC\_NIST\_P521, and ECC\_SECG\_P256K1
+
+The type of data key pair that you select usually depends on your use case or regulatory requirements\. Most certificates require RSA keys\. Elliptic curve keys are often used for digital signatures\. ECC\_SECG\_P256K1 keys are commonly used for cryptocurrencies\.
+
+### Create a Data Key Pair<a name="data-keys-pairs-create"></a>
+
+To create a data key pair, call the [GenerateDataKeyPair](https://docs.aws.amazon.com/kms/latest/APIReference/API_GenerateDataKeyPair.html) or [GenerateDataKeyPairWithoutPlaintext](https://docs.aws.amazon.com/kms/latest/APIReference/API_GenerateDataKeyPairWithoutPlaintext.html) operations\. Specify the symmetric CMK you want to use to encrypt the private key\.
+
+`GenerateDataKeyPair` returns a plaintext public key, a plaintext private key, and an encrypted private key\. Use this operation when you need a plaintext private key immediately, such as to generate a digital signature\.
+
+`GenerateDataKeyPairWithoutPlaintext` returns a plaintext public key and an encrypted private key, but not a plaintext private key\. Use this operation when you don't need a plaintext private key immediately, such as when you're encrypting with a public key\. Later, when you need a plaintext private key to decrypt the data, you can call the [Decrypt](https://docs.aws.amazon.com/kms/latest/APIReference/API_Decrypt.html) operation\.
+
+The following image shows the `GenerateDataKeyPair` operation\. The `GenerateDataKeyWithoutPlaintext` operation omits the plaintext private key\.
+
+![\[Generate a data key pair\]](http://docs.aws.amazon.com/kms/latest/developerguide/images/generate-data-key-pair.png)
+
+### Encrypt Data with a Data Key Pair<a name="data-key-pairs-encrypt"></a>
+
+When you encrypt with a data key pair, you use the public key of the pair to encrypt the data and the private key of the same pair to decrypt the data\. Typically, data key pairs are used when many parties needs to encrypt data that only the party that holds the private key can decrypt\.
+
+The parties with the public key use that key to encrypt data, as shown in the following diagram\.
+
+![\[Encrypt user data with the public key of a data key pair outside of AWS KMS\]](http://docs.aws.amazon.com/kms/latest/developerguide/images/encrypt-with-data-key-pair.png)
+
+### Decrypt Data with a Data Key Pair<a name="data-key-pairs-decrypt"></a>
+
+To decrypt your data, use the private key in the data key pair\. For the operation to succeed, the public and private keys must be from the same data key pair, and you must use the same encryption algorithm\.
+
+To decrypt the encrypted private key, pass it to the [Decrypt](https://docs.aws.amazon.com/kms/latest/APIReference/API_Decrypt.html) operation\. Use the plaintext private key to decrypt the data\. Then remove the plaintext private key from memory as soon as possible\.
+
+The following diagram shows how to use the private key in a data key pair to decrypt ciphertext\.
+
+![\[Decrypt the data with the private key in a data key pair outside of AWS KMS.\]](http://docs.aws.amazon.com/kms/latest/developerguide/images/decrypt-with-data-key-pair.png)
+
+### Sign Messages with a Data Key Pair<a name="data-key-pairs-sign"></a>
+
+To generate a cryptographic signature for a message, use the private key in the data key pair\. Anyone with the public key can use it to verify that the message was signed with your private key and that it has not changed since it was signed\.
+
+If your private key is encrypted, pass the encrypted private key to the [Decrypt](https://docs.aws.amazon.com/kms/latest/APIReference/API_Decrypt.html) operation\. AWS KMS uses your CMK to decrypt the data key and then it returns the plaintext private key\. Use the plaintext private key to generate the signature\. Then remove the plaintext private key from memory as soon as possible\.
+
+To sign a message, create a message digest using a cryptographic hash function, such as the [dgst](https://www.openssl.org/docs/man1.0.2/man1/openssl-dgst.html) command in OpenSSL\. Then, pass your plaintext private key to the signing algorithm\. The result is a signature that represents the contents of the message\. 
+
+The following diagram shows how to use the private key in a data key pair to sign a message\.
+
+![\[Generate a cryptographic signature with the private key in a data key pair outside of AWS KMS.\]](http://docs.aws.amazon.com/kms/latest/developerguide/images/sign-with-data-key-pair.png)
+
+### Verify a Signature with a Data Key Pair<a name="data-key-pairs-verify"></a>
+
+Anyone who has the public key in your data key pair can use it to verify the signature that you generated with your private key\. Verification confirms that an authorized user signed the message with the specified private key and signing algorithm, and the message hasn't changed since it was signed\. 
+
+To be successful, the party verifying the signature must generate the same type of digest, use the same algorithm, and use the public key that corresponds to the private key used to sign the message\.
+
+The following diagram shows how to use the public key in a data key pair to verify a message signature\.
+
+![\[Verify a cryptographic signature with the public key in a data key pair outside of AWS KMS.\]](http://docs.aws.amazon.com/kms/latest/developerguide/images/verify-with-data-key-pair.png)
+
+## Key Spec<a name="key-spec"></a>
+
+The *key spec* is a CMK property that represents cryptographic configuration of the CMK\. The key spec determines whether the CMK is symmetric or asymmetric, the type of key material in the CMK, and the encryption algorithms or signing algorithms you can use with the CMK\. 
+
+Typically, the key spec that you choose for your CMK is based on your use case and regulatory requirements\. You choose the key spec when you [create the CMK](create-keys.md), and you cannot change it\. If you've chosen the wrong key spec, [delete the CMK](deleting-keys.md), and create a new one\. 
+
+For a list of key specs and help with choosing a key spec, see [Selecting the Key Spec](symm-asymm-choose.md#symm-asymm-choose-key-spec)\. To find the key spec of a CMK, use the [DescribeKey](url-kms-api;API_DescribeKey.html) operation, or see the **Cryptographic configuration** section of the detail page for a CMK in the AWS KMS console\. For help, see [Viewing Keys](viewing-keys.md)\. 
+
+**Note**  
+In AWS KMS API operations, the key spec for CMKs is known as the `CustomerMasterKeySpec`\. This distinguishes it from the key spec for data keys \(`KeySpec`\) and data key pairs \(`KeyPairSpec`\), the key spec used when wrapping key material for import \(`WrappingKeySpec`\)\. Each key spec type has different values\.
+
+To limit the key specs that principals can use when creating CMKs, use the [kms:CustomerMasterKeySpec](policy-conditions.md#conditions-kms-customer-master-key-spec) condition key\. You can also use the `kms:CustomerMasterKeySpec` condition key to allow principals to call AWS KMS operations for a CMK based on its key spec\. For example, you can deny permission to schedule deletion of CMK with an `RSA_4096` key spec\. 
+
+## Key Usage<a name="key-usage"></a>
+
+*Key usage* is a CMK property that determines whether a CMK is used for encryption and decryption \-or\- signing and verification\. You cannot choose both\. Using a CMK for more than one type of operations makes the product of both operations more vulnerable to attack\.
+
+The key usage for symmetric CMKs is always encryption and decryption\. The key usage for elliptic curve \(ECC\) CMKs is always signing and verification\. You only need to choose a key usage for RSA CMKs\. You choose the key usage when you [create the CMK](create-keys.md), and you cannot change it\. If you've chosen the wrong key usage, [delete the CMK](deleting-keys.md), and create a new one\. 
+
+For choosing the key usage, see [Selecting the Key Usage](symm-asymm-choose.md#symm-asymm-choose-key-usage)\. To find the key usage of a CMK, use the [DescribeKey](url-kms-api;API_DescribeKey.html) operation, or see the **Cryptographic configuration** section of the detail page for a CMK in the AWS KMS console\. For help, see [Viewing Keys](viewing-keys.md)\. 
+
+To allow principals to create CMKs only for signing and verification or only for encryption and decryption, use the [kms:CustomerMasterKeyUsage](policy-conditions.md#conditions-kms-customer-master-key-usage) condition key\. You can also use the `kms:CustomerMasterKeyUsage` condition key to allow principals to call API operations for a CMK based on its key usage\. For example, you can allow permission to disable a CMK only if its key usage is SIGN\_VERIFY\. 
+
 ## Envelope Encryption<a name="enveloping"></a>
 
 When you encrypt your data, your data is protected, but you have to protect your encryption key\. One strategy is to encrypt it\. *Envelope encryption* is the practice of encrypting plaintext data with a data key, and then encrypting the data key under another key\.
@@ -123,7 +216,9 @@ Envelope encryption offers several benefits:
 
 ## Encryption Context<a name="encrypt_context"></a>
 
-All AWS KMS cryptographic operations \([https://docs.aws.amazon.com/kms/latest/APIReference/API_Encrypt.html](https://docs.aws.amazon.com/kms/latest/APIReference/API_Encrypt.html), [https://docs.aws.amazon.com/kms/latest/APIReference/API_Decrypt.html](https://docs.aws.amazon.com/kms/latest/APIReference/API_Decrypt.html), [https://docs.aws.amazon.com/kms/latest/APIReference/API_ReEncrypt.html](https://docs.aws.amazon.com/kms/latest/APIReference/API_ReEncrypt.html), [https://docs.aws.amazon.com/kms/latest/APIReference/API_GenerateDataKey.html](https://docs.aws.amazon.com/kms/latest/APIReference/API_GenerateDataKey.html), and [https://docs.aws.amazon.com/kms/latest/APIReference/API_GenerateDataKeyWithoutPlaintext.html](https://docs.aws.amazon.com/kms/latest/APIReference/API_GenerateDataKeyWithoutPlaintext.html)\) accept an *encryption context*, an optional set of key–value pairs that can contain additional contextual information about the data\. AWS KMS uses the encryption context as [additional authenticated data](https://docs.aws.amazon.com/crypto/latest/userguide/cryptography-concepts.html#term-aad) \(AAD\) to support [authenticated encryption](https://docs.aws.amazon.com/crypto/latest/userguide/cryptography-concepts.html#define-authenticated-encryption)\. 
+All AWS KMS cryptographic operations \([https://docs.aws.amazon.com/kms/latest/APIReference/API_Encrypt.html](https://docs.aws.amazon.com/kms/latest/APIReference/API_Encrypt.html), [https://docs.aws.amazon.com/kms/latest/APIReference/API_Decrypt.html](https://docs.aws.amazon.com/kms/latest/APIReference/API_Decrypt.html), [https://docs.aws.amazon.com/kms/latest/APIReference/API_ReEncrypt.html](https://docs.aws.amazon.com/kms/latest/APIReference/API_ReEncrypt.html), [https://docs.aws.amazon.com/kms/latest/APIReference/API_GenerateDataKey.html](https://docs.aws.amazon.com/kms/latest/APIReference/API_GenerateDataKey.html), and [https://docs.aws.amazon.com/kms/latest/APIReference/API_GenerateDataKeyWithoutPlaintext.html](https://docs.aws.amazon.com/kms/latest/APIReference/API_GenerateDataKeyWithoutPlaintext.html)\) that use symmetric CMKs accept an *encryption context*, an optional set of key–value pairs that can contain additional contextual information about the data\. AWS KMS uses the encryption context as [additional authenticated data](https://docs.aws.amazon.com/crypto/latest/userguide/cryptography-concepts.html#term-aad) \(AAD\) to support [authenticated encryption](https://docs.aws.amazon.com/crypto/latest/userguide/cryptography-concepts.html#define-authenticated-encryption)\. 
+
+You cannot specify an encryption context in a cryptographic operation with an [asymmetric CMK](symm-asymm-concepts.md#asymmetric-cmks)\. The standard asymmetric encryption algorithms that AWS KMS uses do not support an encryption context\.
 
 When you include an encryption context in an encryption request, it is cryptographically bound to the ciphertext such that the same encryption context is required to decrypt \(or decrypt and re\-encrypt\) the data\. If the encryption context provided in the decryption request is not an exact, case\-sensitive match, the decrypt request fails\. Only the order of the key\-value pairs in the encryption context can vary\.
 
@@ -157,7 +252,7 @@ More about encryption context\.
 
 ### Encryption Context in Policies<a name="encryption-context-authorization"></a>
 
-The encryption context is used primarily to verify integrity and authenticity\. But you can also use the encryption context as a condition for authorizing use of a customer master keys \(CMK\) in key policies and IAM policies\. 
+The encryption context is used primarily to verify integrity and authenticity\. But you can also use the encryption context as a condition for authorizing use of a symmetric customer master keys \(CMK\) in key policies and IAM policies\. 
 
 The [kms:EncryptionContext:](policy-conditions.md#conditions-kms-encryption-context) and [kms:EncryptionContextKeys](policy-conditions.md#conditions-kms-encryption-context) condition keys allow \(or deny\) a permission only when the request includes particular encryption context keys or key–value pairs\. 
 
@@ -185,7 +280,7 @@ For more information about these encryption context condition keys, see [Using P
 
 When you [create a grant](grants.md), you can include [grant constraints](https://docs.aws.amazon.com/kms/latest/APIReference/API_GrantConstraints.html) that allow access only when a request includes a particular encryption context or encryption context keys\. For details about the `EncryptionContextEquals` and `EncryptionContextSubset` grant constraints, see [Grant Constraints](grants.md#grant-constraints)\.
 
-To specify an encryption context constraint in a grant, use the `Constraints` parameter in the [CreateGrant](https://docs.aws.amazon.com/kms/latest/APIReference/API_CreateGrant.html) API operation\. This example uses the AWS Command Line Interface, but you can use any AWS SDK\. The grant that this command creates gives the `exampleUser` permission to call the [Decrypt](https://docs.aws.amazon.com/kms/latest/APIReference/API_Decrypt.html) API operation\. But that permission is effective only when the encryption context in the `Decrypt` request includes a `"Department": "IT"` encryption context pair\.
+To specify an encryption context constraint in a grant for a symmetric CMK, use the `Constraints` parameter in the [CreateGrant](https://docs.aws.amazon.com/kms/latest/APIReference/API_CreateGrant.html) operation\. This example uses the AWS Command Line Interface, but you can use any AWS SDK\. The grant that this command creates gives the `exampleUser` permission to call the [Decrypt](https://docs.aws.amazon.com/kms/latest/APIReference/API_Decrypt.html) operation\. But that permission is effective only when the encryption context in the `Decrypt` request includes a `"Department": "IT"` encryption context pair\.
 
 ```
 $ aws kms create-grant \
@@ -196,7 +291,7 @@ $ aws kms create-grant \
     --constraints EncryptionContextSubset={Department=IT}
 ```
 
-The resulting grant looks like the following one\. Notice that the permission granted to `exampleUser` is effective only when the `Decrypt` request includes the encryption context pair specified in the grant constraint\. To find the grants on a CMK, use the [ListGrants](https://docs.aws.amazon.com/kms/latest/APIReference/API_ListGrants.html) API operation\.
+The resulting grant looks like the following one\. Notice that the permission granted to `exampleUser` is effective only when the `Decrypt` request includes the encryption context pair specified in the grant constraint\. To find the grants on a CMK, use the [ListGrants](https://docs.aws.amazon.com/kms/latest/APIReference/API_ListGrants.html) operation\.
 
 ```
 $ aws kms list-grants --key-id 1234abcd-12ab-34cd-56ef-1234567890ab
@@ -226,7 +321,7 @@ $ aws kms list-grants --key-id 1234abcd-12ab-34cd-56ef-1234567890ab
 
 AWS services often use encryption context constraints in the grants that give them permission to use CMKs in your AWS account\. For example, Amazon DynamoDB uses a grant like the following one to get permission to use the [AWS managed CMK](#aws-managed-cmk) for DynamoDB in your account\. The `EncryptionContextSubset` grant constraint in this grant makes the permissions in the grant effective only when the encryption context in the request includes `"subscriberID": "111122223333"` and `"tableName": "Services"` pairs\. This grant constraint means that the grant allows DynamoDB to use the specified CMK only for a particular table in your AWS account\.
 
-To get this output, run the [ListGrants](https://docs.aws.amazon.com/kms/latest/APIReference/API_ListGrants.html) API operation on the AWS managed CMK for DynamoDB in your account\.
+To get this output, run the [ListGrants](https://docs.aws.amazon.com/kms/latest/APIReference/API_ListGrants.html) operation on the AWS managed CMK for DynamoDB in your account\.
 
 ```
 $ aws kms list-grants --key-id 0987dcba-09fe-87dc-65ba-ab0987654321
@@ -270,7 +365,7 @@ Because the encryption context is logged, it must not contain sensitive informat
 
 ### Storing Encryption Context<a name="encryption-context-storing"></a>
 
-To simplify use of any encryption context when you call the [https://docs.aws.amazon.com/kms/latest/APIReference/API_Decrypt.html](https://docs.aws.amazon.com/kms/latest/APIReference/API_Decrypt.html) \(or [https://docs.aws.amazon.com/kms/latest/APIReference/API_ReEncrypt.html](https://docs.aws.amazon.com/kms/latest/APIReference/API_ReEncrypt.html)\) API, you can store the encryption context alongside the encrypted data\. We recommend that you store only enough of the encryption context to help you create the full encryption context when you need it for encryption or decryption\. 
+To simplify use of any encryption context when you call the [https://docs.aws.amazon.com/kms/latest/APIReference/API_Decrypt.html](https://docs.aws.amazon.com/kms/latest/APIReference/API_Decrypt.html) or [https://docs.aws.amazon.com/kms/latest/APIReference/API_ReEncrypt.html](https://docs.aws.amazon.com/kms/latest/APIReference/API_ReEncrypt.html) operations, you can store the encryption context alongside the encrypted data\. We recommend that you store only enough of the encryption context to help you create the full encryption context when you need it for encryption or decryption\. 
 
 For example, if the encryption context is the fully qualified path to a file, store only part of that path with the encrypted file contents\. Then, when you need the full encryption context, reconstruct it from the stored fragment\. If someone tampers with the file, such as renaming it or moving it to a different location, the encryption context value changes and the decryption request fails\.
 
@@ -280,11 +375,11 @@ When you create a CMK, you determine who can use and manage that CMK\. These per
 
 ## Grants<a name="grant"></a>
 
-A *grant* is another mechanism for providing permissions\. It's an alternative to key policies\. Because grants can be very specific, and are easy to create and revoke, they are often used to provide temporary permissions or more granular permissions\. For more information, see [Using Grants](grants.md)\.
+A *grant* is another mechanism for providing permissions\. It's an alternative to key policies\. Because grants can be very specific, and are easy to create and revoke, they are often used to provide temporary permissions or more granular permissions\.
 
 ## Grant Tokens<a name="grant_token"></a>
 
-When you create a grant, the permissions specified in the grant might not take effect immediately due to [eventual consistency](https://en.wikipedia.org/wiki/Eventual_consistency)\. If you need to mitigate the potential delay, use the *grant token* that you receive in the response to your [CreateGrant](https://docs.aws.amazon.com/kms/latest/APIReference/API_CreateGrant.html) API request\. You can pass the grant token with some AWS KMS API requests to make the permissions in the grant take effect immediately\. The following AWS KMS API operations accept grant tokens:
+When you create a grant, the permissions specified in the grant might not take effect immediately due to [eventual consistency](https://en.wikipedia.org/wiki/Eventual_consistency)\. If you need to mitigate the potential delay, use the *grant token* that you receive in the response to your [CreateGrant](https://docs.aws.amazon.com/kms/latest/APIReference/API_CreateGrant.html) request\. You can pass the grant token with some AWS KMS API requests to make the permissions in the grant take effect immediately\. The following AWS KMS API operations accept grant tokens:
 + [CreateGrant](https://docs.aws.amazon.com/kms/latest/APIReference/API_CreateGrant.html)
 + [Decrypt](https://docs.aws.amazon.com/kms/latest/APIReference/API_Decrypt.html)
 + [DescribeKey](https://docs.aws.amazon.com/kms/latest/APIReference/API_DescribeKey.html)

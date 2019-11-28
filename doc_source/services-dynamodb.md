@@ -6,10 +6,10 @@ With *encryption at rest*, DynamoDB transparently encrypts all customer data in 
 
 Encryption at rest also protects [DynamoDB streams](https://docs.aws.amazon.com/amazondynamodb/latest/developerguide/Streams.html), [global tables](https://docs.aws.amazon.com/amazondynamodb/latest/developerguide/GlobalTables.html), and [backups](https://docs.aws.amazon.com/amazondynamodb/latest/developerguide/BackupRestore.html) whenever these objects are saved to durable media\. Statements about tables in this topic apply to these objects, too\.
 
-All DynamoDB tables are encrypted\. There is no option to enable or disable encryption for new or existing tables\. By default, all tables are encrypted under an [AWS owned customer master key](concepts.md#aws-owned-cmk) \(CMK\) in the DynamoDB service account\. However, you can select an option to encrypt some or all of your tables under an [AWS managed CMK](concepts.md#aws-managed-cmk) for DynamoDB in your account\. Encryption at rest does not support [customer managed CMKs](concepts.md#customer-cmk)\.
+All DynamoDB tables are encrypted\. There is no option to enable or disable encryption for new or existing tables\. By default, all tables are encrypted under an [AWS owned customer master key](concepts.md#aws-owned-cmk) \(CMK\) in the DynamoDB service account\. However, you can select an option to encrypt some or all of your tables under a [customer managed CMK](concepts.md#customer-cmk) or the [AWS managed CMK](concepts.md#aws-managed-cmk) for DynamoDB in your account\.
 
 **Note**  
-Before November 2018, encryption at rest was an optional feature that supported only the AWS managed CMK for DynamoDB\. If you enabled encryption at rest on any of your DynamoDB tables, they will continue to be encrypted under the AWS managed CMK unless you use the AWS Management Console or [UpdateTable](https://docs.aws.amazon.com/amazondynamodb/latest/APIReference/API_UpdateTable.html) operation to switch to an AWS owned CMK\.
+Before November 2018, encryption at rest was an optional feature that supported only the AWS managed CMK for DynamoDB\. If you enabled encryption at rest on any of your DynamoDB tables, they will continue to be encrypted under the AWS managed CMK unless you use the AWS Management Console or [UpdateTable](https://docs.aws.amazon.com/amazondynamodb/latest/APIReference/API_UpdateTable.html) operation to switch to a customer managed CMK or an AWS owned CMK\.
 
 **Client\-Side Encryption for DynamoDB**
 
@@ -19,7 +19,7 @@ You can use the DynamoDB Encryption Client along with encryption at rest\. To he
 
 **Topics**
 + [Using CMKs and Data Keys](#dynamodb-encrypt)
-+ [Authorizing Use of the AWS Managed CMK](#dynamodb-authz)
++ [Authorizing Use of Your CMK](#dynamodb-authz)
 + [DynamoDB Encryption Context](#dynamodb-encryption-context)
 + [Monitoring DynamoDB Interaction with AWS KMS](#dynamodb-cmk-trail)
 
@@ -28,13 +28,17 @@ You can use the DynamoDB Encryption Client along with encryption at rest\. To he
 The DynamoDB encryption at rest feature uses an AWS KMS customer master key \(CMK\) and a hierarchy of data keys to protect your table data\. DynamoDB uses the same key hierarchy to protect DynamoDB streams, global tables, and backups when they are written to durable media\.
 
 **Customer Master Key \(CMK\)**  
-Encryption at rest protects your DynamoDB tables under an AWS KMS customer master key \(CMK\)\. By default, it uses an [AWS owned CMK](concepts.md#aws-owned-cmk), but DynamoDB supports an option to encrypt some or all of your tables under an [AWS managed CMK](concepts.md#aws-managed-cmk) for DynamoDB \(`aws/dynamodb`\) in your AWS account\. You can select the CMK for a table when you create or update the table, and you can make a different choice for each table\. The encryption at rest feature does not support the use of [customer managed CMKs](concepts.md#customer-cmk)\.  
+Encryption at rest protects your DynamoDB tables under an AWS KMS customer master key \(CMK\)\. By default, it uses an [AWS owned CMK](concepts.md#aws-owned-cmk), a multi\-tenant key that is created and managed in a DynamoDB service account\. But DynamoDB supports an option to encrypt some or all of your tables under a [customer managed CMKs](concepts.md#customer-cmk) or the [AWS managed CMK](concepts.md#aws-managed-cmk) for DynamoDB \(`aws/dynamodb`\) in your AWS account\. You can select the CMK for a table when you create or update the table, and you can make a different choice for each table\.  
+You can choose your CMK in the DynamoDB console or by using DynamoDB API\. When you select a CMK for a table, the local and global secondary indexes, streams, and backups are encrypted with the same CMK\. However, you cannot use a customer managed CMK to encrypt DynamoDB global table replicas\. To encrypt replicas, use an AWS owned CMK or an AWS managed CMK\.  
+You can change the CMK for a table at any time, either in the DynamoDB console or by using the [UpdateTable](https://docs.aws.amazon.com/amazondynamodb/latest/APIReference/API_UpdateTable.html) operation\. The process of switching keys is seamless and does not require downtime or degrade service\.  
+Use a customer managed CMK to get the following features:  
++ You create and manage the CMK, including setting the [key policies](key-policies.md), [IAM policies](iam-policies.md) and [grants](grants.md) to control access to the CMK\. You can [enable and disable](enabling-keys.md) the CMK, enable and disable [automatic key rotation](rotate-keys.md), and [delete the CMK](deleting-keys.md) when it is no longer in use\.
++ You can use a customer managed key with [imported key material](importing-keys.md) or a customer managed key in a [custom key store](custom-key-store-overview.md) that you own and manage\. 
++ You can audit the encryption and decryption of your DynamoDB table by examining the DynamoDB API calls to AWS KMS in [AWS CloudTrail logs](#dynamodb-cmk-trail)\.
 Use the AWS managed CMK if you need any of the following features:  
 + You can [view the CMK](viewing-keys.md) and [view its key policy](key-policy-viewing.md)\. \(You cannot change the key policy\.\)
 + You can audit the encryption and decryption of your DynamoDB table by examining the DynamoDB API calls to AWS KMS in [AWS CloudTrail logs](#dynamodb-cmk-trail)\.
-However, the AWS owned CMK is free of charge\. The AWS managed CMK [incurs a charge](https://aws.amazon.com/kms/pricing/) for each API call\.  
-You can change the CMK for a table at any time, either in the DynamoDB console, or by using the [UpdateTable](https://docs.aws.amazon.com/amazondynamodb/latest/APIReference/API_UpdateTable.html) operation\. When you change the CMK, DynamoDB generates a new table key\. Then, it uses the new table key to re\-encrypt the data encryption keys\.  
-The process of using a CMK to create a table key is the same no matter which CMK you choose\.
+However, the AWS owned CMK is free of charge and its use does not count against [AWS KMS limits](limits.md)\. Customer managed CMKs and AWS managed CMKs[incur a charge](https://aws.amazon.com/kms/pricing/) for each API call and AWS KMS limits apply to these CMKs\.
 
 **Table Keys**  
 DynamoDB uses the CMK for the table to generate and encrypt a unique [data key](concepts.md#data-keys) for the table, known as the *table key*\. The table key persists for the lifetime of the encrypted table\.   
@@ -42,24 +46,26 @@ The table key is used as a key encryption key\. DynamoDB uses this table key to 
 
 ![\[Encrypting a DynamoDB Table with Encryption at Rest\]](http://docs.aws.amazon.com/kms/latest/developerguide/images/service-ddb-encrypt.png)
 When you first access an encrypted table, DynamoDB sends a request to AWS KMS to use the CMK to decrypt the table key\. Then, it uses the plaintext table key to decrypt the data encryption keys, and uses the plaintext data encryption keys to decrypt table data\.  
-DynamoDB generates, uses, and stores the table key and data encryption keys outside of AWS KMS\. It protects all keys with [Advanced Encryption Standard](https://en.wikipedia.org/wiki/Advanced_Encryption_Standard) \(AES\) encryption and 256\-bit encryption keys\. Then, it stores the encrypted keys with the encrypted data so they are available to decrypt the table data on demand\.
+DynamoDB generates, uses, and stores the table key and data encryption keys outside of AWS KMS\. It protects all keys with [Advanced Encryption Standard](https://en.wikipedia.org/wiki/Advanced_Encryption_Standard) \(AES\) encryption and 256\-bit encryption keys\. Then, it stores the encrypted keys with the encrypted data so they are available to decrypt the table data on demand\.  
+If you change the CMK for your table, DynamoDB generates a new table key\. Then, it uses the new table key to re\-encrypt the data encryption keys\.
 
 **Table Key Caching**  
 To avoid calling AWS KMS for every DynamoDB operation, DynamoDB caches the plaintext table keys for each connection in memory\. If DynamoDB gets a request for the cached table key after five minutes of inactivity, it sends a new request to AWS KMS to decrypt the table key\. This call will capture any changes made to the access policies of the CMK in AWS KMS or AWS Identity and Access Management \(IAM\) since the last request to decrypt the table key\.
 
-## Authorizing Use of the AWS Managed CMK<a name="dynamodb-authz"></a>
+## Authorizing Use of Your CMK<a name="dynamodb-authz"></a>
 
-If you use an [AWS managed CMK](concepts.md#aws-managed-cmk) in your account to protect your DynamoDB table, the policies on that CMK must give DynamoDB permission to use it on your behalf\. The authorization context on the AWS managed CMK for DynamoDB includes its key policy and grants that delegate the permissions to use it\. 
+If you use a [customer managed CMK](concepts.md#customer-cmk) or the [AWS managed CMK](concepts.md#aws-managed-cmk) in your account to protect your DynamoDB table, the policies on that CMK must give DynamoDB permission to use it on your behalf\. The authorization context on the AWS managed CMK for DynamoDB includes its key policy and grants that delegate the permissions to use it\. 
 
-Because the AWS managed CMK is in your account, you can view its policies and grants\. But, because it is managed by AWS, you cannot change the policies\.
+You have full control over the policies and grants on a customer managed CMK\. Because the AWS managed CMK is in your account, you can view its policies and grants\. But, because it is managed by AWS, you cannot change the policies\.
 
 DynamoDB does not need additional authorization to use the default [AWS owned CMK](concepts.md#master_keys) to protect the DynamoDB tables in your AWS account\.
 
 **Topics**
-+ [CMK Key Policy](#dynamodb-policies)
++ [AWS Managed CMK Key Policy](#dynamodb-policies)
++ [Customer Managed CMK Key Policy](#dynamodb-customer-cmk-policy)
 + [Using Grants to Authorize DynamoDB](#dynamodb-grants)
 
-### CMK Key Policy<a name="dynamodb-policies"></a>
+### AWS Managed CMK Key Policy<a name="dynamodb-policies"></a>
 
 When DynamoDB uses the [AWS managed CMK](concepts.md#aws-managed-cmk) for DynamoDB \(`aws/dynamodb`\) in cryptographic operations, it does so on behalf of the user who is accessing the [DynamoDB resource](https://docs.aws.amazon.com/amazondynamodb/latest/developerguide/access-control-overview.html)\. The key policy on the AWS managed CMK gives all users in the account permission to use the AWS managed CMK for specified operations\. But permission is granted only when DynamoDB makes the request on the user's behalf\. The [ViaService condition](policy-conditions.md#conditions-kms-via-service) in the key policy does not allow any user to use the AWS managed CMK unless the request originates with the DynamoDB service\.
 
@@ -108,25 +114,106 @@ The policy statements in the key policy have the following effect:
 }
 ```
 
+### Customer Managed CMK Key Policy<a name="dynamodb-customer-cmk-policy"></a>
+
+When you select a [customer managed CMK](concepts.md#customer-cmk) to protect a DynamoDB table, DynamoDB gets permission to use the CMK on behalf of the principal who makes the selection\. That principal, a user or role, must have the permissions on the CMK that DynamoDB requires\. You can provide these permissions in a [key policy](key-policies.md), an [IAM policy](iam-policies.md), or a [grant](grants.md)\.
+
+At a minimum, DynamoDB requires the following permissions on a customer managed CMK:
++ [kms:Encrypt](https://docs.aws.amazon.com/kms/latest/APIReference/API_Encrypt.html)
++ [kms:Decrypt](https://docs.aws.amazon.com/kms/latest/APIReference/API_Decrypt.html)
++ [kms:ReEncrypt](https://docs.aws.amazon.com/kms/latest/APIReference/API_ReEncrypt.html)\* \(for kms:ReEncryptFrom and kms:ReEncryptTo\)
++ kms:GenerateDataKey\* \(for [kms:GenerateDataKey](https://docs.aws.amazon.com/kms/latest/APIReference/API_GenerateDataKey.html) and [kms:GenerateDataKeyWithoutPlaintext](https://docs.aws.amazon.com/kms/latest/APIReference/API_GenerateDataKeyWithoutPlaintext.html)\)
++ [kms:DescribeKey](https://docs.aws.amazon.com/kms/latest/APIReference/API_DescribeKey.html)
++ [kms:CreateGrant](https://docs.aws.amazon.com/kms/latest/APIReference/API_CreateGrant.html)
+
+For example, the following example key policy provides only the required permissions\. The policy has the following effects:
++ Allows DynamoDB to use the CMK in cryptographic operations and create grants, but only when it is acting on behalf of principals in the account who have permission to use DynamoDB\. If the principals specified in the policy statement don't have permission to use DynamoDB, the call fails, even when it comes from the DynamoDB service\. 
+
+   
++ The [kms:ViaService](policy-conditions.md#conditions-kms-via-service) condition key allows the permissions only when the request comes from DynamoDB on behalf of the principals listed in the policy statement\. These principals can't call these operations directly\. Note that the `kms:ViaService` value, `dynamodb.*.amazonaws.com`, has an asterisk \(\*\) in the Region position\. DynamoDB requires the permission to be independent of any particular AWS Region so it can make cross\-Region calls to support [DynamoDB global tables](https://docs.aws.amazon.com/amazondynamodb/latest/developerguide/GlobalTables.html)\.
+
+   
++ Gives the CMK administrators \(users who can assume the `db-team` role\) read\-only access to the CMK and permission to revoke grants, including the [grants that DynamoDB requires](#dynamodb-grants) to protect the table\.
+
+   
++ Gives DynamoDB read\-only access to the CMK\. In this case, DynamoDB can call these operations directly\. It does not have to act on behalf of an account principal\.
+
+Before using an example key policy, replace the example principals with actual principals from your AWS account\.
+
+```
+{
+  "Id": "key-policy-dynamodb",
+  "Version":"2012-10-17",
+  "Statement": [
+    {
+      "Sid" : "Allow access through Amazon DynamoDB for all principals in the account that are authorized to use Amazon DynamoDB"
+      "Effect": "Allow",
+      "Principal": {"AWS": "arn:aws:iam::111122223333:user/db-lead"},
+      "Action": [
+        "kms:Encrypt",
+        "kms:Decrypt",
+        "kms:ReEncrypt*",
+        "kms:GenerateDataKey*",
+        "kms:DescribeKey",
+        "kms:CreateGrant"
+      ],
+      "Resource": "*",      
+      "Condition": { 
+         "StringLike": {
+           "kms:ViaService" : "dynamodb.*.amazonaws.com"
+         }
+      }
+    },
+    {
+      "Sid":  "Allow administrators to view the CMK and revoke grants",
+      "Effect": "Allow",
+      "Principal": {
+        "AWS": "arn:aws:iam::111122223333:role/db-team"
+       },
+      "Action": [
+        "kms:Describe*",
+        "kms:Get*",
+        "kms:List*",
+        "kms:RevokeGrant"
+      ],
+      "Resource": "*"
+    },
+    {
+      "Sid":  "Allow DynamoDB to get information about the CMK",
+      "Effect": "Allow",
+      "Principal": {
+        "Service":["dynamodb.amazonaws.com"]
+      },
+      "Action": [
+        "kms:Describe*",
+        "kms:Get*",
+        "kms:List*"
+      ],
+      "Resource": "*"
+    }
+  ]
+}
+```
+
 ### Using Grants to Authorize DynamoDB<a name="dynamodb-grants"></a>
 
-In addition to key policies, DynamoDB uses grants to set permissions on the [AWS managed CMK](concepts.md#aws-managed-cmk) for DynamoDB \(aws/dynamodb\)\. To view the grants on the `aws/dynamodb` CMK in your account, use the [ListGrants](https://docs.aws.amazon.com/kms/latest/APIReference/API_ListGrants.html) operation\. DynamoDB does not need grants, or any additional permissions, to use the [AWS owned CMK](concepts.md#aws-owned-cmk) to protect your table\.
+In addition to key policies, DynamoDB uses grants to set permissions on a customer managed CMK or the AWS managed CMK for DynamoDB \(aws/dynamodb\)\. To view the grants on a CMK in your account, use the [ListGrants](https://docs.aws.amazon.com/kms/latest/APIReference/API_ListGrants.html) operation\. DynamoDB does not need grants, or any additional permissions, to use the [AWS owned CMK](concepts.md#aws-owned-cmk) to protect your table\.
 
 DynamoDB uses the grant permissions when it performs background system maintenance and continuous data protection tasks\. It also uses grants to generate [table keys](#dynamodb-encrypt)\.
 
-Each grant is specific to a table\. If the account includes multiple tables encrypted under the same AWS managed CMK, there is a grant of each type for each table\. The grant is constrained by the [DynamoDB encryption context](#dynamodb-encryption-context), which includes the table name and the AWS account ID, and it includes permission to the [retire the grant](https://docs.aws.amazon.com/kms/latest/APIReference/API_RetireGrant.html) if it is no longer needed\. 
+Each grant is specific to a table\. If the account includes multiple tables encrypted under the same CMK, there is a grant of each type for each table\. The grant is constrained by the [DynamoDB encryption context](#dynamodb-encryption-context), which includes the table name and the AWS account ID, and it includes permission to the [retire the grant](https://docs.aws.amazon.com/kms/latest/APIReference/API_RetireGrant.html) if it is no longer needed\. 
 
-To create the grants, DynamoDB calls [CreateGrant](https://docs.aws.amazon.com/kms/latest/APIReference/API_CreateGrant.html) on behalf of the user who created the encrypted table\. Permission to create the grant comes from the [key policy](#dynamodb-policies), which allows account users to call `CreateGrant` on the AWS managed CMK only when DynamoDB makes the request on an authorized user's behalf\. 
+To create the grants, DynamoDB must have permission to call `CreateGrant` on behalf of the user who created the encrypted table\. For AWS managed CMKs, DynamoDB gets `kms:CreateGrant` permission from the [key policy](#dynamodb-policies), which allows account users to call [CreateGrant](https://docs.aws.amazon.com/kms/latest/APIReference/API_CreateGrant.html) on the CMK only when DynamoDB makes the request on an authorized user's behalf\. 
 
-The key policy also allows the account to [revoke the grant](https://docs.aws.amazon.com/kms/latest/APIReference/API_RevokeGrant.html) on the AWS managed CMK\. However, if you revoke the grant on an active encrypted table, DynamoDB will not be able to protect and maintain the table\.
+The key policy can also allow the account to [revoke the grant](https://docs.aws.amazon.com/kms/latest/APIReference/API_RevokeGrant.html) on the CMK\. However, if you revoke the grant on an active encrypted table, DynamoDB will not be able to protect and maintain the table\.
 
 ## DynamoDB Encryption Context<a name="dynamodb-encryption-context"></a>
 
 An [encryption context](concepts.md#encrypt_context) is a set of key–value pairs that contain arbitrary nonsecret data\. When you include an encryption context in a request to encrypt data, AWS KMS cryptographically binds the encryption context to the encrypted data\. To decrypt the data, you must pass in the same encryption context\. 
 
-DynamoDB uses the same encryption context in all AWS KMS cryptographic operations\. If you use an [AWS managed CMK](concepts.md#aws-managed-cmk) to protect your DynamoDB table, you can use the encryption context to identify use of the CMK in audit records and logs\. It also appears in plaintext in logs, such as [AWS CloudTrail](https://docs.aws.amazon.com/awscloudtrail/latest/userguide/cloudtrail-user-guide.html) and [Amazon CloudWatch Logs](https://docs.aws.amazon.com/AmazonCloudWatch/latest/logs/WhatIsCloudWatchLogs.html)\. 
+DynamoDB uses the same encryption context in all AWS KMS cryptographic operations\. If you use a [customer managed CMK](concepts.md#customer-cmk) or an [AWS managed CMK](concepts.md#aws-managed-cmk) to protect your DynamoDB table, you can use the encryption context to identify use of the CMK in audit records and logs\. It also appears in plaintext in logs, such as [AWS CloudTrail](https://docs.aws.amazon.com/awscloudtrail/latest/userguide/cloudtrail-user-guide.html) and [Amazon CloudWatch Logs](https://docs.aws.amazon.com/AmazonCloudWatch/latest/logs/WhatIsCloudWatchLogs.html)\. 
 
-The encryption context can also be used as a condition for authorization in policies and grants\. DynamoDB uses the encryption context to constrain the [grants](#dynamodb-grants) that allow access to the AWS managed CMK in your account and region\.
+The encryption context can also be used as a condition for authorization in policies and grants\. DynamoDB uses the encryption context to constrain the [grants](#dynamodb-grants) that allow access to the customer managed CMK or AWS managed CMK in your account and region\.
 
 In its requests to AWS KMS, DynamoDB uses an encryption context with two key–value pairs\.
 
@@ -161,13 +248,13 @@ In its requests to AWS KMS, DynamoDB uses an encryption context with two key–v
 
 ## Monitoring DynamoDB Interaction with AWS KMS<a name="dynamodb-cmk-trail"></a>
 
-If you use an [AWS managed CMK](concepts.md#aws-managed-cmk) to protect your DynamoDB tables, you can use AWS CloudTrail logs to track the requests that DynamoDB sends to AWS KMS on your behalf\.
+If you use a [customer managed CMK](concepts.md#customer-cmk) or an [AWS managed CMK](concepts.md#aws-managed-cmk) to protect your DynamoDB tables, you can use AWS CloudTrail logs to track the requests that DynamoDB sends to AWS KMS on your behalf\.
 
-The `GenerateDataKey`, `Decrypt`, and `CreateGrant` requests are discussed in this section\. In addition, if you use an AWS managed CMK for encryption at rest, DynamoDB uses a [DescribeKey](https://docs.aws.amazon.com/kms/latest/APIReference/API_DescribeKey.html) operation to determine whether an `aws/dynamodb` CMK exists in the account and region\. It also uses a [RetireGrant](https://docs.aws.amazon.com/kms/latest/APIReference/API_RetireGrant.html) operation to remove a grant when you delete a table\. 
+The `GenerateDataKey`, `Decrypt`, and `CreateGrant` requests are discussed in this section\. In addition, DynamoDB uses a [DescribeKey](https://docs.aws.amazon.com/kms/latest/APIReference/API_DescribeKey.html) operation to determine whether the CMK you selected exists in the account and region\. It also uses a [RetireGrant](https://docs.aws.amazon.com/kms/latest/APIReference/API_RetireGrant.html) operation to remove a grant when you delete a table\. 
 
 **GenerateDataKey**  
 When you enable encryption at rest on a table, DynamoDB creates a unique table key\. It sends a *[GenerateDataKey](https://docs.aws.amazon.com/kms/latest/APIReference/API_GenerateDataKey.html)* request to AWS KMS that specifies the CMK for the table\.   
-The event that records the `GenerateDataKey` operation is similar to the following example event\. The user is the DynamoDB service account\. The parameters include the Amazon Resource Name \(ARN\) of the AWS managed CMK, a key specifier that requires a 256\-bit key, and the [encryption context](#dynamodb-encryption-context) that identifies the table and the AWS account\.  
+The event that records the `GenerateDataKey` operation is similar to the following example event\. The user is the DynamoDB service account\. The parameters include the Amazon Resource Name \(ARN\) of the CMK, a key specifier that requires a 256\-bit key, and the [encryption context](#dynamodb-encryption-context) that identifies the table and the AWS account\.  
 
 ```
 {
@@ -266,7 +353,7 @@ The event that records the `Decrypt` operation is similar to the following examp
 ```
 
 **CreateGrant**  
-When you use an [AWS managed CMK](concepts.md#aws-managed-cmk) to protect your DynamoDB table, DynamoDB uses [grants](#dynamodb-grants) to allow the service to perform continuous data protection and maintenance and durability tasks\. These grants are not required on [AWS owned CMKs](concepts.md#aws-owned-cmk)\.  
+When you use a [customer managed CMK](concepts.md#customer-cmk) or an [AWS managed CMK](concepts.md#aws-managed-cmk) to protect your DynamoDB table, DynamoDB uses [grants](#dynamodb-grants) to allow the service to perform continuous data protection and maintenance and durability tasks\. These grants are not required on [AWS owned CMKs](concepts.md#aws-owned-cmk)\.  
 The grants that DynamoDB creates are specific to a table\. The principal in the [CreateGrant](https://docs.aws.amazon.com/kms/latest/APIReference/API_CreateGrant.html) request is the user who created the table\.   
 The event that records the `CreateGrant` operation is similar to the following example event\. The parameters include the Amazon Resource Name \(ARN\) of the CMK for the table, the grantee principal and retiring principal \( the DynamoDB service\), and the operations that the grant covers\. It also includes a constraint that requires all encryption operation use the specified [encryption context](#dynamodb-encryption-context)\.  
 

@@ -33,7 +33,7 @@ You can use the following automated monitoring tools to watch your CMKs and repo
 
 Another important part of monitoring CMKs involves manually monitoring those items that the CloudWatch alarms and events don't cover\. The AWS KMS, CloudWatch, AWS Trusted Advisor, and other AWS dashboards provide an at\-a\-glance view of the state of your AWS environment\.
 
-You can [customize](viewing-keys.md#viewing-keys-console) the **AWS Managed Keys** and **Customer Managed Keys** pages of the [AWS KMS console](https://console.aws.amazon.com/kms) to display the following information about each CMK: 
+You can [customize](viewing-keys-console.md) the **AWS Managed Keys** and **Customer Managed Keys** pages of the [AWS KMS console](https://console.aws.amazon.com/kms) to display the following information about each CMK: 
 + Key ID
 + Status
 + Creation date

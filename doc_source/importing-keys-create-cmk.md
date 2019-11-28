@@ -24,15 +24,25 @@ You need to create a CMK for the imported key material only once\. To reimport t
 
 1. Choose **Create key**\.
 
-1. Type an alias and \(optionally\) a description for the CMK\. 
+1. Choose **Symmetric**\. \(Imported key material is not supported for asymmetric CMKs\.\)
+**Note**  
+Asymmetric CMKs and asymmetric data key pairs are supported by AWS KMS only in the following AWS Regions: US East \(N\. Virginia\), US West \(Oregon\), Asia Pacific \(Sydney\), Asia Pacific \(Tokyo\), and EU \(Ireland\)\.
 
-   Choose **Next**\.
+1. Choose **Symmetric**\.
 
-1. Choose **Advanced options**\.
+   You cannot import key material into an asymmetric CMK\.
+**Note**  
+Asymmetric CMKs and asymmetric data key pairs are supported by AWS KMS only in the following AWS Regions: US East \(N\. Virginia\), US West \(Oregon\), Asia Pacific \(Sydney\), Asia Pacific \(Tokyo\), and EU \(Ireland\)\.
+
+1. Expand **Advanced options**\.
 
 1. For **Key material origin**, choose **External**\. 
 
-   Then select the check box next to **I understand the security, availability, and durability implications of using an imported key** to indicate that you understand the implications of using imported key material\. To read about these implications, choose **security, availability, and durability implications**\.
+   Then select the check box next to **I understand the security, availability, and durability implications of using an imported key** to indicate that you understand the implications of using imported key material\. To read about these implications, see [About Imported Key Material](importing-keys.md#importing-keys-considerations)\.
+
+   Choose **Next**\.
+
+1. Type an alias and \(optionally\) a description for the CMK\. 
 
    Choose **Next**\.
 
@@ -66,7 +76,7 @@ Next: [Step 2: Download the Public Key and Import Token](importing-keys-get-publ
 
 ## Creating a CMK with No Key Material \(KMS API\)<a name="importing-keys-create-cmk-api"></a>
 
-To use the [AWS KMS API](https://docs.aws.amazon.com/kms/latest/APIReference/) to create a CMK with no key material, send a [CreateKey](https://docs.aws.amazon.com/kms/latest/APIReference/API_CreateKey.html) request with the `Origin` parameter set to `EXTERNAL`\. The following example shows how to do this with the [AWS Command Line Interface \(AWS CLI\)](https://aws.amazon.com/cli/)\.
+To use the [AWS KMS API](https://docs.aws.amazon.com/kms/latest/APIReference/) to create a symmetric CMK with no key material, send a [CreateKey](https://docs.aws.amazon.com/kms/latest/APIReference/API_CreateKey.html) request with the `Origin` parameter set to `EXTERNAL`\. The following example shows how to do this with the [AWS Command Line Interface \(AWS CLI\)](https://aws.amazon.com/cli/)\.
 
 ```
 $ aws kms create-key --origin EXTERNAL
@@ -83,9 +93,14 @@ When the command is successful, you see output similar to the following\. The CM
         "Enabled": false,
         "KeyUsage": "ENCRYPT_DECRYPT",
         "KeyState": "PendingImport",
-        "CreationDate": 1470811233.761,
+        "CreationDate": 1532127239.034,
         "Arn": "arn:aws:kms:us-west-2:111122223333:key/1234abcd-12ab-34cd-56ef-1234567890ab",
         "AWSAccountId": "111122223333"
+        "KeyManager": "CUSTOMER",
+        "CustomerMasterKeySpec": "SYMMETRIC_DEFAULT",
+        "EncryptionAlgorithms": [
+            "SYMMETRIC_DEFAULT"
+        ]
     }
 }
 ```

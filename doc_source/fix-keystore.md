@@ -53,7 +53,7 @@ When the connection status of a custom key store is `FAILED`, you must [disconne
 + `CLUSTER_NOT_FOUND` indicates that AWS KMS cannot find an AWS CloudHSM cluster with the specified cluster ID\. This might occur because the wrong cluster ID was provided to an API operation or the cluster was deleted and not replaced\. To fix this error, verify the cluster ID, such as by using the AWS CloudHSM console or the [DescribeClusters](https://docs.aws.amazon.com/cloudhsm/latest/APIReference/API_DescribeClusters.html) operation\. If the cluster was deleted, [create a cluster from a recent backup](https://docs.aws.amazon.com/cloudhsm/latest/userguide/create-cluster-from-backup.html) of the original\. Then, [disconnect the custom key store](disconnect-keystore.md), [edit the custom key store](update-keystore.md) cluster ID setting, and [reconnect the custom key store](disconnect-keystore.md) to the cluster\.
 
    
-+ `INSUFFICIENT_CLOUDHSM_HSMS` indicates that the associated AWS CloudHSM cluster does not contain any HSMs\. To connect, the cluster must have at least one HSM\. To find the number of HSMs in the cluster, use the [DescribeClusters](https://docs.aws.amazon.com/cloudhsm/latest/APIReference/API_DescribeClusters.html) API operation\. To resolve this error, [add at least one HSM](https://docs.aws.amazon.com/cloudhsm/latest/userguide/create-hsm.html) to the cluster\. If you add multiple HSMs, it's best to create them in different Availability Zones\.
++ `INSUFFICIENT_CLOUDHSM_HSMS` indicates that the associated AWS CloudHSM cluster does not contain any HSMs\. To connect, the cluster must have at least one HSM\. To find the number of HSMs in the cluster, use the [DescribeClusters](https://docs.aws.amazon.com/cloudhsm/latest/APIReference/API_DescribeClusters.html) operation\. To resolve this error, [add at least one HSM](https://docs.aws.amazon.com/cloudhsm/latest/userguide/create-hsm.html) to the cluster\. If you add multiple HSMs, it's best to create them in different Availability Zones\.
 
    
 + `INTERNAL_ERROR` indicates that AWS KMS could not complete the request due to an internal error\. Retry the request\. For `ConnectCustomKeyStore` requests, disconnect the custom key store before trying to connect again\.
@@ -164,7 +164,7 @@ Use the following process to recover the key material\.
 
 1. Find a cluster backup that contains the key material\. The backup must also contain all users and keys that you need to support the cluster and its encrypted data\.
 
-   Use the [DescribeBackups](https://docs.aws.amazon.com/cloudhsm/latest/APIReference/API_DescribeBackups.html) API to list the backups for a cluster\. Then use the backup timestamp to help you select a backup\. To limit the output to the cluster that is associated with the custom key store, use the `Filters` parameter, as shown in the following example\. 
+   Use the [DescribeBackups](https://docs.aws.amazon.com/cloudhsm/latest/APIReference/API_DescribeBackups.html) operation to list the backups for a cluster\. Then use the backup timestamp to help you select a backup\. To limit the output to the cluster that is associated with the custom key store, use the `Filters` parameter, as shown in the following example\. 
 
    ```
    $ aws cloudhsmv2 describe-backups --filters clusterIds=<cluster ID>

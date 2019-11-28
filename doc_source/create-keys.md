@@ -1,12 +1,24 @@
 # Creating Keys<a name="create-keys"></a>
 
-You can create [customer master keys](concepts.md#master_keys) \(CMKs\) in the AWS Management Console or by using the [CreateKey](https://docs.aws.amazon.com/kms/latest/APIReference/API_CreateKey.html) operation\.
+You can create [symmetric and asymmetric customer master keys](symmetric-asymmetric.md) \(CMKs\) in the AWS Management Console or by using the [CreateKey](https://docs.aws.amazon.com/kms/latest/APIReference/API_CreateKey.html) operation\.
+
+**Note**  
+Asymmetric CMKs and asymmetric data key pairs are supported by AWS KMS only in the following AWS Regions: US East \(N\. Virginia\), US West \(Oregon\), Asia Pacific \(Sydney\), Asia Pacific \(Tokyo\), and EU \(Ireland\)\.
 
 **Topics**
-+ [Creating CMKs \(Console\)](#create-keys-console)
-+ [Creating CMKs \(KMS API\)](#create-keys-api)
++ [Creating Symmetric CMKs](#create-symmetric-cmk)
++ [Creating Asymmetric CMKs](#create-asymmetric-cmk)
 
-## Creating CMKs \(Console\)<a name="create-keys-console"></a>
+**Tip**  
+To use your CMKs programmatically and in command line interface operations, you need a key ID or key ARN\. For detailed instructions, see [Finding the Key ID and ARN](find-cmk-id-arn.md)
+
+## Creating Symmetric CMKs<a name="create-symmetric-cmk"></a>
+
+You can create symmetric CMKs in the AWS Management Console or by using the AWS KMS API\.
+
+Symmetric key encryption uses the same key to encrypt and decrypt\. For help deciding which type of CMK to create, see [How to Choose Your CMK Configuration](symm-asymm-choose.md)\.
+
+### Creating Symmetric CMKs \(Console\)<a name="create-keys-console"></a>
 
 You can use the AWS Management Console to create customer master keys \(CMKs\)\.
 
@@ -17,6 +29,12 @@ You can use the AWS Management Console to create customer master keys \(CMKs\)\.
 1. In the navigation pane, choose **Customer managed keys**\.
 
 1. Choose **Create key**\.
+
+1. To create a symmetric CMK, for **Key type** choose **Symmetric**\.
+
+   For information about how to create an asymmetric CMK in the AWS KMS console, see [Creating Asymmetric CMKs \(Console\)](#create-asymmetric-cmks-console)\.
+
+1. Choose **Next**\.
 
 1. Type an alias for the CMK\. The alias name cannot begin with **aws/**\. The **aws/** prefix is reserved by Amazon Web Services to represent AWS managed CMKs in your account\.
 
@@ -60,16 +78,13 @@ To allow principals in the external accounts to use the CMK, Administrators of t
 
 1. Choose **Finish** to create the CMK\.
 
-**Tip**  
-To use your new CMK programmatically and in command line interface operations, you need a key ID or key ARN\. For detailed instructions, see [Finding the Key ID and ARN](viewing-keys.md#find-cmk-id-arn)
+### Creating Symmetric CMKs \(KMS API\)<a name="create-keys-api"></a>
 
-## Creating CMKs \(KMS API\)<a name="create-keys-api"></a>
+You can use the [CreateKey](https://docs.aws.amazon.com/kms/latest/APIReference/API_CreateKey.html) operation to create a new symmetric customer master key \(CMK\)\. These examples use the [AWS Command Line Interface \(AWS CLI\)](https://aws.amazon.com/cli/), but you can use any supported programming language\. 
 
-The [CreateKey](https://docs.aws.amazon.com/kms/latest/APIReference/API_CreateKey.html) operation creates a new AWS KMS customer master key \(CMK\)\. These examples use the [AWS Command Line Interface \(AWS CLI\)](https://aws.amazon.com/cli/), but you can use any supported programming language\. 
+This operation has no required parameters\. However, you might also want to use the `Policy` parameter to specify a key policy\. You can change the key policy \([PutKeyPolicy](https://docs.aws.amazon.com/kms/latest/APIReference/API_PutKeyPolicy.html)\) and add optional elements, such as a [description](https://docs.aws.amazon.com/kms/latest/APIReference/API_DescribeKey.html) and [tags](https://docs.aws.amazon.com/kms/latest/APIReference/API_TagResource.html) at any time\. Also, if you are creating a CMK for [imported key material](importing-keys.md) or a CMK in a [custom key store](custom-key-store-overview.md), the `Origin` parameter is required\. 
 
-This operation has no required parameters\. However, if you are creating a key with no key material, the `Origin` parameter is required\. You might also want to use the `Policy` parameter to specify a key policy\. You can change the key policy \([PutKeyPolicy](https://docs.aws.amazon.com/kms/latest/APIReference/API_PutKeyPolicy.html)\) and add optional elements, such as a [description](https://docs.aws.amazon.com/kms/latest/APIReference/API_DescribeKey.html) and [tags](https://docs.aws.amazon.com/kms/latest/APIReference/API_TagResource.html) at any time\.
-
-The following is an example of a call to the `CreateKey` operation with no parameters\.
+The following is an example of a call to the `CreateKey` operation with no parameters\. This command uses all of the default values\. It creates a symmetric CMK for encrypting and decrypting with key material generated by AWS KMS\.
 
 ```
 $ aws kms create-key
@@ -80,18 +95,22 @@ $ aws kms create-key
         "Description": "",
         "KeyManager": "CUSTOMER",
         "Enabled": true,
+        "CustomerMasterKeySpec": "SYMMETRIC_DEFAULT",
         "KeyUsage": "ENCRYPT_DECRYPT",
         "KeyState": "Enabled",
         "CreationDate": 1502910355.475,
         "Arn": "arn:aws:kms:us-west-2:111122223333:key/1234abcd-12ab-34cd-56ef-1234567890ab",
         "AWSAccountId": "111122223333"
+        "EncryptionAlgorithms": [
+            "SYMMETRIC_DEFAULT"
+        ]
     }
 }
 ```
 
 If you do not specify a key policy for your new CMK, the [default key policy](key-policies.md#key-policy-default) that `CreateKey` applies differs from the default key policy that the console applies when you use it to create a new CMK\. 
 
-For example, this call to the [GetKeyPolicy](https://docs.aws.amazon.com/kms/latest/APIReference/API_GetKeyPolicy.html) operation returns the key policy that `CreateKey` applies\. It gives the AWS account root user access to the CMK and allows it to create AWS Identity and Access Management \(IAM\) policies for the CMK\. For detailed information about IAM policies and key policies for CMKs, see [Authentication and Access Control for AWS KMS](control-access.md)
+For example, this call to the [GetKeyPolicy](https://docs.aws.amazon.com/kms/latest/APIReference/API_GetKeyPolicy.html) operation returns the key policy that `CreateKey` applies\. It gives the AWS account access to the CMK and allows it to create AWS Identity and Access Management \(IAM\) policies for the CMK\. For detailed information about IAM policies and key policies for CMKs, see [Authentication and Access Control for AWS KMS](control-access.md)
 
 ```
 $ aws kms get-key-policy --key-id 1234abcd-12ab-34cd-56ef-1234567890ab --policy-name default --output text
@@ -107,5 +126,140 @@ $ aws kms get-key-policy --key-id 1234abcd-12ab-34cd-56ef-1234567890ab --policy-
     "Action" : "kms:*",
     "Resource" : "*"
   } ]
+}
+```
+
+## Creating Asymmetric CMKs<a name="create-asymmetric-cmk"></a>
+
+You can create asymmetric CMKs in the AWS Management Console or by using the AWS KMS API\.
+
+**Note**  
+Asymmetric CMKs and asymmetric data key pairs are supported by AWS KMS only in the following AWS Regions: US East \(N\. Virginia\), US West \(Oregon\), Asia Pacific \(Sydney\), Asia Pacific \(Tokyo\), and EU \(Ireland\)\.
+
+An asymmetric CMK represents a public and private key pair that can be used for encryption or signing\. For help deciding whether to create a symmetric or asymmetric CMK, see [How to Choose Your CMK Configuration](symm-asymm-choose.md)\.
+
+### Creating Asymmetric CMKs \(Console\)<a name="create-asymmetric-cmks-console"></a>
+
+You can use the AWS Management Console to create asymmetric customer master keys \(CMKs\)\. Each asymmetric CMK represents a public and private key pair\.
+
+**Note**  
+Asymmetric CMKs and asymmetric data key pairs are supported by AWS KMS only in the following AWS Regions: US East \(N\. Virginia\), US West \(Oregon\), Asia Pacific \(Sydney\), Asia Pacific \(Tokyo\), and EU \(Ireland\)\.
+
+1. Sign in to the AWS Management Console and open the AWS Key Management Service \(AWS KMS\) console at [https://console\.aws\.amazon\.com/kms](https://console.aws.amazon.com/kms)\.
+
+1. To change the AWS Region, use the Region selector in the upper\-right corner of the page\.
+
+1. In the navigation pane, choose **Customer managed keys**\.
+
+1. Choose **Create key**\.
+
+1. To create an asymmetric CMK, in **Key type,** choose **Asymmetric**\.
+
+   For information about how to create an symmetric CMK in the AWS KMS console, see [Creating Symmetric CMKs \(Console\)](#create-keys-console)\.
+
+1. To create an asymmetric CMK for public key encryption, in **Key usage**, choose **Encrypt and decrypt**\. Or, to create an asymmetric CMK for signing messages and verifying signatures, in **Key usage**, choose **Sign and verify**\.
+
+   For help choosing a key usage value, see [Selecting the Key Usage](symm-asymm-choose.md#symm-asymm-choose-key-usage)\.
+
+1. Select a specification \(**Key spec**\) for your asymmetric CMK\. 
+
+   Often the key spec that you select is determined by regulatory, security, or business requrirements\. It might also be influenced by the size of messages that you need to encrypt or sign\. In general, longer encryption keys are more resistant to brute\-force attacks\.
+
+   For help choosing a key spec, see [Selecting the Key Spec](symm-asymm-choose.md#symm-asymm-choose-key-spec)\.
+
+1. Choose **Next**\.
+
+1. Type an alias for the CMK\. The alias name cannot begin with **aws/**\. The **aws/** prefix is reserved by Amazon Web Services to represent AWS managed CMKs in your account\.
+
+   An alias is a display name that you can use to identify the CMK\. We recommend that you choose an alias that indicates the type of data you plan to protect or the application you plan to use with the CMK\.
+
+   Aliases are required when you create a CMK in the AWS Management Console\. They are optional when you use the [CreateKey](https://docs.aws.amazon.com/kms/latest/APIReference/API_CreateKey.html) operation\.
+
+1. \(Optional\) Type a description for the CMK\.
+
+   Enter a description that explains the type of data you plan to protect or the application you plan to use with the CMK\. Don't use the description format that's used for [AWS managed CMKs](concepts.md#aws-managed-cmk)\. The *Default master key that protects my \.\.\. when no other key is defined* description format is reserved for AWS managed CMKs\.
+
+   You can add a description now or update it any time unless the [key state](key-state.md) is `Pending Deletion`\. To add, change, or delete the description of an existing customer managed CMK, [edit the CMK](editing-keys.md#editing-keys-console) in the AWS Management Console or use the [UpdateKeyDescription](https://docs.aws.amazon.com/kms/latest/APIReference/API_UpdateKeyDescription.html) operation\.
+
+1. \(Optional\) Type a tag key and an optional tag value\. To add more than one tag to the CMK, choose **Add tag**\.
+
+   When you add tags to your AWS resources, AWS generates a cost allocation report with usage and costs aggregated by tags\. For information about tagging CMKs, see [Tagging Keys](tagging-keys.md)\.
+
+1. Choose **Next**\.
+
+1. Select the IAM users and roles that can administer the CMK\.
+**Note**  
+IAM policies can give other IAM users and roles permission to manage the CMK\.
+
+1. \(Optional\) To prevent the selected IAM users and roles from deleting this CMK, in the **Key deletion** section at the bottom of the page, clear the **Allow key administrators to delete this key** check box\.
+
+1. Choose **Next**\.
+
+1. Select the IAM users and roles that can use the CMK for cryptographic operations\.
+**Note**  
+The AWS account \(root user\) has full permissions by default\. As a result, any IAM policies can also give users and roles permission use the CMK for cryptographic operations\.
+
+1. \(Optional\) You can allow other AWS accounts to use this CMK for cryptographic operations\. To do so, in the **Other AWS accounts** section at the bottom of the page, choose **Add another AWS account** and enter the AWS account identification number of an external account\. To add multiple external accounts, repeat this step\.
+**Note**  
+To allow principals in the external accounts to use the CMK, Administrators of the external account must create IAM policies that provide these permissions\. For more information, see [Allowing Users in Other Accounts to Use a CMK](key-policy-modifying-external-accounts.md)\.
+
+1. Choose **Next**\.
+
+1. Review the key policy document that was created from your choices\. You can edit it, too\. 
+
+1. Choose **Finish** to create the CMK\.
+
+### Creating Asymmetric CMKs \(KMS API\)<a name="create-keys-api"></a>
+
+You can use the [CreateKey](https://docs.aws.amazon.com/kms/latest/APIReference/API_CreateKey.html) operation to create an asymmetric customer master key \(CMK\)\. These examples use the [AWS Command Line Interface \(AWS CLI\)](https://aws.amazon.com/cli/), but you can use any supported programming language\. 
+
+When you create an asymmetric CMK, you must specify the `CustomerMasterKeySpec` parameter, which determines the type of keys you create\. Also, you must specify a `KeyUsage` value of ENCRYPT\_DECRYPT or SIGN\_VERIFY\. You cannot change these properties after the CMK is created\.
+
+The following example uses the `CreateKey` operation to create an asymmetric CMK of 4096\-bit RSA keys designed for public key encryption\.
+
+```
+$ aws kms create-key --customer-master-key-spec RSA_4096 --key-usage ENCRYPT_DECRYPT
+{
+    "KeyMetadata": {
+        "KeyState": "Enabled",
+        "KeyId": "1234abcd-12ab-34cd-56ef-1234567890ab",
+        "CustomerMasterKeySpec": "RSA_4096",
+        "KeyManager": "CUSTOMER",
+        "Description": "",
+        "KeyUsage": "ENCRYPT_DECRYPT",
+        "Arn": "arn:aws:kms:us-west-2:111122223333:key/1234abcd-12ab-34cd-56ef-1234567890ab",
+        "CreationDate": 1569973196.214,
+        "EncryptionAlgorithms": [
+            "RSAES_OAEP_SHA_1",
+            "RSAES_OAEP_SHA_256"
+        ],
+        "AWSAccountId": "111122223333",
+        "Origin": "AWS_KMS",
+        "Enabled": true
+    }
+}
+```
+
+The following example command creates an asymmetric CMK that represents a pair of ECDSA keys used for signing and verification\. You cannot create an elliptic curve key pair for encryption and decryption\.
+
+```
+$ aws kms create-key --customer-master-key-spec ECC_NIST_P521 --key-usage SIGN_VERIFY
+{
+    "KeyMetadata": {
+        "KeyState": "Enabled",
+        "KeyId": "0987dcba-09fe-87dc-65ba-ab0987654321",
+        "CreationDate": 1570824817.837,
+        "Origin": "AWS_KMS",
+        "SigningAlgorithms": [
+            "ECDSA_SHA_512"
+        ],
+        "Arn": "arn:aws:kms:us-west-2:111122223333:key/0987dcba-09fe-87dc-65ba-ab0987654321",
+        "AWSAccountId": "111122223333",
+        "CustomerMasterKeySpec": "ECC_NIST_P521",
+        "KeyManager": "CUSTOMER",
+        "Description": "",
+        "Enabled": true,
+        "KeyUsage": "SIGN_VERIFY"
+    }
 }
 ```

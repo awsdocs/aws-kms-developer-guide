@@ -8,3 +8,4 @@ You can use the [AWS Management Console](https://console.aws.amazon.com/iam/) an
 + [Editing Keys](editing-keys.md)
 + [Tagging Keys](tagging-keys.md)
 + [Enabling and Disabling Keys](enabling-keys.md)
++ [Downloading Public Keys](download-public-key.md)

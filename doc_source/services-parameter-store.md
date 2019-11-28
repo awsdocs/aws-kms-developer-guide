@@ -17,7 +17,7 @@ Parameter Store supports two tiers of secure string parameters: *standard* and *
 
 ## Protecting Standard Secure String Parameters<a name="parameter-store-encrypt"></a>
 
-Parameter Store does not perform any cryptographic operations\. Instead, it relies on AWS KMS to encrypt and decrypt secure string parameter values\. When you create or change a standard secure string parameter value, Parameter Store calls the AWS KMS [Encrypt](https://docs.aws.amazon.com/kms/latest/APIReference/API_Encrypt.html) API operation\. This operation uses an AWS KMS CMK directly to encrypt the parameter value instead of using the CMK to generate a [data key](concepts.md#data-keys)\. 
+Parameter Store does not perform any cryptographic operations\. Instead, it relies on AWS KMS to encrypt and decrypt secure string parameter values\. When you create or change a standard secure string parameter value, Parameter Store calls the AWS KMS [Encrypt](https://docs.aws.amazon.com/kms/latest/APIReference/API_Encrypt.html) operation\. This operation uses an AWS KMS CMK directly to encrypt the parameter value instead of using the CMK to generate a [data key](concepts.md#data-keys)\. 
 
 You can select the CMK that Parameter Store uses to encrypt the parameter value\. If you do not specify a CMK, Parameter Store uses the AWS managed CMK that Systems Manager automatically creates in your account\. This CMK has the `aws/ssm` alias\.
 
@@ -29,7 +29,7 @@ aws kms describe-key --key-id alias/aws/ssm
 
 To create a standard secure string parameter, use the [PutParameter](https://docs.aws.amazon.com/systems-manager/latest/APIReference/API_PutParameter.html) operation in the Systems Manager API\. Omit the `Tier` parameter or specify a value of `Standard`, which is the default\. Include a `Type` parameter with a value of `SecureString`\. To specify an AWS KMS CMK, use the `KeyId` parameter\. The default is the AWS managed CMK for your account, `aws/ssm`\. 
 
-Parameter Store then calls the AWS KMS `Encrypt` API with the CMK and the plaintext parameter value\. AWS KMS returns the encrypted parameter value, which Parameter Store stores with the parameter name\.
+Parameter Store then calls the AWS KMS `Encrypt` operation with the CMK and the plaintext parameter value\. AWS KMS returns the encrypted parameter value, which Parameter Store stores with the parameter name\.
 
 The following example uses the Systems Manager [put\-parameter](https://docs.aws.amazon.com/cli/latest/reference/ssm/put-parameter.html) command and its `--type` parameter in the AWS CLI to create a secure string parameter\. Because the command omits the optional `--tier` and `--key-id` parameters, Parameter Store creates a standard secure string parameter and encrypts it under the AWS managed CMK\.
 
@@ -59,7 +59,7 @@ $  aws ssm get-parameter --name MyParameter
 }
 ```
 
-To decrypt the parameter value before returning it, set the `WithDecryption` parameter of `GetParameter` to `true`\. When you use `WithDecryption`, Parameter Store calls the AWS KMS [Decrypt](https://docs.aws.amazon.com/kms/latest/APIReference/API_Decrypt.html) API operation on your behalf to decrypt the parameter value\. As a result, the `GetParameter` request returns the parameter with a plaintext parameter value, as shown in the following example\.
+To decrypt the parameter value before returning it, set the `WithDecryption` parameter of `GetParameter` to `true`\. When you use `WithDecryption`, Parameter Store calls the AWS KMS [Decrypt](https://docs.aws.amazon.com/kms/latest/APIReference/API_Decrypt.html) operation on your behalf to decrypt the parameter value\. As a result, the `GetParameter` request returns the parameter with a plaintext parameter value, as shown in the following example\.
 
 ```
 $  aws ssm get-parameter --name MyParameter --with-decryption
@@ -126,7 +126,7 @@ $  aws ssm get-parameter --name MyParameter
 }
 ```
 
-To decrypt the parameter value before returning it, set the `WithDecryption` parameter of `GetParameter` to `true`\. When you use `WithDecryption`, Parameter Store calls the AWS KMS [Decrypt](https://docs.aws.amazon.com/kms/latest/APIReference/API_Decrypt.html) API operation on your behalf to decrypt the parameter value\. As a result, the `GetParameter` request returns the parameter with a plaintext parameter value, as shown in the following example\.
+To decrypt the parameter value before returning it, set the `WithDecryption` parameter of `GetParameter` to `true`\. When you use `WithDecryption`, Parameter Store calls the AWS KMS [Decrypt](https://docs.aws.amazon.com/kms/latest/APIReference/API_Decrypt.html) operation on your behalf to decrypt the parameter value\. As a result, the `GetParameter` request returns the parameter with a plaintext parameter value, as shown in the following example\.
 
 ```
 $  aws ssm get-parameter --name MyParameter --with-decryption
@@ -326,7 +326,7 @@ To perform any operation on a secure string parameter, Parameter Store must be a
   To fix this error, run the application with different credentials or revise the IAM or key policy that is preventing the operation\. For help with AWS KMS IAM and key policies, see [Authentication and Access Control for AWS KMS](control-access.md)\.
 + The CMK is not found\. 
 
-  This typically happens when you use an incorrect identifier for the CMK\. [Find the correct identifiers](viewing-keys.md#find-cmk-id-arn) for the CMK and try the command again\. 
+  This typically happens when you use an incorrect identifier for the CMK\. [Find the correct identifiers](find-cmk-id-arn.md) for the CMK and try the command again\. 
 + The CMK is not enabled\. When this occurs, Parameter Store returns an InvalidKeyId exception with a detailed error message from AWS KMS\. If the CMK state is `Disabled`, [enable it](enabling-keys.md)\. If it is `Pending Import`, complete the [import procedure](importing-keys.md)\. If the key state is `Pending Deletion`, [cancel the key deletion](deleting-keys.md#deleting-keys-scheduling-key-deletion) or use a different CMK\. 
 
-  To find the [key state](key-state.md) of a CMK in the AWS KMS console, on the **Customer managed keys** or **AWS managed keys** page, see the [Status column](viewing-keys.md#viewing-keys-console)\. To use the AWS KMS API to find the status of a CMK, use the [DescribeKey](https://docs.aws.amazon.com/kms/latest/APIReference/API_DescribeKey.html) operation\. 
+  To find the [key state](key-state.md) of a CMK in the AWS KMS console, on the **Customer managed keys** or **AWS managed keys** page, see the [Status column](viewing-keys-console.md)\. To use the AWS KMS API to find the status of a CMK, use the [DescribeKey](https://docs.aws.amazon.com/kms/latest/APIReference/API_DescribeKey.html) operation\. 

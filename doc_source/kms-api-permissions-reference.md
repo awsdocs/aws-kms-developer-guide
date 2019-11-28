@@ -8,10 +8,14 @@ The Actions and Resources Table is designed to help you define [access control](
   Each resource type is associated with an ARN that you use to represent the resource\.  
 CMK ARNs  
 When the resource is a CMK, you represent it by using a CMK ARN\.  
-`arn:aws:kms:AWS_region:AWS_account_ID:key/CMK_key_ID`  
+`arn:AWS_partition_name:AWS_Region:AWS_account_ID:key/CMK_key_ID`  
+For example:  
+arn:aws:kms:us\-west\-2:111122223333:key/1234abcd\-12ab\-34cd\-56ef\-1234567890ab  
 Alias ARNs  
 When the resource is an alias, you represent it by using an alias ARN\.  
-`arn:aws:kms:AWS_region:AWS_account_ID:alias/alias_name`
+`arn:AWS_partition_name:AWS_region:AWS_account_ID:alias/alias_name`  
+For example:  
+arn:aws:kms:us\-west\-2:111122223333:alias/ExampleAlias
 + **AWS KMS Condition Keys** lists the AWS KMS condition keys that you can use to control access to the operation\. You specify conditions in a policy's `Condition` element\. For more information, see [AWS KMS Condition Keys](policy-conditions.md#conditions-kms)\. This column also includes [AWS global condition keys](https://docs.aws.amazon.com/IAM/latest/UserGuide/reference_policies_condition-keys.html) that are supported by AWS KMS, but not by all AWS services\.
 
 If you see an expand arrow \(**↗**\) in the upper\-right corner of the table, you can open the table in a new window\. To close the window, choose the close button \(**X**\) in the lower\-right corner\.

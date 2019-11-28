@@ -43,7 +43,7 @@ The AWS CloudHSM cluster that you select must have the following characteristics
 When you create a custom key store, you must upload the trust anchor certificate for the AWS CloudHSM cluster to AWS KMS\. AWS KMS needs the trust anchor certificate to connect the custom key store to the cluster\.  
 Every active AWS CloudHSM cluster has a *trust anchor certificate*\. When you [initialize the cluster](https://docs.aws.amazon.com/cloudhsm/latest/userguide/initialize-cluster.html#sign-csr), you generate this certificate, save it in the `customerCA.crt` file, and copy it to hosts that connect to the cluster\.
 
-**Create the `kmsuser` Crypto User for AWS KMS**  
+**Create the `kmsuser` Crypto User for AWS KMS**  <a name="kmsuser-concept"></a>
 To administer your custom key store, AWS KMS logs into the [`kmsuser` crypto user](key-store-concepts.md#concept-kmsuser) \(CU\) account in the selected cluster\. Before you create your custom key store, you must create the `kmsuser` CU\. Then when you create your custom key store, you provide the password for `kmsuser` to AWS KMS\. AWS KMS rotates the `kmsuser` password whenever you connect the custom key store to its associated AWS CloudHSM cluster\.  
 Do not specify the `2FA` option when you create the `kmsuser` CU\. If you do, AWS KMS cannot log in and your custom key store cannot be connected to this AWS CloudHSM cluster\. Once you specify 2FA, you cannot undo it\. Instead, you must delete the CU and recreate it\.
 To create the `kmsuser` CU, use the following procedure\.  

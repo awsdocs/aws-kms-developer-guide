@@ -39,7 +39,7 @@ You can use the AWS Management Console to delete key material\.
 
 1. Do one of the following:
    + Select the check box for a CMK with imported key material\. Choose **Key actions**, **Delete key material**\.
-   + Choose the alias or key ID of a CMK with imported key material\. In the **Key Material** section of the page, choose **Delete key material**\.
+   + Choose the alias or key ID of a CMK with imported key material\. In the **Key material** section of the page, choose **Delete key material**\.
 
 1. Confirm that you want to delete the key material and then choose **Delete key material**\. The CMK's status, which corresponds to its [key state](key-state.md), changes to **Pending import**\.
 

@@ -39,7 +39,7 @@ You can add, change, or delete the description of your CMK unless its [key state
 You can change the key policy for your CMK\. Key policies define the IAM users, groups, and roles that can manage the CMK and use it for cryptographic operations\.   
 The AWS account \(root user\) has full permissions by default\. As a result, any IAM users and roles whose attached policies allow the appropriate permissions can also administer the CMK\. For detailed information about setting key policies and IAM policies, see [Authentication and Access Control for AWS KMS](control-access.md)\.  
 
-1. Under **General configuration**, choose the **Key policy** tab\.
+1. On the details page for CMK, choose the **Key policy** tab\.
 
    If the key policy for the CMK is a default policy, the **Key policy** tab displays the default view with **Key administrators**, **Key deletion**, **Key users**, and **Other AWS accounts** sections\. Otherwise, the tab displays the key policy document\.
 
@@ -68,17 +68,18 @@ Adding an external account does not allow users and roles in the account to use 
 **Add, edit, and delete tags**  
 You can change the tags for your CMK\. Each tag is a name–value pair\. The tag name must be unique in the account and region\.   
 You can use tags to identify and categorize your CMKs\. When you add tags to your AWS resources, AWS generates a cost allocation report with usage and costs aggregated by tags\. For more information about CMK tags, see [Tagging Keys](tagging-keys.md)\.  
-+ Under **General configuration**, choose the **Tags** tab\.
++ On the details page for CMK, choose the **Tags** tab\.
   + To create your first tag, choose **Create tag**, type a tag name and tag value, and then choose **Save**\.
   + To add a tag, choose **Edit**, choose **Add tag**, type a tag name and tag value, and then choose **Save**\.
   + To change the name or value of a tag, choose **Edit**, make your changes, and then choose **Save**\.
   + To delete a tag, choose **Edit**\. On the tag row, choose **Remove**, and then choose **Save**\.
 
 **Enable or disable rotation**  
-You can enable and disable [automatic rotation](rotate-keys.md) of the cryptographic material in a [customer managed CMK](concepts.md#master_keys)\. This feature is not supported for CMKs with imported key material\.  
+You can enable and disable [automatic rotation](rotate-keys.md) of the cryptographic material in a symmetric [customer managed CMK](concepts.md#master_keys)\. This feature is not supported for asymmetric CMKs or for CMKs with imported key material\.  
+Asymmetric CMKs and asymmetric data key pairs are supported by AWS KMS only in the following AWS Regions: US East \(N\. Virginia\), US West \(Oregon\), Asia Pacific \(Sydney\), Asia Pacific \(Tokyo\), and EU \(Ireland\)\.
 [AWS managed CMKs](concepts.md#master_keys) are automatically rotated every three years\. You cannot enable or disable this feature\.  
 
-1. Under **General configuration**, choose the **Key rotation** tab\.
+1. On the details page for CMK, choose the **Key rotation** tab\.
 
 1. To enable automatic key rotation, check the **Automatically rotate this CMK every year** check box\. To disable automatic key rotation, clear the check box\.
 
@@ -116,16 +117,20 @@ $ aws kms describe-key --key-id 1234abcd-12ab-34cd-56ef-1234567890ab
         
 {
     "KeyMetadata": {
-    "Origin": "AWS_KMS",
-    "KeyId": "1234abcd-12ab-34cd-56ef-1234567890ab",
-    "Description": "Example key",
-    "KeyManager": "CUSTOMER",
-    "Enabled": true,
-    "KeyUsage": "ENCRYPT_DECRYPT",
-    "KeyState": "Enabled",
-    "CreationDate": 1499988169.234,
-    "Arn": "arn:aws:kms:us-west-2:111122223333:key/1234abcd-12ab-34cd-56ef-1234567890ab",
-    "AWSAccountId": "111122223333"
+      "Origin": "AWS_KMS",
+      "KeyId": "1234abcd-12ab-34cd-56ef-1234567890ab",
+      "Description": "Example key",
+      "KeyManager": "CUSTOMER",
+      "Enabled": true,
+      "KeyUsage": "ENCRYPT_DECRYPT",
+      "KeyState": "Enabled",
+      "CreationDate": 1499988169.234,
+      "Arn": "arn:aws:kms:us-west-2:111122223333:key/1234abcd-12ab-34cd-56ef-1234567890ab",
+      "AWSAccountId": "111122223333"
+      "CustomerMasterKeySpec": "SYMMETRIC_DEFAULT",
+      "EncryptionAlgorithms": [
+        "SYMMETRIC_DEFAULT"
+      ]
     }
 }
 ```
@@ -136,6 +141,6 @@ The [PutKeyPolicy](https://docs.aws.amazon.com/kms/latest/APIReference/API_PutKe
 
 ### Enable and Disable Key Rotation<a name="editing-keys-enable-key-rotation"></a>
 
-The [EnableKeyRotation](https://docs.aws.amazon.com/kms/latest/APIReference/API_EnableKeyRotation.html) operation enables [automatic rotation](rotate-keys.md) of the cryptographic material in a CMK\. The [DisableKeyRotation](https://docs.aws.amazon.com/kms/latest/APIReference/API_DisableKeyRotation.html) operation disables it\. The [GetKeyRotationStatus](https://docs.aws.amazon.com/kms/latest/APIReference/API_GetKeyRotationStatus.html) operation returns a Boolean value that tells you whether automatic key rotation is enabled \(**true**\) or disabled \(**false**\)\. 
+The [EnableKeyRotation](https://docs.aws.amazon.com/kms/latest/APIReference/API_EnableKeyRotation.html) operation enables [automatic rotation](rotate-keys.md) of the cryptographic material in a symmetric CMK\. The [DisableKeyRotation](https://docs.aws.amazon.com/kms/latest/APIReference/API_DisableKeyRotation.html) operation disables it\. The [GetKeyRotationStatus](https://docs.aws.amazon.com/kms/latest/APIReference/API_GetKeyRotationStatus.html) operation returns a Boolean value that tells you whether automatic key rotation is enabled \(**true**\) or disabled \(**false**\)\. 
 
 For an example, see [Rotating Customer Master Keys](rotate-keys.md)\.

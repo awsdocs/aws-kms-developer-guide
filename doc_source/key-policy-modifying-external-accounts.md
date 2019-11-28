@@ -28,7 +28,7 @@ To give an external account permission to use the CMK, add a statement to the ke
 
 When you specify an external account in a key policy, IAM administrators in the external account can use IAM policies to delegate those permissions to any users and roles in the external account\. They can also decide which of the actions specified in the key policy the users and roles can perform\. 
 
-For example, assume that you want to allow account 444455556666 to use a CMK in account 111122223333\. To do that, add a policy statement like the one in the following example to the key policy for the CMK in account 111122223333\. This policy statement gives the external account, 444455556666, permission to use the CMK in cryptographic operations\. 
+For example, assume that you want to allow account 444455556666 to use a symmetric CMK in account 111122223333\. To do that, add a policy statement like the one in the following example to the key policy for the CMK in account 111122223333\. This policy statement gives the external account, 444455556666, permission to use the CMK in cryptographic operations for symmetric CMKs\. 
 
 ```
 {
@@ -56,7 +56,7 @@ Specifying identities in a key policy restricts the permissions that IAM adminis
 
 To specify particular external users or roles in a key policy, in the `Principal` element, enter the Amazon Resource Name \(ARN\) of a user or role in the external account\.
 
-For example, the following example key policy statement allows `ExampleRole` and ExampleUser in account 444455556666 to use a CMK in account 111122223333\. This key policy statement gives the external account, 444455556666, permission to use the CMK in cryptographic operations\. 
+For example, the following example key policy statement allows `ExampleRole` and ExampleUser in account 444455556666 to use a CMK in account 111122223333\. This key policy statement gives the external account, 444455556666, permission to use the CMK in cryptographic operations for symmetric CMKs\. 
 
 ```
 {

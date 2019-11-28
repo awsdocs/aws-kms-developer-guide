@@ -20,13 +20,19 @@ However, the following values are specific to CMKs in a custom key store\.
 
 1. In the upper\-right corner, choose the gear icon, choose **Custom key store ID** and **Origin**, then choose **Confirm**\.
 
-1. To identify CMKs in any custom key store, look for CMKs with an **Origin** value of **CloudHSM**\. To identify CMKs in a particular custom key store, view the values in the **Custom key store ID** column\. 
+1. To identify CMKs in any custom key store, look for CMKs with an **Origin** value of **AWS\_CLOUDHSM**\. To identify CMKs in a particular custom key store, view the values in the **Custom key store ID** column\. 
 
-1. Choose the alias or key ID of a CMK in a custom key store\. This page for the CMK displays detailed information about the CMK, including information about its custom key store and cluster\.
+1. Choose the alias or key ID of a CMK in a custom key store\. 
+
+   This page displays detailed information about the CMK, including its Amazon Resource Name \(ARN\), key policy, and tags\.
+
+1. Expand **Cryptographic configuration**\.
+
+   This section includes information about the CMK's custom key store and cluster\.
 
 **To view the CMKs in a custom key store \(API\)**
 
-You use the same AWS KMS API operations to view the CMKs in a custom key store that you would use for any CMK, including [ListKeys](https://docs.aws.amazon.com/kms/latest/APIReference/API_ListKeys.html), [DescribeKey](https://docs.aws.amazon.com/kms/latest/APIReference/API_DescribeKey.html), and [GetKeyPolicy](https://docs.aws.amazon.com/kms/latest/APIReference/API_GetKeyPolicy.html)\. For example, the following `DescribeKey` API operation in the AWS CLI shows the special fields for a CMK in a custom key store\. Before running a command like this one, replace the example CMK ID with a valid value\.
+You use the same AWS KMS API operations to view the CMKs in a custom key store that you would use for any CMK, including [ListKeys](https://docs.aws.amazon.com/kms/latest/APIReference/API_ListKeys.html), [DescribeKey](https://docs.aws.amazon.com/kms/latest/APIReference/API_DescribeKey.html), and [GetKeyPolicy](https://docs.aws.amazon.com/kms/latest/APIReference/API_GetKeyPolicy.html)\. For example, the following `describe-key` operation in the AWS CLI shows the special fields for a CMK in a custom key store\. Before running a command like this one, replace the example CMK ID with a valid value\.
 
 ```
 $ aws kms describe-key --key-id 1234abcd-12ab-34cd-56ef-1234567890ab
@@ -45,6 +51,10 @@ $ aws kms describe-key --key-id 1234abcd-12ab-34cd-56ef-1234567890ab
       "CloudHsmClusterId": "cluster-1a23b4cdefg",
       "CustomKeyStoreId": "cks-1234567890abcdef0",
       "Description": "CMK in custom key store"
+      "CustomerMasterKeySpec": "SYMMETRIC_DEFAULT",
+      "EncryptionAlgorithms": [
+         "SYMMETRIC_DEFAULT"
+      ]
    }
 }
 ```

@@ -1,6 +1,11 @@
 # Importing Key Material in AWS Key Management Service \(AWS KMS\)<a name="importing-keys"></a>
 
-A customer master key \(CMK\) is a logical representation of a master key in AWS KMS\. In addition to the master key's identifiers and other metadata including its creation date, description, and [key state](key-state.md), a CMK contains the *key material* used to encrypt and decrypt data\. When you [create a CMK](create-keys.md), by default AWS KMS generates the key material for that CMK\. But you can create a CMK without key material and then import your own key material into that CMK\.
+A customer master key \(CMK\) is a logical representation of a master key in AWS KMS\. In addition to the master key's identifiers and other metadata including its creation date, description, and [key state](key-state.md), a CMK contains the *key material* used to encrypt and decrypt data\. When you [create a CMK](create-keys.md), by default AWS KMS generates the key material for that CMK\. But you can create a CMK without key material and then import your own key material into that CMK, a feature often known as "bring your own key" \(BYOK\)\.
+
+Imported key material is supported only for symmetric CMKs in AWS KMS key stores\. It is not supported on asymmetric CMK or CMKs in [custom key stores](custom-key-store-overview.md)\.
+
+**Note**  
+Asymmetric CMKs and asymmetric data key pairs are supported by AWS KMS only in the following AWS Regions: US East \(N\. Virginia\), US West \(Oregon\), Asia Pacific \(Sydney\), Asia Pacific \(Tokyo\), and EU \(Ireland\)\.
 
 When you use imported key material, you remain responsible for the key material while allowing AWS KMS to use a copy of it\. You might choose to do this for one or more of the following reasons:
 + To prove that you generated the key material using a source of entropy that meets your requirements\.
@@ -43,7 +48,7 @@ To restore the key material after events like these, you must retain a copy of t
 
 The following overview explains how to import your key material into AWS KMS\. For more details about each step in the process, see the corresponding topic\.
 
-1. [Create a CMK with no key material](importing-keys-create-cmk.md) – To get started with importing key material, first create a CMK whose *origin* is `EXTERNAL`\. This indicates that the key material was generated outside of AWS KMS and prevents AWS KMS from generating key material for the CMK\. In a later step you will import your own key material into this CMK\.
+1. [Create a symmetric CMK with no key material](importing-keys-create-cmk.md) – To get started with importing key material, first create a symmetric CMK whose *origin* is `EXTERNAL`\. This indicates that the key material was generated outside of AWS KMS and prevents AWS KMS from generating key material for the CMK\. In a later step you will import your own key material into this CMK\.
 
 1. [Download the public key and import token](importing-keys-get-public-key-and-token.md) – After completing step 1, download a public key and an import token\. These items protect the import of your key material to AWS KMS\.
 

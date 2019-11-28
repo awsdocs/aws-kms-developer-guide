@@ -22,7 +22,7 @@ These resource types have unique Amazon Resource Names \(ARNs\) associated with 
 
   ARN format:
 
-  `arn:aws:kms:AWS region:AWS account ID:key/CMK key ID`
+  `arn:AWS partition name:AWS Region:AWS account ID:key/CMK key ID`
 
   Example ARN:
 
@@ -33,7 +33,7 @@ These resource types have unique Amazon Resource Names \(ARNs\) associated with 
 
   ARN format:
 
-  `arn:aws:kms:AWS region:AWS account ID:alias/alias name`
+  `arn:AWS partition name:AWS region:AWS account ID:alias/alias name`
 
   Example ARN:
 
@@ -70,7 +70,7 @@ A policy is a document that describes a set of permissions\. The following are t
 + **Resource** – In an IAM policy, you use an Amazon Resource Name \(ARN\) to specify the resource that the policy applies to\. For more information, see [AWS KMS Resources and Operations](#kms-resources-operations)\. In a key policy, you use `"*"` for the resource, which effectively means "this CMK\." A key policy applies only to the CMK it is attached to\.
 
    
-+ **Action** – You use actions to specify the API operations you want to allow or deny\. For example, the `kms:Encrypt` action corresponds to the AWS KMS [Encrypt](https://docs.aws.amazon.com/kms/latest/APIReference/API_Encrypt.html) API operation\.
++ **Action** – You use actions to specify the API operations you want to allow or deny\. For example, the `kms:Encrypt` action corresponds to the AWS KMS [Encrypt](https://docs.aws.amazon.com/kms/latest/APIReference/API_Encrypt.html) operation\.
 
    
 + **Effect** – You use the effect to specify whether to allow or deny the permissions\. If you don't explicitly allow access to a resource, access is implicitly denied\. You can also explicitly deny access to a resource, which you might do to make sure that a user cannot access it, even when a different policy allows access\.

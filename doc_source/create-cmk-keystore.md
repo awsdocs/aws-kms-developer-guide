@@ -11,7 +11,7 @@ To create a CMK in a custom key store, the custom key store must be [connected t
 
 When you create a CMK in your custom key store, AWS KMS creates the CMK in AWS KMS\. But, it creates the key material for the CMK in the associated AWS CloudHSM cluster\. Specifically, AWS KMS signs into the cluster as the [`kmsuser` CU that you created](create-keystore.md#before-keystore)\. Then it creates a persistent, non\-extractable, 256\-bit Advanced Encryption Standard \(AES\) symmetric key in the cluster\. AWS KMS sets the value of the [key label attribute](https://docs.aws.amazon.com/cloudhsm/latest/userguide/key-attribute-table.html), which is visible only in the cluster, to Amazon Resource Name \(ARN\) of the CMK\.
 
-When the command succeeds, the [key state](key-state.md) of the new CMK is `Enabled` and its origin is `AWS_CLOUDHSM`\. You cannot change the origin of any CMK after you create it\. When you view a CMK in a custom key store in the console or by using the [DescribeKey](https://docs.aws.amazon.com/kms/latest/APIReference/API_DescribeKey.html) API operation, you can see typical properties, like its key ID, key state, and creation date\. But you can also see the custom key store ID and \(optionally\) the AWS CloudHSM cluster ID\. For details, see [Viewing CMKs in a Custom Key Store](view-cmk-keystore.md)\.
+When the command succeeds, the [key state](key-state.md) of the new CMK is `Enabled` and its origin is `AWS_CLOUDHSM`\. You cannot change the origin of any CMK after you create it\. When you view a CMK in a custom key store in the console or by using the [DescribeKey](https://docs.aws.amazon.com/kms/latest/APIReference/API_DescribeKey.html) operation, you can see typical properties, like its key ID, key state, and creation date\. But you can also see the custom key store ID and \(optionally\) the AWS CloudHSM cluster ID\. For details, see [Viewing CMKs in a Custom Key Store](view-cmk-keystore.md)\.
 
 If your attempt to create a CMK in your custom key store fails, use the error message to help you determine the cause\. It might indicate that the custom key store is not connected \(`CustomKeyStoreInvalidStateException`\) or the associated AWS CloudHSM cluster doesn't have the two active HSMs that are required for this operation \(`CloudHsmClusterInvalidConfigurationException`\)\. For help see [Troubleshooting a Custom Key Store](fix-keystore.md)\.
 
@@ -31,7 +31,11 @@ Use the following procedure to create a customer master key \(CMK\) in a custom 
 
 1. Choose **Create key**\.
 
-1. Type an alias and an optional description for the CMK\.
+1. Choose **Symmetric**\.
+
+   You cannot create an asymmetric CMK in a custom key store\. 
+**Note**  
+Asymmetric CMKs and asymmetric data key pairs are supported by AWS KMS only in the following AWS Regions: US East \(N\. Virginia\), US West \(Oregon\), Asia Pacific \(Sydney\), Asia Pacific \(Tokyo\), and EU \(Ireland\)\.
 
 1. Choose **Advanced options**\.
 
@@ -46,6 +50,8 @@ Use the following procedure to create a customer master key \(CMK\) in a custom 
    For help with connecting a custom key store, see [Connecting and Disconnecting a Custom Key Store](disconnect-keystore.md)\. For help with adding HSMs, see [Adding an HSM](https://docs.aws.amazon.com/cloudhsm/latest/userguide/add-remove-hsm.html#add-hsm) in the *AWS CloudHSM User Guide*\.
 
 1. Choose **Next**\.
+
+1. Type an alias and an optional description for the CMK\.
 
 1. \(Optional\)\. On the **Add Tags** page, add tags that identify or categorize your CMK\.
 
@@ -169,10 +175,14 @@ $ aws kms create-key --origin AWS_CLOUDHSM --custom-key-store-id cks-1234567890a
     "KeyId": "1234abcd-12ab-34cd-56ef-1234567890ab",
     "KeyManager": "CUSTOMER",
     "KeyState": "Enabled",
-    "KeyUsage": "ENCRYPT_DECRYPT",
+    "KeyUsage": "ENCRYPT_DECRYPT",    
     "Origin": "AWS_CLOUDHSM"
     "CloudHsmClusterId": "cluster-1a23b4cdefg",
     "CustomKeyStoreId": "cks-1234567890abcdef0"
+    "CustomerMasterKeySpec": "SYMMETRIC_DEFAULT",
+    "EncryptionAlgorithms": [
+        "SYMMETRIC_DEFAULT"
+    ]
   }
 }
 ```

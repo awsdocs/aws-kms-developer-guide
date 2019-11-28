@@ -16,7 +16,7 @@ To import key material, you can use the AWS Management Console or the AWS KMS AP
 
 You can use the AWS Management Console to import key material\.
 
-1. If you are on the **Download wrapping key and import token** page, skip to [Step 7](#id-key-materials-step)\.
+1. If you are on the **Download wrapping key and import token** page, skip to [Step 8](#id-key-materials-step)\.
 
 1. Sign in to the AWS Management Console and open the AWS Key Management Service \(AWS KMS\) console at [https://console\.aws\.amazon\.com/kms](https://console.aws.amazon.com/kms)\.
 
@@ -26,15 +26,19 @@ You can use the AWS Management Console to import key material\.
 
 1. Choose the key ID or alias of the CMK for which you downloaded the public key and import token\.
 
-1. In the **Key Material** section, choose **Upload key material**\.
+1. Expand the **Cryptographic configuration** section and view its values\.
 
-   The **Key material** section appears only when the CMK was created with no key material\. These CMKs have an **Origin** value of **EXTERNAL**\. You cannot import key material into a CMK with any other **Origin** value\. For information about creating CMKs with imported key material, see [Importing Key Material in AWS Key Management Service \(AWS KMS\)](importing-keys.md)\.
+   You can only import key material into CMKs with a **Key type** of **Symmetric** and an **Origin** of **EXTERNAL**\. For information about creating CMKs with imported key material, see [Importing Key Material in AWS Key Management Service \(AWS KMS\)](importing-keys.md)\.
 
-1. <a name="id-key-materials-step"></a>Under **Encrypted key material**, choose **Upload file**\. Then upload the file that contains your wrapped \(encrypted\) key material\. 
+1. Expand the **Key material** section and then choose **Upload key material**\.
 
-1. Under **Import token**, choose **Upload file**\. Upload the file that contains the import token that you [downloaded](importing-keys-get-public-key-and-token.md#importing-keys-get-public-key-and-token-console)\.
+   The **Key material** section appears only for CMKs with a **Key type** of **Symmetric** and an **Origin** value of **EXTERNAL**\.
 
-1. Under **Choose an expiration option**, you determine whether the key material expires\. To set an expiration date and time, choose **Key material expires**, and use the calendar to select a date and time\.
+1. <a name="id-key-materials-step"></a>In the **Encrypted key material and import token** section, under **Wrapped key material**, choose **Choose file**\. Then upload the file that contains your wrapped \(encrypted\) key material\. 
+
+1. In the **Encrypted key material and import token** section, under **Import token**, choose **Choose file**\. Upload the file that contains the import token that you [downloaded](importing-keys-get-public-key-and-token.md#importing-keys-get-public-key-and-token-console)\.
+
+1. In the **Expiration option** section, you determine whether the key material expires\. To set an expiration date and time, choose **Key material expires**, and use the calendar to select a date and time\.
 
 1. Choose **Finish** or **Upload key material**\.
 

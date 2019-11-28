@@ -6,6 +6,9 @@ The following procedures explain how to receive a notification whenever an AWS K
 
 The notification email that you receive does not list the CMK or the cryptographic operation\. You can find that information in [your CloudTrail log](logging-using-cloudtrail.md)\. Instead, the email reports that the alarm state changed from **OK** to **Alarm**\. For more information about CloudWatch Alarms and state changes, see [Creating Amazon CloudWatch Alarms](https://docs.aws.amazon.com/AmazonCloudWatch/latest/monitoring/AlarmThatSendsEmail.html) in the *Amazon CloudWatch User Guide*\.
 
+**Warning**  
+This Amazon CloudWatch alarm cannot detect use of the public key of an asymmetric CMK outside of AWS KMS\. For details about the special risks of deleting asymmetric CMKs used for public key cryptography, including creating ciphertexts that cannot be decrypted, see [Deleting Asymmetric CMKs](deleting-keys.md#deleting-asymmetric-cmks)\.
+
 **Topics**
 + [Requirements for a CloudWatch Alarm](#cloudwatch-alarm-prerequisites)
 + [Create the CloudWatch Alarm](#deleting-keys-cloudwatch-create-alarm)
