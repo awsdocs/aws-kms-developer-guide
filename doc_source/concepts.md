@@ -103,7 +103,7 @@ The following diagram shows how to use the `Decrypt` operation to decrypt an enc
 
 ## Data Key Pairs<a name="data-key-pairs"></a>
 
-*Data key pairs* consist of a mathematically public key and private key\. They are designed to be used for client\-side encryption and decryption or signing and verification outside of AWS KMS\. 
+*Data key pairs* are asymmetric data keys that consist of a mathematically\-related public key and private key\. They are designed to be used for client\-side encryption and decryption or signing and verification outside of AWS KMS\. 
 
 **Note**  
 Asymmetric CMKs and asymmetric data key pairs are supported by AWS KMS only in the following AWS Regions: US East \(N\. Virginia\), US West \(Oregon\), Asia Pacific \(Sydney\), Asia Pacific \(Tokyo\), and EU \(Ireland\)\.
@@ -130,7 +130,7 @@ The following image shows the `GenerateDataKeyPair` operation\. The `GenerateDat
 
 ### Encrypt Data with a Data Key Pair<a name="data-key-pairs-encrypt"></a>
 
-When you encrypt with a data key pair, you use the public key of the pair to encrypt the data and the private key of the same pair to decrypt the data\. Typically, data key pairs are used when many parties needs to encrypt data that only the party that holds the private key can decrypt\.
+When you encrypt with a data key pair, you use the public key of the pair to encrypt the data and the private key of the same pair to decrypt the data\. Typically, data key pairs are used when many parties need to encrypt data that only the party that holds the private key can decrypt\.
 
 The parties with the public key use that key to encrypt data, as shown in the following diagram\.
 
@@ -177,7 +177,7 @@ Typically, the key spec that you choose for your CMK is based on your use case a
 For a list of key specs and help with choosing a key spec, see [Selecting the Key Spec](symm-asymm-choose.md#symm-asymm-choose-key-spec)\. To find the key spec of a CMK, use the [DescribeKey](url-kms-api;API_DescribeKey.html) operation, or see the **Cryptographic configuration** section of the detail page for a CMK in the AWS KMS console\. For help, see [Viewing Keys](viewing-keys.md)\. 
 
 **Note**  
-In AWS KMS API operations, the key spec for CMKs is known as the `CustomerMasterKeySpec`\. This distinguishes it from the key spec for data keys \(`KeySpec`\) and data key pairs \(`KeyPairSpec`\), the key spec used when wrapping key material for import \(`WrappingKeySpec`\)\. Each key spec type has different values\.
+In AWS KMS API operations, the key spec for CMKs is known as the `CustomerMasterKeySpec`\. This distinguishes it from the key spec for data keys \(`KeySpec`\) and data key pairs \(`KeyPairSpec`\), and the key spec used when wrapping key material for import \(`WrappingKeySpec`\)\. Each key spec type has different values\.
 
 To limit the key specs that principals can use when creating CMKs, use the [kms:CustomerMasterKeySpec](policy-conditions.md#conditions-kms-customer-master-key-spec) condition key\. You can also use the `kms:CustomerMasterKeySpec` condition key to allow principals to call AWS KMS operations for a CMK based on its key spec\. For example, you can deny permission to schedule deletion of CMK with an `RSA_4096` key spec\. 
 
@@ -252,7 +252,7 @@ More about encryption context\.
 
 ### Encryption Context in Policies<a name="encryption-context-authorization"></a>
 
-The encryption context is used primarily to verify integrity and authenticity\. But you can also use the encryption context as a condition for authorizing use of a symmetric customer master keys \(CMK\) in key policies and IAM policies\. 
+The encryption context is used primarily to verify integrity and authenticity\. But you can also use the encryption context to control access to symmetric customer master keys \(CMKs\) in key policies and IAM policies\. 
 
 The [kms:EncryptionContext:](policy-conditions.md#conditions-kms-encryption-context) and [kms:EncryptionContextKeys](policy-conditions.md#conditions-kms-encryption-context) condition keys allow \(or deny\) a permission only when the request includes particular encryption context keys or key–value pairs\. 
 

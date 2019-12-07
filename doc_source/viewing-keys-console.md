@@ -96,7 +96,7 @@ The name of the [custom key store](custom-key-store-overview.md) that contains t
 A brief, optional description of the CMK\. To add or update the description of a customer managed CMK, above **General Configuration**, choose **Edit**\.
 
 **Encryption algorithms**  
-Lists the encryption algorithms that can be used with the CMK in AWS KMS\. The encryption algorithm restrictions are not enforceable outside of AWS KMS\. This field appears only when the **Key type** is **Asymmtric** and the **Key usage** is **Encrypt and decrypt**\.
+Lists the encryption algorithms that can be used with the CMK in AWS KMS\. The encryption algorithm restrictions are not enforceable outside of AWS KMS\. This field appears only when the **Key type** is **Asymmetric** and the **Key usage** is **Encrypt and decrypt**\.
 
 **Expiration date**  
 The date and time when the key material for the CMK expires\. This field appears only for CMKs with [imported key material](importing-keys.md), that is, when the **Origin** is **External** and the CMK has key material that expires\.
@@ -124,7 +124,7 @@ The source of the key material for the CMK\. Valid values are **AWS\_KMS** for k
 Displays the public key of an asymmetric CMK\. Authorized users can use this tab to [copy and download the public key](download-public-key.md)\.
 
 **Signing algorithms**  
-Lists the signing algorithms that can be used with the CMK in AWS KMS\. This field appears only when the **Key type** is **Asymmetric** and the Key Usage is **Sign and verify**\.
+Lists the signing algorithms that can be used with the CMK in AWS KMS\. This field appears only when the **Key type** is **Asymmetric** and the **Key usage** is **Sign and verify**\.
 
 **Status**  
 The key state of the CMK\. You can use the CMK in cryptographic operations only when the status is **Enabled**\. For a detailed description of each CMK status and its effect on the operations that you can run on the CMK, see [How Key State Affects Use of a Customer Master Key](key-state.md)\.
