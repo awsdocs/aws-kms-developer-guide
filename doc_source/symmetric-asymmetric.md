@@ -11,7 +11,7 @@ AWS KMS supports symmetric and asymmetric CMKs\.
 + Asymmetric CMK: Represents a mathematically related public key and private key pair that you can use for encryption and decryption or signing and verification, but not both\. The private key never leaves AWS KMS unencrypted\. You can use the public key within AWS KMS by calling the AWS KMS API operations, or download the public key and use it outside of AWS KMS\. 
 
 **Note**  
-Asymmetric CMKs and asymmetric data key pairs are supported by AWS KMS only in the following AWS Regions: US East \(N\. Virginia\), US West \(Oregon\), Asia Pacific \(Sydney\), Asia Pacific \(Tokyo\), and EU \(Ireland\)\.
+Asymmetric CMKs and asymmetric data key pairs are supported by AWS KMS only in the following AWS Regions: US East \(N\. Virginia\), US West \(Oregon\), Asia Pacific \(Sydney\), Asia Pacific \(Tokyo\), and Europe \(Ireland\)\.
 
 AWS KMS also provides symmetric [data keys](concepts.md#data-keys) and asymmetric [data key pairs](concepts.md#data-key-pairs) that are designed to be used for client\-side cryptography outside of AWS KMS\. The symmetric data key and the private key in an asymmetric data key pair are protected by a symmetric CMK in AWS KMS\. 
 + Symmetric data key — A symmetric encryption key that you can use to encrypt data outside of AWS KMS\. This key is protected by a symmetric CMK in AWS KMS\. 

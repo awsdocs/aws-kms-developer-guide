@@ -33,7 +33,7 @@ You can choose your CMK in the DynamoDB console or by using DynamoDB API\. When 
 You can change the CMK for a table at any time, either in the DynamoDB console or by using the [UpdateTable](https://docs.aws.amazon.com/amazondynamodb/latest/APIReference/API_UpdateTable.html) operation\. The process of switching keys is seamless and does not require downtime or degrade service\.  
 Use a customer managed CMK to get the following features:  
 + You create and manage the CMK, including setting the [key policies](key-policies.md), [IAM policies](iam-policies.md) and [grants](grants.md) to control access to the CMK\. You can [enable and disable](enabling-keys.md) the CMK, enable and disable [automatic key rotation](rotate-keys.md), and [delete the CMK](deleting-keys.md) when it is no longer in use\.
-+ You can use a customer managed key with [imported key material](importing-keys.md) or a customer managed key in a [custom key store](custom-key-store-overview.md) that you own and manage\. 
++ You can use a customer managed CMK with [imported key material](importing-keys.md) or a customer managed CMK in a [custom key store](custom-key-store-overview.md) that you own and manage\. 
 + You can audit the encryption and decryption of your DynamoDB table by examining the DynamoDB API calls to AWS KMS in [AWS CloudTrail logs](#dynamodb-cmk-trail)\.
 Use the AWS managed CMK if you need any of the following features:  
 + You can [view the CMK](viewing-keys.md) and [view its key policy](key-policy-viewing.md)\. \(You cannot change the key policy\.\)

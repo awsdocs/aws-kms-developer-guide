@@ -55,7 +55,7 @@ Because the **AWSServiceRoleForKeyManagementServiceCustomKeyStores** service\-li
 
 **Regions**
 
-Like the custom key stores feature, the **AWSServiceRoleForKeyManagementServiceCustomKeyStores** role is supported in all AWS Regions where both AWS KMS and AWS CloudHSM are available, except for Asia Pacific \(Hong Kong\), EU \(Stockholm\), Middle East \(Bahrain\), South America \(São Paulo\), AWS GovCloud \(US\-East\), and AWS GovCloud \(US\-West\)\. For a list of AWS Regions that each service supports, see [AWS Key Management Service](https://docs.aws.amazon.com/general/latest/gr/rande.html#kms_region) and [AWS CloudHSM](https://docs.aws.amazon.com/general/latest/gr/rande.html#cloudhsm_region)\.
+Like the custom key stores feature, the **AWSServiceRoleForKeyManagementServiceCustomKeyStores** role is supported in all AWS Regions where both AWS KMS and AWS CloudHSM are available, except for Asia Pacific \(Hong Kong\), Europe \(Stockholm\), Middle East \(Bahrain\), South America \(São Paulo\), AWS GovCloud \(US\-East\), and AWS GovCloud \(US\-West\)\. For a list of AWS Regions that each service supports, see [AWS Key Management Service](https://docs.aws.amazon.com/general/latest/gr/rande.html#kms_region) and [AWS CloudHSM](https://docs.aws.amazon.com/general/latest/gr/rande.html#cloudhsm_region)\.
 
 For more information about how AWS services use service\-linked roles, see [Using Service\-Linked Roles](https://docs.aws.amazon.com/IAM/latest/UserGuide/using-service-linked-roles.html) in the IAM User Guide\.
 

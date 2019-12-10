@@ -4,7 +4,7 @@ In AWS KMS, you can create symmetric and asymmetric CMKs\.
 
 ## Symmetric Customer Master Keys<a name="symmetric-cmks"></a>
 
-When you create a customer managed key \(CMK\) in KMS, by default, you get a symmetric CMK\. 
+When you create a customer master key \(CMK\) in KMS, by default, you get a symmetric CMK\. 
 
 In AWS KMS, a *symmetric CMK* represents a 256\-bit encryption key that never leaves AWS KMS unencrypted\. To use a symmetric CMK, you must call AWS KMS\. Symmetric keys are used in symmetric encryption, where the same key is used for encryption and decryption\.
 
@@ -15,7 +15,7 @@ You can use a symmetric CMK in AWS KMS to encrypt, decrypt, and re\-encrypt data
 ## Asymmetric Customer Master Keys<a name="asymmetric-cmks"></a>
 
 **Note**  
-Asymmetric CMKs and asymmetric data key pairs are supported by AWS KMS only in the following AWS Regions: US East \(N\. Virginia\), US West \(Oregon\), Asia Pacific \(Sydney\), Asia Pacific \(Tokyo\), and EU \(Ireland\)\.
+Asymmetric CMKs and asymmetric data key pairs are supported by AWS KMS only in the following AWS Regions: US East \(N\. Virginia\), US West \(Oregon\), Asia Pacific \(Sydney\), Asia Pacific \(Tokyo\), and Europe \(Ireland\)\.
 
 You can create an asymmetric CMK in AWS KMS\. An *asymmetric CMK* represents a mathematically related public key and private key pair\. You can give the public key to anyone, even if they're not trusted, but the private key must be kept secret\. 
 

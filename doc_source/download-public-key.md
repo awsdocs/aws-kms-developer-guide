@@ -3,7 +3,7 @@
 You can view, copy, and download the public key from an asymmetric CMK pair by using the AWS Management Console or the AWS KMS API\. You must have `kms:GetPublicKey` permission on the asymmetric CMK\.
 
 **Note**  
-Asymmetric CMKs and asymmetric data key pairs are supported by AWS KMS only in the following AWS Regions: US East \(N\. Virginia\), US West \(Oregon\), Asia Pacific \(Sydney\), Asia Pacific \(Tokyo\), and EU \(Ireland\)\.
+Asymmetric CMKs and asymmetric data key pairs are supported by AWS KMS only in the following AWS Regions: US East \(N\. Virginia\), US West \(Oregon\), Asia Pacific \(Sydney\), Asia Pacific \(Tokyo\), and Europe \(Ireland\)\.
 
 Each asymmetric CMK pair consists of a private key that never leaves AWS KMS unencrypted and a public key that you can download and share\. 
 

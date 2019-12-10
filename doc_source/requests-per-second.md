@@ -28,7 +28,7 @@ In addition to rate limits, AWS KMS uses resource limits to ensure capacity for 
 ## Applying Rate Limits<a name="about-rate-limits"></a>
 
 When reviewing rate limits, keep in mind the following information\.
-+ Rate limits apply to both [customer managed CMKs](concepts.md#customer-cmk) and [AWS managed CMKs](concepts.md#aws-managed-cmk)\. The use of [AWS owned CMKs](concepts.md#aws-owned-cmk) do not count against rate limits for your AWS account, even when they are used to protect resources in your account\.
++ Rate limits apply to both [customer managed CMKs](concepts.md#customer-cmk) and [AWS managed CMKs](concepts.md#aws-managed-cmk)\. The use of [AWS owned CMKs](concepts.md#aws-owned-cmk) does not count against rate limits for your AWS account, even when they are used to protect resources in your account\.
 
    
 + Throttling is based on all requests on CMKs of all types in the Region\. This total includes requests from all principals in the AWS account, including requests from AWS services on your behalf\.
@@ -37,30 +37,30 @@ When reviewing rate limits, keep in mind the following information\.
 + Each rate limit is calculated independently\. For example, requests for the [CreateKey](https://docs.aws.amazon.com/kms/latest/APIReference/API_CreateKey.html) operation have no effect on the limit of requests to the [CreateAlias](https://docs.aws.amazon.com/kms/latest/APIReference/API_CreateAlias.html) operation\. If your `CreateAlias` requests are throttled, your `CreateKey` requests can still complete successfully\.
 
    
-+ Although cryptographic operations share a limit, the shared limit is calculated independently of limits for other operations\. For example, calls to the [Encrypt](https://docs.aws.amazon.com/kms/latest/APIReference/API_Encrypt.html) and [Decrypt](https://docs.aws.amazon.com/kms/latest/APIReference/API_Decrypt.html) operations share a rate limit, but that limit is independent of the limit for management operations, such as [EnableKey](https://docs.aws.amazon.com/kms/latest/APIReference/API_EnableKey.html)\. For example, in the EU \(London\) Region, you can perform 5,500 cryptographic operations on symmetric CMKs *plus* 5 `EnableKey` operations per second without being throttled\.
++ Although cryptographic operations share a limit, the shared limit is calculated independently of limits for other operations\. For example, calls to the [Encrypt](https://docs.aws.amazon.com/kms/latest/APIReference/API_Encrypt.html) and [Decrypt](https://docs.aws.amazon.com/kms/latest/APIReference/API_Decrypt.html) operations share a rate limit, but that limit is independent of the limit for management operations, such as [EnableKey](https://docs.aws.amazon.com/kms/latest/APIReference/API_EnableKey.html)\. For example, in the Europe \(London\) Region, you can perform 10,000 cryptographic operations on symmetric CMKs *plus* 5 `EnableKey` operations per second without being throttled\.
 
 ## Shared Limits for Cryptographic Operations<a name="rps-shared-limit"></a>
 
-AWS KMS cryptographic operations share throttle limits\. These limits are displayed in the first row of the [Rate Limit table](#rps-table)\. The limits for different types of CMKs are calculated independently\. Each limit applies to all calls to these operations in the AWS account and Region the with the key type in each one\-second interval\.
+AWS KMS cryptographic operations share throttle limits\. These limits are displayed in the first row of the [Rate Limit table](#rps-table)\. The limits for different types of CMKs are calculated independently\. Each limit applies to all requests for these operations in the AWS account and Region with the given key type in each one\-second interval\.
 
-For example, if you're using [symmetric CMKs](symm-asymm-concepts.md#symmetric-cmks) in an AWS Region with a shared limit of 5,500 requests per second, when you make 3,000 [GenerateDataKey](https://docs.aws.amazon.com/kms/latest/APIReference/API_GenerateDataKey.html) requests per second and 1,000 [Decrypt](https://docs.aws.amazon.com/kms/latest/APIReference/API_Decrypt.html) requests per second, AWS KMS doesn't throttle your requests\. However, when you make 5,000 `GenerateDataKey` and 1,000 [Encrypt](https://docs.aws.amazon.com/kms/latest/APIReference/API_Encrypt.html) and requests per second, AWS KMS throttles your requests because you are making more than 5,500 requests per second for operations with the shared limit\.
+For example, you might be using [symmetric CMKs](symm-asymm-concepts.md#symmetric-cmks) in an AWS Region with a shared limit of 10,000 requests per second\. When you make 7,000 [GenerateDataKey](https://docs.aws.amazon.com/kms/latest/APIReference/API_GenerateDataKey.html) requests per second and 2,000 [Decrypt](https://docs.aws.amazon.com/kms/latest/APIReference/API_Decrypt.html) requests per second, AWS KMS doesn't throttle your requests\. However, when you make 9,500 `GenerateDataKey` requests and 1,000 [Encrypt](https://docs.aws.amazon.com/kms/latest/APIReference/API_Encrypt.html) and requests per second, AWS KMS throttles your requests because they exceed the shared limit\.
 
 Similarly, if you are using [asymmetric CMKs](symm-asymm-concepts.md#asymmetric-cmks), you can request any combination of the cryptographic operations that are supported by the CMK, just so the total number of cryptographic operations doesn't exceed the requests\-per\-second limit for that type of CMK\. For example, you can make 300 [Encrypt](https://docs.aws.amazon.com/kms/latest/APIReference/API_Encrypt.html) requests and 200 [Decrypt](https://docs.aws.amazon.com/kms/latest/APIReference/API_Decrypt.html) requests on your RSA\-based encryption CMKs without being throttled\.
 
 **Note**  
-Asymmetric CMKs and asymmetric data key pairs are supported by AWS KMS only in the following AWS Regions: US East \(N\. Virginia\), US West \(Oregon\), Asia Pacific \(Sydney\), Asia Pacific \(Tokyo\), and EU \(Ireland\)\.
+Asymmetric CMKs and asymmetric data key pairs are supported by AWS KMS only in the following AWS Regions: US East \(N\. Virginia\), US West \(Oregon\), Asia Pacific \(Sydney\), Asia Pacific \(Tokyo\), and Europe \(Ireland\)\.
 
-Because the limits for different key types are calculated independently, if you use both symmetric and asymmetric CMKs, you can make up to 5,500 calls per second with symmetric CMKs *plus* up to 500 additional calls per second with your RSA\-based asymmetric CMKs, *plus* up to 300 additional requests per second with your ECC\-based CMKs\.
+The limits for different key types are also calculated independently\. For example, in the Asia Pacific \(Singapore\) Region, if you use both symmetric and asymmetric CMKs, you can make up to 10,000 calls per second with symmetric CMKs *plus* up to 500 additional calls per second with your RSA\-based asymmetric CMKs, *plus* up to 300 additional requests per second with your ECC\-based CMKs\.
 
 ## API Requests Made on Your Behalf<a name="rps-from-service"></a>
 
 You can make API requests directly or by using an integrated AWS service that makes API requests to AWS KMS on your behalf\. The limit applies to both kinds of requests\.
 
-For example, you might store data in Amazon S3 using server\-side encryption with AWS KMS \(SSE\-KMS\)\. Each time you upload or download an S3 object that's encrypted with SSE\-KMS, Amazon S3 makes a `GenerateDataKey` \(for uploads\) or `Decrypt` \(for downloads\) request to AWS KMS on your behalf\. These requests count toward your limit, so AWS KMS throttles the requests if you exceed a combined total of 5,500 \(or 10,000\) uploads or downloads per second of S3 objects encrypted with SSE\-KMS\.
+For example, you might store data in Amazon S3 using server\-side encryption with AWS KMS \(SSE\-KMS\)\. Each time you upload or download an S3 object that's encrypted with SSE\-KMS, Amazon S3 makes a `GenerateDataKey` \(for uploads\) or `Decrypt` \(for downloads\) request to AWS KMS on your behalf\. These requests count toward your limit, so AWS KMS throttles the requests if you exceed a combined total of 5,500 \(or 10,000 or 30,000 depending upon your AWS Region\) uploads or downloads per second of S3 objects encrypted with SSE\-KMS\.
 
 ## Cross\-Account Requests<a name="rps-cross-account"></a>
 
-When an application in one AWS account uses a CMK owned by a different account, that's known as a cross\-account request\. For cross\-account requests, AWS KMS throttles the account that makes the requests, not the account that owns the CMK\. For example, you might have applications in accounts A and B that both use a CMK in account C\. In this scenario, the limit for requests per second applies separately to accounts A and B, not to account C\.
+When an application in one AWS account uses a CMK owned by a different account, that's known as a *cross\-account request*\. For cross\-account requests, AWS KMS throttles the account that makes the requests, not the account that owns the CMK\. For example, if an application in account A uses a CMK in account B, the CMK use is applied only to the limits in account A\.
 
 ## Custom Key Store Limits<a name="rps-key-stores"></a>
 
@@ -78,7 +78,7 @@ If the AWS CloudHSM cluster that is associated with the custom key store is proc
 
 | API Operation | Rate Limits \(per second\) | 
 | --- | --- | 
-|  `Decrypt` `Encrypt` `GenerateDataKey` \(symmetric\) `GenerateDataKeyWithoutPlaintext` \(symmetric\) `GenerateRandom` `ReEncrypt` `Sign` `Verify`  |  These shared limits vary with the type of CMK used in the request\. Each limit is calculated separately\. Symmetric CMK limit: [\[See the AWS documentation website for more details\]](http://docs.aws.amazon.com/kms/latest/developerguide/requests-per-second.html) Asymmetric CMK limit:  [\[See the AWS documentation website for more details\]](http://docs.aws.amazon.com/kms/latest/developerguide/requests-per-second.html) Custom key stores limit: [\[See the AWS documentation website for more details\]](http://docs.aws.amazon.com/kms/latest/developerguide/requests-per-second.html)  | 
+|  `Decrypt` `Encrypt` `GenerateDataKey` \(symmetric\) `GenerateDataKeyWithoutPlaintext` \(symmetric\) `GenerateRandom` `ReEncrypt` `Sign` `Verify`  |  These shared limits vary with the AWS Region and the type of CMK used in the request\. Each limit is calculated separately\. Symmetric CMK limit: [\[See the AWS documentation website for more details\]](http://docs.aws.amazon.com/kms/latest/developerguide/requests-per-second.html) Asymmetric CMK limit:  [\[See the AWS documentation website for more details\]](http://docs.aws.amazon.com/kms/latest/developerguide/requests-per-second.html) Custom key stores limit: [\[See the AWS documentation website for more details\]](http://docs.aws.amazon.com/kms/latest/developerguide/requests-per-second.html)  | 
 | CancelKeyDeletion | 5 | 
 | ConnectCustomKeyStore | 5 | 
 | CreateAlias | 5 | 
