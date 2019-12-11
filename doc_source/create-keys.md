@@ -1,22 +1,25 @@
 # Creating Keys<a name="create-keys"></a>
 
-You can create [symmetric and asymmetric customer master keys](symmetric-asymmetric.md) \(CMKs\) in the AWS Management Console or by using the [CreateKey](https://docs.aws.amazon.com/kms/latest/APIReference/API_CreateKey.html) operation\.
+You can create [symmetric and asymmetric customer master keys](symmetric-asymmetric.md) \(CMKs\) in the AWS Management Console or by using the [CreateKey](https://docs.aws.amazon.com/kms/latest/APIReference/API_CreateKey.html) operation\. During this process, you determine the cryptographic configuration of your CMK and the origin of its key material\. You cannot change these properties after the CMK is created\. You also set the key policy for the CMK, which you can change at any time\.
+
+If you are creating a CMK to encrypt data you store or manage in an AWS service, create a symmetric CMK\. AWS services that are integrated with AWS KMS do not support asymmetric CMKs\. For help deciding which type of CMK to create, see [How to Choose Your CMK Configuration](symm-asymm-choose.md)\. 
 
 **Note**  
 Asymmetric CMKs and asymmetric data key pairs are supported by AWS KMS only in the following AWS Regions: US East \(N\. Virginia\), US West \(Oregon\), Asia Pacific \(Sydney\), Asia Pacific \(Tokyo\), and Europe \(Ireland\)\.
+
+**Learn More:**
++ For help creating a CMK with imported key material, see [Create a Customer Master Key With No Key Material](importing-keys-create-cmk.md)\.
++ For help creating a CMK in a custom key store, see [Creating CMKs in a Custom Key Store](create-cmk-keystore.md)\.
++ For help determining whether an existing CMK is symmetric or asymmetric, see [Identifying Symmetric and Asymmetric CMKs](find-symm-asymm.md)\.
++ To use your CMKs programmatically and in command line interface operations, you need a key ID or key ARN\. For detailed instructions, see [Finding the Key ID and ARN](find-cmk-id-arn.md)\.
 
 **Topics**
 + [Creating Symmetric CMKs](#create-symmetric-cmk)
 + [Creating Asymmetric CMKs](#create-asymmetric-cmk)
 
-**Tip**  
-To use your CMKs programmatically and in command line interface operations, you need a key ID or key ARN\. For detailed instructions, see [Finding the Key ID and ARN](find-cmk-id-arn.md)
-
 ## Creating Symmetric CMKs<a name="create-symmetric-cmk"></a>
 
-You can create symmetric CMKs in the AWS Management Console or by using the AWS KMS API\.
-
-Symmetric key encryption uses the same key to encrypt and decrypt\. For help deciding which type of CMK to create, see [How to Choose Your CMK Configuration](symm-asymm-choose.md)\.
+You can create [symmetric CMKs](symm-asymm-concepts.md#symmetric-cmks) in the AWS Management Console or by using the AWS KMS API\. Symmetric key encryption uses the same key to encrypt and decrypt data\. 
 
 ### Creating Symmetric CMKs \(Console\)<a name="create-keys-console"></a>
 
@@ -131,12 +134,12 @@ $ aws kms get-key-policy --key-id 1234abcd-12ab-34cd-56ef-1234567890ab --policy-
 
 ## Creating Asymmetric CMKs<a name="create-asymmetric-cmk"></a>
 
-You can create asymmetric CMKs in the AWS Management Console or by using the AWS KMS API\.
+You can create [asymmetric CMKs](symm-asymm-concepts.md#asymmetric-cmks) in the AWS Management Console or by using the AWS KMS API\. An asymmetric CMK represents a public and private key pair that can be used for encryption or signing\. 
 
 **Note**  
 Asymmetric CMKs and asymmetric data key pairs are supported by AWS KMS only in the following AWS Regions: US East \(N\. Virginia\), US West \(Oregon\), Asia Pacific \(Sydney\), Asia Pacific \(Tokyo\), and Europe \(Ireland\)\.
 
-An asymmetric CMK represents a public and private key pair that can be used for encryption or signing\. For help deciding whether to create a symmetric or asymmetric CMK, see [How to Choose Your CMK Configuration](symm-asymm-choose.md)\.
+If you are creating a CMK to encrypt data that you store or manage in an AWS service, use a symmetric CMK\. AWS services that integrate with AWS KMS do not support asymmetric CMKs\. For help deciding whether to create a symmetric or asymmetric CMK, see [How to Choose Your CMK Configuration](symm-asymm-choose.md)\. 
 
 ### Creating Asymmetric CMKs \(Console\)<a name="create-asymmetric-cmks-console"></a>
 

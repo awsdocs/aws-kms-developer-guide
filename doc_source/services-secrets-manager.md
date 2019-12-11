@@ -34,7 +34,10 @@ Secrets Manager uses a unique data key to protect each secret value\. Whenever t
 
 Each secret is associated with an AWS managed or customer managed [customer master key](concepts.md#master_keys) \(CMK\)\. Customer managed CMKs allow authorized users to [control access](control-access.md) to the CMK through policies and grants, manage [automatic rotation](rotate-keys.md), and use [imported key material](importing-keys.md)\.
 
-When you create a new secret, you can specify any customer managed CMK in the account and region, or the AWS managed CMK for Secrets Manager, `aws/secretsmanager`\. If you do not specify a CMK, or you select the console default value, **DefaultEncryptionKey**, Secrets Manager creates the `aws/secretsmanager` CMK, if it does not exist, and associates it with the secret\. You can use the same CMK or different CMKs for each secret in your account\.
+**Important**  
+Secrets Manager supports only [symmetric CMKs](symm-asymm-concepts.md#symmetric-cmks)\. You cannot use an [asymmetric CMK](symm-asymm-concepts.md#asymmetric-cmks) to encrypt your secrets\. To determine whether a CMK is symmetric or asymmetric, see [Identifying Symmetric and Asymmetric CMKs](find-symm-asymm.md)\.
+
+When you create a new secret, you can specify any symmetric customer managed CMK in the account and region, or the AWS managed CMK for Secrets Manager, `aws/secretsmanager`\. If you do not specify a CMK, or you select the console default value, **DefaultEncryptionKey**, Secrets Manager creates the `aws/secretsmanager` CMK, if it does not exist, and associates it with the secret\. You can use the same CMK or different CMKs for each secret in your account\.
 
 You can change the CMK for a secret at any time, either in the Secrets Manager console, or by using the [UpdateSecret](https://docs.aws.amazon.com/secretsmanager/latest/apireference/API_UpdateSecret.html) operation\. When you change the CMK, Secrets Manager does not re\-encrypt the existing secret value under the new CMK\. However, the next time that the secret value changes, Secrets Manager encrypts it under the new CMK\.
 

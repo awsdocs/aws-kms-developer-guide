@@ -19,8 +19,8 @@ When you download the public key of an asymmetric CMK, you can use it outside of
 To decrypt data that was encrypted with the public key outside of AWS KMS, call the [Decrypt](url-kms-api;API_Decrypt.html) operation\. The `Decrypt` operation fails if the data was encrypted under a public key from a CMK with a [key usage](#symm-asymm-choose-key-usage) of `SIGN_VERIFY`\. It will also fail if it was encrypted by using an algorithm that KMS does not support for RSA CMKs\.  
 To avoid these errors, anyone using a public key outside of AWS KMS must store the key configuration\. The AWS KMS console and the [GetPublicKey](url-kms-api;API_GetPublicKey.html) response provide the information that you must include when you share the public key\.
 
-**Use with Integrated AWS Services**  
-To create a CMK for use with an [AWS service that is integrated with AWS KMS](service-integration.md), consult the documentation for the service\. All AWS services that encrypt data on your behalf require a [symmetric CMK](symm-asymm-concepts.md#symmetric-cmks)\. 
+**Use with Integrated AWS Services**  <a name="cmks-aws-service"></a>
+To create a CMK for use with an [AWS service that is integrated with AWS KMS](service-integration.md), consult the documentation for the service\. All AWS services that encrypt data on your behalf require a [symmetric CMK](symm-asymm-concepts.md#symmetric-cmks)\.
 
 In addition to these considerations, CMKs with different key specs have different prices and different request rate limits\. For information about AWS KMS pricing, see [AWS Key Management Service Pricing](https://aws.amazon.com/kms/pricing/)\. For information about rate limits, see [Rate Limits](requests-per-second.md)\.
 
@@ -90,7 +90,7 @@ The encryption algorithm for symmetric CMKs is also known as SYMMETRIC\_DEFAULT\
 
 Data encrypted under AES\-256\-GCM is protected now and in the future\. Cryptographers consider this algorithm to be *quantum resistant*\. Theoretical future, large\-scale quantum computing attacks on ciphertexts created under 256\-bit AES\-GCM keys [reduce the effective security of the key to 128 bits](https://www.etsi.org/images/files/ETSIWhitePapers/QuantumSafeWhitepaper.pdf)\. But, this security level is sufficient to make brute force attacks on AWS KMS ciphertexts infeasible\.
 
-You can use a symmetric CMK in AWS KMS to encrypt, decrypt, and re\-encrypt data, and generate data keys and data key pairs\. AWS services that are integrated with AWS KMS generally use symmetric CMKs to encrypt your data at rest\. You can [import your own key material](importing-keys.md) into a symmetric CMK and create symmetric CMKs in [custom key stores](custom-key-store-overview.md)\. For a table comparing the operations that you can perform on symmetric and asymmetric CMKs, see [](symm-asymm-compare.md#symm-asymm-table)\.
+You can use a symmetric CMK in AWS KMS to encrypt, decrypt, and re\-encrypt data, and generate data keys and data key pairs\. AWS services that are integrated with AWS KMS generally use symmetric CMKs to encrypt your data at rest\. You can [import your own key material](importing-keys.md) into a symmetric CMK and create symmetric CMKs in [custom key stores](custom-key-store-overview.md)\. For a table comparing the operations that you can perform on symmetric and asymmetric CMKs, see [Comparing Symmetric and Asymmetric CMKs](symm-asymm-compare.md)\.
 
 ### RSA Key Specs<a name="key-spec-rsa"></a>
 

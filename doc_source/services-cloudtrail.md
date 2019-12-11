@@ -2,6 +2,9 @@
 
 You can use AWS CloudTrail to record AWS API calls and other activity for your AWS account and to save the recorded information to log files in an Amazon Simple Storage Service \(Amazon S3\) bucket that you choose\. By default, the log files delivered by CloudTrail to your S3 bucket are encrypted using server\-side encryption with Amazon S3–managed encryption keys \(SSE\-S3\)\. But you can choose instead to use server\-side encryption with AWS KMS–managed keys \(SSE\-KMS\)\. To learn how to encrypt your CloudTrail log files with AWS KMS, see [Encrypting CloudTrail Log Files with AWS KMS–Managed Keys \(SSE\-KMS\)](https://docs.aws.amazon.com/awscloudtrail/latest/userguide/encrypting-cloudtrail-log-files-with-aws-kms.html) in the *AWS CloudTrail User Guide*\.
 
+**Important**  
+AWS CloudTrail and Amazon S3 support only [symmetric customer master keys](symm-asymm-concepts.md#symmetric-cmks) \(CMKs\)\. You cannot use an [asymmetric CMK](symm-asymm-concepts.md#asymmetric-cmks) to encrypt your CloudTrail Logs\. To determine whether a CMK is symmetric or asymmetric, see [Identifying Symmetric and Asymmetric CMKs](find-symm-asymm.md)\.
+
 **Topics**
 + [Understanding When Your CMK is Used](#cloudtrail-details)
 + [Understanding How Often Your CMK is Used](#cloudtrail-requests)

@@ -62,18 +62,24 @@ When the connection status of a custom key store is `FAILED`, you must [disconne
 + `INVALID_CREDENTIALS` indicates that AWS KMS cannot log into the associated AWS CloudHSM cluster because it doesn't have the correct `kmsuser` account password\. For help with this error, see [How to Fix Invalid `kmsuser` Credentials](#fix-keystore-password)\.
 
    
-+ `USER_LOCKED_OUT` indicates that the `kmsuser` CU account is locked out of the associated AWS CloudHSM cluster due to too many failed password attempts\. For help with this error, see [How to Fix Invalid `kmsuser` Credentials](#fix-keystore-password)\.
++ `NETWORK_ERRORS` usually indicates transient network issues\. [Disconnect the custom key store](disconnect-keystore.md), wait a few minutes, and try to connect again\.
+
+   
++ `USER_LOCKED_OUT` indicates that the [`kmsuser` crypto user \(CU\) account](key-store-concepts.md#concept-kmsuser) is locked out of the associated AWS CloudHSM cluster due to too many failed password attempts\. For help with this error, see [How to Fix Invalid `kmsuser` Credentials](#fix-keystore-password)\.
 
   To fix this error, [disconnect the custom key store](disconnect-keystore.md) and use the [changePswd](https://docs.aws.amazon.com/cloudhsm/latest/userguide/cloudhsm_mgmt_util-changePswd.html) command in cloudhsm\_mgmt\_util to change the `kmsuser` account password\. Then, [edit the `kmsuser` password setting](update-keystore.md) for the custom key store, and try to connect again\. For help, use the procedure described in the [How to Fix Invalid `kmsuser` Credentials](#fix-keystore-password) topic\.
 
    
-+ `NETWORK_ERRORS` usually indicates transient network issues\. [Disconnect the custom key store](disconnect-keystore.md), wait a few minutes, and try to connect again\.
++ `USER_LOGGED_IN` indicates that the `kmsuser` CU account is logged into the associated AWS CloudHSM cluster\. This prevents AWS KMS from rotating the `kmsuser` account password and logging into the cluster\. To fix this error, log the `kmsuser` CU out of the cluster\. If you changed the `kmsuser` password to log into the cluster, you must also and update the key store password value for the custom key store\. For help, see [How to Log Out and Reconnect](#login-kmsuser-2)\.
+
+   
++ `USER_NOT_FOUND` indicates that AWS KMS cannot find a `kmsuser` CU account in the associated AWS CloudHSM cluster\. To fix this error, [create a kmsuser CU account](create-keystore.md#kmsuser-concept) in the cluster, and then [update the key store password value](update-keystore.md) for the custom key store\. For help, see [How to Fix Invalid `kmsuser` Credentials](#fix-keystore-password)\.
 
 ## How to Fix Invalid `kmsuser` Credentials<a name="fix-keystore-password"></a>
 
-When you [connect a custom key store](disconnect-keystore.md), AWS KMS logs into the associated AWS CloudHSM cluster as the [`kmsuser` crypto user](key-store-concepts.md#concept-kmsuser) \(CU\)\. It remains logged in until the custom key store is disconnected\. 
+When you [connect a custom key store](disconnect-keystore.md), AWS KMS logs into the associated AWS CloudHSM cluster as the [`kmsuser` crypto user](key-store-concepts.md#concept-kmsuser) \(CU\)\. It remains logged in until the custom key store is disconnected\. The [DescribeCustomKeyStores](https://docs.aws.amazon.com/kms/latest/APIReference/API_DescribeCustomKeyStores.html) response shows a `ConnectionState` of `FAILED` and `ConnectionErrorCode` value of `INVALID_CREDENTIALS`, as shown in the following example\.
 
-If you disconnect the custom key store and change the `kmsuser` password, AWS KMS cannot log into the AWS CloudHSM cluster with the credentials of the `kmsuser` CU account\. As a result, all attempts to connect the custom key store fail\. The [DescribeCustomKeyStores](https://docs.aws.amazon.com/kms/latest/APIReference/API_DescribeCustomKeyStores.html) response shows a `ConnectionState` of `FAILED` and `ConnectionErrorCode` value of `INVALID_CREDENTIALS`, as shown in the following example\.
+If you disconnect the custom key store and change the `kmsuser` password, AWS KMS cannot log into the AWS CloudHSM cluster with the credentials of the `kmsuser` CU account\. As a result, all attempts to connect the custom key store fail\. The `DescribeCustomKeyStores` response shows a `ConnectionState` of `FAILED` and `ConnectionErrorCode` value of `INVALID_CREDENTIALS`, as shown in the following example\.
 
 ```
 $ aws kms describe-custom-key-stores --custom-key-store-name ExampleKeyStore
@@ -109,7 +115,7 @@ $ aws kms describe-custom-key-stores --custom-key-store-name ExampleKeyStore
 }
 ```
 
-To repair either of these conditions, use the following procedure\. 
+To repair any of these conditions, use the following procedure\. 
 
 1. [Disconnect the custom key store](disconnect-keystore.md)\. 
 

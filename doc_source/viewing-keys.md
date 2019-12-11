@@ -6,3 +6,4 @@ You can use [AWS Management Console](https://console.aws.amazon.com/kms) or the 
 + [Viewing CMKs in the Console](viewing-keys-console.md)
 + [Viewing CMKs with the API](viewing-keys-cli.md)
 + [Finding the Key ID and ARN](find-cmk-id-arn.md)
++ [Identifying Symmetric and Asymmetric CMKs](find-symm-asymm.md)

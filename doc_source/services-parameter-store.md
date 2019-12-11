@@ -6,6 +6,9 @@ With [Parameter Store](https://docs.aws.amazon.com/systems-manager/latest/usergu
 
 To manage sensitive data, you can create secure string parameters\. Parameter Store uses AWS KMS customer master keys \(CMKs\) to encrypt the parameter values of secure string parameters when you create or change them\. It also uses CMKs to decrypt the parameter values when you access them\. You can use the [AWS managed CMK](concepts.md#aws-managed-cmk) that Parameter Store creates for your account or specify your own [customer managed CMK](concepts.md#customer-cmk)\. 
 
+**Important**  
+Parameter Store supports only [symmetric CMKs](symm-asymm-concepts.md#symmetric-cmks)\. You cannot use an [asymmetric CMK](symm-asymm-concepts.md#asymmetric-cmks) to encrypt your parameters\. To determine whether a CMK is symmetric or asymmetric, see [Identifying Symmetric and Asymmetric CMKs](find-symm-asymm.md)\.
+
 Parameter Store supports two tiers of secure string parameters: *standard* and *advanced*\. Standard parameters, which cannot exceed 4096 bytes, are encrypted and decrypted directly under the CMK that you specify\. To encrypt and decrypt advanced secure string parameters, Parameter Store uses envelope encryption with the [AWS Encryption SDK](https://docs.aws.amazon.com/encryption-sdk/latest/developer-guide/)\. You can convert a standard secure string parameter to an advanced parameter, but you cannot convert an advanced parameter to a standard one\. For more information about the difference between standard and advanced secure string parameters, see [About Systems Manager Advanced Parameters](https://docs.aws.amazon.com/systems-manager/latest/userguide/parameter-store-advanced-parameters.html) in the AWS Systems Manager User Guide\.
 
 **Topics**
@@ -17,7 +20,7 @@ Parameter Store supports two tiers of secure string parameters: *standard* and *
 
 ## Protecting Standard Secure String Parameters<a name="parameter-store-encrypt"></a>
 
-Parameter Store does not perform any cryptographic operations\. Instead, it relies on AWS KMS to encrypt and decrypt secure string parameter values\. When you create or change a standard secure string parameter value, Parameter Store calls the AWS KMS [Encrypt](https://docs.aws.amazon.com/kms/latest/APIReference/API_Encrypt.html) operation\. This operation uses an AWS KMS CMK directly to encrypt the parameter value instead of using the CMK to generate a [data key](concepts.md#data-keys)\. 
+Parameter Store does not perform any cryptographic operations\. Instead, it relies on AWS KMS to encrypt and decrypt secure string parameter values\. When you create or change a standard secure string parameter value, Parameter Store calls the AWS KMS [Encrypt](https://docs.aws.amazon.com/kms/latest/APIReference/API_Encrypt.html) operation\. This operation uses a symmetric AWS KMS CMK directly to encrypt the parameter value instead of using the CMK to generate a [data key](concepts.md#data-keys)\. 
 
 You can select the CMK that Parameter Store uses to encrypt the parameter value\. If you do not specify a CMK, Parameter Store uses the AWS managed CMK that Systems Manager automatically creates in your account\. This CMK has the `aws/ssm` alias\.
 
@@ -92,7 +95,7 @@ The following workflow shows how Parameter Store uses an AWS KMS CMK to encrypt 
 
 ## Protecting Advanced Secure String Parameters<a name="parameter-store-advanced-encrypt"></a>
 
-When you use `PutParameter` to create an advanced secure string parameter, Parameter Store uses [envelope encryption](https://docs.aws.amazon.com/encryption-sdk/latest/developer-guide/how-it-works.html#envelope-encryption) with the AWS Encryption SDK and an AWS KMS customer master key \(CMK\) to protect the parameter value\. Each advanced parameter value is encrypted under a unique data key, and the data key is encrypted under an AWS KMS CMK\. You can use the [AWS managed CMK](concepts.md#aws-managed-cmk) for the account \(`aws/ssm`\) or any customer managed CMK\.
+When you use `PutParameter` to create an advanced secure string parameter, Parameter Store uses [envelope encryption](https://docs.aws.amazon.com/encryption-sdk/latest/developer-guide/how-it-works.html#envelope-encryption) with the AWS Encryption SDK and a symmetric AWS KMS customer master key \(CMK\) to protect the parameter value\. Each advanced parameter value is encrypted under a unique data key, and the data key is encrypted under an AWS KMS CMK\. You can use the [AWS managed CMK](concepts.md#aws-managed-cmk) for the account \(`aws/ssm`\) or any customer managed CMK\.
 
 The [AWS Encryption SDK](https://docs.aws.amazon.com/encryption-sdk/latest/developer-guide/) is an open\-source, client\-side library that helps you to encrypt and decrypt data using industry standards and best practices\. It's supported on multiple platforms and in multiple programming languages, including a command\-line interface\. You can view the source code and contribute to its development in GitHub\. 
 

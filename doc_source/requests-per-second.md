@@ -78,7 +78,7 @@ If the AWS CloudHSM cluster that is associated with the custom key store is proc
 
 | API Operation | Rate Limits \(per second\) | 
 | --- | --- | 
-|  `Decrypt` `Encrypt` `GenerateDataKey` \(symmetric\) `GenerateDataKeyWithoutPlaintext` \(symmetric\) `GenerateRandom` `ReEncrypt` `Sign` `Verify`  |  These shared limits vary with the AWS Region and the type of CMK used in the request\. Each limit is calculated separately\. Symmetric CMK limit: [\[See the AWS documentation website for more details\]](http://docs.aws.amazon.com/kms/latest/developerguide/requests-per-second.html) Asymmetric CMK limit:  [\[See the AWS documentation website for more details\]](http://docs.aws.amazon.com/kms/latest/developerguide/requests-per-second.html) Custom key stores limit: [\[See the AWS documentation website for more details\]](http://docs.aws.amazon.com/kms/latest/developerguide/requests-per-second.html)  | 
+|  `Decrypt` `Encrypt` `GenerateDataKey` \(symmetric\) `GenerateDataKeyWithoutPlaintext` \(symmetric\) `GenerateRandom` `ReEncrypt` `Sign` \(asymmetric\) `Verify` \(asymmetric\)  |  These shared limits vary with the AWS Region and the type of CMK used in the request\. Each limit is calculated separately\. Symmetric CMK limit: [\[See the AWS documentation website for more details\]](http://docs.aws.amazon.com/kms/latest/developerguide/requests-per-second.html) Asymmetric CMK limit:  [\[See the AWS documentation website for more details\]](http://docs.aws.amazon.com/kms/latest/developerguide/requests-per-second.html) Custom key stores limit: [\[See the AWS documentation website for more details\]](http://docs.aws.amazon.com/kms/latest/developerguide/requests-per-second.html)  | 
 | CancelKeyDeletion | 5 | 
 | ConnectCustomKeyStore | 5 | 
 | CreateAlias | 5 | 

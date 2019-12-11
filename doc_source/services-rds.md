@@ -1,6 +1,9 @@
 # How Amazon Relational Database Service \(Amazon RDS\) Uses AWS KMS<a name="services-rds"></a>
 
-You can use the [Amazon Relational Database Service \(Amazon RDS\)](https://aws.amazon.com/rds/) to set up, operate, and scale a relational database in the cloud\. Optionally, you can choose to encrypt the data stored on your Amazon RDS [DB instance](https://docs.aws.amazon.com/AmazonRDS/latest/UserGuide/Overview.DBInstance.html) under a customer master key \(CMK\) in AWS KMS\. To learn how to encrypt your Amazon RDS resources under a KMS CMK, see [Encrypting Amazon RDS Resources](https://docs.aws.amazon.com/AmazonRDS/latest/UserGuide/Overview.Encryption.html) in the *Amazon RDS User Guide*\.
+You can use the [Amazon Relational Database Service \(Amazon RDS\)](https://aws.amazon.com/rds/) to set up, operate, and scale a relational database in the cloud\. Optionally, you can choose to encrypt the data stored on your Amazon RDS [DB instance](https://docs.aws.amazon.com/AmazonRDS/latest/UserGuide/Overview.DBInstance.html) under a [customer master key](concepts.md#master_keys) \(CMK\) in AWS KMS\. To learn how to encrypt your Amazon RDS resources under an AWS KMS CMK, see [Encrypting Amazon RDS Resources](https://docs.aws.amazon.com/AmazonRDS/latest/UserGuide/Overview.Encryption.html) in the *Amazon RDS User Guide*\.
+
+**Important**  
+Amazon RDS supports only [symmetric CMKs](symm-asymm-concepts.md#symmetric-cmks)\. You cannot use an [asymmetric CMK](symm-asymm-concepts.md#asymmetric-cmks) to encrypt data in an Amazon RDS database\. To determine whether a CMK is symmetric or asymmetric, see [Identifying Symmetric and Asymmetric CMKs](find-symm-asymm.md)\.
 
 Amazon RDS builds on [Amazon Elastic Block Store \(Amazon EBS\) encryption](https://docs.aws.amazon.com/AWSEC2/latest/UserGuide/EBSEncryption.html) to provide full disk encryption for database volumes\. For more information about how Amazon EBS uses AWS KMS to encrypt volumes, see [How Amazon Elastic Block Store \(Amazon EBS\) Uses AWS KMS](services-ebs.md)\.
 

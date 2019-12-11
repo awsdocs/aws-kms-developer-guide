@@ -1,6 +1,9 @@
 # How Amazon Simple Email Service \(Amazon SES\) Uses AWS KMS<a name="services-ses"></a>
 
-You can use Amazon Simple Email Service \(Amazon SES\) to receive email, and \(optionally\) to encrypt the received email messages before storing them in an Amazon Simple Storage Service \(Amazon S3\) bucket that you choose\. When you configure Amazon SES to encrypt email messages, you must choose the KMS customer master key \(CMK\) under which Amazon SES encrypts the messages\. You can choose the default CMK in your account for Amazon SES with the alias **aws/ses**, or you can choose a custom CMK that you created separately in AWS KMS\.
+You can use Amazon Simple Email Service \(Amazon SES\) to receive email, and \(optionally\) to encrypt the received email messages before storing them in an Amazon Simple Storage Service \(Amazon S3\) bucket that you choose\. When you configure Amazon SES to encrypt email messages, you must choose the AWS KMS [customer master key](concepts.md#master_keys) \(CMK\) under which Amazon SES encrypts the messages\. You can choose the [AWS managed CMK](concepts.md#aws-managed-cmk) for Amazon SES \(its alias is **aws/ses**\), or you can choose a symmetric [customer managed CMK](concepts.md#customer-cmk) that you created in AWS KMS\.
+
+**Important**  
+Amazon SES supports only [symmetric CMKs](symm-asymm-concepts.md#symmetric-cmks)\. You cannot use an [asymmetric CMK](symm-asymm-concepts.md#asymmetric-cmks) to encrypt your Amazon SES email messages\. To determine whether a CMK is symmetric or asymmetric, see [Identifying Symmetric and Asymmetric CMKs](find-symm-asymm.md)\.
 
 For more information about receiving email using Amazon SES, go to [Receiving Email with Amazon SES](https://docs.aws.amazon.com/ses/latest/DeveloperGuide/receiving-email.html) in the *Amazon Simple Email Service Developer Guide*\.
 

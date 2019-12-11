@@ -22,6 +22,7 @@ Amazon's trademarks and trade dress may not be used in
       + [Viewing CMKs in the Console](viewing-keys-console.md)
       + [Viewing CMKs with the API](viewing-keys-cli.md)
       + [Finding the Key ID and ARN](find-cmk-id-arn.md)
+      + [Identifying Symmetric and Asymmetric CMKs](find-symm-asymm.md)
    + [Editing Keys](editing-keys.md)
    + [Tagging Keys](tagging-keys.md)
    + [Enabling and Disabling Keys](enabling-keys.md)

@@ -5,10 +5,10 @@ AWS KMS protects the [customer master keys](concepts.md#master_keys) \(CMKs\) th
 You can create and manage the CMKs in your AWS account, including setting the [key policies](key-policies.md), [IAM policies](iam-policies.md), and [grants](grants.md) that control access to your CMKs, enabling and disabling the CMKs, creating tags and aliases, and deleting the CMKs\. You can use your CMKs to protect your resources in AWS [services that are integrated with AWS KMS](service-integration.md)\. And, you can audit all operations that use or manage your CMKs in [AWS CloudTrail logs](logging-using-cloudtrail.md)\.
 
 AWS KMS supports symmetric and asymmetric CMKs\.
-+ Symmetric CMK: Represents a single 256\-bit secret encryption key that never leaves AWS KMS unencrypted\. To use your symmetric CMK, you must call AWS KMS\.
++ [Symmetric CMK](symm-asymm-concepts.md#symmetric-cmks): Represents a single 256\-bit secret encryption key that never leaves AWS KMS unencrypted\. To use your symmetric CMK, you must call AWS KMS\.
 
    
-+ Asymmetric CMK: Represents a mathematically related public key and private key pair that you can use for encryption and decryption or signing and verification, but not both\. The private key never leaves AWS KMS unencrypted\. You can use the public key within AWS KMS by calling the AWS KMS API operations, or download the public key and use it outside of AWS KMS\. 
++ [Asymmetric CMK](symm-asymm-concepts.md#asymmetric-cmks): Represents a mathematically related public key and private key pair that you can use for encryption and decryption or signing and verification, but not both\. The private key never leaves AWS KMS unencrypted\. You can use the public key within AWS KMS by calling the AWS KMS API operations, or download the public key and use it outside of AWS KMS\. 
 
 **Note**  
 Asymmetric CMKs and asymmetric data key pairs are supported by AWS KMS only in the following AWS Regions: US East \(N\. Virginia\), US West \(Oregon\), Asia Pacific \(Sydney\), Asia Pacific \(Tokyo\), and Europe \(Ireland\)\.
@@ -25,6 +25,7 @@ This topic explains how symmetric and asymmetric CMKs work, how they differ, and
 
 **Learn more**
 + For a table that compares the AWS KMS API operations that apply to each type of CMK, see [Comparing Symmetric and Asymmetric CMKs](symm-asymm-compare.md)\.
++ To find out whether a CMK is symmetric or asymmetric, see [Identifying Symmetric and Asymmetric CMKs](find-symm-asymm.md)\. 
 + To examine the difference in the default key policy that the AWS KMS console sets for symmetric and asymmetric CMKs, see [Allows Key Users to Use the CMK with AWS Services](key-policies.md#key-policy-service-integration)\. 
 + To specify the key specs, key usage, encryption algorithms, and signing algorithms that principals in your account can use for CMKs, see [AWS KMS Condition Keys](policy-conditions.md#conditions-kms)\.
 + To learn about the throttle limits that apply to different types of CMKs, see [Rate Limits](requests-per-second.md)\.

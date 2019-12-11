@@ -17,6 +17,7 @@ The connection process can take an extended amount of time to complete; up to 20
 
 Before you connect the custom key store, verify that it meets the requirements\.
 + Its associated AWS CloudHSM cluster must contain at least one active HSM\. To find the number of HSMs in the cluster, view the cluster in the AWS CloudHSM console or use the [DescribeClusters](https://docs.aws.amazon.com/cloudhsm/latest/APIReference/API_DescribeClusters.html) operation\. If necessary, you can [add an HSM](https://docs.aws.amazon.com/cloudhsm/latest/userguide/add-remove-hsm.html)\.
++ The cluster must have a [kmsuser crypto user](create-keystore.md#kmsuser-concept) \(CU\) account, but that CU cannot be logged into the cluster when you connect the custom key store\. For help with logging out, see [How to Log Out and Reconnect](fix-keystore.md#login-kmsuser-2)\.
 + The connection status of the custom key store cannot be `DISCONNECTING` or `FAILED`\. You can [view the connection status](view-keystore.md#view-keystore-console) in the console or by using the [DescribeCustomKeyStores](https://docs.aws.amazon.com/kms/latest/APIReference/API_DescribeCustomKeyStores.html) operation\. If the connection status is `FAILED`, disconnect the custom key store, and then connect it\.
 
 When your custom key store is connected, you can [create CMKs in it](create-cmk-keystore.md) and use existing CMKs in cryptographic operations\. 

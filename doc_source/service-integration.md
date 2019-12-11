@@ -4,17 +4,5 @@ Many AWS services use AWS KMS to support encryption of your data\. When an AWS s
 
 The following topics discuss in detail how particular services use AWS KMS, including the CMKs they support, how they manage data keys, the permissions they require, and how to track each service's use of the CMKs in your account\.
 
-**Topics**
-+ [AWS CloudTrail](services-cloudtrail.md)
-+ [Amazon DynamoDB](services-dynamodb.md)
-+ [Amazon Elastic Block Store \(Amazon EBS\)](services-ebs.md)
-+ [Amazon Elastic Transcoder](services-et.md)
-+ [Amazon EMR](services-emr.md)
-+ [Amazon Redshift](services-redshift.md)
-+ [Amazon Relational Database Service \(Amazon RDS\)](services-rds.md)
-+ [AWS Secrets Manager](services-secrets-manager.md)
-+ [Amazon Simple Email Service \(Amazon SES\)](services-ses.md)
-+ [Amazon Simple Storage Service \(Amazon S3\)](services-s3.md)
-+ [AWS Systems Manager Parameter Store](services-parameter-store.md)
-+ [Amazon WorkMail](services-wm.md)
-+ [Amazon WorkSpaces](services-workspaces.md)
+**Important**  
+AWS services that integrate with AWS KMS support only symmetric CMKs\. They do not support asymmetric CMKs\. For details, see the encryption topic in the documentation for the service\.
