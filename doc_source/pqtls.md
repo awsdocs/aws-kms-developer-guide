@@ -19,7 +19,7 @@ As always, we welcome your feedback and participation in our open\-source reposi
 
 Post\-quantum TLS for AWS KMS is available in all AWS Regions except for AWS GovCloud \(US\-East\), AWS GovCloud \(US\-West\), China \(Beijing\), and China \(Ningxia\)\. 
 
-For a list of AWS KMS endpoints for each AWS Region, see the [AWS Key Management Service](https://docs.aws.amazon.com/general/latest/gr/rande.html#kms_region) section in the *AWS Service Endpoints* topic of the *AWS General Reference*\.
+For a list of AWS KMS endpoints for each AWS Region, see [AWS Key Management Service Endpoints and Quotas](https://docs.aws.amazon.com/general/latest/gr/kms.html) in the *Amazon Web Services General Reference*\. For information about FIPS endpoints, see [AWS Service Endpoints](https://docs.aws.amazon.com/general/latest/gr/rande.html) in the *Amazon Web Services General Reference*\.\.
 
 ## About Hybrid Post\-Quantum Key Exchange in TLS<a name="PQTLS-concepts"></a>
 
@@ -53,7 +53,7 @@ When using the hybrid cipher suites, use the standard AWS KMS endpoint\. The hyb
 
 When you configure a HTTP client with the hybrid post\-quantum cipher preference in s2n, the post\-quantum ciphers are first in the cipher preference list\. However, the preference list includes the classic, non\-hybrid ciphers lower in the preference order for compatibility\. If you were to use this cipher preference with an AWS KMS FIPS 140\-2 validated endpoint, s2n negotiates a classic, non\-hybrid key exchange cipher\.
 
-For a list of AWS KMS endpoints for each AWS Region, see the [AWS Key Management Service](https://docs.aws.amazon.com/general/latest/gr/rande.html#kms_region) section in the *AWS Service Endpoints* topic of the *AWS General Reference*\.
+For a list of AWS KMS endpoints for each AWS Region, see [AWS Key Management Service Endpoints and Quotas](https://docs.aws.amazon.com/general/latest/gr/kms.html) in the *Amazon Web Services General Reference*\. For information about FIPS endpoints, see [AWS Service Endpoints](https://docs.aws.amazon.com/general/latest/gr/rande.html) in the *Amazon Web Services General Reference*\.
 
 **Expected Performance**
 

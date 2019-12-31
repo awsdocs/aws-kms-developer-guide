@@ -28,7 +28,7 @@ This topic explains how symmetric and asymmetric CMKs work, how they differ, and
 + To find out whether a CMK is symmetric or asymmetric, see [Identifying Symmetric and Asymmetric CMKs](find-symm-asymm.md)\. 
 + To examine the difference in the default key policy that the AWS KMS console sets for symmetric and asymmetric CMKs, see [Allows Key Users to Use the CMK with AWS Services](key-policies.md#key-policy-service-integration)\. 
 + To specify the key specs, key usage, encryption algorithms, and signing algorithms that principals in your account can use for CMKs, see [AWS KMS Condition Keys](policy-conditions.md#conditions-kms)\.
-+ To learn about the throttle limits that apply to different types of CMKs, see [Rate Limits](requests-per-second.md)\.
++ To learn about the request quotas that apply to different types of CMKs, see [Request Quotas](requests-per-second.md)\.
 + To learn how to sign messages and verify signatures with asymmetric CMKs, see [Digital signing with the new asymmetric keys feature of AWS KMS](http://aws.amazon.com/blogs/security/digital-signing-asymmetric-keys-aws-kms/) in the *AWS Security Blog*\.
 
 **Topics**

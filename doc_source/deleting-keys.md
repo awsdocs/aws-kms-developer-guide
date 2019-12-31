@@ -9,7 +9,7 @@ AWS KMS never deletes your CMKs unless you explicitly schedule them for deletion
 However, you might choose to delete a CMK for one or more of the following reasons:
 + To complete the key lifecycle for CMKs that you no longer need
 + To avoid the management overhead and [costs](https://aws.amazon.com/kms/pricing/) associated with maintaining unused CMKs
-+ To reduce the number of CMKs that count against your [limit](limits.md)
++ To reduce the number of CMKs that count against your [CMK resource quota](resource-limits.md#customer-master-keys-limit)
 
 **Note**  
 If you [close or delete your AWS account](https://docs.aws.amazon.com/awsaccountbilling/latest/aboutv2/close-account.html), your CMKs become inaccessible and you are no longer billed for them\. You do not need to schedule deletion of your CMKs separate from closing the account\.

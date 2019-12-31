@@ -217,7 +217,7 @@ The console adds the following statement to the key policy for symmetric CMKs\.
   "Principal": {"AWS": "arn:aws:iam::111122223333:user/CMKUser"},
   "Action": [
     "kms:Decrypt",
-    "kms:DescribeKey"
+    "kms:DescribeKey",
     "kms:Encrypt",
     "kms:GenerateDataKey*",
     "kms:ReEncrypt*"

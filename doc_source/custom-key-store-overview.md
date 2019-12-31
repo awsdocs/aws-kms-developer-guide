@@ -45,13 +45,13 @@ To create and manage a custom key store, you use features of AWS KMS and AWS Clo
 
 If you get stuck at any point, you can find help in the [Troubleshooting a Custom Key Store](fix-keystore.md) topic\. If your question is not answered, use the feedback link at the bottom of each page of this guide or post a question on the [AWS Key Management Service Discussion Forum](https://forums.aws.amazon.com/forum.jspa?forumID=182)\.
 
-**Limits**
+**Quotas**
 
-There are no limits on the number of custom key stores in an AWS account or region\. However, there are [limits on the number of AWS CloudHSM clusters in each AWS region](https://docs.aws.amazon.com/cloudhsm/latest/userguide/limits.html), and [throttle limits on the rate of cryptographic operations](requests-per-second.md) using the CMKs in each custom key store\.
+There are no resource quotas for the number of custom key stores in an AWS account or Region\. However, there are [quotas on the number of AWS CloudHSM clusters in each AWS region](https://docs.aws.amazon.com/cloudhsm/latest/userguide/limits.html), and [request quotas](requests-per-second.md) on the rate of cryptographic operations using the CMKs in each custom key store\.
 
 **Regions**
 
-AWS KMS supports custom key stores in all AWS Regions where both AWS KMS and AWS CloudHSM are available, except for Asia Pacific \(Hong Kong\), Europe \(Stockholm\), Middle East \(Bahrain\), South America \(São Paulo\), AWS GovCloud \(US\-East\), and AWS GovCloud \(US\-West\)\. For a list of AWS Regions that each service supports, see [AWS Key Management Service](https://docs.aws.amazon.com/general/latest/gr/rande.html#kms_region) and [AWS CloudHSM](https://docs.aws.amazon.com/general/latest/gr/rande.html#cloudhsm_region)\.
+AWS KMS supports custom key stores in all AWS Regions where both AWS KMS and AWS CloudHSM are available\. For a list of AWS Regions that each service supports, see [AWS Key Management Service Endpoints and Quotas](https://docs.aws.amazon.com/general/latest/gr/kms.html) and [AWS CloudHSM Endpoints and Quotas](https://docs.aws.amazon.com/general/latest/gr/cloudhsm.html) in the *Amazon Web Services General Reference*\.
 
 **Topics**
 + [What is a Custom Key Store?](key-store-concepts.md)

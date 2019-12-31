@@ -51,7 +51,7 @@ Customer managed CMKs appear on the **Customer managed keys** page of the AWS Ma
 
 You can use your customer managed CMKs in cryptographic operations and audit their use in AWS CloudTrail logs\. In addition, many [AWS services that integrate with AWS KMS](service-integration.md) let you specify a customer managed CMK to protect the data that they store and manage for you\. 
 
-Customer managed CMKs incur a monthly fee and a fee for use in excess of the free tier\. They are counted against the AWS KMS [limits](limits.md) for your account\. For details, see [AWS Key Management Service Pricing](https://aws.amazon.com/kms/pricing/) and [Limits](limits.md)\.
+Customer managed CMKs incur a monthly fee and a fee for use in excess of the free tier\. They are counted against the AWS KMS [limits](limits.md) for your account\. For details, see [AWS Key Management Service Pricing](https://aws.amazon.com/kms/pricing/) and [Quotas](limits.md)\.
 
 ### AWS Managed CMKs<a name="aws-managed-cmk"></a>
 
@@ -61,7 +61,7 @@ You can [view the AWS managed CMKs](viewing-keys.md) in your account, [view thei
 
 AWS managed CMKs appear on the **AWS managed keys** page of the AWS Management Console for AWS KMS\. You can also identify most AWS managed CMKs by their aliases, which have the format `aws/service-name`, such as `aws/redshift`\. To definitively identify an AWS managed CMK, use the [DescribeKey](https://docs.aws.amazon.com/kms/latest/APIReference/API_DescribeKey.html) operation\. For AWS managed CMKs, the value of the `KeyManager` field of the `DescribeKey` response is `AWS`\.
 
-You do not pay a monthly fee for AWS managed CMKs\. They can be subject to fees for use in excess of the free tier, but some AWS services cover these costs for you\. For details, see the encryption section of the service documentation\. AWS managed CMKs do not count against limits on the number of CMKs in each Region of your account\. But when they are used on behalf of a principal in your account, these CMKs count against request rate limits\. For details, see [AWS Key Management Service Pricing](https://aws.amazon.com/kms/pricing/) and [Limits](limits.md)\.
+You do not pay a monthly fee for AWS managed CMKs\. They can be subject to fees for use in excess of the free tier, but some AWS services cover these costs for you\. For details, see the encryption section of the service documentation\. AWS managed CMKs do not count against limits on the number of CMKs in each Region of your account\. But when they are used on behalf of a principal in your account, these CMKs count against request rate limits\. For details, see [AWS Key Management Service Pricing](https://aws.amazon.com/kms/pricing/) and [Quotas](limits.md)\.
 
 ### AWS Owned CMKs<a name="aws-owned-cmk"></a>
 

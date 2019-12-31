@@ -22,7 +22,7 @@ To avoid these errors, anyone using a public key outside of AWS KMS must store t
 **Use with Integrated AWS Services**  <a name="cmks-aws-service"></a>
 To create a CMK for use with an [AWS service that is integrated with AWS KMS](service-integration.md), consult the documentation for the service\. All AWS services that encrypt data on your behalf require a [symmetric CMK](symm-asymm-concepts.md#symmetric-cmks)\.
 
-In addition to these considerations, CMKs with different key specs have different prices and different request rate limits\. For information about AWS KMS pricing, see [AWS Key Management Service Pricing](https://aws.amazon.com/kms/pricing/)\. For information about rate limits, see [Rate Limits](requests-per-second.md)\.
+In addition to these considerations, CMKs with different key specs have different prices and different request quotas\. For information about AWS KMS pricing, see [AWS Key Management Service Pricing](https://aws.amazon.com/kms/pricing/)\. For information about request quotas, see [Request Quotas](requests-per-second.md)\.
 
 ## Selecting the Key Usage<a name="symm-asymm-choose-key-usage"></a>
 
@@ -106,7 +106,7 @@ AWS KMS supports the following RSA key specs for encryption and decryption or si
 + RSA\_3072
 + RSA\_4096
 
-RSA key specs differ by the length of the RSA key in bits\. The RSA key spec that you choose might be determined by your security standards or the requirements of your task\. In general, use the largest key that is practical and affordable for your task\. CMKs with different RSA key specs are priced differently and are subject to different rate limits\. For information about AWS KMS pricing, see [AWS Key Management Service Pricing](https://aws.amazon.com/kms/pricing/)\. For information about throttle limits, see [Rate Limits](requests-per-second.md)\.
+RSA key specs differ by the length of the RSA key in bits\. The RSA key spec that you choose might be determined by your security standards or the requirements of your task\. In general, use the largest key that is practical and affordable for your task\. CMKs with different RSA key specs are priced differently and are subject to different request quotas\. For information about AWS KMS pricing, see [AWS Key Management Service Pricing](https://aws.amazon.com/kms/pricing/)\. For information about request quotas, see [Request Quotas](requests-per-second.md)\.
 
 #### RSA Key Specs For Encryption and Decryption<a name="key-spec-rsa-encryption"></a>
 
@@ -183,7 +183,7 @@ The ECC key spec that you choose might be determined by your security standards 
 
 If you're creating an asymmetric CMK to use with cryptocurrencies, use the ECC\_SECG\_P256K1 key spec\. You can also use this key spec for other purposes, but it is required for Bitcoin, and other cryptocurrencies\.
 
-CMKs with different ECC key specs are priced differently and are subject to different rate limits\. For information about AWS KMS pricing, see [AWS Key Management Service Pricing](https://aws.amazon.com/kms/pricing/)\. For information about throttle limits, see [Rate Limits](requests-per-second.md)\.
+CMKs with different ECC key specs are priced differently and are subject to different request quotas\. For information about AWS KMS pricing, see [AWS Key Management Service Pricing](https://aws.amazon.com/kms/pricing/)\. For information about request quotas, see [Request Quotas](requests-per-second.md)\.
 
 The following table shows the signing algorithms that AWS KMS supports for each of the ECC key specs\. You cannot configure a CMK to use particular signing algorithms\. However, you can use the [kms:SigningAlgorithm](policy-conditions.md#conditions-kms-signing-algorithm) policy condition to specify the signing algorithms that principals are allowed to use with the CMK\. 
 
