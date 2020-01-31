@@ -233,7 +233,7 @@ $plaintext = $result['Plaintext'];
 ------
 #### [ Node\.js ]
 
-For details, see the [decrypt property](https://docs.aws.amazon.com/AWSJavaScriptSDK/latest/AWS/KMS.html#decrypt-property)\] in the *AWS SDK for JavaScript in Node\.js*\.
+For details, see the [decrypt property](https://docs.aws.amazon.com/AWSJavaScriptSDK/latest/AWS/KMS.html#decrypt-property) in the *AWS SDK for JavaScript in Node\.js*\.
 
 ```
 // Decrypt a data key
