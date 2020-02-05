@@ -106,7 +106,7 @@ The following diagram shows how to use the `Decrypt` operation to decrypt an enc
 *Data key pairs* are asymmetric data keys that consist of a mathematically\-related public key and private key\. They are designed to be used for client\-side encryption and decryption or signing and verification outside of AWS KMS\. 
 
 **Note**  
-Asymmetric CMKs and asymmetric data key pairs are supported by AWS KMS only in the following AWS Regions: US East \(N\. Virginia\), US West \(Oregon\), Asia Pacific \(Sydney\), Asia Pacific \(Tokyo\), and Europe \(Ireland\)\.
+Asymmetric CMKs and asymmetric data key pairs are supported in all AWS Regions that AWS KMS supports except for China \(Beijing\) and China \(Ningxia\)\.
 
 Unlike the data key pairs that tools like OpenSSL generate, AWS KMS protects the private key in each data key pair under a symmetric CMK in AWS KMS that you specify\. However, AWS KMS does not store, manage, or track your data key pairs, or perform cryptographic operations with data key pairs\. You must use and manage data key pairs outside of AWS KMS\.
 

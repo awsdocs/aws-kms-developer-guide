@@ -6,17 +6,13 @@ You can create and manage the CMKs in your AWS account, including setting the [k
 
 AWS KMS supports symmetric and asymmetric CMKs\.
 + [Symmetric CMK](symm-asymm-concepts.md#symmetric-cmks): Represents a single 256\-bit secret encryption key that never leaves AWS KMS unencrypted\. To use your symmetric CMK, you must call AWS KMS\.
-
-   
 + [Asymmetric CMK](symm-asymm-concepts.md#asymmetric-cmks): Represents a mathematically related public key and private key pair that you can use for encryption and decryption or signing and verification, but not both\. The private key never leaves AWS KMS unencrypted\. You can use the public key within AWS KMS by calling the AWS KMS API operations, or download the public key and use it outside of AWS KMS\. 
 
 **Note**  
-Asymmetric CMKs and asymmetric data key pairs are supported by AWS KMS only in the following AWS Regions: US East \(N\. Virginia\), US West \(Oregon\), Asia Pacific \(Sydney\), Asia Pacific \(Tokyo\), and Europe \(Ireland\)\.
+Asymmetric CMKs and asymmetric data key pairs are supported in all AWS Regions that AWS KMS supports except for China \(Beijing\) and China \(Ningxia\)\.
 
 AWS KMS also provides symmetric [data keys](concepts.md#data-keys) and asymmetric [data key pairs](concepts.md#data-key-pairs) that are designed to be used for client\-side cryptography outside of AWS KMS\. The symmetric data key and the private key in an asymmetric data key pair are protected by a symmetric CMK in AWS KMS\. 
 + Symmetric data key — A symmetric encryption key that you can use to encrypt data outside of AWS KMS\. This key is protected by a symmetric CMK in AWS KMS\. 
-
-   
 + Asymmetric data key pair — An RSA or elliptic curve \(ECC\) key pair that consists of a public key and a private key\. You can use your data key pair outside of AWS KMS to encrypt and decrypt data, or sign messages and verify signatures\. The private key is protected by a symmetric CMK in AWS KMS\.
 
 For information about how to create and use data keys and data key pairs, see [Data Keys](concepts.md#data-keys) and [Data Key Pairs](concepts.md#data-key-pairs)\. To learn how to limit the types of data key pairs that principals in your account are permitted to generate, use the [kms:DataKeyPairSpec](policy-conditions.md#conditions-kms-data-key-spec) condition key\.

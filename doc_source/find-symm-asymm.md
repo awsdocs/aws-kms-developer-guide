@@ -5,7 +5,7 @@ To determine whether a particular CMK is [symmetric or asymmetric](symmetric-asy
 Some of these methods will also show you other aspects of the cryptographic configuration of a CMK, including its key usage and the encryption or signing algorithms that the CMK supports\. You can view the cryptographic configuration of an existing CMK, but you cannot change it\.
 
 **Note**  
-Asymmetric CMKs and asymmetric data key pairs are supported by AWS KMS only in the following AWS Regions: US East \(N\. Virginia\), US West \(Oregon\), Asia Pacific \(Sydney\), Asia Pacific \(Tokyo\), and Europe \(Ireland\)\.
+Asymmetric CMKs and asymmetric data key pairs are supported in all AWS Regions that AWS KMS supports except for China \(Beijing\) and China \(Ningxia\)\.
 
 For general information about viewing CMKs, including sorting, filtering, and choosing columns for your console display, see [Viewing CMKs in the Console](viewing-keys-console.md)\.
 

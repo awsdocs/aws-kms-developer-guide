@@ -29,14 +29,8 @@ In addition to request quotas, AWS KMS uses resource quotas to ensure capacity f
 
 When reviewing request quotas, keep in mind the following information\.
 + Request quotas apply to both [customer managed CMKs](concepts.md#customer-cmk) and [AWS managed CMKs](concepts.md#aws-managed-cmk)\. The use of [AWS owned CMKs](concepts.md#aws-owned-cmk) does not count against request quotas for your AWS account, even when they are used to protect resources in your account\.
-
-   
 + Throttling is based on all requests on CMKs of all types in the Region\. This total includes requests from all principals in the AWS account, including requests from AWS services on your behalf\.
-
-   
 + Each request quota is calculated independently\. For example, requests for the [CreateKey](https://docs.aws.amazon.com/kms/latest/APIReference/API_CreateKey.html) operation have no effect on the request quota for the [CreateAlias](https://docs.aws.amazon.com/kms/latest/APIReference/API_CreateAlias.html) operation\. If your `CreateAlias` requests are throttled, your `CreateKey` requests can still complete successfully\.
-
-   
 + Although cryptographic operations share a quota, the shared quota is calculated independently of quotas for other operations\. For example, calls to the [Encrypt](https://docs.aws.amazon.com/kms/latest/APIReference/API_Encrypt.html) and [Decrypt](https://docs.aws.amazon.com/kms/latest/APIReference/API_Decrypt.html) operations share a request quota, but that quota is independent of the quota for management operations, such as [EnableKey](https://docs.aws.amazon.com/kms/latest/APIReference/API_EnableKey.html)\. For example, in the Europe \(London\) Region, you can perform 10,000 cryptographic operations on symmetric CMKs *plus* 5 `EnableKey` operations per second without being throttled\.
 
 ## Shared Quotas for Cryptographic Operations<a name="rps-shared-limit"></a>
@@ -48,7 +42,7 @@ For example, you might be using [symmetric CMKs](symm-asymm-concepts.md#symmetri
 Similarly, if you are using [asymmetric CMKs](symm-asymm-concepts.md#asymmetric-cmks), you can request any combination of the cryptographic operations that are supported by the CMK, just so the total number of cryptographic operations doesn't exceed the request quota for that type of CMK\. For example, you can make 300 [Encrypt](https://docs.aws.amazon.com/kms/latest/APIReference/API_Encrypt.html) requests and 200 [Decrypt](https://docs.aws.amazon.com/kms/latest/APIReference/API_Decrypt.html) requests on your RSA\-based encryption CMKs without being throttled\.
 
 **Note**  
-Asymmetric CMKs and asymmetric data key pairs are supported by AWS KMS only in the following AWS Regions: US East \(N\. Virginia\), US West \(Oregon\), Asia Pacific \(Sydney\), Asia Pacific \(Tokyo\), and Europe \(Ireland\)\.
+Asymmetric CMKs and asymmetric data key pairs are supported in all AWS Regions that AWS KMS supports except for China \(Beijing\) and China \(Ningxia\)\.
 
 The quotas for different key types are also calculated independently\. For example, in the Asia Pacific \(Singapore\) Region, if you use both symmetric and asymmetric CMKs, you can make up to 10,000 calls per second with symmetric CMKs *plus* up to 500 additional calls per second with your RSA\-based asymmetric CMKs, *plus* up to 300 additional requests per second with your ECC\-based CMKs\.
 

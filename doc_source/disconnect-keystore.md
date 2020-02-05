@@ -35,14 +35,8 @@ To better estimate the effect of disconnecting your key store, [identify the CMK
 
 You might disconnect the custom key store for reasons such as the following:
 + **To rotate of the `kmsuser` password\.** AWS KMS changes the `kmsuser` password each time that it connects to the AWS CloudHSM cluster\. To force a password rotation, just disconnect and reconnect\.
-
-   
 + **To audit the key material** for the CMKs in the AWS CloudHSM cluster\. When you disconnect the custom key store, AWS KMS logs out of the [`kmsuser` crypto user](key-store-concepts.md#concept-kmsuser) account in the AWS CloudHSM client\. This allows you to log into the cluster as the `kmsuser` CU and audit and manage the key material for the CMK\.
-
-   
 + **To immediately disable all CMKs** in the custom key store\. You can [disable and re\-enable CMKs](enabling-keys.md) in a custom key store by using the AWS Management Console or the [DisableKey](https://docs.aws.amazon.com/kms/latest/APIReference/API_DisableKey.html) operation\. These operations complete quickly, but they act on one CMK at a time\. Disconnecting immediately changes the key state of all CMKs in the custom key to `Unavailable`, which prevents them from being used in any cryptographic operation\.
-
-   
 + **To repair a failed connection attempt**\. If an attempt to connect a custom key store fails \(the connection status of the custom key store is `FAILED`\), you must disconnect the custom key store before you try to connect it again\.
 
 **Topics**

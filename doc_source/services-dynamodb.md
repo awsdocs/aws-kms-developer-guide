@@ -129,14 +129,8 @@ At a minimum, DynamoDB requires the following permissions on a customer managed 
 
 For example, the following example key policy provides only the required permissions\. The policy has the following effects:
 + Allows DynamoDB to use the CMK in cryptographic operations and create grants, but only when it is acting on behalf of principals in the account who have permission to use DynamoDB\. If the principals specified in the policy statement don't have permission to use DynamoDB, the call fails, even when it comes from the DynamoDB service\. 
-
-   
 + The [kms:ViaService](policy-conditions.md#conditions-kms-via-service) condition key allows the permissions only when the request comes from DynamoDB on behalf of the principals listed in the policy statement\. These principals can't call these operations directly\. Note that the `kms:ViaService` value, `dynamodb.*.amazonaws.com`, has an asterisk \(\*\) in the Region position\. DynamoDB requires the permission to be independent of any particular AWS Region so it can make cross\-Region calls to support [DynamoDB global tables](https://docs.aws.amazon.com/amazondynamodb/latest/developerguide/GlobalTables.html)\.
-
-   
 + Gives the CMK administrators \(users who can assume the `db-team` role\) read\-only access to the CMK and permission to revoke grants, including the [grants that DynamoDB requires](#dynamodb-grants) to protect the table\.
-
-   
 + Gives DynamoDB read\-only access to the CMK\. In this case, DynamoDB can call these operations directly\. It does not have to act on behalf of an account principal\.
 
 Before using an example key policy, replace the example principals with actual principals from your AWS account\.

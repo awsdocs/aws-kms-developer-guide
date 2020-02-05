@@ -26,16 +26,17 @@ The AWS KMS console also displays the custom key stores in the account and Regio
 To make it easier to find your CMKs in the console, you can sort and filter them\. 
 
 **Note**  
-The **Key type** column is displayed only in AWS Regions where AWS KMS supports asymmetric CMKs and data key pairs\.   
-Asymmetric CMKs and asymmetric data key pairs are supported by AWS KMS only in the following AWS Regions: US East \(N\. Virginia\), US West \(Oregon\), Asia Pacific \(Sydney\), Asia Pacific \(Tokyo\), and Europe \(Ireland\)\.
+The **Key type** column is [displayed optionally](#viewing-console-customize) and is available only in AWS Regions where AWS KMS supports asymmetric CMKs\.  
+Asymmetric CMKs and asymmetric data key pairs are supported in all AWS Regions that AWS KMS supports except for China \(Beijing\) and China \(Ningxia\)\.
 
 **Sort**  
 You can sort customer managed CMKs in ascending or descending order by their column values\. This feature sorts all CMKs in the table, even if they don't appear on the current table page\.  
 Sortable columns are indicated by an arrow beside the column name\. On the **AWS managed keys** page, you can sort by **Alias** or **Key ID**\. On the **Customer managed keys** page, you can sort by **Alias**, **Key ID**, or **Key type**\.  
-To sort in ascending order, choose the column heading until the arrow points upward\. To sort in descending order, choose the column heading until the arrow points downward\. You can only sort by one column at a time\.  
+To sort in ascending order, choose the column heading until the arrow points upward\. To sort in descending order, choose the column heading until the arrow points downward\. You can sort by only one column at a time\.  
 For example, you can sort CMKs in ascending order by key ID, instead of alias, which is the default\.  
 
 ![\[Image NOT FOUND\]](http://docs.aws.amazon.com/kms/latest/developerguide/images/console-sort.png)
+When your sort CMKs on the **Customer master keys** page in ascending order by **Key type**, all asymmetric keys are displayed before all symmetric keys\.
 
 **Filter**  
 You can filter CMKs by their column values\. The filter applies to all CMKs in the table, even if they don't appear on the current table page\. The filter is not case\-sensitive\.  
@@ -44,13 +45,16 @@ To filter by the value in a particular column, choose the filter, choose the col
 For example, to display CMKs with an alias name that contains with `aws/e`, choose the filter box, choose **Alias**, type `aws/e`, and then press `Enter` or `Return` to add the filter\.  
 
 ![\[Image NOT FOUND\]](http://docs.aws.amazon.com/kms/latest/developerguide/images/filter-alias.png)
+To display only asymmetric CMKs on the **Customer master keys** page, click the filter box, choose **Key type** and then choose **Key type: Asymmetric**\. The **Asymmetric** option appears only when you have asymmetric CMKs in the table\.  
+
+![\[Image NOT FOUND\]](http://docs.aws.amazon.com/kms/latest/developerguide/images/filter-keytype.png)
 To search for text in all filterable columns, in the filter box, type all or part of a column value\. You'll see a preview of the results before you make your choice\.  
 For example, to display CMKs with `test` in any of the column values, type `test` in the filter box\. The preview shows the CMKs that the filter will select\. In this case, `test` appears only in the **Alias** column\.  
 
 ![\[Image NOT FOUND\]](http://docs.aws.amazon.com/kms/latest/developerguide/images/filter-all-properties.png)
 You can have multiple filters at the same time\. When you add additional filters, you can also select a logical operator\.  
 
-![\[Image NOT FOUND\]](http://docs.aws.amazon.com/kms/latest/developerguide/images/filter-multi-properties-temp.png)
+![\[Image NOT FOUND\]](http://docs.aws.amazon.com/kms/latest/developerguide/images/filter-multi-properties.png)
 
 ## Displaying CMK Details<a name="viewing-console-details"></a>
 
@@ -67,7 +71,7 @@ To display detailed information about a CMK:
 The details page for a CMK includes a **General Configuration** section that displays the basic properties of the CMK, a **Cryptographic Configuration** section that displays the cryptographic properties of the CMK, and a tabbed display that includes the key policy, tags, key rotation \(for symmetric CMKs\), and public key \(for asymmetric CMKs\)\. 
 
 **Note**  
-Asymmetric CMKs and asymmetric data key pairs are supported by AWS KMS only in the following AWS Regions: US East \(N\. Virginia\), US West \(Oregon\), Asia Pacific \(Sydney\), Asia Pacific \(Tokyo\), and Europe \(Ireland\)\.
+Asymmetric CMKs and asymmetric data key pairs are supported in all AWS Regions that AWS KMS supports except for China \(Beijing\) and China \(Ningxia\)\.
 
 The following list describes the fields in the detailed display\. Some of these fields are also available as columns in the table display\.
 

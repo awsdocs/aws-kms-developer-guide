@@ -91,7 +91,6 @@ To decrypt an encrypted secret value, Secrets Manager calls the AWS KMS [Decrypt
 Secrets Manager calls the [Decrypt](https://docs.aws.amazon.com/secretsmanager/latest/apireference/API_Decrypt.html) operation in response to the following Secrets Manager operations\.   
 + [GetSecretValue](https://docs.aws.amazon.com/secretsmanager/latest/apireference/API_GetSecretValue.html) – Secrets Manager decrypts the secret value before returning it to the caller\.
 + [PutSecretValue](https://docs.aws.amazon.com/secretsmanager/latest/apireference/API_PutSecretValue.html) and [UpdateSecret](https://docs.aws.amazon.com/secretsmanager/latest/apireference/API_UpdateSecret.html) – Most `PutSecretValue` and `UpdateSecret` requests do not trigger a `Decrypt` operation\. However, when a `PutSecretValue` or `UpdateSecret` request attempts to change the secret value in an existing version of a secret, Secrets Manager decrypts the existing secret value and compares it to the secret value in the request to confirm that they are the same\. This action ensures the that Secrets Manager operations are idempotent\.
- 
 
 **Validating Access to the CMK**  
 When you establish or change the CMK that is associated with secret, Secrets Manager calls the `GenerateDataKey` and `Decrypt` operations with the specified CMK\. These calls confirm that the caller has permission to use the CMK for these operation\. Secrets Manager discards the results of these operations; it does not use them in any cryptographic operation\.  

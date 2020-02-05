@@ -80,8 +80,6 @@ The following topics provide technical information about the key specs\.
 + [RSA Key Specs](#key-spec-rsa)
 + [Elliptic Curve Key Specs](#key-spec-ecc)
 
- 
-
 ### SYMMETRIC\_DEFAULT Key Spec<a name="key-spec-symmetric-default"></a>
 
 The default key spec, SYMMETRIC\_DEFAULT, is the key spec for symmetric CMKs\. When you select the **Symmetric** key type in the AWS KMS console, it selects the `SYMMETRIC_DEFAULT` key spec\. In the [CreateKey](https://docs.aws.amazon.com/kms/latest/APIReference/API_CreateKey.html) operation, if you don't specify a `CustomerMasterKeySpec` value, SYMMETRIC\_DEFAULT is selected\. If you don't have a reason to use a different key spec, SYMMETRIC\_DEFAULT is a good choice\.

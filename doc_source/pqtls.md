@@ -131,8 +131,6 @@ The `aws-crt-dev-preview` branch is a beta release\. Your use of this library is
 
 Consider running the following tests with hybrid cipher suites on your applications that call AWS KMS\.
 + Run load tests and benchmarks\. The hybrid cipher suites perform differently than traditional key exchange algorithms\. You might need to adjust your connection timeouts to allow for the longer handshake times\. If you’re running inside an AWS Lambda function, extend the execution timeout setting\.
-
-   
 + Try connecting from different locations\. Depending on the network path your request takes, you might discover that intermediate hosts, proxies, or firewalls with deep packet inspection \(DPI\) block the request\. This might result from using the new cipher suites in the [ClientHello](https://tools.ietf.org/html/rfc5246#section-7.4.1.2) part of the TLS handshake, or from the larger key exchange messages\. If you have trouble resolving these issues, work with your security team or IT administrators to update the relevant configuration and unblock the new TLS cipher suites\. 
 
 ## Learn More About Post\-Quantum TLS in AWS KMS<a name="pqtls-see-also"></a>

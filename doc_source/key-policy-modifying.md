@@ -4,17 +4,9 @@ You can change the key policy for a customer master key \(CMK\) in your AWS acco
 
 When changing a key policy, keep in mind the following rules:
 + You can view the key policy for an [AWS managed CMK](concepts.md#aws-managed-cmk) or a [customer managed CMK](concepts.md#customer-cmk), but you can only change the key policy for a customer managed CMK\. The policies of AWS managed CMKs are created and managed by the AWS service that created the CMK in your account\.
-
-   
 + You can add or remove IAM users, IAM roles, and AWS accounts \(root users\) in the key policy, and change the actions that are allowed or denied for those principals\. For more information about the ways to specify principals and permissions in a key policy, see [Using Key Policies](key-policies.md)\.
-
-   
 + You cannot add IAM groups to a key policy, but you can add multiple IAM users\. For more information, see [Allowing Multiple IAM Users to Access a CMK](#key-policy-modifying-multiple-iam-users)\.
-
-   
 + If you add external AWS accounts to a key policy, you must also use IAM policies in the external accounts to give permissions to IAM users, groups, or roles in those accounts\. For more information, see [Allowing Users in Other Accounts to Use a CMK](key-policy-modifying-external-accounts.md)\.
-
-   
 + The resulting key policy document cannot exceed 32 KB \(32,768 bytes\)\.
 
 **Topics**

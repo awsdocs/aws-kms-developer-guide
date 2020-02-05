@@ -10,21 +10,16 @@ To specify conditions, you use predefined *condition keys* in the `Condition` el
 
 ## AWS Global Condition Keys<a name="conditions-aws"></a>
 
-AWS provides [global condition keys](https://docs.aws.amazon.com/IAM/latest/UserGuide/reference_policies_condition-keys.html#AvailableKeys), a set of predefined condition keys for all AWS services that use IAM for access control\. For example, you can use the `aws:PrincipalArn` condition key to allow access only when the principal in the request is represented by the Amazon Resource Name \(ARN\) that you specify\.
+AWS defines [global condition keys](https://docs.aws.amazon.com/IAM/latest/UserGuide/reference_policies_condition-keys.html#AvailableKeys), a set of policy conditions keys for all AWS services that use IAM for access control\. You can use global condition keys in AWS KMS key policies and IAM policies\. For example, you can use the [aws:PrincipalArn](https://docs.aws.amazon.com/IAM/latest/UserGuide/reference_policies_condition-keys.html#condition-keys-principalarn) condition key to allow access to a customer master key \(CMK\) only when the principal in the request is represented by the Amazon Resource Name \(ARN\) in the condition key value\.
 
-In addition to global conditions keys that are supported by every AWS service, IAM defines conditions keys that AWS services can choose to support\. AWS KMS supports the following optional global condition keys\. 
-+ aws:PrincipalTag
-+ aws:PrincipalType
-+ aws:RequestTag
-+ aws:SourceIp \(see [Using the IP Address Condition in Policies with AWS KMS Permissions](#conditions-aws-ip-address)\)
-+ aws:SourceVpc \(see [Using VPC Endpoint Conditions in Policies with AWS KMS Permissions](#conditions-aws-vpce)\)
-+ aws:SourceVpce \(see [Using VPC Endpoint Conditions in Policies with AWS KMS Permissions](#conditions-aws-vpce)\)
-+ aws:TagKeys
-+ aws:TokenIssueTime
-+ aws:userid
-+ aws:username
+AWS KMS supports all AWS global condition keys except for the following ones:
++ [aws:ResourceTag](https://docs.aws.amazon.com/IAM/latest/UserGuide/reference_policies_condition-keys.html#condition-keys-resourcetag)
++ [aws:SourceAccount](https://docs.aws.amazon.com/IAM/latest/UserGuide/reference_policies_condition-keys.html#condition-keys-sourceaccount)
++ [aws:SourceArn](https://docs.aws.amazon.com/IAM/latest/UserGuide/reference_policies_condition-keys.html#condition-keys-sourcearn)
 
-For a list and descriptions of all optional global condition keys, see [Keys Available for Some Services](https://docs.aws.amazon.com/IAM/latest/UserGuide/reference_policies_condition-keys.html#condition-keys-service-available) in the *AWS Identity and Access Management User Guide*\. For examples of using these condition keys in IAM policies, see [Controlling Access to Requests](https://docs.aws.amazon.com/IAM/latest/UserGuide/access_tags.html#access_tags_control-requests) and [Controlling Tag Keys](https://docs.aws.amazon.com/IAM/latest/UserGuide/access_tags.html#access_tags_control-tag-keys) in the *IAM User Guide*\. 
+For information about AWS global condition keys, including the types of requests in which they are available, see [AWS Global Condition Context Keys](https://docs.aws.amazon.com/IAM/latest/UserGuide/reference_policies_condition-keys.html) in the *IAM User Guide*\. For examples of using global condition keys in IAM policies, see [Controlling Access to Requests](https://docs.aws.amazon.com/IAM/latest/UserGuide/access_tags.html#access_tags_control-requests) and [Controlling Tag Keys](https://docs.aws.amazon.com/IAM/latest/UserGuide/access_tags.html#access_tags_control-tag-keys) in the *IAM User Guide*\.
+
+The following topics provide special guidance for using condition keys based on IP addresses and VPC endpoints\. 
 
 **Topics**
 + [Using the IP Address Condition in Policies with AWS KMS Permissions](#conditions-aws-ip-address)
@@ -793,7 +788,7 @@ The following example policy statement uses the `kms:GrantConstraintType` condit
 | --- | --- | --- | --- | 
 |  `kms:GrantIsForAWSResource`  |  Boolean  |  `CreateGrant` `ListGrants` `RevokeGrant` |  Key policies and IAM policies  | 
 
-Allows or denies access to the [CreateGrant](https://docs.aws.amazon.com/kms/latest/APIReference/API_CreateGrant.html), [ListGrants](https://docs.aws.amazon.com/kms/latest/APIReference/API_ListGrants.html), or [RevokeGrant](https://docs.aws.amazon.com/kms/latest/APIReference/API_RevokeGrant.html) operations when any of the [AWS services that is integrated with AWS KMS](https://aws.amazon.com/kms/features/#AWS_Service_Integration) performs the grant operation on the user's behalf\. This condition key does not affect the user's permissions to perform the grant operation directly\.
+Allows or denies access to the [CreateGrant](https://docs.aws.amazon.com/kms/latest/APIReference/API_CreateGrant.html), [ListGrants](https://docs.aws.amazon.com/kms/latest/APIReference/API_ListGrants.html), or [RevokeGrant](https://docs.aws.amazon.com/kms/latest/APIReference/API_RevokeGrant.html) operations when any of the [AWS services that are integrated with AWS KMS](https://aws.amazon.com/kms/features/#AWS_Service_Integration) performs the grant operation on the user's behalf\. This condition key does not affect the user's permissions to perform the grant operation directly\.
 
 For example, the following key policy statement uses the `kms:GrantIsForAWSResource` condition key\. It allows a user to create grants on this CMK only when the grant is created on the user's behalf by any one of the integrated services\. It does not allow the user to create grants directly\.
 

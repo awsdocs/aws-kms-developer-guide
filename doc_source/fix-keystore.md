@@ -33,11 +33,7 @@ When a custom key store is disconnected from its AWS CloudHSM cluster, the key s
 
 However, your attempts to use a custom key store CMK for cryptographic operations might fail even when its key state is `Enabled` and the connection status of the custom key store is `Connected`\. This might be caused by any of the following conditions\.
 + The key material for the CMK might have been deleted from the associated AWS CloudHSM cluster\. To investigate, [find the key handle](view-cmk-keystore.md) of the key material for a CMK and, if necessary, try to [recover the key material](#fix-keystore-recover-backing-key)\.
-
-   
 + All HSMs were deleted from the AWS CloudHSM cluster that is associated with the custom key store\. To use a CMK in a custom key store in a cryptographic operation, its AWS CloudHSM cluster must contain at least one active HSM\. To verify the number and state of HSMs in an AWS CloudHSM cluster, [use the AWS CloudHSM console](https://docs.aws.amazon.com/cloudhsm/latest/userguide/add-remove-hsm.html) or the [DescribeClusters](https://docs.aws.amazon.com/cloudhsm/latest/APIReference/API_DescribeClusters.html) operation\. To add an HSM to the cluster, use the AWS CloudHSM console or the [CreateHsm](https://docs.aws.amazon.com/cloudhsm/latest/APIReference/API_CreateHsm.html) operation\.
-
-   
 + The AWS CloudHSM cluster associated with the custom key store was deleted\. To fix the problem, [create a cluster from a backup](https://docs.aws.amazon.com/cloudhsm/latest/userguide/create-cluster-from-backup.html) that is related to the original cluster, such as a backup of the original cluster, or a backup that was used to create the original cluster\. Then, [edit the cluster ID](update-keystore.md) in the custom key store settings\. For instructions, see [How to Recover Deleted Key Material for a CMK](#fix-keystore-recover-backing-key)\.
 
 ## How to Fix a Connection Failure<a name="fix-keystore-failed"></a>
@@ -51,28 +47,14 @@ When the connection status is `FAILED`, run the [DescribeCustomKeyStores](https:
 **Note**  
 When the connection status of a custom key store is `FAILED`, you must [disconnect the custom key store](disconnect-keystore.md) before attempting to reconnect it\. You cannot connect a custom key store with a `FAILED` connection status\.
 + `CLUSTER_NOT_FOUND` indicates that AWS KMS cannot find an AWS CloudHSM cluster with the specified cluster ID\. This might occur because the wrong cluster ID was provided to an API operation or the cluster was deleted and not replaced\. To fix this error, verify the cluster ID, such as by using the AWS CloudHSM console or the [DescribeClusters](https://docs.aws.amazon.com/cloudhsm/latest/APIReference/API_DescribeClusters.html) operation\. If the cluster was deleted, [create a cluster from a recent backup](https://docs.aws.amazon.com/cloudhsm/latest/userguide/create-cluster-from-backup.html) of the original\. Then, [disconnect the custom key store](disconnect-keystore.md), [edit the custom key store](update-keystore.md) cluster ID setting, and [reconnect the custom key store](disconnect-keystore.md) to the cluster\.
-
-   
 + `INSUFFICIENT_CLOUDHSM_HSMS` indicates that the associated AWS CloudHSM cluster does not contain any HSMs\. To connect, the cluster must have at least one HSM\. To find the number of HSMs in the cluster, use the [DescribeClusters](https://docs.aws.amazon.com/cloudhsm/latest/APIReference/API_DescribeClusters.html) operation\. To resolve this error, [add at least one HSM](https://docs.aws.amazon.com/cloudhsm/latest/userguide/create-hsm.html) to the cluster\. If you add multiple HSMs, it's best to create them in different Availability Zones\.
-
-   
 + `INTERNAL_ERROR` indicates that AWS KMS could not complete the request due to an internal error\. Retry the request\. For `ConnectCustomKeyStore` requests, disconnect the custom key store before trying to connect again\.
-
-   
 + `INVALID_CREDENTIALS` indicates that AWS KMS cannot log into the associated AWS CloudHSM cluster because it doesn't have the correct `kmsuser` account password\. For help with this error, see [How to Fix Invalid `kmsuser` Credentials](#fix-keystore-password)\.
-
-   
 + `NETWORK_ERRORS` usually indicates transient network issues\. [Disconnect the custom key store](disconnect-keystore.md), wait a few minutes, and try to connect again\.
-
-   
 + `USER_LOCKED_OUT` indicates that the [`kmsuser` crypto user \(CU\) account](key-store-concepts.md#concept-kmsuser) is locked out of the associated AWS CloudHSM cluster due to too many failed password attempts\. For help with this error, see [How to Fix Invalid `kmsuser` Credentials](#fix-keystore-password)\.
 
   To fix this error, [disconnect the custom key store](disconnect-keystore.md) and use the [changePswd](https://docs.aws.amazon.com/cloudhsm/latest/userguide/cloudhsm_mgmt_util-changePswd.html) command in cloudhsm\_mgmt\_util to change the `kmsuser` account password\. Then, [edit the `kmsuser` password setting](update-keystore.md) for the custom key store, and try to connect again\. For help, use the procedure described in the [How to Fix Invalid `kmsuser` Credentials](#fix-keystore-password) topic\.
-
-   
 + `USER_LOGGED_IN` indicates that the `kmsuser` CU account is logged into the associated AWS CloudHSM cluster\. This prevents AWS KMS from rotating the `kmsuser` account password and logging into the cluster\. To fix this error, log the `kmsuser` CU out of the cluster\. If you changed the `kmsuser` password to log into the cluster, you must also and update the key store password value for the custom key store\. For help, see [How to Log Out and Reconnect](#login-kmsuser-2)\.
-
-   
 + `USER_NOT_FOUND` indicates that AWS KMS cannot find a `kmsuser` CU account in the associated AWS CloudHSM cluster\. To fix this error, [create a kmsuser CU account](create-keystore.md#kmsuser-concept) in the cluster, and then [update the key store password value](update-keystore.md) for the custom key store\. For help, see [How to Fix Invalid `kmsuser` Credentials](#fix-keystore-password)\.
 
 ## How to Fix Invalid `kmsuser` Credentials<a name="fix-keystore-password"></a>

@@ -35,7 +35,7 @@ Use the following procedure to create a customer master key \(CMK\) in a custom 
 
    You cannot create an asymmetric CMK in a custom key store\. 
 **Note**  
-Asymmetric CMKs and asymmetric data key pairs are supported by AWS KMS only in the following AWS Regions: US East \(N\. Virginia\), US West \(Oregon\), Asia Pacific \(Sydney\), Asia Pacific \(Tokyo\), and Europe \(Ireland\)\.
+Asymmetric CMKs and asymmetric data key pairs are supported in all AWS Regions that AWS KMS supports except for China \(Beijing\) and China \(Ningxia\)\.
 
 1. Choose **Advanced options**\.
 

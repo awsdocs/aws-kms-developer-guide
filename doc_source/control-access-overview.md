@@ -27,8 +27,6 @@ These resource types have unique Amazon Resource Names \(ARNs\) associated with 
   Example ARN:
 
   `arn:aws:kms:us-west-2:111122223333:key/1234abcd-12ab-34cd-56ef-1234567890ab`
-
-   
 + **Alias**
 
   ARN format:
@@ -47,11 +45,7 @@ The primary way to manage access to your AWS KMS CMKs is with *policies*\. Polic
 
 You can control access to your KMS CMKs in these ways:
 + **Use the key policy** – You must use the key policy to control access to a CMK\. You can use the key policy alone to control access, which means the full scope of access to the CMK is defined in a single document \(the key policy\)\.
-
-   
 + **Use IAM policies in combination with the key policy** – You can use IAM policies in combination with the key policy to control access to a CMK\. Controlling access this way enables you to manage all of the permissions for your IAM identities in IAM\.
-
-   
 + **Use grants in combination with the key policy** – You can use grants in combination with the key policy to allow access to a CMK\. Controlling access this way enables you to allow access to the CMK in the key policy, and to allow users to delegate their access to others\.
 
 For most AWS services, IAM policies are the only way to control access to the service's resources\. Some services offer resource\-based policies or other access control mechanisms to complement IAM policies, but these are generally optional and you can control access to the resources in these services with only IAM policies\. This is not the case for AWS KMS, however\. To allow access to a KMS CMK, you must use the key policy, either alone or in combination with IAM policies or grants\. IAM policies by themselves are not sufficient to allow access to a CMK, though you can use them in combination with a CMK's key policy\.
@@ -68,14 +62,8 @@ AWS KMS provides a set of API operations\. To control access to these API operat
 
 A policy is a document that describes a set of permissions\. The following are the basic elements of a policy\.
 + **Resource** – In an IAM policy, you use an Amazon Resource Name \(ARN\) to specify the resource that the policy applies to\. For more information, see [AWS KMS Resources and Operations](#kms-resources-operations)\. In a key policy, you use `"*"` for the resource, which effectively means "this CMK\." A key policy applies only to the CMK it is attached to\.
-
-   
 + **Action** – You use actions to specify the API operations you want to allow or deny\. For example, the `kms:Encrypt` action corresponds to the AWS KMS [Encrypt](https://docs.aws.amazon.com/kms/latest/APIReference/API_Encrypt.html) operation\.
-
-   
 + **Effect** – You use the effect to specify whether to allow or deny the permissions\. If you don't explicitly allow access to a resource, access is implicitly denied\. You can also explicitly deny access to a resource, which you might do to make sure that a user cannot access it, even when a different policy allows access\.
-
-   
 + **Principal** – In an IAM policy, you don't specify a principal\. Instead, the identity \(the IAM user, group, or role\) that the policy is attached to is the implicit principal\. In a key policy, you must specify the principal \(the identity\) that the permissions apply to\. You can specify AWS accounts \(root\), IAM users, IAM roles, and some AWS services as principals in a key policy\. IAM groups are not valid principals in a key policy\.
 
 For more information, see [Using Key Policies](key-policies.md) and [Using IAM Policies](iam-policies.md)\.

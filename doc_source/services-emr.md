@@ -18,14 +18,10 @@ For more information about all the encryption options available in Amazon EMR, s
 
 Amazon EMR clusters use two distributed files systems:
 + The Hadoop Distributed File System \(HDFS\)\. HDFS encryption does not use a CMK in AWS KMS\.
-
-   
 + The EMR File System \(EMRFS\)\. EMRFS is an implementation of HDFS that allows Amazon EMR clusters to store data in Amazon Simple Storage Service \(Amazon S3\)\. EMRFS supports four encryption options, two of which use a CMK in AWS KMS\. For more information about all four of the EMRFS encryption options, see [Encryption Options](https://docs.aws.amazon.com/emr/latest/ManagementGuide/emr-data-encryption-options.html) in the *Amazon EMR Management Guide*\.
 
 The two EMRFS encryption options that use a CMK use the following encryption features offered by Amazon S3:
 + [Server\-Side Encryption with AWS KMS\-Managed Keys \(SSE\-KMS\)](https://docs.aws.amazon.com/AmazonS3/latest/dev/UsingKMSEncryption.html)\. With SSE\-KMS, the Amazon EMR cluster sends data to Amazon S3, and then Amazon S3 uses a CMK to encrypt the data before saving it to an S3 bucket\. For more information about how this works, see [Process for Encrypting Data on EMRFS with SSE\-KMS](#emrfs-encryption-sse-kms)\.
-
-   
 + [Client\-Side Encryption with AWS KMS\-Managed Keys \(CSE\-KMS\)](https://docs.aws.amazon.com/AmazonS3/latest/dev/UsingClientSideEncryption.html)\. With CSE\-KMS, the Amazon EMR cluster uses a CMK to encrypt data before sending it to Amazon S3 for storage\. For more information about how this works, see [Process for Encrypting Data on EMRFS with CSE\-KMS](#emrfs-encryption-cse-kms)\.
 
 When you configure an Amazon EMR cluster to encrypt data on EMRFS with SSE\-KMS or CSE\-KMS, you choose the CMK in AWS KMS that you want Amazon S3 or the Amazon EMR cluster to use\. With SSE\-KMS, you can choose the AWS managed CMK for Amazon S3 with the alias **aws/s3**, or a symmetric customer managed CMK that you create\. With CSE\-KMS, you must choose a symmetric customer managed CMK that you create\. When you choose a customer managed CMK, you must ensure that your Amazon EMR cluster has permission to use the CMK\. For more information, see [Using AWS KMS Customer Master Keys \(CMKs\) for Encryption](https://docs.aws.amazon.com/emr/latest/ManagementGuide/emr-encryption-enable.html#emr-awskms-keys) in the *Amazon EMR Management Guide*\.

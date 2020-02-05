@@ -9,7 +9,7 @@ Symmetric CMKs `Enabled`, `Disabled`, `PendingImport`, `PendingDeletion`, or `Un
 The `Unavailable` state applies only to a CMK in a [custom key store](custom-key-store-overview.md)\. A CMK in a custom key store is `Unavailable` when the custom key store is intentionally disconnected from its AWS CloudHSM cluster\. You can view and manage unavailable CMKs, but you cannot use them in cryptographic operations\.
 
 **Note**  
-Asymmetric CMKs and asymmetric data key pairs are supported by AWS KMS only in the following AWS Regions: US East \(N\. Virginia\), US West \(Oregon\), Asia Pacific \(Sydney\), Asia Pacific \(Tokyo\), and Europe \(Ireland\)\.
+Asymmetric CMKs and asymmetric data key pairs are supported in all AWS Regions that AWS KMS supports except for China \(Beijing\) and China \(Ningxia\)\.
 
 The following API operations do not appear in the table because they do not use an existing CMK\.
 + ConnectCustomKeyStore

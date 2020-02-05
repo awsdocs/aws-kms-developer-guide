@@ -27,6 +27,7 @@ AWS KMS is integrated with AWS CloudTrail, a service that delivers log files to 
 + For a more detailed introduction to AWS KMS, see [AWS KMS Concepts](concepts.md)\.
 + For information about the AWS KMS API, see the [AWS Key Management Service API Reference](https://docs.aws.amazon.com/kms/latest/APIReference/)\.
 + For detailed technical information about how AWS KMS uses cryptography and secures master keys, see the [AWS Key Management Service Cryptographic Details](https://d0.awsstatic.com/whitepapers/KMS-Cryptographic-Details.pdf) whitepaper\. This whitepaper does not describe how AWS KMS works in the China \(Beijing\) and China \(Ningxia\) Regions\.
++ For help with questions about AWS KMS, see the [AWS Key Management Service Discussion Forum](https://forums.aws.amazon.com/forum.jspa?forumID=182)\.
 
 **AWS KMS in AWS Regions**  
 The AWS Regions in which AWS KMS is supported are listed in [AWS Key Management Service Endpoints and Quotas](https://docs.aws.amazon.com/general/latest/gr/kms.html)\. If an AWS KMS feature is not supported in an AWS Region that AWS KMS supports, the regional difference is described in the topic about the feature\. 
