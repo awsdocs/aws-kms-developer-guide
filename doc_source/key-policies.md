@@ -204,9 +204,6 @@ Key users have permission to use the CMK directly in all cryptographic operation
 
 By default, the AWS KMS console adds key users statements like those in the following examples to the default key policy\. Because they support different API operations, the actions in the policy statements for symmetric CMKs, asymmetric CMKs for public key encryption, and asymmetric CMKs for signing and verification are slightly different\.
 
-**Note**  
-Asymmetric CMKs and asymmetric data key pairs are supported in all AWS Regions that AWS KMS supports except for China \(Beijing\) and China \(Ningxia\)\.
-
 **Symmetric CMKs**  
 The console adds the following statement to the key policy for symmetric CMKs\.  
 

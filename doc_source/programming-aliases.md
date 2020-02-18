@@ -12,6 +12,8 @@ You can use an alias as the value of the `KeyId` parameter only in the following
 + `DescribeKey`
 + `Encrypt`
 + `GenerateDataKey`
++ `GenerateDataKeyPair`
++ `GenerateDataKeyPairWithoutPlaintext`
 + `GenerateDataKeyWithoutPlaintext`
 + `ReEncrypt`
 
@@ -36,7 +38,9 @@ To create an alias, use the [CreateAlias](https://docs.aws.amazon.com/kms/latest
 
 You cannot create an alias that begins with `aws/`\. The `aws/` prefix is reserved by Amazon Web Services for [AWS managed CMKs](concepts.md#master_keys)\.
 
-This example uses the AWS KMS client object that you created in [Creating a Client](programming-client.md)\.
+The CreateAlias operation does not return any output\. To verify that the alias was created, use the [ListAliases](https://docs.aws.amazon.com/kms/latest/APIReference/API_ListAliases.html) operation\.
+
+In languages that require a client object, these examples use the AWS KMS client object that you created in [Creating a Client](programming-client.md)\.
 
 ------
 #### [ Java ]
@@ -147,6 +151,21 @@ kmsClient.createAlias({ AliasName, TargetKeyId }, (err, data) => {
 ```
 
 ------
+#### [ PowerShell ]
+
+To create an alias, use the [New\-KMSAlias](https://docs.aws.amazon.com/powershell/latest/reference/items/New-KMSAlias.html) cmdlet\. The alias name is case\-sensitive\.
+
+```
+# Create an alias for a CMK
+
+$aliasName = 'alias/projectKey1'
+# Replace the following fictitious CMK ARN with a valid CMK ID or ARN
+$targetKeyId = 'arn:aws:kms:us-west-2:111122223333:key/1234abcd-12ab-34cd-56ef-1234567890ab'
+
+New-KMSAlias -TargetKeyId $targetKeyId -AliasName $aliasName
+```
+
+------
 
 ## Listing Aliases<a name="list-aliases"></a>
 
@@ -154,7 +173,7 @@ To list aliases in the account and region, use the [ListAliases](https://docs.aw
 
 By default, the ListAliases command returns all aliases in the account and region\. This includes aliases that you created and associated with your [customer managed CMKs](concepts.md#master_keys), and aliases that AWS created and associated with your [AWS managed CMKs](concepts.md#master_keys)\. The response might also include aliases that have no `TargetKeyId` field\. These are predefined aliases that AWS has created but has not yet associated with a CMK\.
 
-This example uses the AWS KMS client object that you created in [Creating a Client](programming-client.md)\.
+In languages that require a client object, these examples use the AWS KMS client object that you created in [Creating a Client](programming-client.md)\.
 
 ------
 #### [ Java ]
@@ -343,12 +362,26 @@ kmsClient.listAliases({ KeyId }, (err, data) => {
 ```
 
 ------
+#### [ PowerShell ]
+
+To list the aliases for a CMK, use the [Get\-KMSAliasList](https://docs.aws.amazon.com/powershell/latest/reference/items/Get-KMSAliasList.html) cmdlet\.
+
+```
+# List the aliases for one CMK
+
+# Replace the following fictitious CMK ARN with a valid CMK ID or ARN
+$keyId = 'arn:aws:kms:us-west-2:111122223333:key/1234abcd-12ab-34cd-56ef-1234567890ab'
+
+$response = Get-KmsAliasList -KeyId $keyId
+```
+
+------
 
 ## Updating an Alias<a name="update-alias"></a>
 
 To associate an existing alias with a different CMK, use the [UpdateAlias](https://docs.aws.amazon.com/kms/latest/APIReference/API_UpdateAlias.html) operation\. 
 
-This example uses the AWS KMS client object that you created in [Creating a Client](programming-client.md)\.
+In languages that require a client object, these examples use the AWS KMS client object that you created in [Creating a Client](programming-client.md)\.
 
 ------
 #### [ Java ]
@@ -463,12 +496,29 @@ kmsClient.updateAlias({ AliasName, TargetKeyId }, (err, data) => {
 ```
 
 ------
+#### [ PowerShell ]
+
+To change the CMK that an alias points to, use the [Update\-KMSAlias](https://docs.aws.amazon.com/powershell/latest/reference/items/Update-KMSAlias.html) cmdlet\. The alias name is case\-sensitive\.
+
+The `Update-KMSAlias` cmdlet does not return any output\. To verify that the command worked, use the [Get\-KMSAliasList](https://docs.aws.amazon.com/powershell/latest/reference/items/Get-KMSAliasList.html) cmdlet\.
+
+```
+# Updating an alias
+
+$aliasName = 'alias/projectKey1'
+# Replace the following fictitious CMK ARN with a valid CMK ID or ARN
+$keyId = 'arn:aws:kms:us-west-2:111122223333:key/0987dcba-09fe-87dc-65ba-ab0987654321'
+
+Update-KMSAlias -AliasName $aliasName -TargetKeyID $keyId
+```
+
+------
 
 ## Deleting an Alias<a name="delete-alias"></a>
 
 To delete an alias, use the [DeleteAlias](https://docs.aws.amazon.com/kms/latest/APIReference/API_DeleteAlias.html) operation\. Deleting an alias has no effect on the underlying CMK\. 
 
-This example uses the AWS KMS client object that you created in [Creating a Client](programming-client.md)\.
+In languages that require a client object, these examples use the AWS KMS client object that you created in [Creating a Client](programming-client.md)\.
 
 ------
 #### [ Java ]
@@ -558,6 +608,22 @@ const AliasName = 'alias/projectKey1';
 kmsClient.deleteAlias({ AliasName }, (err, data) => {
   ...
 });
+```
+
+------
+#### [ PowerShell ]
+
+To delete an alias, use the [Remove\-KMSAlias](https://docs.aws.amazon.com/powershell/latest/reference/items/Remove-KMSAlias.html) cmdlet\. The alias name is case\-sensitive\.
+
+Because this cmdlet permanently deletes the alias, PowerShell prompts you to confirm the command\. The `ConfirmImpact` is `High`, so you cannot use a `ConfirmPreference` to suppress this prompt\. If you must suppress the confirmation prompt, add the `Confirm` common parameter with a value of `$false`, for example: `-Confirm:$false`\.
+
+The `Remove-KMSAlias` cmdlet doesn't return any output\. To verify that the command was effective, use the [Get\-KMSAliasList](https://docs.aws.amazon.com/powershell/latest/reference/items/Get-KMSAliasList.html) cmdlet\.
+
+```
+# Delete an alias for a CMK
+
+$aliasName = 'alias/projectKey1'
+Remove-KMSAlias -AliasName $aliasName
 ```
 
 ------

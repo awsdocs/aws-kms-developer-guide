@@ -13,9 +13,9 @@ To encrypt application data, use the server\-side encryption features of an AWS 
 
 ## Encrypting a Data Key<a name="encryption"></a>
 
-The [Encrypt](https://docs.aws.amazon.com/kms/latest/APIReference/API_Encrypt.html) operation is designed to encrypt data keys, but it is not frequently used\. The [GenerateDataKey](https://docs.aws.amazon.com/kms/latest/APIReference/API_GenerateDataKey.html) and [GenerateDataKeyWithoutPlaintext](https://docs.aws.amazon.com/kms/latest/APIReference/API_GenerateDataKeyWithoutPlaintext.html) operations return encrypted data keys\. You might use this method when you are moving encrypted data to a new region and want to encrypt its data key with a CMK in the new region\. 
+The [Encrypt](https://docs.aws.amazon.com/kms/latest/APIReference/API_Encrypt.html) operation is designed to encrypt data keys, but it is not frequently used\. The [GenerateDataKey](https://docs.aws.amazon.com/kms/latest/APIReference/API_GenerateDataKey.html) and [GenerateDataKeyWithoutPlaintext](https://docs.aws.amazon.com/kms/latest/APIReference/API_GenerateDataKeyWithoutPlaintext.html) operations return encrypted data keys\. You might use this method when you are moving encrypted data to a different Region and want to encrypt its data key with a CMK in the new Region\. 
 
-This example uses the AWS KMS client object that you created in [Creating a Client](programming-client.md)\.
+In languages that require a client object, these examples use the AWS KMS client object that you created in [Creating a Client](programming-client.md)\.
 
 ------
 #### [ Java ]
@@ -135,14 +135,46 @@ kmsClient.encrypt({ KeyId, Plaintext }, (err, data) => {
 ```
 
 ------
+#### [ PowerShell ]
+
+To encrypt a data key under an AWS KMS CMK, use the [Invoke\-KMSEncrypt](https://docs.aws.amazon.com/powershell/latest/reference/items/Invoke-KMSEncrypt.html) cmdlet\. It returns the ciphertext as a `MemoryStream` \([System\.IO\.MemoryStream](https://docs.microsoft.com/en-us/dotnet/api/system.io.memorystream)\) object\. You can use the `MemoryStream` object as the input to the [Invoke\-KMSDecrypt](https://docs.aws.amazon.com/powershell/latest/reference/items/Invoke-KMSDecrypt.html) cmdlet\.
+
+AWS KMS also returns data keys as `MemoryStream` objects\. In this example, to simulate a plaintext data key, we create a byte array and write it to a `MemoryStream` object\. 
+
+Note that the `Plaintext` parameter of `Invoke-KMSEncrypt` takes a byte array \(`byte[]`\); it does not require a `MemoryStream` object\. Beginning in AWSPowerShell version 4\.0, parameters in all AWSPowerShell modules that take byte arrays and `MemoryStream` objects accept byte arrays, `MemoryStream` objects, strings, string arrays, and `FileInfo` \([System\.IO\.FileInfo](https://docs.microsoft.com/en-us/dotnet/api/system.io.fileinfo)\) objects\. You can pass any of these types to `Invoke-KMSEncrypt`\.
+
+```
+# Encrypt a data key
+
+# Replace the following fictitious CMK ARN with a valid CMK ID or ARN
+$keyId = 'arn:aws:kms:us-west-2:111122223333:key/1234abcd-12ab-34cd-56ef-1234567890ab'
+
+# Simulate a data key
+ # Create a byte array
+[byte[]] $bytes = 1, 2, 3, 4, 5, 6, 7, 8, 9, 0
+
+ # Create a MemoryStream                    
+$plaintext = [System.IO.MemoryStream]::new()
+
+ # Add the byte array to the MemoryStream
+$plaintext.Write($bytes, 0, $bytes.length)
+
+# Encrypt the simulated data key
+$response = Invoke-KMSEncrypt -KeyId $keyId -Plaintext $plaintext
+
+# Get the ciphertext from the response
+$ciphertext = $response.CiphertextBlob
+```
+
+------
 
 ## Decrypting a Data Key<a name="decryption"></a>
 
 To decrypt a data key, use the [Decrypt](https://docs.aws.amazon.com/kms/latest/APIReference/API_Decrypt.html) operation\.
 
-The `ciphertextBlob` that you specify must be the value of the `CiphertextBlob` field from a [GenerateDataKey](https://docs.aws.amazon.com/kms/latest/APIReference/API_GenerateDataKey.html), [GenerateDataKeyWithoutPlaintext](https://docs.aws.amazon.com/kms/latest/APIReference/API_GenerateDataKeyWithoutPlaintext.html), or [Encrypt](https://docs.aws.amazon.com/kms/latest/APIReference/API_Encrypt.html) response\.
+The `ciphertextBlob` that you specify must be the value of the `CiphertextBlob` field from a [GenerateDataKey](https://docs.aws.amazon.com/kms/latest/APIReference/API_GenerateDataKey.html), [GenerateDataKeyWithoutPlaintext](https://docs.aws.amazon.com/kms/latest/APIReference/API_GenerateDataKeyWithoutPlaintext.html), or [Encrypt](https://docs.aws.amazon.com/kms/latest/APIReference/API_Encrypt.html) response, or the `PrivateKeyCiphertextBlob` field from a [GenerateDataKeyPair](https://docs.aws.amazon.com/kms/latest/APIReference/API_GenerateDataKeyPair) or [GenerateDataKeyPairWithoutPlaintext](https://docs.aws.amazon.com/kms/latest/APIReference/API_GenerateDataKeyPairWIthoutPlaintext) response\. You can also use the `Decrypt` operation to decrypt data encrypted outside of AWS KMS by the public key in an asymmetric CMK\.
 
-This example uses the AWS KMS client object that you created in [Creating a Client](programming-client.md)\.
+In languages that require a client object, these examples use the AWS KMS client object that you created in [Creating a Client](programming-client.md)\.
 
 ------
 #### [ Java ]
@@ -249,14 +281,32 @@ kmsClient.decrypt({ CiphertextBlob }, (err, data) => {
 ```
 
 ------
+#### [ PowerShell ]
+
+To decrypt a data key, use the [Invoke\-KMSEncrypt](https://docs.aws.amazon.com/powershell/latest/reference/items/Invoke-KMSEncrypt.html) cmdlet\. 
+
+This cmdlet returns the plaintext as a `MemoryStream` \([System\.IO\.MemoryStream](https://docs.microsoft.com/en-us/dotnet/api/system.io.memorystream)\) object\. To convert it to a byte array, use cmdlets or functions that convert `MemoryStream` objects to byte arrays, such as the functions in the [Convert](https://www.powershellgallery.com/packages/Convert) module\.
+
+Because this example uses the ciphertext that an AWS KMS encryption cmdlet returned, it uses a `MemoryStream` object for the value of the `CiphertextBlob` parameter\. However, the `CiphertextBlob` parameter of `Invoke-KMSDecrypt` takes a byte array \(`byte[]`\); it does not require a `MemoryStream` object\. Beginning in AWSPowerShell version 4\.0, parameters in all AWSPowerShell modules that take byte arrays and `MemoryStream` objects accept byte arrays, `MemoryStream` objects, strings, string arrays, and `FileInfo` \([System\.IO\.FileInfo](https://docs.microsoft.com/en-us/dotnet/api/system.io.fileinfo)\) objects\. You can pass any of these types to `Invoke-KMSDecrypt`\.
+
+```
+# Decrypt a data key
+
+[System.IO.MemoryStream]$ciphertext = Read-Host 'Place your cipher text blob here'
+
+$response = Invoke-KMSDecrypt -CiphertextBlob $ciphertext
+$plaintext = $response.Plaintext
+```
+
+------
 
 ## Re\-Encrypting a Data Key Under a Different Customer Master Key<a name="reencryption"></a>
 
 To decrypt an encrypted data key, and then immediately re\-encrypt the data key under a different customer master key \(CMK\), use the [ReEncrypt](https://docs.aws.amazon.com/kms/latest/APIReference/API_ReEncrypt.html) operation\. The operations are performed entirely on the server side within AWS KMS, so they never expose your plaintext outside of AWS KMS\.
 
-The `ciphertextBlob` that you specify must be the value of the `CiphertextBlob` field from a [GenerateDataKey](https://docs.aws.amazon.com/kms/latest/APIReference/API_GenerateDataKey.html), [GenerateDataKeyWithoutPlaintext](https://docs.aws.amazon.com/kms/latest/APIReference/API_GenerateDataKeyWithoutPlaintext.html), or [Encrypt](https://docs.aws.amazon.com/kms/latest/APIReference/API_Encrypt.html) response\.
+The `ciphertextBlob` that you specify must be the value of the `CiphertextBlob` field from a [GenerateDataKey](https://docs.aws.amazon.com/kms/latest/APIReference/API_GenerateDataKey.html), [GenerateDataKeyWithoutPlaintext](https://docs.aws.amazon.com/kms/latest/APIReference/API_GenerateDataKeyWithoutPlaintext.html), or [Encrypt](https://docs.aws.amazon.com/kms/latest/APIReference/API_Encrypt.html) response, or the `PrivateKeyCiphertextBlob` field from a [GenerateDataKeyPair](https://docs.aws.amazon.com/kms/latest/APIReference/API_GenerateDataKeyPair) or [GenerateDataKeyPairWithoutPlaintext](https://docs.aws.amazon.com/kms/latest/APIReference/API_GenerateDataKeyPairWIthoutPlaintext) response\. You can also use the `ReEncrypt` operation to re\-encrypt data encrypted outside of AWS KMS by the public key in an asymmetric CMK\.
 
-This example uses the AWS KMS client object that you created in [Creating a Client](programming-client.md)\.
+In languages that require a client object, these examples use the AWS KMS client object that you created in [Creating a Client](programming-client.md)\.
 
 ------
 #### [ Java ]
@@ -373,6 +423,25 @@ const DestinationKeyId = 'arn:aws:kms:us-west-2:111122223333:key/0987dcba-09fe-8
 kmsClient.reEncrypt({ CiphertextBlob, DestinationKeyId }, (err, data) => {
   ...
 });
+```
+
+------
+#### [ PowerShell ]
+
+To re\-encrypt a ciphertext under the same or a different CMK, use the [Invoke\-KMSReEncrypt](https://docs.aws.amazon.com/powershell/latest/reference/items/Invoke-KMSReEncrypt.html) cmdlet\.
+
+Because this example uses the ciphertext that an AWS KMS encryption cmdlet returned, it uses a `MemoryStream` object for the value of the `CiphertextBlob` parameter\. However, the `CiphertextBlob` parameter of `Invoke-KMSReEncrypt` takes a byte array \(`byte[]`\); it does not require a `MemoryStream` object\. Beginning in AWSPowerShell version 4\.0, parameters in all AWSPowerShell modules that take byte arrays and `MemoryStream` objects accept byte arrays, `MemoryStream` objects, strings, string arrays, and `FileInfo` \([System\.IO\.FileInfo](https://docs.microsoft.com/en-us/dotnet/api/system.io.fileinfo)\) objects\. You can pass any of these types to `Invoke-KMSReEncrypt`\.
+
+```
+# Re-encrypt a data key
+
+[System.IO.MemoryStream]$ciphertextBlob = Read-Host 'Place your cipher text blob here'
+
+# Replace the following fictitious CMK ARN with a valid CMK ID or ARN
+$destinationKeyId = 'arn:aws:kms:us-west-2:111122223333:key/0987dcba-09fe-87dc-65ba-ab0987654321'
+
+$response = Invoke-KMSReEncrypt -Ciphertext $ciphertextBlob -DestinationKeyId $destinationKeyId
+$reEncryptedCiphertext = $response.CiphertextBlob
 ```
 
 ------

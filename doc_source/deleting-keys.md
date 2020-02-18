@@ -40,9 +40,6 @@ Use the waiting period to ensure that you don't need the CMK now or in the futur
 ### Deleting Asymmetric CMKs<a name="deleting-asymmetric-cmks"></a>
 
 Users [who are authorized](#deleting-keys-adding-permission) can delete symmetric or asymmetric CMKs\. The procedure to schedule the deletion of these CMKs is the same for both types of keys\. However, because the [public key of an asymmetric CMK can be downloaded](download-public-key.md) and used outside of AWS KMS, the operation poses significant additional risks, especially for asymmetric CMKs used for encryption \(the key usage is `ENCRYPT_DECRYPT`\)\.
-
-**Note**  
-Asymmetric CMKs and asymmetric data key pairs are supported in all AWS Regions that AWS KMS supports except for China \(Beijing\) and China \(Ningxia\)\.
 + When you schedule the deletion of a CMK, the key state of CMK changes to **Pending deletion**, and the CMK cannot be used in cryptographic operations\. However, scheduling deletion has no effect on public keys outside of AWS KMS\. Users who have the public key can continue to use them to encrypt messages\. They do not receive any notification that the key state is changed\. Unless the deletion is canceled, ciphertext created with the public key cannot be decrypted\.
 + Alarms, logs, and other strategies that detect attempted use of CMK that is pending deletion cannot detect use of the public key outside of AWS KMS\.
 + When the CMK is deleted, all AWS KMS actions involving that CMK fail\. However, users who have the public key can continue to use them to encrypt messages\. These ciphertexts cannot be decrypted\.

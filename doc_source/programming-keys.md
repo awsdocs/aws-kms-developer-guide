@@ -12,9 +12,9 @@ The examples in this topic use the AWS KMS API to create, view, enable, and disa
 
 ## Creating a Customer Master Key<a name="creating-keys"></a>
 
-To create a [customer master key](concepts.md#master_keys), use the [CreateKey](https://docs.aws.amazon.com/kms/latest/APIReference/API_CreateKey.html) operation\.
+To create a [customer master key](concepts.md#master_keys) \(CMK\), use the [CreateKey](https://docs.aws.amazon.com/kms/latest/APIReference/API_CreateKey.html) operation\. The examples in this section create a symmetric CMK\. The `Description` parameter used in these examples is optional\.
 
-This example uses the AWS KMS client object that you created in [Creating a Client](programming-client.md)\.
+In languages that require a client object, these examples use the AWS KMS client object that you created in [Creating a Client](programming-client.md)\.
 
 ------
 #### [ Java ]
@@ -108,12 +108,24 @@ kmsClient.createKey({ Description }, (err, data) => {
 ```
 
 ------
+#### [ PowerShell ]
+
+To create a CMK in PowerShell, use the [New\-KmsKey](https://docs.aws.amazon.com/powershell/latest/reference/items/New-KMSKey.html) cmdlet\.
+
+```
+# Create a CMK
+
+$desc = 'Key for protecting critical data'
+New-KmsKey -Description $desc
+```
+
+------
 
 ## Generating a Data Key<a name="generate-datakeys"></a>
 
-To generate a data key, use the [GenerateDataKey](https://docs.aws.amazon.com/kms/latest/APIReference/API_GenerateDataKey.html) operation\. This operation returns plaintext and encrypted copies of the data key that it creates\. 
+To generate a symmetric data key, use the [GenerateDataKey](https://docs.aws.amazon.com/kms/latest/APIReference/API_GenerateDataKey.html) operation\. This operation takes a symmetric CMK and returns a plaintext data key and a copy of that data key encrypted under the CMK that you specified\. You must specify either a `KeySpec` or `NumberOfBytes` \(but not both\) in each command\.
 
-This example uses the AWS KMS client object that you created in [Creating a Client](programming-client.md)\.
+In languages that require a client object, these examples use the AWS KMS client object that you created in [Creating a Client](programming-client.md)\.
 
 ------
 #### [ Java ]
@@ -245,14 +257,33 @@ kmsClient.generateDataKey({ KeyId, KeySpec }, (err, data) => {
 ```
 
 ------
+#### [ PowerShell ]
+
+To generate a symmetric data key, use the [New\-KMSDataKey](https://docs.aws.amazon.com/powershell/latest/reference/items/New-KMSDataKey.html) cmdlet\.
+
+In the output, the plaintext key \(in the `Plaintext` property\) and the encrypted key \(in the `CiphertextBlob` property\) are [MemoryStream](https://docs.microsoft.com/en-us/dotnet/api/system.io.memorystream) objects\. To convert them to strings, use the methods of the `MemoryStream` class, or a cmdlet or function that converts `MemoryStream` objects to strings, such as the [ConvertFrom\-MemoryStream](https://convert.readthedocs.io/en/latest/functions/ConvertFrom-MemoryStream/) and [ConvertFrom\-Base64](https://convert.readthedocs.io/en/latest/functions/ConvertFrom-Base64/) functions in the [Convert](https://www.powershellgallery.com/packages/Convert/) module\.
+
+```
+# Generate a data key
+
+# Replace the following fictitious CMK ARN with a valid CMK ID or ARN  
+$keyId = 'arn:aws:kms:us-west-2:111122223333:key/1234abcd-12ab-34cd-56ef-1234567890ab'
+$keySpec = 'AES_256'
+
+$response = New-KmsDataKey -KeyId $keyId -KeySpec $keySpec
+$plaintextKey = $response.Plaintext
+$encryptedKey = $response.CiphertextBlob
+```
+
+------
 
 ## Viewing a Custom Master Key<a name="describing-keys"></a>
 
 To get detailed information about a customer master key \(CMK\), including the CMK ARN and [key state](key-state.md), use the [DescribeKey](https://docs.aws.amazon.com/kms/latest/APIReference/API_DescribeKey.html) operation\. 
 
-DescribeKey does not get aliases\. To get aliases, use the [ListAliases](https://docs.aws.amazon.com/kms/latest/APIReference/API_ListAliases.html) operation\. 
+`DescribeKey` does not get aliases\. To get aliases, use the [ListAliases](https://docs.aws.amazon.com/kms/latest/APIReference/API_ListAliases.html) operation\. For examples, see [Working with Aliases](programming-aliases.md)\.
 
-This example uses the AWS KMS client object that you created in [Creating a Client](programming-client.md)\.
+In languages that require a client object, these examples use the AWS KMS client object that you created in [Creating a Client](programming-client.md)\.
 
 ------
 #### [ Java ]
@@ -352,12 +383,25 @@ kmsClient.describeKey({ KeyId }, (err, data) => {
 ```
 
 ------
+#### [ PowerShell ]
+
+To get detailed information about a CMK, use the [Get\-KmsKey](https://docs.aws.amazon.com/powershell/latest/reference/items/Get-KMSKey.html) cmdlet\.
+
+```
+# Describe a CMK
+
+# Replace the following fictitious CMK ARN with a valid CMK ID or ARN
+$keyId = 'arn:aws:kms:us-west-2:111122223333:key/1234abcd-12ab-34cd-56ef-1234567890ab'
+Get-KmsKey -KeyId $keyId
+```
+
+------
 
 ## Getting Key IDs and Key ARNs of Customer Master Keys<a name="listing-keys"></a>
 
-To get the IDs and ARNs of the customer master keys, use the [ListKeys](https://docs.aws.amazon.com/kms/latest/APIReference/API_ListKeys.html) operation\. 
+To get the IDs and ARNs of the customer master keys, use the [ListKeys](https://docs.aws.amazon.com/kms/latest/APIReference/API_ListKeys.html) operation\. These examples use the optional `Limit` parameter, which sets the maximum number of CMKs returned in each call\. 
 
-This example uses the AWS KMS client object that you created in [Creating a Client](programming-client.md)\.
+In languages that require a client object, these examples use the AWS KMS client object that you created in [Creating a Client](programming-client.md)\.
 
 ------
 #### [ Java ]
@@ -446,12 +490,24 @@ kmsClient.listKeys({ Limit }, (err, data) => {
 ```
 
 ------
+#### [ PowerShell ]
+
+To get the key ID and ARN of all CMKs in the account and Region, use the [Get\-KmsKeyList](https://docs.aws.amazon.com/powershell/latest/reference/items/Get-KMSKeyList.html) cmdlet\.
+
+```
+# List CMKs in this account
+
+$limit = 10
+Get-KmsKeyList -Limit $limit
+```
+
+------
 
 ## Enabling Customer Master Keys<a name="enable-keys"></a>
 
 To enable a disabled customer master key \(CMK\), use the [EnableKey](https://docs.aws.amazon.com/kms/latest/APIReference/API_EnableKey.html) operation\.
 
-This example uses the AWS KMS client object that you created in [Creating a Client](programming-client.md)\.
+In languages that require a client object, these examples use the AWS KMS client object that you created in [Creating a Client](programming-client.md)\.
 
 ------
 #### [ Java ]
@@ -550,12 +606,25 @@ kmsClient.enableKey({ KeyId }, (err, data) => {
 ```
 
 ------
+#### [ PowerShell ]
+
+To enable a CMK, use the [Enable\-KmsKey](https://docs.aws.amazon.com/powershell/latest/reference/items/Enable-KMSKey.html) cmdlet\.
+
+```
+# Enable a CMK
+
+# Replace the following fictitious CMK ARN with a valid CMK ID or ARN
+$keyId = 'arn:aws:kms:us-west-2:111122223333:key/1234abcd-12ab-34cd-56ef-1234567890ab'
+Enable-KmsKey -KeyId $keyId
+```
+
+------
 
 ## Disabling Customer Master Keys<a name="disable-keys"></a>
 
-To disable a CMK, use the [DisableKey](https://docs.aws.amazon.com/kms/latest/APIReference/API_DisableKey.html) operation\. Disabling a CMK prevents it from being used\.
+To disable a CMK, use the [DisableKey](https://docs.aws.amazon.com/kms/latest/APIReference/API_DisableKey.html) operation\. Disabling a CMK prevents it from being used in cryptographic operations\.
 
-This example uses the AWS KMS client object that you created in [Creating a Client](programming-client.md)\.
+In languages that require a client object, these examples use the AWS KMS client object that you created in [Creating a Client](programming-client.md)\.
 
 ------
 #### [ Java ]
@@ -651,6 +720,19 @@ const KeyId = 'arn:aws:kms:us-west-2:111122223333:key/1234abcd-12ab-34cd-56ef-12
 kmsClient.disableKey({ KeyId }, (err, data) => {
   ...
 });
+```
+
+------
+#### [ PowerShell ]
+
+To disable a CMK, use the [Disable\-KmsKey](https://docs.aws.amazon.com/powershell/latest/reference/items/Disable-KMSKey.html) cmdlet\.
+
+```
+# Disable a CMK
+
+# Replace the following fictitious CMK ARN with a valid CMK ID or ARN
+$keyId = 'arn:aws:kms:us-west-2:111122223333:key/1234abcd-12ab-34cd-56ef-1234567890ab'
+Disable-KmsKey -KeyId $keyId
 ```
 
 ------

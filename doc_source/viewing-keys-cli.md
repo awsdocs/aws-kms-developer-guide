@@ -65,9 +65,6 @@ $ aws kms describe-key --key-id 1234abcd-12ab-34cd-56ef-1234567890ab
 
 This example calls `DescribeKey` operation on an asymmetric CMK used for signing and verification\. The response includes the signing algorithms that AWS KMS supports for this CMK\.
 
-**Note**  
-Asymmetric CMKs and asymmetric data key pairs are supported in all AWS Regions that AWS KMS supports except for China \(Beijing\) and China \(Ningxia\)\.
-
 ```
 $ aws kms describe-key --key-id 0987dcba-09fe-87dc-65ba-ab0987654321
 

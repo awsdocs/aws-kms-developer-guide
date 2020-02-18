@@ -39,7 +39,7 @@ Use a customer managed CMK to get the following features:
 Use the AWS managed CMK if you need any of the following features:  
 + You can [view the CMK](viewing-keys.md) and [view its key policy](key-policy-viewing.md)\. \(You cannot change the key policy\.\)
 + You can audit the encryption and decryption of your DynamoDB table by examining the DynamoDB API calls to AWS KMS in [AWS CloudTrail logs](#dynamodb-cmk-trail)\.
-However, the AWS owned CMK is free of charge and its use does not count against [AWS KMS limits](limits.md)\. Customer managed CMKs and AWS managed CMKs[incur a charge](https://aws.amazon.com/kms/pricing/) for each API call and AWS KMS limits apply to these CMKs\.
+However, the AWS owned CMK is free of charge and its use does not count against [AWS KMS resource or request quotas](limits.md)\. Customer managed CMKs and AWS managed CMKs [incur a charge](https://aws.amazon.com/kms/pricing/) for each API call and AWS KMS quotas apply to these CMKs\.
 
 **Table Keys**  
 DynamoDB uses the CMK for the table to generate and encrypt a unique [data key](concepts.md#data-keys) for the table, known as the *table key*\. The table key persists for the lifetime of the encrypted table\.   

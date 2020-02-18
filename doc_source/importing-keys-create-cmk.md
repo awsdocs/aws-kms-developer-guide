@@ -25,8 +25,6 @@ You need to create a CMK for the imported key material only once\. To reimport t
 1. Choose **Create key**\.
 
 1. Choose **Symmetric**\. You cannot import key material into an asymmetric CMK\.
-**Note**  
-Asymmetric CMKs and asymmetric data key pairs are supported in all AWS Regions that AWS KMS supports except for China \(Beijing\) and China \(Ningxia\)\.
 
 1. Expand **Advanced options**\.
 

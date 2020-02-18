@@ -76,7 +76,6 @@ You can use tags to identify and categorize your CMKs\. When you add tags to you
 
 **Enable or disable rotation**  
 You can enable and disable [automatic rotation](rotate-keys.md) of the cryptographic material in a symmetric [customer managed CMK](concepts.md#master_keys)\. This feature is not supported for asymmetric CMKs or for CMKs with imported key material\.  
-Asymmetric CMKs and asymmetric data key pairs are supported in all AWS Regions that AWS KMS supports except for China \(Beijing\) and China \(Ningxia\)\.
 [AWS managed CMKs](concepts.md#master_keys) are automatically rotated every three years\. You cannot enable or disable this feature\.  
 
 1. On the details page for CMK, choose the **Key rotation** tab\.

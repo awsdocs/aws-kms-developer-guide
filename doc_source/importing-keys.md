@@ -4,9 +4,6 @@ A customer master key \(CMK\) is a logical representation of a master key in AWS
 
 Imported key material is supported only for symmetric CMKs in AWS KMS key stores\. It is not supported on asymmetric CMK or CMKs in [custom key stores](custom-key-store-overview.md)\.
 
-**Note**  
-Asymmetric CMKs and asymmetric data key pairs are supported in all AWS Regions that AWS KMS supports except for China \(Beijing\) and China \(Ningxia\)\.
-
 When you use imported key material, you remain responsible for the key material while allowing AWS KMS to use a copy of it\. You might choose to do this for one or more of the following reasons:
 + To prove that you generated the key material using a source of entropy that meets your requirements\.
 + To use key material from your own infrastructure with AWS services, and to use AWS KMS to manage the lifecycle of that key material within AWS\.

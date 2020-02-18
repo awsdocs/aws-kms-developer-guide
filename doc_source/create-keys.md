@@ -2,10 +2,7 @@
 
 You can create [symmetric and asymmetric customer master keys](symmetric-asymmetric.md) \(CMKs\) in the AWS Management Console or by using the [CreateKey](https://docs.aws.amazon.com/kms/latest/APIReference/API_CreateKey.html) operation\. During this process, you determine the cryptographic configuration of your CMK and the origin of its key material\. You cannot change these properties after the CMK is created\. You also set the key policy for the CMK, which you can change at any time\.
 
-If you are creating a CMK to encrypt data you store or manage in an AWS service, create a symmetric CMK\. AWS services that are integrated with AWS KMS do not support asymmetric CMKs\. For help deciding which type of CMK to create, see [How to Choose Your CMK Configuration](symm-asymm-choose.md)\. 
-
-**Note**  
-Asymmetric CMKs and asymmetric data key pairs are supported in all AWS Regions that AWS KMS supports except for China \(Beijing\) and China \(Ningxia\)\.
+If you are creating a CMK to encrypt data you store or manage in an AWS service, create a symmetric CMK\. AWS services that are integrated with AWS KMS do not support asymmetric CMKs\. For help deciding which type of CMK to create, see [How to Choose Your CMK Configuration](symm-asymm-choose.md)\.
 
 **Learn More:**
 + For help creating a CMK with imported key material, see [Create a Customer Master Key With No Key Material](importing-keys-create-cmk.md)\.
@@ -136,17 +133,11 @@ $ aws kms get-key-policy --key-id 1234abcd-12ab-34cd-56ef-1234567890ab --policy-
 
 You can create [asymmetric CMKs](symm-asymm-concepts.md#asymmetric-cmks) in the AWS Management Console or by using the AWS KMS API\. An asymmetric CMK represents a public and private key pair that can be used for encryption or signing\. 
 
-**Note**  
-Asymmetric CMKs and asymmetric data key pairs are supported in all AWS Regions that AWS KMS supports except for China \(Beijing\) and China \(Ningxia\)\.
-
 If you are creating a CMK to encrypt data that you store or manage in an AWS service, use a symmetric CMK\. AWS services that integrate with AWS KMS do not support asymmetric CMKs\. For help deciding whether to create a symmetric or asymmetric CMK, see [How to Choose Your CMK Configuration](symm-asymm-choose.md)\. 
 
 ### Creating Asymmetric CMKs \(Console\)<a name="create-asymmetric-cmks-console"></a>
 
 You can use the AWS Management Console to create asymmetric customer master keys \(CMKs\)\. Each asymmetric CMK represents a public and private key pair\.
-
-**Note**  
-Asymmetric CMKs and asymmetric data key pairs are supported in all AWS Regions that AWS KMS supports except for China \(Beijing\) and China \(Ningxia\)\.
 
 1. Sign in to the AWS Management Console and open the AWS Key Management Service \(AWS KMS\) console at [https://console\.aws\.amazon\.com/kms](https://console.aws.amazon.com/kms)\.
 

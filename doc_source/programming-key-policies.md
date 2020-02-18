@@ -11,7 +11,7 @@ The examples in this topic use the AWS KMS API to view and change the key polici
 
 To get the names of key policies for a customer master key, use the [ListKeyPolicies](https://docs.aws.amazon.com/kms/latest/APIReference/API_ListKeyPolicies.html) operation\. The only key policy name it returns is **default**\.
 
-This example uses the AWS KMS client object that you created in [Creating a Client](programming-client.md)\.
+In languages that require a client object, these examples use the AWS KMS client object that you created in [Creating a Client](programming-client.md)\.
 
 ------
 #### [ Java ]
@@ -111,6 +111,19 @@ kmsClient.listKeyPolicies({ KeyId }, (err, data) => {
 ```
 
 ------
+#### [ PowerShell ]
+
+To list the name of the default key policy, use the [Get\-KMSKeyPolicyList](https://docs.aws.amazon.com/powershell/latest/reference/items/Get-KMSKeyPolicyList.html) cmdlet\.
+
+```
+# List key policies
+
+# Replace the following fictitious CMK ARN with a valid CMK ID or ARN
+$keyId = 'arn:aws:kms:us-west-2:111122223333:key/1234abcd-12ab-34cd-56ef-1234567890ab'
+$response = Get-KMSKeyPolicyList -KeyId $keyId
+```
+
+------
 
 ## Getting a Key Policy<a name="get-policy"></a>
 
@@ -118,7 +131,7 @@ To get the key policy for a customer master key, use the [GetKeyPolicy](https://
 
 GetKeyPolicy requires a policy name\. The only valid policy name is **default**\.
 
-This example uses the AWS KMS client object that you created in [Creating a Client](programming-client.md)\.
+In languages that require a client object, these examples use the AWS KMS client object that you created in [Creating a Client](programming-client.md)\.
 
 ------
 #### [ Java ]
@@ -227,14 +240,29 @@ kmsClient.getKeyPolicy({ KeyId, PolicyName }, (err, data) => {
 ```
 
 ------
+#### [ PowerShell ]
+
+To get the key policy for a CMK, use the [Get\-KMSKeyPolicy](https://docs.aws.amazon.com/powershell/latest/reference/items/Get-KMSKeyPolicy.html) cmdlet\. This cmdlet returns the key policy as a string \(System\.String\) that you can use in a [Write\-KMSKeyPolicy](https://docs.aws.amazon.com/powershell/latest/reference/items/Write-KMSKeyPolicy.html) \(`PutKeyPolicy`\) command\. To convert the policies in the JSON string to `PSCustomObject` objects, use the [ConvertFrom\-JSON](https://docs.microsoft.com/en-us/powershell/module/microsoft.powershell.utility/convertfrom-json) cmdlet\.
+
+```
+# Get the policy for a CMK
+
+# Replace the following fictitious CMK ARN with a valid CMK ID or ARN
+$keyId = 'arn:aws:kms:us-west-2:111122223333:key/1234abcd-12ab-34cd-56ef-1234567890ab'
+$policyName = 'default'
+
+$response = Get-KMSKeyPolicy -KeyId $keyId -PolicyName $policyName
+```
+
+------
 
 ## Setting a Key Policy<a name="put-policy"></a>
 
-To establish or change a key policy for a CMK, use the [PutKeyPolicy](https://docs.aws.amazon.com/kms/latest/APIReference/API_PutKeyPolicy.html) operation\.
+To create or replace the key policy for a CMK, use the [PutKeyPolicy](https://docs.aws.amazon.com/kms/latest/APIReference/API_PutKeyPolicy.html) operation\.
 
-PutKeyPolicy requires a policy name\. The only valid policy name is **default**\.
+`PutKeyPolicy` requires a policy name\. The only valid policy name is **default**\.
 
-This example uses the AWS KMS client object that you created in [Creating a Client](programming-client.md)\.
+In languages that require a client object, these examples use the AWS KMS client object that you created in [Creating a Client](programming-client.md)\.
 
 ------
 #### [ Java ]
@@ -465,6 +493,51 @@ const Policy = `{
 kmsClient.putKeyPolicy({ KeyId, Policy, PolicyName }, (err, data) => {
   ...
 });
+```
+
+------
+#### [ PowerShell ]
+
+To set a key policy for a CMK, use the [Write\-KMSKeyPolicy](https://docs.aws.amazon.com/powershell/latest/reference/items/Write-KMSKeyPolicy.html) cmdlet\. This cmdlet doesn't return any output\. To verify that the command was effective, use the [Get\-KMSKeyPolicy](https://docs.aws.amazon.com/powershell/latest/reference/items/Get-KMSKeyPolicy.html) cmdlet\.
+
+The `Policy` parameter takes a string\. Enclose the string in single quotes to make it a literal string\. You don't have to use continuation characters or escape characters in the literal string\.
+
+```
+# Set a key policy for a CMK
+
+# Replace the following fictitious CMK ARN with a valid CMK ID or ARN
+$keyId = 'arn:aws:kms:us-west-2:111122223333:key/1234abcd-12ab-34cd-56ef-1234567890ab'
+$policyName = 'default'
+$policy = '{
+    "Version": "2012-10-17", 
+    "Statement": [
+        {
+            "Sid": "Enable IAM User Permissions",
+            "Effect": "Allow",
+            "Principal": {
+                "AWS": "arn:aws:iam::111122223333:root"
+            },
+            "Action": "kms:*",
+            "Resource": "*"
+        },
+        {
+            "Sid": "Enable IAM User Permissions",
+            "Effect": "Allow",
+            "Principal": {
+                "AWS": "arn:aws:iam::111122223333:user/ExampleUser"
+            },
+            "Action": [
+                "kms:Encrypt*",
+                "kms:GenerateDataKey*",
+                "kms:Decrypt*",
+                "kms:DescribeKey*",
+                "kms:ReEncrypt*"
+            ],
+            "Resource": "*"
+        }]
+    }'
+
+Write-KMSKeyPolicy -KeyId $keyId -PolicyName $policyName -Policy $policy
 ```
 
 ------

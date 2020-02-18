@@ -41,9 +41,6 @@ For example, you might be using [symmetric CMKs](symm-asymm-concepts.md#symmetri
 
 Similarly, if you are using [asymmetric CMKs](symm-asymm-concepts.md#asymmetric-cmks), you can request any combination of the cryptographic operations that are supported by the CMK, just so the total number of cryptographic operations doesn't exceed the request quota for that type of CMK\. For example, you can make 300 [Encrypt](https://docs.aws.amazon.com/kms/latest/APIReference/API_Encrypt.html) requests and 200 [Decrypt](https://docs.aws.amazon.com/kms/latest/APIReference/API_Decrypt.html) requests on your RSA\-based encryption CMKs without being throttled\.
 
-**Note**  
-Asymmetric CMKs and asymmetric data key pairs are supported in all AWS Regions that AWS KMS supports except for China \(Beijing\) and China \(Ningxia\)\.
-
 The quotas for different key types are also calculated independently\. For example, in the Asia Pacific \(Singapore\) Region, if you use both symmetric and asymmetric CMKs, you can make up to 10,000 calls per second with symmetric CMKs *plus* up to 500 additional calls per second with your RSA\-based asymmetric CMKs, *plus* up to 300 additional requests per second with your ECC\-based CMKs\.
 
 ## API Requests Made on Your Behalf<a name="rps-from-service"></a>

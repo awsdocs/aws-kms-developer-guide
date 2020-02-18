@@ -26,8 +26,7 @@ The AWS KMS console also displays the custom key stores in the account and Regio
 To make it easier to find your CMKs in the console, you can sort and filter them\. 
 
 **Note**  
-The **Key type** column is [displayed optionally](#viewing-console-customize) and is available only in AWS Regions where AWS KMS supports asymmetric CMKs\.  
-Asymmetric CMKs and asymmetric data key pairs are supported in all AWS Regions that AWS KMS supports except for China \(Beijing\) and China \(Ningxia\)\.
+The **Key type** column is [displayed optionally](#viewing-console-customize) and is available only in AWS Regions where AWS KMS supports asymmetric CMKs\.
 
 **Sort**  
 You can sort customer managed CMKs in ascending or descending order by their column values\. This feature sorts all CMKs in the table, even if they don't appear on the current table page\.  
@@ -68,10 +67,7 @@ To display detailed information about a CMK:
 
 ![\[Image NOT FOUND\]](http://docs.aws.amazon.com/kms/latest/developerguide/images/console-key-detail-view-symmetric-sm.png)
 
-The details page for a CMK includes a **General Configuration** section that displays the basic properties of the CMK, a **Cryptographic Configuration** section that displays the cryptographic properties of the CMK, and a tabbed display that includes the key policy, tags, key rotation \(for symmetric CMKs\), and public key \(for asymmetric CMKs\)\. 
-
-**Note**  
-Asymmetric CMKs and asymmetric data key pairs are supported in all AWS Regions that AWS KMS supports except for China \(Beijing\) and China \(Ningxia\)\.
+The details page for a CMK includes a **General Configuration** section that displays the basic properties of the CMK, a **Cryptographic Configuration** section that displays the cryptographic properties of the CMK, and a tabbed display that includes the key policy, tags, key rotation \(for symmetric CMKs\), and public key \(for asymmetric CMKs\)\.
 
 The following list describes the fields in the detailed display\. Some of these fields are also available as columns in the table display\.
 
