@@ -150,7 +150,7 @@ $keyId = 'arn:aws:kms:us-west-2:111122223333:key/1234abcd-12ab-34cd-56ef-1234567
 $granteePrincipal = 'arn:aws:iam::111122223333:user/Alice'
 $operation = 'GenerateDataKey'
 
-$response = New-KMSGrant -GranteePrincipal $granteePrincipal -KeyId $cmk -Operation $operation
+$response = New-KMSGrant -GranteePrincipal $granteePrincipal -KeyId $keyId -Operation $operation
 ```
 
 ------
