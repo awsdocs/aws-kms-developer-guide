@@ -13,6 +13,8 @@ You can use the AWS KMS API to perform the following actions, and more\.
 
 The sample code in the following topics show how to use the AWS SDKs to call the AWS KMS API\.
 
+For information about using the AWS KMS console to perform some of these tasks, see [Getting Started](getting-started.md)\.
+
 **Topics**
 + [Creating a Client](programming-client.md)
 + [Working With Keys](programming-keys.md)

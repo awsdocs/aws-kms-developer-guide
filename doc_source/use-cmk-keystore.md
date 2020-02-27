@@ -1,6 +1,15 @@
 # Using CMKs in a Custom Key Store<a name="use-cmk-keystore"></a>
 
-After you [create CMKs in a custom key store](create-cmk-keystore.md), you can use them for cryptographic operations — [Encrypt](https://docs.aws.amazon.com/kms/latest/APIReference/API_Encrypt.html), [Decrypt](https://docs.aws.amazon.com/kms/latest/APIReference/API_Decrypt.html), [GenerateDataKey](https://docs.aws.amazon.com/kms/latest/APIReference/API_GenerateDataKey.html), [GenerateDataKeyWithoutPlaintext](https://docs.aws.amazon.com/kms/latest/APIReference/API_GenerateDataKeyWithoutPlaintext.html), and [ReEncrypt](https://docs.aws.amazon.com/kms/latest/APIReference/API_ReEncrypt.html) — just as you would for any CMK\. In the request, you identify the CMK by its ID or alias; you do not need to specify the custom key store or AWS CloudHSM cluster\. The response includes the same fields that are returned for any CMK\.
+After you [create a symmetric CMK in a custom key store](create-cmk-keystore.md), you can use it for the following cryptographic operations:
++ [Encrypt](https://docs.aws.amazon.com/kms/latest/APIReference/API_Encrypt.html)
++ [Decrypt](https://docs.aws.amazon.com/kms/latest/APIReference/API_Decrypt.html)
++ [GenerateDataKey](https://docs.aws.amazon.com/kms/latest/APIReference/API_GenerateDataKey.html)
++ [GenerateDataKeyWithoutPlaintext](https://docs.aws.amazon.com/kms/latest/APIReference/API_GenerateDataKeyWithoutPlaintext.html)
++ [ReEncrypt](https://docs.aws.amazon.com/kms/latest/APIReference/API_ReEncrypt.html)
+
+Asymmetric CMKs and asymmetric data key pairs are not supported in a custom key store\. As a result, you cannot use the operations that are specific to asymmetric CMKs — [Sign](https://docs.aws.amazon.com/kms/latest/APIReference/API_Sign.html), [Verify](https://docs.aws.amazon.com/kms/latest/APIReference/API_Verify.html), and [GetPublicKey](https://docs.aws.amazon.com/kms/latest/APIReference/API_GetPublicKey.html)\. Also, the operations that generate asymmetric data key pairs, [GenerateDataKeyPair](https://docs.aws.amazon.com/kms/latest/APIReference/API_GenerateDataKeyPair.html) and [GenerateDataKeyPairWithoutPlaintext](https://docs.aws.amazon.com/kms/latest/APIReference/API_GenerateDataKeyPairWithoutPlaintext.html), are not supported in a custom key store\.
+
+When you use your CMK in a request, identify the CMK by its ID or alias; you do not need to specify the custom key store or AWS CloudHSM cluster\. The response includes the same fields that are returned for any symmetric CMK\.
 
 However, when you use a CMK in a custom key store, the cryptographic operation is performed entirely within the AWS CloudHSM cluster that is associated with the custom key store\. The operation uses the key material in the cluster that is associated with the CMK that you chose\.
 

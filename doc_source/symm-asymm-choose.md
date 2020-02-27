@@ -95,7 +95,7 @@ You can use a symmetric CMK in AWS KMS to encrypt, decrypt, and re\-encrypt data
 When you use an RSA key spec, AWS KMS creates an asymmetric CMK with an RSA key pair\. The private key never leaves AWS KMS unencrypted\. You can use the public key within AWS KMS, or download the public key for use outside of AWS KMS\. 
 
 **Warning**  
-When you encrypt data outside of AWS KMS, if you use a public key from a CMK is configured for signing and verification, or an encryption algorithm that is not supported by the CMK, or use a public key from a CMK that has been deleted from AWS KMS, you cannot decrypt the ciphertext\. The data is unrecoverable\.
+When you encrypt data outside of AWS KMS, be sure that you can decrypt your ciphertext\. If you use the public key from a CMK that has been deleted from AWS KMS, the public key from a CMK configured for signing and verification, or an encryption algorithm that is not supported by the CMK, the data is unrecoverable\.
 
 In AWS KMS, you can use asymmetric CMKs with RSA key pairs for encryption and decryption, or signing and verification, but not both\. This property, known as [*key usage*](#symm-asymm-choose-key-usage), is determined separately from the key spec, but you should make that decision before you select a key spec\. 
 

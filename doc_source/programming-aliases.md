@@ -36,9 +36,9 @@ arn:aws:kms:us-west-2:111122223333:alias/ExampleAlias
 
 To create an alias, use the [CreateAlias](https://docs.aws.amazon.com/kms/latest/APIReference/API_CreateAlias.html) operation\. The alias must be unique in the account and region\. If you create an alias for a CMK that already has an alias, `CreateAlias` creates another alias to the same CMK\. It does not replace the existing alias\.
 
-You cannot create an alias that begins with `aws/`\. The `aws/` prefix is reserved by Amazon Web Services for [AWS managed CMKs](concepts.md#master_keys)\.
+The alias name must begin with `alias/` followed by a name, such as `alias/ExampleAlias`\. It can contain only alphanumeric characters, forward slashes \(/\), underscores \(\_\), and dashes \(\-\)\. The alias name cannot begin with `alias/aws/`\. The `alias/aws/` prefix is reserved for [AWS managed CMKs](concepts.md#master_keys)\. 
 
-The CreateAlias operation does not return any output\. To verify that the alias was created, use the [ListAliases](https://docs.aws.amazon.com/kms/latest/APIReference/API_ListAliases.html) operation\.
+The `CreateAlias` operation does not return any output\. To verify that the alias was created, use the [ListAliases](https://docs.aws.amazon.com/kms/latest/APIReference/API_ListAliases.html) operation\.
 
 In languages that require a client object, these examples use the AWS KMS client object that you created in [Creating a Client](programming-client.md)\.
 

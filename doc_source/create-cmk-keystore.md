@@ -1,11 +1,14 @@
 # Creating CMKs in a Custom Key Store<a name="create-cmk-keystore"></a>
 
-After you have created a custom key store, you can create [customer master keys](concepts.md#master_keys) \(CMKs\) in your key store\. Then you can use and manage these CMKs very much like you would use any CMK in AWS KMS\. For example, you can do any of the following:
-+ Create aliases that point to the CMKs\. 
-+ Set IAM and key policies on the CMKs\.
-+ Enable and disable the CMKs\. 
-+ Schedule deletions of the CMKs\. 
+After you have created a custom key store, you can create [customer master keys](concepts.md#master_keys) \(CMKs\) in your key store\. They must be [symmetric CMKs](symm-asymm-concepts.md#symmetric-cmks) with key material that AWS KMS generates\. You cannot create [asymmetric CMKs](symm-asymm-concepts.md#asymmetric-cmks) or CMKs with [imported key material](importing-keys.md)\.
+
+Use and manage the CMKs in your custom key store the same way that you use and manage any CMK in AWS KMS\. For example, you can do any of the following:
 + Use the CMKs for cryptographic operations\.
++ Set IAM and key policies on the CMKs\.
++ Create aliases are associated with the CMKs\.
++ Attach tags to the CMKs\.
++ Enable and disable the CMKs\. 
++ Schedule deletions of the CMKs\.
 
 To create a CMK in a custom key store, the custom key store must be [connected to its associated AWS CloudHSM cluster](disconnect-keystore.md) and the cluster must contain at least two active HSMs in different Availability Zones\. To find the connection status and number of HSMs, view the [custom key stores page](view-keystore.md#view-keystore-console) in the AWS Management Console\. When using the API operations, use the [DescribeCustomKeyStores](https://docs.aws.amazon.com/kms/latest/APIReference/API_DescribeCustomKeyStores.html) operation to verify that the custom key store is connected\. Use the AWS CloudHSM [DescribeClusters](https://docs.aws.amazon.com/cloudhsm/latest/APIReference/API_DescribeClusters.html) operation to get the number of active HSMs in the cluster and their Availability Zones\. 
 
