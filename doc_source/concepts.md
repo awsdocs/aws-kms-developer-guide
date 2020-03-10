@@ -6,6 +6,8 @@ Learn the basic terms and concepts in AWS Key Management Service \(AWS KMS\) and
 + [Customer Master Keys \(CMKs\)](#master_keys)
 + [Data Keys](#data-keys)
 + [Data Key Pairs](#data-key-pairs)
++ [Key Identifiers \(KeyId\)](#key-id)
++ [Key Material Origin](#key-origin)
 + [Key Spec](#key-spec)
 + [Key Usage](#key-usage)
 + [Envelope Encryption](#enveloping)
@@ -165,9 +167,98 @@ The following diagram shows how to use the public key in a data key pair to veri
 
 ![\[Verify a cryptographic signature with the public key in a data key pair outside of AWS KMS.\]](http://docs.aws.amazon.com/kms/latest/developerguide/images/verify-with-data-key-pair.png)
 
+## Key Identifiers \(KeyId\)<a name="key-id"></a>
+
+Key identifiers act as names for your AWS KMS customer master keys \(CMKs\)\. They help you to recognize your CMKs in the console\. You use them to indicate which CMKs you want to use in AWS KMS API operations, IAM policies, and grants\.
+
+AWS KMS defines several key identifiers\. When you create a CMK, AWS KMS generates a key ARN and key ID, which are properties of the CMK\. When you create an alias, AWS KMS generates an alias ARN based on the alias name that you define\. You can view the key and alias identifiers in the AWS Management Console and in the AWS KMS API\. 
+
+In the AWS KMS console, you can view and filter CMKs by their key ARN, key ID, or alias name, and sort by key ID and alias name\. For help finding the key identifiers in the console, see [Finding the Key ID and ARN](find-cmk-id-arn.md)\.
+
+In the AWS KMS API, the parameters that you use to identify a CMK are named `KeyId` or a variation, such as `TargetKeyId` or `DestinationKeyId`\. However, the values of those parameters are not limited to key IDs\. Some can take any valid key identifier\. For information about the values for each parameter, see the parameter description in the AWS Key Management Service API Reference\.
+
+**Note**  
+When using the AWS KMS API, be careful about the key identifier that you use\. Different APIs require different key identifiers\. In general, use the most complete key identifier that is practical for your task\.
+
+AWS KMS supports the following key identifiers\.
+
+**Key ARN**  <a name="key-id-key-ARN"></a>
+The key ARN is the Amazon Resource Name \(ARN\) of a CMK\. It is a unique, fully qualified identifier for the CMK\. A key ARN includes the AWS account, Region, and the key ID\. For help finding the key ARN of a CMK, see [Finding the Key ID and ARN](find-cmk-id-arn.md)\.  
+The format of a key ARN is as follows:  
+
+```
+arn:aws:kms:<region>:<account-id>:key/<key-id>
+```
+The following is an example key ARN\.  
+
+```
+arn:aws:kms:us-west-2:111122223333:key/1234abcd-12ab-34cd-56ef-1234567890ab
+```
+
+**Key ID**  <a name="key-id-key-id"></a>
+The key ID uniquely identifies a CMK within an account and Region\. For help finding the key ID of a CMK, see [Finding the Key ID and ARN](find-cmk-id-arn.md)\.  
+The following is an example key ID\.  
+
+```
+1234abcd-12ab-34cd-56ef-1234567890ab
+```
+
+**Alias ARN**  <a name="key-id-alias-ARN"></a>
+The alias ARN is the Amazon Resource Name \(ARN\) of an AWS KMS alias\. It is a unique, fully qualified identifier for the alias, and for the CMK it represents\. An alias ARN includes the AWS account, Region, and the alias name\.   
+At any given time, an alias ARN identifies one particular CMK\. However, because you can change the CMK associated with the alias, the alias ARN can identify different CMKs at different times\.  
+The format of an alias ARN is as follows:  
+
+```
+arn:aws:kms:<region>:<account-id>:alias/<alias-name>
+```
+The following is the alias ARN for a fictitious `ExampleAlias`\.  
+
+```
+arn:aws:kms:us-west-2:111122223333:alias/ExampleAlias
+```
+
+**Alias Name**  <a name="key-id-alias-name"></a>
+The alias name uniquely identifies an associated CMK within an account and Region\. In the AWS KMS API, alias names always begin with `alias`\.   
+The format of an alias name is as follows:  
+
+```
+alias/<alias-name>
+```
+For example:  
+
+```
+alias/ExampleAlias
+```
+The `aws/` prefix for an alias name is reserved for [AWS managed CMKs](#aws-managed-cmk)\. You cannot create an alias with this prefix\. For example, the alias name of the AWS managed CMK for Amazon Simple Storage Service \(Amazon S3\) is the following\.  
+
+```
+alias/aws/s3
+```
+
+## Key Material Origin<a name="key-origin"></a>
+
+*Key material origin* is a CMK property that identifies the source of the key material in the CMK\. You choose the key material origin when you create the CMK, and you cannot change it\. To find the key material origin of a CMK, use the [DescribeKey](url-kms-api;API_DescribeKey.html) operation, or see the **Origin** value in the **Cryptographic configuration** section of the detail page for a CMK in the AWS KMS console\. For help, see [Viewing Keys](viewing-keys.md)\. 
+
+CMKs can have one of the following key material origin values\.
+
+**KMS \(default\)**  
+API value: `AWS_KMS`  
+AWS KMS creates and manages the key material for the CMK in its own key store\. This is the default and the recommended value for most CMKs\.  
+For help creating keys with key material from AWS KMS, see [Creating Keys](create-keys.md)\.
+
+**External**  
+API value: `EXTERNAL`  
+The CMK has [imported key material](importing-keys.md)\. When you create a CMK with an `External` key material origin, the CMK has no key material\. Later, you can import key material into the CMK\. When you use imported key material, you need to secure and manage that key material outside of AWS KMS, including replacing the key material if it expires\. For details, see [About Imported Key Material](importing-keys.md#importing-keys-considerations)\.  
+For help creating a CMK for imported key material, see [](importing-keys-create-cmk.md)\.
+
+**Custom key store \(CloudHSM\)**  
+API value: `AWS_CLOUDHSM`  
+AWS KMS created the key material for the CMK in your [custom key store](custom-key-store-overview.md)\.  
+For help creating a CMK in a custom key store, see [Creating CMKs in a Custom Key Store](create-cmk-keystore.md)
+
 ## Key Spec<a name="key-spec"></a>
 
-The *key spec* is a CMK property that represents cryptographic configuration of the CMK\. The key spec determines whether the CMK is symmetric or asymmetric, the type of key material in the CMK, and the encryption algorithms or signing algorithms you can use with the CMK\. 
+*Key spec* is a CMK property that represents cryptographic configuration of the CMK\. The key spec determines whether the CMK is symmetric or asymmetric, the type of key material in the CMK, and the encryption algorithms or signing algorithms you can use with the CMK\. 
 
 Typically, the key spec that you choose for your CMK is based on your use case and regulatory requirements\. You choose the key spec when you [create the CMK](create-keys.md), and you cannot change it\. If you've chosen the wrong key spec, [delete the CMK](deleting-keys.md), and create a new one\. 
 

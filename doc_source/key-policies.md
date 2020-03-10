@@ -153,7 +153,7 @@ The key administrators statement described in the preceding section is in the la
 The default key policy that the console creates for symmetric CMKs allows you to choose IAM users and roles in the account, and external AWS accounts, and make them *key users*\. 
 
 The console adds two policy statements to the key policy for key users\.
-+ [Use the CMK directly](#key-policy-users-crypto) — The first key policy statement gives key users have permission to use the CMK directly for all supported cryptographic operations for that type of CMK\.
++ [Use the CMK directly](#key-policy-users-crypto) — The first key policy statement gives key users permission to use the CMK directly for all supported cryptographic operations for that type of CMK\.
 + [Use the CMK with AWS services](#key-policy-service-integration) — The second policy statement gives key users permission to allow AWS services that are integrated with AWS KMS to use the CMK on their behalf to protect resources, such as [Amazon Simple Storage Service buckets](services-s3.md) and [Amazon DynamoDB tables](services-dynamodb.md)\.
 
 You can add IAM users, IAM roles, and other AWS accounts to the list of key users when you create the CMK\. You can also edit the list with the console's default view for key policies, as shown in the following image\. The default view for key policies is on the key details page\. For more information about allowing users in other AWS accounts to use the CMK, see [Allowing Users in Other Accounts to Use a CMK](key-policy-modifying-external-accounts.md)\.

@@ -5,8 +5,8 @@ You can create [symmetric and asymmetric customer master keys](symmetric-asymmet
 If you are creating a CMK to encrypt data you store or manage in an AWS service, create a symmetric CMK\. AWS services that are integrated with AWS KMS do not support asymmetric CMKs\. For help deciding which type of CMK to create, see [How to Choose Your CMK Configuration](symm-asymm-choose.md)\.
 
 **Learn More:**
-+ For help creating a CMK with imported key material, see [Create a Customer Master Key With No Key Material](importing-keys-create-cmk.md)\.
-+ For help creating a CMK in a custom key store, see [Creating CMKs in a Custom Key Store](create-cmk-keystore.md)\.
++ For help creating a CMK with imported key material \([key material origin](concepts.md#key-origin) is External\), see [Create a Customer Master Key With No Key Material](importing-keys-create-cmk.md)\.
++ For help creating a CMK in a custom key store \([key material origin](concepts.md#key-origin) is Custom Key Store \(CloudHSM\)\), see [Creating CMKs in a Custom Key Store](create-cmk-keystore.md)\.
 + For help determining whether an existing CMK is symmetric or asymmetric, see [Identifying Symmetric and Asymmetric CMKs](find-symm-asymm.md)\.
 + To use your CMKs programmatically and in command line interface operations, you need a key ID or key ARN\. For detailed instructions, see [Finding the Key ID and ARN](find-cmk-id-arn.md)\.
 

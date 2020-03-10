@@ -18,7 +18,7 @@ Secrets Manager integrates with AWS Key Management Service \(AWS KMS\) to encryp
 
 To protect a secret, Secrets Manager encrypts the *secret value* in a secret\.
 
-In Secrets Manager, a [secret](https://docs.aws.amazon.com/secretsmanager/latest/userguide/terms-concepts.html#term_secret) consists of a *secret value*, also known as *protected secret text* or *encrypted secret data*, and related metadata and version information\. The secret value can be any string or binary data of up to 10,240 bytes, but it is typically a collection of name\-value pairs that comprise the login information for a server or database\.
+In Secrets Manager, a [secret](https://docs.aws.amazon.com/secretsmanager/latest/userguide/terms-concepts.html#term_secret) consists of a *secret value*, also known as *protected secret text* or *encrypted secret data*, and related metadata and version information\. The secret value can be any string or binary data of up to 65,536 bytes, but it is typically a collection of name\-value pairs that comprise the login information for a server or database\.
 
 Secrets Manager always encrypts the entire secret value before it stores the secret\. It decrypts the secret value transparently whenever you get or change the secret value\. There is no option to enable or disable encryption\. To encrypt and decrypt the secret value, Secrets Manager uses AWS KMS\.
 

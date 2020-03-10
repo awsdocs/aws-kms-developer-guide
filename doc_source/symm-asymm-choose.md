@@ -26,7 +26,7 @@ In addition to these considerations, CMKs with different key specs have differen
 
 ## Selecting the Key Usage<a name="symm-asymm-choose-key-usage"></a>
 
-The *key usage* of a CMK determines whether the CMK is used for encryption and decryption \-or\- signing and verification\. You cannot choose both\. Using a CMK for more than one type of operations makes the product of both operations more vulnerable to attack\.
+The [key usage](concepts.md#key-usage) of a CMK determines whether the CMK is used for encryption and decryption \-or\- signing and verification\. You cannot choose both\. Using a CMK for more than one type of operations makes the product of both operations more vulnerable to attack\.
 
 As shown in the following table, symmetric CMKs can be used only for encryption and decryption\. Elliptic curve \(ECC\) CMKs can be used only for signing and verification\. Key usage decisions are really made only for RSA CMKs\.
 
@@ -49,7 +49,7 @@ To determine the key usage that principals in your account are permitted to use 
 
 ## Selecting the Key Spec<a name="symm-asymm-choose-key-spec"></a>
 
-When you create an asymmetric CMK, you select its key spec\. The *key spec*, which is a property of every customer master key \(CMK\), represents the cryptographic configuration of your CMK\. You choose the key spec when you create the CMK, and you cannot change it\. If you've selected the wrong key spec, [delete the CMK](deleting-keys.md), and create a new one\.
+When you create an asymmetric CMK, you select its [key spec](concepts.md#key-spec)\. The *key spec*, which is a property of every customer master key \(CMK\), represents the cryptographic configuration of your CMK\. You choose the key spec when you create the CMK, and you cannot change it\. If you've selected the wrong key spec, [delete the CMK](deleting-keys.md), and create a new one\.
 
 **Note**  
 In AWS KMS API operations, the key spec for CMKs is known as the `CustomerMasterKeySpec`\. This distinguishes it from the key spec for data keys \(`KeySpec`\) and data key pairs \(`KeyPairSpec`\), and the key spec used when wrapping key material for import \(`WrappingKeySpec`\)\. Each key spec type has different values\.

@@ -40,7 +40,11 @@ The Amazon S3 Encryption Client encrypts the object by using envelope encryption
 
 ## Encryption Context<a name="s3-encryption-context"></a>
 
-Each service that is integrated with AWS KMS specifies an [encryption context](concepts.md#encrypt_context) when requesting data keys, encrypting, and decrypting\. The encryption context is [additional authenticated data](https://docs.aws.amazon.com/crypto/latest/userguide/cryptography-concepts.html#term-aad) \(AAD\) that AWS KMS uses to check for data integrity\. When an encryption context is specified for an encryption operation, Amazon S3 specifies the same encryption the decryption operation\. Otherwise, the decryption fails\. If you are using SSE\-KMS or the Amazon S3 encryption client to perform encryption, Amazon S3 uses the bucket path as the encryption context\. In the `requestParameters` field of a CloudTrail log file, the encryption context will look similar to this\. 
+Each service that is integrated with AWS KMS specifies an [encryption context](concepts.md#encrypt_context) when requesting data keys, encrypting, and decrypting\. The encryption context is [additional authenticated data](https://docs.aws.amazon.com/crypto/latest/userguide/cryptography-concepts.html#term-aad) \(AAD\) that AWS KMS uses to check for data integrity\.
+
+When an encryption context is specified for an encryption operation, Amazon S3 specifies the same encryption context for the decryption operation\. Otherwise, the decryption fails\.
+
+If you use SSE\-KMS or the Amazon S3 encryption client for encryption, Amazon S3 uses the bucket path as the encryption context\. In the `requestParameters` field of a CloudTrail log file, the encryption context will look similar to the following one\. 
 
 ```
 "encryptionContext": {
