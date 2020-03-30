@@ -1,4 +1,4 @@
-# Tagging Keys<a name="tagging-keys"></a>
+# Tagging keys<a name="tagging-keys"></a>
 
 Many AWS services support resource tags\. You can use tags to label, identify, and categorize your resources across AWS services\.
 
@@ -9,12 +9,12 @@ Each resource tag consists of a *tag key* and a *tag value* that you define\. Fo
 When you add tags to your AWS resources, AWS generates a cost allocation report with usage and costs aggregated by tags\. You can use this feature to track AWS KMS costs for a project, application, or cost center\. For more information about using tags for cost allocation, see [Using Cost Allocation Tags](https://docs.aws.amazon.com/awsaccountbilling/latest/aboutv2/cost-alloc-tags.html) in the *AWS Billing and Cost Management User Guide*\. For information about the rules that apply to tag keys and tag values, see [User\-Defined Tag Restrictions](https://docs.aws.amazon.com/awsaccountbilling/latest/aboutv2/allocation-tag-restrictions.html) in the *AWS Billing and Cost Management User Guide*\.
 
 **Topics**
-+ [Managing CMK Tags \(Console\)](#manage-tags)
-+ [Managing CMK Tags \(KMS API\)](#manage-tags-api)
++ [Managing CMK tags \(console\)](#manage-tags)
++ [Managing CMK tags \(AWS KMS API\)](#manage-tags-api)
 
-## Managing CMK Tags \(Console\)<a name="manage-tags"></a>
+## Managing CMK tags \(console\)<a name="manage-tags"></a>
 
-You can add, edit, and delete tags for your customer managed CMKs in the AWS Management Console\. You can add tags to a CMK when you [create it](create-keys.md) and edit them at any time\. You cannot edit the tags of CMKs that are pending deletion\. For more information, see [Creating Keys](create-keys.md) and [Editing Keys](editing-keys.md)\.
+You can add, edit, and delete tags for your customer managed CMKs in the AWS Management Console\. You can add tags to a CMK when you [create it](create-keys.md) and edit them at any time\. You cannot edit the tags of CMKs that are pending deletion\. For more information, see [Creating keys](create-keys.md) and [Editing keys](editing-keys.md)\.
 
 The following procedure shows how to manage tags using the check boxes on the **Customer managed keys** page\. You can use the **Tags** tab on the [detail page](viewing-keys-console.md#viewing-console-details) for any customer managed CMK\.
 
@@ -34,19 +34,19 @@ The following procedure shows how to manage tags using the check boxes on the **
 
 1. To save your changes, choose **Save changes**\.
 
-## Managing CMK Tags \(KMS API\)<a name="manage-tags-api"></a>
+## Managing CMK tags \(AWS KMS API\)<a name="manage-tags-api"></a>
 
 You can use the [AWS Key Management Service \(AWS KMS\) API](https://docs.aws.amazon.com/kms/latest/APIReference/) to add, delete, and list tags for the CMKs that you manage\. These examples use the [AWS Command Line Interface \(AWS CLI\)](https://aws.amazon.com/cli/), but you can use any supported programming language\. 
 
 You cannot tag [AWS managed CMKs](concepts.md#aws-managed-cmk)\.
 
 **Topics**
-+ [CreateKey: Add Tags to a New CMK](#tagging-keys-create-key)
-+ [TagResource: Add or Change Tags for a CMK](#tagging-keys-tag-resource)
-+ [ListResourceTags: Get the Tags for a CMK](#tagging-keys-list-resource-tags)
-+ [UntagResource: Delete Tags from a CMK](#tagging-keys-untag-resource)
++ [CreateKey: Add tags to a new CMK](#tagging-keys-create-key)
++ [TagResource: Add or change tags for a CMK](#tagging-keys-tag-resource)
++ [ListResourceTags: Get the tags for a CMK](#tagging-keys-list-resource-tags)
++ [UntagResource: Delete tags from a CMK](#tagging-keys-untag-resource)
 
-### CreateKey: Add Tags to a New CMK<a name="tagging-keys-create-key"></a>
+### CreateKey: Add tags to a new CMK<a name="tagging-keys-create-key"></a>
 
 You can add tags when you create a [customer managed CMK](concepts.md#customer-cmk)\. To specify the tags, use the `Tags` parameter of the [CreateKey](https://docs.aws.amazon.com/kms/latest/APIReference/API_CreateKey.html) operation\. The value of the `Tags` parameter is a collection of tag key\-value pairs\.
 
@@ -58,7 +58,7 @@ $ aws kms create-key --tags TagKey=Project,TagValue=Alpha
 
 When this command is successful, it returns a `KeyMetadata` object with information about the new CMK\. However, the `KeyMetadata` does not include tags\. To get the tags, use the [ListResourceTags](#tagging-keys-list-resource-tags) operation\.
 
-### TagResource: Add or Change Tags for a CMK<a name="tagging-keys-tag-resource"></a>
+### TagResource: Add or change tags for a CMK<a name="tagging-keys-tag-resource"></a>
 
 The [TagResource](https://docs.aws.amazon.com/kms/latest/APIReference/API_TagResource.html) operation adds one or more tags to a CMK\.
 
@@ -74,7 +74,7 @@ $ aws kms tag-resource \
 
 When this command is successful, it does not return any output\. To view the tags on a CMK, use the [ListResourceTags](https://docs.aws.amazon.com/kms/latest/APIReference/API_ListResourceTags.html) operation\.
 
-### ListResourceTags: Get the Tags for a CMK<a name="tagging-keys-list-resource-tags"></a>
+### ListResourceTags: Get the tags for a CMK<a name="tagging-keys-list-resource-tags"></a>
 
 The [ListResourceTags](https://docs.aws.amazon.com/kms/latest/APIReference/API_ListResourceTags.html) operation gets the tags for a CMK\. The `key-id` parameter is required\.
 
@@ -101,7 +101,7 @@ $ aws kms list-resource-tags --key-id 1234abcd-12ab-34cd-56ef-1234567890ab
 }
 ```
 
-### UntagResource: Delete Tags from a CMK<a name="tagging-keys-untag-resource"></a>
+### UntagResource: Delete tags from a CMK<a name="tagging-keys-untag-resource"></a>
 
 The [UntagResource](https://docs.aws.amazon.com/kms/latest/APIReference/API_UntagResource.html) operation deletes tags from a CMK\. The `key-id` and `tag-keys` parameters are required\.
 

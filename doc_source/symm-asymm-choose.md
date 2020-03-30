@@ -1,6 +1,6 @@
-# How to Choose Your CMK Configuration<a name="symm-asymm-choose"></a>
+# How to choose your CMK configuration<a name="symm-asymm-choose"></a>
 
-The type of CMK that you create depends largely on how your plan to use the CMK, your security requirements, and your authorization requirements\. When creating your CMK, remember that the cryptographic configuration of the CMK, including its key spec and key usage are established when you create the CMK and cannot be changed\. For help with creating symmetric and asymmetric CMK, see [Creating Keys](create-keys.md)\.
+The type of CMK that you create depends largely on how your plan to use the CMK, your security requirements, and your authorization requirements\. When creating your CMK, remember that the cryptographic configuration of the CMK, including its key spec and key usage are established when you create the CMK and cannot be changed\. For help with creating symmetric and asymmetric CMK, see [Creating keys](create-keys.md)\.
 
 AWS KMS supports two CMK key types: **Symmetric** and **Asymmetric**\. Each key type is associated particular [key usage](#symm-asymm-choose-key-usage) and [key spec](#symm-asymm-choose-key-spec) options\.
 
@@ -19,12 +19,12 @@ When you download the public key of an asymmetric CMK, you can use it outside of
 To decrypt data that was encrypted with the public key outside of AWS KMS, call the [Decrypt](url-kms-api;API_Decrypt.html) operation\. The `Decrypt` operation fails if the data was encrypted under a public key from a CMK with a [key usage](#symm-asymm-choose-key-usage) of `SIGN_VERIFY`\. It will also fail if it was encrypted by using an algorithm that KMS does not support for RSA CMKs\.  
 To avoid these errors, anyone using a public key outside of AWS KMS must store the key configuration\. The AWS KMS console and the [GetPublicKey](url-kms-api;API_GetPublicKey.html) response provide the information that you must include when you share the public key\.
 
-**Use with Integrated AWS Services**  <a name="cmks-aws-service"></a>
+**Use with integrated AWS services**  <a name="cmks-aws-service"></a>
 To create a CMK for use with an [AWS service that is integrated with AWS KMS](service-integration.md), consult the documentation for the service\. All AWS services that encrypt data on your behalf require a [symmetric CMK](symm-asymm-concepts.md#symmetric-cmks)\.
 
-In addition to these considerations, CMKs with different key specs have different prices and different request quotas\. For information about AWS KMS pricing, see [AWS Key Management Service Pricing](https://aws.amazon.com/kms/pricing/)\. For information about request quotas, see [Request Quotas](requests-per-second.md)\.
+In addition to these considerations, CMKs with different key specs have different prices and different request quotas\. For information about AWS KMS pricing, see [AWS Key Management Service Pricing](https://aws.amazon.com/kms/pricing/)\. For information about request quotas, see [Request quotas](requests-per-second.md)\.
 
-## Selecting the Key Usage<a name="symm-asymm-choose-key-usage"></a>
+## Selecting the key usage<a name="symm-asymm-choose-key-usage"></a>
 
 The [key usage](concepts.md#key-usage) of a CMK determines whether the CMK is used for encryption and decryption \-or\- signing and verification\. You cannot choose both\. Using a CMK for more than one type of operations makes the product of both operations more vulnerable to attack\.
 
@@ -33,7 +33,7 @@ As shown in the following table, symmetric CMKs can be used only for encryption 
 
 **Valid key usage for CMK types**  
 
-| CMK type | Encrypt and decrypt | Sign and Verify | 
+| CMK type | Encrypt and decrypt | Sign and verify | 
 | --- | --- | --- | 
 | Symmetric CMKs | ![\[Image NOT FOUND\]](http://docs.aws.amazon.com/kms/latest/developerguide/images/icon-successful.png) | ![\[Image NOT FOUND\]](http://docs.aws.amazon.com/kms/latest/developerguide/images/icon-failed.png) | 
 | Asymmetric CMKs with RSA key pairs | ![\[Image NOT FOUND\]](http://docs.aws.amazon.com/kms/latest/developerguide/images/icon-successful.png) | ![\[Image NOT FOUND\]](http://docs.aws.amazon.com/kms/latest/developerguide/images/icon-successful.png) | 
@@ -47,7 +47,7 @@ To choose a key usage in the AWS KMS console:
 
 To determine the key usage that principals in your account are permitted to use for CMKs, use the [kms:CustomerMasterKeyUsage](policy-conditions.md#conditions-kms-customer-master-key-usage) condition key\.
 
-## Selecting the Key Spec<a name="symm-asymm-choose-key-spec"></a>
+## Selecting the key spec<a name="symm-asymm-choose-key-spec"></a>
 
 When you create an asymmetric CMK, you select its [key spec](concepts.md#key-spec)\. The *key spec*, which is a property of every customer master key \(CMK\), represents the cryptographic configuration of your CMK\. You choose the key spec when you create the CMK, and you cannot change it\. If you've selected the wrong key spec, [delete the CMK](deleting-keys.md), and create a new one\.
 
@@ -80,7 +80,7 @@ The following topics provide technical information about the key specs\.
 + [RSA Key Specs](#key-spec-rsa)
 + [Elliptic Curve Key Specs](#key-spec-ecc)
 
-### SYMMETRIC\_DEFAULT Key Spec<a name="key-spec-symmetric-default"></a>
+### SYMMETRIC\_DEFAULT key spec<a name="key-spec-symmetric-default"></a>
 
 The default key spec, SYMMETRIC\_DEFAULT, is the key spec for symmetric CMKs\. When you select the **Symmetric** key type in the AWS KMS console, it selects the `SYMMETRIC_DEFAULT` key spec\. In the [CreateKey](https://docs.aws.amazon.com/kms/latest/APIReference/API_CreateKey.html) operation, if you don't specify a `CustomerMasterKeySpec` value, SYMMETRIC\_DEFAULT is selected\. If you don't have a reason to use a different key spec, SYMMETRIC\_DEFAULT is a good choice\.
 
@@ -90,7 +90,7 @@ Data encrypted under AES\-256\-GCM is protected now and in the future\. Cryptogr
 
 You can use a symmetric CMK in AWS KMS to encrypt, decrypt, and re\-encrypt data, and generate data keys and data key pairs\. AWS services that are integrated with AWS KMS generally use symmetric CMKs to encrypt your data at rest\. You can [import your own key material](importing-keys.md) into a symmetric CMK and create symmetric CMKs in [custom key stores](custom-key-store-overview.md)\. For a table comparing the operations that you can perform on symmetric and asymmetric CMKs, see [Comparing Symmetric and Asymmetric CMKs](symm-asymm-compare.md)\.
 
-### RSA Key Specs<a name="key-spec-rsa"></a>
+### RSA key specs<a name="key-spec-rsa"></a>
 
 When you use an RSA key spec, AWS KMS creates an asymmetric CMK with an RSA key pair\. The private key never leaves AWS KMS unencrypted\. You can use the public key within AWS KMS, or download the public key for use outside of AWS KMS\. 
 
@@ -104,9 +104,9 @@ AWS KMS supports the following RSA key specs for encryption and decryption or si
 + RSA\_3072
 + RSA\_4096
 
-RSA key specs differ by the length of the RSA key in bits\. The RSA key spec that you choose might be determined by your security standards or the requirements of your task\. In general, use the largest key that is practical and affordable for your task\. CMKs with different RSA key specs are priced differently and are subject to different request quotas\. For information about AWS KMS pricing, see [AWS Key Management Service Pricing](https://aws.amazon.com/kms/pricing/)\. For information about request quotas, see [Request Quotas](requests-per-second.md)\.
+RSA key specs differ by the length of the RSA key in bits\. The RSA key spec that you choose might be determined by your security standards or the requirements of your task\. In general, use the largest key that is practical and affordable for your task\. CMKs with different RSA key specs are priced differently and are subject to different request quotas\. For information about AWS KMS pricing, see [AWS Key Management Service Pricing](https://aws.amazon.com/kms/pricing/)\. For information about request quotas, see [Request quotas](requests-per-second.md)\.
 
-#### RSA Key Specs For Encryption and Decryption<a name="key-spec-rsa-encryption"></a>
+#### RSA key specs for encryption and decryption<a name="key-spec-rsa-encryption"></a>
 
 When an RSA asymmetric CMK is used for encryption and decryption, you encrypt with the public key and decrypt with the private key\. When you call the `Encrypt` operation in AWS KMS for an RSA CMK, AWS KMS uses the public key in the RSA key pair and the encryption algorithm you specify to encrypt your data\. To decrypt the ciphertext, call the `Decrypt` operation and specify the same CMK and encryption algorithm\. AWS KMS then uses the private key in the RSA key pair to decrypt your data\. 
 
@@ -133,13 +133,13 @@ To compute the maximum plaintext length in bytes for these algorithms, use the f
 
 **Maximum plaintext size \(in bytes\) in an Encrypt operation**  
 
-|  | Encryption algorithm | Key Spec | RSAES\_OAEP\_SHA\_1 | RSAES\_OAEP\_SHA\_256 | 
+|  | Encryption algorithm | Key spec | RSAES\_OAEP\_SHA\_1 | RSAES\_OAEP\_SHA\_256 | 
 | --- | --- | --- | --- | --- | 
 | RSA\_2048 | 214 | 190 | 
 | RSA\_3072 | 342 | 318  | 
 | RSA\_4096 | 470 | 446  | 
 
-#### RSA Key Specs For Signing and Verification<a name="key-spec-rsa-sign"></a>
+#### RSA key specs for signing and verification<a name="key-spec-rsa-sign"></a>
 
 When an RSA asymmetric CMK is used for signing and verification, you generate the signature for a message with the private key and verify the signature with the public key\. 
 
@@ -163,7 +163,7 @@ You cannot configure a CMK to use particular signing algorithms\. However, you c
 
 To get the signing algorithms for a CMK, [view the cryptographic configuration](viewing-keys-console.md#viewing-console-details) of the CMK in the AWS KMS console or by using the [DescribeKey](https://docs.aws.amazon.com/kms/latest/APIReference/API_DescribeKey.html) operation\. AWS KMS also provides the key spec and signing algorithms when you download your public key, either in the AWS KMS console or by using the [GetPublicKey](https://docs.aws.amazon.com/kms/latest/APIReference/API_GetPublicKey.html) operation\. 
 
-### Elliptic Curve Key Specs<a name="key-spec-ecc"></a>
+### Elliptic curve key specs<a name="key-spec-ecc"></a>
 
 ****
 
@@ -181,7 +181,7 @@ The ECC key spec that you choose might be determined by your security standards 
 
 If you're creating an asymmetric CMK to use with cryptocurrencies, use the ECC\_SECG\_P256K1 key spec\. You can also use this key spec for other purposes, but it is required for Bitcoin, and other cryptocurrencies\.
 
-CMKs with different ECC key specs are priced differently and are subject to different request quotas\. For information about AWS KMS pricing, see [AWS Key Management Service Pricing](https://aws.amazon.com/kms/pricing/)\. For information about request quotas, see [Request Quotas](requests-per-second.md)\.
+CMKs with different ECC key specs are priced differently and are subject to different request quotas\. For information about AWS KMS pricing, see [AWS Key Management Service Pricing](https://aws.amazon.com/kms/pricing/)\. For information about request quotas, see [Request quotas](requests-per-second.md)\.
 
 The following table shows the signing algorithms that AWS KMS supports for each of the ECC key specs\. You cannot configure a CMK to use particular signing algorithms\. However, you can use the [kms:SigningAlgorithm](policy-conditions.md#conditions-kms-signing-algorithm) policy condition to specify the signing algorithms that principals are allowed to use with the CMK\. 
 

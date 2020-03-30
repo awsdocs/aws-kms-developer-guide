@@ -1,26 +1,26 @@
-# How AWS CloudTrail Uses AWS KMS<a name="services-cloudtrail"></a>
+# How AWS CloudTrail uses AWS KMS<a name="services-cloudtrail"></a>
 
 You can use AWS CloudTrail to record AWS API calls and other activity for your AWS account and to save the recorded information to log files in an Amazon Simple Storage Service \(Amazon S3\) bucket that you choose\. By default, the log files delivered by CloudTrail to your S3 bucket are encrypted using server\-side encryption with Amazon S3–managed encryption keys \(SSE\-S3\)\. But you can choose instead to use server\-side encryption with AWS KMS–managed keys \(SSE\-KMS\)\. To learn how to encrypt your CloudTrail log files with AWS KMS, see [Encrypting CloudTrail Log Files with AWS KMS–Managed Keys \(SSE\-KMS\)](https://docs.aws.amazon.com/awscloudtrail/latest/userguide/encrypting-cloudtrail-log-files-with-aws-kms.html) in the *AWS CloudTrail User Guide*\.
 
 **Important**  
-AWS CloudTrail and Amazon S3 support only [symmetric customer master keys](symm-asymm-concepts.md#symmetric-cmks) \(CMKs\)\. You cannot use an [asymmetric CMK](symm-asymm-concepts.md#asymmetric-cmks) to encrypt your CloudTrail Logs\. To determine whether a CMK is symmetric or asymmetric, see [Identifying Symmetric and Asymmetric CMKs](find-symm-asymm.md)\.
+AWS CloudTrail and Amazon S3 support only [symmetric customer master keys](symm-asymm-concepts.md#symmetric-cmks) \(CMKs\)\. You cannot use an [asymmetric CMK](symm-asymm-concepts.md#asymmetric-cmks) to encrypt your CloudTrail Logs\. To determine whether a CMK is symmetric or asymmetric, see [Identifying symmetric and asymmetric CMKs](find-symm-asymm.md)\.
 
 **Topics**
-+ [Understanding When Your CMK is Used](#cloudtrail-details)
-+ [Understanding How Often Your CMK is Used](#cloudtrail-requests)
++ [Understanding when your CMK is used](#cloudtrail-details)
++ [Understanding how often your CMK is used](#cloudtrail-requests)
 
-## Understanding When Your CMK is Used<a name="cloudtrail-details"></a>
+## Understanding when your CMK is used<a name="cloudtrail-details"></a>
 
-Encrypting CloudTrail log files with AWS KMS builds on the Amazon S3 feature called server\-side encryption with AWS KMS–managed keys \(SSE\-KMS\)\. To learn more about SSE\-KMS, see [How Amazon Simple Storage Service \(Amazon S3\) Uses AWS KMS](services-s3.md) in this guide or [Protecting Data Using Server\-Side Encryption with AWS KMS–Managed Keys \(SSE\-KMS\)](https://docs.aws.amazon.com/AmazonS3/latest/dev/UsingKMSEncryption.html) in the *Amazon Simple Storage Service Developer Guide*\.
+Encrypting CloudTrail log files with AWS KMS builds on the Amazon S3 feature called server\-side encryption with AWS KMS–managed keys \(SSE\-KMS\)\. To learn more about SSE\-KMS, see [How Amazon Simple Storage Service \(Amazon S3\) uses AWS KMS](services-s3.md) in this guide or [Protecting Data Using Server\-Side Encryption with AWS KMS–Managed Keys \(SSE\-KMS\)](https://docs.aws.amazon.com/AmazonS3/latest/dev/UsingKMSEncryption.html) in the *Amazon Simple Storage Service Developer Guide*\.
 
 When you configure AWS CloudTrail to use SSE\-KMS to encrypt your log files, CloudTrail and Amazon S3 use your KMS customer master key \(CMK\) when you perform certain actions with those services\. The following sections explain when and how those services can use your CMK, and provide additional information that you can use to validate this explanation\.
 
 **Contents**
-+ [You Configure CloudTrail to Encrypt Log Files with Your Customer Master Key \(CMK\)](#cloudtrail-details-update-configuration)
-+ [CloudTrail Puts a Log File into Your S3 Bucket](#cloudtrail-details-put-log-file)
-+ [You Get an Encrypted Log File from Your S3 Bucket](#cloudtrail-details-get-log-file)
++ [You configure CloudTrail to encrypt log files with your customer master key \(CMK\)](#cloudtrail-details-update-configuration)
++ [CloudTrail puts a log file into your S3 bucket](#cloudtrail-details-put-log-file)
++ [You get an encrypted log file from your S3 bucket](#cloudtrail-details-get-log-file)
 
-### You Configure CloudTrail to Encrypt Log Files with Your Customer Master Key \(CMK\)<a name="cloudtrail-details-update-configuration"></a>
+### You configure CloudTrail to encrypt log files with your customer master key \(CMK\)<a name="cloudtrail-details-update-configuration"></a>
 
 When you [update your CloudTrail configuration to use your CMK](https://docs.aws.amazon.com/awscloudtrail/latest/userguide/create-kms-key-policy-for-cloudtrail-update-trail.html), CloudTrail sends a [https://docs.aws.amazon.com/kms/latest/APIReference/API_GenerateDataKey.html](https://docs.aws.amazon.com/kms/latest/APIReference/API_GenerateDataKey.html) request to AWS KMS to verify that the CMK exists and that CloudTrail has permission to use it for encryption\. CloudTrail does not use the resulting data key\.
 
@@ -76,7 +76,7 @@ You might need to scroll to the right to see some of the callouts in the followi
 }
 ```
 
-### CloudTrail Puts a Log File into Your S3 Bucket<a name="cloudtrail-details-put-log-file"></a>
+### CloudTrail puts a log file into your S3 bucket<a name="cloudtrail-details-put-log-file"></a>
 
 Each time CloudTrail puts a log file into your S3 bucket, Amazon S3 sends a [https://docs.aws.amazon.com/kms/latest/APIReference/API_GenerateDataKey.html](https://docs.aws.amazon.com/kms/latest/APIReference/API_GenerateDataKey.html) request to AWS KMS on behalf of CloudTrail\. In response to this request, AWS KMS generates a unique data key and then sends Amazon S3 two copies of the data key, one in plaintext and one that is encrypted with the specified CMK\. Amazon S3 uses the plaintext data key to encrypt the CloudTrail log file and then removes the plaintext data key from memory as soon as possible after use\. Amazon S3 stores the encrypted data key as metadata with the encrypted CloudTrail log file\.
 
@@ -140,7 +140,7 @@ You might need to scroll to the right to see some of the callouts in the followi
 }
 ```
 
-### You Get an Encrypted Log File from Your S3 Bucket<a name="cloudtrail-details-get-log-file"></a>
+### You get an encrypted log file from your S3 bucket<a name="cloudtrail-details-get-log-file"></a>
 
 Each time you get an encrypted CloudTrail log file from your S3 bucket, Amazon S3 sends a [https://docs.aws.amazon.com/kms/latest/APIReference/API_Decrypt.html](https://docs.aws.amazon.com/kms/latest/APIReference/API_Decrypt.html) request to AWS KMS on your behalf to decrypt the log file's encrypted data key\. In response to this request, AWS KMS uses your CMK to decrypt the data key and then sends the plaintext data key to Amazon S3\. Amazon S3 uses the plaintext data key to decrypt the CloudTrail log file and then removes the plaintext data key from memory as soon as possible after use\.
 
@@ -194,7 +194,7 @@ You might need to scroll to the right to see some of the callouts in the followi
 }
 ```
 
-## Understanding How Often Your CMK is Used<a name="cloudtrail-requests"></a>
+## Understanding how often your CMK is used<a name="cloudtrail-requests"></a>
 
 To predict costs and better understand your AWS bill, you might want to know how often CloudTrail uses your CMK\. AWS KMS charges for all API requests to the service that exceed the free tier\. For the exact charges, see [AWS Key Management Service Pricing](https://aws.amazon.com/kms/pricing/)\.
 

@@ -1,4 +1,4 @@
-# Connecting to AWS KMS Through a VPC Endpoint<a name="kms-vpc-endpoint"></a>
+# Connecting to AWS KMS through a VPC endpoint<a name="kms-vpc-endpoint"></a>
 
 You can connect directly to AWS KMS through a private endpoint in your VPC instead of connecting over the internet\. When you use a VPC endpoint, communication between your VPC and AWS KMS is conducted entirely within the AWS network\.
 
@@ -17,26 +17,26 @@ If you use the default domain name servers \(**AmazonProvidedDNS**\) and enable 
 You can also use AWS CloudTrail logs to audit your use of KMS keys through the VPC endpoint\. And you can use the conditions in IAM and key policies to deny access to any request that does not come from a specified VPC or VPC endpoint\.
 
 **Note**  
-Use caution when creating IAM and key policies based on your VPC endpoint\. If a policy statement requires that requests come from a particular VPC or VPC endpoint, requests from integrated AWS services that use the CMK on your behalf might fail\. For help, see [Using VPC Endpoint Conditions in Policies with AWS KMS Permissions](policy-conditions.md#conditions-aws-vpce)\.
+Use caution when creating IAM and key policies based on your VPC endpoint\. If a policy statement requires that requests come from a particular VPC or VPC endpoint, requests from integrated AWS services that use the CMK on your behalf might fail\. For help, see [Using VPC endpoint conditions in policies with AWS KMS permissions](policy-conditions.md#conditions-aws-vpce)\.
 
 **Supported AWS Regions**  
 AWS KMS supports VPC endpoints in all AWS Regions where both [Amazon VPC](https://docs.aws.amazon.com/general/latest/gr/vpc-service.html) and [AWS KMS](https://docs.aws.amazon.com/general/latest/gr/kms.html) are available\.
 
 **Topics**
-+ [Create an AWS KMS VPC Endpoint](#create-vpc-endpoint)
-+ [Connecting to an AWS KMS VPC Endpoint](#connecting-vpc-endpoint)
-+ [Using a VPC Endpoint in a Policy Statement](#vpce-policy)
-+ [Audit the CMK Use for your VPC](#vpce-logging)
++ [Create an AWS KMS VPC endpoint](#create-vpc-endpoint)
++ [Connecting to an AWS KMS VPC endpoint](#connecting-vpc-endpoint)
++ [Using a VPC endpoint in a policy statement](#vpce-policy)
++ [Audit the CMK use for your VPC](#vpce-logging)
 
-## Create an AWS KMS VPC Endpoint<a name="create-vpc-endpoint"></a>
+## Create an AWS KMS VPC endpoint<a name="create-vpc-endpoint"></a>
 
 You [create an interface endpoint](https://docs.aws.amazon.com/vpc/latest/userguide/vpce-interface.html#create-interface-endpoint) in your VPC by using the KMS VPC endpoint service in each region\. You can create a VPC endpoint in the AWS Management Console, or by using the [AWS CLI](https://docs.aws.amazon.com/cli/latest/reference/ec2/create-vpc-endpoint.html) or [Amazon EC2 API](https://docs.aws.amazon.com/AWSEC2/latest/APIReference/API_CreateVpcEndpoint.html)\. 
 
 **Topics**
-+ [Creating an AWS KMS VPC Endpoint \(VPC Console\)](#create-vpc-endpoint-console)
-+ [Creating an AWS KMS VPC Endpoint \(AWS CLI\)](#create-vpc-endpoint-cli)
++ [Creating an AWS KMS VPC endpoint \(VPC console\)](#create-vpc-endpoint-console)
++ [Creating an AWS KMS VPC endpoint \(AWS CLI\)](#create-vpc-endpoint-cli)
 
-### Creating an AWS KMS VPC Endpoint \(VPC Console\)<a name="create-vpc-endpoint-console"></a>
+### Creating an AWS KMS VPC endpoint \(VPC console\)<a name="create-vpc-endpoint-console"></a>
 
 1. Sign in to the AWS Management Console and open the Amazon VPC console at [https://console\.aws\.amazon\.com/vpc/](https://console.aws.amazon.com/vpc/)\.
 
@@ -74,7 +74,7 @@ You can also use the Amazon VPC tools to view and manage your endpoint, includin
 
 ![\[Creating an endpoint in the VPC console\]](http://docs.aws.amazon.com/kms/latest/developerguide/images/create-vpc-endpoint.png)
 
-### Creating an AWS KMS VPC Endpoint \(AWS CLI\)<a name="create-vpc-endpoint-cli"></a>
+### Creating an AWS KMS VPC endpoint \(AWS CLI\)<a name="create-vpc-endpoint-cli"></a>
 
 You can use the [create\-vpc\-endpoint](https://docs.aws.amazon.com/cli/latest/reference/ec2/create-vpc-endpoint.html) command in the AWS CLI to create a VPC endpoint that connects to AWS KMS\. 
 
@@ -144,7 +144,7 @@ $  aws ec2 create-vpc-endpoint --vpc-id vpc-1a2b3c4d \
 }
 ```
 
-## Connecting to an AWS KMS VPC Endpoint<a name="connecting-vpc-endpoint"></a>
+## Connecting to an AWS KMS VPC endpoint<a name="connecting-vpc-endpoint"></a>
 
 You can connect to AWS KMS through the VPC endpoint by using the AWS CLI or an AWS SDK\. To specify the VPC endpoint, use its DNS name\. 
 
@@ -158,14 +158,14 @@ If you enabled private hostnames when you created your VPC endpoint, you do not 
 
 To use private hostnames, the` enableDnsHostnames` and `enableDnsSupport` attributes of your VPC must be set to true\. To set these attributes, use the [ModifyVpcAttribute](https://docs.aws.amazon.com/AWSEC2/latest/APIReference/API_ModifyVpcAttribute.html) operation\. 
 
-## Using a VPC Endpoint in a Policy Statement<a name="vpce-policy"></a>
+## Using a VPC endpoint in a policy statement<a name="vpce-policy"></a>
 
 You can use IAM policies and AWS KMS key policies to control access to your AWS KMS customer master keys \(CMKs\)\. You can also use [global condition keys](https://docs.aws.amazon.com/IAM/latest/UserGuide/reference_policies_condition-keys.html#AvailableKeys) to restrict these policies based on VPC endpoint or VPC in the request\.
 + Use the `aws:sourceVpce` condition key to grant or restrict access to an AWS KMS CMK based on the VPC endpoint\.
 + Use the `aws:sourceVpc` condition key to grant or restrict access to an AWS KMS CMK based on the VPC that hosts the private endpoint\.
 
 **Note**  
-Use caution when creating IAM and key policies based on your VPC endpoint\. If a policy statement requires that requests come from a particular VPC or VPC endpoint, requests from integrated AWS services that use the CMK on your behalf might fail\. For help, see [Using VPC Endpoint Conditions in Policies with AWS KMS Permissions](policy-conditions.md#conditions-aws-vpce)\.  
+Use caution when creating IAM and key policies based on your VPC endpoint\. If a policy statement requires that requests come from a particular VPC or VPC endpoint, requests from integrated AWS services that use the CMK on your behalf might fail\. For help, see [Using VPC endpoint conditions in policies with AWS KMS permissions](policy-conditions.md#conditions-aws-vpce)\.  
 Also, the `aws:sourceIP` condition key is not effective when the request comes from an [Amazon VPC endpoint](https://docs.aws.amazon.com/vpc/latest/userguide/vpc-endpoints.html)\. To restrict requests to a VPC endpoint, use the `aws:sourceVpce` or `aws:sourceVpc` condition keys\. For more information, see [VPC Endpoints \- Controlling the Use of Endpoints](https://docs.aws.amazon.com/vpc/latest/userguide/vpc-endpoints.html#vpc-endpoints-iam-access) in the *Amazon VPC User Guide*\. 
 
 For example, the following sample key policy allows a user to perform encryption operations with a CMK only when the request comes through the specified VPC endpoint\. 
@@ -262,7 +262,7 @@ To use a policy like this one, replace the placeholder AWS account ID and VPC en
 }
 ```
 
-## Audit the CMK Use for your VPC<a name="vpce-logging"></a>
+## Audit the CMK use for your VPC<a name="vpce-logging"></a>
 
 When a request to AWS KMS uses a VPC endpoint, the VPC endpoint ID appears in the [AWS CloudTrail log](logging-using-cloudtrail.md) entry that records the request\. You can use the endpoint ID to audit the use of your AWS KMS VPC endpoint\. 
 

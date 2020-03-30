@@ -1,4 +1,4 @@
-# How AWS Services use AWS KMS<a name="service-integration"></a>
+# How AWS services use AWS KMS<a name="service-integration"></a>
 
 Many AWS services use AWS KMS to support encryption of your data\. When an AWS service is integrated with AWS KMS, you can use the customer master keys \(CMKs\) in your account to protect the data that the service receives, stores, or manages for you\. For the complete list of AWS services that are integrated with AWS KMS, see [AWS Service Integration](https://aws.amazon.com/kms/features/#AWS_Service_Integration)\.
 

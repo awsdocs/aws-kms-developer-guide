@@ -1,4 +1,4 @@
-# Using Symmetric and Asymmetric Keys<a name="symmetric-asymmetric"></a>
+# Using symmetric and asymmetric keys<a name="symmetric-asymmetric"></a>
 
 AWS KMS protects the [customer master keys](concepts.md#master_keys) \(CMKs\) that you use to protect your data and data keys\. Your secret keys are generated and used only in hardware security modules designed so that no one, including AWS employees, can access the plaintext key material\. 
 
@@ -15,20 +15,20 @@ AWS KMS also provides symmetric [data keys](concepts.md#data-keys) and asymmetri
 + Symmetric data key — A symmetric encryption key that you can use to encrypt data outside of AWS KMS\. This key is protected by a symmetric CMK in AWS KMS\. 
 + Asymmetric data key pair — An RSA or elliptic curve \(ECC\) key pair that consists of a public key and a private key\. You can use your data key pair outside of AWS KMS to encrypt and decrypt data, or sign messages and verify signatures\. The private key is protected by a symmetric CMK in AWS KMS\.
 
-For information about how to create and use data keys and data key pairs, see [Data Keys](concepts.md#data-keys) and [Data Key Pairs](concepts.md#data-key-pairs)\. To learn how to limit the types of data key pairs that principals in your account are permitted to generate, use the [kms:DataKeyPairSpec](policy-conditions.md#conditions-kms-data-key-spec) condition key\.
+For information about how to create and use data keys and data key pairs, see [Data keys](concepts.md#data-keys) and [Data key pairs](concepts.md#data-key-pairs)\. To learn how to limit the types of data key pairs that principals in your account are permitted to generate, use the [kms:DataKeyPairSpec](policy-conditions.md#conditions-kms-data-key-spec) condition key\.
 
 This topic explains how symmetric and asymmetric CMKs work, how they differ, and how to decide which type of CMK you need to protect your data\. It also explains how symmetric data keys and asymmetric data key pairs work and how to use them outside of AWS KMS\. 
 
 **Learn more**
-+ For a table that compares the AWS KMS API operations that apply to each type of CMK, see [Comparing Symmetric and Asymmetric CMKs](symm-asymm-compare.md)\.
-+ To find out whether a CMK is symmetric or asymmetric, see [Identifying Symmetric and Asymmetric CMKs](find-symm-asymm.md)\. 
-+ To examine the difference in the default key policy that the AWS KMS console sets for symmetric and asymmetric CMKs, see [Allows Key Users to Use the CMK with AWS Services](key-policies.md#key-policy-service-integration)\. 
-+ To specify the key specs, key usage, encryption algorithms, and signing algorithms that principals in your account can use for CMKs, see [AWS KMS Condition Keys](policy-conditions.md#conditions-kms)\.
-+ To learn about the request quotas that apply to different types of CMKs, see [Request Quotas](requests-per-second.md)\.
++ For a table that compares the AWS KMS API operations that apply to each type of CMK, see [Comparing symmetric and asymmetric CMKs](symm-asymm-compare.md)\.
++ To find out whether a CMK is symmetric or asymmetric, see [Identifying symmetric and asymmetric CMKs](find-symm-asymm.md)\. 
++ To examine the difference in the default key policy that the AWS KMS console sets for symmetric and asymmetric CMKs, see [Allows key users to use the CMK with AWS services](key-policies.md#key-policy-service-integration)\. 
++ To specify the key specs, key usage, encryption algorithms, and signing algorithms that principals in your account can use for CMKs, see [AWS KMS condition keys](policy-conditions.md#conditions-kms)\.
++ To learn about the request quotas that apply to different types of CMKs, see [Request quotas](requests-per-second.md)\.
 + To learn how to sign messages and verify signatures with asymmetric CMKs, see [Digital signing with the new asymmetric keys feature of AWS KMS](http://aws.amazon.com/blogs/security/digital-signing-asymmetric-keys-aws-kms/) in the *AWS Security Blog*\.
 
 **Topics**
-+ [About Symmetric and Asymmetric CMKs](symm-asymm-concepts.md)
-+ [How to Choose Your CMK Configuration](symm-asymm-choose.md)
-+ [Viewing the Cryptographic Configuration of CMKs](symm-asymm-crypto-config.md)
-+ [Comparing Symmetric and Asymmetric CMKs](symm-asymm-compare.md)
++ [About symmetric and asymmetric CMKs](symm-asymm-concepts.md)
++ [How to choose your CMK configuration](symm-asymm-choose.md)
++ [Viewing the cryptographic configuration of CMKs](symm-asymm-crypto-config.md)
++ [Comparing symmetric and asymmetric CMKs](symm-asymm-compare.md)

@@ -1,31 +1,31 @@
-# Troubleshooting a Custom Key Store<a name="fix-keystore"></a>
+# Troubleshooting a custom key store<a name="fix-keystore"></a>
 
 Custom key stores are designed to be available and resilient\. However, there are some error conditions that you might have to repair to keep your custom key store operational\.
 
 **Topics**
-+ [How to Fix Unavailable CMKs](#fix-unavailable-cmks)
-+ [How to Fix a Failing CMK](#fix-cmk-failed)
-+ [How to Fix a Connection Failure](#fix-keystore-failed)
-+ [How to Fix Invalid `kmsuser` Credentials](#fix-keystore-password)
-+ [How to Delete Orphaned Key Material](#fix-keystore-orphaned-key)
-+ [How to Recover Deleted Key Material for a CMK](#fix-keystore-recover-backing-key)
-+ [How to Log in as `kmsuser`](#fix-login-as-kmsuser)
++ [How to fix unavailable CMKs](#fix-unavailable-cmks)
++ [How to fix a failing CMK](#fix-cmk-failed)
++ [How to fix a connection failure](#fix-keystore-failed)
++ [How to fix invalid `kmsuser` credentials](#fix-keystore-password)
++ [How to delete orphaned key material](#fix-keystore-orphaned-key)
++ [How to recover deleted key material for a CMK](#fix-keystore-recover-backing-key)
++ [How to log in as `kmsuser`](#fix-login-as-kmsuser)
 
-## How to Fix Unavailable CMKs<a name="fix-unavailable-cmks"></a>
+## How to fix unavailable CMKs<a name="fix-unavailable-cmks"></a>
 
 The [key state](key-state.md) of customer master keys \(CMKs\) in a custom key store is typically `Enabled`\. Like all CMKs, the key state changes when you disable the CMKs in a custom key store or schedule them for deletion\. However, unlike other CMKs, the CMKs in a custom key store can also have a [key state](key-state.md) of `Unavailable`\. 
 
 A key state of `Unavailable` indicates that the CMK is in a custom key store that was intentionally [disconnected from its AWS CloudHSM cluster](disconnect-keystore.md) and attempts to reconnect it, if any, failed\. While a CMK is unavailable, you can view and manage the CMK, but you cannot use it for cryptographic operations\.
 
-To find the key state of a CMK, on the **Customer managed keys** page, view the **Status** field of the CMK\. Or, use the [DescribeKey](https://docs.aws.amazon.com/kms/latest/APIReference/API_DescribeKey.html) operation and view the `KeyState` element in the response\. For details, see [Viewing Keys](viewing-keys.md)\.
+To find the key state of a CMK, on the **Customer managed keys** page, view the **Status** field of the CMK\. Or, use the [DescribeKey](https://docs.aws.amazon.com/kms/latest/APIReference/API_DescribeKey.html) operation and view the `KeyState` element in the response\. For details, see [Viewing keys](viewing-keys.md)\.
 
 The CMKs in a disconnected custom key store will have a key state of `Unavailable` or `PendingDeletion`\. CMKs that are scheduled for deletion from a custom key store have a `Pending Deletion` key state, even when the custom key store is disconnected from its AWS CloudHSM cluster\. This allows you to cancel the scheduled key deletion without reconnecting the custom key store\. 
 
 To fix an unavailable CMK, [reconnect the custom key store](disconnect-keystore.md)\. After the custom key store is reconnected, the key state of the CMKs in the custom key store is automatically restored to its previous state, such as `Enabled` or `Disabled`\. CMKs that are pending deletion remain in the `PendingDeletion` state\. However, while the problem persists, [enabling and disabling an unavailable CMK](enabling-keys.md) does not change its key state\. The enable or disable action takes effect only when the key becomes available\.
 
-For help with failed connections, see [How to Fix a Connection Failure](#fix-keystore-failed)\. 
+For help with failed connections, see [How to fix a connection failure](#fix-keystore-failed)\. 
 
-## How to Fix a Failing CMK<a name="fix-cmk-failed"></a>
+## How to fix a failing CMK<a name="fix-cmk-failed"></a>
 
 Problems with creating and using CMKs in custom key stores can be caused by a problem with your custom key store, its associated AWS CloudHSM cluster, the CMK, or its key material\. 
 
@@ -34,9 +34,9 @@ When a custom key store is disconnected from its AWS CloudHSM cluster, the key s
 However, your attempts to use a custom key store CMK for cryptographic operations might fail even when its key state is `Enabled` and the connection status of the custom key store is `Connected`\. This might be caused by any of the following conditions\.
 + The key material for the CMK might have been deleted from the associated AWS CloudHSM cluster\. To investigate, [find the key handle](view-cmk-keystore.md) of the key material for a CMK and, if necessary, try to [recover the key material](#fix-keystore-recover-backing-key)\.
 + All HSMs were deleted from the AWS CloudHSM cluster that is associated with the custom key store\. To use a CMK in a custom key store in a cryptographic operation, its AWS CloudHSM cluster must contain at least one active HSM\. To verify the number and state of HSMs in an AWS CloudHSM cluster, [use the AWS CloudHSM console](https://docs.aws.amazon.com/cloudhsm/latest/userguide/add-remove-hsm.html) or the [DescribeClusters](https://docs.aws.amazon.com/cloudhsm/latest/APIReference/API_DescribeClusters.html) operation\. To add an HSM to the cluster, use the AWS CloudHSM console or the [CreateHsm](https://docs.aws.amazon.com/cloudhsm/latest/APIReference/API_CreateHsm.html) operation\.
-+ The AWS CloudHSM cluster associated with the custom key store was deleted\. To fix the problem, [create a cluster from a backup](https://docs.aws.amazon.com/cloudhsm/latest/userguide/create-cluster-from-backup.html) that is related to the original cluster, such as a backup of the original cluster, or a backup that was used to create the original cluster\. Then, [edit the cluster ID](update-keystore.md) in the custom key store settings\. For instructions, see [How to Recover Deleted Key Material for a CMK](#fix-keystore-recover-backing-key)\.
++ The AWS CloudHSM cluster associated with the custom key store was deleted\. To fix the problem, [create a cluster from a backup](https://docs.aws.amazon.com/cloudhsm/latest/userguide/create-cluster-from-backup.html) that is related to the original cluster, such as a backup of the original cluster, or a backup that was used to create the original cluster\. Then, [edit the cluster ID](update-keystore.md) in the custom key store settings\. For instructions, see [How to recover deleted key material for a CMK](#fix-keystore-recover-backing-key)\.
 
-## How to Fix a Connection Failure<a name="fix-keystore-failed"></a>
+## How to fix a connection failure<a name="fix-keystore-failed"></a>
 
 If you try to [connect a custom key store](disconnect-keystore.md) to its AWS CloudHSM cluster, but the operation fails, the connection status of the custom key store changes to `FAILED`\. To find the status of a custom key store, view the **Status** column of the custom key store in the AWS Management Console or the `ConnectionState` element the [DescribeCustomKeyStores](https://docs.aws.amazon.com/kms/latest/APIReference/API_DescribeCustomKeyStores.html) response\. 
 
@@ -49,20 +49,20 @@ When the connection status of a custom key store is `FAILED`, you must [disconne
 + `CLUSTER_NOT_FOUND` indicates that AWS KMS cannot find an AWS CloudHSM cluster with the specified cluster ID\. This might occur because the wrong cluster ID was provided to an API operation or the cluster was deleted and not replaced\. To fix this error, verify the cluster ID, such as by using the AWS CloudHSM console or the [DescribeClusters](https://docs.aws.amazon.com/cloudhsm/latest/APIReference/API_DescribeClusters.html) operation\. If the cluster was deleted, [create a cluster from a recent backup](https://docs.aws.amazon.com/cloudhsm/latest/userguide/create-cluster-from-backup.html) of the original\. Then, [disconnect the custom key store](disconnect-keystore.md), [edit the custom key store](update-keystore.md) cluster ID setting, and [reconnect the custom key store](disconnect-keystore.md) to the cluster\.
 + `INSUFFICIENT_CLOUDHSM_HSMS` indicates that the associated AWS CloudHSM cluster does not contain any HSMs\. To connect, the cluster must have at least one HSM\. To find the number of HSMs in the cluster, use the [DescribeClusters](https://docs.aws.amazon.com/cloudhsm/latest/APIReference/API_DescribeClusters.html) operation\. To resolve this error, [add at least one HSM](https://docs.aws.amazon.com/cloudhsm/latest/userguide/create-hsm.html) to the cluster\. If you add multiple HSMs, it's best to create them in different Availability Zones\.
 + `INTERNAL_ERROR` indicates that AWS KMS could not complete the request due to an internal error\. Retry the request\. For `ConnectCustomKeyStore` requests, disconnect the custom key store before trying to connect again\.
-+ `INVALID_CREDENTIALS` indicates that AWS KMS cannot log into the associated AWS CloudHSM cluster because it doesn't have the correct `kmsuser` account password\. For help with this error, see [How to Fix Invalid `kmsuser` Credentials](#fix-keystore-password)\.
++ `INVALID_CREDENTIALS` indicates that AWS KMS cannot log into the associated AWS CloudHSM cluster because it doesn't have the correct `kmsuser` account password\. For help with this error, see [How to fix invalid `kmsuser` credentials](#fix-keystore-password)\.
 + `NETWORK_ERRORS` usually indicates transient network issues\. [Disconnect the custom key store](disconnect-keystore.md), wait a few minutes, and try to connect again\.
 + `SUBNET_NOT_FOUND` indicates that at least one subnet in the AWS CloudHSM cluster configuration was deleted\. If AWS KMS cannot find all of the subnets in the cluster configuration, attempts to connect the custom key store to the AWS CloudHSM cluster fail\. 
 
   To fix this error, [create a cluster from a recent backup](https://docs.aws.amazon.com/cloudhsm/latest/userguide/create-cluster-from-backup.html) of the same AWS CloudHSM cluster\. \(This process creates a new cluster configuration with a VPC and private subnets\.\) Verify that the new cluster meets the [requirements for a custom key store](create-keystore.md#before-keystore), and note the new cluster ID\. Then, to associate the new cluster with your custom key store, [disconnect the custom key store](disconnect-keystore.md), [change the cluster ID](update-keystore.md) of the custom key store to the ID of the new cluster, and try to connect again\.
 **Tip**  
 To avoid [resetting the `kmsuser` password](#fix-keystore-password), use the most recent backup of the AWS CloudHSM cluster\.
-+ `USER_LOCKED_OUT` indicates that the [`kmsuser` crypto user \(CU\) account](key-store-concepts.md#concept-kmsuser) is locked out of the associated AWS CloudHSM cluster due to too many failed password attempts\. For help with this error, see [How to Fix Invalid `kmsuser` Credentials](#fix-keystore-password)\.
++ `USER_LOCKED_OUT` indicates that the [`kmsuser` crypto user \(CU\) account](key-store-concepts.md#concept-kmsuser) is locked out of the associated AWS CloudHSM cluster due to too many failed password attempts\. For help with this error, see [How to fix invalid `kmsuser` credentials](#fix-keystore-password)\.
 
-  To fix this error, [disconnect the custom key store](disconnect-keystore.md) and use the [changePswd](https://docs.aws.amazon.com/cloudhsm/latest/userguide/cloudhsm_mgmt_util-changePswd.html) command in cloudhsm\_mgmt\_util to change the `kmsuser` account password\. Then, [edit the `kmsuser` password setting](update-keystore.md) for the custom key store, and try to connect again\. For help, use the procedure described in the [How to Fix Invalid `kmsuser` Credentials](#fix-keystore-password) topic\.
-+ `USER_LOGGED_IN` indicates that the `kmsuser` CU account is logged into the associated AWS CloudHSM cluster\. This prevents AWS KMS from rotating the `kmsuser` account password and logging into the cluster\. To fix this error, log the `kmsuser` CU out of the cluster\. If you changed the `kmsuser` password to log into the cluster, you must also and update the key store password value for the custom key store\. For help, see [How to Log Out and Reconnect](#login-kmsuser-2)\.
-+ `USER_NOT_FOUND` indicates that AWS KMS cannot find a `kmsuser` CU account in the associated AWS CloudHSM cluster\. To fix this error, [create a kmsuser CU account](create-keystore.md#kmsuser-concept) in the cluster, and then [update the key store password value](update-keystore.md) for the custom key store\. For help, see [How to Fix Invalid `kmsuser` Credentials](#fix-keystore-password)\.
+  To fix this error, [disconnect the custom key store](disconnect-keystore.md) and use the [changePswd](https://docs.aws.amazon.com/cloudhsm/latest/userguide/cloudhsm_mgmt_util-changePswd.html) command in cloudhsm\_mgmt\_util to change the `kmsuser` account password\. Then, [edit the `kmsuser` password setting](update-keystore.md) for the custom key store, and try to connect again\. For help, use the procedure described in the [How to fix invalid `kmsuser` credentials](#fix-keystore-password) topic\.
++ `USER_LOGGED_IN` indicates that the `kmsuser` CU account is logged into the associated AWS CloudHSM cluster\. This prevents AWS KMS from rotating the `kmsuser` account password and logging into the cluster\. To fix this error, log the `kmsuser` CU out of the cluster\. If you changed the `kmsuser` password to log into the cluster, you must also and update the key store password value for the custom key store\. For help, see [How to log out and reconnect](#login-kmsuser-2)\.
++ `USER_NOT_FOUND` indicates that AWS KMS cannot find a `kmsuser` CU account in the associated AWS CloudHSM cluster\. To fix this error, [create a kmsuser CU account](create-keystore.md#kmsuser-concept) in the cluster, and then [update the key store password value](update-keystore.md) for the custom key store\. For help, see [How to fix invalid `kmsuser` credentials](#fix-keystore-password)\.
 
-## How to Fix Invalid `kmsuser` Credentials<a name="fix-keystore-password"></a>
+## How to fix invalid `kmsuser` credentials<a name="fix-keystore-password"></a>
 
 When you [connect a custom key store](disconnect-keystore.md), AWS KMS logs into the associated AWS CloudHSM cluster as the [`kmsuser` crypto user](key-store-concepts.md#concept-kmsuser) \(CU\)\. It remains logged in until the custom key store is disconnected\. The [DescribeCustomKeyStores](https://docs.aws.amazon.com/kms/latest/APIReference/API_DescribeCustomKeyStores.html) response shows a `ConnectionState` of `FAILED` and `ConnectionErrorCode` value of `INVALID_CREDENTIALS`, as shown in the following example\.
 
@@ -114,7 +114,7 @@ To repair any of these conditions, use the following procedure\.
 
 1. [Connect the custom key store](disconnect-keystore.md)\.
 
-## How to Delete Orphaned Key Material<a name="fix-keystore-orphaned-key"></a>
+## How to delete orphaned key material<a name="fix-keystore-orphaned-key"></a>
 
 After scheduling deletion of a CMK from a custom key store, you might need to manually delete the corresponding key material from the associated cluster\. 
 
@@ -124,7 +124,7 @@ If AWS KMS cannot delete the key material, such as when the custom key store is 
 
 To delete the key material from the associated AWS CloudHSM cluster, use a procedure like the following one\. This example uses the AWS CLI and AWS CloudHSM command line tools, but you can use the AWS Management Console instead of the CLI\.
 
-1. Disconnect the custom key store, if it is not already disconnected, then log into the key\_mgmt\_util, as explained in [How to Disconnect and Log In](#login-kmsuser-1)\.
+1. Disconnect the custom key store, if it is not already disconnected, then log into the key\_mgmt\_util, as explained in [How to disconnect and log in](#login-kmsuser-1)\.
 
 1. Use the [deleteKey](https://docs.aws.amazon.com/cloudhsm/latest/userguide/key_mgmt_util-deleteKey.html) command in key\_mgmt\_util to delete the key from the HSMs in the cluster\.
 
@@ -141,9 +141,9 @@ To delete the key material from the associated AWS CloudHSM cluster, use a proce
            Node id 2 and err state 0x00000000 : HSM Return: SUCCESS
    ```
 
-1. Log out of key\_mgmt\_util and reconnect the custom key store as described in [How to Log Out and Reconnect](#login-kmsuser-2)\.
+1. Log out of key\_mgmt\_util and reconnect the custom key store as described in [How to log out and reconnect](#login-kmsuser-2)\.
 
-## How to Recover Deleted Key Material for a CMK<a name="fix-keystore-recover-backing-key"></a>
+## How to recover deleted key material for a CMK<a name="fix-keystore-recover-backing-key"></a>
 
 If the key material for a customer master key is deleted, the CMK is unusable and all ciphertext that was encrypted under the CMK cannot be decrypted\. This can happen if the key material for a CMK in a custom key store is deleted from the associated AWS CloudHSM cluster\. However, it might be possible to recover the key material\.
 
@@ -182,7 +182,7 @@ Use the following process to recover the key material\.
 
 1. [Reconnect the custom key store](disconnect-keystore.md)\.
 
-## How to Log in as `kmsuser`<a name="fix-login-as-kmsuser"></a>
+## How to log in as `kmsuser`<a name="fix-login-as-kmsuser"></a>
 
 To create and manage the key material in the AWS CloudHSM cluster for your custom key store, AWS KMS uses the [kmsuser crypto user \(CU\) account](key-store-concepts.md#concept-kmsuser)\. You [create the `kmsuser` CU account](create-keystore.md#before-keystore) in your cluster and provide its password to AWS KMS when you create your custom key store\.
 
@@ -194,10 +194,10 @@ While a custom key store is disconnected, all attempts to create customer master
 This topic explains how to [disconnect your custom key store and log in](#login-kmsuser-1) as `kmsuser`, run the AWS CloudHSM command line tool, and [log out and reconnect your custom key store](#login-kmsuser-2)\.
 
 **Topics**
-+ [How to Disconnect and Log In](#login-kmsuser-1)
-+ [How to Log Out and Reconnect](#login-kmsuser-2)
++ [How to disconnect and log in](#login-kmsuser-1)
++ [How to log out and reconnect](#login-kmsuser-2)
 
-### How to Disconnect and Log In<a name="login-kmsuser-1"></a>
+### How to disconnect and log in<a name="login-kmsuser-1"></a>
 
 Use the following procedure each time to need to log into an associated cluster as the `kmsuser` CU\.
 
@@ -256,7 +256,7 @@ Use the following procedure each time to need to log into an associated cluster 
    Node id 2 and err state 0x00000000 : HSM Return: SUCCESS
    ```
 
-### How to Log Out and Reconnect<a name="login-kmsuser-2"></a>
+### How to log out and reconnect<a name="login-kmsuser-2"></a>
 
 1. Perform the task, then log out of the command line tool\. If you do not log out, attempts to reconnect your custom key store will fail\.
 

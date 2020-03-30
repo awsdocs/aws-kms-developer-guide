@@ -1,4 +1,4 @@
-# Using Hybrid Post\-Quantum TLS with AWS KMS<a name="pqtls"></a>
+# Using hybrid post\-quantum TLS with AWS KMS<a name="pqtls"></a>
 
 AWS Key Management Service \(AWS KMS\) now supports a hybrid post\-quantum key exchange option for the Transport Layer Security \(TLS\) network encryption protocol\. You can use this TLS option when you connect to KMS API endpoints\. We're offering this feature before post\-quantum algorithms are standardized so you can begin testing the effect of these key exchange protocols on AWS KMS calls\. These optional hybrid post\-quantum key exchange features are at least as secure as the TLS encryption we use today and are likely to provide additional security benefits\. However, they affect latency and throughput compared to the classic key exchange protocols in use today\.
 
@@ -21,7 +21,7 @@ Post\-quantum TLS for AWS KMS is available in all AWS Regions except for AWS Gov
 
 For a list of AWS KMS endpoints for each AWS Region, see [AWS Key Management Service Endpoints and Quotas](https://docs.aws.amazon.com/general/latest/gr/kms.html) in the *Amazon Web Services General Reference*\. For information about FIPS endpoints, see [AWS Service Endpoints](https://docs.aws.amazon.com/general/latest/gr/rande.html) in the *Amazon Web Services General Reference*\.\.
 
-## About Hybrid Post\-Quantum Key Exchange in TLS<a name="PQTLS-concepts"></a>
+## About hybrid post\-quantum key exchange in TLS<a name="PQTLS-concepts"></a>
 
 AWS KMS supports hybrid post\-quantum key exchange cipher suites\. You can use the AWS SDK for Java 2\.x and AWS common runtime to configure an HTTP client to use these cipher suites\. Then, whenever you connect to a AWS KMS endpoint with your HTTP client, the hybrid cipher suites are used\.
 
@@ -33,7 +33,7 @@ The algorithms that s2n uses are a *hybrid* that combines [Elliptic Curve Diffie
 
 If ongoing research reveals that the BIKE algorithm lacks the anticipated post\-quantum strength, the hybrid key is still at least as strong as the single ECDH key currently in use\. The National Institute for Standards and Technology \(NIST\) has [not yet standardized](https://csrc.nist.gov/Projects/Post-Quantum-Cryptography/Post-Quantum-Cryptography-Standardization) post\-quantum algorithms\. They are still in the process of evaluating candidate approaches\. Until that process is complete, we recommend using hybrid algorithms, rather than using post\-quantum algorithms alone\.
 
-## Using Hybrid Post\-Quantum TLS with AWS KMS<a name="pqtls-details"></a>
+## Using hybrid post\-quantum TLS with AWS KMS<a name="pqtls-details"></a>
 
 You can use hybrid post\-quantum TLS for your calls to AWS KMS\. When setting up your HTTP client test environment, be aware of the following information:
 
@@ -45,7 +45,7 @@ Instead, when AWS KMS encrypts your data under CMKs, it uses symmetric cryptogra
 
 **Supported Systems**
 
-Use of the hybrid cipher suites in s2n is currently supported only on Linux systems\. In addition, these cipher suites are supported only in SDKs that support the AWS common runtime, such as the AWS SDK for Java 2\.x\. For an example, see [How to Configure Hybrid Post\-Quantum TLS](#pqtls-how-to)\.
+Use of the hybrid cipher suites in s2n is currently supported only on Linux systems\. In addition, these cipher suites are supported only in SDKs that support the AWS common runtime, such as the AWS SDK for Java 2\.x\. For an example, see [How to configure hybrid post\-quantum TLS](#pqtls-how-to)\.
 
 **AWS KMS Endpoints**
 
@@ -59,7 +59,7 @@ For a list of AWS KMS endpoints for each AWS Region, see [AWS Key Management Ser
 
 Our early benchmark testing shows that the hybrid cipher suites in s2n are slower than classic TLS cipher suites\. The effect varies based on the network profile, CPU speed, the number of cores, and your call rate\. For performance test results, see [Post\-quantum TLS now supported in AWS KMS](http://aws.amazon.com/blogs/security/post-quantum-tls-now-supported-in-aws-kms/)\.
 
-## How to Configure Hybrid Post\-Quantum TLS<a name="pqtls-how-to"></a>
+## How to configure hybrid post\-quantum TLS<a name="pqtls-how-to"></a>
 
 In this procedure, you get the `aws-crt-dev-preview` \(developer preview\) branch of the [AWS SDK for Java 2\.x](https://mvnrepository.com/artifact/com.amazonaws/aws-java-sdk) from its GitHub repository\. Next, you build an AWS common runtime client and add the AWS common runtime to your dependencies\. Then you can configure an HTTP client that uses the hybrid post\-quantum cipher preference and create an AWS KMS client that uses the HTTP client\.
 
@@ -127,13 +127,13 @@ The `aws-crt-dev-preview` branch is a beta release\. Your use of this library is
    ListKeysReponse keys = kmsAsync.listKeys().get();
    ```
 
-## Testing Hybrid Post\-Quantum TLS with AWS KMS<a name="pqtls-testing"></a>
+## Testing hybrid post\-quantum TLS with AWS KMS<a name="pqtls-testing"></a>
 
 Consider running the following tests with hybrid cipher suites on your applications that call AWS KMS\.
 + Run load tests and benchmarks\. The hybrid cipher suites perform differently than traditional key exchange algorithms\. You might need to adjust your connection timeouts to allow for the longer handshake times\. If you’re running inside an AWS Lambda function, extend the execution timeout setting\.
 + Try connecting from different locations\. Depending on the network path your request takes, you might discover that intermediate hosts, proxies, or firewalls with deep packet inspection \(DPI\) block the request\. This might result from using the new cipher suites in the [ClientHello](https://tools.ietf.org/html/rfc5246#section-7.4.1.2) part of the TLS handshake, or from the larger key exchange messages\. If you have trouble resolving these issues, work with your security team or IT administrators to update the relevant configuration and unblock the new TLS cipher suites\. 
 
-## Learn More About Post\-Quantum TLS in AWS KMS<a name="pqtls-see-also"></a>
+## Learn more about post\-quantum TLS in AWS KMS<a name="pqtls-see-also"></a>
 
 For more information about using hybrid post\-quantum TLS in AWS KMS, see the following resources\.
 + For more information about using hybrid post\-quantum TLS cipher suites with AWS KMS, including performance data, see [Post\-quantum TLS now supported in AWS KMS](http://aws.amazon.com/blogs/security/post-quantum-tls-now-supported-in-aws-kms/)\.

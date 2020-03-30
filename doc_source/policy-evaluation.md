@@ -1,4 +1,4 @@
-# Troubleshooting Key Access<a name="policy-evaluation"></a>
+# Troubleshooting key access<a name="policy-evaluation"></a>
 
 When authorizing access to a customer master key \(CMK\), AWS KMS evaluates the following:
 + The key policy that is attached to the CMK\. The key policy is always defined in the AWS account that owns the CMK\. 
@@ -18,10 +18,10 @@ You can use this flowchart to discover why a caller was allowed or denied permis
 The flowchart can explain some common permission scenarios\.
 
 **Topics**
-+ [Example 1: User Is Denied Access to a CMK in Their AWS Account](#example-no-iam)
-+ [Example 2: User Assumes Role with Permission to Use a CMK in a Different AWS Account](#example-cross-acct)
++ [Example 1: User is denied access to a CMK in their AWS account](#example-no-iam)
++ [Example 2: User assumes role with permission to use a CMK in a different AWS account](#example-cross-acct)
 
-## Example 1: User Is Denied Access to a CMK in Their AWS Account<a name="example-no-iam"></a>
+## Example 1: User is denied access to a CMK in their AWS account<a name="example-no-iam"></a>
 
 Alice is an IAM user in the 111122223333 AWS account\. She was denied access to a CMK in same AWS account\. Why can't Alice use the CMK?
 
@@ -49,7 +49,7 @@ Consider the relevant policies for this example\.
   ```
 + However, no key policy, IAM policy, or grant gives Alice permission to use the CMK\. Therefore, Alice is denied permission to use the CMK\.
 
-## Example 2: User Assumes Role with Permission to Use a CMK in a Different AWS Account<a name="example-cross-acct"></a>
+## Example 2: User assumes role with permission to use a CMK in a different AWS account<a name="example-cross-acct"></a>
 
 Bob is a user in account 1 \(111122223333\)\. He is allowed to use a CMK in account 2 \(444455556666\) in cryptographic operations\. How is this possible?
 

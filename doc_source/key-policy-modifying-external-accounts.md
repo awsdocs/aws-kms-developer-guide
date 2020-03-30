@@ -1,4 +1,4 @@
-# Allowing Users in Other Accounts to Use a CMK<a name="key-policy-modifying-external-accounts"></a>
+# Allowing users in other accounts to use a CMK<a name="key-policy-modifying-external-accounts"></a>
 
 You can allow IAM users or roles in one AWS account to use a customer master key \(CMK\) in a different AWS account\. You can add these permissions when you create the CMK or change the permissions for an existing CMK\.
 
@@ -8,19 +8,19 @@ To give permission to use a CMK to users and roles in another account, you must 
 
 In this scenario, the key policy determines who *can* have access to the CMK\. The IAM policy determines who *does* have access to the CMK\. Neither the key policy nor the IAM policy alone is sufficient—you must change both\. 
 
-To edit the key policy, you can use the [Policy View](key-policy-modifying.md#key-policy-modifying-how-to-console-policy-view) in the AWS Management Console or use the [CreateKey](https://docs.aws.amazon.com/kms/latest/APIReference/API_CreateKey.html) or [PutKeyPolicy](https://docs.aws.amazon.com/kms/latest/APIReference/API_PutKeyPolicy.html) operations\. For help setting the key policy when creating a CMK, see [Creating CMKs that Other Accounts Can Use](#cross-account-console)\.
+To edit the key policy, you can use the [Policy View](key-policy-modifying.md#key-policy-modifying-how-to-console-policy-view) in the AWS Management Console or use the [CreateKey](https://docs.aws.amazon.com/kms/latest/APIReference/API_CreateKey.html) or [PutKeyPolicy](https://docs.aws.amazon.com/kms/latest/APIReference/API_PutKeyPolicy.html) operations\. For help setting the key policy when creating a CMK, see [Creating CMKs that other accounts can use](#cross-account-console)\.
 
-For help with editing IAM policies, see [Using IAM Policies with AWS KMS](iam-policies.md)\. 
+For help with editing IAM policies, see [Using IAM policies with AWS KMS](iam-policies.md)\. 
 
-For an example that shows how the key policy and IAM policies work together to allow use of a CMK in a different account, see [Example 2: User Assumes Role with Permission to Use a CMK in a Different AWS Account](policy-evaluation.md#example-cross-acct)\.
+For an example that shows how the key policy and IAM policies work together to allow use of a CMK in a different account, see [Example 2: User assumes role with permission to use a CMK in a different AWS account](policy-evaluation.md#example-cross-acct)\.
 
 **Topics**
-+ [Step 1: Add a Key Policy Statement in the Local Account](#cross-account-key-policy)
-+ [Step 2: Add IAM Policies in the External Account](#cross-account-iam-policy)
-+ [Creating CMKs that Other Accounts Can Use](#cross-account-console)
-+ [Using External CMKs with AWS Services](#cross-account-service)
++ [Step 1: Add a key policy statement in the local account](#cross-account-key-policy)
++ [Step 2: Add IAM policies in the external account](#cross-account-iam-policy)
++ [Creating CMKs that other accounts can use](#cross-account-console)
++ [Using external CMKs with AWS services](#cross-account-service)
 
-## Step 1: Add a Key Policy Statement in the Local Account<a name="cross-account-key-policy"></a>
+## Step 1: Add a key policy statement in the local account<a name="cross-account-key-policy"></a>
 
 The key policy for a CMK is the primary determinant of who can access the CMK and which operations they can perform\. The key policy is always in the account that owns the CMK\. Unlike IAM policies, key policies do not specify a resource\. The resource is the CMK that is associated with the key policy\.
 
@@ -82,13 +82,13 @@ For example, the following example key policy statement allows `ExampleRole` and
 **Note**  
 Do not set the Principal to an asterisk \(\*\) in any key policy statement that allows permissions\. An asterisk gives every identity in every AWS account permission to use the CMK, unless another policy statement explicitly denies it\. Users in other AWS accounts just need corresponding IAM permissions in their own accounts to use the CMK\.
 
-You also need to decide which permissions you want to give to the external account\. For a list of permissions on CMKs, see [AWS KMS API Permissions: Actions and Resources Reference](kms-api-permissions-reference.md)\.
+You also need to decide which permissions you want to give to the external account\. For a list of permissions on CMKs, see [AWS KMS API permissions: Actions and resources reference](kms-api-permissions-reference.md)\.
 
-You can give the external account permission to use the CMK in cryptographic operations and use the CMK with AWS services that are integrated with AWS KMS\. To do that, use the **Key Users** section of the AWS Management Console\. For details, see [Creating CMKs that Other Accounts Can Use](#cross-account-console)\.
+You can give the external account permission to use the CMK in cryptographic operations and use the CMK with AWS services that are integrated with AWS KMS\. To do that, use the **Key Users** section of the AWS Management Console\. For details, see [Creating CMKs that other accounts can use](#cross-account-console)\.
 
 To specify other permissions in key policies, edit the key policy document\. For example, you might want to give users permission to decrypt but not encrypt, or permission to view the CMK but not use it\. To edit the key policy document, you can use the [Policy View](key-policy-modifying.md#key-policy-modifying-how-to-console-policy-view) in the AWS Management Console or the [CreateKey](https://docs.aws.amazon.com/kms/latest/APIReference/API_CreateKey.html) or [PutKeyPolicy](https://docs.aws.amazon.com/kms/latest/APIReference/API_PutKeyPolicy.html) operations\.
 
-## Step 2: Add IAM Policies in the External Account<a name="cross-account-iam-policy"></a>
+## Step 2: Add IAM policies in the external account<a name="cross-account-iam-policy"></a>
 
 The key policy in the account that owns the CMK sets the valid range for permissions\. But, users and roles in the external account cannot use the CMK until you attach IAM policies that delegate those permissions, or use grants to manage access to the CMK\. The IAM policies are set in the external account\. 
 
@@ -96,7 +96,7 @@ If the key policy gives permission to the external account, you can attach IAM p
 
 The key policy also limits the actions in the IAM policy\. The IAM policy can delegate all or a subset of the actions specified in the key policy\. If the IAM policy lists actions that are not specified in the key policy, those permissions are not effective\.
 
-The following example IAM policy allows the principal to use the CMK in account 111122223333 for cryptographic operations\. To give this permission to users and roles in account 444455556666, [attach the policy](https://docs.aws.amazon.com/IAM/latest/UserGuide/access_policies_managed-using.html#attach-managed-policy-console) to the users or roles in account 444455556666\.
+The following example IAM policy allows the principal to use the CMK in account 111122223333 for cryptographic operations\. To give this permission to users and roles in account `444455556666`, [attach the policy](https://docs.aws.amazon.com/IAM/latest/UserGuide/access_policies_managed-using.html#attach-managed-policy-console) to the users or roles in account `444455556666`\.
 
 ```
 {
@@ -120,12 +120,13 @@ The following example IAM policy allows the principal to use the CMK in account 
 
 Note the following details about this policy:
 + Unlike key policies, IAM policy statements do not contain the `Principal` element\. In IAM policies, the principal is the identity to which the policy is attached\. 
-+ The `Resource` element in the IAM policy identifies the CMK that the principal can use\. To specify a CMK, add its [Amazon Resource Name \(ARN\)](control-access-overview.md#kms-resources-operations) to the `Resource` element\. You can specify more than one CMK in the policy statement\. But if you don't specify particular CMKs in the `Resource` element, you might inadvertently give access to more CMKs than you intend\.
-+ To allow the external user to use the CMK with [AWS services that integrate with AWS KMS,](https://aws.amazon.com/kms/features/#AWS_Service_Integration) you might need to add permissions to the key policy or the IAM policy\. For details, see [Using External CMKs with AWS Services](#cross-account-service)\.
++ The `Resource` element in the IAM policy identifies the CMK that the principal can use\. To specify a CMK, add its [key ARN](concepts.md#key-id-alias-ARN) or an [alias ARN](concepts.md#key-id-alias-ARN) to the `Resource` element\. The key ARN, alias ARN, and CMK are always in the same account\.
++ You can specify more than one CMK in the `Resource` element\. But if you don't specify particular CMKs in the `Resource` element, you might inadvertently give access to more CMKs than you intend\.
++ To allow the external user to use the CMK with [AWS services that integrate with AWS KMS,](https://aws.amazon.com/kms/features/#AWS_Service_Integration) you might need to add permissions to the key policy or the IAM policy\. For details, see [Using external CMKs with AWS services](#cross-account-service)\.
 
-For more information about working with IAM policies, see [Using IAM Policies](iam-policies.md)\.
+For more information about working with IAM policies, see [Using IAM policies](iam-policies.md)\.
 
-## Creating CMKs that Other Accounts Can Use<a name="cross-account-console"></a>
+## Creating CMKs that other accounts can use<a name="cross-account-console"></a>
 
 When you use the [CreateKey](https://docs.aws.amazon.com/kms/latest/APIReference/API_CreateKey.html) operation create a CMK, you can use its `Policy` parameter to specify a [key policy](#cross-account-key-policy) that gives an external account, or external users and roles, permission to use the CMK\. You must also add [IAM policies](#cross-account-iam-policy) in the external account that delegate these permissions to the account's users and roles, even when users and roles are specified in the key policy\. You can change the key policy at any time by using the [PutKeyPolicy](https://docs.aws.amazon.com/kms/latest/APIReference/API_PutKeyPolicy.html) operation\.
 
@@ -159,7 +160,7 @@ The first policy statement gives the external account permission to use the CMK 
 
 The second policy statement allows the external account to create, view, and revoke grants on the CMK, but only when the request comes from an [AWS service that is integrated with AWS KMS](https://aws.amazon.com/kms/features/#AWS_Service_Integration)\. These permissions allow other AWS services, such as that encrypt user data to use the CMK\. 
 
-These permissions are designed for CMKs that encrypt user data in AWS services, such as [Amazon WorkMail](services-wm.md)\. These services typically use grants to get the permissions they need to use the CMK on the user's behalf\. For details, see [Using External CMKs with AWS Services](#cross-account-service)\.
+These permissions are designed for CMKs that encrypt user data in AWS services, such as [Amazon WorkMail](services-wm.md)\. These services typically use grants to get the permissions they need to use the CMK on the user's behalf\. For details, see [Using external CMKs with AWS services](#cross-account-service)\.
 
 ```
 {
@@ -184,7 +185,7 @@ These permissions are designed for CMKs that encrypt user data in AWS services, 
 
 If these permissions don't meet your needs, you can edit them in the console [policy view](key-policy-modifying.md#key-policy-modifying-how-to-console-policy-view) or by using the [PutKeyPolicy]() operation\. You can specify particular external users and role instead of giving permission to the external account\. You can change the actions that the policy specifies\. And you can use global and AWS KMS policy conditions to refine the permissions\.
 
-## Using External CMKs with AWS Services<a name="cross-account-service"></a>
+## Using external CMKs with AWS services<a name="cross-account-service"></a>
 
 You can give a user in a different account permission to use your CMK with a service that is integrated with AWS KMS\. For example, a user in an external account can use your CMK to [encrypt the objects in an Amazon S3 bucket](services-s3.md) or to [encrypt the secrets they store in AWS Secrets Manager](services-secrets-manager.md)\.
 

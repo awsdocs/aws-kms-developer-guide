@@ -1,4 +1,4 @@
-# Editing Custom Key Store Settings<a name="update-keystore"></a>
+# Editing custom key store settings<a name="update-keystore"></a>
 
 You can change the settings of an existing [custom key store](key-store-concepts.md#concept-custom-key-store)\. The custom key store must be disconnected from its AWS CloudHSM cluster\.
 
@@ -24,10 +24,10 @@ Tells AWS KMS the current password of the `kmsuser` CU in the AWS CloudHSM clust
 If you change the password of the `kmsuser` CU in the AWS CloudHSM cluster, use this feature to tell AWS KMS the new `kmsuser` password\. Otherwise, AWS KMS cannot log into the cluster and all attempts to connect the custom key store to the cluster fail\. 
 
 **Topics**
-+ [Edit a Custom Key Store \(Console\)](#update-keystore-console)
-+ [Edit a Custom Key Store \(API\)](#update-keystore-api)
++ [Edit a custom key store \(console\)](#update-keystore-console)
++ [Edit a custom key store \(API\)](#update-keystore-api)
 
-## Edit a Custom Key Store \(Console\)<a name="update-keystore-console"></a>
+## Edit a custom key store \(console\)<a name="update-keystore-console"></a>
 
 When you edit the custom key store, you can change any or of the configurable values\.
 
@@ -50,13 +50,13 @@ When you edit the custom key store, you can change any or of the configurable va
 
 1. Choose **Save**\.
 
-   When the procedure is successful, a message describes the settings that you edited\. When it is unsuccessful, an error message appears that describes the problem and provides help on how to fix it\. If you need more help, see [Troubleshooting a Custom Key Store](fix-keystore.md)\.
+   When the procedure is successful, a message describes the settings that you edited\. When it is unsuccessful, an error message appears that describes the problem and provides help on how to fix it\. If you need more help, see [Troubleshooting a custom key store](fix-keystore.md)\.
 
 1. [Reconnect the custom key store\.](disconnect-keystore.md)
 
    To use the custom key store, you must reconnect it after editing\. You can leave the custom key store disconnected\. But while it is disconnected, you cannot create CMKs in the custom key store or use the CMKs in the custom key store in cryptographic operations\.
 
-## Edit a Custom Key Store \(API\)<a name="update-keystore-api"></a>
+## Edit a custom key store \(API\)<a name="update-keystore-api"></a>
 
 To change the properties of a custom key store, use the [UpdateCustomKeyStore](https://docs.aws.amazon.com/kms/latest/APIReference/API_UpdateCustomKeyStore.html) operation\. You can change multiple properties of a custom key store in the same command\. If the operation is successful, AWS KMS returns an HTTP 200 response and a JSON object with no properties\.
 

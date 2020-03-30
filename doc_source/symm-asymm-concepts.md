@@ -1,20 +1,20 @@
-# About Symmetric and Asymmetric CMKs<a name="symm-asymm-concepts"></a>
+# About symmetric and asymmetric CMKs<a name="symm-asymm-concepts"></a>
 
 In AWS KMS, you can create symmetric and asymmetric CMKs\. 
 
-## Symmetric Customer Master Keys<a name="symmetric-cmks"></a>
+## Symmetric customer master keys<a name="symmetric-cmks"></a>
 
 When you create a customer master key \(CMK\) in KMS, by default, you get a symmetric CMK\. 
 
 In AWS KMS, a *symmetric CMK* represents a 256\-bit encryption key that never leaves AWS KMS unencrypted\. To use a symmetric CMK, you must call AWS KMS\. Symmetric keys are used in symmetric encryption, where the same key is used for encryption and decryption\.
 
-Unless your task explicitly requires asymmetric encryption, symmetric CMKs, which never leave AWS KMS unencrypted, are a good choice\. For information about the cryptographic configuration or *key spec* for symmetric CMKs, see [SYMMETRIC\_DEFAULT Key Spec](symm-asymm-choose.md#key-spec-symmetric-default)\. For help creating a symmetric CMK, see [Creating Symmetric CMKs](create-keys.md#create-symmetric-cmk)\.
+Unless your task explicitly requires asymmetric encryption, symmetric CMKs, which never leave AWS KMS unencrypted, are a good choice\. For information about the cryptographic configuration or *key spec* for symmetric CMKs, see [SYMMETRIC\_DEFAULT Key Spec](symm-asymm-choose.md#key-spec-symmetric-default)\. For help creating a symmetric CMK, see [Creating symmetric CMKs](create-keys.md#create-symmetric-cmk)\.
 
-[AWS services that are integrated with AWS KMS](https://aws.amazon.com/kms/features/#AWS_Service_Integration) use symmetric CMKs to protect your data\. These services do not support asymmetric CMKs\. For help determining whether a CMK is symmetric or asymmetric, see [Identifying Symmetric and Asymmetric CMKs](find-symm-asymm.md)\.
+[AWS services that are integrated with AWS KMS](https://aws.amazon.com/kms/features/#AWS_Service_Integration) use symmetric CMKs to protect your data\. These services do not support asymmetric CMKs\. For help determining whether a CMK is symmetric or asymmetric, see [Identifying symmetric and asymmetric CMKs](find-symm-asymm.md)\.
 
 You can use a symmetric CMK in AWS KMS to encrypt, decrypt, and re\-encrypt data, generate data keys and data key pairs, and generate random byte strings\. You can [import your own key material](importing-keys.md) into a symmetric CMK and create symmetric CMKs in [custom key stores](custom-key-store-overview.md)\. For a table comparing the operations that you can perform on symmetric and asymmetric CMKs, see [Comparing Symmetric and Asymmetric CMKs](symm-asymm-compare.md)\.
 
-## Asymmetric Customer Master Keys<a name="asymmetric-cmks"></a>
+## Asymmetric customer master keys<a name="asymmetric-cmks"></a>
 
 **Note**  
 Asymmetric CMKs and asymmetric data key pairs are supported in all AWS Regions that AWS KMS supports except for China \(Beijing\) and China \(Ningxia\)\.
@@ -31,4 +31,4 @@ AWS KMS supports two types of asymmetric CMKs\.
 
 For technical details about the encryption and signing algorithms that AWS KMS supports for RSA CMKs, see [RSA Key Specs](symm-asymm-choose.md#key-spec-rsa)\. For technical details about the signing algorithms that AWS KMS supports for ECC CMKs, see [Elliptic Curve Key Specs](symm-asymm-choose.md#key-spec-ecc)\.
 
-For a table comparing the operations that you can perform on symmetric and asymmetric CMKs, see [Comparing Symmetric and Asymmetric CMKs](symm-asymm-compare.md)\. For help determining whether a CMK is symmetric or asymmetric, see [Identifying Symmetric and Asymmetric CMKs](find-symm-asymm.md)\.
+For a table comparing the operations that you can perform on symmetric and asymmetric CMKs, see [Comparing Symmetric and Asymmetric CMKs](symm-asymm-compare.md)\. For help determining whether a CMK is symmetric or asymmetric, see [Identifying symmetric and asymmetric CMKs](find-symm-asymm.md)\.

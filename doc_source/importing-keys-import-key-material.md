@@ -1,6 +1,6 @@
-# Importing Key Material Step 4: Import the Key Material<a name="importing-keys-import-key-material"></a>
+# Importing key material step 4: Import the key material<a name="importing-keys-import-key-material"></a>
 
-After you [encrypt your key material](importing-keys-encrypt-key-material.md), you can import the key material to use with an AWS KMS customer master key \(CMK\)\. To import key material, you upload the encrypted key material from [Step 3: Encrypt the Key Material](importing-keys-encrypt-key-material.md) and the import token that you downloaded at [Step 2: Download the Public Key and Import Token](importing-keys-get-public-key-and-token.md)\. You must import key material into the same CMK that you specified when you downloaded the public key and import token\.
+After you [encrypt your key material](importing-keys-encrypt-key-material.md), you can import the key material to use with an AWS KMS customer master key \(CMK\)\. To import key material, you upload the encrypted key material from [Step 3: Encrypt the key material](importing-keys-encrypt-key-material.md) and the import token that you downloaded at [Step 2: Download the public key and import token](importing-keys-get-public-key-and-token.md)\. You must import key material into the same CMK that you specified when you downloaded the public key and import token\.
 
 When you import key material, you can optionally specify a time at which the key material expires\. When the key material expires, AWS KMS deletes the key material and the CMK becomes unusable\. To use the CMK again, you must reimport key material\.
 
@@ -9,10 +9,10 @@ After you successfully import key material, the CMK's key state changes to enabl
 To import key material, you can use the AWS Management Console or the AWS KMS API\. You can use the API directly by making HTTP requests, or through one of the [AWS SDKs](https://aws.amazon.com/tools/#sdk) or [command line tools](https://aws.amazon.com/tools/#cli)\.
 
 **Topics**
-+ [Import Key Material \(Console\)](#importing-keys-import-key-material-console)
-+ [Import Key Material \(KMS API\)](#importing-keys-import-key-material-api)
++ [Import key material \(console\)](#importing-keys-import-key-material-console)
++ [Import key material \(AWS KMS API\)](#importing-keys-import-key-material-api)
 
-## Import Key Material \(Console\)<a name="importing-keys-import-key-material-console"></a>
+## Import key material \(console\)<a name="importing-keys-import-key-material-console"></a>
 
 You can use the AWS Management Console to import key material\.
 
@@ -28,7 +28,7 @@ You can use the AWS Management Console to import key material\.
 
 1. Expand the **Cryptographic configuration** section and view its values\.
 
-   You can only import key material into CMKs with a **Key type** of **Symmetric** and an **Origin** of **EXTERNAL**\. For information about creating CMKs with imported key material, see [Importing Key Material in AWS Key Management Service \(AWS KMS\)](importing-keys.md)\.
+   You can only import key material into CMKs with a **Key type** of **Symmetric** and an **Origin** of **EXTERNAL**\. For information about creating CMKs with imported key material, see [Importing key material in AWS Key Management Service \(AWS KMS\)](importing-keys.md)\.
 
 1. Expand the **Key material** section and then choose **Upload key material**\.
 
@@ -42,7 +42,7 @@ You can use the AWS Management Console to import key material\.
 
 1. Choose **Finish** or **Upload key material**\.
 
-## Import Key Material \(KMS API\)<a name="importing-keys-import-key-material-api"></a>
+## Import key material \(AWS KMS API\)<a name="importing-keys-import-key-material-api"></a>
 
 To use the [AWS KMS API](https://docs.aws.amazon.com/kms/latest/APIReference/) to import key material, send an [ImportKeyMaterial](https://docs.aws.amazon.com/kms/latest/APIReference/API_ImportKeyMaterial.html) request\. The following example shows how to do this with the [AWS CLI](https://aws.amazon.com/cli/)\.
 
@@ -61,5 +61,5 @@ $ aws kms import-key-material --key-id 1234abcd-12ab-34cd-56ef-1234567890ab \
                               --encrypted-key-material fileb://EncryptedKeyMaterial.bin \
                               --import-token fileb://ImportToken.bin \
                               --expiration-model KEY_MATERIAL_EXPIRES \
-                              --valid-to 2016-11-08T12:00:00-08:00
+                              --valid-to 2019-09-17T12:00:00-08:00
 ```

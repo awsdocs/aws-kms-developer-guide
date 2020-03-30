@@ -1,4 +1,4 @@
-# How AWS Systems Manager Parameter Store Uses AWS KMS<a name="services-parameter-store"></a>
+# How AWS Systems Manager Parameter Store uses AWS KMS<a name="services-parameter-store"></a>
 
 With AWS Systems Manager Parameter Store, you can create [secure string parameters](https://docs.aws.amazon.com/systems-manager/latest/userguide/sysman-paramstore-about.html#sysman-paramstore-securestring), which are parameters that have a plaintext parameter name and an encrypted parameter value\. Parameter Store uses AWS KMS to encrypt and decrypt the parameter values of secure string parameters\.
 
@@ -7,18 +7,18 @@ With [Parameter Store](https://docs.aws.amazon.com/systems-manager/latest/usergu
 To manage sensitive data, you can create secure string parameters\. Parameter Store uses AWS KMS customer master keys \(CMKs\) to encrypt the parameter values of secure string parameters when you create or change them\. It also uses CMKs to decrypt the parameter values when you access them\. You can use the [AWS managed CMK](concepts.md#aws-managed-cmk) that Parameter Store creates for your account or specify your own [customer managed CMK](concepts.md#customer-cmk)\. 
 
 **Important**  
-Parameter Store supports only [symmetric CMKs](symm-asymm-concepts.md#symmetric-cmks)\. You cannot use an [asymmetric CMK](symm-asymm-concepts.md#asymmetric-cmks) to encrypt your parameters\. To determine whether a CMK is symmetric or asymmetric, see [Identifying Symmetric and Asymmetric CMKs](find-symm-asymm.md)\.
+Parameter Store supports only [symmetric CMKs](symm-asymm-concepts.md#symmetric-cmks)\. You cannot use an [asymmetric CMK](symm-asymm-concepts.md#asymmetric-cmks) to encrypt your parameters\. To determine whether a CMK is symmetric or asymmetric, see [Identifying symmetric and asymmetric CMKs](find-symm-asymm.md)\.
 
 Parameter Store supports two tiers of secure string parameters: *standard* and *advanced*\. Standard parameters, which cannot exceed 4096 bytes, are encrypted and decrypted directly under the CMK that you specify\. To encrypt and decrypt advanced secure string parameters, Parameter Store uses envelope encryption with the [AWS Encryption SDK](https://docs.aws.amazon.com/encryption-sdk/latest/developer-guide/)\. You can convert a standard secure string parameter to an advanced parameter, but you cannot convert an advanced parameter to a standard one\. For more information about the difference between standard and advanced secure string parameters, see [About Systems Manager Advanced Parameters](https://docs.aws.amazon.com/systems-manager/latest/userguide/parameter-store-advanced-parameters.html) in the AWS Systems Manager User Guide\.
 
 **Topics**
-+ [Protecting Standard Secure String Parameters](#parameter-store-encrypt)
-+ [Protecting Advanced Secure String Parameters](#parameter-store-advanced-encrypt)
-+ [Setting Permissions to Encrypt and Decrypt Parameter Values](#parameter-store-policies)
-+ [Parameter Store Encryption Context](#parameter-store-encryption-context)
-+ [Troubleshooting CMK Issues in Parameter Store](#parameter-store-cmk-fail)
++ [Protecting standard secure string parameters](#parameter-store-encrypt)
++ [Protecting advanced secure string parameters](#parameter-store-advanced-encrypt)
++ [Setting permissions to encrypt and decrypt parameter values](#parameter-store-policies)
++ [Parameter Store encryption context](#parameter-store-encryption-context)
++ [Troubleshooting CMK issues in Parameter Store](#parameter-store-cmk-fail)
 
-## Protecting Standard Secure String Parameters<a name="parameter-store-encrypt"></a>
+## Protecting standard secure string parameters<a name="parameter-store-encrypt"></a>
 
 Parameter Store does not perform any cryptographic operations\. Instead, it relies on AWS KMS to encrypt and decrypt secure string parameter values\. When you create or change a standard secure string parameter value, Parameter Store calls the AWS KMS [Encrypt](https://docs.aws.amazon.com/kms/latest/APIReference/API_Encrypt.html) operation\. This operation uses a symmetric AWS KMS CMK directly to encrypt the parameter value instead of using the CMK to generate a [data key](concepts.md#data-keys)\. 
 
@@ -78,14 +78,14 @@ $  aws ssm get-parameter --name MyParameter --with-decryption
 
 The following workflow shows how Parameter Store uses an AWS KMS CMK to encrypt and decrypt a standard secure string parameter\.
 
-### Encrypt a Standard Parameter<a name="param-store-standard-encrypt"></a>
+### Encrypt a standard parameter<a name="param-store-standard-encrypt"></a>
 
 1. When you use `PutParameter` to create a secure string parameter, Parameter Store sends an `Encrypt` request to AWS KMS\. That request includes the plaintext parameter value, the CMK that you chose, and the [Parameter Store encryption context](#parameter-store-encryption-context)\. During transmission to AWS KMS, the plaintext value in the secure string parameter is protected by Transport Layer Security \(TLS\)\.
 
 1. AWS KMS encrypts the parameter value with the specified CMK and encryption context\. It returns the ciphertext to Parameter Store, which stores the parameter name and its encrypted value\.  
 ![\[Encrypting a standard secure string parameter value\]](http://docs.aws.amazon.com/kms/latest/developerguide/images/service-pstore-standard.png)
 
-### Decrypt a Standard Parameters<a name="param-store-standard-decrypt"></a>
+### Decrypt a standard parameters<a name="param-store-standard-decrypt"></a>
 
 1. When you include the `WithDecryption` parameter in a `GetParameter` request, Parameter Store sends a `Decrypt` request to AWS KMS with the encrypted secure string parameter value and the [Parameter Store encryption context](#parameter-store-encryption-context)\.
 
@@ -93,7 +93,7 @@ The following workflow shows how Parameter Store uses an AWS KMS CMK to encrypt 
 
 1. Parameter Store returns the plaintext parameter value to you in the `GetParameter` response\.
 
-## Protecting Advanced Secure String Parameters<a name="parameter-store-advanced-encrypt"></a>
+## Protecting advanced secure string parameters<a name="parameter-store-advanced-encrypt"></a>
 
 When you use `PutParameter` to create an advanced secure string parameter, Parameter Store uses [envelope encryption](https://docs.aws.amazon.com/encryption-sdk/latest/developer-guide/how-it-works.html#envelope-encryption) with the AWS Encryption SDK and a symmetric AWS KMS customer master key \(CMK\) to protect the parameter value\. Each advanced parameter value is encrypted under a unique data key, and the data key is encrypted under an AWS KMS CMK\. You can use the [AWS managed CMK](concepts.md#aws-managed-cmk) for the account \(`aws/ssm`\) or any customer managed CMK\.
 
@@ -153,7 +153,7 @@ $ aws ssm put-parameter --name myStdParameter --value "secret_value"  --type Sec
 
 The following workflow shows how Parameter Store uses an AWS KMS CMK to encrypt and decrypt an advanced secure string parameter\.
 
-### Encrypt an Advanced Parameter<a name="param-store-advanced-encrypt"></a>
+### Encrypt an advanced parameter<a name="param-store-advanced-encrypt"></a>
 
 1. When you use `PutParameter` to create an advanced secure string parameter, Parameter Store uses the AWS Encryption SDK and AWS KMS to encrypt the parameter value\. Parameter Store calls the AWS Encryption SDK with the parameter value, the AWS KMS CMK that you specified, and the [Parameter Store encryption context](#parameter-store-encryption-context)\.
 
@@ -164,7 +164,7 @@ The following workflow shows how Parameter Store uses an AWS KMS CMK to encrypt 
 1. Parameter Store stores the encrypted message as the parameter value\.  
 ![\[Encrypting an advanced secure string parameter value\]](http://docs.aws.amazon.com/kms/latest/developerguide/images/service-pstore-advanced.png)
 
-### Decrypt an Advanced Parameter<a name="param-store-advanced-decrypt"></a>
+### Decrypt an advanced parameter<a name="param-store-advanced-decrypt"></a>
 
 1. You can include the `WithDecryption` parameter in a `GetParameter` request to get an advanced secure string parameter\. When you do, Parameter Store passes the [encrypted message](https://docs.aws.amazon.com/encryption-sdk/latest/developer-guide/concepts.html#message) from the parameter value to a decryption method of the AWS Encryption SDK\.
 
@@ -176,13 +176,13 @@ The following workflow shows how Parameter Store uses an AWS KMS CMK to encrypt 
 
 1. Parameter Store verifies the encryption context and returns the plaintext parameter value to you in the `GetParameter` response\.
 
-## Setting Permissions to Encrypt and Decrypt Parameter Values<a name="parameter-store-policies"></a>
+## Setting permissions to encrypt and decrypt parameter values<a name="parameter-store-policies"></a>
 
 To encrypt a standard secure string parameter value, the user needs `kms:Encrypt` permission\. To encrypt an advanced secure string parameter value, the user needs `kms:GenerateDataKey` permission\. To decrypt either type of secure string parameter value, the user needs `kms:Decrypt` permission\. 
 
 You can use IAM policies to allow or deny permission for a user to call the Systems Manager `PutParameter` and `GetParameter` operations\.
 
-If you are using customer managed CMKs to encrypt your secure string parameter values, you can use IAM policies and key policies to manage encrypt and decrypt permissions\. However, you cannot establish access control policies for the default `aws/ssm` CMK\. For detailed information about controlling access to customer managed CMKs, see [Authentication and Access Control for AWS KMS](control-access.md)\.
+If you are using customer managed CMKs to encrypt your secure string parameter values, you can use IAM policies and key policies to manage encrypt and decrypt permissions\. However, you cannot establish access control policies for the default `aws/ssm` CMK\. For detailed information about controlling access to customer managed CMKs, see [Authentication and access control for AWS KMS](control-access.md)\.
 
 The following example shows an IAM policy designed for standard secure string parameters\. It allows the user to call the Systems Manager `PutParameter` operation on all parameters in the `FinancialParameters` path\. The policy also allows the user to call the AWS KMS `Encrypt` operation on an example customer managed CMK\.
 
@@ -256,7 +256,7 @@ The final example also shows an IAM policy that can be used for standard or adva
 }
 ```
 
-## Parameter Store Encryption Context<a name="parameter-store-encryption-context"></a>
+## Parameter Store encryption context<a name="parameter-store-encryption-context"></a>
 
 An *encryption context* is a set of key–value pairs that contain arbitrary nonsecret data\. When you include an encryption context in a request to encrypt data, AWS KMS cryptographically binds the encryption context to the encrypted data\. To decrypt the data, you must pass in the same encryption context\. 
 
@@ -321,12 +321,12 @@ Before using a policy statement like this one, replace the example ARNs with val
 }
 ```
 
-## Troubleshooting CMK Issues in Parameter Store<a name="parameter-store-cmk-fail"></a>
+## Troubleshooting CMK issues in Parameter Store<a name="parameter-store-cmk-fail"></a>
 
 To perform any operation on a secure string parameter, Parameter Store must be able to use the AWS KMS CMK that you specify for your intended operation\. Most of the Parameter Store failures related to CMKs are caused by the following problems:
 + The credentials that an application is using do not have permission to perform the specified action on the CMK\. 
 
-  To fix this error, run the application with different credentials or revise the IAM or key policy that is preventing the operation\. For help with AWS KMS IAM and key policies, see [Authentication and Access Control for AWS KMS](control-access.md)\.
+  To fix this error, run the application with different credentials or revise the IAM or key policy that is preventing the operation\. For help with AWS KMS IAM and key policies, see [Authentication and access control for AWS KMS](control-access.md)\.
 + The CMK is not found\. 
 
   This typically happens when you use an incorrect identifier for the CMK\. [Find the correct identifiers](find-cmk-id-arn.md) for the CMK and try the command again\. 

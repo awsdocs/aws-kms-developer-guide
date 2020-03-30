@@ -1,19 +1,19 @@
-# Determining Past Usage of a Customer Master Key<a name="deleting-keys-determining-usage"></a>
+# Determining past usage of a customer master key<a name="deleting-keys-determining-usage"></a>
 
 Before deleting a customer master key \(CMK\), you might want to know how many ciphertexts were encrypted under that key\. AWS KMS does not store this information, and does not store any of the ciphertexts\. To obtain this information, you must determine on your own the past usage of a CMK\. Knowing how a CMK was used in the past might help you decide whether or not you will need it in the future\. The following guidance can help you determine the past usage of a CMK\.
 
 **Warning**  
-These strategies for determining past and actual usage are effective only for AWS users and AWS KMS operations\. They cannot detect use of the public key of an asymmetric CMK outside of AWS KMS\. For details about the special risks of deleting asymmetric CMKs used for public key cryptography, including creating ciphertexts that cannot be decrypted, see [Deleting Asymmetric CMKs](deleting-keys.md#deleting-asymmetric-cmks)\.
+These strategies for determining past and actual usage are effective only for AWS users and AWS KMS operations\. They cannot detect use of the public key of an asymmetric CMK outside of AWS KMS\. For details about the special risks of deleting asymmetric CMKs used for public key cryptography, including creating ciphertexts that cannot be decrypted, see [Deleting asymmetric CMKs](deleting-keys.md#deleting-asymmetric-cmks)\.
 
 **Topics**
-+ [Examining CMK Permissions to Determine the Scope of Potential Usage](#deleting-keys-usage-key-permissions)
-+ [Examining AWS CloudTrail Logs to Determine Actual Usage](#deleting-keys-usage-cloudtrail)
++ [Examining CMK permissions to determine the scope of potential usage](#deleting-keys-usage-key-permissions)
++ [Examining AWS CloudTrail logs to determine actual usage](#deleting-keys-usage-cloudtrail)
 
-## Examining CMK Permissions to Determine the Scope of Potential Usage<a name="deleting-keys-usage-key-permissions"></a>
+## Examining CMK permissions to determine the scope of potential usage<a name="deleting-keys-usage-key-permissions"></a>
 
-Determining who or what currently has access to a customer master key \(CMK\) might help you determine how widely the CMK was used and whether it is still needed\. To learn how to determine who or what currently has access to a CMK, go to [Determining Access to an AWS KMS Customer Master Key](determining-access.md)\.
+Determining who or what currently has access to a customer master key \(CMK\) might help you determine how widely the CMK was used and whether it is still needed\. To learn how to determine who or what currently has access to a CMK, go to [Determining access to an AWS KMS customer master key](determining-access.md)\.
 
-## Examining AWS CloudTrail Logs to Determine Actual Usage<a name="deleting-keys-usage-cloudtrail"></a>
+## Examining AWS CloudTrail logs to determine actual usage<a name="deleting-keys-usage-cloudtrail"></a>
 
 AWS KMS is integrated with AWS CloudTrail, so all AWS KMS API activity is recorded in CloudTrail log files\. If you have CloudTrail turned on in the region where your customer master key \(CMK\) is located, you can examine your CloudTrail log files to view a history of all AWS KMS API activity for a particular CMK, and thus its usage history\. You might be able to use a CMK's usage history to help you determine whether or not you still need it\.
 
@@ -116,4 +116,4 @@ When you later download this object from Amazon S3, Amazon S3 sends a `Decrypt` 
 
 All AWS KMS API activity is logged by CloudTrail\. By evaluating these log entries, you might be able to determine the past usage of a particular CMK, and this might help you determine whether or not you want to delete it\.
 
-To see more examples of how AWS KMS API activity appears in your CloudTrail log files, go to [Logging AWS KMS API Calls with AWS CloudTrail](logging-using-cloudtrail.md)\. For more information about CloudTrail go to the [AWS CloudTrail User Guide](https://docs.aws.amazon.com/awscloudtrail/latest/userguide/)\.
+To see more examples of how AWS KMS API activity appears in your CloudTrail log files, go to [Logging AWS KMS API calls with AWS CloudTrail](logging-using-cloudtrail.md)\. For more information about CloudTrail go to the [AWS CloudTrail User Guide](https://docs.aws.amazon.com/awscloudtrail/latest/userguide/)\.

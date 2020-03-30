@@ -1,12 +1,12 @@
-# Logging AWS KMS API Calls with AWS CloudTrail<a name="logging-using-cloudtrail"></a>
+# Logging AWS KMS API calls with AWS CloudTrail<a name="logging-using-cloudtrail"></a>
 
 AWS KMS is integrated with AWS CloudTrail, a service that provides a record of actions performed by a user, role, or an AWS service in AWS KMS\. CloudTrail captures all API calls for AWS KMS as events, including calls from the AWS KMS console and from code calls to the AWS KMS APIs\. If you create a trail, you can enable continuous delivery of CloudTrail events to an Amazon S3 bucket, including events for AWS KMS\. If you don't configure a trail, you can still view the most recent events in the CloudTrail console in **Event history**\. Using the information collected by CloudTrail, you can determine the request that was made to AWS KMS, the IP address from which the request was made, who made the request, when it was made, and additional details\.
 
-Although, by default, all AWS KMS actions are logged as CloudTrail events, you can exclude AWS KMS actions from a CloudTrail trail\. For details, see [Excluding AWS KMS Events from a Trail](#filtering-kms-events)\.
+Although, by default, all AWS KMS actions are logged as CloudTrail events, you can exclude AWS KMS actions from a CloudTrail trail\. For details, see [Excluding AWS KMS events from a trail](#filtering-kms-events)\.
 
-To learn more about CloudTrail, see the [AWS CloudTrail User Guide](https://docs.aws.amazon.com/awscloudtrail/latest/userguide/)\. To learn about other ways to monitor the use of your CMKs, see [Monitoring Customer Master Keys](monitoring-overview.md)\.
+To learn more about CloudTrail, see the [AWS CloudTrail User Guide](https://docs.aws.amazon.com/awscloudtrail/latest/userguide/)\. To learn about other ways to monitor the use of your CMKs, see [Monitoring customer master keys](monitoring-overview.md)\.
 
-## AWS KMS Information in CloudTrail<a name="kms-info-in-cloudtrail"></a>
+## AWS KMS information in CloudTrail<a name="kms-info-in-cloudtrail"></a>
 
 CloudTrail is enabled on your AWS account when you create the account\. When activity occurs in AWS KMS, that activity is recorded in a CloudTrail event along with other AWS service events in **Event history**\. You can view, search, and download recent events in your AWS account\. For more information, see [Viewing Events with CloudTrail Event History](https://docs.aws.amazon.com/awscloudtrail/latest/userguide/view-cloudtrail-events.html)\. 
 
@@ -25,7 +25,7 @@ Every event or log entry contains information about who generated the request\. 
 
 For more information, see the [CloudTrail userIdentity Element](https://docs.aws.amazon.com/awscloudtrail/latest/userguide/cloudtrail-event-reference-user-identity.html)\.
 
-## Excluding AWS KMS Events from a Trail<a name="filtering-kms-events"></a>
+## Excluding AWS KMS events from a trail<a name="filtering-kms-events"></a>
 
 Most AWS KMS users rely on the events in a CloudTrail trail to provide a record of the use and management of their AWS KMS resources\. The trail can be an valuable source of data for auditing critical events, such as creating, disabling, and deleting customer master keys \(CMKs\), changing key policy, and the use of your CMKs by AWS services on your behalf\. In some cases, the metadata in a CloudTrail log entry, such as the [encryption context](concepts.md#encrypt_context) in an encryption operation, can help you to avoid or resolve errors\.
 
@@ -42,7 +42,7 @@ You can disable this exclusion at any time by changing the console setting or th
 
 When you exclude KMS events by using the console or API, the resulting CloudTrail `PutEventSelectors` API operation is also logged in your CloudTrail Logs\. If KMS events don't appear in your CloudTrail Logs, look for a `PutEventSelectors` event with the `ExcludeManagementEventSources` attribute set to `kms.amazonaws.com`\.
 
-## Understanding AWS KMS Log File Entries<a name="understanding-kms-entries"></a>
+## Understanding AWS KMS log file entries<a name="understanding-kms-entries"></a>
 
 A *trail* is a configuration that enables delivery of events as log files to an Amazon S3 bucket that you specify\. CloudTrail log files contain one or more log entries\. An *event* represents a single request from any source and includes information about the requested action, the date and time of the action, request parameters, and so on\. CloudTrail log files are not an ordered stack trace of the public API calls, so they do not appear in any specific order\. 
 
@@ -65,5 +65,5 @@ For examples CloudTrail log entries for each API request, see the following topi
 + [ListAliases](ct-listaliases.md)
 + [ListGrants](ct-listgrants.md)
 + [ReEncrypt](ct-reencrypt.md)
-+ [Amazon EC2 Example One](ct-ec2one.md)
-+ [Amazon EC2 Example Two](ct-ec2two.md)
++ [Amazon EC2 example one](ct-ec2one.md)
++ [Amazon EC2 example two](ct-ec2two.md)

@@ -13,12 +13,12 @@ You can use the AWS KMS API to perform the following actions, and more\.
 
 The sample code in the following topics show how to use the AWS SDKs to call the AWS KMS API\.
 
-For information about using the AWS KMS console to perform some of these tasks, see [Getting Started](getting-started.md)\.
+For information about using the AWS KMS console to perform some of these tasks, see [Getting started](getting-started.md)\.
 
 **Topics**
-+ [Creating a Client](programming-client.md)
-+ [Working With Keys](programming-keys.md)
-+ [Encrypting and Decrypting Data Keys](programming-encryption.md)
-+ [Working with Key Policies](programming-key-policies.md)
-+ [Working with Grants](programming-grants.md)
-+ [Working with Aliases](programming-aliases.md)
++ [Creating a client](programming-client.md)
++ [Working with keys](programming-keys.md)
++ [Encrypting and decrypting data keys](programming-encryption.md)
++ [Working with key policies](programming-key-policies.md)
++ [Working with grants](programming-grants.md)
++ [Working with aliases](programming-aliases.md)

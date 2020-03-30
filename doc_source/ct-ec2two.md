@@ -1,4 +1,4 @@
-# Amazon EC2 Example Two<a name="ct-ec2two"></a>
+# Amazon EC2 example two<a name="ct-ec2two"></a>
 
 The following example shows an IAM user running an Amazon EC2 instance that mounts a data volume encrypted by using a default volume key\. The action taken by the user generates multiple AWS KMS log records\. Creating the encrypted volume generates a data key, and the Amazon EC2 service generates a grant, on behalf of the customer, that enables it to decrypt the data key\. The `instanceId`, `"i-81e2f56c"`, is referred to in the `granteePrincipal` field of the `CreateGrant` record as `"123456789012:aws:ec2-infrastructure:i-81e2f56c"` as well as in the identity of the principal calling Decrypt, `"arn:aws:sts::123456789012:assumed-role/aws:ec2-infrastructure/i-81e2f56c"`\. The key identified by the UUID `"e29ddfd4-1bf6-4e1b-8ecb-08216bd70d07"` is common across all three KMS calls\.
 

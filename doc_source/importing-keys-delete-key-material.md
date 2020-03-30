@@ -1,4 +1,4 @@
-# Deleting Imported Key Material<a name="importing-keys-delete-key-material"></a>
+# Deleting imported key material<a name="importing-keys-delete-key-material"></a>
 
 When you import key material, you can specify an expiration date\. When the key material expires, AWS KMS deletes the key material and the customer master key \(CMK\) becomes unusable\. You can also delete key material on demand\. Whether you wait for the key material to expire or you delete it manually, the effect is the same\. AWS KMS deletes the key material, the CMK's [key state](key-state.md) changes to *pending import*, and the CMK is unusable\. To use the CMK again, you must reimport the same key material\.
 
@@ -7,11 +7,11 @@ Deleting key material affects the CMK immediately, but you can reverse the delet
 To delete key material, you can use the AWS Management Console or the AWS KMS API\. You can use the API directly by making HTTP requests, or through one of the [AWS SDKs](https://aws.amazon.com/tools/#sdk) or [command line tools](https://aws.amazon.com/tools/#cli)\.
 
 **Topics**
-+ [How Deleting Key Material Affects AWS Services Integrated With AWS KMS](#importing-keys-delete-key-material-services)
-+ [Delete Key Material \(Console\)](#importing-keys-delete-key-material-console)
-+ [Delete Key Material \(KMS API\)](#importing-keys-delete-key-material-api)
++ [How deleting key material affects AWS services integrated with AWS KMS](#importing-keys-delete-key-material-services)
++ [Delete key material \(console\)](#importing-keys-delete-key-material-console)
++ [Delete key material \(AWS KMS API\)](#importing-keys-delete-key-material-api)
 
-## How Deleting Key Material Affects AWS Services Integrated With AWS KMS<a name="importing-keys-delete-key-material-services"></a>
+## How deleting key material affects AWS services integrated with AWS KMS<a name="importing-keys-delete-key-material-services"></a>
 
 When you delete key material, the CMK becomes unusable right away\. However, any [data keys](concepts.md#data-keys) that AWS services are using are not immediately affected\. This means that deleting key material might not immediately affect all of the data and AWS resources that are protected under the CMK, though they are affected eventually\.
 
@@ -27,7 +27,7 @@ For example, consider this scenario:
 
 1. However, when the encrypted EBS volume is detached from the EC2 instance, Amazon EBS removes the plaintext key from memory\. The next time the encrypted EBS volume is attached to an EC2 instance, the attachment fails, because Amazon EBS cannot use the CMK to decrypt the volume's encrypted data key\. To use the EBS volume again, you must reimport the same key material into the CMK\. 
 
-## Delete Key Material \(Console\)<a name="importing-keys-delete-key-material-console"></a>
+## Delete key material \(console\)<a name="importing-keys-delete-key-material-console"></a>
 
 You can use the AWS Management Console to delete key material\.
 
@@ -43,7 +43,7 @@ You can use the AWS Management Console to delete key material\.
 
 1. Confirm that you want to delete the key material and then choose **Delete key material**\. The CMK's status, which corresponds to its [key state](key-state.md), changes to **Pending import**\.
 
-## Delete Key Material \(KMS API\)<a name="importing-keys-delete-key-material-api"></a>
+## Delete key material \(AWS KMS API\)<a name="importing-keys-delete-key-material-api"></a>
 
 To use the [AWS KMS API](https://docs.aws.amazon.com/kms/latest/APIReference/) to delete key material, send a [DeleteImportedKeyMaterial](https://docs.aws.amazon.com/kms/latest/APIReference/API_DeleteImportedKeyMaterial.html) request\. The following example shows how to do this with the [AWS CLI](https://aws.amazon.com/cli/)\.
 

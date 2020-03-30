@@ -1,20 +1,20 @@
-# Working with Grants<a name="programming-grants"></a>
+# Working with grants<a name="programming-grants"></a>
 
-The examples in this topic use the AWS KMS API to create, view, retire, and revoke grants on AWS KMS customer master keys \(CMKs\)\. For more details about using grants in AWS KMS, see [Using Grants](grants.md)\.
+The examples in this topic use the AWS KMS API to create, view, retire, and revoke grants on AWS KMS customer master keys \(CMKs\)\. For more details about using grants in AWS KMS, see [Using grants](grants.md)\.
 
 **Topics**
-+ [Creating a Grant](#create-grant)
-+ [Viewing a Grant](#list-grants)
-+ [Retiring a Grant](#retire-grant)
-+ [Revoking a Grant](#revoke-grant)
++ [Creating a grant](#create-grant)
++ [Viewing a grant](#list-grants)
++ [Retiring a grant](#retire-grant)
++ [Revoking a grant](#revoke-grant)
 
-## Creating a Grant<a name="create-grant"></a>
+## Creating a grant<a name="create-grant"></a>
 
-To create a grant for an AWS KMS customer master key, use the [CreateGrant](https://docs.aws.amazon.com/kms/latest/APIReference/API_CreateGrant.html) operation\. The response includes only the grant ID and grant token\. To get detailed information about the grant, use the [ListGrants](https://docs.aws.amazon.com/kms/latest/APIReference/API_ListGrants.html) operation, as shown in [Viewing a Grant](#list-grants)\.
+To create a grant for an AWS KMS customer master key, use the [CreateGrant](https://docs.aws.amazon.com/kms/latest/APIReference/API_CreateGrant.html) operation\. The response includes only the grant ID and grant token\. To get detailed information about the grant, use the [ListGrants](https://docs.aws.amazon.com/kms/latest/APIReference/API_ListGrants.html) operation, as shown in [Viewing a grant](#list-grants)\.
 
 These examples create a grant that allows Alice, an IAM user in the account, to call the [GenerateDataKey](https://docs.aws.amazon.com/kms/latest/APIReference/API_GenerateDataKey.html) operation on the CMK identified by the `KeyId` parameter\.
 
-In languages that require a client object, these examples use the AWS KMS client object that you created in [Creating a Client](programming-client.md)\.
+In languages that require a client object, these examples use the AWS KMS client object that you created in [Creating a client](programming-client.md)\.
 
 ------
 #### [ Java ]
@@ -155,11 +155,14 @@ $response = New-KMSGrant -GranteePrincipal $granteePrincipal -KeyId $keyId -Oper
 
 ------
 
-## Viewing a Grant<a name="list-grants"></a>
+## Viewing a grant<a name="list-grants"></a>
 
 To get detailed information about the grants on an AWS KMS customer master key, use the [ListGrants](https://docs.aws.amazon.com/kms/latest/APIReference/API_ListGrants.html) operation\. These examples use the optional `Limits` parameter, which determines how many grants the operation returns\.
 
-In languages that require a client object, these examples use the AWS KMS client object that you created in [Creating a Client](programming-client.md)\.
+**Note**  
+The `GranteePrincipal` field in the `ListGrants` response usually contains the grantee principal of the grant\. However, when the grantee principal in the grant is an AWS service, the `GranteePrincipal` field contains the [service principal](https://docs.aws.amazon.com/IAM/latest/UserGuide/reference_policies_elements_principal.html#principal-services), which might represent several different grantee principals\.
+
+In languages that require a client object, these examples use the AWS KMS client object that you created in [Creating a client](programming-client.md)\.
 
 ------
 #### [ Java ]
@@ -270,7 +273,7 @@ kmsClient.listGrants({ KeyId, Limit }, (err, data) => {
 
 To view the details of all AWS KMS grants for a CMK, use the [Get\-KMSGrantList](https://docs.aws.amazon.com/powershell/latest/reference/items/Get-KMSGrantList.html) cmdlet\. 
 
-This example uses the [Select\-Object](https://docs.microsoft.com/en-us/powershell/module/microsoft.powershell.utility/select-object) cmdlet, instead of the `Limit` parameter, which is being deprecated in this cmdlet\. Unlike `Limit`, which returns a subset of the objects that the cmdlet generates, the `First` parameter of `Select-Object` prevents the cmdlet from generating more than the specified number of output objects\.
+To limit the number of output objects, this example uses the [Select\-Object](https://docs.microsoft.com/en-us/powershell/module/microsoft.powershell.utility/select-object) cmdlet, instead of the `Limit` parameter, which is being deprecated in list cmdlets\. For help with paginating output in AWS Tools for PowerShell, see [Output Pagination with AWS Tools for PowerShell](http://aws.amazon.com/blogs/developer/output-pagination-with-aws-tools-for-powershell/)\.
 
 ```
 # Listing grants on a CMK
@@ -284,7 +287,7 @@ $response = Get-KMSGrantList -KeyId $keyId | Select-Object -First $limit
 
 ------
 
-## Retiring a Grant<a name="retire-grant"></a>
+## Retiring a grant<a name="retire-grant"></a>
 
 To retire a grant for an AWS KMS customer master key, use the [RetireGrant](https://docs.aws.amazon.com/kms/latest/APIReference/API_RetireGrant.html) operation\. You should retire a grant to clean up after you are done using it\. 
 
@@ -292,7 +295,7 @@ To retire a grant, provide the grant token, or both the grant ID and CMK ID\. Fo
 
 RetireGrant doesn't return a response\. To verify that it was effective, use the [ListGrants](https://docs.aws.amazon.com/kms/latest/APIReference/API_ListGrants.html) operation\.
 
-In languages that require a client object, these examples use the AWS KMS client object that you created in [Creating a Client](programming-client.md)\.
+In languages that require a client object, these examples use the AWS KMS client object that you created in [Creating a client](programming-client.md)\.
 
 ------
 #### [ Java ]
@@ -398,11 +401,11 @@ Disable-KMSGrant -GrantToken $grantToken
 
 ------
 
-## Revoking a Grant<a name="revoke-grant"></a>
+## Revoking a grant<a name="revoke-grant"></a>
 
 To revoke a grant to an AWS KMS customer master key, use the [RevokeGrant](https://docs.aws.amazon.com/kms/latest/APIReference/API_RevokeGrant.html) operation\. You can revoke a grant to explicitly deny operations that depend on it\. 
 
-In languages that require a client object, these examples use the AWS KMS client object that you created in [Creating a Client](programming-client.md)\.
+In languages that require a client object, these examples use the AWS KMS client object that you created in [Creating a client](programming-client.md)\.
 
 ------
 #### [ Java ]

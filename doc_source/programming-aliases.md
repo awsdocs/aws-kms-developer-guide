@@ -1,46 +1,40 @@
-# Working with Aliases<a name="programming-aliases"></a>
+# Working with aliases<a name="programming-aliases"></a>
 
 The examples in this topic use the AWS KMS API to create, view, update, and delete aliases\.
 
-An *alias* is an optional display name for a [customer master key \(CMK\)](concepts.md#master_keys)\. Each CMK can have multiple aliases, but each alias points to only one CMK\. The alias name must be unique in the AWS account and region\. To simplify code that runs in multiple regions, you can use the same alias name but point it to a different CMK in each region\. 
+An *alias* is an optional display name for a [customer master key \(CMK\)](concepts.md#master_keys)\. You can use an [alias name](concepts.md#key-id-alias-name) or [alias ARN](concepts.md#key-id-alias-ARN) as the value of the `KeyId` parameter in [cryptographic operations](concepts.md#cryptographic-operations), such as `Encrypt` and `Decrypt`\.
 
-You can use AWS KMS API operations to list, create, and delete aliases\. You can also update an alias, which associates an existing alias with a different CMK\. There is no operation to edit or change an alias name\. If you create an alias for a CMK that already has an alias, the operation creates another alias for the same CMK\. To change an alias name, delete the current alias and then create a new alias for the CMK\.
+Each CMK can have multiple aliases, but each alias points to only one CMK\. The alias name must be unique in the AWS account and Region, and each alias must be associated with a CMK in its account and Region\. To simplify code that runs in multiple regions, you can use the same alias name but point it to a different CMK in each region\. 
+
+You can use AWS KMS API operations to create, list, and delete aliases\. You can also update an alias, which associates an existing alias with a different CMK\. There is no operation to edit or change an alias name\. If you create an alias for a CMK that already has an alias, the operation creates another alias for the same CMK\. To change an alias name, delete the current alias and then create a new alias for the CMK\.
 
 Because an alias is not a property of a CMK, it can be associated with and disassociated from an existing CMK without changing the properties of the CMK\. Deleting an alias does not delete the underlying CMK\.
-
-You can use an alias as the value of the `KeyId` parameter only in the following operations:
-+ `DescribeKey`
-+ `Encrypt`
-+ `GenerateDataKey`
-+ `GenerateDataKeyPair`
-+ `GenerateDataKeyPairWithoutPlaintext`
-+ `GenerateDataKeyWithoutPlaintext`
-+ `ReEncrypt`
-
-Aliases are created in an AWS account and are known only to the account in which you create them\. You cannot use an alias name or alias ARN to identify a CMK in a different AWS account\.
 
 To specify an alias, use the alias name or alias ARN, as shown in the following example\. In either case, be sure to prepend `"alias/"` to the alias name\.
 
 ```
-// Fully specified ARN
+// Alias ARN
 arn:aws:kms:us-west-2:111122223333:alias/ExampleAlias
+
+// Alias name
+alias/ExampleAlias
 ```
 
 **Topics**
-+ [Creating an Alias](#create-alias)
-+ [Listing Aliases](#list-aliases)
-+ [Updating an Alias](#update-alias)
-+ [Deleting an Alias](#delete-alias)
++ [Creating an alias](#create-alias)
++ [Listing aliases](#list-aliases)
++ [Updating an alias](#update-alias)
++ [Deleting an alias](#delete-alias)
 
-## Creating an Alias<a name="create-alias"></a>
+## Creating an alias<a name="create-alias"></a>
 
-To create an alias, use the [CreateAlias](https://docs.aws.amazon.com/kms/latest/APIReference/API_CreateAlias.html) operation\. The alias must be unique in the account and region\. If you create an alias for a CMK that already has an alias, `CreateAlias` creates another alias to the same CMK\. It does not replace the existing alias\.
+To create an alias, use the [CreateAlias](https://docs.aws.amazon.com/kms/latest/APIReference/API_CreateAlias.html) operation\. The alias must be unique in the account and Region\. If you create an alias for a CMK that already has an alias, `CreateAlias` creates another alias to the same CMK\. It does not replace the existing alias\.
 
 The alias name must begin with `alias/` followed by a name, such as `alias/ExampleAlias`\. It can contain only alphanumeric characters, forward slashes \(/\), underscores \(\_\), and dashes \(\-\)\. The alias name cannot begin with `alias/aws/`\. The `alias/aws/` prefix is reserved for [AWS managed CMKs](concepts.md#master_keys)\. 
 
 The `CreateAlias` operation does not return any output\. To verify that the alias was created, use the [ListAliases](https://docs.aws.amazon.com/kms/latest/APIReference/API_ListAliases.html) operation\.
 
-In languages that require a client object, these examples use the AWS KMS client object that you created in [Creating a Client](programming-client.md)\.
+In languages that require a client object, these examples use the AWS KMS client object that you created in [Creating a client](programming-client.md)\.
 
 ------
 #### [ Java ]
@@ -167,13 +161,13 @@ New-KMSAlias -TargetKeyId $targetKeyId -AliasName $aliasName
 
 ------
 
-## Listing Aliases<a name="list-aliases"></a>
+## Listing aliases<a name="list-aliases"></a>
 
 To list aliases in the account and region, use the [ListAliases](https://docs.aws.amazon.com/kms/latest/APIReference/API_ListAliases.html) operation\.
 
-By default, the ListAliases command returns all aliases in the account and region\. This includes aliases that you created and associated with your [customer managed CMKs](concepts.md#master_keys), and aliases that AWS created and associated with your [AWS managed CMKs](concepts.md#master_keys)\. The response might also include aliases that have no `TargetKeyId` field\. These are predefined aliases that AWS has created but has not yet associated with a CMK\.
+By default, the ListAliases command returns all aliases in the account and Region\. This includes aliases that you created and associated with your [customer managed CMKs](concepts.md#master_keys), and aliases that AWS created and associated with your [AWS managed CMKs](concepts.md#master_keys)\. The response might also include aliases that have no `TargetKeyId` field\. These are predefined aliases that AWS has created but has not yet associated with a CMK\.
 
-In languages that require a client object, these examples use the AWS KMS client object that you created in [Creating a Client](programming-client.md)\.
+In languages that require a client object, these examples use the AWS KMS client object that you created in [Creating a client](programming-client.md)\.
 
 ------
 #### [ Java ]
@@ -262,8 +256,22 @@ kmsClient.listAliases({ Limit }, (err, data) => {
 ```
 
 ------
+#### [ PowerShell ]
 
-To list only the aliases that are associated with a particular CMK, use the `KeyId` parameter\. Its value can be the ID or Amazon Resource Name \(ARN\) of any CMK in the region\. You cannot specify an alias name or alias ARN\.
+To list the aliases in the account and Region, use the [Get\-KMSAliasList](https://docs.aws.amazon.com/powershell/latest/reference/items/Get-KMSAliasList.html) cmdlet\.
+
+To limit the number of output objects, this example uses the [Select\-Object](https://docs.microsoft.com/en-us/powershell/module/microsoft.powershell.utility/select-object) cmdlet, instead of the `Limit` parameter, which is being deprecated in list cmdlets\. For help with paginating output in AWS Tools for PowerShell, see [Output Pagination with AWS Tools for PowerShell](http://aws.amazon.com/blogs/developer/output-pagination-with-aws-tools-for-powershell/)\.
+
+```
+# List the aliases in this AWS account
+$limit = 10
+
+$result = Get-KMSAliasList | Select-Object -First $limit
+```
+
+------
+
+To list only the aliases that are associated with a particular CMK, use the `KeyId` parameter\. Its value can be the [key ID](concepts.md#key-id-key-id) or [key ARN](concepts.md#key-id-key-ARN) of any CMK in the region\. You cannot specify an alias name or alias ARN\.
 
 ------
 #### [ Java ]
@@ -364,7 +372,7 @@ kmsClient.listAliases({ KeyId }, (err, data) => {
 ------
 #### [ PowerShell ]
 
-To list the aliases for a CMK, use the [Get\-KMSAliasList](https://docs.aws.amazon.com/powershell/latest/reference/items/Get-KMSAliasList.html) cmdlet\.
+To list the aliases for a CMK, use the `KeyId` parameter of the [Get\-KMSAliasList](https://docs.aws.amazon.com/powershell/latest/reference/items/Get-KMSAliasList.html) cmdlet\.
 
 ```
 # List the aliases for one CMK
@@ -377,11 +385,11 @@ $response = Get-KmsAliasList -KeyId $keyId
 
 ------
 
-## Updating an Alias<a name="update-alias"></a>
+## Updating an alias<a name="update-alias"></a>
 
 To associate an existing alias with a different CMK, use the [UpdateAlias](https://docs.aws.amazon.com/kms/latest/APIReference/API_UpdateAlias.html) operation\. 
 
-In languages that require a client object, these examples use the AWS KMS client object that you created in [Creating a Client](programming-client.md)\.
+In languages that require a client object, these examples use the AWS KMS client object that you created in [Creating a client](programming-client.md)\.
 
 ------
 #### [ Java ]
@@ -514,11 +522,11 @@ Update-KMSAlias -AliasName $aliasName -TargetKeyID $keyId
 
 ------
 
-## Deleting an Alias<a name="delete-alias"></a>
+## Deleting an alias<a name="delete-alias"></a>
 
-To delete an alias, use the [DeleteAlias](https://docs.aws.amazon.com/kms/latest/APIReference/API_DeleteAlias.html) operation\. Deleting an alias has no effect on the underlying CMK\. 
+To delete an alias, use the [DeleteAlias](https://docs.aws.amazon.com/kms/latest/APIReference/API_DeleteAlias.html) operation\. Deleting an alias has no effect on the associated CMK\. 
 
-In languages that require a client object, these examples use the AWS KMS client object that you created in [Creating a Client](programming-client.md)\.
+In languages that require a client object, these examples use the AWS KMS client object that you created in [Creating a client](programming-client.md)\.
 
 ------
 #### [ Java ]

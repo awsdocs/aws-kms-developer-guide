@@ -1,14 +1,14 @@
-# Viewing a Custom Key Store<a name="view-keystore"></a>
+# Viewing a custom key store<a name="view-keystore"></a>
 
 You can view the custom key stores in each account and region by using the AWS Management Console or the AWS KMS API\. 
 
-For help with viewing the CMKs in your custom key store, see [Viewing CMKs in a Custom Key Store](view-cmk-keystore.md)\.
+For help with viewing the CMKs in your custom key store, see [Viewing CMKs in a custom key store](view-cmk-keystore.md)\.
 
 **Topics**
-+ [View a Custom Key Store \(Console\)](#view-keystore-console)
-+ [View a Custom Key Store \(API\)](#view-keystore-api)
++ [View a custom key store \(console\)](#view-keystore-console)
++ [View a custom key store \(API\)](#view-keystore-api)
 
-## View a Custom Key Store \(Console\)<a name="view-keystore-console"></a>
+## View a custom key store \(console\)<a name="view-keystore-console"></a>
 
 When you view the custom key stores in the AWS Management Console, you can see the following:
 + The custom key store name
@@ -16,7 +16,7 @@ When you view the custom key stores in the AWS Management Console, you can see t
 + The number of HSMs in the cluster
 + The current connection status
 
-A connection status of **Disconnected** indicates that the custom key store is new and has never been connected, or it was intentionally [disconnected from its AWS CloudHSM cluster](disconnect-keystore.md)\. However, if your attempts to use a CMK in a connected custom key store fail, that might indicate a problem with the custom key store or its AWS CloudHSM cluster\. For help, see [How to Fix a Failing CMK](fix-keystore.md#fix-cmk-failed)\.
+A connection status of **Disconnected** indicates that the custom key store is new and has never been connected, or it was intentionally [disconnected from its AWS CloudHSM cluster](disconnect-keystore.md)\. However, if your attempts to use a CMK in a connected custom key store fail, that might indicate a problem with the custom key store or its AWS CloudHSM cluster\. For help, see [How to fix a failing CMK](fix-keystore.md#fix-cmk-failed)\.
 
 To view the custom key stores in a given account and Region, use the following procedure\.
 
@@ -28,7 +28,7 @@ To view the custom key stores in a given account and Region, use the following p
 
 To customize the display, click the gear icon that appears below the **Create key store** button\.
 
-## View a Custom Key Store \(API\)<a name="view-keystore-api"></a>
+## View a custom key store \(API\)<a name="view-keystore-api"></a>
 
 To view your custom key stores, use the [DescribeCustomKeyStores](https://docs.aws.amazon.com/kms/latest/APIReference/API_DescribeCustomKeyStores.html) operation\. By default, this operation returns all custom key stores in the account and Region\. But you can use either the `CustomKeyStoreId` or `CustomKeyStoreName` parameter \(but not both\) to limit the output to a particular custom key store\. The output consists of the custom key store ID and name, the ID of the associated AWS CloudHSM cluster, and the connection state\. If the connection state indicates an error, the output also includes an error code that describes the reason for the error\.
 
@@ -60,11 +60,11 @@ $ aws kms describe-custom-key-stores --custom-key-store-name ExampleKeyStore
 }
 ```
 
-A `ConnectionState` of `Disconnected` indicates that a custom key store has never been connected or it was intentionally [disconnected from its AWS CloudHSM cluster](disconnect-keystore.md)\. However, if attempts to use a CMK in a connected custom key store fail, that might indicate a problem with the custom key store or its AWS CloudHSM cluster\. For help, see [How to Fix a Failing CMK](fix-keystore.md#fix-cmk-failed)\. 
+A `ConnectionState` of `Disconnected` indicates that a custom key store has never been connected or it was intentionally [disconnected from its AWS CloudHSM cluster](disconnect-keystore.md)\. However, if attempts to use a CMK in a connected custom key store fail, that might indicate a problem with the custom key store or its AWS CloudHSM cluster\. For help, see [How to fix a failing CMK](fix-keystore.md#fix-cmk-failed)\. 
 
 If the `ConnectionState` of the custom key store is `FAILED`, the `DescribeCustomKeyStores` response includes a `ConnectionErrorCode` element that explains the reason for the error\.
 
-For example, in the following output, the `INVALID_CREDENTIALS` value indicates that the custom key store connection failed because the [`kmsuser` password is invalid](fix-keystore.md#fix-keystore-password)\. For help with this and other connection error failures, see [Troubleshooting a Custom Key Store](fix-keystore.md)\.
+For example, in the following output, the `INVALID_CREDENTIALS` value indicates that the custom key store connection failed because the [`kmsuser` password is invalid](fix-keystore.md#fix-keystore-password)\. For help with this and other connection error failures, see [Troubleshooting a custom key store](fix-keystore.md)\.
 
 ```
 $ aws kms describe-custom-key-stores --custom-key-store-id cks-1234567890abcdef0

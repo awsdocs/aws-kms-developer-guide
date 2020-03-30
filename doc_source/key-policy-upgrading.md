@@ -1,4 +1,4 @@
-# Keeping Key Policies Up to Date<a name="key-policy-upgrading"></a>
+# Keeping key policies up to date<a name="key-policy-upgrading"></a>
 
 When you [use the AWS Management Console to create a customer master key \(CMK\)](create-keys.md), you can choose the IAM users, IAM roles, and AWS accounts that you want to have access to the CMK\. These users, roles, and accounts are added to a [default key policy](key-policies.md#key-policy-default) that controls access to the CMK\. Occasionally, the default key policy for new CMKs is updated\. Typically, these updates correspond to new AWS KMS features\.
 
@@ -7,7 +7,7 @@ When you create a new CMK, the latest version of the default key policy is added
 **Note**  
 The console alerts you only when you are using the default key policy that was applied when you created the CMK\. If you manually modified the key policy document using the console's *policy view* or the [PutKeyPolicy](https://docs.aws.amazon.com/kms/latest/APIReference/API_PutKeyPolicy.html) operation, the console does not alert you when new permissions are available\.
 
-For information about the permissions that are added to a key policy when you upgrade it, see [Changes to the Default Key Policy](#key-policy-changes)\. Upgrading to the latest version of the key policy should not cause problems because it only adds permissions; it doesn't remove any\. We recommend keeping your key policies up to date unless you have a specific reason not to\.
+For information about the permissions that are added to a key policy when you upgrade it, see [Changes to the default key policy](#key-policy-changes)\. Upgrading to the latest version of the key policy should not cause problems because it only adds permissions; it doesn't remove any\. We recommend keeping your key policies up to date unless you have a specific reason not to\.
 
 ## Determining whether a newer version of the default key policy is available<a name="newer-version"></a>
 
@@ -37,9 +37,9 @@ When a new default key policy is available, the following alert is displayed in 
 
 1. If you see an alert announcing a newer version of the default key policy, choose **Preview and upgrade to the new key policy**\.
 
-1. Review the key policy document for the latest version of the default key policy\. For more information about the difference between the latest version and previous versions, see [Changes to the Default Key Policy](#key-policy-changes)\. After reviewing the key policy, choose **Upgrade key policy**\.
+1. Review the key policy document for the latest version of the default key policy\. For more information about the difference between the latest version and previous versions, see [Changes to the default key policy](#key-policy-changes)\. After reviewing the key policy, choose **Upgrade key policy**\.
 
-## Changes to the Default Key Policy<a name="key-policy-changes"></a>
+## Changes to the default key policy<a name="key-policy-changes"></a>
 
 In the [current version of the default key policy](key-policies.md#key-policy-default), the *key administrators statement* contains more permissions than those in previous versions\. These additional permissions correspond to new AWS KMS features\.
 

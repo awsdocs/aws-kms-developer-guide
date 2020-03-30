@@ -1,4 +1,4 @@
-# Finding CMKs and Key Material<a name="find-key-material"></a>
+# Finding CMKs and key material<a name="find-key-material"></a>
 
 If you manage a custom key store, you might need to identify the CMKs in each custom key store\. For example, you might need to do some of the following tasks\.
 + Track the CMKs in custom key store in AWS CloudTrail logs\. 
@@ -10,16 +10,16 @@ In addition, you might want to identify the keys in your AWS CloudHSM cluster th
 All key material for the CMKs in your custom key store is owned by the [`kmsuser` crypto user](key-store-concepts.md#concept-kmsuser) \(CU\)\. AWS KMS sets the key label attribute, which is viewable only in AWS CloudHSM, to the Amazon Resource Name \(ARN\) of the CMK\.
 
 To find CMKs and key material, use any of the following techniques\.
-+ [Find the CMKs in a Custom Key Store](#find-cmk-in-keystore) — How to identify the CMKs in one or all of your custom key stores\.
-+ [Find All Keys for a Custom Key Store](#find-all-kmsuser-keys) — How to find all keys in your cluster that serve as key material for the CMKs in your custom key store\.
-+ [Find the Key for a CMK](#find-handle-for-cmk-id) — How to find the key in your cluster that serves as key material for a particular CMK in your custom key store\.
-+ [Find the CMK for a Key](#find-label-for-key-handle) — How to find the CMK for a particular key in your cluster\. 
++ [Find the CMKs in a custom key store](#find-cmk-in-keystore) — How to identify the CMKs in one or all of your custom key stores\.
++ [Find all keys for a custom key store](#find-all-kmsuser-keys) — How to find all keys in your cluster that serve as key material for the CMKs in your custom key store\.
++ [Find the key for a CMK](#find-handle-for-cmk-id) — How to find the key in your cluster that serves as key material for a particular CMK in your custom key store\.
++ [Find the CMK for a key](#find-label-for-key-handle) — How to find the CMK for a particular key in your cluster\. 
 
-## Find the CMKs in a Custom Key Store<a name="find-cmk-in-keystore"></a>
+## Find the CMKs in a custom key store<a name="find-cmk-in-keystore"></a>
 
 If you manage a custom key store, you might need to identify the CMKs in each custom key store\. You can use this information track the CMK operations in AWS CloudTrail logs, predict the effect on CMKs of disconnecting a custom key store, or schedule deletion of CMKs before you delete a custom key store\. 
 
-### To find the CMKs in a custom key store \(Console\)<a name="find-cmk-in-keystore-console"></a>
+### To find the CMKs in a custom key store \(console\)<a name="find-cmk-in-keystore-console"></a>
 
 To find the CMKs in a particular custom key store, on the **Customer Managed Keys** page, view the values in the **Custom Key Store Name** or **Custom Key Store ID** fields\. To identify CMKs in any custom key store, look for CMKs with an **Origin** value of **CloudHSM**\. To add optional columns to the display, choose the gear icon in the upper right corner of the page\.
 
@@ -63,7 +63,7 @@ PS C:\> (Get-KMSKeyList).KeyArn | foreach {Get-KMSKey -KeyId $_} | where CustomK
 
 ------
 
-## Find All Keys for a Custom Key Store<a name="find-all-kmsuser-keys"></a>
+## Find all keys for a custom key store<a name="find-all-kmsuser-keys"></a>
 
 You can identify the keys in your AWS CloudHSM cluster that serve as key material for your custom key store\. To do that, use the [findAllKeys](https://docs.aws.amazon.com/cloudhsm/latest/userguide/cloudhsm_mgmt_util-findAllKeys.html) command in cloudhsm\_mgmt\_util to find the key handles of all keys that `kmsuser` owns or shares\. Unless you have logged in as `kmsuser` and created keys outside of AWS KMS, all of the keys that `kmsuser` owns represent key material for AWS KMS CMKs\. 
 
@@ -107,7 +107,7 @@ Any crypto officer in the cluster can run this command without disconnecting the
    findAllKeys success on server 1(10.0.0.2)
    ```
 
-## Find the CMK for a Key<a name="find-label-for-key-handle"></a>
+## Find the CMK for a key<a name="find-label-for-key-handle"></a>
 
 If you know the key handle of a key that `kmsuser` owns in the cluster, you can use the key label to identify the associated CMK in your custom key store\.
 
@@ -118,7 +118,7 @@ To run this procedure, you need to disconnect the custom key store temporarily s
 **Note**  
 While a custom key store is disconnected, all attempts to create customer master keys \(CMKs\) in the custom key store or to use existing CMKs in cryptographic operations will fail\. This action can prevent users from storing and accessing sensitive data\.
 
-1. Disconnect the custom key store, if it is not already disconnected\., then log into the key\_mgmt\_util as `kmsuser`, as explained in [How to Disconnect and Log In](fix-keystore.md#login-kmsuser-1)\.
+1. Disconnect the custom key store, if it is not already disconnected\., then log into the key\_mgmt\_util as `kmsuser`, as explained in [How to disconnect and log in](fix-keystore.md#login-kmsuser-1)\.
 
 1. Use the `getAttribute` command in [key\_mgmt\_util](https://docs.aws.amazon.com/cloudhsm/latest/userguide/key_mgmt_util-getAttribute.html) or [cloudhsm\_mgmt\_util](https://docs.aws.amazon.com/cloudhsm/latest/userguide/cloudhsm_mgmt_util-getAttribute.html) to get the label attribute \(`OBJ_ATTR_LABEL`, attribute `3`\) for a particular key handle\. 
 
@@ -138,9 +138,9 @@ While a custom key store is disconnected, all attempts to create customer master
    arn:aws:kms:us-west-2:111122223333:key/1234abcd-12ab-34cd-56ef-1234567890ab
    ```
 
-1. Log out of key\_mgmt\_util or cloudhsm\_mgmt\_util and reconnect the custom key store as explained in [How to Log Out and Reconnect](fix-keystore.md#login-kmsuser-2)\.
+1. Log out of key\_mgmt\_util or cloudhsm\_mgmt\_util and reconnect the custom key store as explained in [How to log out and reconnect](fix-keystore.md#login-kmsuser-2)\.
 
-## Find the Key for a CMK<a name="find-handle-for-cmk-id"></a>
+## Find the key for a CMK<a name="find-handle-for-cmk-id"></a>
 
 You can use the CMK ID of a CMK in a custom key store to identify the key in your cluster that serves as its key material\. Then you can use its key handle to identify the key in AWS CloudHSM client commands\. 
 
@@ -149,7 +149,7 @@ When AWS KMS creates the key material for a CMK in your AWS CloudHSM cluster, it
 **Note**  
 While a custom key store is disconnected, all attempts to create customer master keys \(CMKs\) in the custom key store or to use existing CMKs in cryptographic operations will fail\. This action can prevent users from storing and accessing sensitive data\.
 
-1. Disconnect the custom key store, if it is not already disconnected, then log into the key\_mgmt\_util as `kmsuser`, as explained in [How to Disconnect and Log In](fix-keystore.md#login-kmsuser-1)\.
+1. Disconnect the custom key store, if it is not already disconnected, then log into the key\_mgmt\_util as `kmsuser`, as explained in [How to disconnect and log in](fix-keystore.md#login-kmsuser-1)\.
 
 1. Use the [findKey](https://docs.aws.amazon.com/cloudhsm/latest/userguide/key_mgmt_util-findKey.html) command in key\_mgmt\_util to search for a key with a label that matches the ARN of a CMK in your custom key store\. Replace the example CMK ARN in the value of the `-l` \(lower\-case L for 'label'\) parameter with a valid CMK ARN\. 
 
@@ -169,4 +169,4 @@ While a custom key store is disconnected, all attempts to create customer master
            Cfm3FindKey returned: 0x00 : HSM Return: SUCCESS
    ```
 
-1. Log out of key\_mgmt\_util and reconnect the custom key store as explained in [How to Log Out and Reconnect](fix-keystore.md#login-kmsuser-2)\.
+1. Log out of key\_mgmt\_util and reconnect the custom key store as explained in [How to log out and reconnect](fix-keystore.md#login-kmsuser-2)\.

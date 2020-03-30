@@ -1,4 +1,4 @@
-# How Amazon Elastic Transcoder Uses AWS KMS<a name="services-et"></a>
+# How Amazon Elastic Transcoder uses AWS KMS<a name="services-et"></a>
 
 You can use Amazon Elastic Transcoder to convert media files stored in an Amazon S3 bucket into formats required by consumer playback devices\. Both input and output files can be encrypted and decrypted\. The following sections discuss how AWS KMS is used for both processes\.
 
@@ -6,8 +6,8 @@ You can use Amazon Elastic Transcoder to convert media files stored in an Amazon
 + [Encrypting the input file](#et-encrypt-input)
 + [Decrypting the input file](#et-decrypt-input)
 + [Encrypting the output file](#et-output)
-+ [HLS Content Protection](#et-hls)
-+ [Elastic Transcoder Encryption Context](#et-encryption-context)
++ [HLS content protection](#et-hls)
++ [Elastic Transcoder encryption context](#et-encryption-context)
 
 ## Encrypting the input file<a name="et-encrypt-input"></a>
 
@@ -21,7 +21,7 @@ If you choose server\-side encryption, you are allowing Amazon S3 to perform all
 + Any [symmetric](symm-asymm-concepts.md#symmetric-cmks) [customer managed CMK](concepts.md#customer-cmk) that you create by using AWS KMS
 
 **Important**  
-For both client\-side and server\-side encryption, Elastic Transcoder supports only [symmetric CMKs](symm-asymm-concepts.md#symmetric-cmks)\. You cannot use an [asymmetric CMK](symm-asymm-concepts.md#asymmetric-cmks) to encrypt your Elastic Transcoder files\. To determine whether a CMK is symmetric or asymmetric, see [Identifying Symmetric and Asymmetric CMKs](find-symm-asymm.md)\.
+For both client\-side and server\-side encryption, Elastic Transcoder supports only [symmetric CMKs](symm-asymm-concepts.md#symmetric-cmks)\. You cannot use an [asymmetric CMK](symm-asymm-concepts.md#asymmetric-cmks) to encrypt your Elastic Transcoder files\. To determine whether a CMK is symmetric or asymmetric, see [Identifying symmetric and asymmetric CMKs](find-symm-asymm.md)\.
 
 You can request encryption and the master key you want by using the Amazon S3 console or the appropriate Amazon S3 APIs\. For more information about how Amazon S3 performs encryption, see [Protecting Data Using Encryption](https://docs.aws.amazon.com/AmazonS3/latest/dev/UsingEncryption.html) in the *Amazon Simple Storage Service Developer Guide*\.
 
@@ -100,7 +100,7 @@ When you specify that your provided AES key be used to encrypt the output file, 
 **Important**  
 AWS never stores your private encryption keys\. Therefore, it is important that you manage your keys safely and securely\. If you lose them, you won't be able to decrypt your data\.
 
-## HLS Content Protection<a name="et-hls"></a>
+## HLS content protection<a name="et-hls"></a>
 
 HTTP Live Streaming \(HLS\) is an adaptive streaming protocol\. Elastic Transcoder supports HLS by breaking your input file into smaller individual files called *media segments*\. A set of corresponding individual media segments contain the same material encoded at different bit rates, thereby enabling the player to select the stream that best fits the available bandwidth\. Elastic Transcoder also creates playlists that contain metadata for the various segments that are available to be streamed\.
 
@@ -118,7 +118,7 @@ The CMK can be used to decrypt the data key at the following points:
 
 For more information, see [HLS Content Protection](https://docs.aws.amazon.com/elastictranscoder/latest/developerguide/content-protection.html) in the *Amazon Elastic Transcoder Developer Guide*\.
 
-## Elastic Transcoder Encryption Context<a name="et-encryption-context"></a>
+## Elastic Transcoder encryption context<a name="et-encryption-context"></a>
 
 An [encryption context](concepts.md#encrypt_context) is a set of key–value pairs that contain arbitrary nonsecret data\. When you include an encryption context in a request to encrypt data, AWS KMS cryptographically binds the encryption context to the encrypted data\. To decrypt the data, you must pass in the same encryption context\. 
 

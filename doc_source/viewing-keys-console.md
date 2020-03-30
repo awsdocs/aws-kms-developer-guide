@@ -1,14 +1,14 @@
-# Viewing CMKs in the Console<a name="viewing-keys-console"></a>
+# Viewing CMKs in the console<a name="viewing-keys-console"></a>
 
 In the AWS Management Console, you can view lists of your CMKs and details about each CMK\.
 
 **Topics**
-+ [Navigating to the Key Tables](#viewing-console-navigate)
-+ [Sorting and Filtering Your CMKs](#viewing-console-filter)
-+ [Displaying CMK Details](#viewing-console-details)
-+ [Customizing Your CMK Tables](#viewing-console-customize)
++ [Navigating to the key tables](#viewing-console-navigate)
++ [Sorting and filtering your CMKs](#viewing-console-filter)
++ [Displaying CMK details](#viewing-console-details)
++ [Customizing your CMK tables](#viewing-console-customize)
 
-## Navigating to the Key Tables<a name="viewing-console-navigate"></a>
+## Navigating to the key tables<a name="viewing-console-navigate"></a>
 
 The AWS KMS customer master keys \(CMKs\) in each account and region are displayed in tables\. There are separate tables for the CMKs that you create and the CMKs that AWS services create for you\. 
 
@@ -19,9 +19,9 @@ The AWS KMS customer master keys \(CMKs\) in each account and region are display
 1. To view the keys in your account that you create and manage, in the navigation pane choose **Customer managed keys**\. To view the keys in your account that AWS creates and manages for you, in the navigation pane, choose **AWS managed keys**\. For information about the different types of CMKs, see [Customer master keys](concepts.md#master_keys)\.
 **Tip**  
 To view [AWS managed CMKs](concepts.md#aws-managed-cmk) that are missing an alias, use the **Customer managed keys** page\.  
-The AWS KMS console also displays the custom key stores in the account and Region\. CMKs that you create in custom key stores appear on the **Customer managed keys** page\. For information about custom key stores, see [Using a Custom Key Store](custom-key-store-overview.md)\.
+The AWS KMS console also displays the custom key stores in the account and Region\. CMKs that you create in custom key stores appear on the **Customer managed keys** page\. For information about custom key stores, see [Using a custom key store](custom-key-store-overview.md)\.
 
-## Sorting and Filtering Your CMKs<a name="viewing-console-filter"></a>
+## Sorting and filtering your CMKs<a name="viewing-console-filter"></a>
 
 To make it easier to find your CMKs in the console, you can sort and filter them\. 
 
@@ -55,7 +55,7 @@ You can have multiple filters at the same time\. When you add additional filters
 
 ![\[Image NOT FOUND\]](http://docs.aws.amazon.com/kms/latest/developerguide/images/filter-multi-properties.png)
 
-## Displaying CMK Details<a name="viewing-console-details"></a>
+## Displaying CMK details<a name="viewing-console-details"></a>
 
 The details page for each CMK displays the properties of the CMK\. It differs slightly for the different types of CMKs\. 
 
@@ -96,26 +96,26 @@ The name of the [custom key store](custom-key-store-overview.md) that contains t
 A brief, optional description of the CMK\. To add or update the description of a customer managed CMK, above **General Configuration**, choose **Edit**\.
 
 **Encryption algorithms**  
-Lists the encryption algorithms that can be used with the CMK in AWS KMS\. The encryption algorithm restrictions are not enforceable outside of AWS KMS\. This field appears only when the **Key type** is **Asymmetric** and the **Key usage** is **Encrypt and decrypt**\.
+Lists the encryption algorithms that can be used with the CMK in AWS KMS\. This field appears only when the **Key type** is **Asymmetric** and the **Key usage** is **Encrypt and decrypt**\. For information about the encryption algorithms that AWS KMS supports, see [SYMMETRIC\_DEFAULT key spec](symm-asymm-choose.md#key-spec-symmetric-default) and [RSA key specs for encryption and decryption](symm-asymm-choose.md#key-spec-rsa-encryption)\.
 
 **Expiration date**  
 The date and time when the key material for the CMK expires\. This field appears only for CMKs with [imported key material](importing-keys.md), that is, when the **Origin** is **External** and the CMK has key material that expires\.
 
 **Key policy**  
-Controls access to the CMK along with [IAM policies](iam-policies.md) and [grants](grants.md)\. Every CMK has one key policy\. It is the only mandatory authorization element\. To change the key policy of a customer managed CMK, on the **Key policy** tab, choose **Edit**\. For details, see [Using Key Policies in AWS KMS](key-policies.md)\.
+Controls access to the CMK along with [IAM policies](iam-policies.md) and [grants](grants.md)\. Every CMK has one key policy\. It is the only mandatory authorization element\. To change the key policy of a customer managed CMK, on the **Key policy** tab, choose **Edit**\. For details, see [Using key policies in AWS KMS](key-policies.md)\.
 
 **Key rotation**  
 Enables and disables [automatic key rotation](rotate-keys.md) every year\.   
 To change the key rotation status of a [customer managed CMK](concepts.md#customer-cmk), use the checkbox on the **Key rotation** tab\. All [AWS managed CMKs](concepts.md#aws-managed-cmk) are automatically rotated every three years\.
 
 **Key spec**  
-The type of of key material in the CMK\. AWS KMS supports symmetric CMKs \(SYMMETRIC\_DEFAULT\), CMKs for RSA keys of different lengths, and elliptic curve keys with different curves\.
+The type of key material in the CMK\. AWS KMS supports symmetric CMKs \(SYMMETRIC\_DEFAULT\), CMKs for RSA keys of different lengths, and elliptic curve keys with different curves\. For details, see [Key spec](concepts.md#key-spec)\.
 
 **Key type**  
 Indicates whether the CMK is **Symmetric** or **Asymmetric**\.
 
 **Key usage**  
-Indicates whether a CMK can be used for **Encrypt and decrypt** or **Sign and verify**\. Only asymmetric CMKs can be used to sign and verify\.
+Indicates whether a CMK can be used for **Encrypt and decrypt** or **Sign and verify**\. Only asymmetric CMKs can be used to sign and verify\. For details, see [Key usage](concepts.md#key-usage)\.
 
 **Origin**  
 The source of the key material for the CMK\. Valid values are **AWS\_KMS** for key material that AWS KMS generates, **EXTERNAL** for [imported key material](importing-keys.md), and **AWS\_CloudHSM** for CMKs in [custom key stores](custom-key-store-overview.md)\.
@@ -124,16 +124,16 @@ The source of the key material for the CMK\. Valid values are **AWS\_KMS** for k
 Displays the public key of an asymmetric CMK\. Authorized users can use this tab to [copy and download the public key](download-public-key.md)\.
 
 **Signing algorithms**  
-Lists the signing algorithms that can be used with the CMK in AWS KMS\. This field appears only when the **Key type** is **Asymmetric** and the **Key usage** is **Sign and verify**\.
+Lists the signing algorithms that can be used with the CMK in AWS KMS\. This field appears only when the **Key type** is **Asymmetric** and the **Key usage** is **Sign and verify**\. For information about the signing algorithms that AWS KMS supports, see [RSA key specs for signing and verification](symm-asymm-choose.md#key-spec-rsa-sign) and [Elliptic curve key specs](symm-asymm-choose.md#key-spec-ecc)\.
 
 **Status**  
-The key state of the CMK\. You can use the CMK in cryptographic operations only when the status is **Enabled**\. For a detailed description of each CMK status and its effect on the operations that you can run on the CMK, see [How Key State Affects Use of a Customer Master Key](key-state.md)\.
+The key state of the CMK\. You can use the CMK in cryptographic operations only when the status is **Enabled**\. For a detailed description of each CMK status and its effect on the operations that you can run on the CMK, see [Key state: Effect on your CMK](key-state.md)\.
 
 **Tags**  
 Optional key\-value pairs that describe the CMK\. To add or change the tags for a CMK, on the **Tags** tab, choose **Edit**\.  
-When you add tags to your AWS resources, AWS generates a cost allocation report with usage and costs aggregated by tags\. For information about tagging CMKs, see [Tagging Keys](tagging-keys.md)\.
+When you add tags to your AWS resources, AWS generates a cost allocation report with usage and costs aggregated by tags\. For information about tagging CMKs, see [Tagging keys](tagging-keys.md)\.
 
-## Customizing Your CMK Tables<a name="viewing-console-customize"></a>
+## Customizing your CMK tables<a name="viewing-console-customize"></a>
 
 You can customize the tables that appear on the **AWS managed keys** and **Customer managed keys** pages in the AWS Management Console to suit your needs\. You can choose the table columns, the number of customer master keys \(CMKs\) on each page \(**Page size**\), and the text wrap\. The configuration you choose is saved when you confirm it and reapplied whenever you open the pages\. 
 
@@ -145,9 +145,9 @@ You can customize the tables that appear on the **AWS managed keys** and **Custo
 
 Consider using the **Page size** setting to increase the number of CMKs displayed on each page, especially if you typically use a device that's easy to scroll\.
 
-The data columns that you display might vary depending on the table, your job role, and the types of CMKs in the account and Region\. The following table offers some suggested configurations\. For descriptions of the columns, see [Displaying CMK Details](#viewing-console-details)\.
+The data columns that you display might vary depending on the table, your job role, and the types of CMKs in the account and Region\. The following table offers some suggested configurations\. For descriptions of the columns, see [Displaying CMK details](#viewing-console-details)\.
 
-### Suggested CMK Table Configurations<a name="configure-console"></a>
+### Suggested CMK table configurations<a name="configure-console"></a>
 
 You can customize the columns that appear in your CMK table to display the information you need about your CMKs\.
 

@@ -1,15 +1,15 @@
-# Using Key Policies in AWS KMS<a name="key-policies"></a>
+# Using key policies in AWS KMS<a name="key-policies"></a>
 
-Key policies are the primary way to control access to customer master keys \(CMKs\) in AWS KMS\. They are not the only way to control access, but you cannot control access without them\. For more information, see [Managing Access to AWS KMS CMKs](control-access-overview.md#managing-access)\.
+Key policies are the primary way to control access to customer master keys \(CMKs\) in AWS KMS\. They are not the only way to control access, but you cannot control access without them\. For more information, see [Managing access to AWS KMS CMKs](control-access-overview.md#managing-access)\.
 
 **Topics**
-+ [Overview of Key Policies](#key-policy-overview)
-+ [Default Key Policy](#key-policy-default)
-+ [Example Key Policy](#key-policy-example)
++ [Overview of key policies](#key-policy-overview)
++ [Default key policy](#key-policy-default)
++ [Example key policy](#key-policy-example)
 
-## Overview of Key Policies<a name="key-policy-overview"></a>
+## Overview of key policies<a name="key-policy-overview"></a>
 
-A key policy is a document that uses [JSON \(JavaScript Object Notation\)](http://json.org/) to specify permissions\. You can work with these JSON documents directly, or you can use the AWS Management Console to work with them using a graphical interface called the *default view*\. For more information about the console's default view for key policies, see [Default Key Policy](#key-policy-default) and [Changing a Key Policy](key-policy-modifying.md)\.
+A key policy is a document that uses [JSON \(JavaScript Object Notation\)](http://json.org/) to specify permissions\. You can work with these JSON documents directly, or you can use the AWS Management Console to work with them using a graphical interface called the *default view*\. For more information about the console's default view for key policies, see [Default key policy](#key-policy-default) and [Changing a key policy](key-policy-modifying.md)\.
 
 A key policy document cannot exceed 32 KB \(32,768 bytes\)\. Key policy documents use the same JSON syntax as other permissions policies in AWS and have the following basic structure:
 
@@ -33,28 +33,28 @@ A key policy document must have a `Version` element\. We recommend setting the v
 + **Principal** – \(Required\) The [principal](https://docs.aws.amazon.com/IAM/latest/UserGuide/reference_policies_elements_principal.html#Principal_specifying) is the identity that gets the permissions specified in the policy statement\. You can specify AWS accounts \(root\), IAM users, IAM roles, and some AWS services as principals in a key policy\. IAM groups are not valid principals\.
 **Note**  
 Do not set the Principal to an asterisk \(\*\) in any key policy statement that allows permissions\. An asterisk gives every identity in every AWS account permission to use the CMK, unless another policy statement explicitly denies it\. Users in other AWS accounts just need corresponding IAM permissions in their own accounts to use the CMK\.
-+ **Action** – \(Required\) Actions specify the API operations to allow or deny\. For example, the `kms:Encrypt` action corresponds to the AWS KMS [Encrypt](https://docs.aws.amazon.com/kms/latest/APIReference/API_Encrypt.html) operation\. You can list more than one action in a policy statement\. For more information, see [AWS KMS API Permissions Reference](kms-api-permissions-reference.md)\.
++ **Action** – \(Required\) Actions specify the API operations to allow or deny\. For example, the `kms:Encrypt` action corresponds to the AWS KMS [Encrypt](https://docs.aws.amazon.com/kms/latest/APIReference/API_Encrypt.html) operation\. You can list more than one action in a policy statement\. For more information, see [AWS KMS API permissions reference](kms-api-permissions-reference.md)\.
 + **Resource** – \(Required\) In a key policy, you use `"*"` for the resource, which means "this CMK\." A key policy applies only to the CMK it is attached to\.
-+ **Condition** – \(Optional\) Conditions specify requirements that must be met for a key policy to take effect\. With conditions, AWS can evaluate the context of an API request to determine whether or not the policy statement applies\. For more information, see [Using Policy Conditions](policy-conditions.md)\.
++ **Condition** – \(Optional\) Conditions specify requirements that must be met for a key policy to take effect\. With conditions, AWS can evaluate the context of an API request to determine whether or not the policy statement applies\. For more information, see [Using policy conditions](policy-conditions.md)\.
 
 For more information about AWS policy syntax, see [AWS IAM Policy Reference](https://docs.aws.amazon.com/IAM/latest/UserGuide/reference_policies.html) in the *IAM User Guide*\.
 
-## Default Key Policy<a name="key-policy-default"></a>
+## Default key policy<a name="key-policy-default"></a>
 
 **Default key policy when you create a CMK programmatically**  
-When you create a CMK programmatically—that is, with the [AWS KMS API](https://docs.aws.amazon.com/kms/latest/APIReference/) \(including through the [AWS SDKs](https://aws.amazon.com/tools/#sdk) and [command line tools](https://aws.amazon.com/tools/#cli)\)—you have the option of providing the key policy for the new CMK\. If you don't provide one, AWS KMS creates one for you\. This default key policy has one policy statement that gives the AWS account \(root user\) that owns the CMK full access to the CMK and enables IAM policies in the account to allow access to the CMK\. For more information about this policy statement, see [Allows Access to the AWS Account and Enables IAM Policies](#key-policy-default-allow-root-enable-iam)\.
+When you create a CMK programmatically—that is, with the [AWS KMS API](https://docs.aws.amazon.com/kms/latest/APIReference/) \(including through the [AWS SDKs](https://aws.amazon.com/tools/#sdk) and [command line tools](https://aws.amazon.com/tools/#cli)\)—you have the option of providing the key policy for the new CMK\. If you don't provide one, AWS KMS creates one for you\. This default key policy has one policy statement that gives the AWS account \(root user\) that owns the CMK full access to the CMK and enables IAM policies in the account to allow access to the CMK\. For more information about this policy statement, see [Allows access to the AWS account and enables IAM policies](#key-policy-default-allow-root-enable-iam)\.
 
 **Default key policy when you create a CMK with the AWS Management Console**  
 When you [create a CMK with the AWS Management Console](create-keys.md), you can choose the IAM users, IAM roles, and AWS accounts that are given access to the CMK\. The users, roles, and accounts that you choose are added to a default key policy that the console creates for you\. With the console, you can use the default view to view or modify this key policy, or you can work with the key policy document directly\. The default key policy created by the console allows the following permissions, each of which is explained in the corresponding section\.
 
 **Permissions**
-+ [Allows Access to the AWS Account and Enables IAM Policies](#key-policy-default-allow-root-enable-iam)
-+ [Allows Key Administrators to Administer the CMK](#key-policy-default-allow-administrators)
-+ [Allows Key Users to Use the CMK](#key-policy-default-allow-users)
-  + [Allows Key Users to Use a CMK for Cryptographic Operations](#key-policy-users-crypto)
-  + [Allows Key Users to Use the CMK with AWS Services](#key-policy-service-integration)
++ [Allows access to the AWS account and enables IAM policies](#key-policy-default-allow-root-enable-iam)
++ [Allows key administrators to administer the CMK](#key-policy-default-allow-administrators)
++ [Allows key users to use the CMK](#key-policy-default-allow-users)
+  + [Allows key users to use a CMK for cryptographic operations](#key-policy-users-crypto)
+  + [Allows key users to use the CMK with AWS services](#key-policy-service-integration)
 
-### Allows Access to the AWS Account and Enables IAM Policies<a name="key-policy-default-allow-root-enable-iam"></a>
+### Allows access to the AWS account and enables IAM policies<a name="key-policy-default-allow-root-enable-iam"></a>
 
 The default key policy gives the AWS account \(root user\) that owns the CMK full access to the CMK, which accomplishes the following two things\.
 
@@ -67,7 +67,7 @@ You cannot delete your AWS account's root user, so allowing access to this user 
 In this scenario, the CMK is now unmanageable, and you must [contact AWS Support](https://console.aws.amazon.com/support/home#/case/create) to regain access to the CMK\. The root user does not have access to the CMK, because the root user can access a CMK only when the key policy explicitly allows it\. This is different from most other resources in AWS, which implicitly allow access to the root user\.
 
 **2\. Enables IAM policies to allow access to the CMK\.**  
-IAM policies by themselves are not sufficient to allow access to a CMK\. However, you can use them in combination with a CMK's key policy if the key policy enables it\. Giving the AWS account full access to the CMK does this; it enables you to use IAM policies to give IAM users and roles in the account access to the CMK\. It does not by itself give any IAM users or roles access to the CMK, but it enables you to use IAM policies to do so\. For more information, see [Managing Access to AWS KMS CMKs](control-access-overview.md#managing-access)\.
+IAM policies by themselves are not sufficient to allow access to a CMK\. However, you can use them in combination with a CMK's key policy if the key policy enables it\. Giving the AWS account full access to the CMK does this; it enables you to use IAM policies to give IAM users and roles in the account access to the CMK\. It does not by itself give any IAM users or roles access to the CMK, but it enables you to use IAM policies to do so\. For more information, see [Managing access to AWS KMS CMKs](control-access-overview.md#managing-access)\.
 
 The following example shows the policy statement that allows access to the AWS account and thereby enables IAM policies\.
 
@@ -81,7 +81,7 @@ The following example shows the policy statement that allows access to the AWS a
 }
 ```
 
-### Allows Key Administrators to Administer the CMK<a name="key-policy-default-allow-administrators"></a>
+### Allows key administrators to administer the CMK<a name="key-policy-default-allow-administrators"></a>
 
 The default key policy created by the console allows you to choose IAM users and roles in the account and make them *key administrators*\. Key administrators have permissions to manage the CMK, but do not have permissions to use the CMK in cryptographic operations\.
 
@@ -141,14 +141,14 @@ This permission is not shown in the preceding example policy statement\.
 + **kms:ScheduleKeyDeletion** – Allows key administrators to [delete this CMK](deleting-keys.md)\.
 + **kms:CancelKeyDeletion** – Allows key administrators to cancel the pending deletion of this CMK\.
 
-The final two permissions in the preceding list, `kms:ScheduleKeyDeletion` and `kms:CancelKeyDeletion`, are included by default when you [create a CMK](create-keys.md)\. However, you can optionally remove them from the key policy when you create a CMK by clearing the box for **Allow key administrators to delete this key**\. In the same way, you can use the key details page to remove them from the default key policy for existing CMKs\. For more information, see [Editing Keys](editing-keys.md)\.
+The final two permissions in the preceding list, `kms:ScheduleKeyDeletion` and `kms:CancelKeyDeletion`, are included by default when you [create a CMK](create-keys.md)\. However, you can optionally remove them from the key policy when you create a CMK by clearing the box for **Allow key administrators to delete this key**\. In the same way, you can use the key details page to remove them from the default key policy for existing CMKs\. For more information, see [Editing keys](editing-keys.md)\.
 
 Many of these permissions contain the wildcard character \(`*`\)\. That means that if AWS KMS adds new API operations in the future, key administrators will automatically be allowed to perform all new API operations that begin with Create, Describe, Enable, List, Put, Update, Revoke, Disable, Get, or Delete\.
 
 **Note**  
-The key administrators statement described in the preceding section is in the latest version of the default key policy\. For information about previous versions of the default key policy, see [Keeping Key Policies Up to Date](key-policy-upgrading.md)\.
+The key administrators statement described in the preceding section is in the latest version of the default key policy\. For information about previous versions of the default key policy, see [Keeping key policies up to date](key-policy-upgrading.md)\.
 
-### Allows Key Users to Use the CMK<a name="key-policy-default-allow-users"></a>
+### Allows key users to use the CMK<a name="key-policy-default-allow-users"></a>
 
 The default key policy that the console creates for symmetric CMKs allows you to choose IAM users and roles in the account, and external AWS accounts, and make them *key users*\. 
 
@@ -156,7 +156,7 @@ The console adds two policy statements to the key policy for key users\.
 + [Use the CMK directly](#key-policy-users-crypto) — The first key policy statement gives key users permission to use the CMK directly for all supported cryptographic operations for that type of CMK\.
 + [Use the CMK with AWS services](#key-policy-service-integration) — The second policy statement gives key users permission to allow AWS services that are integrated with AWS KMS to use the CMK on their behalf to protect resources, such as [Amazon Simple Storage Service buckets](services-s3.md) and [Amazon DynamoDB tables](services-dynamodb.md)\.
 
-You can add IAM users, IAM roles, and other AWS accounts to the list of key users when you create the CMK\. You can also edit the list with the console's default view for key policies, as shown in the following image\. The default view for key policies is on the key details page\. For more information about allowing users in other AWS accounts to use the CMK, see [Allowing Users in Other Accounts to Use a CMK](key-policy-modifying-external-accounts.md)\.
+You can add IAM users, IAM roles, and other AWS accounts to the list of key users when you create the CMK\. You can also edit the list with the console's default view for key policies, as shown in the following image\. The default view for key policies is on the key details page\. For more information about allowing users in other AWS accounts to use the CMK, see [Allowing users in other accounts to use a CMK](key-policy-modifying-external-accounts.md)\.
 
 ![\[Key users in the console's default key policy, default view\]](http://docs.aws.amazon.com/kms/latest/developerguide/images/console-key-policy-users-sm.png)
 
@@ -198,7 +198,7 @@ When you use the console's default view to change the list of key users, the con
 }
 ```
 
-### Allows Key Users to Use a CMK for Cryptographic Operations<a name="key-policy-users-crypto"></a>
+### Allows key users to use a CMK for cryptographic operations<a name="key-policy-users-crypto"></a>
 
 Key users have permission to use the CMK directly in all cryptographic operations supported on the CMK\. They can also use the [DescribeKey ](https://docs.aws.amazon.com/kms/latest/APIReference/API_DescribeKey.html)operation to get detailed information about the CMK in the AWS KMS console or by using the AWS KMS API operations\.
 
@@ -223,7 +223,7 @@ The console adds the following statement to the key policy for symmetric CMKs\.
 }
 ```
 
-**Asymmetric CMKs for Public Key Encryption**  
+**Asymmetric CMKs for public key encryption**  
 The console adds the following statement to the key policy for asymmetric CMKs with a key usage of **Encrypt and decrypt**\.  
 
 ```
@@ -242,7 +242,7 @@ The console adds the following statement to the key policy for asymmetric CMKs w
 }
 ```
 
-**Asymmetric CMKs for Signing and Verification**  
+**Asymmetric CMKs for signing and verification**  
 The console adds the following statement to the key policy for asymmetric CMKs with a key usage of **Sign and verify**\.  
 
 ```
@@ -270,7 +270,7 @@ The actions in these statements give the key users some of the following permiss
 + [kms:Sign](https://docs.aws.amazon.com/kms/latest/APIReference/API_Sign.html) – Allows key users to sign messages with this CMK\.
 + [kms:Verify](https://docs.aws.amazon.com/kms/latest/APIReference/API_Verify.html) – Allows key users to verify signatures with this CMK\.
 
-### Allows Key Users to Use the CMK with AWS Services<a name="key-policy-service-integration"></a>
+### Allows key users to use the CMK with AWS services<a name="key-policy-service-integration"></a>
 
 The default key policy in the console also gives key users permission to allow [AWS services that are integrated with AWS KMS](service-integration.md) to use the CMK, particularly services that use grants\. 
 
@@ -292,15 +292,15 @@ Key users can implicitly give these services permissions to use the CMK in speci
 ```
 
 For example, key users can use these permissions on the CMK in the following ways\.
-+ Use this CMK with Amazon Elastic Block Store \(Amazon EBS\) and Amazon Elastic Compute Cloud \(Amazon EC2\) to attach an encrypted EBS volume to an EC2 instance\. The key user implicitly gives Amazon EC2 permission to use the CMK to attach the encrypted volume to the instance\. For more information, see [How Amazon Elastic Block Store \(Amazon EBS\) Uses AWS KMS](services-ebs.md)\.
-+ Use this CMK with Amazon Redshift to launch an encrypted cluster\. The key user implicitly gives Amazon Redshift permission to use the CMK to launch the encrypted cluster and create encrypted snapshots\. For more information, see [How Amazon Redshift Uses AWS KMS](services-redshift.md)\.
++ Use this CMK with Amazon Elastic Block Store \(Amazon EBS\) and Amazon Elastic Compute Cloud \(Amazon EC2\) to attach an encrypted EBS volume to an EC2 instance\. The key user implicitly gives Amazon EC2 permission to use the CMK to attach the encrypted volume to the instance\. For more information, see [How Amazon Elastic Block Store \(Amazon EBS\) uses AWS KMS](services-ebs.md)\.
++ Use this CMK with Amazon Redshift to launch an encrypted cluster\. The key user implicitly gives Amazon Redshift permission to use the CMK to launch the encrypted cluster and create encrypted snapshots\. For more information, see [How Amazon Redshift uses AWS KMS](services-redshift.md)\.
 + Use this CMK with other [AWS services integrated with AWS KMS](service-integration.md), specifically the services that use grants, to create, manage, or use encrypted resources with those services\.
 
 The [kms:GrantIsForAWSResource](policy-conditions.md#conditions-kms-grant-is-for-aws-resource) condition key allows key users to create and manage grants, but only when the grantee is an AWS service that uses grants\. The permission allows key users to use *all* of the integrated services that use grants\. However, you can create a custom key policy that allows particular AWS services to use the CMK on the key user's behalf\. For more information, see the [kms:ViaService](policy-conditions.md#conditions-kms-via-service) condition key\.
 
 Key users need these grant permissions to use their CMK with integrated services, but these permissions are not sufficient\. Key users also need permission to use the integrated services\. For details about giving users access to an AWS service that integrates with AWS KMS, consult the documentation for the integrated service\.
 
-## Example Key Policy<a name="key-policy-example"></a>
+## Example key policy<a name="key-policy-example"></a>
 
 The following example shows a complete key policy for a symmetric CMK\. This key policy combines the example policy statements from the preceding [default key policy](#key-policy-default) section into a single key policy that accomplishes the following:
 + Allows the AWS account \(root user\) 111122223333 full access to the CMK, and thus enables IAM policies in the account to allow access to the CMK\.

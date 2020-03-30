@@ -1,4 +1,4 @@
-# Creating a Client<a name="programming-client"></a>
+# Creating a client<a name="programming-client"></a>
 
 To use the [AWS SDK for Java](https://aws.amazon.com/sdk-for-java/), the [AWS SDK for \.NET](https://aws.amazon.com/sdk-for-net/), the [AWS SDK for Python \(Boto 3\)](https://aws.amazon.com/sdk-for-python/), the [AWS SDK for Ruby](https://docs.aws.amazon.com/sdk-for-ruby/v3/api/Aws/KMS.html), the [AWS SDK for PHP](https://aws.amazon.com/sdk-for-php/), or the [AWS SDK for JavaScript in Node\.js](https://docs.aws.amazon.com/AWSJavaScriptSDK/latest/AWS/KMS.html) to write code that uses the [AWS Key Management Service \(AWS KMS\) API](https://docs.aws.amazon.com/kms/latest/APIReference/), start by creating an AWS KMS client\.
 

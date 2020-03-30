@@ -1,14 +1,14 @@
-# What is a Custom Key Store?<a name="key-store-concepts"></a>
+# What is a custom key store?<a name="key-store-concepts"></a>
 
 This topic explains some of the concepts used in AWS KMS custom key stores\.
 
 **Topics**
-+ [AWS KMS Custom Key Store](#concept-custom-key-store)
-+ [AWS CloudHSM Cluster](#concept-cluster)
-+ [`kmsuser` Crypto User](#concept-kmsuser)
-+ [CMKs in a Custom Key Store](#concept-cmk-key-store)
++ [AWS KMS custom key store](#concept-custom-key-store)
++ [AWS CloudHSM cluster](#concept-cluster)
++ [`kmsuser` Crypto user](#concept-kmsuser)
++ [CMKs in a custom key store](#concept-cmk-key-store)
 
-## AWS KMS Custom Key Store<a name="concept-custom-key-store"></a>
+## AWS KMS custom key store<a name="concept-custom-key-store"></a>
 
 A *key store* is a secure location for storing cryptographic keys\. The default key store in AWS KMS also supports methods for generating and managing the keys that its stores\. By default, the customer master keys \(CMKs\) that you create in AWS KMS are generated in and protected by hardware security modules \(HSMs\) that are [FIPS 140\-2 validated cryptographic modules](https://csrc.nist.gov/projects/cryptographic-module-validation-program/Certificate/3139)\. The CMKs never leave the modules unencrypted\.
 
@@ -20,7 +20,7 @@ Custom key stores combine the convenient and comprehensive key management interf
 
 You can [view and manage](manage-keystore.md) your custom key store, [edit its properties](update-keystore.md), and [connect and disconnect it](disconnect-keystore.md) from its associated AWS CloudHSM cluster\. If you need to [delete a custom key store](delete-keystore.md#delete-keystore-console), you must first delete the CMKs in the custom key store by scheduling their deletion and waiting until the grace period expires\. Deleting the custom key store removes the resource from AWS KMS, but it does not affect your AWS CloudHSM cluster\.
 
-## AWS CloudHSM Cluster<a name="concept-cluster"></a>
+## AWS CloudHSM cluster<a name="concept-cluster"></a>
 
 Every AWS KMS custom key store is associated with one AWS CloudHSM cluster\. When you create a customer master key \(CMK\) in your custom key store, AWS KMS creates its key material in the associated cluster\. When you use a CMK in your custom key store, the cryptographic operation is performed in the associated cluster\.
 
@@ -30,7 +30,7 @@ You specify the cluster when you create the custom key store, and you cannot cha
 
 When you are ready to use your custom key store, you connect it to its associated AWS CloudHSM cluster\. You can [connect and disconnect your custom key store](disconnect-keystore.md) at any time\. When a custom key store is connected, you can create and use its CMKs\. When it is disconnected, you can view and manage the custom key store and its CMKs\. But you cannot create new CMKs or use the CMKs in the custom key store for cryptographic operations\.
 
-## `kmsuser` Crypto User<a name="concept-kmsuser"></a>
+## `kmsuser` Crypto user<a name="concept-kmsuser"></a>
 
 To create and manage key material in the associated AWS CloudHSM cluster on your behalf, AWS KMS uses a dedicated AWS CloudHSM [crypto user](https://docs.aws.amazon.com/cloudhsm/latest/userguide/hsm-users.html#crypto-user) \(CU\) in the cluster named `kmsuser`\. The `kmsuser` CU is a standard CU account that is automatically synchronized to all HSMs in the cluster and is saved in cluster backups\. 
 
@@ -40,7 +40,7 @@ AWS KMS remains logged in as `kmsuser` as long as the custom key store is connec
 
 For instructions on creating your `kmsuser` CU account, see [Create the `kmsuser` Crypto User](create-keystore.md#before-keystore)\.
 
-## CMKs in a Custom Key Store<a name="concept-cmk-key-store"></a>
+## CMKs in a custom key store<a name="concept-cmk-key-store"></a>
 
 You can use the AWS Management Console or AWS KMS API to create a [customer master key](concepts.md#master_keys) \(CMK\) in a custom key store\. You use the same technique that you would use on any AWS KMS CMK\. The only difference is that you must identify the custom key store and specify that origin of the key material is the AWS CloudHSM cluster\. 
 

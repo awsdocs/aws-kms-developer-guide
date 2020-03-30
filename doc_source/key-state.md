@@ -1,10 +1,10 @@
-# How Key State Affects Use of a Customer Master Key<a name="key-state"></a>
+# Key state: Effect on your CMK<a name="key-state"></a>
 
 Customer master keys \(CMKs\) are always in one of the following states: `Enabled`, `Disabled`, `PendingImport`, `PendingDeletion`, or `Unavailable`\. 
 
 The following table shows whether AWS KMS API operations that run on a CMK in each state can be expected to succeed \(✓\), fail \(X\), or succeed only under certain conditions \(?\)\. The result often differs for CMKs with imported key material\.
 
-Symmetric CMKs `Enabled`, `Disabled`, `PendingImport`, `PendingDeletion`, or `Unavailable`\. Asymmetric CMKs can be in the `Enabled`, `Disabled`, or `PendingDeletion` key state\. 
+Symmetric CMKs can be in the `Enabled`, `Disabled`, `PendingImport`, `PendingDeletion`, or `Unavailable` states\. Asymmetric CMKs can be in the `Enabled`, `Disabled`, or `PendingDeletion` key state\. 
 
 The `Unavailable` state applies only to a CMK in a [custom key store](custom-key-store-overview.md)\. A CMK in a custom key store is `Unavailable` when the custom key store is intentionally disconnected from its AWS CloudHSM cluster\. You can view and manage unavailable CMKs, but you cannot use them in cryptographic operations\.
 
@@ -21,7 +21,7 @@ The following API operations do not appear in the table because they do not use 
 
 ****  
 
-| API | Enabled | Disabled | Pending Import | Pending Deletion | Unavailable | 
+| API | Enabled | Disabled | Pending import | Pending deletion | Unavailable | 
 | --- | --- | --- | --- | --- | --- | 
 | CancelKeyDeletion | ![\[Image NOT FOUND\]](http://docs.aws.amazon.com/kms/latest/developerguide/images/icon-disabled-pending-deletion.png)\[4\] | ![\[Image NOT FOUND\]](http://docs.aws.amazon.com/kms/latest/developerguide/images/icon-disabled-pending-deletion.png)\[4\] | ![\[Image NOT FOUND\]](http://docs.aws.amazon.com/kms/latest/developerguide/images/icon-disabled-pending-deletion.png)\[4\] | ![\[Image NOT FOUND\]](http://docs.aws.amazon.com/kms/latest/developerguide/images/icon-successful.png) | ![\[Image NOT FOUND\]](http://docs.aws.amazon.com/kms/latest/developerguide/images/icon-disabled-pending-deletion.png)\[4\], \[13\] | 
 | CreateAlias | ![\[Image NOT FOUND\]](http://docs.aws.amazon.com/kms/latest/developerguide/images/icon-successful.png) | ![\[Image NOT FOUND\]](http://docs.aws.amazon.com/kms/latest/developerguide/images/icon-successful.png) | ![\[Image NOT FOUND\]](http://docs.aws.amazon.com/kms/latest/developerguide/images/icon-successful.png) | ![\[Image NOT FOUND\]](http://docs.aws.amazon.com/kms/latest/developerguide/images/icon-disabled-pending-deletion.png)\[3\] | ![\[Image NOT FOUND\]](http://docs.aws.amazon.com/kms/latest/developerguide/images/icon-successful.png) | 

@@ -1,10 +1,10 @@
-# Authentication and Access Control for AWS KMS<a name="control-access"></a>
+# Authentication and access control for AWS KMS<a name="control-access"></a>
 
 Access to AWS KMS requires credentials that AWS can use to authenticate your requests\. The credentials must have permissions to access AWS resources, such as AWS KMS customer master keys \(CMKs\)\. The following sections provide details about how you can use AWS Identity and Access Management \(IAM\) and AWS KMS to help secure your resources by controlling who can access them\.
 
 **Topics**
 + [Authentication](#authentication)
-+ [Access Control](#authorization)
++ [Access control](#authorization)
 
 ## Authentication<a name="authentication"></a>
 
@@ -21,16 +21,16 @@ For security reasons, we recommend that you use the root credentials only to cre
   + **AWS service access** – You can use an IAM role in your account to allow an AWS service permissions to access your account's resources\. For example, you can create a role that allows Amazon Redshift to access an S3 bucket on your behalf and then load data stored in the S3 bucket into an Amazon Redshift cluster\. For more information, see [Creating a Role to Delegate Permissions to an AWS Service](https://docs.aws.amazon.com/IAM/latest/UserGuide/id_roles_create_for-service.html) in the *IAM User Guide*\.
   + **Applications running on EC2 instances** – Instead of storing access keys on an EC2 instance for use by applications that run on the instance and make AWS API requests, you can use an IAM role to provide temporary access keys for these applications\. To assign an IAM role to an EC2 instance, you create an *instance profile* and then attach it when you launch the instance\. An instance profile contains the role and enables applications running on the EC2 instance to get temporary access keys\. For more information, see [Using Roles for Applications on Amazon EC2](https://docs.aws.amazon.com/IAM/latest/UserGuide/id_roles_use_switch-role-ec2.html) in the *IAM User Guide*\.
 
-## Access Control<a name="authorization"></a>
+## Access control<a name="authorization"></a>
 
 You can have valid credentials to authenticate your requests, but you also need permissions to make AWS KMS API requests to create, manage, or use AWS KMS resources\. For example, you must have permissions to create a KMS CMK, to manage the CMK, to use the CMK for cryptographic operations \(such as encryption and decryption\), and so on\.
 
 The following pages describe how to manage permissions for AWS KMS\. We recommend that you read the overview first\.
-+ [Overview of Managing Access](control-access-overview.md)
-+ [Using Key Policies](key-policies.md)
-+ [Using IAM Policies](iam-policies.md)
-+ [AWS KMS API Permissions Reference](kms-api-permissions-reference.md)
-+ [Using Policy Conditions](policy-conditions.md)
-+ [Using Grants](grants.md)
-+ [Using Service\-Linked Roles](using-service-linked-roles.md)
-+ [Determining Access](determining-access.md)
++ [Overview of managing access](control-access-overview.md)
++ [Using key policies](key-policies.md)
++ [Using IAM policies](iam-policies.md)
++ [AWS KMS API permissions reference](kms-api-permissions-reference.md)
++ [Using policy conditions](policy-conditions.md)
++ [Using grants](grants.md)
++ [Using service\-linked roles](using-service-linked-roles.md)
++ [Determining access](determining-access.md)

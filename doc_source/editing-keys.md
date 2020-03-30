@@ -1,14 +1,14 @@
-# Editing Keys<a name="editing-keys"></a>
+# Editing keys<a name="editing-keys"></a>
 
 You can use the AWS KMS API and the key detail page of the AWS Management Console to edit some of the properties of your customer managed [customer master keys](concepts.md#master_keys) \(CMKs\)\. You can change the description, add and remove administrators and users, manage tags, and enable and disable key rotation\. 
 
 You cannot change the properties of [AWS managed CMKs](concepts.md#master_keys)\.
 
 **Topics**
-+ [Editing CMKs \(Console\)](#editing-keys-console)
-+ [Editing CMKs \(KMS API\)](#editing-keys-cli)
++ [Editing CMKs \(console\)](#editing-keys-console)
++ [Editing CMKs \(AWS KMS API\)](#editing-keys-cli)
 
-## Editing CMKs \(Console\)<a name="editing-keys-console"></a>
+## Editing CMKs \(console\)<a name="editing-keys-console"></a>
 
 Users who have the required permissions can change the properties of a customer managed CMK, including its description, tags, policies and grants, and rotation status in the AWS Management Console\.
 
@@ -37,7 +37,7 @@ You can add, change, or delete the description of your CMK unless its [key state
 
 **Change CMK administrators and users**  
 You can change the key policy for your CMK\. Key policies define the IAM users, groups, and roles that can manage the CMK and use it for cryptographic operations\.   
-The AWS account \(root user\) has full permissions by default\. As a result, any IAM users and roles whose attached policies allow the appropriate permissions can also administer the CMK\. For detailed information about setting key policies and IAM policies, see [Authentication and Access Control for AWS KMS](control-access.md)\.  
+The AWS account \(root user\) has full permissions by default\. As a result, any IAM users and roles whose attached policies allow the appropriate permissions can also administer the CMK\. For detailed information about setting key policies and IAM policies, see [Authentication and access control for AWS KMS](control-access.md)\.  
 
 1. On the details page for CMK, choose the **Key policy** tab\.
 
@@ -59,7 +59,7 @@ The AWS account \(root user\) has full permissions by default\. As a result, any
 
 1. To change the other AWS accounts that can use the CMK in cryptographic operations, in the **Other AWS accounts** section, choose **Add other AWS accounts**\.
 **Note**  
-Adding an external account does not allow users and roles in the account to use the CMK\. To allow users an roles in an external account to use the CMK, an administrator of the external account must add IAM policies that provide these permissions\. For more information, see [Allowing Users in Other Accounts to Use a CMK](key-policy-modifying-external-accounts.md)\.
+Adding an external account does not allow users and roles in the account to use the CMK\. To allow users an roles in an external account to use the CMK, an administrator of the external account must add IAM policies that provide these permissions\. For more information, see [Allowing users in other accounts to use a CMK](key-policy-modifying-external-accounts.md)\.
    + To add accounts, choose **Add another AWS account**, type the account number\. 
    + To remove accounts, on the row with the account number, choose **Remove**\. 
 
@@ -67,7 +67,7 @@ Adding an external account does not allow users and roles in the account to use 
 
 **Add, edit, and delete tags**  
 You can change the tags for your CMK\. Each tag is a name–value pair\. The tag name must be unique in the account and region\.   
-You can use tags to identify and categorize your CMKs\. When you add tags to your AWS resources, AWS generates a cost allocation report with usage and costs aggregated by tags\. For more information about CMK tags, see [Tagging Keys](tagging-keys.md)\.  
+You can use tags to identify and categorize your CMKs\. When you add tags to your AWS resources, AWS generates a cost allocation report with usage and costs aggregated by tags\. For more information about CMK tags, see [Tagging keys](tagging-keys.md)\.  
 + On the details page for CMK, choose the **Tags** tab\.
   + To create your first tag, choose **Create tag**, type a tag name and tag value, and then choose **Save**\.
   + To add a tag, choose **Edit**, choose **Add tag**, type a tag name and tag value, and then choose **Save**\.
@@ -84,21 +84,21 @@ You can enable and disable [automatic rotation](rotate-keys.md) of the cryptogra
 
 1. To save your changes, choose **Save**\.
 
-## Editing CMKs \(KMS API\)<a name="editing-keys-cli"></a>
+## Editing CMKs \(AWS KMS API\)<a name="editing-keys-cli"></a>
 
 You can use the [AWS Key Management Service \(AWS KMS\) API](https://docs.aws.amazon.com/kms/latest/APIReference/) to edit the properties of your [customer managed CMKs](concepts.md#master_keys)\. These examples use the [AWS Command Line Interface \(AWS CLI\)](https://aws.amazon.com/cli/), but you can use any supported programming language\. This section demonstrates several operations that return details about existing CMKs\.
 
 You cannot edit the properties of [AWS managed CMKs](concepts.md#master_keys)\.
 
 **Topics**
-+ [UpdateKeyDescription: Change the Description of a CMK](#editing-keys-edit-description)
-+ [PutKeyPolicy: Change the Key Policy for a CMK](#editing-keys-edit-key-policy)
-+ [Enable and Disable Key Rotation](#editing-keys-enable-key-rotation)
++ [UpdateKeyDescription: Change the description of a CMK](#editing-keys-edit-description)
++ [PutKeyPolicy: Change the key policy for a CMK](#editing-keys-edit-key-policy)
++ [Enable and disable key rotation](#editing-keys-enable-key-rotation)
 
 **Tip**  
-For information about adding, deleting, and editing tags, see [Tagging Keys](tagging-keys.md)\.
+For information about adding, deleting, and editing tags, see [Tagging keys](tagging-keys.md)\.
 
-### UpdateKeyDescription: Change the Description of a CMK<a name="editing-keys-edit-description"></a>
+### UpdateKeyDescription: Change the description of a CMK<a name="editing-keys-edit-description"></a>
 
 The [UpdateKeyDescription](https://docs.aws.amazon.com/kms/latest/APIReference/API_UpdateKeyDescription.html) operation replaces the description of the CMK with the one that you specify\. You can use it to add, change, or delete the description of a CMK\. To see the description, use the [DescribeKey](https://docs.aws.amazon.com/kms/latest/APIReference/API_DescribeKey.html) operation\.
 
@@ -134,12 +134,12 @@ $ aws kms describe-key --key-id 1234abcd-12ab-34cd-56ef-1234567890ab
 }
 ```
 
-### PutKeyPolicy: Change the Key Policy for a CMK<a name="editing-keys-edit-key-policy"></a>
+### PutKeyPolicy: Change the key policy for a CMK<a name="editing-keys-edit-key-policy"></a>
 
 The [PutKeyPolicy](https://docs.aws.amazon.com/kms/latest/APIReference/API_PutKeyPolicy.html) operation changes the key policy of the CMK to the policy that you specify\. The policy includes permissions for administrators, users, and roles\. For a detailed example, see [PutKeyPolicy Examples](https://docs.aws.amazon.com/kms/latest/APIReference/API_PutKeyPolicy.html#API_PutKeyPolicy_Examples)\.
 
-### Enable and Disable Key Rotation<a name="editing-keys-enable-key-rotation"></a>
+### Enable and disable key rotation<a name="editing-keys-enable-key-rotation"></a>
 
 The [EnableKeyRotation](https://docs.aws.amazon.com/kms/latest/APIReference/API_EnableKeyRotation.html) operation enables [automatic rotation](rotate-keys.md) of the cryptographic material in a symmetric CMK\. The [DisableKeyRotation](https://docs.aws.amazon.com/kms/latest/APIReference/API_DisableKeyRotation.html) operation disables it\. The [GetKeyRotationStatus](https://docs.aws.amazon.com/kms/latest/APIReference/API_GetKeyRotationStatus.html) operation returns a Boolean value that tells you whether automatic key rotation is enabled \(**true**\) or disabled \(**false**\)\. 
 
-For an example, see [Rotating Customer Master Keys](rotate-keys.md)\.
+For an example, see [Rotating customer master keys](rotate-keys.md)\.

@@ -1,17 +1,17 @@
-# Working with Key Policies<a name="programming-key-policies"></a>
+# Working with key policies<a name="programming-key-policies"></a>
 
-The examples in this topic use the AWS KMS API to view and change the key policies of AWS KMS customer master keys \(CMKs\)\. For details about how to use key policies and IAM policies to manage access to your CMKs, see [Authentication and Access Control for AWS KMS](control-access.md)\.
+The examples in this topic use the AWS KMS API to view and change the key policies of AWS KMS customer master keys \(CMKs\)\. For details about how to use key policies and IAM policies to manage access to your CMKs, see [Authentication and access control for AWS KMS](control-access.md)\.
 
 **Topics**
-+ [Listing Key Policy Names](#list-policies)
-+ [Getting a Key Policy](#get-policy)
-+ [Setting a Key Policy](#put-policy)
++ [Listing key policy names](#list-policies)
++ [Getting a key policy](#get-policy)
++ [Setting a key policy](#put-policy)
 
-## Listing Key Policy Names<a name="list-policies"></a>
+## Listing key policy names<a name="list-policies"></a>
 
 To get the names of key policies for a customer master key, use the [ListKeyPolicies](https://docs.aws.amazon.com/kms/latest/APIReference/API_ListKeyPolicies.html) operation\. The only key policy name it returns is **default**\.
 
-In languages that require a client object, these examples use the AWS KMS client object that you created in [Creating a Client](programming-client.md)\.
+In languages that require a client object, these examples use the AWS KMS client object that you created in [Creating a client](programming-client.md)\.
 
 ------
 #### [ Java ]
@@ -125,13 +125,13 @@ $response = Get-KMSKeyPolicyList -KeyId $keyId
 
 ------
 
-## Getting a Key Policy<a name="get-policy"></a>
+## Getting a key policy<a name="get-policy"></a>
 
 To get the key policy for a customer master key, use the [GetKeyPolicy](https://docs.aws.amazon.com/kms/latest/APIReference/API_GetKeyPolicy.html) operation\.
 
 GetKeyPolicy requires a policy name\. The only valid policy name is **default**\.
 
-In languages that require a client object, these examples use the AWS KMS client object that you created in [Creating a Client](programming-client.md)\.
+In languages that require a client object, these examples use the AWS KMS client object that you created in [Creating a client](programming-client.md)\.
 
 ------
 #### [ Java ]
@@ -256,13 +256,13 @@ $response = Get-KMSKeyPolicy -KeyId $keyId -PolicyName $policyName
 
 ------
 
-## Setting a Key Policy<a name="put-policy"></a>
+## Setting a key policy<a name="put-policy"></a>
 
 To create or replace the key policy for a CMK, use the [PutKeyPolicy](https://docs.aws.amazon.com/kms/latest/APIReference/API_PutKeyPolicy.html) operation\.
 
 `PutKeyPolicy` requires a policy name\. The only valid policy name is **default**\.
 
-In languages that require a client object, these examples use the AWS KMS client object that you created in [Creating a Client](programming-client.md)\.
+In languages that require a client object, these examples use the AWS KMS client object that you created in [Creating a client](programming-client.md)\.
 
 ------
 #### [ Java ]

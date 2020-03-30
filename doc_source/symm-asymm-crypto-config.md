@@ -1,14 +1,14 @@
-# Viewing the Cryptographic Configuration of CMKs<a name="symm-asymm-crypto-config"></a>
+# Viewing the cryptographic configuration of CMKs<a name="symm-asymm-crypto-config"></a>
 
 After you create your CMK, you can view its cryptographic configuration\. You cannot change the configuration of a CMK after it is created\. If you prefer a different configuration, delete the CMK and create it again\.
 
-You can find the cryptographic configuration of your CMKs, include the key spec, key usage, and supported encryption or signing algorithms, in the AWS KMS console or by using the AWS KMS API\. For details, see [Viewing Keys](viewing-keys.md)\.
+You can find the cryptographic configuration of your CMKs, include the key spec, key usage, and supported encryption or signing algorithms, in the AWS KMS console or by using the AWS KMS API\. For details, see [Identifying symmetric and asymmetric CMKs](find-symm-asymm.md)\.
 
-In the AWS KMS console, the details page for each CMK includes a **Cryptographic Configuration** section that displays cryptographic details about your CMKs\. For example, the following image shows the Cryptographic Configuration section for an RSA CMK used for signing and verification\.
+In the AWS KMS console, the details page for each CMK includes a **Cryptographic configuration** section that displays cryptographic details about your CMKs\. For example, the following image shows the **Cryptographic configuration** section for an RSA CMK used for signing and verification\.
 
 ![\[Generate a data key\]](http://docs.aws.amazon.com/kms/latest/developerguide/images/console-cryptographic-configuration.png)
 
-In the AWS KMS API, use the [DescribeKey](https://docs.aws.amazon.com/kms/latest/APIReference/API_DescribeKey.html) operation\. The `KeyMetadata` structure in the response includes the cryptographic configuration of the CMK\. For example, DescribeKey returns the following response for an RSA CMK used for signing and verification\.
+In the AWS KMS API, use the [DescribeKey](https://docs.aws.amazon.com/kms/latest/APIReference/API_DescribeKey.html) operation\. The `KeyMetadata` structure in the response includes the cryptographic configuration of the CMK\. For example, `DescribeKey` returns the following response for an RSA CMK used for signing and verification\.
 
 ```
 {

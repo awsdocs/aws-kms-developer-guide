@@ -1,4 +1,4 @@
-# Encrypting and Decrypting Data Keys<a name="programming-encryption"></a>
+# Encrypting and decrypting data keys<a name="programming-encryption"></a>
 
 The examples in this topic use the [Encrypt](https://docs.aws.amazon.com/kms/latest/APIReference/API_Encrypt.html), [Decrypt](https://docs.aws.amazon.com/kms/latest/APIReference/API_Decrypt.html), and [ReEncrypt](https://docs.aws.amazon.com/kms/latest/APIReference/API_ReEncrypt.html) operations in the AWS KMS API\. 
 
@@ -7,15 +7,15 @@ These operations are designed to encrypt and decrypt [data keys](concepts.md#dat
 To encrypt application data, use the server\-side encryption features of an AWS service, or a client\-side encryption library, such as the [AWS Encryption SDK](https://docs.aws.amazon.com/encryption-sdk/latest/developer-guide/) or the [Amazon S3 encryption client](https://docs.aws.amazon.com/AmazonS3/latest/dev/UsingClientSideEncryption.html)\. 
 
 **Topics**
-+ [Encrypting a Data Key](#encryption)
-+ [Decrypting a Data Key](#decryption)
-+ [Re\-Encrypting a Data Key Under a Different Customer Master Key](#reencryption)
++ [Encrypting a data key](#encryption)
++ [Decrypting a data key](#decryption)
++ [Re\-encrypting a data key under a different customer master key](#reencryption)
 
-## Encrypting a Data Key<a name="encryption"></a>
+## Encrypting a data key<a name="encryption"></a>
 
 The [Encrypt](https://docs.aws.amazon.com/kms/latest/APIReference/API_Encrypt.html) operation is designed to encrypt data keys, but it is not frequently used\. The [GenerateDataKey](https://docs.aws.amazon.com/kms/latest/APIReference/API_GenerateDataKey.html) and [GenerateDataKeyWithoutPlaintext](https://docs.aws.amazon.com/kms/latest/APIReference/API_GenerateDataKeyWithoutPlaintext.html) operations return encrypted data keys\. You might use this method when you are moving encrypted data to a different Region and want to encrypt its data key with a CMK in the new Region\. 
 
-In languages that require a client object, these examples use the AWS KMS client object that you created in [Creating a Client](programming-client.md)\.
+In languages that require a client object, these examples use the AWS KMS client object that you created in [Creating a client](programming-client.md)\.
 
 ------
 #### [ Java ]
@@ -168,13 +168,13 @@ $ciphertext = $response.CiphertextBlob
 
 ------
 
-## Decrypting a Data Key<a name="decryption"></a>
+## Decrypting a data key<a name="decryption"></a>
 
 To decrypt a data key, use the [Decrypt](https://docs.aws.amazon.com/kms/latest/APIReference/API_Decrypt.html) operation\.
 
 The `ciphertextBlob` that you specify must be the value of the `CiphertextBlob` field from a [GenerateDataKey](https://docs.aws.amazon.com/kms/latest/APIReference/API_GenerateDataKey.html), [GenerateDataKeyWithoutPlaintext](https://docs.aws.amazon.com/kms/latest/APIReference/API_GenerateDataKeyWithoutPlaintext.html), or [Encrypt](https://docs.aws.amazon.com/kms/latest/APIReference/API_Encrypt.html) response, or the `PrivateKeyCiphertextBlob` field from a [GenerateDataKeyPair](https://docs.aws.amazon.com/kms/latest/APIReference/API_GenerateDataKeyPair.html) or [GenerateDataKeyPairWithoutPlaintext](https://docs.aws.amazon.com/kms/latest/APIReference/API_GenerateDataKeyPairWithoutPlaintext.html) response\. You can also use the `Decrypt` operation to decrypt data encrypted outside of AWS KMS by the public key in an asymmetric CMK\.
 
-In languages that require a client object, these examples use the AWS KMS client object that you created in [Creating a Client](programming-client.md)\.
+In languages that require a client object, these examples use the AWS KMS client object that you created in [Creating a client](programming-client.md)\.
 
 ------
 #### [ Java ]
@@ -300,13 +300,13 @@ $plaintext = $response.Plaintext
 
 ------
 
-## Re\-Encrypting a Data Key Under a Different Customer Master Key<a name="reencryption"></a>
+## Re\-encrypting a data key under a different customer master key<a name="reencryption"></a>
 
 To decrypt an encrypted data key, and then immediately re\-encrypt the data key under a different customer master key \(CMK\), use the [ReEncrypt](https://docs.aws.amazon.com/kms/latest/APIReference/API_ReEncrypt.html) operation\. The operations are performed entirely on the server side within AWS KMS, so they never expose your plaintext outside of AWS KMS\.
 
 The `ciphertextBlob` that you specify must be the value of the `CiphertextBlob` field from a [GenerateDataKey](https://docs.aws.amazon.com/kms/latest/APIReference/API_GenerateDataKey.html), [GenerateDataKeyWithoutPlaintext](https://docs.aws.amazon.com/kms/latest/APIReference/API_GenerateDataKeyWithoutPlaintext.html), or [Encrypt](https://docs.aws.amazon.com/kms/latest/APIReference/API_Encrypt.html) response, or the `PrivateKeyCiphertextBlob` field from a [GenerateDataKeyPair](https://docs.aws.amazon.com/kms/latest/APIReference/API_GenerateDataKeyPair.html) or [GenerateDataKeyPairWithoutPlaintext](https://docs.aws.amazon.com/kms/latest/APIReference/API_GenerateDataKeyPairWithoutPlaintext.html) response\. You can also use the `ReEncrypt` operation to re\-encrypt data encrypted outside of AWS KMS by the public key in an asymmetric CMK\.
 
-In languages that require a client object, these examples use the AWS KMS client object that you created in [Creating a Client](programming-client.md)\.
+In languages that require a client object, these examples use the AWS KMS client object that you created in [Creating a client](programming-client.md)\.
 
 ------
 #### [ Java ]

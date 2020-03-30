@@ -1,6 +1,10 @@
-# Managing CMKs in a Custom Key Store<a name="manage-cmk-keystore"></a>
+# Managing CMKs in a custom key store<a name="manage-cmk-keystore"></a>
 
 You can create, view, manage, use, and schedule deletion of the customer master keys \(CMKs\) in a custom key store\. The procedures that you use are very similar to those that you use for CMKs in AWS KMS\. The only difference is that you specify a custom key store when you create the CMK\. Then, AWS KMS creates non\-extractable key material for the CMK in the AWS CloudHSM cluster that is associated with the custom key store\. When you use a CMK in a custom key store, the cryptographic operations are performed in the HSMs in the cluster\.
+
+**Note**  
+AWS KMS custom key stores support only symmetric keys\. Although AWS CloudHSM supports asymmetric keys, you cannot create asymmetric CMKs or asymmetric data key pairs in a custom key store\.  
+You cannot [import key material](importing-keys.md) into a CMK in a custom key store\. AWS KMS generates the key material for the CMK in the AWS CloudHSM cluster\. 
 
 In addition to the procedures discussed in this section, you can do the following with CMKs in a custom key store:
 + Use key policies, IAM policies, and grants to [authorize access](control-access.md) to the CMK\.
@@ -12,8 +16,8 @@ In addition to the procedures discussed in this section, you can do the followin
 However, you cannot import key material into a CMK in a custom key store\.
 
 **Topics**
-+ [Creating CMKs in a Custom Key Store](create-cmk-keystore.md)
-+ [Viewing CMKs in a Custom Key Store](view-cmk-keystore.md)
-+ [Using CMKs in a Custom Key Store](use-cmk-keystore.md)
-+ [Finding CMKs and Key Material](find-key-material.md)
-+ [Scheduling Deletion of CMKs from a Custom Key Store](delete-cmk-keystore.md)
++ [Creating CMKs in a custom key store](create-cmk-keystore.md)
++ [Viewing CMKs in a custom key store](view-cmk-keystore.md)
++ [Using CMKs in a custom key store](use-cmk-keystore.md)
++ [Finding CMKs and key material](find-key-material.md)
++ [Scheduling deletion of CMKs from a custom key store](delete-cmk-keystore.md)

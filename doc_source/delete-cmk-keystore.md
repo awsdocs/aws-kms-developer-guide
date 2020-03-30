@@ -1,4 +1,4 @@
-# Scheduling Deletion of CMKs from a Custom Key Store<a name="delete-cmk-keystore"></a>
+# Scheduling deletion of CMKs from a custom key store<a name="delete-cmk-keystore"></a>
 
 When you are certain that you will not need to use a customer master key \(CMK\) for any cryptographic operation, you can [schedule the deletion of the CMK](deleting-keys.md)\. Use the same procedure that you would use to schedule the deletion of any CMK from AWS KMS\. In addition, keep your custom key store connected so AWS KMS can delete the corresponding key material from the associated AWS CloudHSM cluster when the waiting period expires\.
 

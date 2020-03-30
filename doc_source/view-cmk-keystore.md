@@ -1,6 +1,6 @@
-# Viewing CMKs in a Custom Key Store<a name="view-cmk-keystore"></a>
+# Viewing CMKs in a custom key store<a name="view-cmk-keystore"></a>
 
-To view the customer master keys \(CMKs\) in a custom key store, use the same techniques that you would use to view any AWS KMS [customer managed CMKs](concepts.md#master_keys)\. To learn the basics, see [Viewing Keys](viewing-keys.md)\. To identify the keys in your AWS CloudHSM cluster that serve as key material for your CMK, see [Finding CMKs and Key Material](find-key-material.md)\.
+To view the customer master keys \(CMKs\) in a custom key store, use the same techniques that you would use to view any AWS KMS [customer managed CMKs](concepts.md#master_keys)\. To learn the basics, see [Viewing keys](viewing-keys.md)\. To identify the keys in your AWS CloudHSM cluster that serve as key material for your CMK, see [Finding CMKs and key material](find-key-material.md)\.
 
 In the AWS Management Console, the CMKs in your custom key store are displayed along with all other customer managed CMKs your AWS account and Region\. 
 
@@ -8,7 +8,7 @@ However, the following values are specific to CMKs in a custom key store\.
 + The name and ID of the custom key store that stores the CMK\.
 + The cluster ID of the associated AWS CloudHSM cluster that contains their key material\.
 + An `Origin` value of `CloudHSM` in the AWS Management Console or `AWS_CLOUDHSM` in API responses\.
-+ The [key state](key-state.md) value can be `Unavailable`\. For help resolving the status, see [How to Fix Unavailable CMKs](fix-keystore.md#fix-unavailable-cmks)\.
++ The [key state](key-state.md) value can be `Unavailable`\. For help resolving the status, see [How to fix unavailable CMKs](fix-keystore.md#fix-unavailable-cmks)\.
 
 **To view the CMKs in a custom key store \(Console\)**
 
@@ -59,4 +59,4 @@ $ aws kms describe-key --key-id 1234abcd-12ab-34cd-56ef-1234567890ab
 }
 ```
 
-For help finding the CMKs in a custom key store or identifying the keys in your AWS CloudHSM cluster that serve as key material for your CMK, see [Finding CMKs and Key Material](find-key-material.md)\.
+For help finding the CMKs in a custom key store or identifying the keys in your AWS CloudHSM cluster that serve as key material for your CMK, see [Finding CMKs and key material](find-key-material.md)\.

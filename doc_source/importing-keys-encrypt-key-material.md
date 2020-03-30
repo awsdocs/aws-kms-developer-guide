@@ -1,4 +1,4 @@
-# Importing Key Material Step 3: Encrypt the Key Material<a name="importing-keys-encrypt-key-material"></a>
+# Importing key material step 3: Encrypt the key material<a name="importing-keys-encrypt-key-material"></a>
 
 After you [download the public key and import token](importing-keys-get-public-key-and-token.md), you use the public key to encrypt your key material\. The key material must be in binary format\. 
 
@@ -6,7 +6,7 @@ Typically, you encrypt your key material when you export it from your hardware s
 
 When you encrypt your key material, use the encryption scheme with the padding option that you specified when you [downloaded the public key and import token](importing-keys-get-public-key-and-token.md) \(RSAES\_OAEP\_SHA\_256, RSAES\_OAEP\_SHA\_1, or RSAES\_PKCS1\_V1\_5\)\.
 
-## Example: Encrypt Key Material with OpenSSL<a name="importing-keys-encrypt-key-material-openssl"></a>
+## Example: Encrypt key material with OpenSSL<a name="importing-keys-encrypt-key-material-openssl"></a>
 
 The following example demonstrates how to use [OpenSSL](https://openssl.org/) to generate a 256\-bit symmetric key and then encrypt this key material for import into a KMS customer master key \(CMK\)\.
 
@@ -22,7 +22,7 @@ The **RSAES\_OAEP\_SHA\_1** encryption algorithm works best with this example\. 
    $ openssl rand -out PlaintextKeyMaterial.bin 32
    ```
 
-1. Use the following command to encrypt the key material with the public key that you downloaded previously \(see [Downloading the Public Key and Import Token \(KMS API\)](importing-keys-get-public-key-and-token.md#importing-keys-get-public-key-and-token-api)\) and save it in a file named `EncryptedKeyMaterial.bin`\. Replace `PublicKey.bin>` with the name of the file that contains the public key\. If you downloaded the public key from the console, this file is named wrappingKey\_*CMK\_key\_ID*\_*timestamp* \(for example, `wrappingKey_f44c4e20-f83c-48f4-adc6-a1ef38829760_0809092909`\)\.
+1. Use the following command to encrypt the key material with the public key that you downloaded previously \(see [Downloading the public key and import token \(AWS KMS API\)](importing-keys-get-public-key-and-token.md#importing-keys-get-public-key-and-token-api)\) and save it in a file named `EncryptedKeyMaterial.bin`\. Replace `PublicKey.bin>` with the name of the file that contains the public key\. If you downloaded the public key from the console, this file is named wrappingKey\_*CMK\_key\_ID*\_*timestamp* \(for example, `wrappingKey_f44c4e20-f83c-48f4-adc6-a1ef38829760_0809092909`\)\.
 
    ```
    $ openssl rsautl -encrypt \
@@ -34,4 +34,4 @@ The **RSAES\_OAEP\_SHA\_1** encryption algorithm works best with this example\. 
                     -out EncryptedKeyMaterial.bin
    ```
 
-Proceed to [Step 4: Import the Key Material](importing-keys-import-key-material.md)\.
+Proceed to [Step 4: Import the key material](importing-keys-import-key-material.md)\.

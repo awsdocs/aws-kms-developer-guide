@@ -1,19 +1,19 @@
-# Enabling and Disabling Keys<a name="enabling-keys"></a>
+# Enabling and disabling keys<a name="enabling-keys"></a>
 
 You can disable and reenable the [customer master keys](concepts.md#master_keys) \(CMKs\) that you manage\. You cannot enable or disable AWS managed CMKs\.
 
 When you create a CMK, it is enabled by default\. If you disable a CMK, it cannot be used to encrypt or decrypt data until you re\-enable it\. AWS managed CMKs are permanently enabled for use by [services that use AWS KMS](service-integration.md)\. You cannot disable them\.
 
-You can also delete CMKs\. For more information, see [Deleting Customer Master Keys](deleting-keys.md)\.
+You can also delete CMKs\. For more information, see [Deleting customer master keys](deleting-keys.md)\.
 
 **Note**  
-AWS KMS does not rotate the backing keys of customer managed CMKs while they are disabled\. For more information, see [How Automatic Key Rotation Works](rotate-keys.md#rotate-keys-how-it-works)\.
+AWS KMS does not rotate the backing keys of customer managed CMKs while they are disabled\. For more information, see [How automatic key rotation works](rotate-keys.md#rotate-keys-how-it-works)\.
 
 **Topics**
-+ [Enabling and Disabling CMKs \(Console\)](#enabling-keys-console)
-+ [Enabling and Disabling CMKs \(KMS API\)](#enabling-keys-api)
++ [Enabling and disabling CMKs \(console\)](#enabling-keys-console)
++ [Enabling and disabling CMKs \(AWS KMS API\)](#enabling-keys-api)
 
-## Enabling and Disabling CMKs \(Console\)<a name="enabling-keys-console"></a>
+## Enabling and disabling CMKs \(console\)<a name="enabling-keys-console"></a>
 
 You can enable and disable customer managed CMKs from the IAM section of the AWS Management Console\.
 
@@ -27,7 +27,7 @@ You can enable and disable customer managed CMKs from the IAM section of the AWS
 
 1. To enable a CMK, choose **Key actions**, **Enable**\. To disable a CMK, choose **Key actions**, **Disable**\.
 
-## Enabling and Disabling CMKs \(KMS API\)<a name="enabling-keys-api"></a>
+## Enabling and disabling CMKs \(AWS KMS API\)<a name="enabling-keys-api"></a>
 
 The [EnableKey](https://docs.aws.amazon.com/kms/latest/APIReference/API_EnableKey.html) operation enables a disabled AWS KMS customer master key \(CMK\)\. These examples use the [AWS Command Line Interface \(AWS CLI\)](https://aws.amazon.com/cli/), but you can use any supported programming language\. The `key-id` parameter is required\.
 

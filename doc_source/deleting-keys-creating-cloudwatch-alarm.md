@@ -1,19 +1,19 @@
-# Creating an Amazon CloudWatch Alarm to Detect Usage of a Customer Master Key that is Pending Deletion<a name="deleting-keys-creating-cloudwatch-alarm"></a>
+# Creating an Amazon CloudWatch alarm to detect usage of a customer master key that is pending deletion<a name="deleting-keys-creating-cloudwatch-alarm"></a>
 
 You can combine the features of AWS CloudTrail, Amazon CloudWatch Logs, and Amazon Simple Notification Service \(Amazon SNS\) that notify you when someone in your account tries to use a CMK that is pending deletion in a cryptographic operation\. If you receive this notification, you might want to cancel deletion of the CMK and reconsider your decision to delete it\.
 
-The following procedures explain how to receive a notification whenever an AWS KMS API request that results in the "`Key ARN is pending deletion`" error message is written to your CloudTrail log files\. This error message indicates that a person or application tried to use the CMK in a cryptographic operation \(`Encrypt`, `Decrypt`, `GenerateDataKey`, `GenerateDataKeyWithoutPlaintext`, and `ReEncrypt`\)\. Because the notification is linked to the error message, it is not triggered when you use API operations that are permitted on CMKs that are pending deletion, such as `ListKeys`, `CancelKeyDeletion`, and `PutKeyPolicy`\. To see a list of the AWS KMS API operations that return this error message, see [How Key State Affects Use of a Customer Master Key](key-state.md)\.
+The following procedures explain how to receive a notification whenever an AWS KMS API request that results in the "`Key ARN is pending deletion`" error message is written to your CloudTrail log files\. This error message indicates that a person or application tried to use the CMK in a cryptographic operation \(`Encrypt`, `Decrypt`, `GenerateDataKey`, `GenerateDataKeyWithoutPlaintext`, and `ReEncrypt`\)\. Because the notification is linked to the error message, it is not triggered when you use API operations that are permitted on CMKs that are pending deletion, such as `ListKeys`, `CancelKeyDeletion`, and `PutKeyPolicy`\. To see a list of the AWS KMS API operations that return this error message, see [Key state: Effect on your CMK](key-state.md)\.
 
 The notification email that you receive does not list the CMK or the cryptographic operation\. You can find that information in [your CloudTrail log](logging-using-cloudtrail.md)\. Instead, the email reports that the alarm state changed from **OK** to **Alarm**\. For more information about CloudWatch Alarms and state changes, see [Creating Amazon CloudWatch Alarms](https://docs.aws.amazon.com/AmazonCloudWatch/latest/monitoring/AlarmThatSendsEmail.html) in the *Amazon CloudWatch User Guide*\.
 
 **Warning**  
-This Amazon CloudWatch alarm cannot detect use of the public key of an asymmetric CMK outside of AWS KMS\. For details about the special risks of deleting asymmetric CMKs used for public key cryptography, including creating ciphertexts that cannot be decrypted, see [Deleting Asymmetric CMKs](deleting-keys.md#deleting-asymmetric-cmks)\.
+This Amazon CloudWatch alarm cannot detect use of the public key of an asymmetric CMK outside of AWS KMS\. For details about the special risks of deleting asymmetric CMKs used for public key cryptography, including creating ciphertexts that cannot be decrypted, see [Deleting asymmetric CMKs](deleting-keys.md#deleting-asymmetric-cmks)\.
 
 **Topics**
-+ [Requirements for a CloudWatch Alarm](#cloudwatch-alarm-prerequisites)
-+ [Create the CloudWatch Alarm](#deleting-keys-cloudwatch-create-alarm)
++ [Requirements for a CloudWatch alarm](#cloudwatch-alarm-prerequisites)
++ [Create the CloudWatch alarm](#deleting-keys-cloudwatch-create-alarm)
 
-## Requirements for a CloudWatch Alarm<a name="cloudwatch-alarm-prerequisites"></a>
+## Requirements for a CloudWatch alarm<a name="cloudwatch-alarm-prerequisites"></a>
 
 Before you create a CloudWatch alarm, you must create an AWS CloudTrail trail and configure CloudTrail to deliver CloudTrail log files to Amazon CloudWatch Logs\.
 
@@ -25,7 +25,7 @@ Before you create a CloudWatch alarm, you must create an AWS CloudTrail trail an
 
    Configure delivery of your CloudTrail log files to CloudWatch Logs\. This allows CloudWatch Logs to monitor the logs for AWS KMS API requests that attempt to use a CMK that is pending deletion\.
 
-## Create the CloudWatch Alarm<a name="deleting-keys-cloudwatch-create-alarm"></a>
+## Create the CloudWatch alarm<a name="deleting-keys-cloudwatch-create-alarm"></a>
 
 To receive a notification when AWS KMS API requests attempt to use a CMK that is pending deletion in a cryptographic operation, create a CloudWatch alarm and configure notifications\.
 

@@ -1,4 +1,4 @@
-# Using a Custom Key Store<a name="custom-key-store-overview"></a>
+# Using a custom key store<a name="custom-key-store-overview"></a>
 
 AWS KMS supports [custom key stores](key-store-concepts.md#concept-custom-key-store) backed by [AWS CloudHSM clusters](https://docs.aws.amazon.com/cloudhsm/latest/userguide/)\. When you create an AWS KMS [customer master key](concepts.md#master_keys) \(CMK\) in a custom key store, AWS KMS generates and stores non\-extractable key material for the CMK in an AWS CloudHSM cluster that you own and manage\. When you use a CMK in a custom key store, the cryptographic operations are performed in the HSMs in the cluster\. This feature combines the convenience and widespread integration of AWS KMS with the added control of an AWS CloudHSM cluster in your AWS account\. 
 
@@ -26,7 +26,7 @@ You can [create symmetric CMKs](create-cmk-keystore.md) with key material genera
 
 In addition, you have full control over the AWS CloudHSM cluster, including creating and deleting HSMs and managing backups\. You can use the AWS CloudHSM client and supported software libraries to view, audit, and manage the key material for your CMKs\. While the custom key store is disconnected, AWS KMS cannot access it, and users cannot use the CMKs in the custom key store for cryptographic operations\. This added layer of control makes custom key stores a powerful solution for organizations that require it\.
 
-**Where Do I Start?**
+**Where do I start?**
 
 To create and manage a custom key store, you use features of AWS KMS and AWS CloudHSM\.
 
@@ -36,9 +36,9 @@ To create and manage a custom key store, you use features of AWS KMS and AWS Clo
 
 1. When you're ready to use your custom key store, [connect it to its associated AWS CloudHSM cluster](disconnect-keystore.md)\. AWS KMS creates the network infrastructure that it needs to support the connection\. It then logs in to the cluster using the dedicated crypto user account credentials so it can generate and manage key material in the cluster\.
 
-1. Now, you can [create customer master keys \(CMKs\) in your custom key store](create-cmk-keystore.md)\. Just specify the custom key store when you create the CMK\.
+1. Now, you can [create symmetric CMKs in your custom key store](create-cmk-keystore.md)\. Just specify the custom key store when you create the CMK\.
 
-If you get stuck at any point, you can find help in the [Troubleshooting a Custom Key Store](fix-keystore.md) topic\. If your question is not answered, use the feedback link at the bottom of each page of this guide or post a question on the [AWS Key Management Service Discussion Forum](https://forums.aws.amazon.com/forum.jspa?forumID=182)\.
+If you get stuck at any point, you can find help in the [Troubleshooting a custom key store](fix-keystore.md) topic\. If your question is not answered, use the feedback link at the bottom of each page of this guide or post a question on the [AWS Key Management Service Discussion Forum](https://forums.aws.amazon.com/forum.jspa?forumID=182)\.
 
 **Quotas**
 
@@ -48,14 +48,14 @@ There are no resource quotas for the number of custom key stores in an AWS accou
 
 AWS KMS supports custom key stores in all AWS Regions where both AWS KMS and AWS CloudHSM are available\. For a list of AWS Regions that each service supports, see [AWS Key Management Service Endpoints and Quotas](https://docs.aws.amazon.com/general/latest/gr/kms.html) and [AWS CloudHSM Endpoints and Quotas](https://docs.aws.amazon.com/general/latest/gr/cloudhsm.html) in the *Amazon Web Services General Reference*\.
 
-**Unsupported Features**
+**Unsupported features**
 
-Custom key stores do not support [asymmetric CMKs](symmetric-asymmetric.md), [asymmetric data key pairs](concepts.md#data-key-pairs), or CMKs with [imported key material](importing-keys.md), and you cannot enable [automatic key rotation](rotate-keys.md) a CMK in a custom key store\.
+Custom key stores do not support [asymmetric CMKs](symmetric-asymmetric.md), [asymmetric data key pairs](concepts.md#data-key-pairs), or CMKs with [imported key material](importing-keys.md), and you cannot enable [automatic key rotation](rotate-keys.md) on a CMK in a custom key store\.
 
 **Topics**
-+ [What is a Custom Key Store?](key-store-concepts.md)
-+ [Controlling Access to Your Custom Key Store](authorize-key-store.md)
-+ [Creating a Custom Key Store](create-keystore.md)
-+ [Managing a Custom Key Store](manage-keystore.md)
-+ [Managing CMKs in a Custom Key Store](manage-cmk-keystore.md)
-+ [Troubleshooting a Custom Key Store](fix-keystore.md)
++ [What is a custom key store?](key-store-concepts.md)
++ [Controlling access to your custom key store](authorize-key-store.md)
++ [Creating a custom key store](create-keystore.md)
++ [Managing a custom key store](manage-keystore.md)
++ [Managing CMKs in a custom key store](manage-cmk-keystore.md)
++ [Troubleshooting a custom key store](fix-keystore.md)

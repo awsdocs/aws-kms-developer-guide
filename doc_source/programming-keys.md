@@ -1,22 +1,22 @@
-# Working With Keys<a name="programming-keys"></a>
+# Working with keys<a name="programming-keys"></a>
 
 The examples in this topic use the AWS KMS API to create, view, enable, and disable AWS KMS [customer master keys](concepts.md#master_keys), and to generate [data keys](concepts.md#data-keys)\.
 
 **Topics**
-+ [Creating a Customer Master Key](#creating-keys)
-+ [Generating a Data Key](#generate-datakeys)
-+ [Viewing a Custom Master Key](#describing-keys)
-+ [Getting Key IDs and Key ARNs of Customer Master Keys](#listing-keys)
-+ [Enabling Customer Master Keys](#enable-keys)
-+ [Disabling Customer Master Keys](#disable-keys)
++ [Creating a customer master key](#creating-keys)
++ [Generating a data key](#generate-datakeys)
++ [Viewing a custom master key](#describing-keys)
++ [Getting key IDs and key ARNs of customer master keys](#listing-keys)
++ [Enabling customer master keys](#enable-keys)
++ [Disabling customer master keys](#disable-keys)
 
-## Creating a Customer Master Key<a name="creating-keys"></a>
+## Creating a customer master key<a name="creating-keys"></a>
 
 To create a [customer master key](concepts.md#master_keys) \(CMK\), use the [CreateKey](https://docs.aws.amazon.com/kms/latest/APIReference/API_CreateKey.html) operation\. The examples in this section create a symmetric CMK\. The `Description` parameter used in these examples is optional\.
 
-In languages that require a client object, these examples use the AWS KMS client object that you created in [Creating a Client](programming-client.md)\.
+In languages that require a client object, these examples use the AWS KMS client object that you created in [Creating a client](programming-client.md)\.
 
-For help with creating CMKs in the AWS KMS console, see [Creating Keys](create-keys.md)\.
+For help with creating CMKs in the AWS KMS console, see [Creating keys](create-keys.md)\.
 
 ------
 #### [ Java ]
@@ -123,11 +123,11 @@ New-KmsKey -Description $desc
 
 ------
 
-## Generating a Data Key<a name="generate-datakeys"></a>
+## Generating a data key<a name="generate-datakeys"></a>
 
 To generate a symmetric data key, use the [GenerateDataKey](https://docs.aws.amazon.com/kms/latest/APIReference/API_GenerateDataKey.html) operation\. This operation takes a symmetric CMK and returns a plaintext data key and a copy of that data key encrypted under the CMK that you specified\. You must specify either a `KeySpec` or `NumberOfBytes` \(but not both\) in each command\.
 
-In languages that require a client object, these examples use the AWS KMS client object that you created in [Creating a Client](programming-client.md)\.
+In languages that require a client object, these examples use the AWS KMS client object that you created in [Creating a client](programming-client.md)\.
 
 ------
 #### [ Java ]
@@ -279,15 +279,15 @@ $encryptedKey = $response.CiphertextBlob
 
 ------
 
-## Viewing a Custom Master Key<a name="describing-keys"></a>
+## Viewing a custom master key<a name="describing-keys"></a>
 
 To get detailed information about a customer master key \(CMK\), including the CMK ARN and [key state](key-state.md), use the [DescribeKey](https://docs.aws.amazon.com/kms/latest/APIReference/API_DescribeKey.html) operation\. 
 
-`DescribeKey` does not get aliases\. To get aliases, use the [ListAliases](https://docs.aws.amazon.com/kms/latest/APIReference/API_ListAliases.html) operation\. For examples, see [Working with Aliases](programming-aliases.md)\.
+`DescribeKey` does not get aliases\. To get aliases, use the [ListAliases](https://docs.aws.amazon.com/kms/latest/APIReference/API_ListAliases.html) operation\. For examples, see [Working with aliases](programming-aliases.md)\.
 
-In languages that require a client object, these examples use the AWS KMS client object that you created in [Creating a Client](programming-client.md)\.
+In languages that require a client object, these examples use the AWS KMS client object that you created in [Creating a client](programming-client.md)\.
 
-For help with viewing CMKs in the AWS KMS console, see [Viewing Keys](viewing-keys.md)\.
+For help with viewing CMKs in the AWS KMS console, see [Viewing keys](viewing-keys.md)\.
 
 ------
 #### [ Java ]
@@ -401,13 +401,13 @@ Get-KmsKey -KeyId $keyId
 
 ------
 
-## Getting Key IDs and Key ARNs of Customer Master Keys<a name="listing-keys"></a>
+## Getting key IDs and key ARNs of customer master keys<a name="listing-keys"></a>
 
-To get the IDs and ARNs of the customer master keys, use the [ListKeys](https://docs.aws.amazon.com/kms/latest/APIReference/API_ListKeys.html) operation\. These examples use the optional `Limit` parameter, which sets the maximum number of CMKs returned in each call\. 
+To get the [key IDs](concepts.md#key-id-key-id) and [key ARNs](concepts.md#key-id-key-ARN) of the customer master keys, use the [ListKeys](https://docs.aws.amazon.com/kms/latest/APIReference/API_ListKeys.html) operation\. These examples use the optional `Limit` parameter, which sets the maximum number of CMKs returned in each call\. For help identifying a CMK in an AWS KMS operations, see [Key identifiers \(KeyId\)](concepts.md#key-id)\.
 
-In languages that require a client object, these examples use the AWS KMS client object that you created in [Creating a Client](programming-client.md)\.
+In languages that require a client object, these examples use the AWS KMS client object that you created in [Creating a client](programming-client.md)\.
 
-For help with finding key IDs and key ARNs in the AWS KMS console, see [Finding the Key ID and ARN](find-cmk-id-arn.md)\.
+For help with finding key IDs and key ARNs in the AWS KMS console, see [Finding the key ID and ARN](find-cmk-id-arn.md)\.
 
 ------
 #### [ Java ]
@@ -498,24 +498,26 @@ kmsClient.listKeys({ Limit }, (err, data) => {
 ------
 #### [ PowerShell ]
 
-To get the key ID and ARN of all CMKs in the account and Region, use the [Get\-KmsKeyList](https://docs.aws.amazon.com/powershell/latest/reference/items/Get-KMSKeyList.html) cmdlet\.
+To get the key ID and key ARN of all CMKs in the account and Region, use the [Get\-KmsKeyList](https://docs.aws.amazon.com/powershell/latest/reference/items/Get-KMSKeyList.html) cmdlet\.
+
+To limit the number of output objects, this example uses the [Select\-Object](https://docs.microsoft.com/en-us/powershell/module/microsoft.powershell.utility/select-object) cmdlet, instead of the `Limit` parameter, which is being deprecated in list cmdlets\. For help with paginating output in AWS Tools for PowerShell, see [Output Pagination with AWS Tools for PowerShell](http://aws.amazon.com/blogs/developer/output-pagination-with-aws-tools-for-powershell/)\.
 
 ```
 # List CMKs in this account
 
 $limit = 10
-Get-KmsKeyList -Limit $limit
+Get-KmsKeyList | Select-Object -First $limit
 ```
 
 ------
 
-## Enabling Customer Master Keys<a name="enable-keys"></a>
+## Enabling customer master keys<a name="enable-keys"></a>
 
 To enable a disabled customer master key \(CMK\), use the [EnableKey](https://docs.aws.amazon.com/kms/latest/APIReference/API_EnableKey.html) operation\.
 
-In languages that require a client object, these examples use the AWS KMS client object that you created in [Creating a Client](programming-client.md)\.
+In languages that require a client object, these examples use the AWS KMS client object that you created in [Creating a client](programming-client.md)\.
 
-For help with enabling and disabling CMKs in the AWS KMS console, see [Enabling and Disabling Keys](enabling-keys.md)\.
+For help with enabling and disabling CMKs in the AWS KMS console, see [Enabling and disabling keys](enabling-keys.md)\.
 
 ------
 #### [ Java ]
@@ -628,13 +630,13 @@ Enable-KmsKey -KeyId $keyId
 
 ------
 
-## Disabling Customer Master Keys<a name="disable-keys"></a>
+## Disabling customer master keys<a name="disable-keys"></a>
 
 To disable a CMK, use the [DisableKey](https://docs.aws.amazon.com/kms/latest/APIReference/API_DisableKey.html) operation\. Disabling a CMK prevents it from being used in cryptographic operations\.
 
-In languages that require a client object, these examples use the AWS KMS client object that you created in [Creating a Client](programming-client.md)\.
+In languages that require a client object, these examples use the AWS KMS client object that you created in [Creating a client](programming-client.md)\.
 
-For help with enabling and disabling CMKs in the AWS KMS console, see [Enabling and Disabling Keys](enabling-keys.md)\.
+For help with enabling and disabling CMKs in the AWS KMS console, see [Enabling and disabling keys](enabling-keys.md)\.
 
 ------
 #### [ Java ]

@@ -1,15 +1,15 @@
-# How Amazon Elastic Block Store \(Amazon EBS\) Uses AWS KMS<a name="services-ebs"></a>
+# How Amazon Elastic Block Store \(Amazon EBS\) uses AWS KMS<a name="services-ebs"></a>
 
 This topic discusses in detail how [Amazon Elastic Block Store \(Amazon EBS\)](https://docs.aws.amazon.com/AWSEC2/latest/UserGuide/AmazonEBS.html) uses AWS KMS to encrypt volumes and snapshots\. For basic instructions about encrypting Amazon EBS volumes, see [Amazon EBS Encryption](https://docs.aws.amazon.com/AWSEC2/latest/UserGuide/EBSEncryption.html)\.
 
 **Topics**
-+ [Amazon EBS Encryption](#ebs-encrypt)
-+ [Using CMKs and Data Keys](#ebs-cmk)
-+ [Amazon EBS Encryption Context](#ebs-encryption-context)
-+ [Detecting Amazon EBS Failures](#ebs-failures)
-+ [Using AWS CloudFormation to Create Encrypted Amazon EBS Volumes](#ebs-encryption-using-cloudformation)
++ [Amazon EBS encryption](#ebs-encrypt)
++ [Using CMKs and data keys](#ebs-cmk)
++ [Amazon EBS encryption context](#ebs-encryption-context)
++ [Detecting Amazon EBS failures](#ebs-failures)
++ [Using AWS CloudFormation to create encrypted Amazon EBS volumes](#ebs-encryption-using-cloudformation)
 
-## Amazon EBS Encryption<a name="ebs-encrypt"></a>
+## Amazon EBS encryption<a name="ebs-encrypt"></a>
 
 When you attach an encrypted Amazon EBS volume to a [supported Amazon Elastic Compute Cloud \(Amazon EC2\) instance type](https://docs.aws.amazon.com/AWSEC2/latest/UserGuide/EBSEncryption.html#EBSEncryption_supported_instances), data stored at rest on the volume, disk I/O, and snapshots created from the volume are all encrypted\. The encryption occurs on the servers that host Amazon EC2 instances\.
 
@@ -17,12 +17,12 @@ This feature is supported on all [Amazon EBS volume types](https://docs.aws.amaz
 
 The encryption status of an EBS volume is determined when you create the volume\. You cannot change the encryption status of an existing volume\. However, you can [migrate data](https://docs.aws.amazon.com/AWSEC2/latest/UserGuide/EBSEncryption.html#EBSEncryption_considerations) between encrypted and unencrypted volumes and apply a new encryption status while copying a snapshot\.
 
-## Using CMKs and Data Keys<a name="ebs-cmk"></a>
+## Using CMKs and data keys<a name="ebs-cmk"></a>
 
 When you [create an encrypted Amazon EBS volume](https://docs.aws.amazon.com/AWSEC2/latest/UserGuide/ebs-creating-volume.html), you specify an AWS KMS customer master key \(CMK\)\. By default, Amazon EBS uses the [AWS managed CMK](concepts.md#aws-managed-cmk) for Amazon EBS in your account\. However, you can specify a [customer managed CMK](concepts.md#customer-cmk)\. 
 
 **Important**  
-Amazon EBS supports only [symmetric CMKs](symm-asymm-concepts.md#symmetric-cmks)\. You cannot use an [asymmetric CMK](symm-asymm-concepts.md#asymmetric-cmks) to encrypt an Amazon EBS volume\. To determine whether a CMK is symmetric or asymmetric, see [Identifying Symmetric and Asymmetric CMKs](find-symm-asymm.md)\.
+Amazon EBS supports only [symmetric CMKs](symm-asymm-concepts.md#symmetric-cmks)\. You cannot use an [asymmetric CMK](symm-asymm-concepts.md#asymmetric-cmks) to encrypt an Amazon EBS volume\. To determine whether a CMK is symmetric or asymmetric, see [Identifying symmetric and asymmetric CMKs](find-symm-asymm.md)\.
 
 Amazon EBS uses the CMK that you specify to generate a unique data key for each volume\. It stores an encrypted copy of the data key with the volume\. Then, when you attach the volume to an Amazon EC2 instance, Amazon EBS uses the data key to encrypt all disk I/O to the volume\.
 
@@ -38,7 +38,7 @@ The following explains how Amazon EBS uses your CMK:
 
 1. Amazon EC2 uses the plaintext data key in hypervisor memory to encrypt disk I/O to the EBS volume\. The plaintext data key persists in memory as long as the EBS volume is attached to the EC2 instance\.
 
-## Amazon EBS Encryption Context<a name="ebs-encryption-context"></a>
+## Amazon EBS encryption context<a name="ebs-encryption-context"></a>
 
 In its [GenerateDataKeyWithoutPlaintext](https://docs.aws.amazon.com/kms/latest/APIReference/API_GenerateDataKey.html) and [Decrypt](https://docs.aws.amazon.com/kms/latest/APIReference/API_Decrypt.html) requests to AWS KMS, Amazon EBS uses an encryption context with a name\-value pair that identifies the volume or snapshot in the request\. The name in the encryption context does not vary\.
 
@@ -60,7 +60,7 @@ For encrypted snapshots created with the Amazon EC2 [CopySnapshot](https://docs.
 }
 ```
 
-## Detecting Amazon EBS Failures<a name="ebs-failures"></a>
+## Detecting Amazon EBS failures<a name="ebs-failures"></a>
 
 To create an encrypted EBS volume or attach the volume to an EC2 instance, Amazon EBS and the Amazon EC2 infrastructure must be able to use the CMK that you specified for EBS volume encryption\. When the CMK is not usable—for example, when its [key state](key-state.md) is not `Enabled` —the volume creation or volume attachment fails\.
 
@@ -73,6 +73,6 @@ To fix these failures, ensure that the CMK that you specified for EBS volume enc
 + If the CMK's key state is pending import, [import key material](importing-keys.md#importing-keys-overview)\.
 + If the CMK's key state is pending deletion, [cancel key deletion](deleting-keys.md#deleting-keys-scheduling-key-deletion)\.
 
-## Using AWS CloudFormation to Create Encrypted Amazon EBS Volumes<a name="ebs-encryption-using-cloudformation"></a>
+## Using AWS CloudFormation to create encrypted Amazon EBS volumes<a name="ebs-encryption-using-cloudformation"></a>
 
 You can use [AWS CloudFormation](https://aws.amazon.com/cloudformation/) to create encrypted Amazon EBS volumes\. For more information, see [AWS::EC2::Volume](https://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-properties-ec2-ebs-volume.html) in the *AWS CloudFormation User Guide*\.

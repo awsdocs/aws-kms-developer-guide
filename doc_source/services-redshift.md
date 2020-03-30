@@ -1,12 +1,12 @@
-# How Amazon Redshift Uses AWS KMS<a name="services-redshift"></a>
+# How Amazon Redshift uses AWS KMS<a name="services-redshift"></a>
 
 This topic discusses how Amazon Redshift uses AWS KMS to encrypt data\.
 
 **Topics**
-+ [Amazon Redshift Encryption](#rs-encryption)
-+ [Encryption Context](#rs-encryptioncontext)
++ [Amazon Redshift encryption](#rs-encryption)
++ [Encryption context](#rs-encryptioncontext)
 
-## Amazon Redshift Encryption<a name="rs-encryption"></a>
+## Amazon Redshift encryption<a name="rs-encryption"></a>
 
 An Amazon Redshift data warehouse is a collection of computing resources called nodes, which are organized into a group called a cluster\. Each cluster runs an Amazon Redshift engine and contains one or more databases\. 
 
@@ -21,9 +21,9 @@ The cluster key encrypts the database key for the Amazon Redshift cluster\. You 
 The master key encrypts the cluster key\. You can use a AWS KMS [customer master key](concepts.md#master_keys) \(CMK\) as the master key for Amazon Redshift\. You can request encryption by checking the appropriate box in the Amazon Redshift console\. You can specify a [customer managed CMK](concepts.md#customer-cmk) to use by choosing one from the list that appears below the encryption box\. If you do not specify a customer managed CMK, Amazon Redshift uses the [AWS managed CMK](concepts.md#aws-managed-cmk) for Amazon Redshift under your account\. 
 
 **Important**  
-Amazon Redshift supports only symmetric CMKs\. You cannot use an asymmetric CMK as the master key in an Amazon Redshift encryption workflow\. To determine whether a CMK is symmetric or asymmetric, see [Identifying Symmetric and Asymmetric CMKs](find-symm-asymm.md)\.
+Amazon Redshift supports only symmetric CMKs\. You cannot use an asymmetric CMK as the master key in an Amazon Redshift encryption workflow\. To determine whether a CMK is symmetric or asymmetric, see [Identifying symmetric and asymmetric CMKs](find-symm-asymm.md)\.
 
-## Encryption Context<a name="rs-encryptioncontext"></a>
+## Encryption context<a name="rs-encryptioncontext"></a>
 
 Each service that is integrated with AWS KMS specifies an [encryption context](concepts.md#encrypt_context) when requesting data keys, encrypting, and decrypting\. The encryption context is [additional authenticated data](https://docs.aws.amazon.com/crypto/latest/userguide/cryptography-concepts.html#term-aad) \(AAD\) that AWS KMS uses to check for data integrity\. That is, when an encryption context is specified for an encryption operation, the service also specifies it for the decryption operation or decryption will not succeed\. Amazon Redshift uses the cluster ID and the creation time for the encryption context\. In the `requestParameters` field of a CloudTrail log file, the encryption context will look similar to this\. 
 

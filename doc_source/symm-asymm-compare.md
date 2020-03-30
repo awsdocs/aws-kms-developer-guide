@@ -1,4 +1,4 @@
-# Comparing Symmetric and Asymmetric CMKs<a name="symm-asymm-compare"></a>
+# Comparing symmetric and asymmetric CMKs<a name="symm-asymm-compare"></a>
 
 You can create and manage symmetric and asymmetric CMKs by using the AWS KMS console and the AWS KMS API\. However, AWS KMS supports different features for CMKs of different types\. 
 
@@ -10,5 +10,5 @@ The following table lists the AWS KMS operations that you can use to create and 
 If you see an expand arrow \(**↗**\) in the upper\-right corner of the table, you can open the table in a new window\. To close the window, choose the close button \(**X**\) in the lower\-right corner\.
 
 
-**AWS KMS Operations With Symmetric and Asymmetric CMKs**  
+**AWS KMS operations with symmetric and asymmetric CMKs**  
 <a name="symm-asymm-table"></a>[\[See the AWS documentation website for more details\]](http://docs.aws.amazon.com/kms/latest/developerguide/symm-asymm-compare.html)

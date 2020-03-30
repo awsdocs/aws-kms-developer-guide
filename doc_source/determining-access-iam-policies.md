@@ -1,18 +1,18 @@
-# Examining IAM Policies<a name="determining-access-iam-policies"></a>
+# Examining IAM policies<a name="determining-access-iam-policies"></a>
 
-In addition to the key policy and grants, you can also use IAM policies in combination with a CMK's key policy to allow access to a CMK\. For more information about how IAM policies and key policies work together, see [Troubleshooting Key Access](policy-evaluation.md)\.
+In addition to the key policy and grants, you can also use IAM policies in combination with a CMK's key policy to allow access to a CMK\. For more information about how IAM policies and key policies work together, see [Troubleshooting key access](policy-evaluation.md)\.
 
 To determine which principals currently have access to a CMK through IAM policies, you can use the browser\-based [IAM Policy Simulator](https://policysim.aws.amazon.com/) tool, or you can make requests to the IAM API\.
 
 **Contents**
-+ [Examining IAM Policies with the IAM Policy Simulator](#determining-access-iam-policy-simulator)
-+ [Examining IAM Policies with the IAM API](#determining-access-iam-api)
++ [Examining IAM policies with the IAM policy simulator](#determining-access-iam-policy-simulator)
++ [Examining IAM policies with the IAM API](#determining-access-iam-api)
 
-## Examining IAM Policies with the IAM Policy Simulator<a name="determining-access-iam-policy-simulator"></a>
+## Examining IAM policies with the IAM policy simulator<a name="determining-access-iam-policy-simulator"></a>
 
 The IAM Policy Simulator can help you learn which principals have access to a KMS CMK through an IAM policy\.
 
-**To use the IAM Policy Simulator to determine access to a KMS CMK**
+**To use the IAM policy simulator to determine access to a KMS CMK**
 
 1. Sign in to the AWS Management Console and then open the IAM Policy Simulator at [https://policysim.aws.amazon.com/](https://policysim.aws.amazon.com/)\.
 
@@ -32,7 +32,7 @@ The IAM Policy Simulator can help you learn which principals have access to a KM
 
 You can view the results of the simulation in the **Results** section\. Repeat steps 2 through 6 for every IAM user, group, and role in the AWS account\.
 
-## Examining IAM Policies with the IAM API<a name="determining-access-iam-api"></a>
+## Examining IAM policies with the IAM API<a name="determining-access-iam-api"></a>
 
 You can use the IAM API to examine IAM policies programmatically\. The following steps provide a general overview of how to do this:
 

@@ -1,14 +1,14 @@
-# Viewing a Key Policy<a name="key-policy-viewing"></a>
+# Viewing a key policy<a name="key-policy-viewing"></a>
 
 You can view the key policy for an AWS KMS [customer managed CMK](concepts.md#customer-cmk) or an [AWS managed CMK](concepts.md#aws-managed-cmk) in your account by using the AWS Management Console or the [GetKeyPolicy](https://docs.aws.amazon.com/kms/latest/APIReference/API_GetKeyPolicy.html) operation in the AWS KMS API\. You cannot use these techniques to view the key policy of a CMK in a different AWS account\. 
 
-To learn more about AWS KMS key policies, see [Using Key Policies in AWS KMS](key-policies.md)\. To learn how to determine which users and roles have access to a CMK, see [Determining Access to an AWS KMS Customer Master Key](determining-access.md)\.
+To learn more about AWS KMS key policies, see [Using key policies in AWS KMS](key-policies.md)\. To learn how to determine which users and roles have access to a CMK, see [Determining access to an AWS KMS customer master key](determining-access.md)\.
 
 **Topics**
-+ [Viewing a Key Policy \(Console\)](#key-policy-viewing-console)
-+ [Viewing a Key Policy \(KMS API\)](#key-policy-viewing-api)
++ [Viewing a key policy \(console\)](#key-policy-viewing-console)
++ [Viewing a key policy \(AWS KMS API\)](#key-policy-viewing-api)
 
-## Viewing a Key Policy \(Console\)<a name="key-policy-viewing-console"></a>
+## Viewing a key policy \(console\)<a name="key-policy-viewing-console"></a>
 
 Authorized users can view the key policy for an [AWS managed CMK](concepts.md#aws-managed-cmk) or a [customer managed CMK](concepts.md#customer-cmk) on the **Key policy** tab of the AWS Management Console\. 
 
@@ -34,7 +34,7 @@ To view the key policy for a CMK in the AWS Management Console, you must have [k
    The following example shows the default view for the [default key policy](key-policies.md#key-policy-default)\.   
 ![\[View of the default key policy in default view in the AWS KMS console\]](http://docs.aws.amazon.com/kms/latest/developerguide/images/console-key-policy-full-vsm.png)
 
-## Viewing a Key Policy \(KMS API\)<a name="key-policy-viewing-api"></a>
+## Viewing a key policy \(AWS KMS API\)<a name="key-policy-viewing-api"></a>
 
 To get the key policy for an [AWS managed CMK](concepts.md#aws-managed-cmk) or a [customer managed CMK](concepts.md#customer-cmk) in your AWS account, use the [GetKeyPolicy](https://docs.aws.amazon.com/kms/latest/APIReference/API_GetKeyPolicy.html) operation in the AWS KMS API\. You cannot use this operation to view a key policy in a different account\.
 
