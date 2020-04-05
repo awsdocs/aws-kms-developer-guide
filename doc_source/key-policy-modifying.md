@@ -46,7 +46,7 @@ You can use the console to change a key policy document with the console's *poli
 
 ### Using the AWS KMS API<a name="key-policy-modifying-how-to-api"></a>
 
-You can use the [PutKeyPolicy](url-kms-api;API_PutKeyPolicy.html) operation to change the key policy of a CMK in your AWS account\. You cannot use this API on a CMK in a different AWS account\.
+You can use the [PutKeyPolicy](https://docs.aws.amazon.com/kms/latest/APIReference/API_PutKeyPolicy.html) operation to change the key policy of a CMK in your AWS account\. You cannot use this API on a CMK in a different AWS account\.
 
 1. Use the [GetKeyPolicy](https://docs.aws.amazon.com/kms/latest/APIReference/API_GetKeyPolicy.html) operation to get the existing key policy document, and then save the key policy document to a file\. For sample code in multiple programming languages, see [Getting a key policy](programming-key-policies.md#get-policy)\.
 
