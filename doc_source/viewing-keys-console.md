@@ -127,7 +127,7 @@ Displays the public key of an asymmetric CMK\. Authorized users can use this tab
 Lists the signing algorithms that can be used with the CMK in AWS KMS\. This field appears only when the **Key type** is **Asymmetric** and the **Key usage** is **Sign and verify**\. For information about the signing algorithms that AWS KMS supports, see [RSA key specs for signing and verification](symm-asymm-choose.md#key-spec-rsa-sign) and [Elliptic curve key specs](symm-asymm-choose.md#key-spec-ecc)\.
 
 **Status**  
-The key state of the CMK\. You can use the CMK in cryptographic operations only when the status is **Enabled**\. For a detailed description of each CMK status and its effect on the operations that you can run on the CMK, see [Key state: Effect on your CMK](key-state.md)\.
+The key state of the CMK\. You can use the CMK in [cryptographic operations](concepts.md#cryptographic-operations) only when the status is **Enabled**\. For a detailed description of each CMK status and its effect on the operations that you can run on the CMK, see [Key state: Effect on your CMK](key-state.md)\.
 
 **Tags**  
 Optional key\-value pairs that describe the CMK\. To add or change the tags for a CMK, on the **Tags** tab, choose **Edit**\.  

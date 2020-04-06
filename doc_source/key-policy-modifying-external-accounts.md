@@ -84,7 +84,7 @@ Do not set the Principal to an asterisk \(\*\) in any key policy statement that 
 
 You also need to decide which permissions you want to give to the external account\. For a list of permissions on CMKs, see [AWS KMS API permissions: Actions and resources reference](kms-api-permissions-reference.md)\.
 
-You can give the external account permission to use the CMK in cryptographic operations and use the CMK with AWS services that are integrated with AWS KMS\. To do that, use the **Key Users** section of the AWS Management Console\. For details, see [Creating CMKs that other accounts can use](#cross-account-console)\.
+You can give the external account permission to use the CMK in [cryptographic operations](concepts.md#cryptographic-operations) and use the CMK with AWS services that are integrated with AWS KMS\. To do that, use the **Key Users** section of the AWS Management Console\. For details, see [Creating CMKs that other accounts can use](#cross-account-console)\.
 
 To specify other permissions in key policies, edit the key policy document\. For example, you might want to give users permission to decrypt but not encrypt, or permission to view the CMK but not use it\. To edit the key policy document, you can use the [Policy View](key-policy-modifying.md#key-policy-modifying-how-to-console-policy-view) in the AWS Management Console or the [CreateKey](https://docs.aws.amazon.com/kms/latest/APIReference/API_CreateKey.html) or [PutKeyPolicy](https://docs.aws.amazon.com/kms/latest/APIReference/API_PutKeyPolicy.html) operations\.
 

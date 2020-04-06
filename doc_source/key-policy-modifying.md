@@ -32,7 +32,7 @@ If the following steps don't match what you see in the console, it might mean th
 
 1. Decide what to change\.
    + To add or remove [key administrators](key-policies.md#key-policy-default-allow-administrators), and to allow or prevent key administrators from [deleting the CMK](deleting-keys.md), use the controls in the **Key administrators** section of the page\. Key administrators manage the CMK, including enabling and disabling it, setting key policy, and [enabling key rotation](rotate-keys.md)\.
-   + To add or remove [key users](key-policies.md#key-policy-default-allow-users), and to allow or disallow external AWS accounts to use the CMK, use the controls in the **Key users** section of the page\. Key users can use the CMK in cryptographic operations, such as encrypting, decrypting, re\-encrypting, and generating data keys\.
+   + To add or remove [key users](key-policies.md#key-policy-default-allow-users), and to allow or disallow external AWS accounts to use the CMK, use the controls in the **Key users** section of the page\. Key users can use the CMK in [cryptographic operations](concepts.md#cryptographic-operations), such as encrypting, decrypting, re\-encrypting, and generating data keys\.
 
 ### Using the AWS Management Console policy view<a name="key-policy-modifying-how-to-console-policy-view"></a>
 

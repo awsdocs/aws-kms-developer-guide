@@ -50,7 +50,7 @@ IAM policies can give other IAM users and roles permission to manage the CMK\.
 
    Choose **Next**\.
 
-1. In the **This account** section, select the IAM users and roles in this AWS account who can use the CMK in cryptographic operations\. For more information, see [Allows key users to use the CMK](key-policies.md#key-policy-default-allow-users)\.
+1. In the **This account** section, select the IAM users and roles in this AWS account who can use the CMK in [cryptographic operations](concepts.md#cryptographic-operations)\. For more information, see [Allows key users to use the CMK](key-policies.md#key-policy-default-allow-users)\.
 **Note**  
 IAM policies can give other IAM users and roles permission to use the CMK\.
 

@@ -28,7 +28,7 @@ Users who are authorized delete symmetric and asymmetric customer master keys \(
 Because it is destructive and potentially dangerous to delete a CMK, AWS KMS enforces a waiting period\. To delete a CMK in AWS KMS you *schedule key deletion*\. You can set the waiting period from a minimum of 7 days up to a maximum of 30 days\. The default waiting period is 30 days\. 
 
 During the waiting period, the CMK status and key state is **Pending deletion**\.
-+ A CMK that is pending deletion cannot be used in any cryptographic operations\. 
++ A CMK that is pending deletion cannot be used in any [cryptographic operations](concepts.md#cryptographic-operations)\. 
 + AWS KMS does not [rotate the backing keys](rotate-keys.md#rotate-keys-how-it-works) of CMKs that are pending deletion\.
 
 After the waiting period ends, AWS KMS deletes the CMK and all AWS KMS data associated with it, including all aliases that point to it\.
@@ -40,7 +40,7 @@ Use the waiting period to ensure that you don't need the CMK now or in the futur
 ### Deleting asymmetric CMKs<a name="deleting-asymmetric-cmks"></a>
 
 Users [who are authorized](#deleting-keys-adding-permission) can delete symmetric or asymmetric CMKs\. The procedure to schedule the deletion of these CMKs is the same for both types of keys\. However, because the [public key of an asymmetric CMK can be downloaded](download-public-key.md) and used outside of AWS KMS, the operation poses significant additional risks, especially for asymmetric CMKs used for encryption \(the key usage is `ENCRYPT_DECRYPT`\)\.
-+ When you schedule the deletion of a CMK, the key state of CMK changes to **Pending deletion**, and the CMK cannot be used in cryptographic operations\. However, scheduling deletion has no effect on public keys outside of AWS KMS\. Users who have the public key can continue to use them to encrypt messages\. They do not receive any notification that the key state is changed\. Unless the deletion is canceled, ciphertext created with the public key cannot be decrypted\.
++ When you schedule the deletion of a CMK, the key state of CMK changes to **Pending deletion**, and the CMK cannot be used in [cryptographic operations](concepts.md#cryptographic-operations)\. However, scheduling deletion has no effect on public keys outside of AWS KMS\. Users who have the public key can continue to use them to encrypt messages\. They do not receive any notification that the key state is changed\. Unless the deletion is canceled, ciphertext created with the public key cannot be decrypted\.
 + Alarms, logs, and other strategies that detect attempted use of CMK that is pending deletion cannot detect use of the public key outside of AWS KMS\.
 + When the CMK is deleted, all AWS KMS actions involving that CMK fail\. However, users who have the public key can continue to use them to encrypt messages\. These ciphertexts cannot be decrypted\.
 

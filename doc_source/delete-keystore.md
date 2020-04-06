@@ -3,7 +3,7 @@
 When you delete a custom key store, AWS KMS deletes all metadata about the custom key store from KMS, including information about its association with an AWS CloudHSM cluster\. This operation does not affect the AWS CloudHSM cluster, its HSMs, or its users\. You can create a new custom key store that is associated with the specified cluster, but you cannot undo the delete operation\.
 
 You can only delete a custom key store that is disconnected from AWS KMS and does not contain any customer master keys \(CMKs\)\. Before you delete a custom key store, do the following\.
-+ Verify that you will never need to use any of the CMKs in the key store for any cryptographic operations\. Then [schedule deletion](delete-cmk-keystore.md) of all of the CMKs from the key store\. For help finding the CMKs in a custom key store, see [Find the CMKs in a custom key store](find-key-material.md#find-cmk-in-keystore)\.
++ Verify that you will never need to use any of the CMKs in the key store for any [cryptographic operations](use-cmk-keystore.md)\. Then [schedule deletion](delete-cmk-keystore.md) of all of the CMKs from the key store\. For help finding the CMKs in a custom key store, see [Find the CMKs in a custom key store](find-key-material.md#find-cmk-in-keystore)\.
 + Confirm that all CMKs have been deleted\. To view the CMKs in a custom key store, see [Viewing CMKs in a custom key store](view-cmk-keystore.md)\.
 + [Disconnect the custom key store](disconnect-keystore.md) from AWS KMS\.
 

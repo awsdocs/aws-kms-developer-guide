@@ -1,31 +1,37 @@
 # What is AWS Key Management Service?<a name="overview"></a>
 
-AWS Key Management Service \(AWS KMS\) is a managed service that makes it easy for you to create and control the encryption keys used to encrypt your data\. The customer master keys that you create in AWS KMS are protected by hardware security modules \(HSMs\)\. Our HSMs are validated by the [FIPS 140\-2 Cryptographic Module Validation Program](https://csrc.nist.gov/projects/cryptographic-module-validation-program/Certificate/3139) except in the China \(Beijing\) and China \(Ningxia\) Regions\. 
+AWS Key Management Service \(AWS KMS\) is a managed service that makes it easy for you to create and control *customer master keys* \(CMKs\), the encryption keys used to encrypt your data\. AWS KMS CMKs are protected by hardware security modules \(HSMs\) that are validated by the [FIPS 140\-2 Cryptographic Module Validation Program](https://csrc.nist.gov/projects/cryptographic-module-validation-program/Certificate/3139) except in the China \(Beijing\) and China \(Ningxia\) Regions\. 
 
-AWS KMS is integrated with most [other AWS services](https://aws.amazon.com/kms/features/#AWS_Service_Integration) that encrypt your data with encryption keys that you manage\. AWS KMS is also integrated with [AWS CloudTrail](https://docs.aws.amazon.com/awscloudtrail/latest/userguide/) to provide encryption key usage logs to help meet your auditing, regulatory and compliance needs\.
+AWS KMS is integrated with most [other AWS services](https://aws.amazon.com/kms/features/#AWS_Service_Integration) that encrypt your data\. AWS KMS is also integrated with [AWS CloudTrail](https://docs.aws.amazon.com/awscloudtrail/latest/userguide/) to log use of your CMKs for auditing, regulatory, and compliance needs\.
 
-You can perform the following management actions on your AWS KMS master keys:
-+ Create, describe, and list master keys
-+ Enable and disable master keys
-+ Create and view grants and access control policies for your master keys
-+ Enable and disable automatic rotation of the cryptographic material in a master key
-+ Import cryptographic material into an AWS KMS master key
-+ Tag your master keys for easier identification, categorizing, and tracking
-+ Create, delete, list, and update *aliases*, which are friendly names associated with your master keys
-+ Delete master keys to complete the key lifecycle
+You can perform the following basic management actions on your AWS KMS customer master keys \(CMKs\):
++ [Create](create-keys.md), and [view](viewing-keys.md) [symmetric and asymmetric CMKs](symmetric-asymmetric.md), and [edit](editing-keys.md) their properties\.
++ [Enable and disable](enabling-keys.md) CMKs
++ Create and view [access control policies](control-access.md) and [grants](grants.md) for your CMKs
++ Enable and disable [automatic rotation](rotate-keys.md) of the cryptographic material in a CMK
++ [Tag your CMKs](tagging-keys.md) for easier identification, categorizing, and tracking use and costs
++ [Create, delete, list, and update *aliases*](programming-aliases.md), which are friendly names for your CMKs
++ [Delete CMKs](deleting-keys.md) to complete the key lifecycle
 
-With AWS KMS you can also perform the following cryptographic functions using master keys:
-+ Encrypt, decrypt, and re\-encrypt data
-+ Generate data encryption keys that you can export from the service in plaintext or encrypted under a master key that doesn't leave the service
+You can also perform the following [cryptographic operations](concepts.md#cryptographic-operations) with your CMKs\. For examples, see [Programming the AWS KMS API](programming-top.md)\.
++ Encrypt, decrypt, and re\-encrypt data with symmetric or asymmetric CMKs
++ Sign and verify messages with asymmetric CMKs
++ Generate exportable symmetric data keys and asymmetric data key pairs
 + Generate random numbers suitable for cryptographic applications
 
-By using AWS KMS, you gain more control over access to data you encrypt\. You can use the key management and cryptographic features directly in your applications or through AWS services that are integrated with AWS KMS\. Whether you are writing applications for AWS or using AWS services, AWS KMS enables you to maintain control over who can use your master keys and gain access to your encrypted data\.
+You can also use the advanced features of AWS KMS
++ [Import cryptographic material](importing-keys.md) into a CMK
++ Create CMKs in your own [custom key store](custom-key-store-overview.md) backed by a AWS CloudHSM cluster\.
++ Connect directly to AWS KMS through a [private endpoint in your VPC](kms-vpc-endpoint.md)
++ Use [hybrid post\-quantum TLS](pqtls.md) to provide forward\-looking encryption in transit for the data that you send AWS KMS
+
+By using AWS KMS, you gain more control over access to data you encrypt\. You can use the key management and cryptographic features directly in your applications or through AWS services that are integrated with AWS KMS\. Whether you are writing applications for AWS or using AWS services, AWS KMS enables you to maintain control over who can use your customer master keys and gain access to your encrypted data\.
 
 AWS KMS is integrated with AWS CloudTrail, a service that delivers log files to an Amazon S3 bucket that you designate\. By using CloudTrail you can monitor and investigate how and when your master keys have been used and by whom\.
 
 **Learn more**
-+ For a more detailed introduction to AWS KMS, see [AWS KMS Concepts](concepts.md)\.
-+ For information about the AWS KMS API, see the [AWS Key Management Service API Reference](https://docs.aws.amazon.com/kms/latest/APIReference/)\.
++ To learn about the terms and concepts used in AWS KMS, see [AWS KMS Concepts](concepts.md)\.
++ For information about the AWS KMS API, see the [AWS Key Management Service API Reference](https://docs.aws.amazon.com/kms/latest/APIReference/)\. For examples in different programming languages, see [Programming the AWS KMS API](programming-top.md)\.
 + For detailed technical information about how AWS KMS uses cryptography and secures master keys, see the [AWS Key Management Service Cryptographic Details](https://d0.awsstatic.com/whitepapers/KMS-Cryptographic-Details.pdf) whitepaper\. This whitepaper does not describe how AWS KMS works in the China \(Beijing\) and China \(Ningxia\) Regions\.
 + For help with questions about AWS KMS, see the [AWS Key Management Service Discussion Forum](https://forums.aws.amazon.com/forum.jspa?forumID=182)\.
 

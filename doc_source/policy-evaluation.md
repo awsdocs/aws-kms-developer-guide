@@ -51,7 +51,7 @@ Consider the relevant policies for this example\.
 
 ## Example 2: User assumes role with permission to use a CMK in a different AWS account<a name="example-cross-acct"></a>
 
-Bob is a user in account 1 \(111122223333\)\. He is allowed to use a CMK in account 2 \(444455556666\) in cryptographic operations\. How is this possible?
+Bob is a user in account 1 \(111122223333\)\. He is allowed to use a CMK in account 2 \(444455556666\) in [cryptographic operations](concepts.md#cryptographic-operations)\. How is this possible?
 
 **Tip**  
 When evaluating cross\-account permissions, remember that the key policy is specified in the CMK's account\. The IAM policy is specified in the caller's account, even when the caller is in a different account\.

@@ -3,7 +3,7 @@
 After you have created a custom key store, you can create [customer master keys](concepts.md#master_keys) \(CMKs\) in your key store\. They must be [symmetric CMKs](symm-asymm-concepts.md#symmetric-cmks) with key material that AWS KMS generates\. You cannot create [asymmetric CMKs](symm-asymm-concepts.md#asymmetric-cmks) or CMKs with [imported key material](importing-keys.md), and you cannot use symmetric CMKs in a custom key store to generate asymmetric data key pairs\.
 
 Use and manage the CMKs in your custom key store the same way that you use and manage any CMK in AWS KMS\. For example, you can do any of the following:
-+ Use the CMKs for cryptographic operations\.
++ Use the CMKs for [cryptographic operations](concepts.md#cryptographic-operations)\.
 + Set IAM and key policies on the CMKs\.
 + Create aliases are associated with the CMKs\.
 + Attach tags to the CMKs\.
@@ -68,7 +68,7 @@ IAM policies can give other IAM users and roles permission to use the CMK\.
 
 1. Choose **Next**\.
 
-1. In the **This account** section, select the IAM users and roles in this AWS account who can use the CMK in cryptographic operations\. For more information, see [Allows Key Users to Use the CMK](key-policies.md#key-policy-default-allow-users)\.
+1. In the **This account** section, select the IAM users and roles in this AWS account who can use the CMK in [cryptographic operations](concepts.md#cryptographic-operations)\. For more information, see [Allows Key Users to Use the CMK](key-policies.md#key-policy-default-allow-users)\.
 **Note**  
 IAM policies can give other IAM users and roles permission to use the CMK\.
 

@@ -23,7 +23,7 @@ For security reasons, we recommend that you use the root credentials only to cre
 
 ## Access control<a name="authorization"></a>
 
-You can have valid credentials to authenticate your requests, but you also need permissions to make AWS KMS API requests to create, manage, or use AWS KMS resources\. For example, you must have permissions to create a KMS CMK, to manage the CMK, to use the CMK for cryptographic operations \(such as encryption and decryption\), and so on\.
+You can have valid credentials to authenticate your requests, but you also need permissions to make AWS KMS API requests to create, manage, or use AWS KMS resources\. For example, you must have permissions to create a KMS CMK, to manage the CMK, and to use the CMK for [cryptographic operations](concepts.md#cryptographic-operations)\.
 
 The following pages describe how to manage permissions for AWS KMS\. We recommend that you read the overview first\.
 + [Overview of managing access](control-access-overview.md)

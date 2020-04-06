@@ -4,7 +4,7 @@ You can change the settings of an existing [custom key store](key-store-concepts
 
 To edit custom key store settings:
 
-1. [Disconnect the custom key store](disconnect-keystore.md) from its AWS CloudHSM cluster\. While the custom key store is disconnected, you cannot create [customer master keys](concepts.md#master_keys) \(CMKs\) in the custom key store and you cannot use the CMKs it contains for cryptographic operations\. 
+1. [Disconnect the custom key store](disconnect-keystore.md) from its AWS CloudHSM cluster\. While the custom key store is disconnected, you cannot create [customer master keys](concepts.md#master_keys) \(CMKs\) in the custom key store and you cannot use the CMKs it contains for [cryptographic operations](use-cmk-keystore.md)\. 
 
 1. Edit one or more of the custom key store settings\.
 
@@ -54,7 +54,7 @@ When you edit the custom key store, you can change any or of the configurable va
 
 1. [Reconnect the custom key store\.](disconnect-keystore.md)
 
-   To use the custom key store, you must reconnect it after editing\. You can leave the custom key store disconnected\. But while it is disconnected, you cannot create CMKs in the custom key store or use the CMKs in the custom key store in cryptographic operations\.
+   To use the custom key store, you must reconnect it after editing\. You can leave the custom key store disconnected\. But while it is disconnected, you cannot create CMKs in the custom key store or use the CMKs in the custom key store in [cryptographic operations](use-cmk-keystore.md)\.
 
 ## Edit a custom key store \(API\)<a name="update-keystore-api"></a>
 
@@ -86,7 +86,7 @@ The following example tells AWS KMS that the current `kmsuser` password is `Exam
 $ aws kms update-custom-key-store --custom-key-store-id cks-1234567890abcdef0 --key-store-password ExamplePassword
 ```
 
-The final command reconnects the custom key store to AWS KMS\. You can leave the custom key store in the disconnected state, but you must connect it before you can create new CMKs or use existing CMKs for cryptographic operations\. Replace the example custom key store ID with an actual ID\.
+The final command reconnects the custom key store to AWS KMS\. You can leave the custom key store in the disconnected state, but you must connect it before you can create new CMKs or use existing CMKs for [cryptographic operations](use-cmk-keystore.md)\. Replace the example custom key store ID with an actual ID\.
 
 ```
 $ aws kms connect-custom-key-store --custom-key-store-id cks-1234567890abcdef0

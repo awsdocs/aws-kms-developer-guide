@@ -64,7 +64,7 @@ IAM policies can give other IAM users and roles permission to manage the CMK\.
 
 1. Choose **Next**\.
 
-1. Select the IAM users and roles that can use the CMK for cryptographic operations\.
+1. Select the IAM users and roles that can use the CMK for [cryptographic operations](concepts.md#cryptographic-operations)\.
 **Note**  
 The AWS account \(root user\) has full permissions by default\. As a result, any IAM policies can also give users and roles permission use the CMK for cryptographic operations\.
 
@@ -189,7 +189,7 @@ IAM policies can give other IAM users and roles permission to manage the CMK\.
 
 1. Choose **Next**\.
 
-1. Select the IAM users and roles that can use the CMK for cryptographic operations\.
+1. Select the IAM users and roles that can use the CMK for [cryptographic operations](concepts.md#cryptographic-operations)\.
 **Note**  
 The AWS account \(root user\) has full permissions by default\. As a result, any IAM policies can also give users and roles permission use the CMK for cryptographic operations\.
 

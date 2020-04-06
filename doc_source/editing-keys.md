@@ -36,7 +36,7 @@ You can add, change, or delete the description of your CMK unless its [key state
 1. To save your changes, choose **Save**\.
 
 **Change CMK administrators and users**  
-You can change the key policy for your CMK\. Key policies define the IAM users, groups, and roles that can manage the CMK and use it for cryptographic operations\.   
+You can change the key policy for your CMK\. Key policies define the IAM users, groups, and roles that can manage the CMK and use it for [cryptographic operations](concepts.md#cryptographic-operations)\.   
 The AWS account \(root user\) has full permissions by default\. As a result, any IAM users and roles whose attached policies allow the appropriate permissions can also administer the CMK\. For detailed information about setting key policies and IAM policies, see [Authentication and access control for AWS KMS](control-access.md)\.  
 
 1. On the details page for CMK, choose the **Key policy** tab\.
@@ -53,7 +53,7 @@ The AWS account \(root user\) has full permissions by default\. As a result, any
 
 1. To prevent the key administrators from scheduling deletion of the CMK, in the **Key deletion** section, clear the **Allow key administrators to delete this key** check box\.
 
-1. To change the users and roles who can use the CMK in cryptographic operations, use the **Key users** section\.
+1. To change the users and roles who can use the CMK in [cryptographic operations](concepts.md#cryptographic-operations), use the **Key users** section\.
    + To add a key user, choose **Add**, choose a user or role, then choose **Add**\.
    + To remove a key user, check the box for the user or role, then choose **Remove**\.
 

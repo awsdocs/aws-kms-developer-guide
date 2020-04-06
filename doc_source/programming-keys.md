@@ -632,7 +632,7 @@ Enable-KmsKey -KeyId $keyId
 
 ## Disabling customer master keys<a name="disable-keys"></a>
 
-To disable a CMK, use the [DisableKey](https://docs.aws.amazon.com/kms/latest/APIReference/API_DisableKey.html) operation\. Disabling a CMK prevents it from being used in cryptographic operations\.
+To disable a CMK, use the [DisableKey](https://docs.aws.amazon.com/kms/latest/APIReference/API_DisableKey.html) operation\. Disabling a CMK prevents it from being used in [cryptographic operations](concepts.md#cryptographic-operations)\.
 
 In languages that require a client object, these examples use the AWS KMS client object that you created in [Creating a client](programming-client.md)\.
 
