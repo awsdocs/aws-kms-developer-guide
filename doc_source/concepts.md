@@ -260,7 +260,7 @@ alias/aws/s3
 
 ## Key material origin<a name="key-origin"></a>
 
-*Key material origin* is a CMK property that identifies the source of the key material in the CMK\. You choose the key material origin when you create the CMK, and you cannot change it\. To find the key material origin of a CMK, use the [DescribeKey](url-kms-api;API_DescribeKey.html) operation, or see the **Origin** value in the **Cryptographic configuration** section of the detail page for a CMK in the AWS KMS console\. For help, see [Viewing Keys](viewing-keys.md)\. 
+*Key material origin* is a CMK property that identifies the source of the key material in the CMK\. You choose the key material origin when you create the CMK, and you cannot change it\. To find the key material origin of a CMK, use the [DescribeKey](https://docs.aws.amazon.com/kms/latest/APIReference/API_DescribeKey.html) operation, or see the **Origin** value in the **Cryptographic configuration** section of the detail page for a CMK in the AWS KMS console\. For help, see [Viewing Keys](viewing-keys.md)\. 
 
 CMKs can have one of the following key material origin values\.
 
@@ -285,7 +285,7 @@ For help creating a CMK in a custom key store, see [Creating CMKs in a custom ke
 
 Typically, the key spec that you choose for your CMK is based on your use case and regulatory requirements\. You choose the key spec when you [create the CMK](create-keys.md), and you cannot change it\. If you've chosen the wrong key spec, [delete the CMK](deleting-keys.md), and create a new one\. 
 
-For a list of key specs and help with choosing a key spec, see [Selecting the key spec](symm-asymm-choose.md#symm-asymm-choose-key-spec)\. To find the key spec of a CMK, use the [DescribeKey](url-kms-api;API_DescribeKey.html) operation, or see the **Cryptographic configuration** section of the detail page for a CMK in the AWS KMS console\. For help, see [Viewing Keys](viewing-keys.md)\. 
+For a list of key specs and help with choosing a key spec, see [Selecting the key spec](symm-asymm-choose.md#symm-asymm-choose-key-spec)\. To find the key spec of a CMK, use the [DescribeKey](https://docs.aws.amazon.com/kms/latest/APIReference/API_DescribeKey.html) operation, or see the **Cryptographic configuration** section of the detail page for a CMK in the AWS KMS console\. For help, see [Viewing Keys](viewing-keys.md)\. 
 
 **Note**  
 In AWS KMS API operations, the key spec for CMKs is known as the `CustomerMasterKeySpec`\. This distinguishes it from the key spec for data keys \(`KeySpec`\) and data key pairs \(`KeyPairSpec`\), and the key spec used when wrapping key material for import \(`WrappingKeySpec`\)\. Each key spec type has different values\.
@@ -298,7 +298,7 @@ To limit the key specs that principals can use when creating CMKs, use the [kms:
 
 The key usage for symmetric CMKs is always encryption and decryption\. The key usage for elliptic curve \(ECC\) CMKs is always signing and verification\. You only need to choose a key usage for RSA CMKs\. You choose the key usage when you [create the CMK](create-keys.md), and you cannot change it\. If you've chosen the wrong key usage, [delete the CMK](deleting-keys.md), and create a new one\. 
 
-For choosing the key usage, see [Selecting the key usage](symm-asymm-choose.md#symm-asymm-choose-key-usage)\. To find the key usage of a CMK, use the [DescribeKey](url-kms-api;API_DescribeKey.html) operation, or see the **Cryptographic configuration** section of the detail page for a CMK in the AWS KMS console\. For help, see [Viewing Keys](viewing-keys.md)\. 
+For choosing the key usage, see [Selecting the key usage](symm-asymm-choose.md#symm-asymm-choose-key-usage)\. To find the key usage of a CMK, use the [DescribeKey](https://docs.aws.amazon.com/kms/latest/APIReference/API_DescribeKey.html) operation, or see the **Cryptographic configuration** section of the detail page for a CMK in the AWS KMS console\. For help, see [Viewing Keys](viewing-keys.md)\. 
 
 To allow principals to create CMKs only for signing and verification or only for encryption and decryption, use the [kms:CustomerMasterKeyUsage](policy-conditions.md#conditions-kms-customer-master-key-usage) condition key\. You can also use the `kms:CustomerMasterKeyUsage` condition key to allow principals to call API operations for a CMK based on its key usage\. For example, you can allow permission to disable a CMK only if its key usage is SIGN\_VERIFY\. 
 
