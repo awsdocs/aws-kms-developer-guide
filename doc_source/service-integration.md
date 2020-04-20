@@ -5,4 +5,4 @@ Many AWS services use AWS KMS to support encryption of your data\. When an AWS s
 The following topics discuss in detail how particular services use AWS KMS, including the CMKs they support, how they manage data keys, the permissions they require, and how to track each service's use of the CMKs in your account\.
 
 **Important**  
-AWS services that integrate with AWS KMS support only symmetric CMKs\. They do not support asymmetric CMKs\. For details, see the encryption topic in the documentation for the service\.
+[AWS services that are integrated with AWS KMS](https://aws.amazon.com/kms/features/#AWS_Service_Integration) use symmetric CMKs to encrypt your data\. These services do not support encryption with asymmetric CMKs\. For help determining whether a CMK is symmetric or asymmetric, see [Identifying symmetric and asymmetric CMKs](find-symm-asymm.md)\.

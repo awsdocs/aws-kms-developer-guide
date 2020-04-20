@@ -21,7 +21,7 @@ The cluster key encrypts the database key for the Amazon Redshift cluster\. You 
 The master key encrypts the cluster key\. You can use a AWS KMS [customer master key](concepts.md#master_keys) \(CMK\) as the master key for Amazon Redshift\. You can request encryption by checking the appropriate box in the Amazon Redshift console\. You can specify a [customer managed CMK](concepts.md#customer-cmk) to use by choosing one from the list that appears below the encryption box\. If you do not specify a customer managed CMK, Amazon Redshift uses the [AWS managed CMK](concepts.md#aws-managed-cmk) for Amazon Redshift under your account\. 
 
 **Important**  
-Amazon Redshift supports only symmetric CMKs\. You cannot use an asymmetric CMK as the master key in an Amazon Redshift encryption workflow\. To determine whether a CMK is symmetric or asymmetric, see [Identifying symmetric and asymmetric CMKs](find-symm-asymm.md)\.
+Amazon Redshift supports only symmetric CMKs\. You cannot use an asymmetric CMK as the master key in an Amazon Redshift encryption workflow\. For help determining whether a CMK is symmetric or asymmetric, see [Identifying symmetric and asymmetric CMKs](find-symm-asymm.md)\.
 
 ## Encryption context<a name="rs-encryptioncontext"></a>
 

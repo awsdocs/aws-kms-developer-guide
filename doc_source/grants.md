@@ -1,8 +1,8 @@
 # Using grants<a name="grants"></a>
 
-AWS KMS supports two resource\-based access control mechanisms: [key policies](key-policies.md) and *grants*\. With grants you can programmatically delegate the use of KMS customer master keys \(CMKs\) to other AWS principals\. You can use them to allow access, but not deny it\. Because grants can be very specific, and are easy to create and revoke, they are often used to provide temporary permissions or more granular permissions\.
+AWS KMS supports two resource\-based access control mechanisms: [key policies](key-policies.md) and *grants*\. With grants you can programmatically delegate the use of KMS customer master keys \(CMKs\) to other [AWS principals](https://docs.aws.amazon.com/IAM/latest/UserGuide/intro-structure.html#intro-structure-principal)\. You can use them to allow access, but not deny it\. Because grants can be very specific, and are easy to create and revoke, they are often used to provide temporary permissions or more granular permissions\.
 
-You can also use key policies to allow other principals to access a CMK, but key policies work best for relatively static permission assignments\. Also, key policies use the standard permissions model for AWS policies in which users either have or do not have permission to perform an action with a resource\. For example, users with the `kms:PutKeyPolicy` permission for a CMK can completely replace the key policy for a CMK with a different key policy of their choice\. To enable more granular permissions management, use grants\.
+You can also use key policies to allow other AWS principals to access a CMK, but key policies work best for relatively static permission assignments\. Also, key policies use the standard permissions model for AWS policies in which users either have or do not have permission to perform an action with a resource\. For example, users with the `kms:PutKeyPolicy` permission for a CMK can completely replace the key policy for a CMK with a different key policy of their choice\. To enable more granular permissions management, use grants\.
 
 For code examples that demonstrate how to work with grants, see [Working with grants](programming-grants.md)\.
 
@@ -56,7 +56,7 @@ Grants can be revoked \(deleted\) by any user who has the [kms:RevokeGrant](http
 Grants can be retired by any of the following principals:
 + The AWS account \(root user\) in which the grant was created
 + The retiring principal in the grant, if any
-+ The grantee principal, if the grant includes [kms:RetireGrant](https://docs.aws.amazon.com/kms/latest/APIReference/API_RetireGrant.html) permission
++ The grantee principal, if the grant allows the [RetireGrant](https://docs.aws.amazon.com/kms/latest/APIReference/API_RetireGrant.html) operation\.
 
 ## Grants for symmetric and asymmetric CMKs<a name="grants-asymm"></a>
 

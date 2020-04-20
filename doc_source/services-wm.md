@@ -34,7 +34,7 @@ When you create an Amazon WorkMail organization, you can select an AWS KMS custo
 If you use the [Quick Setup](https://docs.aws.amazon.com/workmail/latest/adminguide/add_new_organization.html#quick_setup) procedure to create your organization, Amazon WorkMail uses the [AWS managed CMK](concepts.md#master_keys) for Amazon WorkMail \(`aws/workmail`\) in your AWS account\. If you use the [Standard Setup](https://docs.aws.amazon.com/workmail/latest/adminguide/add_new_organization.html#premises_directory), you can select the AWS managed CMK for Amazon WorkMail or a [customer managed CMK](concepts.md#master_keys) that you own and manage\. You can select the same CMK or a different CMK for each of your organizations, but you cannot change the CMK once you have selected it\.
 
 **Important**  
-Amazon WorkMail supports only symmetric CMKs\. You cannot use an asymmetric CMK to encrypt data in Amazon WorkMail\. To determine whether a CMK is symmetric or asymmetric, see [Identifying symmetric and asymmetric CMKs](find-symm-asymm.md)\.
+Amazon WorkMail supports only symmetric CMKs\. You cannot use an asymmetric CMK to encrypt data in Amazon WorkMail\. For help determining whether a CMK is symmetric or asymmetric, see [Identifying symmetric and asymmetric CMKs](find-symm-asymm.md)\.
 
 To find the CMK for your organization, use the AWS CloudTrail log entry that records calls to AWS KMS\.
 

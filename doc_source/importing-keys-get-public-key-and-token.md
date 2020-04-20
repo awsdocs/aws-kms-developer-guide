@@ -2,7 +2,7 @@
 
 After you [create a symmetric customer master key \(CMK\) with no key material](importing-keys-create-cmk.md), you download a public key and an import token for that CMK\. You need these items to import your key material\. You can download both items in one step by using the AWS Management Console or the AWS KMS API\.
 
-You also download these items when you want to reimport key material into a CMK\. You might do this to [manually rotate the key material](rotate-keys.md#rotate-keys-manually), to change the expiration time for the key material, or to restore a CMK after the key material has expired or been deleted\.
+You can also download these items when you want to reimport the same key material into a CMK\. You might do this to change the expiration time for the key material, or to restore expired or deleted key material\.
 
 **Use of the public key**  
 When you import key material, you don't upload the raw key material to AWS KMS\. You must first encrypt the key material with the public key that you download in this step and then upload the encrypted key material to AWS KMS\. When AWS KMS receives your encrypted key material, it uses the corresponding private key to decrypt it\. The public key that you receive from AWS KMS is a 2048\-bit RSA public key and is always unique to your AWS account\.

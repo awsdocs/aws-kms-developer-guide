@@ -19,7 +19,7 @@ The remainder of this topic discusses how to protect data by using server\-side 
 You can request encryption and select a CMK by using the Amazon S3 console or API\. In the console, check the appropriate box to perform encryption and select your CMK from the list\. For the Amazon S3 API, specify encryption and choose your CMK by setting the appropriate headers in a GET or PUT request\. For more information, see [ Protecting Data Using Server\-Side Encryption with AWS KMS\-Managed Keys \(SSE\-KMS\)\. ](https://docs.aws.amazon.com/AmazonS3/latest/dev/UsingKMSEncryption.html) 
 
 **Important**  
-Amazon S3 supports only [symmetric CMKs](symm-asymm-concepts.md#symmetric-cmks)\. You cannot use an [asymmetric CMK](symm-asymm-concepts.md#asymmetric-cmks) to encrypt your data in Amazon S3\. To determine whether a CMK is symmetric or asymmetric, see [Identifying symmetric and asymmetric CMKs](find-symm-asymm.md)\.
+Amazon S3 supports only [symmetric CMKs](symm-asymm-concepts.md#symmetric-cmks)\. You cannot use an [asymmetric CMK](symm-asymm-concepts.md#asymmetric-cmks) to encrypt your data in Amazon S3\. For help determining whether a CMK is symmetric or asymmetric, see [Identifying symmetric and asymmetric CMKs](find-symm-asymm.md)\.
 
 You can choose a [customer managed CMK](concepts.md#customer-cmk) or the [AWS managed CMK](concepts.md#aws-managed-cmk) for Amazon S3 in your account\. If you choose to encrypt your data, AWS KMS and Amazon S3 perform the following actions:
 + Amazon S3 requests a plaintext data key and a copy of the key encrypted under the specified CMK\.

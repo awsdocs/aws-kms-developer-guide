@@ -98,7 +98,7 @@ The following example begins with a call to the [DescribeCustomKeyStores](https:
 Before running this command, replace the example custom key store ID with a valid ID\.
 
 ```
-$ aws kms describe-custom-key stores --custom-key-store-id cks-1234567890abcdef0
+$ aws kms describe-custom-key-stores --custom-key-store-id cks-1234567890abcdef0
 {
    "CustomKeyStores": [
       "CustomKeyStoreId": "cks-1234567890abcdef0",

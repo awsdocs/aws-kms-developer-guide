@@ -6,9 +6,6 @@ For example, you can only use symmetric CMKs to [generate symmetric data keys](h
 
 The following table lists the AWS KMS operations that you can use to create and manage CMKs of each type\. If you use the operation on a CMK that doesn't not support it, the operation fails\.
 
-**Note**  
-If you see an expand arrow \(**↗**\) in the upper\-right corner of the table, you can open the table in a new window\. To close the window, choose the close button \(**X**\) in the lower\-right corner\.
-
 
 **AWS KMS operations with symmetric and asymmetric CMKs**  
 <a name="symm-asymm-table"></a>[\[See the AWS documentation website for more details\]](http://docs.aws.amazon.com/kms/latest/developerguide/symm-asymm-compare.html)

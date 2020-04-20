@@ -2,7 +2,7 @@
 
 You can create [symmetric and asymmetric customer master keys](symmetric-asymmetric.md) \(CMKs\) in the AWS Management Console or by using the [CreateKey](https://docs.aws.amazon.com/kms/latest/APIReference/API_CreateKey.html) operation\. During this process, you determine the cryptographic configuration of your CMK and the origin of its key material\. You cannot change these properties after the CMK is created\. You also set the key policy for the CMK, which you can change at any time\.
 
-If you are creating a CMK to encrypt data you store or manage in an AWS service, create a symmetric CMK\. AWS services that are integrated with AWS KMS do not support asymmetric CMKs\. For help deciding which type of CMK to create, see [How to choose your CMK configuration](symm-asymm-choose.md)\.
+If you are creating a CMK to encrypt data you store or manage in an AWS service, create a symmetric CMK\. [AWS services that are integrated with AWS KMS](https://aws.amazon.com/kms/features/#AWS_Service_Integration) use symmetric CMKs to encrypt your data\. These services do not support encryption with asymmetric CMKs\. For help deciding which type of CMK to create, see [How to choose your CMK configuration](symm-asymm-choose.md)\.
 
 **Learn more:**
 + For help creating a CMK with imported key material \([key material origin](concepts.md#key-origin) is External\), see [Create a Customer Master Key With No Key Material](importing-keys-create-cmk.md)\.

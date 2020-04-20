@@ -88,7 +88,7 @@ The encryption algorithm for symmetric CMKs is also known as SYMMETRIC\_DEFAULT\
 
 Data encrypted under AES\-256\-GCM is protected now and in the future\. Cryptographers consider this algorithm to be *quantum resistant*\. Theoretical future, large\-scale quantum computing attacks on ciphertexts created under 256\-bit AES\-GCM keys [reduce the effective security of the key to 128 bits](https://www.etsi.org/images/files/ETSIWhitePapers/QuantumSafeWhitepaper.pdf)\. But, this security level is sufficient to make brute force attacks on AWS KMS ciphertexts infeasible\.
 
-You can use a symmetric CMK in AWS KMS to encrypt, decrypt, and re\-encrypt data, and generate data keys and data key pairs\. AWS services that are integrated with AWS KMS generally use symmetric CMKs to encrypt your data at rest\. You can [import your own key material](importing-keys.md) into a symmetric CMK and create symmetric CMKs in [custom key stores](custom-key-store-overview.md)\. For a table comparing the operations that you can perform on symmetric and asymmetric CMKs, see [Comparing Symmetric and Asymmetric CMKs](symm-asymm-compare.md)\.
+You can use a symmetric CMK in AWS KMS to encrypt, decrypt, and re\-encrypt data, and generate data keys and data key pairs\. AWS services that are integrated with AWS KMS use symmetric CMKs to encrypt your data at rest\. You can [import your own key material](importing-keys.md) into a symmetric CMK and create symmetric CMKs in [custom key stores](custom-key-store-overview.md)\. For a table comparing the operations that you can perform on symmetric and asymmetric CMKs, see [Comparing Symmetric and Asymmetric CMKs](symm-asymm-compare.md)\.
 
 ### RSA key specs<a name="key-spec-rsa"></a>
 

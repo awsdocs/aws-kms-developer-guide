@@ -84,7 +84,7 @@ $ aws kms connect-custom-key-store --custom-key-store-id cks-1234567890abcdef0
 To verify that the custom key store is connected, use the [DescribeCustomKeyStores](https://docs.aws.amazon.com/kms/latest/APIReference/API_DescribeCustomKeyStores.html) operation\. By default, this operation returns all custom keys stores in your account and Region\. But you can use either the `CustomKeyStoreId` or `CustomKeyStoreName` parameter \(but not both\) to limit the response to particular custom key stores\. The `ConnectionState` value of `CONNECTED` indicates that the custom key store is connected to its AWS CloudHSM cluster\.
 
 ```
-$ aws kms describe-custom-key stores --custom-key-store-id cks-1234567890abcdef0
+$ aws kms describe-custom-key-stores --custom-key-store-id cks-1234567890abcdef0
 {
    "CustomKeyStores": [
       "CustomKeyStoreId": "cks-1234567890abcdef0",
@@ -100,7 +100,7 @@ $ aws kms describe-custom-key stores --custom-key-store-id cks-1234567890abcdef0
 If the `ConnectionState` value is failed, the `ConnectionErrorCode` element indicates the reason for the failure\. In this case, AWS KMS could not find an AWS CloudHSM cluster in your account with the cluster ID `cluster-1a23b4cdefg`\. If you deleted the cluster, you can [restore it from a backup](https://docs.aws.amazon.com/cloudhsm/latest/userguide/create-cluster-from-backup.html) of the original cluster and then [edit the cluster ID](update-keystore.md) for the custom key store\. 
 
 ```
-$ aws kms describe-custom-key stores --custom-key-store-id cks-1234567890abcdef0
+$ aws kms describe-custom-key-stores --custom-key-store-id cks-1234567890abcdef0
 {
    "CustomKeyStores": [
       "CustomKeyStoreId": "cks-1234567890abcdef0",
@@ -147,7 +147,7 @@ $ aws kms disconnect-custom-key-store --custom-key-store-id cks-1234567890abcdef
 To verify that the custom key store is disconnected, use the [DescribeCustomKeyStores](https://docs.aws.amazon.com/kms/latest/APIReference/API_DescribeCustomKeyStores.html) operation\. By default, this operation returns all custom keys stores in your account and Region\. But you can use either the `CustomKeyStoreId` and `CustomKeyStoreName` parameter \(but not both\) to limit the response to particular custom key stores\. The `ConnectionState` value of `DISCONNECTED` indicates that the custom key store is not connected to its AWS CloudHSM cluster\.
 
 ```
-$ aws kms describe-custom-key stores --custom-key-store-id cks-1234567890abcdef0
+$ aws kms describe-custom-key-stores --custom-key-store-id cks-1234567890abcdef0
 {
    "CustomKeyStores": [
       "CloudHsmClusterId": "cluster-1a23b4cdefg",

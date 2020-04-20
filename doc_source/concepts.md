@@ -174,7 +174,7 @@ In AWS KMS, *cryptographic operations* are API operations that use CMKs to prote
 
 To perform cryptographic operations with CMKs, use the AWS SDKs, AWS Command Line Interface \(AWS CLI\), or the AWS Tools for PowerShell\. You cannot perform cryptographic operations in the AWS KMS console\. For examples of calling the cryptographic operations in several programming languages, see [Programming the AWS KMS API](programming-top.md)\.
 
-The AWS KMS cryptographic operations are as follows\.
+The AWS KMS cryptographic operations are listed in this table\. It also shows the key type and key usage of the CMK that is used in the operation\.
 
 
 | Operation | Key type | Key usage | 
@@ -276,7 +276,7 @@ For help creating keys with key material from AWS KMS, see [Creating keys](creat
 **External**  
 API value: `EXTERNAL`  
 The CMK has [imported key material](importing-keys.md)\. When you create a CMK with an `External` key material origin, the CMK has no key material\. Later, you can import key material into the CMK\. When you use imported key material, you need to secure and manage that key material outside of AWS KMS, including replacing the key material if it expires\. For details, see [About imported key material](importing-keys.md#importing-keys-considerations)\.  
-For help creating a CMK for imported key material, see [](importing-keys-create-cmk.md)\.
+For help creating a CMK for imported key material, see [Step 1: Create a CMK with no key material](importing-keys-create-cmk.md)\.
 
 **Custom key store \(CloudHSM\)**  
 API value: `AWS_CLOUDHSM`  

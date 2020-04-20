@@ -3,7 +3,7 @@
 When you use an [Amazon EMR](https://aws.amazon.com/emr/) cluster, you can configure the cluster to encrypt data *at rest* before saving it to a persistent storage location\. You can encrypt data at rest on the EMR File System \(EMRFS\), on the storage volumes of cluster nodes, or both\. To encrypt data at rest, you can use a customer master key \(CMK\) in AWS KMS\. The following topics explain how an Amazon EMR cluster uses a CMK to encrypt data at rest\.
 
 **Important**  
-Amazon EMR supports only [symmetric CMKs](symm-asymm-concepts.md#symmetric-cmks)\. You cannot use an [asymmetric CMK](symm-asymm-concepts.md#asymmetric-cmks) to encrypt data at rest in an Amazon EMR cluster\. To determine whether a CMK is symmetric or asymmetric, see [Identifying symmetric and asymmetric CMKs](find-symm-asymm.md)\.
+Amazon EMR supports only [symmetric CMKs](symm-asymm-concepts.md#symmetric-cmks)\. You cannot use an [asymmetric CMK](symm-asymm-concepts.md#asymmetric-cmks) to encrypt data at rest in an Amazon EMR cluster\. For help determining whether a CMK is symmetric or asymmetric, see [Identifying symmetric and asymmetric CMKs](find-symm-asymm.md)\.
 
 Amazon EMR clusters also encrypt data *in transit*, which means the cluster encrypts data before sending it through the network\. You cannot use a CMK to encrypt data in transit\. For more information, see [In\-Transit Data Encryption](https://docs.aws.amazon.com/emr/latest/ManagementGuide/emr-data-encryption-options.html#emr-encryption-intransit) in the *Amazon EMR Management Guide*\.
 
