@@ -142,7 +142,7 @@ Before using an example key policy, replace the example principals with actual p
   "Version":"2012-10-17",
   "Statement": [
     {
-      "Sid" : "Allow access through Amazon DynamoDB for all principals in the account that are authorized to use Amazon DynamoDB"
+      "Sid" : "Allow access through Amazon DynamoDB for all principals in the account that are authorized to use Amazon DynamoDB",
       "Effect": "Allow",
       "Principal": {"AWS": "arn:aws:iam::111122223333:user/db-lead"},
       "Action": [
