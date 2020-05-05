@@ -1,10 +1,10 @@
 # Finding the key ID and ARN<a name="find-cmk-id-arn"></a>
 
-To identify your AWS KMS CMKs in programs, scripts, and command line interface \(CLI\) commands, you use the [key ID](concepts.md#key-id-key-id) of the CMK or its Amazon Resource Name \([key ARN](concepts.md#key-id-key-ARN)\)\. In [cryptographic operations](concepts.md#cryptographic-operations), you can also use the [alias name](concepts.md#key-id-alias-name) or [alias ARN](concepts.md#key-id-alias-ARN)\.
+To identify your AWS KMS CMKs in programs, scripts, and command line interface \(CLI\) commands, use the [key ID](concepts.md#key-id-key-id) of the CMK or its Amazon Resource Name \([key ARN](concepts.md#key-id-key-ARN)\)\. In [cryptographic operations](concepts.md#cryptographic-operations), you can also use the [alias name](concepts.md#key-id-alias-name) or [alias ARN](concepts.md#key-id-alias-ARN)\.
 
 For detailed information about the CMK identifiers that AWS KMS supports, see [Key identifiers \(KeyId\)](concepts.md#key-id)\.
 
-## To find the CMK ID and ARN \(console\)<a name="find-cmk-arn"></a>
+## To find the key ID and ARN \(console\)<a name="find-cmk-arn"></a>
 
 1. Open the AWS KMS console at [https://console\.aws\.amazon\.com/kms](https://console.aws.amazon.com/kms)\.
 

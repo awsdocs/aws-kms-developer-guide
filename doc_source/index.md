@@ -105,4 +105,5 @@ Amazon's trademarks and trade dress may not be used in
 + [Quotas](limits.md)
    + [Resource quotas](resource-limits.md)
    + [Request quotas](requests-per-second.md)
+   + [Request an AWS KMS Quota Increase](increase-quota.md)
 + [Document history](dochistory.md)

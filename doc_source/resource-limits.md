@@ -6,14 +6,16 @@ If you have reached a resource limit, requests to create an additional resource 
 
 The following table lists and describes the AWS KMS resource quotas in each AWS account and Region\. If you need to exceed a quota, you can request a quota increase in Service Quotas\. Use the [Service Quotas console](https://console.aws.amazon.com/servicequotas) or the [RequestServiceQuotaIncrease](https://docs.aws.amazon.com/servicequotas/2019-06-24/apireference/API_RequestServiceQuotaIncrease.html) operation\. For details, see [Requesting a quota increase](https://docs.aws.amazon.com/servicequotas/latest/userguide/request-increase.html) in the *Service Quotas User Guide*\. If Service Quotas for AWS KMS are not available in the AWS Region, please visit the [AWS Support Center](https://console.aws.amazon.com/support/home) and create a case\. 
 
+For help requesting an increase in an AWS KMS quota, see [Request an AWS KMS Quota Increase](increase-quota.md)\.
 
-| Resource | Default limit | Applies to | 
+
+| Quota name | Default value | Applies to | 
 | --- | --- | --- | 
-| [Customer master keys \(CMKs\)](#customer-master-keys-limit) | 10,000 | Customer managed CMKs | 
+| [Customer Master Keys \(CMKs\)](#customer-master-keys-limit) | 10,000 | Customer managed CMKs | 
 | [Aliases](#aliases-limit) | 10,000 | Customer created aliases | 
 | [Grants per CMK](#grants-per-key) | 10,000 | Customer managed CMKs | 
-| [Grants per grantee principal \(per CMK\)](#grants-per-principal-per-key) | 500 | Customer managed CMKsAWS managed CMKs | 
-| [Key policy document size](#key-policy-limit) | 32 KB \(32,768 bytes\) | Customer managed CMKsAWS managed CMKs | 
+| [Grants for a given principal per CMK](#grants-per-principal-per-key) | 500 |  Customer managed CMKs AWS managed CMKs  | 
+| [Key policy document size](#key-policy-limit) | 32 KB \(32,768 bytes\) |  Customer managed CMKs AWS managed CMKs  | 
 
 In addition to resource quotas, AWS KMS uses request quotas to ensure the responsiveness of the service\. For details, see [Request quotas](requests-per-second.md)\.
 
@@ -41,9 +43,9 @@ For example, when you attach an Amazon Elastic Block Store \(Amazon EBS\) volume
 
 [Grants](grants.md) are an alternative to [key policy](key-policies.md)\. Like a key policy, a grant is attached to a CMK\. You \(or an AWS service integrated with AWS KMS\) can use a grant to allow a principal to use or manage the CMK\. Each grant includes the principal who receives permission to use the CMK, the ID of the CMK, and a list of operations that the grantee can perform\. 
 
-## Grants per grantee principal \(per CMK\): 500<a name="grants-per-principal-per-key"></a>
+## Grants for a given principal per CMK: 500<a name="grants-per-principal-per-key"></a>
 
-A CMK cannot have more than 500 grants with the same grantee principal\. The *grantee principal* is the identity that gets the permissions in the grant\.
+A CMK cannot have more than 500 grants for the same grantee principal\. The *grantee principal* is the identity that gets the permissions in the grant\.
 
 This quota is calculated separately for each CMK in the account\. It applies to [customer managed CMKs](concepts.md#customer-cmk) and [AWS managed CMKs](concepts.md#aws-managed-cmk), but not to [AWS owned CMKs](concepts.md#aws-owned-cmk)\.
 

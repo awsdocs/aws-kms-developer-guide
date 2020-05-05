@@ -174,21 +174,23 @@ In AWS KMS, *cryptographic operations* are API operations that use CMKs to prote
 
 To perform cryptographic operations with CMKs, use the AWS SDKs, AWS Command Line Interface \(AWS CLI\), or the AWS Tools for PowerShell\. You cannot perform cryptographic operations in the AWS KMS console\. For examples of calling the cryptographic operations in several programming languages, see [Programming the AWS KMS API](programming-top.md)\.
 
-The AWS KMS cryptographic operations are listed in this table\. It also shows the key type and key usage of the CMK that is used in the operation\.
+The following table lists the AWS KMS cryptographic operations\. It also shows the key type and [key usage](#key-usage) requirements for CMKs used in the operation\.
 
 
-| Operation | Key type | Key usage | 
+| Operation | CMK key type | CMK key usage | 
 | --- | --- | --- | 
 | [Decrypt](https://docs.aws.amazon.com/kms/latest/APIReference/API_Decrypt.html) | Any | ENCRYPT\_DECRYPT | 
 | [Encrypt](https://docs.aws.amazon.com/kms/latest/APIReference/API_Encrypt.html) | Any | ENCRYPT\_DECRYPT | 
-| [GenerateDataKey](https://docs.aws.amazon.com/kms/latest/APIReference/API_GenerateDataKey.html) | Symmetric | ENCRYPT\_DECRYPT | 
-| [GenerateDataKeyPair](https://docs.aws.amazon.com/kms/latest/APIReference/API_GenerateDataKeyPair.html) | Symmetric | ENCRYPT\_DECRYPT | 
-| [GenerateDataKeyPairWithoutPlaintext](https://docs.aws.amazon.com/kms/latest/APIReference/API_GenerateDataKeyPairWithoutPlaintext.html) | Symmetric | ENCRYPT\_DECRYPT | 
+| [GenerateDataKey](https://docs.aws.amazon.com/kms/latest/APIReference/API_GenerateDataKey.html) | Symmetric  | ENCRYPT\_DECRYPT | 
+| [GenerateDataKeyPair](https://docs.aws.amazon.com/kms/latest/APIReference/API_GenerateDataKeyPair.html) | Symmetric \* | ENCRYPT\_DECRYPT | 
+| [GenerateDataKeyPairWithoutPlaintext](https://docs.aws.amazon.com/kms/latest/APIReference/API_GenerateDataKeyPairWithoutPlaintext.html) | Symmetric \* | ENCRYPT\_DECRYPT | 
 | [GenerateDataKeyWithoutPlaintext](https://docs.aws.amazon.com/kms/latest/APIReference/API_GenerateDataKeyWithoutPlaintext.html) | Symmetric | ENCRYPT\_DECRYPT | 
 | [GenerateRandom](https://docs.aws.amazon.com/kms/latest/APIReference/API_GenerateRandom.html) | N/A\. This operation doesn't use a CMK\. | N/A | 
 | [ReEncrypt](https://docs.aws.amazon.com/kms/latest/APIReference/API_ReEncrypt.html) | Any | ENCRYPT\_DECRYPT | 
 | [Sign](https://docs.aws.amazon.com/kms/latest/APIReference/API_Sign.html) | Asymmetric | SIGN\_VERIFY | 
 | [Verify](https://docs.aws.amazon.com/kms/latest/APIReference/API_Verify.html) | Asymmetric | SIGN\_VERIFY | 
+
+\* `GenerateDataKeyPair` and `GenerateDataKeyPairWithoutPlaintext` generate asymmetric data key pairs that are protected by a symmetric CMK\.
 
 For information about the permissions for cryptographic operations, see the [AWS KMS API permissions: Actions and resources reference](kms-api-permissions-reference.md)\. 
 
