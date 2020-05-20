@@ -50,7 +50,9 @@ The following example shows a JSON representation of the encryption context that
 
 ## Giving Amazon SES permission to use your AWS KMS customer master key \(CMK\)<a name="services-ses-permissions"></a>
 
-You can use the default customer master key \(CMK\) in your account for Amazon SES with the alias **aws/ses**, or you can use a custom CMK you create\. If you use the default CMK for Amazon SES, you don't need to perform any steps to give Amazon SES permission to use it\. However, to specify a custom CMK when you [add the S3 action](https://docs.aws.amazon.com/ses/latest/DeveloperGuide/receiving-email-action-s3.html) to your Amazon SES receipt rule, you must ensure that Amazon SES has permission to use the CMK to encrypt your email messages\. To give Amazon SES permission to use your custom CMK, add the following statement to your CMK's [key policy](key-policies.md):
+To encrypt your email messages, you can use the [AWS managed customer master key \(CMK\)](concepts.md#aws-managed-cmk) in your account for Amazon SES \(**aws/ses**\), or you can use a [customer managed CMK](concepts.md#customer-cmk) that you create\. Amazon SES already has permission to use the AWS managed CMK on your behalf\. However, if you specify a customer managed CMK when you [add the S3 action](https://docs.aws.amazon.com/ses/latest/DeveloperGuide/receiving-email-action-s3.html) to your Amazon SES receipt rule, you must give Amazon SES permission to use the CMK to encrypt your email messages\. 
+
+To give Amazon SES permission to use your customer managed CMK, add the following statement to that CMK's [key policy](key-policies.md):
 
 ```
 {

@@ -1,12 +1,12 @@
 # Working with keys<a name="programming-keys"></a>
 
-The examples in this topic use the AWS KMS API to create, view, enable, and disable AWS KMS [customer master keys](concepts.md#master_keys), and to generate [data keys](concepts.md#data-keys)\.
+The examples in this topic use the AWS KMS API to create, view, enable, and disable AWS KMS [customer master keys](concepts.md#master_keys) \(CMKs\), and to generate [data keys](concepts.md#data-keys)\.
 
 **Topics**
 + [Creating a customer master key](#creating-keys)
 + [Generating a data key](#generate-datakeys)
 + [Viewing a custom master key](#describing-keys)
-+ [Getting key IDs and key ARNs of customer master keys](#listing-keys)
++ [Getting key IDs and key ARNs of CMKs](#listing-keys)
 + [Enabling customer master keys](#enable-keys)
 + [Disabling customer master keys](#disable-keys)
 
@@ -401,7 +401,7 @@ Get-KmsKey -KeyId $keyId
 
 ------
 
-## Getting key IDs and key ARNs of customer master keys<a name="listing-keys"></a>
+## Getting key IDs and key ARNs of CMKs<a name="listing-keys"></a>
 
 To get the [key IDs](concepts.md#key-id-key-id) and [key ARNs](concepts.md#key-id-key-ARN) of the customer master keys, use the [ListKeys](https://docs.aws.amazon.com/kms/latest/APIReference/API_ListKeys.html) operation\. These examples use the optional `Limit` parameter, which sets the maximum number of CMKs returned in each call\. For help identifying a CMK in an AWS KMS operations, see [Key identifiers \(KeyId\)](concepts.md#key-id)\.
 

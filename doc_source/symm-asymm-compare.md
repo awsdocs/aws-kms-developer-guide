@@ -9,3 +9,5 @@ The following table lists the AWS KMS operations that you can use to create and 
 
 **AWS KMS operations with symmetric and asymmetric CMKs**  
 <a name="symm-asymm-table"></a>[\[See the AWS documentation website for more details\]](http://docs.aws.amazon.com/kms/latest/developerguide/symm-asymm-compare.html)
+
+\[1\] `GenerateDataKeyPair` and `GenerateDataKeyPairWithoutPlaintext` generate an asymmetric data key pair that is protected by a symmetric CMK\.

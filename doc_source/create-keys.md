@@ -8,7 +8,8 @@ If you are creating a CMK to encrypt data you store or manage in an AWS service,
 + For help creating a CMK with imported key material \([key material origin](concepts.md#key-origin) is External\), see [Create a Customer Master Key With No Key Material](importing-keys-create-cmk.md)\.
 + For help creating a CMK in a custom key store \([key material origin](concepts.md#key-origin) is Custom Key Store \(CloudHSM\)\), see [Creating CMKs in a Custom Key Store](create-cmk-keystore.md)\.
 + For help determining whether an existing CMK is symmetric or asymmetric, see [Identifying symmetric and asymmetric CMKs](find-symm-asymm.md)\.
-+ To use your CMKs programmatically and in command line interface operations, you need a key ID or key ARN\. For detailed instructions, see [Finding the key ID and ARN](find-cmk-id-arn.md)\.
++ To use your CMKs programmatically and in command line interface operations, you need a [key ID](concepts.md#key-id-key-id) or [key ARN](concepts.md#key-id-key-ARN)\. For detailed instructions, see [Finding the key ID and ARN](find-cmk-id-arn.md)\.
++ To use your CMKs in cryptographic operations, you can use an [alias name](concepts.md#key-id-alias-name) or [alias ARN](concepts.md#key-id-alias-ARN), as well as a [key ID](concepts.md#key-id-key-id) or [key ARN](concepts.md#key-id-key-ARN)\. For detailed instructions, see [Finding the alias name and alias ARN](find-cmk-alias.md)\.
 
 **Topics**
 + [Creating symmetric CMKs](#create-symmetric-cmk)

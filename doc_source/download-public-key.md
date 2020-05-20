@@ -56,7 +56,7 @@ The [GetPublicKey](https://docs.aws.amazon.com/kms/latest/APIReference/API_GetPu
 
 The examples in this section use the [AWS Command Line Interface \(AWS CLI\)](https://aws.amazon.com/cli/), but you can use any supported programming language\. 
 
-To specify a CMK, use its key ID, Amazon Resource Name \(ARN\), alias name, or alias ARN\. When using an alias name, prefix it with **alias/**\. To specify a CMK in a different AWS account, you must use its key ARN or alias ARN\. 
+To specify a CMK, use its [key ID](concepts.md#key-id-key-id), [key ARN](concepts.md#key-id-key-ARN), [alias name](concepts.md#key-id-alias-name), or [alias ARN](concepts.md#key-id-alias-ARN)\. When using an alias name, prefix it with **alias/**\. To specify a CMK in a different AWS account, you must use its key ARN or alias ARN\.
 
 Before running this command, replace the example alias name with a valid identifier for the CMK\. To run this command, you must have `kms:GetPublicKey` permissions on the CMK\.
 

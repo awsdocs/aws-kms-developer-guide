@@ -64,7 +64,7 @@ For example, the following example key policy statement allows `ExampleRole` and
     "Effect": "Allow",
     "Principal": {
         "AWS": [
-            "arn:aws:iam::444455556666:role/ExampleRole"
+            "arn:aws:iam::444455556666:role/ExampleRole",
             "arn:aws:iam::444455556666:user/ExampleUser"
         ]
     },
@@ -120,7 +120,7 @@ The following example IAM policy allows the principal to use the CMK in account 
 
 Note the following details about this policy:
 + Unlike key policies, IAM policy statements do not contain the `Principal` element\. In IAM policies, the principal is the identity to which the policy is attached\. 
-+ The `Resource` element in the IAM policy identifies the CMK that the principal can use\. To specify a CMK, add its [key ARN](concepts.md#key-id-alias-ARN) or an [alias ARN](concepts.md#key-id-alias-ARN) to the `Resource` element\. The key ARN, alias ARN, and CMK are always in the same account\.
++ The `Resource` element in the IAM policy identifies the CMK that the principal can use\. To specify a CMK, add its [key ARN](concepts.md#key-id-alias-ARN) to the `Resource` element\.
 + You can specify more than one CMK in the `Resource` element\. But if you don't specify particular CMKs in the `Resource` element, you might inadvertently give access to more CMKs than you intend\.
 + To allow the external user to use the CMK with [AWS services that integrate with AWS KMS,](https://aws.amazon.com/kms/features/#AWS_Service_Integration) you might need to add permissions to the key policy or the IAM policy\. For details, see [Using external CMKs with AWS services](#cross-account-service)\.
 

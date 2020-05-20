@@ -84,7 +84,7 @@ To specify multiple CMKs, use a wildcard character \(\*\)\. For example, the fol
       "kms:Decrypt"
     ],
     "Resource": [
-      ""arn:aws:kms:*:111122223333:key/*""
+      "arn:aws:kms:*:111122223333:key/*"
     ]
   }
 }
@@ -120,6 +120,7 @@ Some of the permissions in the following policies are allowed only when the CMK'
 
 **Topics**
 + [Allow a user read\-only access to all CMKs through the AWS KMS console](#iam-policy-example-read-only-console)
++ [Allow a user to create CMKs](#iam-policy-example-create-key)
 + [Allow a user to encrypt and decrypt with any CMK in a specific AWS account](#iam-policy-example-encrypt-decrypt-one-account)
 + [Allow a user to encrypt and decrypt with any CMK in a specific AWS account and Region](#iam-policy-example-encrypt-decrypt-one-account-one-region)
 + [Allow a user to encrypt and decrypt with specific CMKs](#iam-policy-example-encrypt-decrypt-specific-cmks)
@@ -127,7 +128,7 @@ Some of the permissions in the following policies are allowed only when the CMK'
 
 ### Allow a user read\-only access to all CMKs through the AWS KMS console<a name="iam-policy-example-read-only-console"></a>
 
-The following policy allows users read\-only access to the AWS KMS console\. That is, users can use the console to view all CMKs, but they cannot make changes to any CMKs or create new ones\.
+The following IAM policy allows users read\-only access to the AWS KMS console\. That is, users can use the console to view all CMKs, but they cannot make changes to any CMKs or create new ones\.
 
 ```
 {
@@ -150,9 +151,24 @@ The following policy allows users read\-only access to the AWS KMS console\. Tha
 }
 ```
 
+### Allow a user to create CMKs<a name="iam-policy-example-create-key"></a>
+
+The following IAM policy allows a user to create CMKs\. The value of the `Resource` element is `*` because the `CreateKey` operation does not use any particular AWS KMS resources \(CMKs or aliases\)\.
+
+```
+{
+  "Version": "2012-10-17",
+  "Statement": {
+    "Effect": "Allow",
+    "Action": "kms:CreateKey",
+    "Resource": "*"
+  }
+}
+```
+
 ### Allow a user to encrypt and decrypt with any CMK in a specific AWS account<a name="iam-policy-example-encrypt-decrypt-one-account"></a>
 
-The following policy allows a user to successfully request that AWS KMS encrypt and decrypt data with any CMK in AWS account 111122223333\.
+The following IAM policy allows a user to successfully request that AWS KMS encrypt and decrypt data with any CMK in AWS account 111122223333\.
 
 ```
 {
@@ -163,16 +179,14 @@ The following policy allows a user to successfully request that AWS KMS encrypt 
       "kms:Encrypt",
       "kms:Decrypt"
     ],
-    "Resource": [
-      "arn:aws:kms:*:111122223333:key/*"
-    ]
+    "Resource": "arn:aws:kms:*:111122223333:key/*"
   }
 }
 ```
 
 ### Allow a user to encrypt and decrypt with any CMK in a specific AWS account and Region<a name="iam-policy-example-encrypt-decrypt-one-account-one-region"></a>
 
-The following policy allows a user to successfully request that AWS KMS encrypt and decrypt data with any CMK in AWS account 111122223333 in the US West \(Oregon\) region\.
+The following IAM policy allows a user to successfully request that AWS KMS encrypt and decrypt data with any CMK in AWS account 111122223333 in the US West \(Oregon\) region\.
 
 ```
 {
@@ -192,7 +206,7 @@ The following policy allows a user to successfully request that AWS KMS encrypt 
 
 ### Allow a user to encrypt and decrypt with specific CMKs<a name="iam-policy-example-encrypt-decrypt-specific-cmks"></a>
 
-The following policy allows a user to encrypt and decrypt data with the two CMKs specified in the `Resource` element\. When [specifying a CMK in an IAM policy statement](#cmks-in-iam-policies), use the key ARN of the CMK\.
+The following IAM policy allows a user to encrypt and decrypt data with the two CMKs specified in the `Resource` element\. When [specifying a CMK in an IAM policy statement](#cmks-in-iam-policies), use the key ARN of the CMK\.
 
 ```
 {
@@ -213,7 +227,7 @@ The following policy allows a user to encrypt and decrypt data with the two CMKs
 
 ### Prevent a user from disabling or deleting any CMKs<a name="iam-policy-example-deny-disable-delete"></a>
 
-The following policy prevents a user from disabling or deleting any CMKs, even when another IAM policy or a key policy allows these permissions\. A policy that explicitly denies permissions overrides all other policies, even those that explicitly allow the same permissions\. For more information, see [Determining Whether a Request is Allowed or Denied](https://docs.aws.amazon.com/IAM/latest/UserGuide/reference_policies_evaluation-logic.html#policy-eval-denyallow) in the *IAM User Guide*\.
+The following IAM policy prevents a user from disabling or deleting any CMKs, even when another IAM policy or a key policy allows these permissions\. A policy that explicitly denies permissions overrides all other policies, even those that explicitly allow the same permissions\. For more information, see [Troubleshooting key access](policy-evaluation.md)\.
 
 ```
 {

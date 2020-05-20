@@ -8,21 +8,33 @@ If you need to exceed a quota, you can request a quota increase in Service Quota
 
 To request an increase for an AWS KMS quota, you can use the [Service Quotas console](https://console.aws.amazon.com/servicequotas)\. For instructions, see [Requesting a quota increase](https://docs.aws.amazon.com/servicequotas/latest/userguide/request-quota-increase.html) in the *Service Quotas User Guide*\. 
 
-For service name, choose **AWS Key Management Service \(AWS KMS\)**\. Search the quota table for the quota you want to increase\. There are several pages of AWS KMS quotas\. 
+1. For service name, choose **AWS Key Management Service \(AWS KMS\)**\.
+
+1. Choose the quota name of the quota you want to increase\. Use the detailed information about the quota to confirm that you have chosen the quota you want to increase\. 
+
+   You can search for the quota name in the Service Quotas console\. There are several pages of AWS KMS quotas\. You can also find the quota names and descriptions of AWS KMS quotas in the [resource quota](resource-limits.md) and [request quota](requests-per-second.md) tables\.
+
+   For example, to request an increase to the quota for cryptographic operations on a symmetric CMK, choose **Cryptographic operations \(symmetric\) request rate**\.
+
+1. Choose **Request quota increase**\.
 
 ## Using the Service Quotas API<a name="quota-increase-api"></a>
 
 To request an increase in an AWS KMS quota, you can use the [Service Quotas API](https://docs.aws.amazon.com/servicequotas/2019-06-24/apireference/)\. The `RequestServiceQuotaIncrease` operation, which submits the request, requires the quota code for the quota\. So begin by getting the quota code\.
 
-1. To get the quota code for an AWS KMS service quota, use the [ListServiceQuotas](https://docs.aws.amazon.com/servicequotas/2019-06-24/apireference/API_ListServiceQuotas.html) operation\.
-   + Set `ServiceCode` to `kms`\. 
-   + Set `QuotaName` to the quota name for the [resource quota](resource-limits.md) or [request quota](requests-per-second.md)\. Specify the entire quota name, including words in parentheses\.
+1. Find the quota name of the quota you want to increase\. You can find the quota names and descriptions of AWS KMS quotas in the [resource quota](resource-limits.md) and [request quota](requests-per-second.md) tables\. 
 
-   For example, to get the quota code for the `Cryptographic operations (RSA) request rate` quota, use a command like the following one\. 
+1. To get the quota code for an AWS KMS quota, use the [ListServiceQuotas](https://docs.aws.amazon.com/servicequotas/2019-06-24/apireference/API_ListServiceQuotas.html) operation\.
+
+   Set `ServiceCode` to `kms`\.
+
+   The response includes the `QuotaName` and `QuotaCode` for each quota\. 
+
+   For example, to get only the quota information for the `Cryptographic operations (RSA) request rate` quota, use a command like the following one\. It uses the `query` parameter in the AWS Command Line Interface \(AWS CLI\) to get only the quota with the specified quota name\.
 
    ```
    $ aws service-quotas list-service-quotas \
-           --service-code kms
+           --service-code kms \
            --query 'Quotas[?QuotaName==`Cryptographic operations (RSA) request rate`]'
    
    {
@@ -40,27 +52,18 @@ To request an increase in an AWS KMS quota, you can use the [Service Quotas API]
            }
        ]
    }
-   
-   # Save the quota code in the quotaCode variable
-   $ quotaCode=$(aws service-quotas list-service-quotas \
-           --service-code kms \
-           --output text \
-           --query 'Quotas[?QuotaName==`Cryptographic operations (RSA) request rate`].QuotaCode')
-   
-   $ echo $quotaCode
-   L-2AC98190
    ```
 
-1. To request an increase for a request quota, use the [RequestServiceQuotaIncrease](https://docs.aws.amazon.com/servicequotas/2019-06-24/apireference/API_RequestServiceQuotaIncrease.html) operation\. 
+1. To request an increase for an AWS KMS quota, use the [RequestServiceQuotaIncrease](https://docs.aws.amazon.com/servicequotas/2019-06-24/apireference/API_RequestServiceQuotaIncrease.html) operation\. To identify the quota, use the quota code\.
 
-   For example, the following command requests an increase in the `Cryptographic operations (RSA) request rate` quota to 700 requests per second\.
+   For example, the following command requests an increase in the `Cryptographic operations (RSA) request rate` quota to `700` requests per second\. It uses the required quota code, `L-2AC98190`, to identify the quota\.
 
    If the command completes successfully, the `Status` field displays the current status of the request\. To get the updated status of the request, use the [GetRequestedServiceQuotaChange](https://docs.aws.amazon.com/servicequotas/2019-06-24/apireference/API_GetRequestedServiceQuotaChange.html), [ListRequestedServiceQuotaChangeHistory](https://docs.aws.amazon.com/servicequotas/2019-06-24/apireference/API_ListRequestedServiceQuotaChangeHistory.html) or [ListRequestedServiceQuotaChangeHistoryByQuota](https://docs.aws.amazon.com/servicequotas/2019-06-24/apireference/API_ListRequestedServiceQuotaChangeHistoryByQuota.html) operations\.
 
    ```
    $ aws service-quotas request-service-quota-increase \
            --service-code kms \
-           --quota-code $quotaCode \
+           --quota-code L-2AC98190 \
            --desired-value 700
    
    {

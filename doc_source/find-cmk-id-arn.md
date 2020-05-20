@@ -1,6 +1,6 @@
 # Finding the key ID and ARN<a name="find-cmk-id-arn"></a>
 
-To identify your AWS KMS CMKs in programs, scripts, and command line interface \(CLI\) commands, use the [key ID](concepts.md#key-id-key-id) of the CMK or its Amazon Resource Name \([key ARN](concepts.md#key-id-key-ARN)\)\. In [cryptographic operations](concepts.md#cryptographic-operations), you can also use the [alias name](concepts.md#key-id-alias-name) or [alias ARN](concepts.md#key-id-alias-ARN)\.
+To identify an AWS KMS CMK, you can use its [key ID](concepts.md#key-id-key-id) or its Amazon Resource Name \([key ARN](concepts.md#key-id-key-ARN)\)\. In [cryptographic operations](concepts.md#cryptographic-operations), you can also use the [alias name](concepts.md#key-id-alias-name) or [alias ARN](concepts.md#key-id-alias-ARN)\.
 
 For detailed information about the CMK identifiers that AWS KMS supports, see [Key identifiers \(KeyId\)](concepts.md#key-id)\.
 
@@ -20,7 +20,24 @@ For detailed information about the CMK identifiers that AWS KMS supports, see [K
 1. To find the Amazon Resource Name \(ARN\) of the CMK, choose the key ID or alias\. The [key ARN](concepts.md#key-id-key-ARN) appears in the **General Configuration** section\.   
 ![\[Image NOT FOUND\]](http://docs.aws.amazon.com/kms/latest/developerguide/images/find-key-arn-new-new.png)
 
-## To find the key ID and ARN \(AWS KMS API\)<a name="find-cmk-arn-api"></a>
+## To find the key ID and key ARN \(AWS KMS API\)<a name="find-cmk-arn-api"></a>
 
-**Use the ListKeys API operation**
-+ To find the [key ID](concepts.md#key-id-key-id) and [key ARN](concepts.md#key-id-key-ARN) of a customer master key \(CMK\), use the [ListKeys](viewing-keys-cli.md#viewing-keys-list-keys) operation\.
+To find the [key ID](concepts.md#key-id-key-id) and [key ARN](concepts.md#key-id-key-ARN) of a customer master key \(CMK\), use the [ListKeys](https://docs.aws.amazon.com/kms/latest/APIReference/API_ListKeys.html) operation\. For examples in multiple programming languages, see [Getting key IDs and ARNs](programming-keys.md#listing-keys) and [Get key IDs and ARNs](viewing-keys-cli.md#viewing-keys-list-keys)\.
+
+The `ListKeys` response includes the key ID and key ARN for every CMK in the account and Region\.
+
+```
+$ aws kms list-keys
+{
+    "Keys": [
+        {
+            "KeyId": "1234abcd-12ab-34cd-56ef-1234567890ab",
+            "KeyArn": "arn:aws:kms:us-west-2:111122223333:key/1234abcd-12ab-34cd-56ef-1234567890ab"
+        },
+        {
+            "KeyId": "0987dcba-09fe-87dc-65ba-ab0987654321",
+            "KeyArn": "arn:aws:kms:us-west-2:111122223333:key/0987dcba-09fe-87dc-65ba-ab0987654321"
+        }
+    ]
+}
+```
