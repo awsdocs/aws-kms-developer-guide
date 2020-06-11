@@ -1,6 +1,12 @@
 # Amazon EC2 example two<a name="ct-ec2two"></a>
 
-The following example shows an IAM user running an Amazon EC2 instance that mounts a data volume encrypted by using a default volume key\. The action taken by the user generates multiple AWS KMS log records\. Creating the encrypted volume generates a data key, and the Amazon EC2 service generates a grant, on behalf of the customer, that enables it to decrypt the data key\. The `instanceId`, `"i-81e2f56c"`, is referred to in the `granteePrincipal` field of the `CreateGrant` record as `"123456789012:aws:ec2-infrastructure:i-81e2f56c"` as well as in the identity of the principal calling Decrypt, `"arn:aws:sts::123456789012:assumed-role/aws:ec2-infrastructure/i-81e2f56c"`\. The key identified by the UUID `"e29ddfd4-1bf6-4e1b-8ecb-08216bd70d07"` is common across all three KMS calls\.
+In the following example, an IAM user running an Amazon EC2 instance creates and mounts a data volume that is encrypted under an AWS KMS customer master key \(CMK\)\. This action generates multiple CloudTrail log records\.
+
+When the volume is created, Amazon EC2, acting on behalf of the customer, gets an encrypted data key from AWS KMS \(`GenerateDataKeyWithoutPlaintext`\)\. Then it creates a grant \(`CreateGrant`\) that allows it to decrypt the data key\. When the volume is mounted, Amazon EC2 calls AWS KMS to decrypt the data key \(`Decrypt`\)\.
+
+The `instanceId` of the Amazon EC2 instance, `"i-81e2f56c"`, appears in the `RunInstances` event\. The same instance ID qualifies the `granteePrincipal` of the grant that is created \(`"123456789012:aws:ec2-infrastructure:i-81e2f56c"`\) and the assumed role that is the principal in the `Decrypt` call \(`"arn:aws:sts::123456789012:assumed-role/aws:ec2-infrastructure/i-81e2f56c"`\)\. 
+
+The [key ARN](concepts.md#key-id-key-ARN) of the CMK that protects the data volume, `arn:aws:kms:us-east-1:123456789012:key/e29ddfd4-1bf6-4e1b-8ecb-08216bd70d07`, appears in all three AWS KMS calls \(`CreateGrant`, `GenerateDataKeyWithoutPlaintext`, and `Decrypt`\)\.
 
 ```
 {

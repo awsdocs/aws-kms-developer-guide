@@ -53,7 +53,7 @@ This quota is calculated separately for each CMK in the account\. It applies to 
 Be careful when using the output from the [ListGrants](https://docs.aws.amazon.com/kms/latest/APIReference/API_ListGrants.html) operation to calculate the number of grants with the same grantee principal\.   
 The `GranteePrincipal` field in the `ListGrants` response usually contains the grantee principal of the grant\. However, when the grantee principal in the grant is an AWS service, the `GranteePrincipal` field contains the [service principal](https://docs.aws.amazon.com/IAM/latest/UserGuide/reference_policies_elements_principal.html#principal-services), which might represent several different grantee principals\.
 
-This quota can have practical consequences for your use of AWS resource\. For example, it can prevent you from attaching more than 500 Amazon EBS volumes to an Amazon EC2 instance at the same time\. When you attach an Amazon EBS volume to an Amazon EC2 instance, EBS creates a grant that allows it to decrypt the volume so you can read it\. Each grant is unique, but all of the grants have the same grantee principal\. Because of this quota, if you use the same CMK for every volume, you cannot attach more than 500 volumes at once\.
+This quota can have practical consequences for your use of AWS resources\. For example, it prevents you from launching more than 500 Amazon WorkSpaces encrypted under the same CMK\. When you launch a WorkSpace, Amazon WorkSpaces creates a grant that allows it to decrypt the WorkSpace so you can use it\. Each WorkSpace grant is unique, but all of the grants have the same grantee principal\. 
 
 ## Key policy document size: 32 KB<a name="key-policy-limit"></a>
 

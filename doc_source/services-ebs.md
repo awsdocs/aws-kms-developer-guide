@@ -19,7 +19,9 @@ The encryption status of an EBS volume is determined when you create the volume\
 
 ## Using CMKs and data keys<a name="ebs-cmk"></a>
 
-When you [create an encrypted Amazon EBS volume](https://docs.aws.amazon.com/AWSEC2/latest/UserGuide/ebs-creating-volume.html), you specify an AWS KMS customer master key \(CMK\)\. By default, Amazon EBS uses the [AWS managed CMK](concepts.md#aws-managed-cmk) for Amazon EBS in your account\. However, you can specify a [customer managed CMK](concepts.md#customer-cmk)\. 
+When you [create an encrypted Amazon EBS volume](https://docs.aws.amazon.com/AWSEC2/latest/UserGuide/ebs-creating-volume.html), you specify an AWS KMS customer master key \(CMK\)\. By default, Amazon EBS uses the [AWS managed CMK](concepts.md#aws-managed-cmk) for Amazon EBS in your account \(`aws/ebs`\)\. However, you can specify a [customer managed CMK](concepts.md#customer-cmk) that you create and manage\. 
+
+To use a customer managed CMK, you must give Amazon EBS permission to use the CMK on your behalf\. For a list of required permissions, see **Permissions for IAM users** in the [Amazon EC2 User Guide for Linux Instances](https://docs.aws.amazon.com/AWSEC2/latest/UserGuide/EBSEncryption.html#ebs-encryption-permissions) or [Amazon EC2 User Guide for Windows Instances](https://docs.aws.amazon.com/AWSEC2/latest/WindowsGuide/EBSEncryption.html#ebs-encryption-permissions)\.
 
 **Important**  
 Amazon EBS supports only [symmetric CMKs](symm-asymm-concepts.md#symmetric-cmks)\. You cannot use an [asymmetric CMK](symm-asymm-concepts.md#asymmetric-cmks) to encrypt an Amazon EBS volume\. For help determining whether a CMK is symmetric or asymmetric, see [Identifying symmetric and asymmetric CMKs](find-symm-asymm.md)\.
