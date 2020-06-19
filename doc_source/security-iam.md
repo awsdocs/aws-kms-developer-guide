@@ -1,0 +1,5 @@
+# Identity and access management for AWS Key Management Service<a name="security-iam"></a>
+
+AWS Identity and Access Management \(IAM\) helps an administrator securely control access to AWS resources\. IAM administrators control who can be *authenticated* \(signed in\) and *authorized* \(have permissions\) to use AWS KMS resources\. For more information, see [Using IAM policies with AWS KMS](iam-policies.md)\.
+
+[Key policies](key-policies.md) are the primary mechanism for controlling access to customer master keys \(CMKs\) in AWS KMS\. Every CMK must have a key policy\. You can also use [IAM policies](iam-policies.md) and [grants](grants.md), along with key policies, to control access to your CMKs\. For more information, see [Authentication and access control for AWS KMS](control-access.md)\.

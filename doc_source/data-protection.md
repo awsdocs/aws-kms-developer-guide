@@ -1,0 +1,66 @@
+# Data protection in AWS Key Management Service<a name="data-protection"></a>
+
+AWS Key Management Service stores and protects your encryption keys to make them highly available while providing you with strong and flexible access control\.
+
+**Topics**
++ [Data encryption](#data-encryption)
++ [Internetwork traffic privacy](#inter-network-privacy)
+
+## Data encryption<a name="data-encryption"></a>
+
+The data in AWS KMS consists of [customer master keys](concepts.md#master_keys) \(CMKs\) and the encryption key material they represent\. This key material exists in plaintext only within AWS KMS hardware security modules \(HSMs\) and only when in use\. Otherwise, the key material is encrypted and stored in durable persistent storage\. 
+
+The key material that AWS KMS generates for CMKs never leaves the boundary of AWS KMS HSMs unencrypted\. It is not exported or transmitted in any AWS KMS API operations\.
+
+**Topics**
++ [Encryption at rest](#encryption-at-rest)
++ [Encryption in transit](#encryption-in-transit)
++ [Key management](#encryption-key-mgmt)
+
+### Encryption at rest<a name="encryption-at-rest"></a>
+
+AWS KMS generates key material for customer master keys \(CMKs\) in FIPS 140\-2 Level 2–compliant hardware security modules \(HSMs\)\. When not in use, key material is encrypted by an HSM and written to durable, persistent storage\. The key material for CMKs and the encryption keys that protect the key material never leave the HSMs in plaintext form\. 
+
+Encryption and management of key material for CMKs is handled entirely by AWS KMS\.
+
+For more details, see the "Customer Master Keys" section of the [AWS Key Management Service Cryptographic Details](https://d0.awsstatic.com/whitepapers/KMS-Cryptographic-Details.pdf) whitepaper\.
+
+### Encryption in transit<a name="encryption-in-transit"></a>
+
+Key material that AWS KMS generates for CMKs is never exported or transmitted in AWS KMS API operations\. AWS KMS uses [key identifiers](concepts.md#key-id) to represent the CMKs in API operations\. Similarly, key material for CMKs in AWS KMS [custom key stores](custom-key-store-overview.md) is non\-exportable and never transmitted in AWS KMS or AWS CloudHSM API operations\.
+
+However, some AWS KMS API operations return [data keys](concepts.md#data-keys)\. Also, customers can use API operations to [import key material](importing-keys.md) for selected CMKs\. 
+
+All AWS KMS API calls must be signed and be transmitted using Transport Layer Security \(TLS\) 1\.2 or later\. Calls to AWS KMS also require a modern cipher suite that supports *perfect forward secrecy*, which means that compromise of any secret, such as a private key, does not also compromise the session key\.
+
+Communications between AWS KMS service hosts and HSMs are protected using Elliptic Curve Cryptography \(ECC\) and Advanced Encryption Standard \(AES\) in an authenticated encryption scheme\. For more details, see the "Internal Communications Security" section of the [AWS Key Management Service Cryptographic Details](https://d0.awsstatic.com/whitepapers/KMS-Cryptographic-Details.pdf) whitepaper\.
+
+### Key management<a name="encryption-key-mgmt"></a>
+
+AWS KMS does not directly store customer data\. Instead, AWS KMS is responsible for storing and protecting customer master keys \(CMKs\), which are logical entities backed by encryption key material\.
+
+Key material for AWS KMS CMKs is supported by a distributed fleet of FIPS 140\-2 Level\-2–validated hardware security modules \(HSMs\)\. Each AWS KMS HSM is a standalone cryptographic hardware appliance designed to provide dedicated cryptographic functions to meet the security and scalability requirements of AWS KMS\.
+
+The key material for CMKs exists in plaintext only inside the HSMs and only when the key material is generated or being used in a cryptographic operation\.
+
+When not in use, key material is encrypted on the HSMs and the encrypted key material is written to durable, low\-latency persistent storage\. The encryption keys that protect the key material never leave the HSMs in plaintext form\. There are no mechanisms for anyone, including AWS service operators, to export or view the key material or HSM encryption keys in plaintext\.
+
+[Custom key stores](custom-key-store-overview.md), an optional AWS KMS feature, lets you create CMKs backed by key material generated in AWS CloudHSM hardware security modules that you control\. These HSMs are certified at [FIPS 140\-2 Level 3](https://docs.aws.amazon.com/cloudhsm/latest/userguide/compliance.html)\. 
+
+Another optional feature lets you [import the key material](importing-keys.md) for a CMK\. During transport from its source to AWS KMS, the imported key material must be encrypted using RSA key pairs generated in AWS KMS HSMs\. The imported key material is decrypted on an AWS KMS HSM and reencrypted under symmetric keys in the HSM\. These operations are performed before the imported key material is stored with key material generated by AWS KMS\. Once it is imported, the imported key material never leaves the HSMs unencrypted\. The customer who provided the key material is responsible for secure use, durability, and maintenance of the key material outside of AWS KMS\.
+
+For details about the management of CMKs and key material, see the [AWS Key Management Service Cryptographic Details](https://d0.awsstatic.com/whitepapers/KMS-Cryptographic-Details.pdf) whitepaper
+
+## Internetwork traffic privacy<a name="inter-network-privacy"></a>
+
+AWS KMS supports an AWS Management Console and a set of API operations that enable you to create and manage customer master keys \(CMKs\) and use them in cryptographic operations\.
+
+AWS KMS supports two network connectivity options from your private network to AWS\.
++ An IPSec VPN connection over the internet
++ [AWS Direct Connect](https://aws.amazon.com/directconnect/), which links your internal network to an AWS Direct Connect location over a standard Ethernet fiber\-optic cable\.
+
+To ensure privacy, all AWS KMS API calls must be signed and be transmitted over Transport Layer Security protocol \(TLS\) 1\.2 or later\. The calls also require a modern cipher suite that supports [perfect forward secrecy](https://en.wikipedia.org/wiki/Forward_secrecy)\. Traffic to the hardware security modules \(HSMs\) that store key material for CMKs is permitted only from known AWS KMS API hosts over the AWS internal network\.
+
+To connect directly to AWS KMS from your virtual private cloud \(VPC\) without sending traffic over the public internet, use VPC endpoints, powered by AWS PrivateLink\. For more information, see [Connecting to AWS KMS through a VPC endpoint](kms-vpc-endpoint.md)\.
+
+AWS KMS also supports a [hybrid post\-quantum key exchange](pqtls.md) option for the Transport Layer Security \(TLS\) network encryption protocol\. You can use this option with TLS when you connect to KMS API endpoints\.

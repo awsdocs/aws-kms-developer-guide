@@ -1,6 +1,6 @@
 # Determining past usage of a customer master key<a name="deleting-keys-determining-usage"></a>
 
-Before deleting a customer master key \(CMK\), you might want to know how many ciphertexts were encrypted under that key\. AWS KMS does not store this information, and does not store any of the ciphertexts\. To obtain this information, you must determine on your own the past usage of a CMK\. Knowing how a CMK was used in the past might help you decide whether or not you will need it in the future\. The following guidance can help you determine the past usage of a CMK\.
+Before deleting a customer master key \(CMK\), you might want to know how many ciphertexts were encrypted under that key\. AWS KMS does not store this information, and does not store any of the ciphertexts\. Knowing how a CMK was used in the past might help you decide whether or not you will need it in the future\. This topic suggest several strategies that can help you determine the past usage of a CMK\.
 
 **Warning**  
 These strategies for determining past and actual usage are effective only for AWS users and AWS KMS operations\. They cannot detect use of the public key of an asymmetric CMK outside of AWS KMS\. For details about the special risks of deleting asymmetric CMKs used for public key cryptography, including creating ciphertexts that cannot be decrypted, see [Deleting asymmetric CMKs](deleting-keys.md#deleting-asymmetric-cmks)\.
@@ -15,7 +15,9 @@ Determining who or what currently has access to a customer master key \(CMK\) mi
 
 ## Examining AWS CloudTrail logs to determine actual usage<a name="deleting-keys-usage-cloudtrail"></a>
 
-AWS KMS is integrated with AWS CloudTrail, so all AWS KMS API activity is recorded in CloudTrail log files\. If you have CloudTrail turned on in the region where your customer master key \(CMK\) is located, you can examine your CloudTrail log files to view a history of all AWS KMS API activity for a particular CMK, and thus its usage history\. You might be able to use a CMK's usage history to help you determine whether or not you still need it\.
+You might be able to use a CMK's usage history to help you determine whether you have ciphertexts encrypted under a particular CMK\. 
+
+All AWS KMS API activity is recorded in AWS CloudTrail log files\. If you have [created a CloudTrail trail](https://docs.aws.amazon.com/awscloudtrail/latest/userguide/cloudtrail-create-and-update-a-trail.html) in the region where your customer master key \(CMK\) is located, you can examine your CloudTrail log files to view a history of all AWS KMS API activity for a particular CMK\. If you don't have a trail, you can still view recent events in your [CloudTrail event history](https://docs.aws.amazon.com/awscloudtrail/latest/userguide/view-cloudtrail-events.html)\. For details about how AWS KMS uses CloudTrail, see [Logging AWS KMS API calls with AWS CloudTrail](logging-using-cloudtrail.md)\.
 
 The following examples show CloudTrail log entries that are generated when a KMS CMK is used to protect an object stored in Amazon Simple Storage Service \(Amazon S3\)\. In this example, the object is uploaded to Amazon S3 using [server\-side encryption with AWS KMS\-managed keys \(SSE\-KMS\)](services-s3.md#sse)\. When you upload an object to Amazon S3 with SSE\-KMS, you specify the KMS CMK to use for protecting the object\. Amazon S3 uses the AWS KMS `GenerateDataKey` operation to request a unique data key for the object, and this request event is logged in CloudTrail with an entry similar to the following:
 

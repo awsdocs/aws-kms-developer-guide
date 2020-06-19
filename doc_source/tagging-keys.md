@@ -1,22 +1,31 @@
 # Tagging keys<a name="tagging-keys"></a>
 
-Many AWS services support resource tags\. You can use tags to label, identify, and categorize your resources across AWS services\.
+A *tag* is a metadata label that you can assign \(or AWS can assign\) to an AWS resource\. Each tag consists of a *tag key* and a *tag value*, both of which are case\-sensitive strings\. The tag value can be an empty \(null\) string\. Each tag on a resource must have a different tag key, but you can add the same tag to multiple AWS resources\. Each resource can have up to 50 user\-created tags\. 
 
-AWS KMS supports resource tags on [customer master keys](concepts.md#master_keys) \(CMKs\)\. You can add, change, and delete resource tags for [customer managed CMKs](concepts.md#master_keys)\. AWS KMS doesn't support resource tags on aliases and you cannot create or manage the tags on [AWS managed CMKs](concepts.md#master_keys)\.
+In AWS KMS, you can add tags to a [customer managed CMK](concepts.md#master_keys) when you [create the CMK](create-keys.md), and [add or edit tags](editing-keys.md#edit-tags) on existing CMKs unless they are [pending deletion](key-state.md)\. You cannot tag aliases, [AWS managed CMKs](concepts.md#master_keys), or [AWS owned CMKs](concepts.md#aws-owned-cmk)\.
 
-Each resource tag consists of a *tag key* and a *tag value* that you define\. For example, the tag key might be "Cost Center" and the tag value might be "87654\." You can attach the same tag, with the same tag key and tag value, to multiple CMKs\. However, every tag on a CMK must have a different tag key\. For example, you cannot have more than one "Cost Center" tag key on the same CMK\. For detailed information about resource tags, see [Tagging AWS Resources](https://docs.aws.amazon.com/general/latest/gr/aws_tagging.html) in the *AWS General Reference*\. 
+For example, you can add a `"Project"="Alpha"` tag to all CMKs and Amazon S3 buckets that you use for the Alpha project\.
 
-When you add tags to your AWS resources, AWS generates a cost allocation report with usage and costs aggregated by tags\. You can use this feature to track AWS KMS costs for a project, application, or cost center\. For more information about using tags for cost allocation, see [Using Cost Allocation Tags](https://docs.aws.amazon.com/awsaccountbilling/latest/aboutv2/cost-alloc-tags.html) in the *AWS Billing and Cost Management User Guide*\. For information about the rules that apply to tag keys and tag values, see [User\-Defined Tag Restrictions](https://docs.aws.amazon.com/awsaccountbilling/latest/aboutv2/allocation-tag-restrictions.html) in the *AWS Billing and Cost Management User Guide*\.
+```
+TagKey   = "Project"
+TagValue = "Alpha"
+```
+
+ For more information, see [Creating keys](create-keys.md) and [Editing keys](editing-keys.md)\. For general information about tags, including the format and syntax, see [Tagging AWS resources](https://docs.aws.amazon.com/general/latest/gr/aws_tagging.html) in the *Amazon Web Services General Reference*\.
+
+Tags help you do the following:
++ Identify and organize your AWS resources\. Many AWS services support tagging, so you can assign the same tag to resources from different services to indicate that the resources are related\. For example, you can assign the same tag to an AWS KMS [customer master key](concepts.md#master_keys) \(CMK\) and an Amazon Elastic Block Store \(Amazon EBS\) volume or AWS Secrets Manager secret\. You can also use tags to identify CMK for automation\.
++ Track your AWS costs\. When you add tags to your AWS resources, AWS generates a cost allocation report with usage and costs aggregated by tags\. You can use this feature to track AWS KMS costs for a project, application, or cost center\.
+
+  For more information about using tags for cost allocation, see [Using Cost Allocation Tags](https://docs.aws.amazon.com/awsaccountbilling/latest/aboutv2/cost-alloc-tags.html) in the *AWS Billing and Cost Management User Guide*\. For information about the rules for tag keys and tag values, see [User\-Defined Tag Restrictions](https://docs.aws.amazon.com/awsaccountbilling/latest/aboutv2/allocation-tag-restrictions.html) in the *AWS Billing and Cost Management User Guide*\.
 
 **Topics**
 + [Managing CMK tags \(console\)](#manage-tags)
-+ [Managing CMK tags \(AWS KMS API\)](#manage-tags-api)
++ [Managing CMK Tags \(AWS KMS API\)](#manage-tags-api)
 
 ## Managing CMK tags \(console\)<a name="manage-tags"></a>
 
-You can add, edit, and delete tags for your customer managed CMKs in the AWS Management Console\. You can add tags to a CMK when you [create it](create-keys.md) and edit them at any time\. You cannot edit the tags of CMKs that are pending deletion\. For more information, see [Creating keys](create-keys.md) and [Editing keys](editing-keys.md)\.
-
-The following procedure shows how to manage tags using the check boxes on the **Customer managed keys** page\. You can use the **Tags** tab on the [detail page](viewing-keys-console.md#viewing-console-details) for any customer managed CMK\.
+You can add tags to a CMK when you [create the CMK](create-keys.md) in the AWS KMS console\. You can also use the console to add, edit, and delete tags on customer managed CMKs\. 
 
 **To add, edit, or delete a tag for an existing CMK**
 
@@ -30,15 +39,21 @@ The following procedure shows how to manage tags using the check boxes on the **
 
 1. Choose **Key actions**, **Add or edit tags**\.
 
-1. Use the controls to add, edit, or delete tags\.
+1. On the details page for CMK, choose the **Tags** tab\.
+   + To create your first tag, choose **Create tag**, type a tag name \(required\) and tag value \(optional\), and then choose **Save**\.
+
+     If you leave the tag value blank, the actual tag value is a null or empty string\.
+   + To add a tag, choose **Edit**, choose **Add tag**, type a tag name and tag value, and then choose **Save**\.
+   + To change the name or value of a tag, choose **Edit**, make your changes, and then choose **Save**\.
+   + To delete a tag, choose **Edit**\. On the tag row, choose **Remove**, and then choose **Save**\.
 
 1. To save your changes, choose **Save changes**\.
 
-## Managing CMK tags \(AWS KMS API\)<a name="manage-tags-api"></a>
+## Managing CMK Tags \(AWS KMS API\)<a name="manage-tags-api"></a>
 
 You can use the [AWS Key Management Service \(AWS KMS\) API](https://docs.aws.amazon.com/kms/latest/APIReference/) to add, delete, and list tags for the CMKs that you manage\. These examples use the [AWS Command Line Interface \(AWS CLI\)](https://aws.amazon.com/cli/), but you can use any supported programming language\. 
 
-You cannot tag [AWS managed CMKs](concepts.md#aws-managed-cmk)\.
+You cannot tag AWS managed CMKs\.
 
 **Topics**
 + [CreateKey: Add tags to a new CMK](#tagging-keys-create-key)
@@ -48,7 +63,9 @@ You cannot tag [AWS managed CMKs](concepts.md#aws-managed-cmk)\.
 
 ### CreateKey: Add tags to a new CMK<a name="tagging-keys-create-key"></a>
 
-You can add tags when you create a [customer managed CMK](concepts.md#customer-cmk)\. To specify the tags, use the `Tags` parameter of the [CreateKey](https://docs.aws.amazon.com/kms/latest/APIReference/API_CreateKey.html) operation\. The value of the `Tags` parameter is a collection of tag key\-value pairs\.
+You can add tags when you create a customer managed CMK\. To specify the tags, use the `Tags` parameter of the [CreateKey](https://docs.aws.amazon.com/kms/latest/APIReference/API_CreateKey.html) operation\. The value of the `Tags` parameter is a collection of case\-sensitive tag key and tag value pairs\. 
+
+Each tag on a CMK must have a different tag name\. The tag value can be a null or empty string\.
 
 For example, the following AWS CLI command creates a symmetric CMK with a `Project:Alpha` tag\. When specifying more than one key\-value pair, use a space to separate each pair\. 
 
@@ -60,19 +77,29 @@ When this command is successful, it returns a `KeyMetadata` object with informat
 
 ### TagResource: Add or change tags for a CMK<a name="tagging-keys-tag-resource"></a>
 
-The [TagResource](https://docs.aws.amazon.com/kms/latest/APIReference/API_TagResource.html) operation adds one or more tags to a CMK\.
+The [TagResource](https://docs.aws.amazon.com/kms/latest/APIReference/API_TagResource.html) operation adds one or more tags to a CMK\. 
 
-You can also use **TagResource** to change the values for an existing tag\. To replace tag values, specify the same tag key with different values\. To add values to a tag, specify the tag key with both new and existing values\.
+To add a tag, specify a new tag key and a tag value\. To edit a tag, specify an existing tag key and a new tag value\. Each tag on a CMK must have a different tag name\. The tag value can be a null or empty string\.
 
 For example, the following command adds **Purpose** and **Department** tags to an example CMK\.
 
 ```
 $ aws kms tag-resource \
          --key-id 1234abcd-12ab-34cd-56ef-1234567890ab \
-         --tags TagKey=Purpose,TagValue=Test TagKey=Department,TagValue=Finance
+         --tags TagKey=Purpose,TagValue=Pretest TagKey=Department,TagValue=Finance
 ```
 
 When this command is successful, it does not return any output\. To view the tags on a CMK, use the [ListResourceTags](https://docs.aws.amazon.com/kms/latest/APIReference/API_ListResourceTags.html) operation\.
+
+You can also use **TagResource** to change the tag value of an existing tag\. To replace a tag value, specify the same tag key with a different value\.
+
+For example, this command changes the value of the `Purpose` tag from `Pretest` to `Test`\.
+
+```
+$ aws kms tag-resource \
+         --key-id 1234abcd-12ab-34cd-56ef-1234567890ab \
+         --tags TagKey=Purpose,TagValue=Test
+```
 
 ### ListResourceTags: Get the tags for a CMK<a name="tagging-keys-list-resource-tags"></a>
 

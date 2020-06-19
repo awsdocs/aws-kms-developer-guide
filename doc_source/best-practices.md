@@ -1,0 +1,3 @@
+# Security best practices for AWS Key Management Service<a name="best-practices"></a>
+
+AWS Key Management Service \(AWS KMS\) supports several security features that you can implement to enhance the protection of your encryption keys\. These features are summarized in this topic and described in detail in the [AWS Key Management Service Best Practices](https://d0.awsstatic.com/whitepapers/aws-kms-best-practices.pdf) whitepaper\. These general guidelines do not represent a complete security solution\. Because not all best practices are appropriate for all situations, these are not intended to be prescriptive\.

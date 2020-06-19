@@ -65,11 +65,12 @@ Adding an external account does not allow users and roles in the account to use 
 
    When you are done, choose **Save changes**, then click the **X** to close the window\.
 
-**Add, edit, and delete tags**  
-You can change the tags for your CMK\. Each tag is a name–value pair\. The tag name must be unique in the account and region\.   
-You can use tags to identify and categorize your CMKs\. When you add tags to your AWS resources, AWS generates a cost allocation report with usage and costs aggregated by tags\. For more information about CMK tags, see [Tagging keys](tagging-keys.md)\.  
+**Add, edit, and delete tags**  <a name="edit-tags"></a>
+You can create and change the tags on your customer managed CMKs\. For detailed information about using tags in AWS KMS, see [Tagging keys](tagging-keys.md)\.  
 + On the details page for CMK, choose the **Tags** tab\.
-  + To create your first tag, choose **Create tag**, type a tag name and tag value, and then choose **Save**\.
+  + To create your first tag, choose **Create tag**, type a tag name \(required\) and tag value \(optional\), and then choose **Save**\.
+
+    If you leave the tag value blank, the actual tag value is a null or empty string\.
   + To add a tag, choose **Edit**, choose **Add tag**, type a tag name and tag value, and then choose **Save**\.
   + To change the name or value of a tag, choose **Edit**, make your changes, and then choose **Save**\.
   + To delete a tag, choose **Edit**\. On the tag row, choose **Remove**, and then choose **Save**\.
@@ -88,19 +89,11 @@ You can enable and disable [automatic rotation](rotate-keys.md) of the cryptogra
 
 You can use the [AWS Key Management Service \(AWS KMS\) API](https://docs.aws.amazon.com/kms/latest/APIReference/) to edit the properties of your [customer managed CMKs](concepts.md#master_keys)\. These examples use the [AWS Command Line Interface \(AWS CLI\)](https://aws.amazon.com/cli/), but you can use any supported programming language\. This section demonstrates several operations that return details about existing CMKs\.
 
-You cannot edit the properties of [AWS managed CMKs](concepts.md#master_keys)\.
-
-**Topics**
-+ [UpdateKeyDescription: Change the description of a CMK](#editing-keys-edit-description)
-+ [PutKeyPolicy: Change the key policy for a CMK](#editing-keys-edit-key-policy)
-+ [Enable and disable key rotation](#editing-keys-enable-key-rotation)
-
-**Tip**  
-For information about adding, deleting, and editing tags, see [Tagging keys](tagging-keys.md)\.
+You cannot edit the properties of [AWS managed CMKs](concepts.md#master_keys) or [AWS owned CMKs](concepts.md#aws-owned-cmk)\.
 
 ### UpdateKeyDescription: Change the description of a CMK<a name="editing-keys-edit-description"></a>
 
-The [UpdateKeyDescription](https://docs.aws.amazon.com/kms/latest/APIReference/API_UpdateKeyDescription.html) operation replaces the description of the CMK with the one that you specify\. You can use it to add, change, or delete the description of a CMK\. To see the description, use the [DescribeKey](https://docs.aws.amazon.com/kms/latest/APIReference/API_DescribeKey.html) operation\.
+The [UpdateKeyDescription](https://docs.aws.amazon.com/kms/latest/APIReference/API_UpdateKeyDescription.html) operation replaces the description of a customer managed CMK with the one that you specify\. You can use it to add, change, or delete the description of a CMK\. To see the description, use the [DescribeKey](https://docs.aws.amazon.com/kms/latest/APIReference/API_DescribeKey.html) operation\.
 
 For example, this call to the `UpdateKeyDescription` operation changes the description of the specified CMK\.
 
@@ -136,10 +129,20 @@ $ aws kms describe-key --key-id 1234abcd-12ab-34cd-56ef-1234567890ab
 
 ### PutKeyPolicy: Change the key policy for a CMK<a name="editing-keys-edit-key-policy"></a>
 
-The [PutKeyPolicy](https://docs.aws.amazon.com/kms/latest/APIReference/API_PutKeyPolicy.html) operation changes the key policy of the CMK to the policy that you specify\. The policy includes permissions for administrators, users, and roles\. For a detailed example, see [PutKeyPolicy Examples](https://docs.aws.amazon.com/kms/latest/APIReference/API_PutKeyPolicy.html#API_PutKeyPolicy_Examples)\.
+The [PutKeyPolicy](https://docs.aws.amazon.com/kms/latest/APIReference/API_PutKeyPolicy.html) operation changes the key policy of a customer managed CMK to the policy that you specify\. The policy includes permissions for administrators, users, and roles\. For a detailed example, see [PutKeyPolicy Examples](https://docs.aws.amazon.com/kms/latest/APIReference/API_PutKeyPolicy.html#API_PutKeyPolicy_Examples)\.
 
 ### Enable and disable key rotation<a name="editing-keys-enable-key-rotation"></a>
 
-The [EnableKeyRotation](https://docs.aws.amazon.com/kms/latest/APIReference/API_EnableKeyRotation.html) operation enables [automatic rotation](rotate-keys.md) of the cryptographic material in a symmetric CMK\. The [DisableKeyRotation](https://docs.aws.amazon.com/kms/latest/APIReference/API_DisableKeyRotation.html) operation disables it\. The [GetKeyRotationStatus](https://docs.aws.amazon.com/kms/latest/APIReference/API_GetKeyRotationStatus.html) operation returns a Boolean value that tells you whether automatic key rotation is enabled \(**true**\) or disabled \(**false**\)\. 
+The [EnableKeyRotation](https://docs.aws.amazon.com/kms/latest/APIReference/API_EnableKeyRotation.html) operation enables [automatic rotation](rotate-keys.md) of the cryptographic material in a symmetric customer managed CMK\. The [DisableKeyRotation](https://docs.aws.amazon.com/kms/latest/APIReference/API_DisableKeyRotation.html) operation disables it\. The [GetKeyRotationStatus](https://docs.aws.amazon.com/kms/latest/APIReference/API_GetKeyRotationStatus.html) operation returns a Boolean value that tells you whether automatic key rotation is enabled \(**true**\) or disabled \(**false**\)\. 
 
 For an example, see [Rotating customer master keys](rotate-keys.md)\.
+
+### Add, edit, and delete tags<a name="editing-keys-tag-key"></a>
+
+To add or edit the tag on a customer managed CMK, use the [TagResource](https://docs.aws.amazon.com/kms/latest/APIReference/API_TagResource.html) operation\. To add a tag, specify a new tag key and a tag value\. To edit a tag, specify an existing tag key and a new tag value\. 
+
+To view the tags on any CMK, use the [ListResourceTags](https://docs.aws.amazon.com/kms/latest/APIReference/API_ListResourceTags.html) operation\.
+
+To delete a tag from a customer managed CMK, use the [UntagResource](https://docs.aws.amazon.com/kms/latest/APIReference/API_UntagResource.html) operation\.
+
+For more information about using tags in AWS KMS, see [Tagging keys](tagging-keys.md)\.
