@@ -62,8 +62,8 @@ $ aws kms list-aliases --key-id 1234abcd-12ab-34cd-56ef-1234567890ab
 {
     "Aliases": [
         {
-            "AliasName": "alias/master-key-test",
-            "AliasArn": "arn:aws:kms:us-west-2:111122223333:alias/master-key-test",
+            "AliasName": "alias/test-key",
+            "AliasArn": "arn:aws:kms:us-west-2:111122223333:alias/test-key",
             "TargetKeyId": "1234abcd-12ab-34cd-56ef-1234567890ab"
         },
         {

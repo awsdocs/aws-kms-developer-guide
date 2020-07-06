@@ -238,7 +238,7 @@ For example, the following IAM policy allows principals to perform the specified
 
 | AWS KMS condition keys | Condition type | API operations | Policy type | 
 | --- | --- | --- | --- | 
-|  `kms:CusomterMasterKeyUsage`  |  String  |  `CreateKey` CMK resource operations  |  IAM policies Key policies and IAM policies  | 
+|  `kms:CustomerMasterKeyUsage`  |  String  |  `CreateKey` CMK resource operations  |  IAM policies Key policies and IAM policies  | 
 
 The `kms:CustomerMasterKeyUsage` condition key controls access to operations based on the value of the `KeyUsage` property of the CMK that is created by or used in the operation\. 
 

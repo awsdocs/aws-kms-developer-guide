@@ -38,7 +38,7 @@ $ aws kms list-keys
 
 The [DescribeKey](https://docs.aws.amazon.com/kms/latest/APIReference/API_DescribeKey.html) operation returns details about the specified CMK\. To identify the CMK, use its [key ID](concepts.md#key-id-key-id), [key ARN](concepts.md#key-id-key-ARN), [alias name](concepts.md#key-id-alias-name), or [alias ARN](concepts.md#key-id-alias-ARN)\. 
 
-For example, this call to `DescribeKey` returns information about a symmetric CMK\. The fields in the response vary with the [customer master key spec](concepts.md#key-spec), [key state](key-state.md), and the [key material origin](concepts.md#key-origin)\. For examples in multiple programming languages, see [Viewing a custom master key](programming-keys.md#describing-keys)\.
+For example, this call to `DescribeKey` returns information about a symmetric CMK\. The fields in the response vary with the [customer master key spec](concepts.md#key-spec), [key state](key-state.md), and the [key material origin](concepts.md#key-origin)\. For examples in multiple programming languages, see [Viewing a customer master key](programming-keys.md#describing-keys)\.
 
 ```
 $ aws kms describe-key --key-id 1234abcd-12ab-34cd-56ef-1234567890ab

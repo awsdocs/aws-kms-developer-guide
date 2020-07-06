@@ -27,7 +27,7 @@ You can use the advanced features of AWS KMS\.
 
 By using AWS KMS, you gain more control over access to data you encrypt\. You can use the key management and cryptographic features directly in your applications or through AWS services that are integrated with AWS KMS\. Whether you are writing applications for AWS or using AWS services, AWS KMS enables you to maintain control over who can use your customer master keys and gain access to your encrypted data\.
 
-AWS KMS is integrated with AWS CloudTrail, a service that delivers log files to an Amazon S3 bucket that you designate\. By using CloudTrail you can monitor and investigate how and when your master keys have been used and by whom\.
+AWS KMS is integrated with AWS CloudTrail, a service that delivers log files to an Amazon S3 bucket that you designate\. By using CloudTrail you can monitor and investigate how and when your CMKs have been used and by whom\.
 
 **AWS KMS in AWS Regions**  
 The AWS Regions in which AWS KMS is supported are listed in [AWS Key Management Service Endpoints and Quotas](https://docs.aws.amazon.com/general/latest/gr/kms.html)\. If an AWS KMS feature is not supported in an AWS Region that AWS KMS supports, the regional difference is described in the topic about the feature\. 
@@ -41,7 +41,7 @@ AWS Key Management Service is backed by a [service level agreement](https://aws.
 **Learn more**
 + To learn about the terms and concepts used in AWS KMS, see [AWS KMS Concepts](concepts.md)\.
 + For information about the AWS KMS API, see the [AWS Key Management Service API Reference](https://docs.aws.amazon.com/kms/latest/APIReference/)\. For examples in different programming languages, see [Programming the AWS KMS API](programming-top.md)\.
-+ For detailed technical information about how AWS KMS uses cryptography and secures master keys, see the [AWS Key Management Service Cryptographic Details](https://d0.awsstatic.com/whitepapers/KMS-Cryptographic-Details.pdf) whitepaper\. This whitepaper does not describe how AWS KMS works in the China \(Beijing\) and China \(Ningxia\) Regions\.
++ For detailed technical information about how AWS KMS uses cryptography and secures CMKs, see the [AWS Key Management Service Cryptographic Details](https://d0.awsstatic.com/whitepapers/KMS-Cryptographic-Details.pdf) whitepaper\. This whitepaper does not describe how AWS KMS works in the China \(Beijing\) and China \(Ningxia\) Regions\.
 + For help with questions about AWS KMS, see the [AWS Key Management Service Discussion Forum](https://forums.aws.amazon.com/forum.jspa?forumID=182)\.
 
 **AWS KMS in the AWS SDKs**
@@ -52,5 +52,5 @@ AWS Key Management Service is backed by a [service level agreement](https://aws.
 + [AWS SDK for Java](https://docs.aws.amazon.com/AWSJavaSDK/latest/javadoc/com/amazonaws/services/kms/model/package-summary.html)
 + [AWS SDK for JavaScript](https://docs.aws.amazon.com/AWSJavaScriptSDK/latest/AWS/KMS.html)
 + [AWS SDK for PHP](https://docs.aws.amazon.com/aws-sdk-php/v3/api/api-kms-2014-11-01.html)
-+ [AWS SDK for Python \(Boto 3\)](http://boto3.amazonaws.com/v1/documentation/api/latest/reference/services/kms.html)
++ [AWS SDK for Python \(Boto3\)](http://boto3.amazonaws.com/v1/documentation/api/latest/reference/services/kms.html)
 + [AWS SDK for Ruby](https://docs.aws.amazon.com/sdk-for-ruby/v3/api/Aws/KMS/Client.html)

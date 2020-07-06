@@ -132,7 +132,9 @@ $ aws kms list-resource-tags --key-id 1234abcd-12ab-34cd-56ef-1234567890ab
 
 The [UntagResource](https://docs.aws.amazon.com/kms/latest/APIReference/API_UntagResource.html) operation deletes tags from a CMK\. The `key-id` and `tag-keys` parameters are required\.
 
-For example, this command deletes the **Purpose** tag and all of its values from the specified CMK\.
+When it succeeds, the `UntagResource` operation doesn't return any output\. Also, if the specified tag key isn't found on the CMK, it doesn't throw an exception or return a response\. To confirm that the operation worked, use the [ListResourceTags](https://docs.aws.amazon.com/kms/latest/APIReference/API_ListResourceTags.html) operation\.
+
+For example, this command deletes the **Purpose** tag and its value from the specified CMK\.
 
 ```
 $ aws kms untag-resource --key-id 1234abcd-12ab-34cd-56ef-1234567890ab --tag-keys Purpose

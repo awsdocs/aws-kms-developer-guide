@@ -4,12 +4,14 @@ You can create [symmetric and asymmetric customer master keys](symmetric-asymmet
 
 If you are creating a CMK to encrypt data you store or manage in an AWS service, create a symmetric CMK\. [AWS services that are integrated with AWS KMS](https://aws.amazon.com/kms/features/#AWS_Service_Integration) use symmetric CMKs to encrypt your data\. These services do not support encryption with asymmetric CMKs\. For help deciding which type of CMK to create, see [How to choose your CMK configuration](symm-asymm-choose.md)\.
 
+When you create a CMK in the AWS KMS console, you are required to give it an alias \(friendly name\)\. The CreateKey operation does not create an alias for the new CMK\. To create an alias for a new or existing CMK, use the [CreateAlias](https://docs.aws.amazon.com/kms/latest/APIReference/API_CreateAlias.html) operation\. For detailed information about aliases in AWS KMS, see [Using aliases](kms-alias.md)\.
+
 **Learn more:**
-+ For help creating a CMK with imported key material \([key material origin](concepts.md#key-origin) is External\), see [Create a Customer Master Key With No Key Material](importing-keys-create-cmk.md)\.
++ For help creating a CMK with imported key material \([key material origin](concepts.md#key-origin) is External\), see [Create a customer master key with no key material](importing-keys-create-cmk.md)\.
 + For help creating a CMK in a custom key store \([key material origin](concepts.md#key-origin) is Custom Key Store \(CloudHSM\)\), see [Creating CMKs in a Custom Key Store](create-cmk-keystore.md)\.
 + For help determining whether an existing CMK is symmetric or asymmetric, see [Identifying symmetric and asymmetric CMKs](find-symm-asymm.md)\.
 + To use your CMKs programmatically and in command line interface operations, you need a [key ID](concepts.md#key-id-key-id) or [key ARN](concepts.md#key-id-key-ARN)\. For detailed instructions, see [Finding the key ID and ARN](find-cmk-id-arn.md)\.
-+ To use your CMKs in cryptographic operations, you can use an [alias name](concepts.md#key-id-alias-name) or [alias ARN](concepts.md#key-id-alias-ARN), as well as a [key ID](concepts.md#key-id-key-id) or [key ARN](concepts.md#key-id-key-ARN)\. For detailed instructions, see [Finding the alias name and alias ARN](find-cmk-alias.md)\.
++ For information about quotas that apply to CMKs, see [Quotas](limits.md)\.
 
 **Topics**
 + [Creating symmetric CMKs](#create-symmetric-cmk)

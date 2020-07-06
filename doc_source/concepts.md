@@ -6,6 +6,7 @@ Learn the basic terms and concepts in AWS Key Management Service \(AWS KMS\) and
 + [Customer master keys \(CMKs\)](#master_keys)
 + [Data keys](#data-keys)
 + [Data key pairs](#data-key-pairs)
++ [Aliases](#alias-concept)
 + [Cryptographic operations](#cryptographic-operations)
 + [Key identifiers \(KeyId\)](#key-id)
 + [Key material origin](#key-origin)
@@ -168,6 +169,20 @@ The following diagram shows how to use the public key in a data key pair to veri
 
 ![\[Verify a cryptographic signature with the public key in a data key pair outside of AWS KMS.\]](http://docs.aws.amazon.com/kms/latest/developerguide/images/verify-with-data-key-pair.png)
 
+## Aliases<a name="alias-concept"></a>
+
+An *alias* is a friendly name for a CMK\. For example, you can refer to a CMK as *test\-key* instead of 1234abcd\-12ab\-34cd\-56ef\-1234567890ab\. 
+
+Aliases make it easier to identify a CMK in the AWS Management Console\. You can also use an alias to identify a CMK in some AWS KMS operations, including [cryptographic operations](#cryptographic-operations)\. In applications, you can use a single alias to refer to different CMKs in each AWS Region\.
+
+In AWS KMS, aliases are independent resources, not properties of a CMK\. As such, you can add, change, and delete an alias without affecting the associated CMK\.
+
+**Learn more:**
++ For detailed information about aliases, see [Using aliases](kms-alias.md)\. 
++ For information about the formats of key identifiers, including aliases, see [Key identifiers \(KeyId\)](#key-id)\.
++ For help finding the aliases associated with a CMK, see [Finding the alias name and alias ARN](find-cmk-alias.md)
++ For examples of creating and managing aliases in multiple programming languages, see [Working with aliases](programming-aliases.md)\.
+
 ## Cryptographic operations<a name="cryptographic-operations"></a>
 
 In AWS KMS, *cryptographic operations* are API operations that use CMKs to protect data\. Because CMKs remain within AWS KMS, you must call AWS KMS to use a CMK in a cryptographic operation\. 
@@ -261,8 +276,8 @@ $ aws kms list-aliases --key-id 1234abcd-12ab-34cd-56ef-1234567890ab
 {
     "Aliases": [
         {
-            "AliasName": "alias/master-key-test",
-            "AliasArn": "arn:aws:kms:us-west-2:111122223333:alias/master-key-test",
+            "AliasName": "alias/test-key",
+            "AliasArn": "arn:aws:kms:us-west-2:111122223333:alias/test-key",
             "TargetKeyId": "1234abcd-12ab-34cd-56ef-1234567890ab"
         },
         {
@@ -312,8 +327,8 @@ $ aws kms list-aliases --key-id 1234abcd-12ab-34cd-56ef-1234567890ab
 {
     "Aliases": [
         {
-            "AliasName": "alias/master-key-test",
-            "AliasArn": "arn:aws:kms:us-west-2:111122223333:alias/master-key-test",
+            "AliasName": "alias/test-key",
+            "AliasArn": "arn:aws:kms:us-west-2:111122223333:alias/test-key",
             "TargetKeyId": "1234abcd-12ab-34cd-56ef-1234567890ab"
         },
         {
@@ -590,4 +605,4 @@ You can use AWS CloudTrail to audit key usage\. CloudTrail creates log files tha
 
 ## Key management infrastructure<a name="key_management"></a>
 
-A common practice in cryptography is to encrypt and decrypt with a publicly available and peer\-reviewed algorithm such as AES \(Advanced Encryption Standard\) and a secret key\. One of the main problems with cryptography is that it's very hard to keep a key secret\. This is typically the job of a key management infrastructure \(KMI\)\. AWS KMS operates the KMI for you\. AWS KMS creates and securely stores your master keys, called CMKs\. For more information about how AWS KMS operates, see the [AWS Key Management Service Cryptographic Details](https://d0.awsstatic.com/whitepapers/KMS-Cryptographic-Details.pdf) whitepaper\.
+A common practice in cryptography is to encrypt and decrypt with a publicly available and peer\-reviewed algorithm such as AES \(Advanced Encryption Standard\) and a secret key\. One of the main problems with cryptography is that it's very hard to keep a key secret\. This is typically the job of a key management infrastructure \(KMI\)\. AWS KMS operates the KMI for you\. AWS KMS creates and securely stores your master keys, called [customer master keys](#master_keys)\. For more information about how AWS KMS operates, see the [AWS Key Management Service Cryptographic Details](https://d0.awsstatic.com/whitepapers/KMS-Cryptographic-Details.pdf) whitepaper\.

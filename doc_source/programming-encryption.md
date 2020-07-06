@@ -57,7 +57,7 @@ MemoryStream ciphertext = kmsClient.Encrypt(encryptRequest).CiphertextBlob;
 ------
 #### [ Python ]
 
-For details, see the [encrypt method](http://boto3.amazonaws.com/v1/documentation/api/latest/reference/services/kms.html#KMS.Client.encrypt) in the AWS SDK for Python \(Boto 3\)\.
+For details, see the [encrypt method](http://boto3.amazonaws.com/v1/documentation/api/latest/reference/services/kms.html#KMS.Client.encrypt) in the AWS SDK for Python \(Boto3\)\.
 
 ```
 # Encrypt a data key
@@ -213,7 +213,7 @@ MemoryStream plainText = kmsClient.Decrypt(decryptRequest).Plaintext;
 ------
 #### [ Python ]
 
-For details, see the [decrypt method](http://boto3.amazonaws.com/v1/documentation/api/latest/reference/services/kms.html#KMS.Client.decrypt) in the AWS SDK for Python \(Boto 3\)\.
+For details, see the [decrypt method](http://boto3.amazonaws.com/v1/documentation/api/latest/reference/services/kms.html#KMS.Client.decrypt) in the AWS SDK for Python \(Boto3\)\.
 
 ```
 # Decrypt a data key
@@ -352,7 +352,7 @@ MemoryStream destinationCipherTextBlob = kmsClient.ReEncrypt(reEncryptRequest).C
 ------
 #### [ Python ]
 
-For details, see the [re\_encrypt method](http://boto3.amazonaws.com/v1/documentation/api/latest/reference/services/kms.html#KMS.Client.re_encrypt) in the AWS SDK for Python \(Boto 3\)\.
+For details, see the [re\_encrypt method](http://boto3.amazonaws.com/v1/documentation/api/latest/reference/services/kms.html#KMS.Client.re_encrypt) in the AWS SDK for Python \(Boto3\)\.
 
 ```
 # Re-encrypt a data key

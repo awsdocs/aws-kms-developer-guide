@@ -63,7 +63,7 @@ CreateGrantResponse createGrantResult = kmsClient.CreateGrant(createGrantRequest
 ------
 #### [ Python ]
 
-For details, see the [create\_grant method](http://boto3.amazonaws.com/v1/documentation/api/latest/reference/services/kms.html#KMS.Client.create_grant) in the AWS SDK for Python \(Boto 3\)\.
+For details, see the [create\_grant method](http://boto3.amazonaws.com/v1/documentation/api/latest/reference/services/kms.html#KMS.Client.create_grant) in the AWS SDK for Python \(Boto3\)\.
 
 ```
 # Create a grant
@@ -203,7 +203,7 @@ ListGrantsResponse listGrantsResponse = kmsClient.ListGrants(listGrantsRequest);
 ------
 #### [ Python ]
 
-For details, see the [list\_grants method](http://boto3.amazonaws.com/v1/documentation/api/latest/reference/services/kms.html#KMS.Client.list_grants) in the AWS SDK for Python \(Boto 3\)\.
+For details, see the [list\_grants method](http://boto3.amazonaws.com/v1/documentation/api/latest/reference/services/kms.html#KMS.Client.list_grants) in the AWS SDK for Python \(Boto3\)\.
 
 ```
 # Listing grants on a CMK
@@ -331,7 +331,7 @@ kmsClient.RetireGrant(retireGrantRequest);
 ------
 #### [ Python ]
 
-For details, see the [retire\_grant method](http://boto3.amazonaws.com/v1/documentation/api/latest/reference/services/kms.html#KMS.Client.retire_grant) in the AWS SDK for Python \(Boto 3\)\.
+For details, see the [retire\_grant method](http://boto3.amazonaws.com/v1/documentation/api/latest/reference/services/kms.html#KMS.Client.retire_grant) in the AWS SDK for Python \(Boto3\)\.
 
 ```
 # Retire a grant
@@ -450,7 +450,7 @@ kmsClient.RevokeGrant(revokeGrantRequest);
 ------
 #### [ Python ]
 
-For details, see the [revoke\_grant method](http://boto3.amazonaws.com/v1/documentation/api/latest/reference/services/kms.html#KMS.Client.revoke_grant) in the AWS SDK for Python \(Boto 3\)\.
+For details, see the [revoke\_grant method](http://boto3.amazonaws.com/v1/documentation/api/latest/reference/services/kms.html#KMS.Client.revoke_grant) in the AWS SDK for Python \(Boto3\)\.
 
 ```
 # Revoke a grant on a CMK

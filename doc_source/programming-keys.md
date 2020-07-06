@@ -5,7 +5,7 @@ The examples in this topic use the AWS KMS API to create, view, enable, and disa
 **Topics**
 + [Creating a customer master key](#creating-keys)
 + [Generating a data key](#generate-datakeys)
-+ [Viewing a custom master key](#describing-keys)
++ [Viewing a customer master key](#describing-keys)
 + [Getting key IDs and key ARNs of CMKs](#listing-keys)
 + [Enabling customer master keys](#enable-keys)
 + [Disabling customer master keys](#disable-keys)
@@ -52,7 +52,7 @@ CreateKeyResponse response = kmsClient.CreateKey(req);
 ------
 #### [ Python ]
 
-For details, see the [create\_key method](http://boto3.amazonaws.com/v1/documentation/api/latest/reference/services/kms.html#KMS.Client.create_key) in the AWS SDK for Python \(Boto 3\)\.
+For details, see the [create\_key method](http://boto3.amazonaws.com/v1/documentation/api/latest/reference/services/kms.html#KMS.Client.create_key) in the AWS SDK for Python \(Boto3\)\.
 
 ```
 # Create a CMK
@@ -177,7 +177,7 @@ MemoryStream encryptedKey = dataKeyResponse.CiphertextBlob;
 ------
 #### [ Python ]
 
-For details, see the [generate\_date\_key method](http://boto3.amazonaws.com/v1/documentation/api/latest/reference/services/kms.html#KMS.Client.generate_data_key) in the AWS SDK for Python \(Boto 3\)\.
+For details, see the [generate\_date\_key method](http://boto3.amazonaws.com/v1/documentation/api/latest/reference/services/kms.html#KMS.Client.generate_data_key) in the AWS SDK for Python \(Boto3\)\.
 
 ```
 # Generate a data key
@@ -279,7 +279,7 @@ $encryptedKey = $response.CiphertextBlob
 
 ------
 
-## Viewing a custom master key<a name="describing-keys"></a>
+## Viewing a customer master key<a name="describing-keys"></a>
 
 To get detailed information about a customer master key \(CMK\), including the CMK ARN and [key state](key-state.md), use the [DescribeKey](https://docs.aws.amazon.com/kms/latest/APIReference/API_DescribeKey.html) operation\. 
 
@@ -326,7 +326,7 @@ DescribeKeyResponse describeKeyResponse = kmsClient.DescribeKey(describeKeyReque
 ------
 #### [ Python ]
 
-For details, see the [describe\_key method](http://boto3.amazonaws.com/v1/documentation/api/latest/reference/services/kms.html#KMS.Client.describe_key) in the AWS SDK for Python \(Boto 3\)\.
+For details, see the [describe\_key method](http://boto3.amazonaws.com/v1/documentation/api/latest/reference/services/kms.html#KMS.Client.describe_key) in the AWS SDK for Python \(Boto3\)\.
 
 ```
 # Describe a CMK
@@ -443,7 +443,7 @@ ListKeysResponse listKeysResponse = kmsClient.ListKeys(listKeysRequest);
 ------
 #### [ Python ]
 
-For details, see the [list\_keys method](http://boto3.amazonaws.com/v1/documentation/api/latest/reference/services/kms.html#KMS.Client.list_keys) in the AWS SDK for Python \(Boto 3\)\.
+For details, see the [list\_keys method](http://boto3.amazonaws.com/v1/documentation/api/latest/reference/services/kms.html#KMS.Client.list_keys) in the AWS SDK for Python \(Boto3\)\.
 
 ```
 # List CMKs in this account
@@ -555,7 +555,7 @@ kmsClient.EnableKey(enableKeyRequest);
 ------
 #### [ Python ]
 
-For details, see the [enable\_key method](http://boto3.amazonaws.com/v1/documentation/api/latest/reference/services/kms.html#KMS.Client.enable_key) in the AWS SDK for Python \(Boto 3\)\.
+For details, see the [enable\_key method](http://boto3.amazonaws.com/v1/documentation/api/latest/reference/services/kms.html#KMS.Client.enable_key) in the AWS SDK for Python \(Boto3\)\.
 
 ```
 # Enable a CMK
@@ -674,7 +674,7 @@ kmsClient.DisableKey(disableKeyRequest);
 ------
 #### [ Python ]
 
-For details, see the [disable\_key method](http://boto3.amazonaws.com/v1/documentation/api/latest/reference/services/kms.html#KMS.Client.disable_key) in the AWS SDK for Python \(Boto 3\)\.
+For details, see the [disable\_key method](http://boto3.amazonaws.com/v1/documentation/api/latest/reference/services/kms.html#KMS.Client.disable_key) in the AWS SDK for Python \(Boto3\)\.
 
 ```
 # Disable a CMK

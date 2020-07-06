@@ -28,6 +28,7 @@ Amazon's trademarks and trade dress may not be used in
    + [Tagging keys](tagging-keys.md)
    + [Enabling and disabling keys](enabling-keys.md)
    + [Downloading public keys](download-public-key.md)
+   + [Using aliases](kms-alias.md)
 + [Authentication and access control for AWS KMS](control-access.md)
    + [Overview of managing access to your AWS KMS resources](control-access-overview.md)
    + [Using key policies in AWS KMS](key-policies.md)

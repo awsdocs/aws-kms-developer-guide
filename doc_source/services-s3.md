@@ -1,6 +1,6 @@
 # How Amazon Simple Storage Service \(Amazon S3\) uses AWS KMS<a name="services-s3"></a>
 
-This topic discusses how to protect data at rest within Amazon S3 data centers by using AWS KMS\. There are two ways to use AWS KMS with Amazon S3\. You can use server\-side encryption to protect your data with a master key or you can use an AWS KMS customer master key \(CMK\) with the Amazon S3 Encryption Client to protect your data on the client side\. 
+This topic discusses how to protect data at rest within Amazon S3 data centers by using AWS KMS\. You can use *client\-side encryption* where you encrypt your data under an AWS KMS customer master key \(CMK\) before you send it to Amazon S3\. Or, you can use *server\-side encryption* where Amazon S3 encrypts your data at rest under an AWS KMS CMK\. 
 
 **Topics**
 + [Server\-Side Encryption: Using SSE\-KMS](#sse)
@@ -10,7 +10,7 @@ This topic discusses how to protect data at rest within Amazon S3 data centers b
 ## Server\-Side Encryption: Using SSE\-KMS<a name="sse"></a>
 
 You can protect data at rest in Amazon S3 by using three different modes of server\-side encryption: SSE\-S3, SSE\-C, or SSE\-KMS\. 
-+ SSE\-S3 requires that Amazon S3 manage the data and master encryption keys\. For more information about SSE\-S3, see [Protecting Data Using Server\-Side Encryption with Amazon S3\-Managed Encryption Keys \(SSE\-S3\)](https://docs.aws.amazon.com/AmazonS3/latest/dev/UsingServerSideEncryption.html)\.
++ SSE\-S3 requires that Amazon S3 manage the data and the encryption keys\. For more information about SSE\-S3, see [Protecting Data Using Server\-Side Encryption with Amazon S3\-Managed Encryption Keys \(SSE\-S3\)](https://docs.aws.amazon.com/AmazonS3/latest/dev/UsingServerSideEncryption.html)\.
 + SSE\-C requires that you manage the encryption key\. For more information about SSE\-C, see [Protecting Data Using Server\-Side Encryption with Customer\-Provided Encryption Keys \(SSE\-C\)\. ](https://docs.aws.amazon.com/AmazonS3/latest/dev/ServerSideEncryptionCustomerKeys.html) 
 + SSE\-KMS requires that AWS manage the data key but you manage the [customer master key](concepts.md#master_keys) \(CMK\) in AWS KMS\. 
 
@@ -22,14 +22,14 @@ You can request encryption and select a CMK by using the Amazon S3 console or AP
 Amazon S3 supports only [symmetric CMKs](symm-asymm-concepts.md#symmetric-cmks)\. You cannot use an [asymmetric CMK](symm-asymm-concepts.md#asymmetric-cmks) to encrypt your data in Amazon S3\. For help determining whether a CMK is symmetric or asymmetric, see [Identifying symmetric and asymmetric CMKs](find-symm-asymm.md)\.
 
 You can choose a [customer managed CMK](concepts.md#customer-cmk) or the [AWS managed CMK](concepts.md#aws-managed-cmk) for Amazon S3 in your account\. If you choose to encrypt your data, AWS KMS and Amazon S3 perform the following actions:
-+ Amazon S3 requests a plaintext data key and a copy of the key encrypted under the specified CMK\.
-+ AWS KMS creates a data key, encrypts it by using the master key, and sends both the plaintext data key and the encrypted data key to Amazon S3\.
++ Amazon S3 requests a plaintext [data key](concepts.md#data-keys) and a copy of the key encrypted under the specified CMK\.
++ AWS KMS generates a data key, encrypts it under the CMK, and sends both the plaintext data key and the encrypted data key to Amazon S3\.
 + Amazon S3 encrypts the data using the data key and removes the plaintext key from memory as soon as possible after use\. 
 + Amazon S3 stores the encrypted data key as metadata with the encrypted data\. 
 
 Amazon S3 and AWS KMS perform the following actions when you request that your data be decrypted\. 
 + Amazon S3 sends the encrypted data key to AWS KMS\.
-+ AWS KMS decrypts the key by using the appropriate master key and sends the plaintext key back to Amazon S3\.
++ AWS KMS decrypts the key by using the same CMK and returns the plaintext data key to Amazon S3\.
 + Amazon S3 decrypts the ciphertext and removes the plaintext data key from memory as soon as possible\. 
 
 ## Using the Amazon S3 encryption client<a name="sse-client"></a>

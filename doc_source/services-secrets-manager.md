@@ -4,7 +4,7 @@
 
 Secrets Manager also supports features that periodically rotate the secrets associated with commonly used databases\. It always encrypts newly rotated secrets before they are stored\.
 
-Secrets Manager integrates with AWS Key Management Service \(AWS KMS\) to encrypt every version of every secret with a unique [data encryption key](concepts.md#data-keys) that is protected by an AWS KMS [customer master key](concepts.md#master_keys) \(CMK\)\. This integration protects your secrets under encryption keys that never leave AWS KMS unencrypted\. It also enables you to set custom permissions on the master key and audit the operations that generate, encrypt, and decrypt the data keys that protect your secrets\.
+Secrets Manager integrates with AWS Key Management Service \(AWS KMS\) to encrypt every version of every secret with a unique [data key](concepts.md#data-keys) that is protected by an AWS KMS [customer master key](concepts.md#master_keys) \(CMK\)\. This integration protects your secrets under encryption keys that never leave AWS KMS unencrypted\. It also enables you to set custom permissions on the CMK and audit the operations that generate, encrypt, and decrypt the data keys that protect your secrets\.
 
 **Topics**
 + [Protecting the secret value](#asm-secret)

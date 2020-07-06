@@ -15,15 +15,15 @@ Before you can use Elastic Transcoder, you must [create an Amazon S3 bucket](htt
 
 If you choose client\-side encryption using AES, you are responsible for encrypting the file before uploading it to Amazon S3, and you must provide Elastic Transcoder access to the encryption key\. You do this by using a [symmetric](symm-asymm-concepts.md#symmetric-cmks) AWS KMS [customer master key](concepts.md#master_keys) \(CMK\) to protect the AES encryption key you used to encrypt the media file\.
 
-If you choose server\-side encryption, you are allowing Amazon S3 to perform all encryption and decryption of files on your behalf\. You can configure Amazon S3 to use one of three different master keys to protect the unique data key used to encrypt your file:
-+ The Amazon S3 master key, a key that is owned and managed by AWS
-+ The [AWS managed CMK](concepts.md#aws-managed-cmk) for Amazon S3, a master key that is owned by your account, but managed by AWS
+If you choose server\-side encryption, you allow Amazon S3 to encrypt and decrypt all files on your behalf\. You can configure Amazon S3 to use one of three different master keys to protect the unique data key used to encrypt your file:
++ An Amazon S3 key, an encryption key that Amazon S3 owns and manages\. It is not part of your AWS account\.
++ The [AWS managed CMK](concepts.md#aws-managed-cmk) for Amazon S3, a CMK that is part of your account, but is created and managed by AWS
 + Any [symmetric](symm-asymm-concepts.md#symmetric-cmks) [customer managed CMK](concepts.md#customer-cmk) that you create by using AWS KMS
 
 **Important**  
 For both client\-side and server\-side encryption, Elastic Transcoder supports only [symmetric CMKs](symm-asymm-concepts.md#symmetric-cmks)\. You cannot use an [asymmetric CMK](symm-asymm-concepts.md#asymmetric-cmks) to encrypt your Elastic Transcoder files\. For help determining whether a CMK is symmetric or asymmetric, see [Identifying symmetric and asymmetric CMKs](find-symm-asymm.md)\.
 
-You can request encryption and the master key you want by using the Amazon S3 console or the appropriate Amazon S3 APIs\. For more information about how Amazon S3 performs encryption, see [Protecting Data Using Encryption](https://docs.aws.amazon.com/AmazonS3/latest/dev/UsingEncryption.html) in the *Amazon Simple Storage Service Developer Guide*\.
+You can enable encryption and specify a key by using the Amazon S3 console or the appropriate Amazon S3 APIs\. For more information about how Amazon S3 performs encryption, see [Protecting data using server\-side encryption](https://docs.aws.amazon.com/AmazonS3/latest/dev/serv-side-encryption.html) in the *Amazon Simple Storage Service Developer Guide*\.
 
 When you protect your input file by using the AWS managed CMK for Amazon S3 in your account or a customer managed CMK, Amazon S3 and AWS KMS interact in the following manner:
 

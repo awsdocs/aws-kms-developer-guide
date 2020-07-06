@@ -11,3 +11,4 @@ You can perform these AWS Key Management Service \(AWS KMS\) tasks in the [AWS M
 + [Tagging keys](tagging-keys.md)
 + [Enabling and disabling keys](enabling-keys.md)
 + [Downloading public keys](download-public-key.md)
++ [Using aliases](kms-alias.md)

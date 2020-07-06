@@ -56,7 +56,7 @@ To give Amazon SES permission to use your customer managed CMK, add the followin
 
 ```
 {
-  "Sid": "Allow SES to encrypt messages using this master key",
+  "Sid": "Allow SES to encrypt messages using this CMK",
   "Effect": "Allow",
   "Principal": {"Service": "ses.amazonaws.com"},
   "Action": [
@@ -91,5 +91,5 @@ Amazon SES does not have permission to decrypt your encrypted email messages and
 The Amazon S3 encryption client simplifies the work of constructing the necessary requests to Amazon S3 to retrieve the encrypted email message and to AWS KMS to decrypt the message's encrypted data key, and of decrypting the email message\. For example, to successfully decrypt the encrypted data key you must pass the same encryption context that Amazon SES passed when requesting the data key from AWS KMS \([Step 3](#SES-requests-data-key) in the [Overview of Amazon SES encryption using AWS KMS](#services-ses-overview)\)\. The Amazon S3 encryption client handles this, and much of the other work, for you\.
 
 For sample code that uses the Amazon S3 encryption client in the AWS SDK for Java to do client\-side decryption, see the following:
-+ [Example: Client\-Side Encryption \(Option 1: Using an AWS KMS–Managed Customer Master Key \(AWS SDK for Java\)\)](https://docs.aws.amazon.com/AmazonS3/latest/dev/client-side-using-kms-java.html) in the *Amazon Simple Storage Service Developer Guide*\.
++ [Using a CMK stored in AWS KMS](https://docs.aws.amazon.com/AmazonS3/latest/dev/UsingClientSideEncryption.html#client-side-encryption-kms-managed-master-key-intro) in the *Amazon Simple Storage Service Developer Guide*\.
 + [Amazon S3 Encryption with AWS Key Management Service](https://aws.amazon.com/blogs/developer/amazon-s3-encryption-with-aws-key-management-service/) on the AWS Developer Blog\.

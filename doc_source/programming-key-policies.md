@@ -49,7 +49,7 @@ ListKeyPoliciesResponse listKeyPoliciesResponse = kmsClient.ListKeyPolicies(list
 ------
 #### [ Python ]
 
-For details, see the [list\_key\_policies method](http://boto3.amazonaws.com/v1/documentation/api/latest/reference/services/kms.html#KMS.Client.list_key_policies) in the AWS SDK for Python \(Boto 3\)\.
+For details, see the [list\_key\_policies method](http://boto3.amazonaws.com/v1/documentation/api/latest/reference/services/kms.html#KMS.Client.list_key_policies) in the AWS SDK for Python \(Boto3\)\.
 
 ```
 # List key policies
@@ -172,7 +172,7 @@ GetKeyPolicyResponse getKeyPolicyResponse = kmsClient.GetKeyPolicy(getKeyPolicyR
 ------
 #### [ Python ]
 
-For details, see the [get\_key\_policy method](http://boto3.amazonaws.com/v1/documentation/api/latest/reference/services/kms.html#KMS.Client.get_key_policy) in the AWS SDK for Python \(Boto 3\)\.
+For details, see the [get\_key\_policy method](http://boto3.amazonaws.com/v1/documentation/api/latest/reference/services/kms.html#KMS.Client.get_key_policy) in the AWS SDK for Python \(Boto3\)\.
 
 ```
 # Get the policy for a CMK
@@ -338,7 +338,7 @@ kmsClient.PutKeyPolicy(putKeyPolicyRequest);
 ------
 #### [ Python ]
 
-For details, see the [put\_key\_policy method](http://boto3.amazonaws.com/v1/documentation/api/latest/reference/services/kms.html#KMS.Client.put_key_policy) in the AWS SDK for Python \(Boto 3\)\.
+For details, see the [put\_key\_policy method](http://boto3.amazonaws.com/v1/documentation/api/latest/reference/services/kms.html#KMS.Client.put_key_policy) in the AWS SDK for Python \(Boto3\)\.
 
 ```
 # Set a key policy for a CMK
