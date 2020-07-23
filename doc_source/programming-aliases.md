@@ -139,6 +139,8 @@ $targetKeyId = 'arn:aws:kms:us-west-2:111122223333:key/1234abcd-12ab-34cd-56ef-1
 New-KMSAlias -TargetKeyId $targetKeyId -AliasName $aliasName
 ```
 
+To use the AWS KMS PowerShell cmdlets, install the [AWS\.Tools\.KeyManagementService](https://www.powershellgallery.com/packages/AWS.Tools.KeyManagementService/) module\. For more information, see the [AWS Tools for Windows PowerShell User Guide](https://docs.aws.amazon.com/powershell/latest/userguide/)\.
+
 ------
 
 ## Listing aliases<a name="list-aliases"></a>
@@ -248,6 +250,8 @@ $limit = 10
 
 $result = Get-KMSAliasList | Select-Object -First $limit
 ```
+
+To use the AWS KMS PowerShell cmdlets, install the [AWS\.Tools\.KeyManagementService](https://www.powershellgallery.com/packages/AWS.Tools.KeyManagementService/) module\. For more information, see the [AWS Tools for Windows PowerShell User Guide](https://docs.aws.amazon.com/powershell/latest/userguide/)\.
 
 ------
 
@@ -362,6 +366,8 @@ $keyId = 'arn:aws:kms:us-west-2:111122223333:key/1234abcd-12ab-34cd-56ef-1234567
 
 $response = Get-KmsAliasList -KeyId $keyId
 ```
+
+To use the AWS KMS PowerShell cmdlets, install the [AWS\.Tools\.KeyManagementService](https://www.powershellgallery.com/packages/AWS.Tools.KeyManagementService/) module\. For more information, see the [AWS Tools for Windows PowerShell User Guide](https://docs.aws.amazon.com/powershell/latest/userguide/)\.
 
 ------
 
@@ -500,6 +506,8 @@ $keyId = 'arn:aws:kms:us-west-2:111122223333:key/0987dcba-09fe-87dc-65ba-ab09876
 Update-KMSAlias -AliasName $aliasName -TargetKeyID $keyId
 ```
 
+To use the AWS KMS PowerShell cmdlets, install the [AWS\.Tools\.KeyManagementService](https://www.powershellgallery.com/packages/AWS.Tools.KeyManagementService/) module\. For more information, see the [AWS Tools for Windows PowerShell User Guide](https://docs.aws.amazon.com/powershell/latest/userguide/)\.
+
 ------
 
 ## Deleting an alias<a name="delete-alias"></a>
@@ -613,5 +621,7 @@ The `Remove-KMSAlias` cmdlet doesn't return any output\. To verify that the comm
 $aliasName = 'alias/projectKey1'
 Remove-KMSAlias -AliasName $aliasName
 ```
+
+To use the AWS KMS PowerShell cmdlets, install the [AWS\.Tools\.KeyManagementService](https://www.powershellgallery.com/packages/AWS.Tools.KeyManagementService/) module\. For more information, see the [AWS Tools for Windows PowerShell User Guide](https://docs.aws.amazon.com/powershell/latest/userguide/)\.
 
 ------

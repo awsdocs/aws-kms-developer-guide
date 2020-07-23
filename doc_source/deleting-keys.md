@@ -23,7 +23,7 @@ If you [close or delete your AWS account](https://docs.aws.amazon.com/awsaccount
 
 ## How deleting customer master keys works<a name="deleting-keys-how-it-works"></a>
 
-Users who are authorized delete symmetric and asymmetric customer master keys \(CMKs\)\. The procedure is the same for both types of CMKs\.
+Users who are authorized to delete symmetric and asymmetric customer master keys \(CMKs\)\. The procedure is the same for both types of CMKs\.
 
 Because it is destructive and potentially dangerous to delete a CMK, AWS KMS enforces a waiting period\. To delete a CMK in AWS KMS you *schedule key deletion*\. You can set the waiting period from a minimum of 7 days up to a maximum of 30 days\. The default waiting period is 30 days\. 
 

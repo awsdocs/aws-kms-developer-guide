@@ -15,7 +15,7 @@ AWS KMS does not rotate the backing keys of customer managed CMKs while they are
 
 ## Enabling and disabling CMKs \(console\)<a name="enabling-keys-console"></a>
 
-You can enable and disable customer managed CMKs from the IAM section of the AWS Management Console\.
+You can use the AWS KMS console to enable and disable [customer managed CMKs](concepts.md#customer-cmk)\.
 
 1. Sign in to the AWS Management Console and open the AWS Key Management Service \(AWS KMS\) console at [https://console\.aws\.amazon\.com/kms](https://console.aws.amazon.com/kms)\.
 

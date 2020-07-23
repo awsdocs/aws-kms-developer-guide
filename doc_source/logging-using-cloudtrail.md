@@ -4,7 +4,7 @@ AWS KMS is integrated with AWS CloudTrail, a service that provides a record of a
 
 Although, by default, all AWS KMS actions are logged as CloudTrail events, you can exclude AWS KMS actions from a CloudTrail trail\. For details, see [Excluding AWS KMS events from a trail](#filtering-kms-events)\.
 
-To learn more about CloudTrail, see the [AWS CloudTrail User Guide](https://docs.aws.amazon.com/awscloudtrail/latest/userguide/)\. To learn about other ways to monitor the use of your , see [Monitoring customer master keys](monitoring-overview.md)\.
+To learn more about CloudTrail, see the [AWS CloudTrail User Guide](https://docs.aws.amazon.com/awscloudtrail/latest/userguide/)\. To learn about other ways to monitor the use of your CMKs, see [Monitoring customer master keys](monitoring-overview.md)\.
 
 ## AWS KMS information in CloudTrail<a name="kms-info-in-cloudtrail"></a>
 
@@ -16,7 +16,7 @@ For an ongoing record of events in your AWS account, including events for AWS KM
 + [Configuring Amazon SNS Notifications for CloudTrail](https://docs.aws.amazon.com/awscloudtrail/latest/userguide/getting_notifications_top_level.html)
 + [Receiving CloudTrail Log Files from Multiple Regions](https://docs.aws.amazon.com/awscloudtrail/latest/userguide/receive-cloudtrail-log-files-from-multiple-regions.html) and [Receiving CloudTrail Log Files from Multiple Accounts](https://docs.aws.amazon.com/awscloudtrail/latest/userguide/cloudtrail-receive-logs-from-multiple-accounts.html)
 
-CloudTrail logs all AWS KMS operations, including read\-only operations, such as `ListAliases` and `GetKeyPolicy`, operations that manage , such as `CreateKey` and `PutKeyPolicy`, and [cryptographic operations](concepts.md#cryptographic-operations), such as `GenerateDataKey`, `Encrypt`, and `Decrypt`\. Every operation generates an entry in the CloudTrail log files\.
+CloudTrail logs all AWS KMS operations, including read\-only operations, such as `ListAliases` and `GetKeyPolicy`, operations that manage CMKs, such as `CreateKey` and `PutKeyPolicy`, and [cryptographic operations](concepts.md#cryptographic-operations), such as `GenerateDataKey`, `Encrypt`, and `Decrypt`\. Every operation generates an entry in the CloudTrail log files\.
 
 Every event or log entry contains information about who generated the request\. The identity information helps you determine the following: 
 + Whether the request was made with root or IAM user credentials\.
@@ -27,12 +27,12 @@ For more information, see the [CloudTrail userIdentity Element](https://docs.aws
 
 ## Excluding AWS KMS events from a trail<a name="filtering-kms-events"></a>
 
-Most AWS KMS users rely on the events in a CloudTrail trail to provide a record of the use and management of their AWS KMS resources\. The trail can be an valuable source of data for auditing critical events, such as creating, disabling, and deleting \(\), changing key policy, and the use of your by AWS services on your behalf\. In some cases, the metadata in a CloudTrail log entry, such as the [encryption context](concepts.md#encrypt_context) in an encryption operation, can help you to avoid or resolve errors\.
+Most AWS KMS users rely on the events in a CloudTrail trail to provide a record of the use and management of their AWS KMS resources\. The trail can be an valuable source of data for auditing critical events, such as creating, disabling, and deleting customer master keys \(CMKs\), changing key policy, and the use of your CMKs by AWS services on your behalf\. In some cases, the metadata in a CloudTrail log entry, such as the [encryption context](concepts.md#encrypt_context) in an encryption operation, can help you to avoid or resolve errors\.
 
 However, because AWS KMS can generate a large number of events, AWS CloudTrail lets you exclude AWS KMS events from a trail\. This per\-trail setting excludes all AWS KMS events; you cannot exclude particular AWS KMS events\.
 
 **Warning**  
-Excluding AWS KMS events from a CloudTrail Log can obscure actions that use your \. Be cautious when giving principals the `cloudtrail:PutEventSelectors` permission that is required to perform this operation\.
+Excluding AWS KMS events from a CloudTrail Log can obscure actions that use your CMKs\. Be cautious when giving principals the `cloudtrail:PutEventSelectors` permission that is required to perform this operation\.
 
 To exclude AWS KMS events from a trail: 
 + In the CloudTrail console, use the **Log Key Management Service events** setting when you [create a trail](https://docs.aws.amazon.com/awscloudtrail/latest/userguide/cloudtrail-create-a-trail-using-the-console-first-time.html) or [update a trail](https://docs.aws.amazon.com/awscloudtrail/latest/userguide/cloudtrail-update-a-trail-console.html)\. For instructions, see [Logging Management Events with the AWS Management Console](https://docs.aws.amazon.com/awscloudtrail/latest/userguide/logging-management-and-data-events-with-cloudtrail.html) in the AWS CloudTrail User Guide\.

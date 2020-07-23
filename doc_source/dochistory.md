@@ -14,8 +14,9 @@ The following table describes significant changes to this documentation since Ja
 
 | Change | Description | Date | 
 | --- |--- |--- |
+| [New feature](https://docs.aws.amazon.com/kms/latest/developerguide/kms-vpc-endpoint.html#vpce-policy) | Added support for VPC endpoint policies\. | July 9, 2020 | 
 | [New content](https://docs.aws.amazon.com/kms/latest/developerguide/kms-security.html) | Explains the security properties of AWS KMS\. | June 18, 2020 | 
-| [New feature](https://docs.aws.amazon.com/kms/latest/developerguide/symmetric-asymmetric.html.html) | Added support for asymmetric customer master keys and asymmetric data keys\. | November 25, 2019 | 
+| [New feature](https://docs.aws.amazon.com/kms/latest/developerguide/symmetric-asymmetric.html) | Added support for asymmetric customer master keys and asymmetric data keys\. | November 25, 2019 | 
 | [Updated feature](https://docs.aws.amazon.com/kms/latest/developerguide/key-policy-viewing.html) | You can view the key policy of AWS managed CMKs in the AWS KMS console\. This feature used to be limited to customer managed CMKs\. | November 15, 2019 | 
 | [New feature](https://docs.aws.amazon.com/kms/latest/developerguide/pqtls.html) | Explains how to use [hybrid post\-quantum key exchange](https://docs.aws.amazon.com/kms/latest/developerguide/pqtls.html) algorithms in TLS for your calls to AWS KMS\. | November 4, 2019 | 
 | [Quota change](https://docs.aws.amazon.com/kms/latest/developerguide/limits.html) | Increased the resource quotas for some APIs that manage CMKs\. | September 18, 2019 | 

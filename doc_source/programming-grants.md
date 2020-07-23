@@ -153,6 +153,8 @@ $operation = 'GenerateDataKey'
 $response = New-KMSGrant -GranteePrincipal $granteePrincipal -KeyId $keyId -Operation $operation
 ```
 
+To use the AWS KMS PowerShell cmdlets, install the [AWS\.Tools\.KeyManagementService](https://www.powershellgallery.com/packages/AWS.Tools.KeyManagementService/) module\. For more information, see the [AWS Tools for Windows PowerShell User Guide](https://docs.aws.amazon.com/powershell/latest/userguide/)\.
+
 ------
 
 ## Viewing a grant<a name="list-grants"></a>
@@ -285,6 +287,8 @@ $limit = 10
 $response = Get-KMSGrantList -KeyId $keyId | Select-Object -First $limit
 ```
 
+To use the AWS KMS PowerShell cmdlets, install the [AWS\.Tools\.KeyManagementService](https://www.powershellgallery.com/packages/AWS.Tools.KeyManagementService/) module\. For more information, see the [AWS Tools for Windows PowerShell User Guide](https://docs.aws.amazon.com/powershell/latest/userguide/)\.
+
 ------
 
 ## Retiring a grant<a name="retire-grant"></a>
@@ -399,6 +403,8 @@ $grantToken = Read-Host -Message Place your grant token here
 Disable-KMSGrant -GrantToken $grantToken
 ```
 
+To use the AWS KMS PowerShell cmdlets, install the [AWS\.Tools\.KeyManagementService](https://www.powershellgallery.com/packages/AWS.Tools.KeyManagementService/) module\. For more information, see the [AWS Tools for Windows PowerShell User Guide](https://docs.aws.amazon.com/powershell/latest/userguide/)\.
+
 ------
 
 ## Revoking a grant<a name="revoke-grant"></a>
@@ -446,6 +452,8 @@ RevokeGrantRequest revokeGrantRequest = new RevokeGrantRequest()
 };
 kmsClient.RevokeGrant(revokeGrantRequest);
 ```
+
+To use the AWS KMS PowerShell cmdlets, install the [AWS\.Tools\.KeyManagementService](https://www.powershellgallery.com/packages/AWS.Tools.KeyManagementService/) module\. For more information, see the [AWS Tools for Windows PowerShell User Guide](https://docs.aws.amazon.com/powershell/latest/userguide/)\.
 
 ------
 #### [ Python ]
@@ -541,5 +549,7 @@ $grantId = 'grant1'
 
 Revoke-KMSGrant -KeyId $keyId -GrantId $grantId
 ```
+
+To use the AWS KMS PowerShell cmdlets, install the [AWS\.Tools\.KeyManagementService](https://www.powershellgallery.com/packages/AWS.Tools.KeyManagementService/) module\. For more information, see the [AWS Tools for Windows PowerShell User Guide](https://docs.aws.amazon.com/powershell/latest/userguide/)\.
 
 ------

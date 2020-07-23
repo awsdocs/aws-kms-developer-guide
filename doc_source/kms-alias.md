@@ -92,11 +92,11 @@ When you create a CMK in the AWS KMS console, you must give it a new alias\. But
 
 **AWS creates aliases in your account**  
 AWS creates aliases in your account for [AWS managed CMKs](concepts.md#aws-managed-cmk)\. These aliases have names of the form `alias/aws/<service-name>`, such as `alias/aws/s3`\.   
-Some AWS aliases have no CMK\. These predefined aliases are usually associated with an AWS managed CMK when you start using the service\. Aliases that AWS creates in your account, including predefined aliases, do not count against your [AWS KMS aliases quota](https://docs.aws.amazon.com/https://docs.aws.amazon.com/kms/latest/developerguide/limits.html#aliases-limit)\.
+Some AWS aliases have no CMK\. These predefined aliases are usually associated with an AWS managed CMK when you start using the service\. Aliases that AWS creates in your account, including predefined aliases, do not count against your [AWS KMS aliases quota](resource-limits.md#aliases-limit)\.
 
 **Use aliases to identify CMKs**  
 You can use an [alias name](concepts.md#key-id-alias-name) or [alias ARN](concepts.md#key-id-alias-ARN) to identify a CMK in AWS KMS [cryptographic operations](concepts.md#cryptographic-operations) and in the [DescribeKey](https://docs.aws.amazon.com/kms/latest/APIReference/API_DescribeKey.html) operation\. However, you cannot use an alias names or alias ARNs in API operations that manage CMKs, such as [DisableKey](https://docs.aws.amazon.com/kms/latest/APIReference/API_DisableKey.html) or [GetKeyPolicy](https://docs.aws.amazon.com/kms/latest/APIReference/API_GetKeyPolicy.html)\. For information about the valid [key identifiers](concepts.md#key-id) for each AWS KMS API operation, see the descriptions of the `KeyId` parameters in the AWS Key Management Service API Reference\.  
-Also, you cannot use an alias name or alias ARN to identify a CMK in the `Resource` element of a [key policy](key-policies.md), an [IAM policy](iam-policies.md), or a [grant](grants.md)\. This restriction prevents errors that might occur if you intended to control access to a particular CMK, but the alias is deleted or updated to a different CMK\.  
+You cannot use an alias name or alias ARN to identify a CMK in the `Resource` element of an [IAM policy](iam-policies.md)\. This restriction prevents errors that might occur if you intended to control access to a particular CMK, but the alias is deleted or updated to a different CMK\.  
 
 ## Creating an alias<a name="alias-create"></a>
 
@@ -162,7 +162,7 @@ Also, the AWS KMS console displays only one alias for each CMK and it does not d
 
 The [ListAliases](https://docs.aws.amazon.com/kms/latest/APIReference/API_ListAliases.html) operation returns the alias name and alias ARN of aliases in the account and Region\. The output includes aliases for AWS managed CMKs and for customer managed CMKs\. The aliases for AWS managed CMKs have the format `aws/<service-name>`, such as `aws/dynamodb`\.
 
-The response might also include aliases that have no `TargetKeyId` field\. These are predefined aliases that AWS has created but has not yet associated with a CMK\. Aliases that AWS creates in your account, including predefined aliases, do not count against your [AWS KMS aliases quota](https://docs.aws.amazon.com/https://docs.aws.amazon.com/kms/latest/developerguide/limits.html#aliases-limit)\.
+The response might also include aliases that have no `TargetKeyId` field\. These are predefined aliases that AWS has created but has not yet associated with a CMK\. Aliases that AWS creates in your account, including predefined aliases, do not count against your [AWS KMS aliases quota](resource-limits.md#aliases-limit)\.
 
 ```
 $ aws kms list-aliases
@@ -354,9 +354,9 @@ $ aws kms list-aliases --query 'Aliases[?AliasName==`alias/test-key`]'
 
 ## Controlling access to aliases<a name="alias-access"></a>
 
-Controlling access to aliases is a bit different than control access to CMKs because it involves multiple resources\. Because changes to aliases involve an alias and at least one CMK, the principal must have the required permissions for both the alias and CMK resources\. For information about controlling access to all AWS KMS operations, see [AWS KMS API permissions reference](kms-api-permissions-reference.md)\.
+When you create or change an alias, you affect the alias and its associated CMK\. Therefore, principals who manage aliases must have permission to call the alias operation on the alias and on all affected CMKs\. You can provide these permissions by using [key policies](key-policies.md), [IAM policies](iam-policies.md) and [grants](grants.md)\. 
 
-You can use permissions in [key policies](key-policies.md), [IAM policies](iam-policies.md) and [grants](grants.md) to control access to the AWS KMS operations related to aliases\.
+For information about controlling access to all AWS KMS operations, see [AWS KMS API permissions reference](kms-api-permissions-reference.md)\.
 
 Permissions to create and manage aliases work as follows\.
 

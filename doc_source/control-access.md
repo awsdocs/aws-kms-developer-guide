@@ -34,3 +34,5 @@ The following pages describe how to manage permissions for AWS KMS\. We recommen
 + [Using grants](grants.md)
 + [Using service\-linked roles](using-service-linked-roles.md)
 + [Determining access](determining-access.md)
+
+If you access AWS KMS through an Amazon Virtual Private Cloud \(Amazon VPC\) endpoint, you can also use a VPC endpoint policy to limit access to your AWS KMS resources when using the endpoint\. For example, when using the VPC endpoint, you might only allow the principals in your AWS account to access your CMKs\. For details, see [Controlling access to a VPC endpoint](kms-vpc-endpoint.md#vpce-policy) \.

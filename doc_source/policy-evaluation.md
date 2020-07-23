@@ -1,16 +1,17 @@
 # Troubleshooting key access<a name="policy-evaluation"></a>
 
 When authorizing access to a customer master key \(CMK\), AWS KMS evaluates the following:
-+ The key policy that is attached to the CMK\. The key policy is always defined in the AWS account that owns the CMK\. 
-+ All IAM policies that are attached to the IAM user or role making the request\. IAM policies that govern a principal's use of a CMK are always defined in the principal's AWS account\.
-+ All grants that apply to the CMK\.
++ The [key policy](determining-access-key-policy.md) that is attached to the CMK\. The key policy is always defined in the AWS account that owns the CMK\. 
++ All [IAM policies](determining-access-iam-policies.md) that are attached to the IAM user or role making the request\. IAM policies that govern a principal's use of a CMK are always defined in the principal's AWS account\.
++ All [grants](determining-access-grants.md) that apply to the CMK\.
++ Other types of policies that might apply to the request to use the CMK, such as [AWS Organizations service control policies](https://docs.aws.amazon.com/organizations/latest/userguide/orgs_manage_policies_type-auth.html#orgs_manage_policies_scp) and [VPC endpoint policies](kms-vpc-endpoint.md#vpce-policy)\. These policies are optional and allow all actions by default, but you can use them to restrict permissions otherwise given to principals\.
 
-AWS KMS evaluates the CMK's [key policy](determining-access-key-policy.md), [IAM policies](determining-access-iam-policies.md), and [grants](determining-access-grants.md) together to determine whether access to the CMK is allowed or denied\. To do this, AWS KMS uses a process similar to the one depicted in the following flowchart\. The following flowchart provides a visual representation of the policy evaluation process\.
+AWS KMS evaluates these policy mechanisms together to determine whether access to the CMK is allowed or denied\. To do this, AWS KMS uses a process similar to the one depicted in the following flowchart\. The following flowchart provides a visual representation of the policy evaluation process\.
 
-![\[Flowchart that describes the policy evaluation process\]](http://docs.aws.amazon.com/kms/latest/developerguide/images/kms-auth-flow.png)
+![\[Flowchart that describes the policy evaluation process\]](http://docs.aws.amazon.com/kms/latest/developerguide/images/kms-auth-flow-2020.png)
 
 This flowchart is divided into two parts\. The parts appear to be sequential, but they are typically evaluated at the same time\.
-+ *Use authorization* determines whether you are permitted to use a CMK based on its key policy, IAM policies, and grants\.
++ *Use authorization* determines whether you are permitted to use a CMK based on its key policy, IAM policies, grants, and other applicable policies\.
 + *Key trust* determines whether you should trust a CMK that you are permitted to use\. In general, you trust the resources in your AWS account\. But, you can also feel confident about using CMKs in a different AWS account if a grant or IAM policy in your account allows you to use the CMK\.
 
 You can use this flowchart to discover why a caller was allowed or denied permission to use a CMK\. You can also use it to evaluate your policies and grants\. For example, the flowchart shows that a caller can be denied access by an explicit `DENY` statement, or by the absence of an explicit `ALLOW` statement, in the key policy, IAM policy, or grant\.
@@ -54,7 +55,8 @@ Consider the relevant policies for this example\.
 Bob is a user in account 1 \(111122223333\)\. He is allowed to use a CMK in account 2 \(444455556666\) in [cryptographic operations](concepts.md#cryptographic-operations)\. How is this possible?
 
 **Tip**  
-When evaluating cross\-account permissions, remember that the key policy is specified in the CMK's account\. The IAM policy is specified in the caller's account, even when the caller is in a different account\.
+When evaluating cross\-account permissions, remember that the key policy is specified in the CMK's account\. The IAM policy is specified in the caller's account, even when the caller is in a different account\.  
+For details about providing cross\-account access to CMKs, see [Allowing users in other accounts to use a CMK](key-policy-modifying-external-accounts.md)\.
 + The key policy for the CMK in account 2 allows account 2 to use IAM policies to control access to the CMK\. 
 + The key policy for the CMK in account 2 allows account 1 to use the CMK in cryptographic operations\. However, account 1 must use IAM policies to give its principals access to the CMK\.
 + An IAM policy in account 1 allows the `ExampleRole` role to use the CMK in account 2 for cryptographic operations\.

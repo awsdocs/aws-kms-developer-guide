@@ -121,6 +121,8 @@ $desc = 'Key for protecting critical data'
 New-KmsKey -Description $desc
 ```
 
+To use the AWS KMS PowerShell cmdlets, install the [AWS\.Tools\.KeyManagementService](https://www.powershellgallery.com/packages/AWS.Tools.KeyManagementService/) module\. For more information, see the [AWS Tools for Windows PowerShell User Guide](https://docs.aws.amazon.com/powershell/latest/userguide/)\.
+
 ------
 
 ## Generating a data key<a name="generate-datakeys"></a>
@@ -277,6 +279,8 @@ $plaintextKey = $response.Plaintext
 $encryptedKey = $response.CiphertextBlob
 ```
 
+To use the AWS KMS PowerShell cmdlets, install the [AWS\.Tools\.KeyManagementService](https://www.powershellgallery.com/packages/AWS.Tools.KeyManagementService/) module\. For more information, see the [AWS Tools for Windows PowerShell User Guide](https://docs.aws.amazon.com/powershell/latest/userguide/)\.
+
 ------
 
 ## Viewing a customer master key<a name="describing-keys"></a>
@@ -399,6 +403,8 @@ $keyId = 'arn:aws:kms:us-west-2:111122223333:key/1234abcd-12ab-34cd-56ef-1234567
 Get-KmsKey -KeyId $keyId
 ```
 
+To use the AWS KMS PowerShell cmdlets, install the [AWS\.Tools\.KeyManagementService](https://www.powershellgallery.com/packages/AWS.Tools.KeyManagementService/) module\. For more information, see the [AWS Tools for Windows PowerShell User Guide](https://docs.aws.amazon.com/powershell/latest/userguide/)\.
+
 ------
 
 ## Getting key IDs and key ARNs of CMKs<a name="listing-keys"></a>
@@ -508,6 +514,8 @@ To limit the number of output objects, this example uses the [Select\-Object](ht
 $limit = 10
 Get-KmsKeyList | Select-Object -First $limit
 ```
+
+To use the AWS KMS PowerShell cmdlets, install the [AWS\.Tools\.KeyManagementService](https://www.powershellgallery.com/packages/AWS.Tools.KeyManagementService/) module\. For more information, see the [AWS Tools for Windows PowerShell User Guide](https://docs.aws.amazon.com/powershell/latest/userguide/)\.
 
 ------
 
@@ -628,6 +636,8 @@ $keyId = 'arn:aws:kms:us-west-2:111122223333:key/1234abcd-12ab-34cd-56ef-1234567
 Enable-KmsKey -KeyId $keyId
 ```
 
+To use the AWS KMS PowerShell cmdlets, install the [AWS\.Tools\.KeyManagementService](https://www.powershellgallery.com/packages/AWS.Tools.KeyManagementService/) module\. For more information, see the [AWS Tools for Windows PowerShell User Guide](https://docs.aws.amazon.com/powershell/latest/userguide/)\.
+
 ------
 
 ## Disabling customer master keys<a name="disable-keys"></a>
@@ -746,5 +756,7 @@ To disable a CMK, use the [Disable\-KmsKey](https://docs.aws.amazon.com/powershe
 $keyId = 'arn:aws:kms:us-west-2:111122223333:key/1234abcd-12ab-34cd-56ef-1234567890ab'
 Disable-KmsKey -KeyId $keyId
 ```
+
+To use the AWS KMS PowerShell cmdlets, install the [AWS\.Tools\.KeyManagementService](https://www.powershellgallery.com/packages/AWS.Tools.KeyManagementService/) module\. For more information, see the [AWS Tools for Windows PowerShell User Guide](https://docs.aws.amazon.com/powershell/latest/userguide/)\.
 
 ------

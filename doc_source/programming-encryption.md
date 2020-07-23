@@ -166,6 +166,8 @@ $response = Invoke-KMSEncrypt -KeyId $keyId -Plaintext $plaintext
 $ciphertext = $response.CiphertextBlob
 ```
 
+To use the AWS KMS PowerShell cmdlets, install the [AWS\.Tools\.KeyManagementService](https://www.powershellgallery.com/packages/AWS.Tools.KeyManagementService/) module\. For more information, see the [AWS Tools for Windows PowerShell User Guide](https://docs.aws.amazon.com/powershell/latest/userguide/)\.
+
 ------
 
 ## Decrypting a data key<a name="decryption"></a>
@@ -297,6 +299,8 @@ Because this example uses the ciphertext that an AWS KMS encryption cmdlet retur
 $response = Invoke-KMSDecrypt -CiphertextBlob $ciphertext
 $plaintext = $response.Plaintext
 ```
+
+To use the AWS KMS PowerShell cmdlets, install the [AWS\.Tools\.KeyManagementService](https://www.powershellgallery.com/packages/AWS.Tools.KeyManagementService/) module\. For more information, see the [AWS Tools for Windows PowerShell User Guide](https://docs.aws.amazon.com/powershell/latest/userguide/)\.
 
 ------
 
@@ -443,5 +447,7 @@ $destinationKeyId = 'arn:aws:kms:us-west-2:111122223333:key/0987dcba-09fe-87dc-6
 $response = Invoke-KMSReEncrypt -Ciphertext $ciphertextBlob -DestinationKeyId $destinationKeyId
 $reEncryptedCiphertext = $response.CiphertextBlob
 ```
+
+To use the AWS KMS PowerShell cmdlets, install the [AWS\.Tools\.KeyManagementService](https://www.powershellgallery.com/packages/AWS.Tools.KeyManagementService/) module\. For more information, see the [AWS Tools for Windows PowerShell User Guide](https://docs.aws.amazon.com/powershell/latest/userguide/)\.
 
 ------

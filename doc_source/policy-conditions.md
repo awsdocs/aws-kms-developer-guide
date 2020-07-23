@@ -41,11 +41,11 @@ Also, the `aws:sourceIP` condition key is not effective when the request comes f
 
 ### Using VPC endpoint conditions in policies with AWS KMS permissions<a name="conditions-aws-vpce"></a>
 
-[AWS KMS supports Amazon Virtual Private Cloud \(Amazon VPC\) endpoints](kms-vpc-endpoint.md) that are powered by [AWS PrivateLink](https://docs.aws.amazon.com/vpc/latest/userguide/VPC_Introduction.html#what-is-privatelink)\. You can use the following [global condition keys](https://docs.aws.amazon.com/IAM/latest/UserGuide/reference_policies_condition-keys.html#AvailableKeys) in IAM policies to allow or deny access to a particular VPC or VPC endpoint\. You can also use these global condition keys in [AWS KMS key policies](kms-vpc-endpoint.md#vpce-policy) to restrict access to AWS KMS CMKs to requests from the VPC or VPC endpoint\. 
+[AWS KMS supports Amazon Virtual Private Cloud \(Amazon VPC\) endpoints](kms-vpc-endpoint.md) that are powered by [AWS PrivateLink](https://docs.aws.amazon.com/vpc/latest/userguide/VPC_Introduction.html#what-is-privatelink)\. You can use the following [global condition keys](https://docs.aws.amazon.com/IAM/latest/UserGuide/reference_policies_condition-keys.html#AvailableKeys) in key policies and IAM policies to control access to AWS KMS resources when the request comes from a VPC or uses a VPC endpoint\. For details, see [Using a VPC endpoint in a policy statement](kms-vpc-endpoint.md#vpce-policy-condition)\.
 + `aws:SourceVpc` limits access to requests from the specified VPC\. 
 + `aws:SourceVpce` limits access to requests from the specified VPC endpoint\. 
 
-If you use these condition keys in a key policy statement that allows or denies access to AWS KMS CMKs, you might inadvertently deny access to services that use AWS KMS on your behalf\. 
+If you use these condition keys in a key policy statement that allows or denies access to AWS KMS CMKs, you might inadvertently deny access to AWS services that use AWS KMS on your behalf\. 
 
 Take care to avoid a situation like the [IP address condition keys](#conditions-aws-ip-address) example\. If you restrict requests for a CMK to a VPC or VPC endpoint, calls to AWS KMS from an integrated service, such as Amazon S3 or Amazon EBS, might fail\. This can happen even if the source request ultimately originates in the VPC or from the VPC endpoint\. 
 
@@ -55,7 +55,7 @@ AWS KMS provides an additional set of predefined condition keys that you can use
 
 **Conditions for an API operation request**
 
-Many of the AWS KMS condition keys control access to a CMK based on the value of a parameter in the request for an API operation\. For example, you can use the [kms:CustomerMasterKeySpec](#conditions-kms-customer-master-key-spec) condition key in an IAM policy to allow use of the [CreateKey](https://docs.aws.amazon.com/kms/latest/APIReference/API_CreateKey.html) operation only when the value of the `CustomerMasterKeySpec` parameter in the `CreateKey` request is `RSA_4096`\. 
+Many of the AWS KMS condition keys control access to a CMK based on the value of a parameter in the request for an AWS KMS operation\. For example, you can use the [kms:CustomerMasterKeySpec](#conditions-kms-customer-master-key-spec) condition key in an IAM policy to allow use of the [CreateKey](https://docs.aws.amazon.com/kms/latest/APIReference/API_CreateKey.html) operation only when the value of the `CustomerMasterKeySpec` parameter in the `CreateKey` request is `RSA_4096`\. 
 
 This type of condition works even when the parameter doesn't appear in the request, such as when you use the parameter's default value\. For example you can use the [kms:CustomerMasterKeySpec](#conditions-kms-customer-master-key-spec) condition key to allow users to use the `CreateKey` operation only when the value of the `CustomerMasterKeySpec` parameter is `SYMMETRIC_DEFAULT`, which is the default value\. This condition allows requests that have the `CustomerMasterKeySpec` parameter with the `SYMMETRIC_DEFAULT` value and requests that have no `CustomerMasterKeySpec` parameter\.
 
@@ -788,9 +788,9 @@ The following example policy statement uses the `kms:GrantConstraintType` condit
 | --- | --- | --- | --- | 
 |  `kms:GrantIsForAWSResource`  |  Boolean  |  `CreateGrant` `ListGrants` `RevokeGrant` |  Key policies and IAM policies  | 
 
-Allows or denies access to the [CreateGrant](https://docs.aws.amazon.com/kms/latest/APIReference/API_CreateGrant.html), [ListGrants](https://docs.aws.amazon.com/kms/latest/APIReference/API_ListGrants.html), or [RevokeGrant](https://docs.aws.amazon.com/kms/latest/APIReference/API_RevokeGrant.html) operations when any of the [AWS services that are integrated with AWS KMS](https://aws.amazon.com/kms/features/#AWS_Service_Integration) performs the grant operation on the user's behalf\. This condition key does not affect the user's permissions to perform the grant operation directly\.
+Allows or denies permission for the [CreateGrant](https://docs.aws.amazon.com/kms/latest/APIReference/API_CreateGrant.html), [ListGrants](https://docs.aws.amazon.com/kms/latest/APIReference/API_ListGrants.html), or [RevokeGrant](https://docs.aws.amazon.com/kms/latest/APIReference/API_RevokeGrant.html) operations only when an [AWS services integrated with AWS KMS](https://aws.amazon.com/kms/features/#AWS_Service_Integration) calls the operation on the user's behalf\. This policy condition doesn't allow the user to call these grant operations directly\.
 
-For example, the following key policy statement uses the `kms:GrantIsForAWSResource` condition key\. It allows a user to create grants on this CMK only when the grant is created on the user's behalf by any one of the integrated services\. It does not allow the user to create grants directly\.
+The following example key policy statement uses the `kms:GrantIsForAWSResource` condition key\. It allows AWS services that are integrated with AWS KMS, such as Amazon EBS, to create grants on this CMK on behalf of the specified user\. 
 
 ```
 {
@@ -890,7 +890,7 @@ The following example policy statement uses the `kms:GranteePrincipal` condition
 | --- | --- | --- | --- | 
 |  `kms:KeyOrigin`  |  String  |  `CreateKey` CMK resource operations  |  IAM policies Key policies and IAM policies  | 
 
-The `kms:KeyOrigin` condition key controls access to operations based on the value of the `Origin` property of the CMK that is created by or used in the operation\. 
+The `kms:KeyOrigin` condition key controls access to operations based on the value of the `Origin` property of the CMK that is created by or used in the operation\. It works as a resource condition or a request condition\.
 
 You can use this condition key to control access to the [CreateKey](https://docs.aws.amazon.com/kms/latest/APIReference/API_CreateKey.html) operation based on the value of the [Origin](https://docs.aws.amazon.com/kms/latest/APIReference/API_CreateKey.html#KMS-CreateKey-request-Origin) parameter in the request\. Valid values for `Origin` are `AWS_KMS`, `AWS_CLOUDHSM`, and `EXTERNAL`\. 
 
@@ -1171,17 +1171,18 @@ All [AWS managed CMKs](concepts.md#aws-managed-cmk) use a `kms:ViaService` condi
 
 The `kms:ViaService` condition key is valid in IAM and key policy statements\. The services that you specify must be [integrated with AWS KMS](https://aws.amazon.com/kms/features/#AWS_Service_Integration) and support the `kms:ViaService` condition key\.
 
-The following table lists AWS services that are integrated with AWS KMS, support customer managed CMKs, and support the use of the `kms:ViaService` condition key in customer managed CMKs\. The services in this table might not be available in all regions\.
+The following table lists AWS services that are integrated with AWS KMS, support customer managed CMKs, and support the use of the `kms:ViaService` condition key in customer managed CMKs\. The services in this table might not be available in all regions\. Use the `.amazonaws.com` suffix of the AWS KMS ViaService name in all AWS partitions\.
 
 
 **Services that support the `kms:ViaService` condition key in customer managed CMKs**  
 
-| Service name | KMS ViaService name | 
+| Service name | AWS KMS ViaService name | 
 | --- | --- | 
 | AWS Backup | backup\.AWS\_region\.amazonaws\.com | 
 | Amazon Connect | connect\.AWS\_region\.amazonaws\.com | 
 | AWS Database Migration Service \(AWS DMS\) | dms\.AWS\_region\.amazonaws\.com | 
 | AWS Directory Service | directoryservice\.AWS\_region\.amazonaws\.com | 
+| Amazon DynamoDB | dynamodb\.AWS\_region\.amazonaws\.com | 
 | Amazon EC2 Systems Manager | ssm\.AWS\_region\.amazonaws\.com | 
 | Amazon Elastic Block Store \(Amazon EBS\) | ec2\.AWS\_region\.amazonaws\.com \(EBS only\) | 
 | Amazon Elastic File System | elasticfilesystem\.AWS\_region\.amazonaws\.com | 
