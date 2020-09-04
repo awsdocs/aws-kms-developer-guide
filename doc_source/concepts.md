@@ -59,7 +59,7 @@ Customer managed CMKs incur a monthly fee and a fee for use in excess of the fre
 
 ### AWS managed CMKs<a name="aws-managed-cmk"></a>
 
-*AWS managed CMKs* are CMKs in your account that are created, managed, and used on your behalf by an AWS service that is integrated with AWS KMS\. Some AWS services support only an AWS managed CMK
+*AWS managed CMKs* are CMKs in your account that are created, managed, and used on your behalf by an AWS service that is integrated with AWS KMS\. Some AWS services support only an AWS managed CMK. For a list of AWS Services integrated with AWS KMS, see [AWS Services Integrated with AWS KMS](https://aws.amazon.com/kms/features/#AWS_Service_Integration)\.   
 
 You can [view the AWS managed CMKs](viewing-keys.md) in your account, [view their key policies](key-policy-viewing.md), and [audit their use](logging-using-cloudtrail.md) in AWS CloudTrail logs\. However, you cannot manage these CMKs, rotate them, or change their key policies\. And, you cannot use AWS managed CMKs in cryptographic operations directly; the service that creates them uses them on your behalf\. 
 
