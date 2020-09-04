@@ -7,11 +7,15 @@ Key policies are the primary way to control access to customer master keys \(CMK
 + [Default key policy](#key-policy-default)
 + [Example key policy](#key-policy-example)
 
+For help writing and formatting a JSON policy document, see the [IAM JSON Policy Reference](https://docs.aws.amazon.com/IAM/latest/UserGuide/reference_policies.html) in the *IAM User Guide*\.
+
 ## Overview of key policies<a name="key-policy-overview"></a>
 
-A key policy is a document that uses [JSON \(JavaScript Object Notation\)](http://json.org/) to specify permissions\. You can work with these JSON documents directly, or you can use the AWS Management Console to work with them using a graphical interface called the *default view*\. For more information about the console's default view for key policies, see [Default key policy](#key-policy-default) and [Changing a key policy](key-policy-modifying.md)\.
+A key policy is a document that uses [JSON \(JavaScript Object Notation\)](http://json.org/) to specify permissions\. You can work with these JSON documents directly, or you can use the AWS Management Console to work with them using a graphical interface called the *default view*\. 
 
-A key policy document cannot exceed 32 KB \(32,768 bytes\)\. Key policy documents use the same JSON syntax as other permissions policies in AWS and have the following basic structure:
+For more information about the console's default view for key policies, see [Default key policy](#key-policy-default) and [Changing a key policy](key-policy-modifying.md)\. For help writing and formatting a JSON policy document, see the [IAM JSON Policy Reference](https://docs.aws.amazon.com/IAM/latest/UserGuide/reference_policies.html) in the *IAM User Guide*\.
+
+A key policy document cannot exceed 32 KB \(32,768 bytes\)\. Key policy documents use the same JSON syntax as other policy documents in AWS and have the following basic structure:
 
 ```
 {
@@ -34,7 +38,7 @@ A key policy document must have a `Version` element\. We recommend setting the v
 **Note**  
 Do not set the Principal to an asterisk \(\*\) in any key policy statement that allows permissions\. An asterisk gives every identity in every AWS account permission to use the CMK, unless another policy statement explicitly denies it\. Users in other AWS accounts just need corresponding IAM permissions in their own accounts to use the CMK\.
 + **Action** – \(Required\) Actions specify the API operations to allow or deny\. For example, the `kms:Encrypt` action corresponds to the AWS KMS [Encrypt](https://docs.aws.amazon.com/kms/latest/APIReference/API_Encrypt.html) operation\. You can list more than one action in a policy statement\. For more information, see [AWS KMS API permissions reference](kms-api-permissions-reference.md)\.
-+ **Resource** – \(Required\) In a key policy, you use `"*"` for the resource, which means "this CMK\." A key policy applies only to the CMK it is attached to\.
++ **Resource** – \(Required\) In a key policy, the value of the Resource element is `"*"`, which means "this CMK\." The asterisk \(`"*"`\) identifies the CMK to which the key policy is attached\.
 + **Condition** – \(Optional\) Conditions specify requirements that must be met for a key policy to take effect\. With conditions, AWS can evaluate the context of an API request to determine whether or not the policy statement applies\. For more information, see [Using policy conditions](policy-conditions.md)\.
 
 For more information about AWS policy syntax, see [AWS IAM Policy Reference](https://docs.aws.amazon.com/IAM/latest/UserGuide/reference_policies.html) in the *IAM User Guide*\.

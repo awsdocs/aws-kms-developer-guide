@@ -25,7 +25,7 @@ For details, see the [encrypt method](https://docs.aws.amazon.com/AWSJavaSDK/lat
 ```
 // Encrypt a data key
 //
-// Replace the following fictitious CMK ARN with a valid CMK ID or ARN
+// Replace the following example key ARN with any valid key identfier
 String keyId = "arn:aws:kms:us-west-2:111122223333:key/1234abcd-12ab-34cd-56ef-1234567890ab";
 ByteBuffer plaintext = ByteBuffer.wrap(new byte[]{1,2,3,4,5,6,7,8,9,0});
 
@@ -41,7 +41,7 @@ For details, see the [Encrypt method](https://docs.aws.amazon.com/sdkfornet/v3/a
 ```
 // Encrypt a data key
 //
-// Replace the following fictitious CMK ARN with a valid CMK ID or ARN
+// Replace the following example key ARN with any valid key identfier
 String keyId = "arn:aws:kms:us-west-2:111122223333:key/1234abcd-12ab-34cd-56ef-1234567890ab";
 MemoryStream plaintext = new MemoryStream();
 plaintext.Write(new byte[] { 1, 2, 3, 4, 5, 6, 7, 8, 9, 0 }, 0, 10);
@@ -62,7 +62,7 @@ For details, see the [encrypt method](http://boto3.amazonaws.com/v1/documentatio
 ```
 # Encrypt a data key
 
-# Replace the following fictitious CMK ARN with a valid CMK ID or ARN
+# Replace the following example key ARN with any valid key identfier
 key_id = 'arn:aws:kms:us-west-2:111122223333:key/1234abcd-12ab-34cd-56ef-1234567890ab'
 plaintext = b'\x01\x02\x03\x04\x05\x06\x07\x08\x09\x00'
 
@@ -82,12 +82,12 @@ For details, see the [encrypt](https://docs.aws.amazon.com/sdk-for-ruby/v3/api/A
 ```
 # Encrypt a data key
 
-# Replace the following fictitious CMK ARN with a valid CMK ID or ARN
-keyId = 'arn:aws:kms:us-west-2:111122223333:key/1234abcd-12ab-34cd-56ef-1234567890ab'
+# Replace the following example key ARN with any valid key identfier
+key_id = 'arn:aws:kms:us-west-2:111122223333:key/1234abcd-12ab-34cd-56ef-1234567890ab'
 plaintext = "\x01\x02\x03\x04\x05\x06\x07\x08\x09\x00"
 
 response = kmsClient.encrypt({
-  key_id: keyId,
+  key_id: key_id,
   plaintext: plaintext
 })
 
@@ -102,7 +102,7 @@ For details, see the [Encrypt method](https://docs.aws.amazon.com/aws-sdk-php/v3
 ```
 // Encrypt a data key
 //
-// Replace the following fictitious CMK ARN with a valid CMK ID or ARN
+// Replace the following example key ARN with any valid key identfier
 $keyId = 'arn:aws:kms:us-west-2:111122223333:key/1234abcd-12ab-34cd-56ef-1234567890ab';
 $message = pack('c*',1,2,3,4,5,6,7,8,9,0);
 
@@ -122,7 +122,7 @@ For details, see the [encrypt property](https://docs.aws.amazon.com/AWSJavaScrip
 ```
 // Encrypt a data key
 //
-// Replace the following fictitious CMK ARN with a valid CMK ID or ARN
+// Replace the following example key ARN with any valid key identfier
 const KeyId = 'arn:aws:kms:us-west-2:111122223333:key/1234abcd-12ab-34cd-56ef-1234567890ab';
 const Plaintext = Buffer.from([1, 2, 3, 4, 5, 6, 7, 8, 9, 0]);
 kmsClient.encrypt({ KeyId, Plaintext }, (err, data) => {
@@ -146,7 +146,7 @@ Note that the `Plaintext` parameter of `Invoke-KMSEncrypt` takes a byte array \(
 ```
 # Encrypt a data key
 
-# Replace the following fictitious CMK ARN with a valid CMK ID or ARN
+# Replace the following example key ARN with any valid key identfier
 $keyId = 'arn:aws:kms:us-west-2:111122223333:key/1234abcd-12ab-34cd-56ef-1234567890ab'
 
 # Simulate a data key
@@ -176,6 +176,8 @@ To decrypt a data key, use the [Decrypt](https://docs.aws.amazon.com/kms/latest/
 
 The `ciphertextBlob` that you specify must be the value of the `CiphertextBlob` field from a [GenerateDataKey](https://docs.aws.amazon.com/kms/latest/APIReference/API_GenerateDataKey.html), [GenerateDataKeyWithoutPlaintext](https://docs.aws.amazon.com/kms/latest/APIReference/API_GenerateDataKeyWithoutPlaintext.html), or [Encrypt](https://docs.aws.amazon.com/kms/latest/APIReference/API_Encrypt.html) response, or the `PrivateKeyCiphertextBlob` field from a [GenerateDataKeyPair](https://docs.aws.amazon.com/kms/latest/APIReference/API_GenerateDataKeyPair.html) or [GenerateDataKeyPairWithoutPlaintext](https://docs.aws.amazon.com/kms/latest/APIReference/API_GenerateDataKeyPairWithoutPlaintext.html) response\. You can also use the `Decrypt` operation to decrypt data encrypted outside of AWS KMS by the public key in an asymmetric CMK\.
 
+The `KeyId` parameter is not required when decrypting with symmetric CMKs\. AWS KMS can get the CMK that was used to encrypt the data from the metadata in the ciphertext blob\. But it's always a best practice to specify the CMK you are using\. This practice ensures that you use the CMK that you intend, and prevents you from inadvertently decrypting a ciphertext using a CMK you do not trust\.
+
 In languages that require a client object, these examples use the AWS KMS client object that you created in [Creating a client](programming-client.md)\.
 
 ------
@@ -186,10 +188,12 @@ For details, see the [decrypt method](https://docs.aws.amazon.com/AWSJavaSDK/lat
 ```
 // Decrypt a data key
 //
+// Replace the following example key ARN with any valid key identfier
+String keyId = "arn:aws:kms:us-west-2:111122223333:key/1234abcd-12ab-34cd-56ef-1234567890ab";
 
 ByteBuffer ciphertextBlob = Place your ciphertext here;
 
-DecryptRequest req = new DecryptRequest().withCiphertextBlob(ciphertextBlob);
+DecryptRequest req = new DecryptRequest().withCiphertextBlob(ciphertextBlob).withKeyId(keyId);
 ByteBuffer plainText = kmsClient.decrypt(req).getPlaintext();
 ```
 
@@ -201,13 +205,16 @@ For details, see the [Decrypt method](https://docs.aws.amazon.com/sdkfornet/v3/a
 ```
 // Decrypt a data key
 //
+// Replace the following example key ARN with any valid key identfier
+String keyId = "arn:aws:kms:us-west-2:111122223333:key/1234abcd-12ab-34cd-56ef-1234567890ab";
 
 MemoryStream ciphertextBlob = new MemoryStream();
 // Write ciphertext to memory stream
 
 DecryptRequest decryptRequest = new DecryptRequest()
 {
-    CiphertextBlob = ciphertextBlob
+    CiphertextBlob = ciphertextBlob,
+    KeyId = keyId
 };
 MemoryStream plainText = kmsClient.Decrypt(decryptRequest).Plaintext;
 ```
@@ -220,10 +227,13 @@ For details, see the [decrypt method](http://boto3.amazonaws.com/v1/documentatio
 ```
 # Decrypt a data key
 
+# Replace the following example key ARN with any valid key identfier
+key_id = 'arn:aws:kms:us-west-2:111122223333:key/1234abcd-12ab-34cd-56ef-1234567890ab'
 ciphertext = 'Place your ciphertext here'
 
 response = kms_client.decrypt(
-    CiphertextBlob=ciphertext
+    CiphertextBlob=ciphertext,
+    KeyId=key_id
 )
 
 plaintext = response['Plaintext']
@@ -237,11 +247,15 @@ For details, see the [decrypt](https://docs.aws.amazon.com/sdk-for-ruby/v3/api/A
 ```
 # Decrypt a data key
 
+# Replace the following example key ARN with any valid key identfier
+key_id = 'arn:aws:kms:us-west-2:111122223333:key/1234abcd-12ab-34cd-56ef-1234567890ab'
+
 ciphertext = 'Place your ciphertext here'
 ciphertext_packed = [ciphertext].pack("H*")
 
 response = kmsClient.decrypt({
-  ciphertext_blob: ciphertext_packed
+  ciphertext_blob: ciphertext_packed,
+  key_id: key_id
 })
 
 plaintext = response.plaintext
@@ -255,10 +269,13 @@ For details, see the [Decrypt method](https://docs.aws.amazon.com/aws-sdk-php/v3
 ```
 // Decrypt a data key
 //
+// Replace the following example key ARN with any valid key identfier
+$keyId = 'arn:aws:kms:us-west-2:111122223333:key/1234abcd-12ab-34cd-56ef-1234567890ab';
 $ciphertext = 'Place your cipher text blob here';
 
 $result = $KmsClient->decrypt([
-     'CiphertextBlob' => $ciphertext
+     'CiphertextBlob' => $ciphertext,
+     'KeyId' => $keyId,
 ]);
 
 $plaintext = $result['Plaintext'];
@@ -272,8 +289,10 @@ For details, see the [decrypt property](https://docs.aws.amazon.com/AWSJavaScrip
 ```
 // Decrypt a data key
 //
+// Replace the following example key ARN with any valid key identfier
+const KeyId = 'arn:aws:kms:us-west-2:111122223333:key/1234abcd-12ab-34cd-56ef-1234567890ab';
 const CiphertextBlob = 'Place your cipher text blob here';
-kmsClient.decrypt({ CiphertextBlob }, (err, data) => {
+kmsClient.decrypt({ CiphertextBlob, KeyId }, (err, data) => {
   if (err) console.log(err, err.stack); // an error occurred
   else {
     const { Plaintext } = data;
@@ -293,10 +312,12 @@ Because this example uses the ciphertext that an AWS KMS encryption cmdlet retur
 
 ```
 # Decrypt a data key
-
+# Replace the following example key ARN with any valid key identfier
+$keyId = 'arn:aws:kms:us-west-2:111122223333:key/1234abcd-12ab-34cd-56ef-1234567890ab'
+ 
 [System.IO.MemoryStream]$ciphertext = Read-Host 'Place your cipher text blob here'
 
-$response = Invoke-KMSDecrypt -CiphertextBlob $ciphertext
+$response = Invoke-KMSDecrypt -CiphertextBlob $ciphertext -KeyId $keyId
 $plaintext = $response.Plaintext
 ```
 
@@ -310,6 +331,8 @@ To decrypt an encrypted data key, and then immediately re\-encrypt the data key 
 
 The `ciphertextBlob` that you specify must be the value of the `CiphertextBlob` field from a [GenerateDataKey](https://docs.aws.amazon.com/kms/latest/APIReference/API_GenerateDataKey.html), [GenerateDataKeyWithoutPlaintext](https://docs.aws.amazon.com/kms/latest/APIReference/API_GenerateDataKeyWithoutPlaintext.html), or [Encrypt](https://docs.aws.amazon.com/kms/latest/APIReference/API_Encrypt.html) response, or the `PrivateKeyCiphertextBlob` field from a [GenerateDataKeyPair](https://docs.aws.amazon.com/kms/latest/APIReference/API_GenerateDataKeyPair.html) or [GenerateDataKeyPairWithoutPlaintext](https://docs.aws.amazon.com/kms/latest/APIReference/API_GenerateDataKeyPairWithoutPlaintext.html) response\. You can also use the `ReEncrypt` operation to re\-encrypt data encrypted outside of AWS KMS by the public key in an asymmetric CMK\.
 
+The `SourceKeyId` parameter is not required when re\-encrypting with symmetric CMKs\. AWS KMS can get the CMK that was used to encrypt the data from the metadata in the ciphertext blob\. But it's always a best practice to specify the CMK you are using\. This practice ensures that you use the CMK that you intend, and prevents you from inadvertently decrypting a ciphertext using a CMK you do not trust\.
+
 In languages that require a client object, these examples use the AWS KMS client object that you created in [Creating a client](programming-client.md)\.
 
 ------
@@ -322,11 +345,13 @@ For details, see the [reEncrypt method](https://docs.aws.amazon.com/AWSJavaSDK/l
 
 ByteBuffer sourceCiphertextBlob = Place your ciphertext here;
 
-// Replace the following fictitious CMK ARN with a valid CMK ID or ARN
+// Replace the following example key ARNs with valid key identfiers
+String sourceKeyId = "arn:aws:kms:us-west-2:111122223333:key/1234abcd-12ab-34cd-56ef-1234567890ab";
 String destinationKeyId = "arn:aws:kms:us-west-2:111122223333:key/0987dcba-09fe-87dc-65ba-ab0987654321";
 
 ReEncryptRequest req = new ReEncryptRequest();
 req.setCiphertextBlob(sourceCiphertextBlob);
+req.setSourceKeyId(sourceKeyId);
 req.setDestinationKeyId(destinationKeyId);
 ByteBuffer destinationCipherTextBlob = kmsClient.reEncrypt(req).getCiphertextBlob();
 ```
@@ -342,12 +367,14 @@ For details, see the [ReEncrypt method](https://docs.aws.amazon.com/sdkfornet/v3
 MemoryStream sourceCiphertextBlob = new MemoryStream();
 // Write ciphertext to memory stream
 
-// Replace the following fictitious CMK ARN with a valid CMK ID or ARN
+// Replace the following example key ARNs with valid key identfiers
+String sourceKeyId = "arn:aws:kms:us-west-2:111122223333:key/1234abcd-12ab-34cd-56ef-1234567890ab";
 String destinationKeyId = "arn:aws:kms:us-west-2:111122223333:key/0987dcba-09fe-87dc-65ba-ab0987654321";
 
 ReEncryptRequest reEncryptRequest = new ReEncryptRequest()
 {
     CiphertextBlob = sourceCiphertextBlob,
+    SourceKeyId = sourceKeyId,
     DestinationKeyId = destinationKeyId
 };
 MemoryStream destinationCipherTextBlob = kmsClient.ReEncrypt(reEncryptRequest).CiphertextBlob;
@@ -362,12 +389,14 @@ For details, see the [re\_encrypt method](http://boto3.amazonaws.com/v1/document
 # Re-encrypt a data key
 ciphertext = 'Place your ciphertext here'
 
-# Replace the following fictitious CMK ARN with a valid CMK ID or ARN
-key_id = 'arn:aws:kms:us-west-2:111122223333:key/0987dcba-09fe-87dc-65ba-ab0987654321'
+# Replace the following example key ARNs with valid key identfiers
+source_key_id = 'arn:aws:kms:us-west-2:111122223333:key/1234abcd-12ab-34cd-56ef-1234567890ab'
+destination_key_id = 'arn:aws:kms:us-west-2:111122223333:key/0987dcba-09fe-87dc-65ba-ab0987654321'
 
 response = kms_client.re_encrypt(
     CiphertextBlob=ciphertext,
-    DestinationKeyId=key_id
+    SourceKeyId=source_key_id,
+    DestinationKeyId=destination_key_id
 )
 
 destination_ciphertext_blob = response['CiphertextBlob']
@@ -384,12 +413,14 @@ For details, see the [re\_encrypt](https://docs.aws.amazon.com/sdk-for-ruby/v3/a
 ciphertext = 'Place your ciphertext here'
 ciphertext_packed = [ciphertext].pack("H*")
 
-# Replace the following fictitious CMK ARN with a valid CMK ID or ARN
-keyId = 'arn:aws:kms:us-west-2:111122223333:key/0987dcba-09fe-87dc-65ba-ab0987654321'
+# Replace the following example key ARNs with valid key identfiers
+source_key_id = 'arn:aws:kms:us-west-2:111122223333:key/1234abcd-12ab-34cd-56ef-1234567890ab'
+destination_key_id = 'arn:aws:kms:us-west-2:111122223333:key/0987dcba-09fe-87dc-65ba-ab0987654321'
 
 response = kmsClient.re_encrypt({
   ciphertext_blob: ciphertext_packed,
-  destination_key_id: keyId
+  source_key_id: source_key_id,
+  destination_key_id: destination_key_id
 })
 
 destination_ciphertext_blob = response.ciphertext_blob.unpack('H*')
@@ -405,12 +436,14 @@ For details, see the [ReEncrypt method](https://docs.aws.amazon.com/aws-sdk-php/
 
 $ciphertextBlob = 'Place your ciphertext here';
 
-// Replace the following fictitious CMK ARN with a valid CMK ID or ARN
-$keyId = 'arn:aws:kms:us-west-2:111122223333:key/0987dcba-09fe-87dc-65ba-ab0987654321';
+// Replace the following example key ARNs with valid key identfiers
+$sourceKeyId = 'arn:aws:kms:us-west-2:111122223333:key/1234abcd-12ab-34cd-56ef-1234567890ab';
+$destinationKeyId = 'arn:aws:kms:us-west-2:111122223333:key/0987dcba-09fe-87dc-65ba-ab0987654321';
 
 $result = $KmsClient->reEncrypt([
     'CiphertextBlob' => $ciphertextBlob,
-    'DestinationKeyId' => $keyId, 
+    'SourceKeyId' => $sourceKeyId,
+    'DestinationKeyId' => $destinationKeyId, 
 ]);
 ```
 
@@ -422,9 +455,11 @@ For details, see the [reEncrypt property](https://docs.aws.amazon.com/AWSJavaScr
 ```
 // Re-encrypt a data key
 const CiphertextBlob = 'Place your cipher text blob here';
-// Replace the following fictitious CMK ARN with a valid CMK ID or ARN
+// Replace the following example key ARNs with valid key identfiers
+const SourceKeyId = 'arn:aws:kms:us-west-2:111122223333:key/1234abcd-12ab-34cd-56ef-1234567890ab';
 const DestinationKeyId = 'arn:aws:kms:us-west-2:111122223333:key/0987dcba-09fe-87dc-65ba-ab0987654321';
-kmsClient.reEncrypt({ CiphertextBlob, DestinationKeyId }, (err, data) => {
+
+kmsClient.reEncrypt({ CiphertextBlob, SourceKeyId, DestinationKeyId }, (err, data) => {
   ...
 });
 ```
@@ -441,10 +476,11 @@ Because this example uses the ciphertext that an AWS KMS encryption cmdlet retur
 
 [System.IO.MemoryStream]$ciphertextBlob = Read-Host 'Place your cipher text blob here'
 
-# Replace the following fictitious CMK ARN with a valid CMK ID or ARN
+# Replace the following example key ARNs with valid key identfiers
+$sourceKeyId = 'arn:aws:kms:us-west-2:111122223333:key/1234abcd-12ab-34cd-56ef-1234567890ab'
 $destinationKeyId = 'arn:aws:kms:us-west-2:111122223333:key/0987dcba-09fe-87dc-65ba-ab0987654321'
 
-$response = Invoke-KMSReEncrypt -Ciphertext $ciphertextBlob -DestinationKeyId $destinationKeyId
+$response = Invoke-KMSReEncrypt -Ciphertext $ciphertextBlob -SourceKeyId $sourceKeyId -DestinationKeyId $destinationKeyId
 $reEncryptedCiphertext = $response.CiphertextBlob
 ```
 

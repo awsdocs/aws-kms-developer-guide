@@ -148,9 +148,11 @@ Instead of using an explicit `Deny`, this policy statement uses `Allow` with the
 
 | AWS KMS condition keys | Condition type | API operations | Policy type | 
 | --- | --- | --- | --- | 
-|  `kms:CallerAccount`  |  String  |  All AWS KMS operations *except* for `CreateKey`, `GenerateRandom`, `ListAliases`, `ListKeys`, `ListRetirableGrants`, and `RetireGrant`\.  |  Key policies only  | 
+|  `kms:CallerAccount`  |  String  |  CMK resource operations  |  Key policies only  | 
 
 You can use this condition key to allow or deny access to all identities \(IAM users and roles\) in an AWS account\. In key policies, you use the `Principal` element to specify the identities to which the policy statement applies\. The syntax for the `Principal` element does not provide a way to specify all identities in an AWS account\. But you can achieve this effect by combining this condition key with a `Principal` element that specifies all AWS identities\.
+
+Because this condition is valid only in key policies, you can use it to control access to any *CMK resource operation*, that is, any AWS KMS operation that uses a particular CMK\. To identify the CMK resource operations, in the [Actions and Resources Table](kms-api-permissions-reference.md#kms-api-permissions-reference-table), look for a value of `CMK` in the `Resources` column for the operation\.
 
 For example, the following policy statement demonstrates how to use the `kms:CallerAccount` condition key\. This policy statement is in the key policy for the AWS managed CMK for Amazon EBS\. It combines a `Principal` element that specifies all AWS identities with the `kms:CallerAccount` condition key to effectively allow access to all identities in AWS account 111122223333\. It contains an additional AWS KMS condition key \(`kms:ViaService`\) to further limit the permissions by only allowing requests that come through Amazon EBS\. For more information, see [kms:ViaService](#conditions-kms-via-service)\.
 
@@ -1107,9 +1109,9 @@ The following example policy statement allows a user to import key material into
 
 | AWS KMS condition keys | Condition type | API operations | Policy type | 
 | --- | --- | --- | --- | 
-|  `kms:ViaService`  |  String  |  The `kms:ViaService` condition key is valid for all AWS KMS operations `except`: [CreateKey](https://docs.aws.amazon.com/kms/latest/APIReference/API_CreateKey.html), [GenerateRandom](https://docs.aws.amazon.com/kms/latest/APIReference/API_GenerateRandom.html), [ListAliases](https://docs.aws.amazon.com/kms/latest/APIReference/API_ListAliases.html), [ListKeys](https://docs.aws.amazon.com/kms/latest/APIReference/API_ListKeys.html), [ListRetirableGrants](https://docs.aws.amazon.com/kms/latest/APIReference/API_ListRetirableGrants.html), [RetireGrant](https://docs.aws.amazon.com/kms/latest/APIReference/API_RetireGrant.html), and the API operations that create and manage [custom key stores](custom-key-store-overview.md)\.  |  Key policies and IAM policies  | 
+|  `kms:ViaService`  |  String  |  CMK resource operations  |  Key policies and IAM policies  | 
 
-The `kms:ViaService` condition key limits use of an AWS KMS [customer master key](concepts.md#master_keys) \(CMK\) to requests from specified AWS services\. You can specify one or more services in each `kms:ViaService` condition key\. 
+The `kms:ViaService` condition key limits use of an AWS KMS [customer master key](concepts.md#master_keys) \(CMK\) to requests from specified AWS services\. You can specify one or more services in each `kms:ViaService` condition key\. The operation must be a *CMK resource operation*, that is, an operation that is authorized for a particular CMK\. To identify the CMK resource operations, in the [Actions and Resources Table](kms-api-permissions-reference.md#kms-api-permissions-reference-table), look for a value of `CMK` in the `Resources` column for the operation\.
 
 For example, the following statement from a key policy uses the `kms:ViaService` condition key to allow a [customer managed CMK](concepts.md#customer-cmk) to be used for the specified actions only when the request comes from Amazon EC2 or Amazon RDS in the US West \(Oregon\) region on behalf of `ExampleUser`\.
 

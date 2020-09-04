@@ -35,7 +35,7 @@ Key rotation in AWS KMS is a cryptographic best practice that is designed to be 
 + **AWS managed CMKs\.** You cannot manage key rotation for [AWS managed CMKs](concepts.md#aws-managed-cmk)\. AWS KMS automatically rotates AWS managed CMKs every three years \(1095 days\)\.  
 + **AWS owned CMKs\.** You cannot manage key rotation for AWS owned CMKs\. The [key rotation](#rotate-keys) strategy for an AWS owned CMK is determined by the AWS service that creates and manages the CMK\. For details, see the *Encryption at Rest* topic in the user guide or developer guide for the service\.
 + **AWS services**\. You can enable automatic key rotation on the [customer managed CMKs](concepts.md#customer-cmk) that you use for server\-side encryption in AWS services\. The annual rotation is transparent and compatible with AWS services\.
-+ **Monitoring key rotation\.** When AWS KMS automatically rotates the key material for an [AWS managed CMK](concepts.md#aws-managed-cmk) or [customer managed CMK](concepts.md#customer-cmk), it writes the **KMS CMK Rotation** event to [Amazon CloudWatch Events](https://docs.aws.amazon.com/AmazonCloudWatch/latest/events/)\. You can use this event to verify that the CMK was rotated\.
++ **Monitoring key rotation\.** When AWS KMS automatically rotates the key material for an [AWS managed CMK](concepts.md#aws-managed-cmk) or [customer managed CMK](concepts.md#customer-cmk), it writes a `KMS CMK Rotation` event to [Amazon CloudWatch Events](https://docs.aws.amazon.com/AmazonCloudWatch/latest/events/) and a [RotateKey event](ct-rotatekey.md) to your AWS CloudTrail log\. You can use these records to verify that the CMK was rotated\.
 + **Unsupported CMK types\.** Automatic key rotation is *not* supported on the following types of CMKs, but you can [rotate these CMKs manually](#rotate-keys-manually)\.
   + [Asymmetric CMKs](symm-asymm-concepts.md#asymmetric-cmks)
   + CMKs in [custom key stores](custom-key-store-overview.md)
@@ -45,7 +45,7 @@ Key rotation in AWS KMS is a cryptographic best practice that is designed to be 
 
 You can use the AWS KMS console or the AWS KMS API to enable and disable automatic key rotation, and view the rotation status of any customer managed CMK\.
 
-When you enable automatic key rotation, AWS KMS rotates the CMK 365 days after the enable date and every 365 days thereafter\.
+When you enable automatic key rotation, AWS KMS rotates the CMK 365 days after the enable date and every 365 days thereafter\. 
 
 **Topics**
 + [Enabling and disabling key rotation \(console\)](#rotate-keys-console)

@@ -6,7 +6,7 @@ A CMK with no key material is in the *pending import* state and is not available
 
 To create a CMK with no key material, you can use the AWS Management Console or the AWS KMS API\. You can use the API directly by making HTTP requests, or through one of the [AWS SDKs](https://aws.amazon.com/tools/#sdk) or [command line tools](https://aws.amazon.com/tools/#cli)\.
 
-**Topics**
+**AWS KMS records an entry in your AWS CloudTrail log when you [create the CMK](ct-createkey.md), [download the public key and import token](ct-getparametersforimport.md), and [import the key material](ct-importkeymaterial.md)\. AWS KMS also records an entry when you delete imported key material or when AWS KMS [deletes expired key material](ct-deleteexpiredkeymaterial.md)\.**
 + [Creating a CMK with no key material \(console\)](#importing-keys-create-cmk-console)
 + [Creating a CMK with no key material \(AWS KMS API\)](#importing-keys-create-cmk-api)
 

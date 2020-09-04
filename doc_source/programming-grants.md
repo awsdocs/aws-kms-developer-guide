@@ -24,7 +24,7 @@ For details, see the [createGrant method](https://docs.aws.amazon.com/AWSJavaSDK
 ```
 // Create a grant
 //
-// Replace the following fictitious CMK ARN with a valid CMK ID or ARN
+// Replace the following example key ARN with a valid key ID or key ARN
 String keyId = "arn:aws:kms:us-west-2:111122223333:key/1234abcd-12ab-34cd-56ef-1234567890ab";
 String granteePrincipal = "arn:aws:iam::111122223333:user/Alice";
 String operation = GrantOperation.GenerateDataKey.toString();
@@ -45,7 +45,7 @@ For details, see the [CreateGrant method](https://docs.aws.amazon.com/sdkfornet/
 ```
 // Create a grant
 //
-// Replace the following fictitious CMK ARN with a valid CMK ID or ARN
+// Replace the following example key ARN with a valid key ID or key ARN
 String keyId = "arn:aws:kms:us-west-2:111122223333:key/1234abcd-12ab-34cd-56ef-1234567890ab";
 String granteePrincipal = "arn:aws:iam::111122223333:user/Alice";
 String operation = GrantOperation.GenerateDataKey;
@@ -68,7 +68,7 @@ For details, see the [create\_grant method](http://boto3.amazonaws.com/v1/docume
 ```
 # Create a grant
 
-# Replace the following fictitious CMK ARN with a valid CMK ID or ARN
+# Replace the following example key ARN with a valid key ID or key ARN
 key_id = 'arn:aws:kms:us-west-2:111122223333:key/1234abcd-12ab-34cd-56ef-1234567890ab'
 grantee_principal = 'arn:aws:iam::111122223333:user/Alice'
 operation = ['GenerateDataKey']
@@ -88,14 +88,14 @@ For details, see the [create\_grant](https://docs.aws.amazon.com/sdk-for-ruby/v3
 ```
 # Create a grant
 
-# Replace the following fictitious CMK ARN with a valid CMK ID or ARN
-keyId = 'arn:aws:kms:us-west-2:111122223333:key/1234abcd-12ab-34cd-56ef-1234567890ab'
-granteePrincipal = 'arn:aws:iam::111122223333:user/Alice'
+# Replace the following example key ARN with a valid key ID or key ARN
+key_id = 'arn:aws:kms:us-west-2:111122223333:key/1234abcd-12ab-34cd-56ef-1234567890ab'
+grantee_principal = 'arn:aws:iam::111122223333:user/Alice'
 operation = ['GenerateDataKey']
 
 response = kmsClient.create_grant({
-  key_id: keyId,
-  grantee_principal: granteePrincipal,
+  key_id: key_id,
+  grantee_principal: grantee_principal,
   operations: operation
 })
 ```
@@ -108,7 +108,7 @@ For details, see the [CreateGrant method](https://docs.aws.amazon.com/aws-sdk-ph
 ```
 // Create a grant
 //
-// Replace the following fictitious CMK ARN with a valid CMK ID or ARN
+// Replace the following example key ARN with a valid key ID or key ARN
 $keyId = 'arn:aws:kms:us-west-2:111122223333:key/1234abcd-12ab-34cd-56ef-1234567890ab';
 $granteePrincipal = "arn:aws:iam::111122223333:user/Alice";
 $operation = ['GenerateDataKey']
@@ -128,7 +128,7 @@ For details, see the [createGrant property](https://docs.aws.amazon.com/AWSJavaS
 ```
 // Create a grant
 //
-// Replace the following fictitious CMK ARN with a valid CMK ID or ARN
+// Replace the following example key ARN with a valid key ID or key ARN
 const KeyId = 'arn:aws:kms:us-west-2:111122223333:key/1234abcd-12ab-34cd-56ef-1234567890ab';
 const GranteePrincipal = 'arn:aws:iam::111122223333:user/Alice';
 const Operations: ["GenerateDataKey"];
@@ -145,7 +145,7 @@ To create a grant, use the [New\-KMSGrant](https://docs.aws.amazon.com/powershel
 ```
 # Create a grant
  
-# Replace the following fictitious CMK ARN with a valid CMK ID or ARN
+# Replace the following example key ARN with a valid key ID or key ARN
 $keyId = 'arn:aws:kms:us-west-2:111122223333:key/1234abcd-12ab-34cd-56ef-1234567890ab'
 $granteePrincipal = 'arn:aws:iam::111122223333:user/Alice'
 $operation = 'GenerateDataKey'
@@ -174,7 +174,7 @@ For details about the Java implementation, see the [listGrants method](https://d
 ```
 // Listing grants on a CMK
 //
-// Replace the following fictitious CMK ARN with a valid CMK ID or ARN
+// Replace the following example key ARN with a valid key ID or key ARN
 String keyId = "arn:aws:kms:us-west-2:111122223333:key/1234abcd-12ab-34cd-56ef-1234567890ab";
 Integer limit = 10;
 
@@ -190,7 +190,7 @@ For details, see the [ListGrants method](https://docs.aws.amazon.com/sdkfornet/v
 ```
 // Listing grants on a CMK
 //
-// Replace the following fictitious CMK ARN with a valid CMK ID or ARN
+// Replace the following example key ARN with a valid key ID or key ARN
 String keyId = "arn:aws:kms:us-west-2:111122223333:key/1234abcd-12ab-34cd-56ef-1234567890ab";
 int limit = 10;
 
@@ -210,7 +210,7 @@ For details, see the [list\_grants method](http://boto3.amazonaws.com/v1/documen
 ```
 # Listing grants on a CMK
 
-# Replace the following fictitious CMK ARN with a valid CMK ID or ARN
+# Replace the following example key ARN with a valid key ID or key ARN
 key_id = 'arn:aws:kms:us-west-2:111122223333:key/1234abcd-12ab-34cd-56ef-1234567890ab'
 
 response = kms_client.list_grants(
@@ -227,11 +227,11 @@ For details, see the [list\_grants](https://docs.aws.amazon.com/sdk-for-ruby/v3/
 ```
 # Listing grants on a CMK
 
-# Replace the following fictitious CMK ARN with a valid CMK ID or ARN
-keyId = 'arn:aws:kms:us-west-2:111122223333:key/1234abcd-12ab-34cd-56ef-1234567890ab'
+# Replace the following example key ARN with a valid key ID or key ARN
+key_id = 'arn:aws:kms:us-west-2:111122223333:key/1234abcd-12ab-34cd-56ef-1234567890ab'
 
 response = kmsClient.list_grants({
-  key_id: keyId,
+  key_id: key_id,
   limit: 10
 })
 ```
@@ -244,7 +244,7 @@ For details, see the [ListGrants method](https://docs.aws.amazon.com/aws-sdk-php
 ```
 // Listing grants on a CMK
 //
-// Replace the following fictitious CMK ARN with a valid CMK ID or ARN
+// Replace the following example key ARN with a valid key ID or key ARN
 $keyId = 'arn:aws:kms:us-west-2:111122223333:key/1234abcd-12ab-34cd-56ef-1234567890ab';
 $limit = 10;
 
@@ -262,7 +262,7 @@ For details, see the [listGrants property](https://docs.aws.amazon.com/AWSJavaSc
 ```
 // Listing grants on a CMK
 //
-// Replace the following fictitious CMK ARN with a valid CMK ID or ARN
+// Replace the following example key ARN with a valid key ID or key ARN
 const KeyId = 'arn:aws:kms:us-west-2:111122223333:key/1234abcd-12ab-34cd-56ef-1234567890ab';
 const Limit = 10;
 kmsClient.listGrants({ KeyId, Limit }, (err, data) => {
@@ -280,7 +280,7 @@ To limit the number of output objects, this example uses the [Select\-Object](ht
 ```
 # Listing grants on a CMK
 
-# Replace the following fictitious CMK ARN with a valid CMK ID or ARN
+# Replace the following example key ARN with a valid key ID or key ARN
 $keyId = 'arn:aws:kms:us-west-2:111122223333:key/1234abcd-12ab-34cd-56ef-1234567890ab'
 $limit = 10
 
@@ -355,10 +355,10 @@ For details, see the [retire\_grant](https://docs.aws.amazon.com/sdk-for-ruby/v3
 ```
 # Retire a grant
 
-grantToken = Place your grant token here
+grant_token = Place your grant token here
 
 response = kmsClient.retire_grant({
-  grant_token: grantToken
+  grant_token: grant_token
 })
 ```
 
@@ -421,7 +421,7 @@ For details, see the [revokeGrant method](https://docs.aws.amazon.com/AWSJavaSDK
 ```
 // Revoke a grant on a CMK
 //
-// Replace the following fictitious CMK ARN with a valid CMK ID or ARN
+// Replace the following example key ARN with a valid key ID or key ARN
 String keyId = "arn:aws:kms:us-west-2:111122223333:key/1234abcd-12ab-34cd-56ef-1234567890ab";
 
 // &fake-grant-id;
@@ -439,7 +439,7 @@ For details, see the [RevokeGrant method](https://docs.aws.amazon.com/sdkfornet/
 ```
 // Revoke a grant on a CMK
 //
-// Replace the following fictitious CMK ARN with a valid CMK ID or ARN
+// Replace the following example key ARN with a valid key ID or key ARN
 String keyId = "arn:aws:kms:us-west-2:111122223333:key/1234abcd-12ab-34cd-56ef-1234567890ab";
 
 // &fake-grant-id;
@@ -463,7 +463,7 @@ For details, see the [revoke\_grant method](http://boto3.amazonaws.com/v1/docume
 ```
 # Revoke a grant on a CMK
 
-# Replace the following fictitious CMK ARN with a valid CMK ID or ARN
+# Replace the following example key ARN with a valid key ID or key ARN
 key_id = 'arn:aws:kms:us-west-2:111122223333:key/1234abcd-12ab-34cd-56ef-1234567890ab'
 
 # &fake-grant-id;
@@ -483,15 +483,15 @@ For details, see the [revoke\_grant](https://docs.aws.amazon.com/sdk-for-ruby/v3
 ```
 # Revoke a grant on a CMK
 
-# Replace the following fictitious CMK ARN with a valid CMK ID or ARN
-keyId = 'arn:aws:kms:us-west-2:111122223333:key/1234abcd-12ab-34cd-56ef-1234567890ab'
+# Replace the following example key ARN with a valid key ID or key ARN
+key_id = 'arn:aws:kms:us-west-2:111122223333:key/1234abcd-12ab-34cd-56ef-1234567890ab'
 
 # &fake-grant-id;
-grantId = 'grant1'
+grant_id = 'grant1'
 
 response = kmsClient.revoke_grant({
-  key_id: keyId,
-  grant_id: grantId
+  key_id: key_id,
+  grant_id: grant_id
 })
 ```
 
@@ -503,10 +503,10 @@ For details, see the [RevokeGrant method](https://docs.aws.amazon.com/aws-sdk-ph
 ```
 // Revoke a grant on a CMK
 //
-// Replace the following fictitious CMK ARN with a valid CMK ID or ARN
+// Replace the following example key ARN with a valid key ID or key ARN
 $keyId = 'arn:aws:kms:us-west-2:111122223333:key/1234abcd-12ab-34cd-56ef-1234567890ab';
 
-// Replace the following fictitious grant ID with a valid one
+// Replace the following example grant ID with a valid one
 $grantId = "grant1";
 
 $result = $KmsClient->revokeGrant([
@@ -523,10 +523,10 @@ For details, see the [revokeGrant property](https://docs.aws.amazon.com/AWSJavaS
 ```
 // Revoke a grant on a CMK
 //
-// Replace the following fictitious CMK ARN with a valid CMK ID or ARN
+// Replace the following example key ARN with a valid key ID or key ARN
 const KeyId = 'arn:aws:kms:us-west-2:111122223333:key/1234abcd-12ab-34cd-56ef-1234567890ab';
 
-// Replace the following fictitious grant ID with a valid one
+// Replace the following example grant ID with a valid one
 const GrantId = 'grant1';
 kmsClient.revokeGrant({ GrantId, KeyId }, (err, data) => {
   ...
@@ -541,10 +541,10 @@ To revoke a grant, use the [Revoke\-KMSGrant](https://docs.aws.amazon.com/powers
 ```
 # Revoke a grant on a CMK
 
-# Replace the following fictitious CMK ARN with a valid CMK ID or ARN
+# Replace the following example key ARN with a valid key ID or key ARN
 $keyId = 'arn:aws:kms:us-west-2:111122223333:key/1234abcd-12ab-34cd-56ef-1234567890ab'
 
-# Replace the following fictitious grant ID with a valid one
+# Replace the following example grant ID with a valid one
 $grantId = 'grant1'
 
 Revoke-KMSGrant -KeyId $keyId -GrantId $grantId

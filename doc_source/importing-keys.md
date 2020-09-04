@@ -1,6 +1,13 @@
 # Importing key material in AWS Key Management Service \(AWS KMS\)<a name="importing-keys"></a>
 
-An AWS KMS [customer master key ](concepts.md#master_keys)\(CMK\) is a logical representation of a master key\. In addition to the [CMK identifiers](concepts.md#key-id) and other metadata, a CMK contains the *key material* used to encrypt and decrypt data\. When you [create a CMK](create-keys.md), by default AWS KMS generates the key material for that CMK\. But you can create a CMK without key material and then import your own key material into that CMK, a feature often known as "bring your own key" \(BYOK\)\.
+You can create a [customer master key](concepts.md#master_keys) \(CMK\) with key material that you supply\. 
+
+A CMK is a logical representation of a master key\. It contains *key material* used to encrypt and decrypt data, in addition to its [key identifiers](concepts.md#key-id) and other metadata\. When you [create a CMK](create-keys.md), by default, AWS KMS generates the key material for that CMK\. But you can create a CMK without key material and then import your own key material into that CMK, a feature often known as "bring your own key" \(BYOK\)\.
+
+![\[Image NOT FOUND\]](http://docs.aws.amazon.com/kms/latest/developerguide/images/import-key.png)
+
+**Note**  
+Ciphertexts produced by using imported key material are not portable\. You cannot decrypt a ciphertext encrypted under a CMK by using the raw key material outside of AWS KMS\.
 
 Imported key material is supported only for symmetric CMKs in AWS KMS key stores\. It is not supported on [asymmetric CMKs](symm-asymm-concepts.md#asymmetric-cmks) or CMKs in [custom key stores](custom-key-store-overview.md)\.
 
@@ -16,6 +23,7 @@ The key material you import must be a 256\-bit symmetric encryption key\.
 
 **Topics**
 + [About imported key material](#importing-keys-considerations)
++ [Permissions for importing key material](#importing-keys-permissions)
 + [How to import key material](#importing-keys-overview)
 + [How to reimport key material](#reimport-key-material)
 + [How to identify CMKs with imported key material](#identify-imported-keys)
@@ -24,22 +32,62 @@ The key material you import must be a 256\-bit symmetric encryption key\.
 
 Before you decide to import key material into AWS KMS, you should understand the following characteristics of imported key material\.
 
-**Secure key generation**  
-You are responsible for generating the key material using a source of randomness that meets your security requirements\.
+**You generate the key material**  
+You are responsible for generating 256 bits of key material using a source of randomness that meets your security requirements\.
 
-**One key per CMK**  
+**Can't change the key material**  
 When you import key material into a CMK, the CMK is permanently associated with that key material\. You can [reimport the same key material](#reimport-key-material), but you cannot import different key material into that CMK\. Also, you cannot [enable automatic key rotation](rotate-keys.md) for a CMK with imported key material\. However, you can [manually rotate a CMK](rotate-keys.md#rotate-keys-manually) with imported key material\. 
 
-**One CMK per ciphertext**  
+**Can't decrypt with any other CMK**  
 When you encrypt data under a KMS CMK, the ciphertext cannot be decrypted with any other CMK\. This is true even when you import the same key material into a different CMK\.
 
-**Availability and durability**  
+**No portability or escrow features**  
+The ciphertexts that AWS KMS produces are not portable\. They include metadata and other artifacts that bind each ciphertext to the CMK that was used to encrypt it\. You cannot decrypt an AWS KMS ciphertext outside of AWS KMS even if you have the key material\. You cannot use any AWS tools, such as the [AWS Encryption SDK](https://docs.aws.amazon.com/encryption-sdk/latest/developer-guide/) or [Amazon S3 client\-side encryption](https://docs.aws.amazon.com/AmazonS3/latest/dev/UsingClientSideEncryption.html), to decrypt AWS KMS ciphertexts\.
+
+As a result, you cannot use keys with imported key material to support key escrow arrangements where an authorized third party with conditional access to key material can decrypt certain ciphertexts outside of AWS KMS\. To support key escrow, use the [AWS Encryption SDK](https://docs.aws.amazon.com/encryption-sdk/latest/developer-guide/java-example-code.html#java-example-multiple-providers) to encrypt your message under a key that is independent of AWS KMS\.
+
+**You're responsible for availability and durability**  
 You are responsible for the key material's overall availability and durability\. AWS KMS is designed to keep imported key material highly available\. But the service does not maintain the durability of imported key material at the same level as key material generated on your behalf\. This difference is meaningful in the following cases:
 + When you set an expiration time for your imported key material, AWS KMS deletes the key material after it expires\. AWS KMS does not delete the CMK or its metadata\. You cannot set an expiration time for key material generated by AWS KMS\.
 + When you [manually delete imported key material](importing-keys-delete-key-material.md), AWS KMS deletes the key material but does not delete the CMK or its metadata\. In contrast, [scheduling key deletion](deleting-keys.md#deleting-keys-how-it-works) requires a waiting period of 7 to 30 days, after which AWS KMS deletes the key material and all of the CMK's metadata\.
 + In the unlikely event of certain regionwide failures that affect the service \(such as a total loss of power\), AWS KMS cannot automatically restore your imported key material\. However, AWS KMS can restore the CMK and its metadata\.
 
 To restore the key material after events like these, you must retain a copy of the key material in a system that you control\. Then, you can reimport it into the CMK\.
+
+## Permissions for importing key material<a name="importing-keys-permissions"></a>
+
+To create and manage CMKs with imported key material, the user needs permission for the operations in this process\. You can provide the `kms:GetParameterForImport`, `kms:ImportKeyMaterial`, and `kms:DeleteImportedKeyMaterial` permissions in the key policy when you create the CMK\. The `kms:ImportKeyMaterial` permission is not included in the default permissions for key administrators, so you need to add it manually\.
+
+To create CMKs with imported key material, the principal needs the following permissions\.
++ [kms:CreateKey](iam-policies.md#iam-policy-example-create-key) \(IAM policy\)
+  + To limit this permission to CMKs with imported key material, use the [kms:KeyOrigin](policy-conditions.md#conditions-kms-key-origin) policy condition with a value of `EXTERNAL`\.
+
+    ```
+    {
+      "Version": "2012-10-17",
+      "Statement": {
+        "Sid": "IAM policy to create CMKs with no key material" 
+        "Effect": "Allow",
+        "Resource": "*",
+        "Principal": {
+          "AWS": "arn:aws:iam::111122223333:role/KMSAdminRole"
+        },
+        "Action": "kms:CreateKey",
+        "Condition": {
+          "StringEquals": {
+            "kms:KeyOrigin": "EXTERNAL"
+        }
+      }
+    }
+    ```
++ [kms:GetParametersForImport](https://docs.aws.amazon.com/kms/latest/APIReference/API_GetParametersForImport.html) \(Key policy or IAM policy\)
+  + To limit this permission to requests that use a particular wrapping algorithm and wrapping key spec, use the [kms:WrappingAlgorithm](policy-conditions.md#conditions-kms-wrapping-algorithm) and [kms:WrappingKeySpec](policy-conditions.md#conditions-kms-wrapping-key-spec) policy conditions\. 
++ [kms:ImportKeyMaterial](https://docs.aws.amazon.com/kms/latest/APIReference/API_ImportKeyMaterial.html) \(Key policy or IAM policy\)
+  + To allow or prohibit key material that expires and control the expiration date, use the [kms:ExpirationModel](policy-conditions.md#conditions-kms-expiration-model) and [kms:ValidTo](policy-conditions.md#conditions-kms-valid-to) policy conditions\.
+
+To reimport imported key material, the principal needs the [kms:GetParametersForImport](https://docs.aws.amazon.com/kms/latest/APIReference/API_GetParametersForImport.html) and [kms:ImportKeyMaterial](https://docs.aws.amazon.com/kms/latest/APIReference/API_ImportKeyMaterial.html) permissions\.
+
+To delete imported key material, the principal needs [kms:DeleteImportedKeyMaterial](https://docs.aws.amazon.com/kms/latest/APIReference/API_DeleteImportedKeyMaterial.html) permission\.
 
 ## How to import key material<a name="importing-keys-overview"></a>
 
@@ -52,6 +100,8 @@ The following overview explains how to import your key material into AWS KMS\. F
 1. [Encrypt the key material](importing-keys-encrypt-key-material.md) – Use the public key that you downloaded in step 2 to encrypt the key material that you created on your own system\.
 
 1. [Import the key material](importing-keys-import-key-material.md) – Upload the encrypted key material that you created in step 3 and the import token that you downloaded in step 2\.
+
+AWS KMS records an entry in your AWS CloudTrail log when you [create the CMK](ct-createkey.md), [download the public key and import token](ct-getparametersforimport.md), and [import the key material](ct-importkeymaterial.md)\. AWS KMS also records an entry when you delete imported key material or when AWS KMS [deletes expired key material](ct-deleteexpiredkeymaterial.md)\. 
 
 ## How to reimport key material<a name="reimport-key-material"></a>
 

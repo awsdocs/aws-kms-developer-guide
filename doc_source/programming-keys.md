@@ -139,7 +139,7 @@ For details, see the [generateDataKey method](https://docs.aws.amazon.com/AWSJav
 ```
 // Generate a data key
 //
-// Replace the following fictitious CMK ARN with a valid CMK ID or ARN
+// Replace the following example key ARN with any valid key identfier
 String keyId = "arn:aws:kms:us-west-2:111122223333:key/1234abcd-12ab-34cd-56ef-1234567890ab";
 
 GenerateDataKeyRequest dataKeyRequest = new GenerateDataKeyRequest();
@@ -161,7 +161,7 @@ For details, see the [GenerateDataKey method](https://docs.aws.amazon.com/sdkfor
 ```
 // Generate a data key
 //
-// Replace the following fictitious CMK ARN with a valid CMK ID or ARN
+// Replace the following example key ARN with any valid key identfier
 String keyId = "arn:aws:kms:us-west-2:111122223333:key/1234abcd-12ab-34cd-56ef-1234567890ab";
 GenerateDataKeyRequest dataKeyRequest = new GenerateDataKeyRequest()
 {
@@ -179,12 +179,12 @@ MemoryStream encryptedKey = dataKeyResponse.CiphertextBlob;
 ------
 #### [ Python ]
 
-For details, see the [generate\_date\_key method](http://boto3.amazonaws.com/v1/documentation/api/latest/reference/services/kms.html#KMS.Client.generate_data_key) in the AWS SDK for Python \(Boto3\)\.
+For details, see the [generate\_data\_key method](http://boto3.amazonaws.com/v1/documentation/api/latest/reference/services/kms.html#KMS.Client.generate_data_key) in the AWS SDK for Python \(Boto3\)\.
 
 ```
 # Generate a data key
 
-# Replace the following fictitious CMK ARN with a valid CMK ID or ARN
+# Replace the following example key ARN with any valid key identfier
 key_id = 'arn:aws:kms:us-west-2:111122223333:key/1234abcd-12ab-34cd-56ef-1234567890ab'
 
 response = kms_client.generate_data_key(
@@ -205,17 +205,17 @@ For details, see the [generate\_data\_key](https://docs.aws.amazon.com/sdk-for-r
 ```
 # Generate a data key
 
-# Replace the following fictitious CMK ARN with a valid CMK ID or ARN
-keyId = 'arn:aws:kms:us-west-2:111122223333:key/1234abcd-12ab-34cd-56ef-1234567890ab'
+# Replace the following example key ARN with any valid key identfier
+key_id = 'arn:aws:kms:us-west-2:111122223333:key/1234abcd-12ab-34cd-56ef-1234567890ab'
 
 response = kmsClient.generate_data_key({
-  key_id: keyId,
+  key_id: key_id,
   key_spec: 'AES_256'
 })
 
-plaintextKey = response.plaintext
+plaintext_key = response.plaintext
 
-encryptedKey = response.ciphertext_blob
+encrypted_key = response.ciphertext_blob
 ```
 
 ------
@@ -226,7 +226,7 @@ For details, see the [GenerateDataKey method](https://docs.aws.amazon.com/aws-sd
 ```
 // Generate a data key
 //
-// Replace the following fictitious CMK ARN with a valid CMK ID or ARN
+// Replace the following example key ARN with any valid key identfier
 $keyId = 'arn:aws:kms:us-west-2:111122223333:key/1234abcd-12ab-34cd-56ef-1234567890ab';
 $keySpec = 'AES_256';
 
@@ -248,7 +248,7 @@ For details, see the [generateDataKey property](https://docs.aws.amazon.com/AWSJ
 ```
 // Generate a data key
 //
-// Replace the following fictitious CMK ARN with a valid CMK ID or ARN
+// Replace the following example key ARN with any valid key identfier
 const KeyId = 'arn:aws:kms:us-west-2:111122223333:key/1234abcd-12ab-34cd-56ef-1234567890ab';
 const KeySpec = 'AES_256';
 kmsClient.generateDataKey({ KeyId, KeySpec }, (err, data) => {
@@ -270,7 +270,7 @@ In the output, the plaintext key \(in the `Plaintext` property\) and the encrypt
 ```
 # Generate a data key
 
-# Replace the following fictitious CMK ARN with a valid CMK ID or ARN  
+# Replace the following example key ARN with any valid key identfier
 $keyId = 'arn:aws:kms:us-west-2:111122223333:key/1234abcd-12ab-34cd-56ef-1234567890ab'
 $keySpec = 'AES_256'
 
@@ -301,7 +301,7 @@ For details, see the [describeKey method](https://docs.aws.amazon.com/AWSJavaSDK
 ```
 // Describe a CMK
 //
-// Replace the following fictitious CMK ARN with a valid CMK ID or ARN
+// Replace the following example key ARN with any valid key identfier
 String keyId = "arn:aws:kms:us-west-2:111122223333:key/1234abcd-12ab-34cd-56ef-1234567890ab";
 
 DescribeKeyRequest req = new DescribeKeyRequest().withKeyId(keyId);
@@ -316,7 +316,7 @@ For details, see the [DescribeKey method](https://docs.aws.amazon.com/sdkfornet/
 ```
 // Describe a CMK
 //
-// Replace the following fictitious CMK ARN with a valid CMK ID or ARN
+// Replace the following example key ARN with any valid key identfier
 String keyId = "arn:aws:kms:us-west-2:111122223333:key/1234abcd-12ab-34cd-56ef-1234567890ab";
 
 DescribeKeyRequest describeKeyRequest = new DescribeKeyRequest()
@@ -335,7 +335,7 @@ For details, see the [describe\_key method](http://boto3.amazonaws.com/v1/docume
 ```
 # Describe a CMK
 
-# Replace the following fictitious CMK ARN with a valid CMK ID or ARN
+# Replace the following example key ARN with any valid key identfier
 key_id = 'arn:aws:kms:us-west-2:111122223333:key/1234abcd-12ab-34cd-56ef-1234567890ab'
 
 response = kms_client.describe_key(
@@ -351,11 +351,11 @@ For details, see the [describe\_key](https://docs.aws.amazon.com/sdk-for-ruby/v3
 ```
 # Describe a CMK
 
-# Replace the following fictitious CMK ARN with a valid CMK ID or ARN
-keyId = 'arn:aws:kms:us-west-2:111122223333:key/1234abcd-12ab-34cd-56ef-1234567890ab'
+# Replace the following example key ARN with any valid key identfier
+key_id = 'arn:aws:kms:us-west-2:111122223333:key/1234abcd-12ab-34cd-56ef-1234567890ab'
 
 response = kmsClient.describe_key({
-  key_id: keyId
+  key_id: key_id
 })
 ```
 
@@ -367,7 +367,7 @@ For details, see the [DescribeKey method](https://docs.aws.amazon.com/aws-sdk-ph
 ```
 // Describe a CMK
 //
-// Replace the following fictitious CMK ARN with a valid CMK ID or ARN
+// Replace the following example key ARN with any valid key identfier
 $keyId = 'arn:aws:kms:us-west-2:111122223333:key/1234abcd-12ab-34cd-56ef-1234567890ab';
 
 $result = $KmsClient->describeKey([
@@ -383,7 +383,7 @@ For details, see the [describeKey property](https://docs.aws.amazon.com/AWSJavaS
 ```
 // Describe a CMK
 //
-// Replace the following fictitious CMK ARN with a valid CMK ID or ARN
+// Replace the following example key ARN with any valid key identfier
 const KeyId = 'arn:aws:kms:us-west-2:111122223333:key/1234abcd-12ab-34cd-56ef-1234567890ab';
 kmsClient.describeKey({ KeyId }, (err, data) => {
   ...
@@ -398,7 +398,7 @@ To get detailed information about a CMK, use the [Get\-KmsKey](https://docs.aws.
 ```
 # Describe a CMK
 
-# Replace the following fictitious CMK ARN with a valid CMK ID or ARN
+# Replace the following example key ARN with any valid key identfier
 $keyId = 'arn:aws:kms:us-west-2:111122223333:key/1234abcd-12ab-34cd-56ef-1234567890ab'
 Get-KmsKey -KeyId $keyId
 ```
@@ -535,7 +535,7 @@ For details about the Java implementation, see the [enableKey method](https://do
 ```
 // Enable a CMK
 //
-// Replace the following fictitious CMK ARN with a valid CMK ID or ARN
+// Replace the following example key ARN with a valid key ID or key ARN
 String keyId = "arn:aws:kms:us-west-2:111122223333:key/1234abcd-12ab-34cd-56ef-1234567890ab";
 
 EnableKeyRequest req = new EnableKeyRequest().withKeyId(keyId);
@@ -550,7 +550,7 @@ For details, see the [EnableKey method](https://docs.aws.amazon.com/sdkfornet/v3
 ```
 // Enable a CMK
 //
-// Replace the following fictitious CMK ARN with a valid CMK ID or ARN
+// Replace the following example key ARN with a valid key ID or key ARN
 String keyId = "arn:aws:kms:us-west-2:111122223333:key/1234abcd-12ab-34cd-56ef-1234567890ab";
 
 EnableKeyRequest enableKeyRequest = new EnableKeyRequest()
@@ -568,7 +568,7 @@ For details, see the [enable\_key method](http://boto3.amazonaws.com/v1/document
 ```
 # Enable a CMK
 
-# Replace the following fictitious CMK ARN with a valid CMK ID or ARN
+# Replace the following example key ARN with a valid key ID or key ARN
 key_id = 'arn:aws:kms:us-west-2:111122223333:key/1234abcd-12ab-34cd-56ef-1234567890ab'
 
 response = kms_client.enable_key(
@@ -584,11 +584,11 @@ For details, see the [enable\_key](https://docs.aws.amazon.com/sdk-for-ruby/v3/a
 ```
 # Enable a CMK
 
-# Replace the following fictitious CMK ARN with a valid CMK ID or ARN
-keyId = 'arn:aws:kms:us-west-2:111122223333:key/1234abcd-12ab-34cd-56ef-1234567890ab'
+# Replace the following example key ARN with a valid key ID or key ARN
+key_id = 'arn:aws:kms:us-west-2:111122223333:key/1234abcd-12ab-34cd-56ef-1234567890ab'
 
 response = kmsClient.enable_key({
-  key_id: keyId
+  key_id: key_id
 })
 ```
 
@@ -600,7 +600,7 @@ For details, see the [EnableKey method](https://docs.aws.amazon.com/aws-sdk-php/
 ```
 // Enable a CMK
 //
-// Replace the following fictitious CMK ARN with a valid CMK ID or ARN
+// Replace the following example key ARN with a valid key ID or key ARN
 $keyId = 'arn:aws:kms:us-west-2:111122223333:key/1234abcd-12ab-34cd-56ef-1234567890ab';
 
 $result = $KmsClient->enableKey([
@@ -616,7 +616,7 @@ For details, see the [enableKey property](https://docs.aws.amazon.com/AWSJavaScr
 ```
 // Enable a CMK
 //
-// Replace the following fictitious CMK ARN with a valid CMK ID or ARN
+// Replace the following example key ARN with a valid key ID or key ARN
 const KeyId = 'arn:aws:kms:us-west-2:111122223333:key/1234abcd-12ab-34cd-56ef-1234567890ab';
 kmsClient.enableKey({ KeyId }, (err, data) => {
   ...
@@ -631,7 +631,7 @@ To enable a CMK, use the [Enable\-KmsKey](https://docs.aws.amazon.com/powershell
 ```
 # Enable a CMK
 
-# Replace the following fictitious CMK ARN with a valid CMK ID or ARN
+# Replace the following example key ARN with a valid key ID or key ARN
 $keyId = 'arn:aws:kms:us-west-2:111122223333:key/1234abcd-12ab-34cd-56ef-1234567890ab'
 Enable-KmsKey -KeyId $keyId
 ```
@@ -656,7 +656,7 @@ For details, see the [disableKey method](https://docs.aws.amazon.com/AWSJavaSDK/
 ```
 // Disable a CMK
 //
-// Replace the following fictitious CMK ARN with a valid CMK ID or ARN
+// Replace the following example key ARN with a valid key ID or key ARN
 String keyId = "arn:aws:kms:us-west-2:111122223333:key/1234abcd-12ab-34cd-56ef-1234567890ab";
 
 DisableKeyRequest req = new DisableKeyRequest().withKeyId(keyId);
@@ -671,7 +671,7 @@ For details, see the [DisableKey method](https://docs.aws.amazon.com/sdkfornet/v
 ```
 // Disable a CMK
 //
-// Replace the following fictitious CMK ARN with a valid CMK ID or ARN
+// Replace the following example key ARN with a valid key ID or key ARN
 String keyId = "arn:aws:kms:us-west-2:111122223333:key/1234abcd-12ab-34cd-56ef-1234567890ab";
 
 DisableKeyRequest disableKeyRequest = new DisableKeyRequest()
@@ -689,7 +689,7 @@ For details, see the [disable\_key method](http://boto3.amazonaws.com/v1/documen
 ```
 # Disable a CMK
 
-# Replace the following fictitious CMK ARN with a valid CMK ID or ARN
+# Replace the following example key ARN with a valid key ID or key ARN
 key_id = 'arn:aws:kms:us-west-2:111122223333:key/1234abcd-12ab-34cd-56ef-1234567890ab'
 
 response = kms_client.disable_key(
@@ -705,11 +705,11 @@ For details, see the [disable\_key](https://docs.aws.amazon.com/sdk-for-ruby/v3/
 ```
 # Disable a CMK
 
-# Replace the following fictitious CMK ARN with a valid CMK ID or ARN
-keyId = 'arn:aws:kms:us-west-2:111122223333:key/1234abcd-12ab-34cd-56ef-1234567890ab'
+# Replace the following example key ARN with a valid key ID or key ARN
+key_id = 'arn:aws:kms:us-west-2:111122223333:key/1234abcd-12ab-34cd-56ef-1234567890ab'
 
 response = kmsClient.disable_key({
-  key_id: keyId
+  key_id: key_id
 })
 ```
 
@@ -721,7 +721,7 @@ For details, see the [DisableKey method](https://docs.aws.amazon.com/aws-sdk-php
 ```
 // Disable a CMK
 //
-// Replace the following fictitious CMK ARN with a valid CMK ID or ARN
+// Replace the following example key ARN with a valid key ID or key ARN
 $keyId = 'arn:aws:kms:us-west-2:111122223333:key/1234abcd-12ab-34cd-56ef-1234567890ab';
 
 $result = $KmsClient->disableKey([
@@ -737,7 +737,7 @@ For details, see the [disableKey property](https://docs.aws.amazon.com/AWSJavaSc
 ```
 // Disable a CMK
 //
-// Replace the following fictitious CMK ARN with a valid CMK ID or ARN
+// Replace the following example key ARN with a valid key ID or key ARN
 const KeyId = 'arn:aws:kms:us-west-2:111122223333:key/1234abcd-12ab-34cd-56ef-1234567890ab';
 kmsClient.disableKey({ KeyId }, (err, data) => {
   ...
@@ -752,7 +752,7 @@ To disable a CMK, use the [Disable\-KmsKey](https://docs.aws.amazon.com/powershe
 ```
 # Disable a CMK
 
-# Replace the following fictitious CMK ARN with a valid CMK ID or ARN
+# Replace the following example key ARN with a valid key ID or key ARN
 $keyId = 'arn:aws:kms:us-west-2:111122223333:key/1234abcd-12ab-34cd-56ef-1234567890ab'
 Disable-KmsKey -KeyId $keyId
 ```

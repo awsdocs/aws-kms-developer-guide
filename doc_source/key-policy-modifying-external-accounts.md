@@ -2,17 +2,24 @@
 
 You can allow IAM users or roles in one AWS account to use a customer master key \(CMK\) in a different AWS account\. You can add these permissions when you create the CMK or change the permissions for an existing CMK\.
 
+**Warning**  
+Be cautious about giving principals permissions to use your CMKs\. Whenever possible, follow the *least privilege* principle\. Give users access only to the CMKs they need for only the operations they require\.  
+Also, be cautious about using any unfamiliar CMK, especially a CMK in a different account\. Malicious users might give you permissions to use their CMK to get information about you or your account\.   
+For information about using policies to protect the resources in your account, see [Best practices for IAM policies](iam-policies.md#iam-policies-best-practices)\.
+
 To give permission to use a CMK to users and roles in another account, you must use two different types of policies:
 + The **key policy** for the CMK must give the external account \(or users and roles in the external account\) permission to use the CMK\. The key policy is in the account that owns the CMK\.
-+ You must attach **IAM policies** to IAM users and roles in the external account\. These IAM policies delegate the permissions that are specified in the key policy\.
++ **IAM policies** in the external account must delegate the key policy permissions to its users and roles\. These policies are set in the external account and give permissions to users and roles in that account\.
 
-In this scenario, the key policy determines who *can* have access to the CMK\. The IAM policy determines who *does* have access to the CMK\. Neither the key policy nor the IAM policy alone is sufficient—you must change both\. 
+The key policy determines who *can* have access to the CMK\. The IAM policy determines who *does* have access to the CMK\. Neither the key policy nor the IAM policy alone is sufficient—you must change both\. 
 
 To edit the key policy, you can use the [Policy View](key-policy-modifying.md#key-policy-modifying-how-to-console-policy-view) in the AWS Management Console or use the [CreateKey](https://docs.aws.amazon.com/kms/latest/APIReference/API_CreateKey.html) or [PutKeyPolicy](https://docs.aws.amazon.com/kms/latest/APIReference/API_PutKeyPolicy.html) operations\. For help setting the key policy when creating a CMK, see [Creating CMKs that other accounts can use](#cross-account-console)\.
 
 For help with editing IAM policies, see [Using IAM policies with AWS KMS](iam-policies.md)\. 
 
 For an example that shows how the key policy and IAM policies work together to allow use of a CMK in a different account, see [Example 2: User assumes role with permission to use a CMK in a different AWS account](policy-evaluation.md#example-cross-acct)\.
+
+You can view the resulting cross\-account AWS KMS operations on the CMK in your [AWS CloudTrail logs](logging-using-cloudtrail.md)\. Operations that use CMKs in other accounts are logged in both the caller's account and the CMK owner's account\.
 
 **Topics**
 + [Step 1: Add a key policy statement in the local account](#cross-account-key-policy)

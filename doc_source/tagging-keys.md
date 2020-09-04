@@ -19,6 +19,8 @@ Tags help you do the following:
 
   For more information about using tags for cost allocation, see [Using Cost Allocation Tags](https://docs.aws.amazon.com/awsaccountbilling/latest/aboutv2/cost-alloc-tags.html) in the *AWS Billing and Cost Management User Guide*\. For information about the rules for tag keys and tag values, see [User\-Defined Tag Restrictions](https://docs.aws.amazon.com/awsaccountbilling/latest/aboutv2/allocation-tag-restrictions.html) in the *AWS Billing and Cost Management User Guide*\.
 
+AWS KMS writes an entry to your AWS CloudTrail log when you use the [TagResource](ct-tagresource.md), [UntagResource](ct-untagresource.md), or `ListResourceTags` operations\.
+
 **Topics**
 + [Managing CMK tags \(console\)](#manage-tags)
 + [Managing CMK Tags \(AWS KMS API\)](#manage-tags-api)

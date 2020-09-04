@@ -1,6 +1,6 @@
 # GenerateDataKeyWithoutPlaintext<a name="ct-generatedatakeyplaintext"></a>
 
-The following example shows a log file created by calling `GenerateDataKeyWithoutPlaintext`\.
+The following example shows an AWS CloudTrail log entry for the [GenerateDataKeyWithoutPlaintext](https://docs.aws.amazon.com/kms/latest/APIReference/API_GenerateDataKeyWithoutPlaintext.html) operation\.
 
 ```
 {
@@ -10,8 +10,8 @@ The following example shows a log file created by calling `GenerateDataKeyWithou
         "userIdentity": {
             "type": "IAMUser",
             "principalId": "EX_PRINCIPAL_ID",
-            "arn": "arn:aws:iam::123456789012:user/Alice",
-            "accountId": "123456789012",
+            "arn": "arn:aws:iam::111122223333:user/Alice",
+            "accountId": "111122223333",
             "accessKeyId": "EXAMPLE_KEY_ID",
             "userName": "Alice"
         },
@@ -23,7 +23,7 @@ The following example shows a log file created by calling `GenerateDataKeyWithou
         "userAgent": "AWS Internal",
         "errorCode": "InvalidKeyUsageException",
         "requestParameters": {
-            "keyId": "d4f2a88d-5f9c-4807-b71d-4d0ee5225156",
+            "keyId": "1234abcd-12ab-34cd-56ef-1234567890ab",
             "numberOfBytes": 16
         },
         "responseElements": null,
@@ -31,11 +31,11 @@ The following example shows a log file created by calling `GenerateDataKeyWithou
         "eventID": "f7734272-9ec5-4c80-9f36-528ebbe35e4a",
         "readOnly": true,
         "resources": [{
-            "ARN": "arn:aws:kms:us-east-1:123456789012:key/d4f2a88d-5f9c-4807-b71d-4d0ee5225156",
-            "accountId": "123456789012"
+            "ARN": "arn:aws:kms:us-west-2:111122223333:key/1234abcd-12ab-34cd-56ef-1234567890ab",
+            "accountId": "111122223333"
         }],
         "eventType": "AwsApiCall",
-        "recipientAccountId": "123456789012"
+        "recipientAccountId": "111122223333"
     }
   ]
 }

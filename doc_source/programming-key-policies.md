@@ -1,6 +1,8 @@
 # Working with key policies<a name="programming-key-policies"></a>
 
-The examples in this topic use the AWS KMS API to view and change the key policies of AWS KMS customer master keys \(CMKs\)\. For details about how to use key policies and IAM policies to manage access to your CMKs, see [Authentication and access control for AWS KMS](control-access.md)\.
+The examples in this topic use the AWS KMS API to view and change the key policies of AWS KMS customer master keys \(CMKs\)\. 
+
+For details about how to use key policies, IAM policies, and grants to manage access to your CMKs, see [Authentication and access control for AWS KMS](control-access.md)\. For help writing and formatting a JSON policy document, see the [IAM JSON Policy Reference](https://docs.aws.amazon.com/IAM/latest/UserGuide/reference_policies.html) in the *IAM User Guide*\.
 
 **Topics**
 + [Listing key policy names](#list-policies)
@@ -21,7 +23,7 @@ For details about the Java implementation, see the [listKeyPolicies method](http
 ```
 // List key policies
 //
-// Replace the following fictitious CMK ARN with a valid CMK ID or ARN
+// Replace the following example key ARN with a valid key ID or key ARN
 String keyId = "arn:aws:kms:us-west-2:111122223333:key/1234abcd-12ab-34cd-56ef-1234567890ab";
 
 ListKeyPoliciesRequest req = new ListKeyPoliciesRequest().withKeyId(keyId);
@@ -36,7 +38,7 @@ For details, see the [ListKeyPolicies method](https://docs.aws.amazon.com/sdkfor
 ```
 // List key policies
 //
-// Replace the following fictitious CMK ARN with a valid CMK ID or ARN
+// Replace the following example key ARN with a valid key ID or key ARN
 String keyId = "arn:aws:kms:us-west-2:111122223333:key/1234abcd-12ab-34cd-56ef-1234567890ab";
 
 ListKeyPoliciesRequest listKeyPoliciesRequest = new ListKeyPoliciesRequest()
@@ -54,7 +56,7 @@ For details, see the [list\_key\_policies method](http://boto3.amazonaws.com/v1/
 ```
 # List key policies
 
-# Replace the following fictitious CMK ARN with a valid CMK ID or ARN
+# Replace the following example key ARN with a valid key ID or key ARN
 key_id = 'arn:aws:kms:us-west-2:111122223333:key/1234abcd-12ab-34cd-56ef-1234567890ab'
 
 response = kms_client.list_key_policies(
@@ -70,11 +72,11 @@ For details, see the [list\_key\_policies](https://docs.aws.amazon.com/sdk-for-r
 ```
 # List key policies
 
-# Replace the following fictitious CMK ARN with a valid CMK ID or ARN
-keyId = 'arn:aws:kms:us-west-2:111122223333:key/1234abcd-12ab-34cd-56ef-1234567890ab'
+# Replace the following example key ARN with a valid key ID or key ARN
+key_id = 'arn:aws:kms:us-west-2:111122223333:key/1234abcd-12ab-34cd-56ef-1234567890ab'
 
 response = kmsClient.list_key_policies({
-  key_id: keyId
+  key_id: key_id
 })
 ```
 
@@ -86,7 +88,7 @@ For details, see the [ListKeyPolicies method](https://docs.aws.amazon.com/aws-sd
 ```
 // List key policies
 //
-// Replace the following fictitious CMK ARN with a valid CMK ID or ARN
+// Replace the following example key ARN with a valid key ID or key ARN
 $keyId = 'arn:aws:kms:us-west-2:111122223333:key/1234abcd-12ab-34cd-56ef-1234567890ab';
 
 $result = $KmsClient->listKeyPolicies([
@@ -102,7 +104,7 @@ For details, see the [listKeyPolicies property](https://docs.aws.amazon.com/AWSJ
 ```
 // List key policies
 //
-// Replace the following fictitious CMK ARN with a valid CMK ID or ARN
+// Replace the following example key ARN with a valid key ID or key ARN
 const KeyId = 'arn:aws:kms:us-west-2:111122223333:key/1234abcd-12ab-34cd-56ef-1234567890ab';
 
 kmsClient.listKeyPolicies({ KeyId }, (err, data) => {
@@ -118,7 +120,7 @@ To list the name of the default key policy, use the [Get\-KMSKeyPolicyList](http
 ```
 # List key policies
 
-# Replace the following fictitious CMK ARN with a valid CMK ID or ARN
+# Replace the following example key ARN with a valid key ID or key ARN
 $keyId = 'arn:aws:kms:us-west-2:111122223333:key/1234abcd-12ab-34cd-56ef-1234567890ab'
 $response = Get-KMSKeyPolicyList -KeyId $keyId
 ```
@@ -143,7 +145,7 @@ For details, see the [getKeyPolicy method](https://docs.aws.amazon.com/AWSJavaSD
 ```
 // Get the policy for a CMK
 //
-// Replace the following fictitious CMK ARN with a valid CMK ID or ARN
+// Replace the following example key ARN with a valid key ID or key ARN
 String keyId = "arn:aws:kms:us-west-2:111122223333:key/1234abcd-12ab-34cd-56ef-1234567890ab";
 String policyName = "default";
 
@@ -159,7 +161,7 @@ For details, see the [GetKeyPolicy method](https://docs.aws.amazon.com/sdkfornet
 ```
 // Get the policy for a CMK
 //
-// Replace the following fictitious CMK ARN with a valid CMK ID or ARN
+// Replace the following example key ARN with a valid key ID or key ARN
 String keyId = "arn:aws:kms:us-west-2:111122223333:key/1234abcd-12ab-34cd-56ef-1234567890ab";
 String policyName = "default";
 
@@ -179,7 +181,7 @@ For details, see the [get\_key\_policy method](http://boto3.amazonaws.com/v1/doc
 ```
 # Get the policy for a CMK
 
-# Replace the following fictitious CMK ARN with a valid CMK ID or ARN
+# Replace the following example key ARN with a valid key ID or key ARN
 key_id = 'arn:aws:kms:us-west-2:111122223333:key/1234abcd-12ab-34cd-56ef-1234567890ab'
 policy_name = 'default'
 
@@ -197,13 +199,13 @@ For details, see the [get\_key\_policy](https://docs.aws.amazon.com/sdk-for-ruby
 ```
 # Get the policy for a CMK
 
-# Replace the following fictitious CMK ARN with a valid CMK ID or ARN
-keyId = 'arn:aws:kms:us-west-2:111122223333:key/1234abcd-12ab-34cd-56ef-1234567890ab'
-policyName = 'default'
+# Replace the following example key ARN with a valid key ID or key ARN
+key_id = 'arn:aws:kms:us-west-2:111122223333:key/1234abcd-12ab-34cd-56ef-1234567890ab'
+policy_name = 'default'
 
 response = kmsClient.get_key_policy({
-  key_id: keyId,
-  policy_name: policyName
+  key_id: key_id,
+  policy_name: policy_name
 })
 ```
 
@@ -215,7 +217,7 @@ For details, see the [GetKeyPolicy method](https://docs.aws.amazon.com/aws-sdk-p
 ```
 // Get the policy for a CMK
 //
-// Replace the following fictitious CMK ARN with a valid CMK ID or ARN
+// Replace the following example key ARN with a valid key ID or key ARN
 $keyId = 'arn:aws:kms:us-west-2:111122223333:key/1234abcd-12ab-34cd-56ef-1234567890ab';
 $policyName = "default";
 
@@ -233,7 +235,7 @@ For details, see the [getKeyPolicy property](https://docs.aws.amazon.com/AWSJava
 ```
 // Get the policy for a CMK
 //
-// Replace the following fictitious CMK ARN with a valid CMK ID or ARN
+// Replace the following example key ARN with a valid key ID or key ARN
 const KeyId = 'arn:aws:kms:us-west-2:111122223333:key/1234abcd-12ab-34cd-56ef-1234567890ab';
 const PolicyName = 'default';
 kmsClient.getKeyPolicy({ KeyId, PolicyName }, (err, data) => {
@@ -249,7 +251,7 @@ To get the key policy for a CMK, use the [Get\-KMSKeyPolicy](https://docs.aws.am
 ```
 # Get the policy for a CMK
 
-# Replace the following fictitious CMK ARN with a valid CMK ID or ARN
+# Replace the following example key ARN with a valid key ID or key ARN
 $keyId = 'arn:aws:kms:us-west-2:111122223333:key/1234abcd-12ab-34cd-56ef-1234567890ab'
 $policyName = 'default'
 
@@ -276,7 +278,7 @@ For details, see the [putKeyPolicy method](https://docs.aws.amazon.com/AWSJavaSD
 ```
 // Set a key policy for a CMK
 //
-// Replace the following fictitious CMK ARN with a valid CMK ID or ARN
+// Replace the following example key ARN with a valid key ID or key ARN
 String keyId = "arn:aws:kms:us-west-2:111122223333:key/1234abcd-12ab-34cd-56ef-1234567890ab";
 String policyName = "default";
 String policy = "{" +
@@ -284,7 +286,7 @@ String policy = "{" +
                 "  \"Statement\": [{" +
                 "    \"Sid\": \"Allow access for ExampleUser\"," +
                 "    \"Effect\": \"Allow\"," +
-                // Replace the following user ARN with one for a real user.
+                // Replace the following example user ARN with a valid one
                 "    \"Principal\": {\"AWS\": \"arn:aws:iam::111122223333:user/ExampleUser\"}," +
                 "    \"Action\": [" +
                 "      \"kms:Encrypt\"," +
@@ -309,7 +311,7 @@ For details, see the [PutKeyPolicy method](https://docs.aws.amazon.com/sdkfornet
 ```
 // Set a key policy for a CMK
 //
-// Replace the following fictitious CMK ARN with a valid CMK ID or ARN
+// Replace the following example key ARN with a valid key ID or key ARN
 String keyId = "arn:aws:kms:us-west-2:111122223333:key/1234abcd-12ab-34cd-56ef-1234567890ab";
 String policyName = "default";
 String policy = "{" +
@@ -317,7 +319,7 @@ String policy = "{" +
                 "  \"Statement\": [{" +
                 "    \"Sid\": \"Allow access for ExampleUser\"," +
                 "    \"Effect\": \"Allow\"," +
-                // Replace the following user ARN with one for a real user.
+                // Replace the following example user ARN with a valid one
                 "    \"Principal\": {\"AWS\": \"arn:aws:iam::111122223333:user/ExampleUser\"}," +
                 "    \"Action\": [" +
                 "      \"kms:Encrypt\"," +
@@ -347,7 +349,7 @@ For details, see the [put\_key\_policy method](http://boto3.amazonaws.com/v1/doc
 ```
 # Set a key policy for a CMK
 
-# Replace the following fictitious CMK ARN with a valid CMK ID or ARN
+# Replace the following example key ARN with a valid key ID or key ARN
 key_id = 'arn:aws:kms:us-west-2:111122223333:key/1234abcd-12ab-34cd-56ef-1234567890ab'
 policy_name = 'default'
 policy = """
@@ -383,30 +385,31 @@ For details, see the [put\_key\_policy](https://docs.aws.amazon.com/sdk-for-ruby
 ```
 # Set a key policy for a CMK
 
-# Replace the following fictitious CMK ARN with a valid CMK ID or ARN
-keyId = 'arn:aws:kms:us-west-2:111122223333:key/1234abcd-12ab-34cd-56ef-1234567890ab'
-policyName = 'default'
-policy = "{\n
-\n    "Version": "2012-10-17",
-\n    "Statement": [{
-\n        "Sid": "Allow access for ExampleUser",
-\n        "Effect": "Allow",
-\n        "Principal": {"AWS": "arn:aws:iam::111122223333:user/ExampleUser"},
-\n        "Action": [
-\n            "kms:Encrypt",
-\n            "kms:GenerateDataKey*",
-\n            "kms:Decrypt",
-\n            "kms:DescribeKey",
-\n            "kms:ReEncrypt*"
-\n        ],
-\n        "Resource": "*"
-\n    }]
-\n}\n"
+# Replace the following example key ARN with a valid key ID or key ARN
+key_id = 'arn:aws:kms:us-west-2:111122223333:key/1234abcd-12ab-34cd-56ef-1234567890ab'
+policy_name = 'default'
+policy = "{" +
+  "  \"Version\": \"2012-10-17\"," +
+  "  \"Statement\": [{" +
+  "    \"Sid\": \"Allow access for ExampleUser\"," +
+  "    \"Effect\": \"Allow\"," +
+  # Replace the following example user ARN with a valid one
+  "    \"Principal\": {\"AWS\": \"arn:aws:iam::111122223333:user/ExampleUser\"}," +
+  "    \"Action\": [" +
+  "      \"kms:Encrypt\"," +
+  "      \"kms:GenerateDataKey*\"," +
+  "      \"kms:Decrypt\"," +
+  "      \"kms:DescribeKey\"," +
+  "      \"kms:ReEncrypt*\"" +
+  "    ]," +
+  "    \"Resource\": \"*\"" +
+  "  }]" +
+  "}"
 
 response = kmsClient.put_key_policy({
-  key_id: keyId,
+  key_id: key_id,
   policy: policy,
-  policy_name: policyName
+  policy_name: policy_name
 })
 ```
 
@@ -418,7 +421,7 @@ For details, see the [PutKeyPolicy method](https://docs.aws.amazon.com/aws-sdk-p
 ```
 // Set a key policy for a CMK
 //
-// Replace the following fictitious CMK ARN with a valid CMK ID or ARN
+// Replace the following example key ARN with a valid key ID or key ARN
 $keyId = 'arn:aws:kms:us-west-2:111122223333:key/1234abcd-12ab-34cd-56ef-1234567890ab';
 $policyName = "default";
 
@@ -460,7 +463,7 @@ For details, see the [putKeyPolicy property](https://docs.aws.amazon.com/AWSJava
 ```
 // Set a key policy for a CMK
 //
-// Replace the following fictitious CMK ARN with a valid CMK ID or ARN
+// Replace the following example key ARN with a valid key ID or key ARN
 const KeyId = 'arn:aws:kms:us-west-2:111122223333:key/1234abcd-12ab-34cd-56ef-1234567890ab';
 const PolicyName = 'default';
 const Policy = `{
@@ -509,7 +512,7 @@ The `Policy` parameter takes a string\. Enclose the string in single quotes to m
 ```
 # Set a key policy for a CMK
 
-# Replace the following fictitious CMK ARN with a valid CMK ID or ARN
+# Replace the following example key ARN with a valid key ID or key ARN
 $keyId = 'arn:aws:kms:us-west-2:111122223333:key/1234abcd-12ab-34cd-56ef-1234567890ab'
 $policyName = 'default'
 $policy = '{

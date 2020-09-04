@@ -1,6 +1,6 @@
 # GenerateRandom<a name="ct-generaterandom"></a>
 
-The following example shows a log file created by calling `GenerateRandom`\.
+The following example shows an AWS CloudTrail log entry for the [GenerateRandom](https://docs.aws.amazon.com/kms/latest/APIReference/API_GenerateRandom.html) operation\. Because this operation doesn't use a customer master key, the `resources` field is empty\.
 
 ```
 {
@@ -10,8 +10,8 @@ The following example shows a log file created by calling `GenerateRandom`\.
         "userIdentity": {
             "type": "IAMUser",
             "principalId": "EX_PRINCIPAL_ID",
-            "arn": "arn:aws:iam::123456789012:user/Alice",
-            "accountId": "123456789012",
+            "arn": "arn:aws:iam::111122223333:user/Alice",
+            "accountId": "111122223333",
             "accessKeyId": "EXAMPLE_KEY_ID",
             "userName": "Alice"
         },
@@ -28,7 +28,7 @@ The following example shows a log file created by calling `GenerateRandom`\.
         "readOnly": true,
         "resources": [],
         "eventType": "AwsApiCall",
-        "recipientAccountId": "123456789012"
+        "recipientAccountId": "111122223333"
     }
   ]
 }

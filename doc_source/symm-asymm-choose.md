@@ -1,6 +1,6 @@
 # How to choose your CMK configuration<a name="symm-asymm-choose"></a>
 
-The type of CMK that you create depends largely on how your plan to use the CMK, your security requirements, and your authorization requirements\. When creating your CMK, remember that the cryptographic configuration of the CMK, including its key spec and key usage are established when you create the CMK and cannot be changed\. For help with creating symmetric and asymmetric CMK, see [Creating keys](create-keys.md)\.
+The type of CMK that you create depends largely on how your plan to use the CMK, your security requirements, and your authorization requirements\. When creating your CMK, remember that the cryptographic configuration of the CMK, including its key spec and key usage, are established when you create the CMK and cannot be changed\. For help with creating symmetric and asymmetric CMK, see [Creating keys](create-keys.md)\.
 
 AWS KMS supports two CMK key types: **Symmetric** and **Asymmetric**\. Each key type is associated particular [key usage](#symm-asymm-choose-key-usage) and [key spec](#symm-asymm-choose-key-spec) options\.
 
@@ -8,7 +8,7 @@ Use the following guidance to determine which type of CMK you need based on your
 
 **Encrypt and decrypt data**  
 Use a [symmetric CMK](symm-asymm-concepts.md#symmetric-cmks) for most use cases that require encrypting and decrypting data\. The symmetric encryption algorithm that AWS KMS uses is fast, efficient, and assures the confidentiality and authenticity of data\. It supports authenticated encryption with additional authenticated data \(AAD\), defined as an [encryption context](concepts.md#encrypt_context)\. This type of CMK requires both the sender and recipient of encrypted data to have valid AWS credentials to call AWS KMS\.  
-If your use case requires encryption outside of AWS by users who cannot call AWS KMS, [asymmetric CMKs](symm-asymm-concepts.md#asymmetric-cmks) are a good choice\. You can distribute the public portion of the asymmetric CMK to allow these users to encrypt data\. And your applications that need to decrypt that data can use the private portion of the asymmetric CMK within AWS KMS\.
+If your use case requires encryption outside of AWS by users who cannot call AWS KMS, [asymmetric CMKs](symm-asymm-concepts.md#asymmetric-cmks) are a good choice\. You can distribute the public key of the asymmetric CMK to allow these users to encrypt data\. And your applications that need to decrypt that data can use the private key of the asymmetric CMK within AWS KMS\.
 
 **Sign messages and verify signatures**  
 To sign messages and verify signatures, you must use an [asymmetric CMK](symm-asymm-concepts.md#asymmetric-cmks)\. You can use a CMK with a [key spec](#symm-asymm-choose-key-spec) that represents an RSA key pair or an elliptic curve \(ECC\) key pair\. The key spec you choose is determined by the signing algorithm that you want to use\. In some cases, the users who will verify signatures are outside of AWS and can’t call the [Verify](https://docs.aws.amazon.com/kms/latest/APIReference/API_Verify.html) operation\. In that case, [choose a key spec](#symm-asymm-choose-key-spec) associated with a signing algorithm that these users can support in their local applications\. 

@@ -62,7 +62,7 @@ For example, this [ListAliases](https://docs.aws.amazon.com/kms/latest/APIRefere
 ```
 
 **Multiple aliases can be associated with the same CMK**  
-For example, you can associate the `test-key` and `beta-key` aliases with the same CMK\. Only one alias appears in the AWS KMS console, but the [ListAliases](https://docs.aws.amazon.com/kms/latest/APIReference/API_ListAliases.html) response displays all aliases or all aliases for a given CMK\.  
+For example, you can associate the `test-key` and `project-key` aliases with the same CMK\. Only one alias appears in the AWS KMS console, but the [ListAliases](https://docs.aws.amazon.com/kms/latest/APIReference/API_ListAliases.html) response displays all aliases or all aliases for a given CMK\.  
 
 ```
 {
@@ -185,7 +185,7 @@ $ aws kms list-aliases
         },
         {
             "AliasName": "alias/finance-project",
-            "AliasArn": "arn:aws:kms:us-west-2:111122223333:alias/access-key",
+            "AliasArn": "arn:aws:kms:us-west-2:111122223333:alias/finance-project",
             "TargetKeyId": "0987dcba-09fe-87dc-65ba-ab0987654321"
         },
         {
@@ -202,12 +202,12 @@ $ aws kms list-aliases
 }
 ```
 
-To get all aliases that are associated with a particular CMK, use the optional `KeyId` parameter\. The KeyId parameter takes the [key ID](concepts.md#key-id-key-id) or [key ARN](concepts.md#key-id-key-ARN) of the CMK\. 
+To get all aliases that are associated with a particular CMK, use the optional `KeyId` parameter of the `ListAliases` operation\. The `KeyId` parameter takes the [key ID](concepts.md#key-id-key-id) or [key ARN](concepts.md#key-id-key-ARN) of the CMK\. 
 
 This example gets all aliases associated with the `0987dcba-09fe-87dc-65ba-ab0987654321` CMK\.
 
 ```
-$ aws kms list-aliases --key-id 1234abcd-12ab-34cd-56ef-1234567890ab
+$ aws kms list-aliases --key-id 0987dcba-09fe-87dc-65ba-ab0987654321
 {
     "Aliases": [
         {
@@ -217,7 +217,7 @@ $ aws kms list-aliases --key-id 1234abcd-12ab-34cd-56ef-1234567890ab
         },
         {
             "AliasName": "alias/finance-project",
-            "AliasArn": "arn:aws:kms:us-west-2:111122223333:alias/project-alpha",
+            "AliasArn": "arn:aws:kms:us-west-2:111122223333:alias/finance-project",
             "TargetKeyId": "0987dcba-09fe-87dc-65ba-ab0987654321"
         }
     ]
@@ -238,7 +238,7 @@ The following command gets only the `access-key` alias\. The alias name is case\
 $ aws kms list-aliases --query 'Aliases[?AliasName==`alias/access-key`]'
 [
     {
-        "AliasName": "alias/test-import",
+        "AliasName": "alias/access-key",
         "AliasArn": "arn:aws:kms:us-west-2:111122223333:alias/access-key",
         "TargetKeyId": "0987dcba-09fe-87dc-65ba-ab0987654321"
     }
@@ -247,12 +247,12 @@ $ aws kms list-aliases --query 'Aliases[?AliasName==`alias/access-key`]'
 
 ## Using aliases in your applications<a name="alias-using"></a>
 
-You can use an alias to represent a CMK in your application code\. The `KeyId` parameter in the [DescribeKey](https://docs.aws.amazon.com/kms/latest/APIReference/API_DescribeKey.html) operation and in all [cryptographic operations](concepts.md#cryptographic-operations) accepts an alias name or alias ARN\.
+You can use an alias to represent a CMK in your application code\. The `KeyId` parameter in the [DescribeKey](https://docs.aws.amazon.com/kms/latest/APIReference/API_DescribeKey.html) and [GetPublicKey](https://docs.aws.amazon.com/kms/latest/APIReference/API_GetPublicKey.html) operations and in all [cryptographic operations](concepts.md#cryptographic-operations) accepts an alias name or alias ARN\.
 
 For example, the following `GenerateDataKey` command uses an alias name \(`alias/finance`\) to identify a CMK\. The alias name is the value of the `KeyId` parameter\. 
 
 ```
-$ aws kms generate-data-key --key-id alias/finance
+$ aws kms generate-data-key --key-id alias/finance --key-spec AES_256
 ```
 
 One of the most powerful uses of aliases is in applications that run in multiple AWS Regions\. For example, you might have a global application that uses an RSA [asymmetric CMK](symm-asymm-concepts.md#asymmetric-cmks) for signing and verification\. 
@@ -306,7 +306,7 @@ $ aws kms list-aliases --key-id 1234abcd-12ab-34cd-56ef-1234567890ab
 {
     "Aliases": [
         {
-            "AliasName": "alias/finance",
+            "AliasName": "alias/test-key",
             "AliasArn": "arn:aws:kms:us-west-2:111122223333:alias/test-key",
             "TargetKeyId": "1234abcd-12ab-34cd-56ef-1234567890ab"
         }
@@ -326,7 +326,7 @@ To verify that the alias is now associated with the target CMK, use the `ListAli
 $ aws kms list-aliases --query 'Aliases[?AliasName==`alias/test-key`]'
 [
     {
-        "AliasName": "alias/test-import",
+        "AliasName": "alias/test-key",
         "AliasArn": "arn:aws:kms:us-west-2:111122223333:alias/test-key",
         "TargetKeyId": "0987dcba-09fe-87dc-65ba-ab0987654321"
     }

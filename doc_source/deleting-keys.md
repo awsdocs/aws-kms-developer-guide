@@ -23,7 +23,7 @@ If you [close or delete your AWS account](https://docs.aws.amazon.com/awsaccount
 
 ## How deleting customer master keys works<a name="deleting-keys-how-it-works"></a>
 
-Users who are authorized to delete symmetric and asymmetric customer master keys \(CMKs\)\. The procedure is the same for both types of CMKs\.
+Users who are authorized can delete symmetric and asymmetric customer master keys \(CMKs\)\. The procedure is the same for both types of CMKs\.
 
 Because it is destructive and potentially dangerous to delete a CMK, AWS KMS enforces a waiting period\. To delete a CMK in AWS KMS you *schedule key deletion*\. You can set the waiting period from a minimum of 7 days up to a maximum of 30 days\. The default waiting period is 30 days\. 
 
@@ -36,6 +36,8 @@ After the waiting period ends, AWS KMS deletes the CMK and all AWS KMS data asso
 When you schedule key deletion, AWS KMS reports the date and time when the waiting period ends\. This date and time is at least the specified number of days from when you scheduled key deletion, but it can be up to 24 hours longer\. For example, suppose you schedule key deletion and specify a waiting period of 7 days\. In that case, the end of the waiting period occurs no earlier than 7 days and no more than 8 days from the time of your request\. You can confirm the exact date and time when the waiting period ends in the AWS Management Console, AWS CLI, or AWS KMS API\.
 
 Use the waiting period to ensure that you don't need the CMK now or in the future\. You can [configure an Amazon CloudWatch alarm](deleting-keys-creating-cloudwatch-alarm.md) to warn you if a person or application attempts to use the CMK during the waiting period\. To recover the CMK, you can cancel key deletion before the waiting period ends\. After the waiting period ends you cannot cancel key deletion, and AWS KMS deletes the CMK\.
+
+AWS KMS records an entry in your AWS CloudTrail log when you [schedule deletion](ct-schedule-key-deletion.md) of the CMK and when the [CMK is actually deleted](ct-delete-key.md)\.
 
 ### Deleting asymmetric CMKs<a name="deleting-asymmetric-cmks"></a>
 
@@ -72,6 +74,8 @@ The following procedures describe how to schedule key deletion and cancel key de
 Deleting a customer master key \(CMK\) in AWS KMS is destructive and potentially dangerous\. You should proceed only when you are sure that you don't need to use the CMK anymore and won't need to use it in the future\. If you are not sure, you should [disable the CMK](enabling-keys.md) instead of deleting it\.
 
 Before you can delete a CMK, you must have permission to do so\. If you rely on the key policy alone to specify AWS KMS permissions, you might need to add additional permissions before you can delete the CMK\. For information about adding these permissions, go to [Adding permission to schedule and cancel key deletion](#deleting-keys-adding-permission)\.
+
+AWS KMS records an entry in your AWS CloudTrail log when you [schedule deletion](ct-schedule-key-deletion.md) of the CMK and when the [CMK is actually deleted](ct-delete-key.md)\.
 
 **Topics**
 + [Using the AWS Management Console](#deleting-keys-scheduling-key-deletion-console)

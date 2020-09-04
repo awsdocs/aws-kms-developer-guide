@@ -71,6 +71,8 @@ You can create a VPC endpoint policy when you create your endpoint, and you can 
 **Note**  
 AWS KMS supports VPC endpoint policies beginning in July 2020\. VPC endpoints for AWS KMS that were created before that date have the [default VPC endpoint policy](#vpce-default-policy), but you can change it at any time\.
 
+For help writing and formatting a JSON policy document, see the [IAM JSON Policy Reference](https://docs.aws.amazon.com/IAM/latest/UserGuide/reference_policies.html) in the *IAM User Guide*\.
+
 **Topics**
 + [About VPC endpoint policies](#vpce-policy-about)
 + [Default VPC endpoint policy](#vpce-default-policy)

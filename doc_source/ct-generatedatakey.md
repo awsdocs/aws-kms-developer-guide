@@ -1,6 +1,6 @@
 # GenerateDataKey<a name="ct-generatedatakey"></a>
 
-The following example shows a log file created by calling `GenerateDataKey`\.
+The following example shows an AWS CloudTrail log entry for the [GenerateDataKey](https://docs.aws.amazon.com/kms/latest/APIReference/API_GenerateDataKey.html) operation\.
 
 ```
 {
@@ -10,8 +10,8 @@ The following example shows a log file created by calling `GenerateDataKey`\.
         "userIdentity": {
             "type": "IAMUser",
             "principalId": "EX_PRINCIPAL_ID",
-            "arn": "arn:aws:iam::123456789012:user/Alice",
-            "accountId": "123456789012",
+            "arn": "arn:aws:iam::111122223333:user/Alice",
+            "accountId": "111122223333",
             "accessKeyId": "EXAMPLE_KEY_ID",
             "userName": "Alice"
         },
@@ -22,7 +22,7 @@ The following example shows a log file created by calling `GenerateDataKey`\.
         "sourceIPAddress": "192.0.2.0",
         "userAgent": "AWS Internal",
         "requestParameters": {
-            "keyId": "637e8678-3d08-4922-a650-e77eb1591db5",
+            "keyId": "1234abcd-12ab-34cd-56ef-1234567890ab",
             "numberOfBytes": 32
         },
         "responseElements": null,
@@ -30,11 +30,11 @@ The following example shows a log file created by calling `GenerateDataKey`\.
         "eventID": "a9dea4f9-8395-46c0-942c-f509c02c2b71",
         "readOnly": true,
         "resources": [{
-            "ARN": "arn:aws:kms:us-east-1:123456789012:key/637e8678-3d08-4922-a650-e77eb1591db5",
-            "accountId": "123456789012"
+            "ARN": "arn:aws:kms:us-west-2:111122223333:key/1234abcd-12ab-34cd-56ef-1234567890ab",
+            "accountId": "111122223333"
         }],
         "eventType": "AwsApiCall",
-        "recipientAccountId": "123456789012"
+        "recipientAccountId": "111122223333"
     }
   ]
 }

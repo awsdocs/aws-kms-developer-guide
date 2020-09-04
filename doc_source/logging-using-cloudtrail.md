@@ -1,12 +1,21 @@
 # Logging AWS KMS API calls with AWS CloudTrail<a name="logging-using-cloudtrail"></a>
 
-AWS KMS is integrated with AWS CloudTrail, a service that provides a record of actions performed by a user, role, or an AWS service in AWS KMS\. CloudTrail captures all API calls for AWS KMS as events, including calls from the AWS KMS console and from code calls to the AWS KMS APIs\. If you create a trail, you can enable continuous delivery of CloudTrail events to an Amazon S3 bucket, including events for AWS KMS\. If you don't configure a trail, you can still view the most recent events in the CloudTrail console in **Event history**\. Using the information collected by CloudTrail, you can determine the request that was made to AWS KMS, the IP address from which the request was made, who made the request, when it was made, and additional details\.
+AWS KMS is integrated with [AWS CloudTrail](https://docs.aws.amazon.com/awscloudtrail/latest/userguide/), a service that records all calls to AWS KMS by users, roles, and other AWS services\. CloudTrail captures all API calls to AWS KMS as events, including calls from the AWS KMS console, AWS KMS APIs, the AWS Command Line Interface \(AWS CLI\), and AWS Tools for PowerShell\.
+
+CloudTrail logs all AWS KMS operations, including read\-only operations, such as [ListAliases](https://docs.aws.amazon.com/kms/latest/APIReference/API_ListAliases.html) and [GetKeyRotationStatus](https://docs.aws.amazon.com/kms/latest/APIReference/API_GetKeyRotationStatus.html), operations that manage CMKs, such as [CreateKey](https://docs.aws.amazon.com/kms/latest/APIReference/API_CreateKey.html) and [PutKeyPolicy](https://docs.aws.amazon.com/kms/latest/APIReference/API_PutKeyPolicy.html), and [cryptographic operations](concepts.md#cryptographic-operations), such as [GenerateDataKey](https://docs.aws.amazon.com/kms/latest/APIReference/API_GenerateDataKey.html) and [Decrypt](https://docs.aws.amazon.com/kms/latest/APIReference/API_Decrypt.html)\.
+
+CloudTrail logs successful operations and attempted calls that failed, such as when the caller is denied access to a resource\. Operations on [CMKs in other accounts](key-policy-modifying-external-accounts.md) are logged in both the caller's account and the CMK owner's account\.
+
+For security reasons, some fields are omitted from AWS KMS log entries, such as the `Plaintext` parameter of an [Encrypt](https://docs.aws.amazon.com/kms/latest/APIReference/API_Encrypt.html) request, and the response to [GetKeyPolicy](https://docs.aws.amazon.com/kms/latest/APIReference/API_GetKeyPolicy.html) or any cryptographic operation\.
 
 Although, by default, all AWS KMS actions are logged as CloudTrail events, you can exclude AWS KMS actions from a CloudTrail trail\. For details, see [Excluding AWS KMS events from a trail](#filtering-kms-events)\.
 
-To learn more about CloudTrail, see the [AWS CloudTrail User Guide](https://docs.aws.amazon.com/awscloudtrail/latest/userguide/)\. To learn about other ways to monitor the use of your CMKs, see [Monitoring customer master keys](monitoring-overview.md)\.
+**Topics**
++ [Logging events in CloudTrail](#kms-info-in-cloudtrail)
++ [Excluding AWS KMS events from a trail](#filtering-kms-events)
++ [Examples of AWS KMS log entries](#understanding-kms-entries)
 
-## AWS KMS information in CloudTrail<a name="kms-info-in-cloudtrail"></a>
+## Logging events in CloudTrail<a name="kms-info-in-cloudtrail"></a>
 
 CloudTrail is enabled on your AWS account when you create the account\. When activity occurs in AWS KMS, that activity is recorded in a CloudTrail event along with other AWS service events in **Event history**\. You can view, search, and download recent events in your AWS account\. For more information, see [Viewing Events with CloudTrail Event History](https://docs.aws.amazon.com/awscloudtrail/latest/userguide/view-cloudtrail-events.html)\. 
 
@@ -16,7 +25,7 @@ For an ongoing record of events in your AWS account, including events for AWS KM
 + [Configuring Amazon SNS Notifications for CloudTrail](https://docs.aws.amazon.com/awscloudtrail/latest/userguide/getting_notifications_top_level.html)
 + [Receiving CloudTrail Log Files from Multiple Regions](https://docs.aws.amazon.com/awscloudtrail/latest/userguide/receive-cloudtrail-log-files-from-multiple-regions.html) and [Receiving CloudTrail Log Files from Multiple Accounts](https://docs.aws.amazon.com/awscloudtrail/latest/userguide/cloudtrail-receive-logs-from-multiple-accounts.html)
 
-CloudTrail logs all AWS KMS operations, including read\-only operations, such as `ListAliases` and `GetKeyPolicy`, operations that manage CMKs, such as `CreateKey` and `PutKeyPolicy`, and [cryptographic operations](concepts.md#cryptographic-operations), such as `GenerateDataKey`, `Encrypt`, and `Decrypt`\. Every operation generates an entry in the CloudTrail log files\.
+To learn more about CloudTrail, see the [AWS CloudTrail User Guide](https://docs.aws.amazon.com/awscloudtrail/latest/userguide/)\. To learn about other ways to monitor the use of your CMKs, see [Monitoring customer master keys](monitoring-overview.md)\.
 
 Every event or log entry contains information about who generated the request\. The identity information helps you determine the following: 
 + Whether the request was made with root or IAM user credentials\.
@@ -42,28 +51,40 @@ You can disable this exclusion at any time by changing the console setting or th
 
 When you exclude KMS events by using the console or API, the resulting CloudTrail `PutEventSelectors` API operation is also logged in your CloudTrail Logs\. If KMS events don't appear in your CloudTrail Logs, look for a `PutEventSelectors` event with the `ExcludeManagementEventSources` attribute set to `kms.amazonaws.com`\.
 
-## Understanding AWS KMS log file entries<a name="understanding-kms-entries"></a>
+## Examples of AWS KMS log entries<a name="understanding-kms-entries"></a>
 
-A *trail* is a configuration that enables delivery of events as log files to an Amazon S3 bucket that you specify\. CloudTrail log files contain one or more log entries\. An *event* represents a single request from any source and includes information about the requested action, the date and time of the action, request parameters, and so on\. CloudTrail log files are not an ordered stack trace of the public API calls, so they do not appear in any specific order\. 
+AWS KMS writes entries to your CloudTrail log when you call an AWS KMS operation and when an AWS service calls an operation on your behalf\. AWS KMS also writes an entry when it calls an operation for you\. For example, it writes an entry when it [deletes a CMK](ct-delete-key.md) that you scheduled for deletion\.
 
-For examples CloudTrail log entries for each API request, see the following topics\.
+The following topics display examples of CloudTrail log entries for AWS KMS operations\.
 
 **Topics**
++ [CancelKeyDeletion](ct-cancel-key-deletion.md)
 + [CreateAlias](ct-createalias.md)
 + [CreateGrant](ct-creategrant.md)
 + [CreateKey](ct-createkey.md)
 + [Decrypt](ct-decrypt.md)
 + [DeleteAlias](ct-deletealias.md)
++ [DeleteExpiredKeyMaterial](ct-deleteexpiredkeymaterial.md)
++ [DeleteKey](ct-delete-key.md)
 + [DescribeKey](ct-describekey.md)
 + [DisableKey](ct-disablekey.md)
 + [EnableKey](ct-enablekey.md)
++ [EnableKeyRotation](ct-enablekeyrotation.md)
 + [Encrypt](ct-encrypt.md)
 + [GenerateDataKey](ct-generatedatakey.md)
++ [GenerateDataKeyPair](ct-generatedatakeypair.md)
++ [GenerateDataKeyPairWithoutPlaintext](ct-generatedatakeypairwithoutplaintext.md)
 + [GenerateDataKeyWithoutPlaintext](ct-generatedatakeyplaintext.md)
 + [GenerateRandom](ct-generaterandom.md)
 + [GetKeyPolicy](ct-getkeypolicy.md)
++ [GetParametersForImport](ct-getparametersforimport.md)
++ [ImportKeyMaterial](ct-importkeymaterial.md)
 + [ListAliases](ct-listaliases.md)
 + [ListGrants](ct-listgrants.md)
 + [ReEncrypt](ct-reencrypt.md)
++ [RotateKey](ct-rotatekey.md)
++ [ScheduleKeyDeletion](ct-schedule-key-deletion.md)
++ [TagResource](ct-tagresource.md)
++ [UntagResource](ct-untagresource.md)
 + [Amazon EC2 example one](ct-ec2one.md)
 + [Amazon EC2 example two](ct-ec2two.md)

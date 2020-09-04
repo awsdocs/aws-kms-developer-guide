@@ -12,6 +12,8 @@ IAM policies can control access to any AWS KMS operation\. Unlike key policies, 
 
 If you access AWS KMS through an Amazon Virtual Private Cloud \(Amazon VPC\) endpoint, you can also use a VPC endpoint policy to limit access to your AWS KMS resources when using the endpoint\. For example, when using the VPC endpoint, you might only allow the principals in your AWS account to access your CMKs\. For details, see [Controlling access to a VPC endpoint](kms-vpc-endpoint.md#vpce-policy) \.
 
+For help writing and formatting a JSON policy document, see the [IAM JSON Policy Reference](https://docs.aws.amazon.com/IAM/latest/UserGuide/reference_policies.html) in the *IAM User Guide*\.
+
 **Topics**
 + [Overview of IAM policies](#iam-policies-overview)
 + [Best practices for IAM policies](#iam-policies-best-practices)
@@ -241,6 +243,8 @@ In this section, you can find example IAM policies that allow permissions for va
 **Important**  
 Some of the permissions in the following policies are allowed only when the CMK's key policy also allows them\. For more information, see [AWS KMS API permissions reference](kms-api-permissions-reference.md)\.
 
+For help writing and formatting a JSON policy document, see the [IAM JSON Policy Reference](https://docs.aws.amazon.com/IAM/latest/UserGuide/reference_policies.html) in the *IAM User Guide*\.
+
 **Topics**
 + [Allow a user to view CMKs in the AWS KMS console](#iam-policy-example-read-only-console)
 + [Allow a user to create CMKs](#iam-policy-example-create-key)
@@ -303,6 +307,49 @@ The following IAM policy allows a user to create CMKs\. The value of the `Resour
     "Action": "kms:CreateKey",
     "Resource": "*"
   }
+}
+```
+
+Principals who create keys might need some related permissions\.
++ **kms:PutKeyPolicy** — Principals who have `kms:CreateKey` permission can set the initial key policy for the CMK\. However, the `CreateKey` caller must have [kms:PutKeyPolicy](https://docs.aws.amazon.com/kms/latest/APIReference/API_PutKeyPolicy.html) permission, which lets them change the CMK's key policy, or they must specify the `BypassPolicyLockoutSafetyCheck` parameter of `CreateKey`, which is not recommended\. The `CreateKey` caller can get `kms:PutKeyPolicy` permission for the CMK from an IAM policy or they can include this permission in the key policy of the CMK that they're creating\.
++ **kms:TagResource** — To add tags to the CMK during the `CreateKey` operation, the `CreateKey` caller must have [kms:TagResource](https://docs.aws.amazon.com/kms/latest/APIReference/API_TagResource.html) permission in an IAM policy\. Including this permission in the key policy of the new CMK isn't sufficient\. However, if the `CreateKey` caller includes `kms:TagResource` in the initial key policy, they can add tags in a separate call after the CMK is created\.
++ **kms:CreateAlias** — Principals who create a CMK in the AWS KMS console must have [kms:CreateAlias](https://docs.aws.amazon.com/kms/latest/APIReference/API_CreateAlias.html) permission on the CMK and on the alias\. \(The console makes two calls; one to `CreateKey` and one to `CreateAlias`\)\. You must provide the alias permission in an IAM policy\. You can provide the CMK permission in a key policy or IAM policy\. For details, see [Controlling access to aliases](kms-alias.md#alias-access)\.
+
+In addition to `kms:CreateKey`, the following IAM policy provides `kms:TagResource` permission on all CMKs in the AWS account and `kms:CreateAlias` permission on all aliases that the account\. It also includes some useful read\-only permissions that can be provided only in an IAM policy\. 
+
+This IAM policy does not include `kms:PutKeyPolicy` permission or any other permissions that can be set in a key policy\. It's a [best practice](#iam-policies-best-practices) to set these permissions in the key policy where they apply exclusively to one CMK\.
+
+```
+{
+  "Version": "2012-10-17",
+  "Statement": [
+    {
+      "Sid": "IAM permissions for particular CMKs",
+      "Effect": "Allow",
+      "Action": {
+        "kms:TagResource"         
+      },
+      "Resource": "arn:aws:kms:*:111122223333:key/*"
+    },
+    {
+      "Sid": "IAM permissions for particular aliases",
+      "Effect": "Allow",
+      "Action": {
+        "kms:CreateAlias"
+      },
+      "Resource": "arn:aws:kms:*:111122223333:alias/*"
+    },
+    {
+      "Sid": "IAM permission that must be set for all CMKs",
+      "Effect": "Allow",
+      "Action": [
+        "kms:CreateKey",
+        "kms:ListKeys",
+        "kms:ListAliases"
+      ],
+      "Resource": "*"
+    }
+  ]
 }
 ```
 

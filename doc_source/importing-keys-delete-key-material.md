@@ -2,9 +2,11 @@
 
 When you import key material, you can specify an expiration date\. When the key material expires, AWS KMS deletes the key material and the customer master key \(CMK\) becomes unusable\. You can also delete key material on demand\. Whether you wait for the key material to expire or you delete it manually, the effect is the same\. AWS KMS deletes the key material, the CMK's [key state](key-state.md) changes to *pending import*, and the CMK is unusable\. To use the CMK again, you must reimport the same key material\.
 
-Deleting key material affects the CMK immediately, but you can reverse the deletion of key material by reimporting the same key material into the CMK\. In contrast, deleting a CMK is irreversible\. If you [schedule key deletion](deleting-keys.md#deleting-keys-how-it-works) and the required waiting period expires, AWS KMS deletes the key material and all metadata associated with the CMK\.
+Deleting key material affects the CMK immediately, but you can reverse the deletion of key material by [reimporting the same key material](importing-keys.md#reimport-key-material) into the CMK\. In contrast, deleting a CMK is irreversible\. If you [schedule key deletion](deleting-keys.md#deleting-keys-how-it-works) and the required waiting period expires, AWS KMS deletes the key material and all metadata associated with the CMK\.
 
 To delete key material, you can use the AWS Management Console or the AWS KMS API\. You can use the API directly by making HTTP requests, or through one of the [AWS SDKs](https://aws.amazon.com/tools/#sdk) or [command line tools](https://aws.amazon.com/tools/#cli)\.
+
+AWS KMS records an entry in your AWS CloudTrail log when you delete imported key material and when [AWS KMS deletes expired key material](ct-deleteexpiredkeymaterial.md)\.
 
 **Topics**
 + [How deleting key material affects AWS services integrated with AWS KMS](#importing-keys-delete-key-material-services)

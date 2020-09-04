@@ -25,7 +25,7 @@ For details, see the [createAlias method](https://docs.aws.amazon.com/AWSJavaSDK
 // Create an alias for a CMK
 //
 String aliasName = "alias/projectKey1";
-// Replace the following fictitious CMK ARN with a valid CMK ID or ARN
+// Replace the following example key ARN with a valid key ID or key ARN
 String targetKeyId = "arn:aws:kms:us-west-2:111122223333:key/1234abcd-12ab-34cd-56ef-1234567890ab";
 
 CreateAliasRequest req = new CreateAliasRequest().withAliasName(aliasName).withTargetKeyId(targetKeyId);
@@ -41,7 +41,7 @@ For details, see the [CreateAlias method](https://docs.aws.amazon.com/sdkfornet/
 // Create an alias for a CMK
 //
 String aliasName = "alias/projectKey1";
-// Replace the following fictitious CMK ARN with a valid CMK ID or ARN
+// Replace the following example key ARN with a valid key ID or key ARN
 String targetKeyId = "arn:aws:kms:us-west-2:111122223333:key/1234abcd-12ab-34cd-56ef-1234567890ab";
 
 CreateAliasRequest createAliasRequest = new CreateAliasRequest()
@@ -61,7 +61,7 @@ For details, see the [create\_alias method](http://boto3.amazonaws.com/v1/docume
 # Create an alias for a CMK
 
 alias_name = 'alias/projectKey1'
-# Replace the following fictitious CMK ARN with a valid CMK ID or ARN
+# Replace the following example key ARN with a valid key ID or key ARN
 target_key_id = 'arn:aws:kms:us-west-2:111122223333:key/1234abcd-12ab-34cd-56ef-1234567890ab'
 
 response = kms_client.create_alias(
@@ -78,13 +78,13 @@ For details, see the [create\_alias](https://docs.aws.amazon.com/sdk-for-ruby/v3
 ```
 # Create an alias for a CMK
 
-aliasName = 'alias/projectKey1'
-# Replace the following fictitious CMK ARN with a valid CMK ID or ARN
-targetKeyId = 'arn:aws:kms:us-west-2:111122223333:key/1234abcd-12ab-34cd-56ef-1234567890ab'
+alias_name = 'alias/projectKey1'
+# Replace the following example key ARN with a valid key ID or key ARN
+target_key_id = 'arn:aws:kms:us-west-2:111122223333:key/1234abcd-12ab-34cd-56ef-1234567890ab'
 
 response = kmsClient.create_alias({
-  alias_name: aliasName,
-  target_key_id: targetKeyId
+  alias_name: alias_name,
+  target_key_id: target_key_id
 })
 ```
 
@@ -97,7 +97,7 @@ For details, see the [CreateAlias method](https://docs.aws.amazon.com/aws-sdk-ph
 // Create an alias for a CMK
 //
 $aliasName = "alias/projectKey1";
-// Replace the following fictitious CMK ARN with a valid CMK ID or ARN
+// Replace the following example key ARN with a valid key ID or key ARN
 $keyId = 'arn:aws:kms:us-west-2:111122223333:key/1234abcd-12ab-34cd-56ef-1234567890ab';
 
 
@@ -117,7 +117,7 @@ For details, see the [createAlias property](https://docs.aws.amazon.com/AWSJavaS
 //
 const AliasName = 'alias/projectKey1';
 
-// Replace the following fictitious CMK ARN with a valid CMK ID or ARN
+// Replace the following example key ARN with a valid key ID or key ARN
 const TargetKeyId = 'arn:aws:kms:us-west-2:111122223333:key/1234abcd-12ab-34cd-56ef-1234567890ab';
 kmsClient.createAlias({ AliasName, TargetKeyId }, (err, data) => {
   ...
@@ -133,7 +133,7 @@ To create an alias, use the [New\-KMSAlias](https://docs.aws.amazon.com/powershe
 # Create an alias for a CMK
 
 $aliasName = 'alias/projectKey1'
-# Replace the following fictitious CMK ARN with a valid CMK ID or ARN
+# Replace the following example key ARN with a valid key ID or key ARN
 $targetKeyId = 'arn:aws:kms:us-west-2:111122223333:key/1234abcd-12ab-34cd-56ef-1234567890ab'
 
 New-KMSAlias -TargetKeyId $targetKeyId -AliasName $aliasName
@@ -265,7 +265,7 @@ For details about the Java implementation, see the [listAliases method](https://
 ```
 // List the aliases for one CMK
 //
-// Replace the following fictitious CMK ARN with a valid CMK ID or ARN
+// Replace the following example key ARN with a valid key ID or key ARN
 String keyId = "arn:aws:kms:us-west-2:111122223333:key/1234abcd-12ab-34cd-56ef-1234567890ab";
 
 ListAliasesRequest req = new ListAliasesRequest().withKeyId(keyId);
@@ -280,7 +280,7 @@ For details, see the [ListAliases method](https://docs.aws.amazon.com/sdkfornet/
 ```
 // List the aliases for one CMK
 //
-// Replace the following fictitious CMK ARN with a valid CMK ID or ARN
+// Replace the following example key ARN with a valid key ID or key ARN
 String keyId = "arn:aws:kms:us-west-2:111122223333:key/1234abcd-12ab-34cd-56ef-1234567890ab";
 
 ListAliasesRequest listAliasesRequest = new ListAliasesRequest()
@@ -298,7 +298,7 @@ For details, see the [list\_aliases method](http://boto3.amazonaws.com/v1/docume
 ```
 # List the aliases for one CMK
 
-# Replace the following fictitious CMK ARN with a valid CMK ID or ARN
+# Replace the following example key ARN with a valid key ID or key ARN
 key_id = 'arn:aws:kms:us-west-2:111122223333:key/1234abcd-12ab-34cd-56ef-1234567890ab'
 
 response = kms_client.list_aliases(
@@ -314,11 +314,11 @@ For details, see the [list\_aliases](https://docs.aws.amazon.com/sdk-for-ruby/v3
 ```
 # List the aliases for one CMK
 
-# Replace the following fictitious CMK ARN with a valid CMK ID or ARN
-keyId = 'arn:aws:kms:us-west-2:111122223333:key/1234abcd-12ab-34cd-56ef-1234567890ab'
+# Replace the following example key ARN with a valid key ID or key ARN
+key_id = 'arn:aws:kms:us-west-2:111122223333:key/1234abcd-12ab-34cd-56ef-1234567890ab'
 
 response = kmsClient.list_aliases({
-  key_id: keyId
+  key_id: key_id
 })
 ```
 
@@ -330,7 +330,7 @@ For details, see the [List Aliases method](https://docs.aws.amazon.com/aws-sdk-p
 ```
 // List the aliases for one CMK
 //
-// Replace the following fictitious CMK ARN with a valid CMK ID or ARN
+// Replace the following example key ARN with a valid key ID or key ARN
 $keyId = 'arn:aws:kms:us-west-2:111122223333:key/1234abcd-12ab-34cd-56ef-1234567890ab';
 
 $result = $KmsClient->listAliases([
@@ -346,7 +346,7 @@ For details, see the [listAliases property](https://docs.aws.amazon.com/AWSJavaS
 ```
 // List the aliases for one CMK
 //
-// Replace the following fictitious CMK ARN with a valid CMK ID or ARN
+// Replace the following example key ARN with a valid key ID or key ARN
 const KeyId = 'arn:aws:kms:us-west-2:111122223333:key/1234abcd-12ab-34cd-56ef-1234567890ab';
 kmsClient.listAliases({ KeyId }, (err, data) => {
   ...
@@ -361,7 +361,7 @@ To list the aliases for a CMK, use the `KeyId` parameter of the [Get\-KMSAliasLi
 ```
 # List the aliases for one CMK
 
-# Replace the following fictitious CMK ARN with a valid CMK ID or ARN
+# Replace the following example key ARN with a valid key ID or key ARN
 $keyId = 'arn:aws:kms:us-west-2:111122223333:key/1234abcd-12ab-34cd-56ef-1234567890ab'
 
 $response = Get-KmsAliasList -KeyId $keyId
@@ -386,7 +386,7 @@ For details about the Java implementation, see the [updateAlias method](https://
 // Updating an alias
 //
 String aliasName = "alias/projectKey1";
-// Replace the following fictitious CMK ARN with a valid CMK ID or ARN
+// Replace the following example key ARN with a valid key ID or key ARN
 String targetKeyId = "arn:aws:kms:us-west-2:111122223333:key/0987dcba-09fe-87dc-65ba-ab0987654321";
 
 UpdateAliasRequest req = new UpdateAliasRequest()
@@ -405,7 +405,7 @@ For details, see the [UpdateAlias method](https://docs.aws.amazon.com/sdkfornet/
 // Updating an alias
 //
 String aliasName = "alias/projectKey1";
-// Replace the following fictitious CMK ARN with a valid CMK ID or ARN
+// Replace the following example key ARN with a valid key ID or key ARN
 String targetKeyId = "arn:aws:kms:us-west-2:111122223333:key/0987dcba-09fe-87dc-65ba-ab0987654321";
 
 UpdateAliasRequest updateAliasRequest = new UpdateAliasRequest()
@@ -426,7 +426,7 @@ For details, see the [update\_alias method](http://boto3.amazonaws.com/v1/docume
 # Updating an alias
 
 alias_name = 'alias/projectKey1'
-# Replace the following fictitious CMK ARN with a valid CMK ID or ARN
+# Replace the following example key ARN with a valid key ID or key ARN
 key_id = 'arn:aws:kms:us-west-2:111122223333:key/0987dcba-09fe-87dc-65ba-ab0987654321'
 
 response = kms_client.update_alias(
@@ -443,13 +443,13 @@ For details, see the [update\_alias](https://docs.aws.amazon.com/sdk-for-ruby/v3
 ```
 # Updating an alias
 
-aliasName = 'alias/projectKey1'
-# Replace the following fictitious CMK ARN with a valid CMK ID or ARN
-keyId = 'arn:aws:kms:us-west-2:111122223333:key/0987dcba-09fe-87dc-65ba-ab0987654321'
+alias_name = 'alias/projectKey1'
+# Replace the following example key ARN with a valid key ID or key ARN
+key_id = 'arn:aws:kms:us-west-2:111122223333:key/0987dcba-09fe-87dc-65ba-ab0987654321'
 
 response = kmsClient.update_alias({
-  alias_name: aliasName,
-  target_key_id: keyId
+  alias_name: alias_name,
+  target_key_id: key_id
 })
 ```
 
@@ -463,7 +463,7 @@ For details, see the [UpdateAlias method](https://docs.aws.amazon.com/aws-sdk-ph
 //
 $aliasName = "alias/projectKey1";
 
-// Replace the following fictitious CMK ARN with a valid CMK ID or ARN
+// Replace the following example key ARN with a valid key ID or key ARN
 $keyId = 'arn:aws:kms:us-west-2:111122223333:key/0987dcba-09fe-87dc-65ba-ab0987654321';
 
 $result = $KmsClient->updateAlias([
@@ -482,7 +482,7 @@ For details, see the [updateAlias property](https://docs.aws.amazon.com/AWSJavaS
 //
 const AliasName = 'alias/projectKey1';
  
-// Replace the following fictitious CMK ARN with a valid CMK ID or ARN
+// Replace the following example key ARN with a valid key ID or key ARN
 const TargetKeyId = 'arn:aws:kms:us-west-2:111122223333:key/0987dcba-09fe-87dc-65ba-ab0987654321';
 kmsClient.updateAlias({ AliasName, TargetKeyId }, (err, data) => {
   ...
@@ -500,7 +500,7 @@ The `Update-KMSAlias` cmdlet does not return any output\. To verify that the com
 # Updating an alias
 
 $aliasName = 'alias/projectKey1'
-# Replace the following fictitious CMK ARN with a valid CMK ID or ARN
+# Replace the following example key ARN with a valid key ID or key ARN
 $keyId = 'arn:aws:kms:us-west-2:111122223333:key/0987dcba-09fe-87dc-65ba-ab0987654321'
 
 Update-KMSAlias -AliasName $aliasName -TargetKeyID $keyId
@@ -570,10 +570,10 @@ For details, see the [delete\_alias](https://docs.aws.amazon.com/sdk-for-ruby/v3
 ```
 # Delete an alias for a CMK
 
-aliasName = 'alias/projectKey1'
+alias_name = 'alias/projectKey1'
 
 response = kmsClient.delete_alias({
-  alias_name: aliasName
+  alias_name: alias_name
 })
 ```
 

@@ -21,6 +21,8 @@ The public key and import token are valid for 24 hours\. If you don't use them t
 
 To download the public key and import token, you can use the AWS Management Console or the AWS KMS API\. You can use the API directly by making HTTP requests, or through one of the [AWS SDKs](https://aws.amazon.com/tools/#sdk) or [command line tools](https://aws.amazon.com/tools/#cli)\.
 
+When you download the public key and import token, a [GetParametersForImport entry](ct-getparametersforimport.md) is added to your AWS CloudTrail log to record the [GetParametersForImport](https://docs.aws.amazon.com/kms/latest/APIReference/API_GetParametersForImport.html) operation\. The CloudTrail entry is the same whether you use the AWS KMS console or the AWS KMS API\.
+
 **Topics**
 + [Downloading the public key and import token \(console\)](#importing-keys-get-public-key-and-token-console)
 + [Downloading the public key and import token \(AWS KMS API\)](#importing-keys-get-public-key-and-token-api)

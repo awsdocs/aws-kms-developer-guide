@@ -42,7 +42,7 @@ If you get stuck at any point, you can find help in the [Troubleshooting a custo
 
 **Quotas**
 
-There are no resource quotas for the number of custom key stores in an AWS account or Region\. However, there are [quotas on the number of AWS CloudHSM clusters in each AWS region](https://docs.aws.amazon.com/cloudhsm/latest/userguide/limits.html), and [request quotas](requests-per-second.md) on the rate of cryptographic operations using the CMKs in each custom key store\.
+There are no resource quotas for the number of custom key stores in an AWS account or Region\. However, there are AWS CloudHSM quotas, such as a quota on the [number of AWS CloudHSM clusters](https://docs.aws.amazon.com/cloudhsm/latest/userguide/limits.html) in each AWS account and Region, and AWS KMS quotas on the [use of CMKs in a custom key store](requests-per-second.md#rps-key-stores)\.
 
 **Regions**
 

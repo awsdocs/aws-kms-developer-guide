@@ -92,7 +92,7 @@ This table lists the [Service Quotas](https://docs.aws.amazon.com/servicequotas/
 | `DeleteCustomKeyStore request rate` | 5 | 
 | `DeleteImportedKeyMaterial request rate` | 5 | 
 | `DescribeCustomKeyStores request rate` | 5 | 
-| `DescribeKey request rate` | 100 | 
+| `DescribeKey request rate` | 1000 | 
 | `DisableKey request rate` | 5 | 
 | `DisableKeyRotation request rate` | 5 | 
 | `DisconnectCustomKeyStore request rate` | 5 | 
@@ -105,8 +105,8 @@ This table lists the [Service Quotas](https://docs.aws.amazon.com/servicequotas/
 |  `GenerateDataKeyPair (RSA_2048) request rate` Applies to: [\[See the AWS documentation website for more details\]](http://docs.aws.amazon.com/kms/latest/developerguide/requests-per-second.html)  |  1  | 
 |  `GenerateDataKeyPair (RSA_3072) request rate` Applies to: [\[See the AWS documentation website for more details\]](http://docs.aws.amazon.com/kms/latest/developerguide/requests-per-second.html)  |  0\.5 \(1 in each 2\-second interval\)  | 
 |  `GenerateDataKeyPair (RSA_4096) request rate` Applies to: [\[See the AWS documentation website for more details\]](http://docs.aws.amazon.com/kms/latest/developerguide/requests-per-second.html)  |  0\.1 \(1 in each 10\-second interval\)  | 
-| `GetKeyPolicy request rate` | 30 | 
-| `GetKeyRotationStatus request rate` | 30 | 
+| `GetKeyPolicy request rate` | 1000 | 
+| `GetKeyRotationStatus request rate` | 1000 | 
 | `GetParametersForImport request rate` | 0\.25 \(1 in each 4\-second interval\) | 
 | `GetPublicKey request rate` | 5 | 
 | `ImportKeyMaterial request rate` | 5 | 
