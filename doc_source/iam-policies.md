@@ -6,7 +6,7 @@ You can use IAM policies, along with [key policies](key-policies.md), [grants](g
 To use an IAM policy to control access to a CMK, the key policy for the CMK must give the account permission to use IAM policies\. Specifically, the key policy must include the [policy statement that enables IAM policies](key-policies.md#key-policy-default-allow-root-enable-iam)\.  
 This section explains how to use IAM policies to control access to AWS KMS operations\. For more general information about IAM, see the [IAM User Guide](https://docs.aws.amazon.com/IAM/latest/UserGuide/)\.
 
-All CMKs must have a key policy\. IAM policies are optional\. To use an IAM policy to control access to a CMK, the key policy for the CMK must give the account permission to use IAM policies\. Specifically, the key policy must include the [policy statement that enables IAM policies](key-policies.md#key-policy-default-allow-root-enable-iam)\.
+All CMKs must have a key policy\. To use an IAM policy to control access to a CMK, the key policy for the CMK must give the account permission to use IAM policies\. Specifically, the key policy must include the [policy statement that enables IAM policies](key-policies.md#key-policy-default-allow-root-enable-iam)\.
 
 IAM policies can control access to any AWS KMS operation\. Unlike key policies, IAM policies can control access to multiple CMKs and provide permissions for the operations of several related AWS services\. But IAM policies are particularly useful for controlling access to operations, such as [CreateKey](https://docs.aws.amazon.com/kms/latest/APIReference/API_CreateKey.html), that can't be controlled by a key policy because they don't involve any particular CMK\.
 
