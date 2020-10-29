@@ -6,52 +6,7 @@ If you are creating a CMK to encrypt data you store or manage in an AWS service,
 
 When you create a CMK in the AWS KMS console, you are required to give it an alias \(friendly name\)\. The CreateKey operation does not create an alias for the new CMK\. To create an alias for a new or existing CMK, use the [CreateAlias](https://docs.aws.amazon.com/kms/latest/APIReference/API_CreateAlias.html) operation\. For detailed information about aliases in AWS KMS, see [Using aliases](kms-alias.md)\.
 
-To create a CMK, in the console or by using the APIs, you must have `kms:CreateKey` permission in an IAM policy\. To add [tags](tagging-keys.md) while creating a key, you must have `kms:TagResource` permission\. If you're using the console where an [alias](kms-alias.md) is required for every new CMK, you need `kms:CreateAlias` permission on the CMK and the alias\. For details, including example policies, see [Allow a user to create CMKs The following IAM policy allows a user to create CMKs\. The value of the `Resource` element is `*` because the `CreateKey` operation does not use any particular AWS KMS resources \(CMKs or aliases\)\. 
-
-```
-{
-  "Version": "2012-10-17",
-  "Statement": {
-    "Effect": "Allow",
-    "Action": "kms:CreateKey",
-    "Resource": "*"
-  }
-}
-``` Principals who create keys might need some related permissions\.   **kms:PutKeyPolicy** — Principals who have `kms:CreateKey` permission can set the initial key policy for the CMK\. However, the `CreateKey` caller must have [kms:PutKeyPolicy](https://docs.aws.amazon.com/kms/latest/APIReference/API_PutKeyPolicy.html) permission, which lets them change the CMK's key policy, or they must specify the `BypassPolicyLockoutSafetyCheck` parameter of `CreateKey`, which is not recommended\. The `CreateKey` caller can get `kms:PutKeyPolicy` permission for the CMK from an IAM policy or they can include this permission in the key policy of the CMK that they're creating\.   **kms:TagResource** — To add tags to the CMK during the `CreateKey` operation, the `CreateKey` caller must have [kms:TagResource](https://docs.aws.amazon.com/kms/latest/APIReference/API_TagResource.html) permission in an IAM policy\. Including this permission in the key policy of the new CMK isn't sufficient\. However, if the `CreateKey` caller includes `kms:TagResource` in the initial key policy, they can add tags in a separate call after the CMK is created\.   **kms:CreateAlias** — Principals who create a CMK in the AWS KMS console must have [kms:CreateAlias](https://docs.aws.amazon.com/kms/latest/APIReference/API_CreateAlias.html) permission on the CMK and on the alias\. \(The console makes two calls; one to `CreateKey` and one to `CreateAlias`\)\. You must provide the alias permission in an IAM policy\. You can provide the CMK permission in a key policy or IAM policy\. For details, see [Controlling access to aliases](kms-alias.md#alias-access)\.   In addition to `kms:CreateKey`, the following IAM policy provides `kms:TagResource` permission on all CMKs in the AWS account and `kms:CreateAlias` permission on all aliases that the account\. It also includes some useful read\-only permissions that can be provided only in an IAM policy\.  This IAM policy does not include `kms:PutKeyPolicy` permission or any other permissions that can be set in a key policy\. It's a [best practice](#iam-policies-best-practices) to set these permissions in the key policy where they apply exclusively to one CMK\. 
-
-```
-{
-  "Version": "2012-10-17",
-  "Statement": [
-    {
-      "Sid": "IAM permissions for particular CMKs",
-      "Effect": "Allow",
-      "Action": {
-        "kms:TagResource"         
-      },
-      "Resource": "arn:aws:kms:*:111122223333:key/*"
-    },
-    {
-      "Sid": "IAM permissions for particular aliases",
-      "Effect": "Allow",
-      "Action": {
-        "kms:CreateAlias"
-      },
-      "Resource": "arn:aws:kms:*:111122223333:alias/*"
-    },
-    {
-      "Sid": "IAM permission that must be set for all CMKs",
-      "Effect": "Allow",
-      "Action": [
-        "kms:CreateKey",
-        "kms:ListKeys",
-        "kms:ListAliases"
-      ],
-      "Resource": "*"
-    }
-  ]
-}
-``` ](iam-policies.md#iam-policy-example-create-key)\.
+To create a CMK, in the console or by using the APIs, you must have `kms:CreateKey` permission in an IAM policy\. To add [tags](tagging-keys.md) while creating a key, you must have `kms:TagResource` permission\. If you're using the console where an [alias](kms-alias.md) is required for every new CMK, you need `kms:CreateAlias` permission on the CMK and the alias\. For details, including example policies, see [Allow a user to create CMKs](iam-policies.md#iam-policy-example-create-key)\.
 
 **Learn more:**
 + For help creating a CMK with imported key material \([key material origin](concepts.md#key-origin) is External\), see [Create a customer master key with no key material](importing-keys-create-cmk.md)\.
@@ -96,7 +51,7 @@ You can use the AWS Management Console to create customer master keys \(CMKs\)\.
 
    Enter a description that explains the type of data you plan to protect or the application you plan to use with the CMK\. Don't use the description format that's used for [AWS managed CMKs](concepts.md#aws-managed-cmk)\. The *Default master key that protects my \.\.\. when no other key is defined* description format is reserved for AWS managed CMKs\.
 
-   You can add a description now or update it any time unless the [key state](key-state.md) is `Pending Deletion`\. To add, change, or delete the description of an existing customer managed CMK, [edit the CMK](editing-keys.md#editing-keys-console) in the AWS Management Console or use the [UpdateKeyDescription](https://docs.aws.amazon.com/kms/latest/APIReference/API_UpdateKeyDescription.html) operation\.
+   You can add a description now or update it any time unless the [key state](key-state.md) is `Pending Deletion`\. To add, change, or delete the description of an existing customer managed CMK, [edit the CMK](editing-keys.md) in the AWS Management Console or use the [UpdateKeyDescription](https://docs.aws.amazon.com/kms/latest/APIReference/API_UpdateKeyDescription.html) operation\.
 
 1. Choose **Next**\.
 
@@ -223,7 +178,7 @@ You can use the AWS Management Console to create asymmetric customer master keys
 
    Enter a description that explains the type of data you plan to protect or the application you plan to use with the CMK\. Don't use the description format that's used for [AWS managed CMKs](concepts.md#aws-managed-cmk)\. The *Default master key that protects my \.\.\. when no other key is defined* description format is reserved for AWS managed CMKs\.
 
-   You can add a description now or update it any time unless the [key state](key-state.md) is `Pending Deletion`\. To add, change, or delete the description of an existing customer managed CMK, [edit the CMK](editing-keys.md#editing-keys-console) in the AWS Management Console or use the [UpdateKeyDescription](https://docs.aws.amazon.com/kms/latest/APIReference/API_UpdateKeyDescription.html) operation\.
+   You can add a description now or update it any time unless the [key state](key-state.md) is `Pending Deletion`\. To add, change, or delete the description of an existing customer managed CMK, [edit the CMK](editing-keys.md) in the AWS Management Console or use the [UpdateKeyDescription](https://docs.aws.amazon.com/kms/latest/APIReference/API_UpdateKeyDescription.html) operation\.
 
 1. \(Optional\) Type a tag key and an optional tag value\. To add more than one tag to the CMK, choose **Add tag**\.
 

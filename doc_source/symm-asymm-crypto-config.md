@@ -4,7 +4,7 @@ After you create your CMK, you can view its cryptographic configuration\. You ca
 
 You can find the cryptographic configuration of your CMKs, include the key spec, key usage, and supported encryption or signing algorithms, in the AWS KMS console or by using the AWS KMS API\. For details, see [Identifying symmetric and asymmetric CMKs](find-symm-asymm.md)\.
 
-In the AWS KMS console, the details page for each CMK includes a **Cryptographic configuration** section that displays cryptographic details about your CMKs\. For example, the following image shows the **Cryptographic configuration** section for an RSA CMK used for signing and verification\.
+In the AWS KMS console, the [details page for each CMK](viewing-keys-console.md#viewing-console-details) includes a **Cryptographic configuration** tab that displays cryptographic details about your CMKs\. For example, the following image shows the **Cryptographic configuration** tab for an RSA CMK used for signing and verification\.
 
 ![\[Generate a data key\]](http://docs.aws.amazon.com/kms/latest/developerguide/images/console-cryptographic-configuration.png)
 

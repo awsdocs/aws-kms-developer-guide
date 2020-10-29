@@ -43,13 +43,13 @@ You can import key material only into a symmetric CMK with an **Origin** of **EX
 
 1. Choose the alias or key ID of the CMK that is pending import\.
 
-1. Expand the **Cryptographic configuration** section and view its values\.
+1. Choose the **Cryptographic configuration** tab and view its values\. The tabs are below the **General configuration** section\.
 
    You can only import key material into CMKs with a **Key type** of **Symmetric** and an **Origin** of **EXTERNAL**\. For information about creating CMKs with imported key material, see, [Importing key material in AWS Key Management Service \(AWS KMS\)](importing-keys.md)\.
 
-1. Expand the **Key material** section, and then choose **Download wrapping key and import token**\. 
+1. Choose the **Key material** tab and then choose **Download wrapping key and import token**\. 
 
-   The **Key material** section appears only for symmetric CMKs that have an **Origin** value of **EXTERNAL**\.
+   The **Key material** tab appears only for symmetric CMKs that have an **Origin** value of **EXTERNAL**\.
 
 1. <a name="id-wrap-step"></a>For **Select wrapping algorithm**, choose the option that you will use to encrypt your key material\. For more information about the options, see [Select a Wrapping Algorithm](#select-wrapping-algorithm)\.
 

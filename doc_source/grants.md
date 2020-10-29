@@ -71,7 +71,7 @@ Grants for CMKs with a key usage of `SIGN_VERIFY` cannot allow encryption operat
 
 ## Grant constraints<a name="grant-constraints"></a>
 
-[Grant constraints](https://docs.aws.amazon.com/kms/latest/APIReference/API_GrantConstraints.html) set conditions on the permissions that the grantee principal can perform\. AWS KMS supports two supported constraints, both of which involve the [encryption context](concepts.md#encrypt_context) in a request for a cryptographic operation\. 
+[Grant constraints](https://docs.aws.amazon.com/kms/latest/APIReference/API_GrantConstraints.html) set conditions on the permissions that the grantee principal can perform\. AWS KMS supports two supported constraints, both of which involve the [encryption context](concepts.md#encrypt_context) in a request for a cryptographic operation\. These grant constraints are not applied to operations that do not support an encryption context, such as cryptographic operations with asymmetric CMKs and management operations, such as [DescribeKey](https://docs.aws.amazon.com/kms/latest/APIReference/API_DescribeKey.html) or [RetireGrant](https://docs.aws.amazon.com/kms/latest/APIReference/API_RetireGrant.html)\.
 
 **Note**  
 You cannot use encryption context grant constraints in a grant for an asymmetric CMK\. The asymmetric encryption algorithms that AWS KMS uses do not support an encryption context\. 

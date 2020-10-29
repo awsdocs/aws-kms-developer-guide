@@ -127,7 +127,7 @@ The following is an example of a VPC endpoint policy for AWS KMS\. When attached
 {
    "Statement":[
       {
-         "Sid": "Allow decrypt and view permission",
+         "Sid": "AllowDecryptAndView",
          "Principal": {"AWS": "arn:aws:iam::111122223333:user/ExampleUser"},
          "Effect":"Allow",
          "Action": [ 
@@ -152,7 +152,7 @@ The following example uses the [aws:PrincipalAccount](https://docs.aws.amazon.co
 {
   "Statement": [
     {
-      "Sid": "Access for a specific account",
+      "Sid": "AccessForASpecificAccount",
       "Principal": {"AWS": "*"},
       "Action": "kms:*",
       "Effect": "Deny",

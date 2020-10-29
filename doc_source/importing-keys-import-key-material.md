@@ -24,13 +24,13 @@ You can use the AWS Management Console to import key material\.
 
 1. Choose the key ID or alias of the CMK for which you downloaded the public key and import token\.
 
-1. Expand the **Cryptographic configuration** section and view its values\.
+1. Choose the **Cryptographic configuration** tab and view its values\. The tabs are on the detail page for a CMK below the **General configuration** section\.
 
    You can only import key material into CMKs with a **Key type** of **Symmetric** and an **Origin** of **EXTERNAL**\. For information about creating CMKs with imported key material, see [Importing key material in AWS Key Management Service \(AWS KMS\)](importing-keys.md)\.
 
-1. Expand the **Key material** section and then choose **Upload key material**\.
+1. Choose the **Key material** tab and then choose **Upload key material**\.
 
-   The **Key material** section appears only for CMKs with a **Key type** of **Symmetric** and an **Origin** value of **EXTERNAL**\.
+   The **Key material** tab appears only for CMKs with a **Key type** of **Symmetric** and an **Origin** value of **EXTERNAL**\.
 
 1. <a name="id-key-materials-step"></a>In the **Encrypted key material and import token** section, under **Wrapped key material**, choose **Choose file**\. Then upload the file that contains your wrapped \(encrypted\) key material\. 
 

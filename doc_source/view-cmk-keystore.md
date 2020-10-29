@@ -26,7 +26,7 @@ However, the following values are specific to CMKs in a custom key store\.
 
    This page displays detailed information about the CMK, including its Amazon Resource Name \(ARN\), key policy, and tags\.
 
-1. Expand **Cryptographic configuration**\.
+1. Choose the **Cryptographic configuration** tab\. The tabs are below the **General configuration** section\.
 
    This section includes information about the CMK's custom key store and cluster\.
 

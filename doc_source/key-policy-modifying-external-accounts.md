@@ -87,7 +87,7 @@ For example, the following example key policy statement allows `ExampleRole` and
 ```
 
 **Note**  
-Do not set the Principal to an asterisk \(\*\) in any key policy statement that allows permissions\. An asterisk gives every identity in every AWS account permission to use the CMK, unless another policy statement explicitly denies it\. Users in other AWS accounts just need corresponding IAM permissions in their own accounts to use the CMK\.
+Do not set the Principal to an asterisk \(\*\) in any key policy statement that allows permissions unless you use conditions to limit the key policy\. An asterisk gives every identity in every AWS account permission to use the CMK, unless another policy statement explicitly denies it\. Users in other AWS accounts just need corresponding IAM permissions in their own accounts to use the CMK\.
 
 You also need to decide which permissions you want to give to the external account\. For a list of permissions on CMKs, see [AWS KMS API permissions: Actions and resources reference](kms-api-permissions-reference.md)\.
 
@@ -110,7 +110,7 @@ The following example IAM policy allows the principal to use the CMK in account 
   "Version": "2012-10-17",
   "Statement": [
     {
-      "Sid": "Allow Use Of CMK In Account 111122223333",
+      "Sid": "AllowUseOfCMKInAccount111122223333",
       "Effect": "Allow",
       "Action": [
         "kms:Encrypt",

@@ -80,7 +80,7 @@ To give Amazon WorkSpaces administrators the permissions that they require, you 
 
 1. Choose the key ID or alias of your preferred customer managed CMK\.
 
-1. In the **Key policy** section, under **Key users**, choose **Add**\.
+1. Choose the **Key policy** tab\. Under **Key users**, choose **Add**\.
 
 1. In the list of IAM users and roles, select the users and roles that correspond to your WorkSpaces administrators, and then choose **Attach**\.
 

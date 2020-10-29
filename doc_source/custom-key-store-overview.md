@@ -10,7 +10,6 @@ For most users, the default AWS KMS key store, which is protected by [FIPS 140\-
 
 However, you might consider creating a custom key store if your organization has any of the following requirements:
 + Key material cannot be stored in a shared environment\.
-+ Key material must be backed up in multiple AWS Regions\.
 + Key material must be subject to a secondary, independent audit path\.
 + The HSMs that generate and store key material must be certified at [FIPS 140\-2 Level 3](https://docs.aws.amazon.com/cloudhsm/latest/userguide/compliance.html)\.
 

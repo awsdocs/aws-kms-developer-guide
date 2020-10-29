@@ -2,7 +2,7 @@
 
 To identify an AWS KMS CMK, you can use its [key ID](concepts.md#key-id-key-id) or its Amazon Resource Name \([key ARN](concepts.md#key-id-key-ARN)\)\. In [cryptographic operations](concepts.md#cryptographic-operations), you can also use the [alias name](concepts.md#key-id-alias-name) or [alias ARN](concepts.md#key-id-alias-ARN)\.
 
-For detailed information about the CMK identifiers that AWS KMS supports, see [Key identifiers \(KeyId\)](concepts.md#key-id)\.
+For detailed information about the CMK identifiers that AWS KMS supports, see [Key identifiers \(KeyId\)](concepts.md#key-id)\. For help finding an alias name and alias ARN, see [Finding the alias name and alias ARN](find-cmk-alias.md)\.
 
 ## To find the key ID and ARN \(console\)<a name="find-cmk-arn"></a>
 

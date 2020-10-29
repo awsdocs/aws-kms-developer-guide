@@ -97,7 +97,7 @@ After using the plaintext data key to encrypt data, remove it from memory as soo
 
 ![\[Encrypt user data outside of AWS KMS\]](http://docs.aws.amazon.com/kms/latest/developerguide/images/encrypt-with-data-key.png)
 
-### Decrypt data with a data key<a name="data-keys-decryptt"></a>
+### Decrypt data with a data key<a name="data-keys-decrypt"></a>
 
 To decrypt your data, pass the encrypted data key to the [Decrypt](https://docs.aws.amazon.com/kms/latest/APIReference/API_Decrypt.html) operation\. AWS KMS uses your CMK to decrypt the data key and then it returns the plaintext data key\. Use the plaintext data key to decrypt your data and then remove the plaintext data key from memory as soon as possible\.
 
@@ -249,45 +249,7 @@ The following is an example key ID\.
 
 **Alias ARN**  <a name="key-id-alias-ARN"></a>
 The alias ARN is the Amazon Resource Name \(ARN\) of an AWS KMS alias\. It is a unique, fully qualified identifier for the alias, and for the CMK it represents\. An alias ARN includes the AWS account, Region, and the alias name\.   
-At any given time, an alias ARN identifies one particular CMK\. However, because you can change the CMK associated with the alias, the alias ARN can identify different CMKs at different times\. For help finding the alias ARN of a CMK, see [ Finding the alias name and alias ARN  To identify an AWS KMS [customer master key](concepts.md#master_keys) \(CMK\) in a [cryptographic operation](concepts.md#cryptographic-operations), you can use its [key ID](concepts.md#key-id-key-id), [key ARN](concepts.md#key-id-key-ARN), [alias name](concepts.md#key-id-alias-name), or [alias ARN](concepts.md#key-id-alias-ARN)\. In other AWS KMS operations, only the key ID or key ARN are valid\. For detailed information about the CMK identifiers that AWS KMS supports, see [Key identifiers \(KeyId\)](concepts.md#key-id)\.   To find the alias name \(console\)  The AWS KMS console displays one [alias name](concepts.md#key-id-alias-name) associated with the CMK\. If the CMK was created in the console, the console displays the alias that was assigned to the CMK when it was created\. To find other aliases associated with the CMK, if any, you need to use the AWS KMS API\.   Open the AWS KMS console at [https://console\.aws\.amazon\.com/kms](https://console.aws.amazon.com/kms)\.   To change the AWS Region, use the Region selector in the upper\-right corner of the page\.   To view the keys in your account that you create and manage, in the navigation pane choose **Customer managed keys**\. To view the keys in your account that AWS creates and manages for you, in the navigation pane, choose **AWS managed keys**\.   To find the alias name for a CMK, see the **Alias** column in the row for each CMK\. If a CMK does not have an alias, a dash \(**\-**\) appears in the **Alias** column\.  
-
-![\[Image NOT FOUND\]](http://docs.aws.amazon.com/kms/latest/developerguide/images/find-alias-name-1-sm.png)   You can also find the alias on the details page for a CMK\. To open the details page, choose the key ID or alias\. The alias appears in the **General Configuration** section\.   
-
-![\[Image NOT FOUND\]](http://docs.aws.amazon.com/kms/latest/developerguide/images/find-alias-name-2.png)     To derive the alias ARN \(console\)  The [alias ARN](concepts.md#key-id-alias-ARN) is not displayed in the AWS KMS console\. The **ARN** field displays the [key ARN](concepts.md#key-id-key-ARN)\. However, you can derive the alias ARN for this alias by using the values in the **Alias** and **ARN** fields\. To derive the alias ARN, begin with the key ARN\.  
-
-```
-# Key ARN format
-arn:<partition>:kms:<region>:<account>:key/<key-id>
-
-# Example key ARN
-arn:aws:kms:us-west-2:111122223333:key/1234abcd-12ab-34cd-56ef-1234567890ab
-``` Replace `key` with `alias`\. Replace the key ID with the alias name\. 
-
-```
-# Alias ARN format
-arn:<partition>:kms:<region>:<account>:alias/<alias-name>
-
-# Example alias ARN
-arn:aws:kms:us-west-2:111122223333:alias/master-key-test
-```   To find the alias name and alias ARN \(AWS KMS API\)  To find the [alias name](concepts.md#key-id-alias-name) and [alias ARN](concepts.md#key-id-alias-ARN) of a customer master key \(CMK\), use the [ListAliases](https://docs.aws.amazon.com/kms/latest/APIReference/API_ListAliases.html) operation\. For examples in multiple programming languages, see [Listing aliases](programming-aliases.md#list-aliases) and [Get alias names and ARNs](viewing-keys-cli.md#viewing-keys-list-aliases)\. By default, the response includes the alias name and alias ARN for every alias in the account and Region\. To get only the aliases for a particular CMK, use the `KeyId` parameter\. For example, the following command gets only the aliases for an example CMK with key ID `1234abcd-12ab-34cd-56ef-1234567890ab`\.  
-
-```
-$ aws kms list-aliases --key-id 1234abcd-12ab-34cd-56ef-1234567890ab
-{
-    "Aliases": [
-        {
-            "AliasName": "alias/test-key",
-            "AliasArn": "arn:aws:kms:us-west-2:111122223333:alias/test-key",
-            "TargetKeyId": "1234abcd-12ab-34cd-56ef-1234567890ab"
-        },
-        {
-            "AliasName": "alias/project-key",
-            "AliasArn": "arn:aws:kms:us-west-2:111122223333:alias/project-key",
-            "TargetKeyId": "1234abcd-12ab-34cd-56ef-1234567890ab"
-        }
-    ]
-}
-```  ](find-cmk-alias.md)\.  
+At any given time, an alias ARN identifies one particular CMK\. However, because you can change the CMK associated with the alias, the alias ARN can identify different CMKs at different times\. For help finding the alias ARN of a CMK, see [Finding the alias name and alias ARN](find-cmk-alias.md)\.  
 The format of an alias ARN is as follows:  
 
 ```
@@ -300,45 +262,7 @@ arn:aws:kms:us-west-2:111122223333:alias/ExampleAlias
 ```
 
 **Alias name**  <a name="key-id-alias-name"></a>
-The alias name uniquely identifies an associated CMK within an account and Region\. In the AWS KMS API, alias names always begin with `alias`\. For help finding the alias name of a CMK, see [ Finding the alias name and alias ARN  To identify an AWS KMS [customer master key](concepts.md#master_keys) \(CMK\) in a [cryptographic operation](concepts.md#cryptographic-operations), you can use its [key ID](concepts.md#key-id-key-id), [key ARN](concepts.md#key-id-key-ARN), [alias name](concepts.md#key-id-alias-name), or [alias ARN](concepts.md#key-id-alias-ARN)\. In other AWS KMS operations, only the key ID or key ARN are valid\. For detailed information about the CMK identifiers that AWS KMS supports, see [Key identifiers \(KeyId\)](concepts.md#key-id)\.   To find the alias name \(console\)  The AWS KMS console displays one [alias name](concepts.md#key-id-alias-name) associated with the CMK\. If the CMK was created in the console, the console displays the alias that was assigned to the CMK when it was created\. To find other aliases associated with the CMK, if any, you need to use the AWS KMS API\.   Open the AWS KMS console at [https://console\.aws\.amazon\.com/kms](https://console.aws.amazon.com/kms)\.   To change the AWS Region, use the Region selector in the upper\-right corner of the page\.   To view the keys in your account that you create and manage, in the navigation pane choose **Customer managed keys**\. To view the keys in your account that AWS creates and manages for you, in the navigation pane, choose **AWS managed keys**\.   To find the alias name for a CMK, see the **Alias** column in the row for each CMK\. If a CMK does not have an alias, a dash \(**\-**\) appears in the **Alias** column\.  
-
-![\[Image NOT FOUND\]](http://docs.aws.amazon.com/kms/latest/developerguide/images/find-alias-name-1-sm.png)   You can also find the alias on the details page for a CMK\. To open the details page, choose the key ID or alias\. The alias appears in the **General Configuration** section\.   
-
-![\[Image NOT FOUND\]](http://docs.aws.amazon.com/kms/latest/developerguide/images/find-alias-name-2.png)     To derive the alias ARN \(console\)  The [alias ARN](concepts.md#key-id-alias-ARN) is not displayed in the AWS KMS console\. The **ARN** field displays the [key ARN](concepts.md#key-id-key-ARN)\. However, you can derive the alias ARN for this alias by using the values in the **Alias** and **ARN** fields\. To derive the alias ARN, begin with the key ARN\.  
-
-```
-# Key ARN format
-arn:<partition>:kms:<region>:<account>:key/<key-id>
-
-# Example key ARN
-arn:aws:kms:us-west-2:111122223333:key/1234abcd-12ab-34cd-56ef-1234567890ab
-``` Replace `key` with `alias`\. Replace the key ID with the alias name\. 
-
-```
-# Alias ARN format
-arn:<partition>:kms:<region>:<account>:alias/<alias-name>
-
-# Example alias ARN
-arn:aws:kms:us-west-2:111122223333:alias/master-key-test
-```   To find the alias name and alias ARN \(AWS KMS API\)  To find the [alias name](concepts.md#key-id-alias-name) and [alias ARN](concepts.md#key-id-alias-ARN) of a customer master key \(CMK\), use the [ListAliases](https://docs.aws.amazon.com/kms/latest/APIReference/API_ListAliases.html) operation\. For examples in multiple programming languages, see [Listing aliases](programming-aliases.md#list-aliases) and [Get alias names and ARNs](viewing-keys-cli.md#viewing-keys-list-aliases)\. By default, the response includes the alias name and alias ARN for every alias in the account and Region\. To get only the aliases for a particular CMK, use the `KeyId` parameter\. For example, the following command gets only the aliases for an example CMK with key ID `1234abcd-12ab-34cd-56ef-1234567890ab`\.  
-
-```
-$ aws kms list-aliases --key-id 1234abcd-12ab-34cd-56ef-1234567890ab
-{
-    "Aliases": [
-        {
-            "AliasName": "alias/test-key",
-            "AliasArn": "arn:aws:kms:us-west-2:111122223333:alias/test-key",
-            "TargetKeyId": "1234abcd-12ab-34cd-56ef-1234567890ab"
-        },
-        {
-            "AliasName": "alias/project-key",
-            "AliasArn": "arn:aws:kms:us-west-2:111122223333:alias/project-key",
-            "TargetKeyId": "1234abcd-12ab-34cd-56ef-1234567890ab"
-        }
-    ]
-}
-```  ](find-cmk-alias.md)\.  
+The alias name uniquely identifies an associated CMK within an account and Region\. In the AWS KMS API, alias names always begin with `alias`\. For help finding the alias name of a CMK, see [Finding the alias name and alias ARN](find-cmk-alias.md)\.  
 The format of an alias name is as follows:  
 
 ```
@@ -357,7 +281,7 @@ alias/aws/s3
 
 ## Key material origin<a name="key-origin"></a>
 
-*Key material origin* is a CMK property that identifies the source of the key material in the CMK\. You choose the key material origin when you create the CMK, and you cannot change it\. To find the key material origin of a CMK, use the [DescribeKey](https://docs.aws.amazon.com/kms/latest/APIReference/API_DescribeKey.html) operation, or see the **Origin** value in the **Cryptographic configuration** section of the detail page for a CMK in the AWS KMS console\. For help, see [Viewing Keys](viewing-keys.md)\. 
+*Key material origin* is a CMK property that identifies the source of the key material in the CMK\. You choose the key material origin when you create the CMK, and you cannot change it\. To find the key material origin of a CMK, use the [DescribeKey](https://docs.aws.amazon.com/kms/latest/APIReference/API_DescribeKey.html) operation, or see the **Origin** value on the **Cryptographic configuration** tab of the detail page for a CMK in the AWS KMS console\. For help, see [Viewing Keys](viewing-keys.md)\. 
 
 CMKs can have one of the following key material origin values\.
 
@@ -382,7 +306,7 @@ For help creating a CMK in a custom key store, see [Creating CMKs in a custom ke
 
 Typically, the key spec that you choose for your CMK is based on your use case and regulatory requirements\. You choose the key spec when you [create the CMK](create-keys.md), and you cannot change it\. If you've chosen the wrong key spec, [delete the CMK](deleting-keys.md), and create a new one\. 
 
-For a list of key specs and help with choosing a key spec, see [Selecting the key spec](symm-asymm-choose.md#symm-asymm-choose-key-spec)\. To find the key spec of a CMK, use the [DescribeKey](https://docs.aws.amazon.com/kms/latest/APIReference/API_DescribeKey.html) operation, or see the **Cryptographic configuration** section of the detail page for a CMK in the AWS KMS console\. For help, see [Viewing Keys](viewing-keys.md)\. 
+For a list of key specs and help with choosing a key spec, see [Selecting the key spec](symm-asymm-choose.md#symm-asymm-choose-key-spec)\. To find the key spec of a CMK, use the [DescribeKey](https://docs.aws.amazon.com/kms/latest/APIReference/API_DescribeKey.html) operation, or see the **Cryptographic configuration** tab on the detail page for a CMK in the AWS KMS console\. For help, see [Viewing Keys](viewing-keys.md)\. 
 
 **Note**  
 In AWS KMS API operations, the key spec for CMKs is known as the `CustomerMasterKeySpec`\. This distinguishes it from the key spec for data keys \(`KeySpec`\) and data key pairs \(`KeyPairSpec`\), and the key spec used when wrapping key material for import \(`WrappingKeySpec`\)\. Each key spec type has different values\.
@@ -395,7 +319,7 @@ To limit the key specs that principals can use when creating CMKs, use the [kms:
 
 The key usage for symmetric CMKs is always encryption and decryption\. The key usage for elliptic curve \(ECC\) CMKs is always signing and verification\. You only need to choose a key usage for RSA CMKs\. You choose the key usage when you [create the CMK](create-keys.md), and you cannot change it\. If you've chosen the wrong key usage, [delete the CMK](deleting-keys.md), and create a new one\. 
 
-For choosing the key usage, see [Selecting the key usage](symm-asymm-choose.md#symm-asymm-choose-key-usage)\. To find the key usage of a CMK, use the [DescribeKey](https://docs.aws.amazon.com/kms/latest/APIReference/API_DescribeKey.html) operation, or see the **Cryptographic configuration** section of the detail page for a CMK in the AWS KMS console\. For help, see [Viewing Keys](viewing-keys.md)\. 
+For choosing the key usage, see [Selecting the key usage](symm-asymm-choose.md#symm-asymm-choose-key-usage)\. To find the key usage of a CMK, use the [DescribeKey](https://docs.aws.amazon.com/kms/latest/APIReference/API_DescribeKey.html) operation, or choose the **Cryptographic configuration** tab on the detail page for a CMK in the AWS KMS console\. For help, see [Viewing Keys](viewing-keys.md)\. 
 
 To allow principals to create CMKs only for signing and verification or only for encryption and decryption, use the [kms:CustomerMasterKeyUsage](policy-conditions.md#conditions-kms-customer-master-key-usage) condition key\. You can also use the `kms:CustomerMasterKeyUsage` condition key to allow principals to call API operations for a CMK based on its key usage\. For example, you can allow permission to disable a CMK only if its key usage is SIGN\_VERIFY\. 
 

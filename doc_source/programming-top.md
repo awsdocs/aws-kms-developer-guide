@@ -18,7 +18,7 @@ For information about using the AWS KMS console to perform some of these tasks, 
 **Topics**
 + [Creating a client](programming-client.md)
 + [Working with keys](programming-keys.md)
++ [Working with aliases](programming-aliases.md)
 + [Encrypting and decrypting data keys](programming-encryption.md)
 + [Working with key policies](programming-key-policies.md)
 + [Working with grants](programming-grants.md)
-+ [Working with aliases](programming-aliases.md)

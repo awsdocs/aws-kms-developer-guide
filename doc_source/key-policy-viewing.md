@@ -24,7 +24,7 @@ To view the key policy for a CMK in the AWS Management Console, you must have [k
 
 1. Choose the **Key policy** tab\.
 
-   In the **Key policy** section, you might see the key policy document\. This is *policy view*\. In the key policy statements, you can see the principals who have been given access to the CMK by the key policy, and you can see the actions they can perform\.
+   On the **Key policy** tab, you might see the key policy document\. This is *policy view*\. In the key policy statements, you can see the principals who have been given access to the CMK by the key policy, and you can see the actions they can perform\.
 
    The following example shows the policy view for the [default key policy](key-policies.md#key-policy-default)\.   
 ![\[View of the default key policy in policy view in the AWS KMS console\]](http://docs.aws.amazon.com/kms/latest/developerguide/images/console-key-policy-view.png)

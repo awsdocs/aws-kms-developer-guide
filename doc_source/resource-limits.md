@@ -14,7 +14,7 @@ For help requesting an increase in an AWS KMS quota, see [Request an AWS KMS Quo
 | [Customer master keys \(CMKs\)](#customer-master-keys-limit) | 10,000 | Customer managed CMKs | 
 | [Aliases per Region](#aliases-limit) | 10,000 | Customer created aliases | 
 | [Aliases per CMK](#aliases-per-key) | 50 | Customer created aliases | 
-| [Grants per CMK](#grants-per-key) | 10,000 | Customer managed CMKs | 
+| [Grants per CMK](#grants-per-key) | 50,000 | Customer managed CMKs | 
 | [Grants for a given principal per CMK](#grants-per-principal-per-key) | 500 |  Customer managed CMKs AWS managed CMKs  | 
 | [Key policy document size](#key-policy-limit) | 32 KB \(32,768 bytes\) |  Customer managed CMKs AWS managed CMKs  | 
 
@@ -34,13 +34,13 @@ If you increase your [customer master keys quota](#customer-master-keys-limit), 
 
 You can associate up to 50 [aliases](kms-alias.md) with each [customer managed CMK](concepts.md#customer-cmk)\. Aliases that AWS associates with [AWS managed CMKs](concepts.md#aws-managed-cmk) do not count against this quota\. You might encounter this quota when you [create](kms-alias.md#alias-create) or [update](kms-alias.md#alias-update) an alias\.
 
-## Grants per CMK: 10,000<a name="grants-per-key"></a>
+## Grants per CMK: 50,000<a name="grants-per-key"></a>
 
-Each [customer managed CMK](concepts.md#customer-cmk) can have up to 10,000 [grants](grants.md), including the grants created by [AWS services that are integrated with AWS KMS](https://aws.amazon.com/kms/features/#AWS_Service_Integration)\. This quota does not apply to [AWS managed CMKs](concepts.md#aws-managed-cmk) or [AWS owned CMKs](concepts.md#aws-owned-cmk)\.
+Each [customer managed CMK](concepts.md#customer-cmk) can have up to 50,000 [grants](grants.md), including the grants created by [AWS services that are integrated with AWS KMS](https://aws.amazon.com/kms/features/#AWS_Service_Integration)\. This quota does not apply to [AWS managed CMKs](concepts.md#aws-managed-cmk) or [AWS owned CMKs](concepts.md#aws-owned-cmk)\.
 
-One effect of this quota is that you cannot perform more than 10,000 grant\-authorized operations that use the same CMK at the same time\. After you reach the quota, you can create new grants on the CMK only when an active grant is retired or revoked\.
+One effect of this quota is that you cannot perform more than 50,000 grant\-authorized operations that use the same CMK at the same time\. After you reach the quota, you can create new grants on the CMK only when an active grant is retired or revoked\.
 
-For example, when you attach an Amazon Elastic Block Store \(Amazon EBS\) volume to an Amazon Elastic Compute Cloud \(Amazon EC2\) instance, the volume is decrypted so you can read it\. To get permission to decrypt the data, Amazon EBS creates a grant for each volume\. However, you cannot have more than 10,000 grants on each CMK\. Therefore, if all of your Amazon EBS volumes use the same CMK, you cannot attach more than 10,000 volumes at one time\.
+For example, when you attach an Amazon Elastic Block Store \(Amazon EBS\) volume to an Amazon Elastic Compute Cloud \(Amazon EC2\) instance, the volume is decrypted so you can read it\. To get permission to decrypt the data, Amazon EBS creates a grant for each volume\. Therefore, if all of your Amazon EBS volumes use the same CMK, you cannot attach more than 50,000 volumes at one time\.
 
 ## Grants for a given principal per CMK: 500<a name="grants-per-principal-per-key"></a>
 

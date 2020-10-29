@@ -21,7 +21,7 @@ You can use the AWS Management Console to learn whether a newer version of the d
 
 1. Choose the alias or key ID of a CMK that uses the default key policy\.
 
-1. Scroll down to the **Key policy** section of the page\.
+1. Choose the **Key policy**tab\.
 
    When a newer version of the default key policy is available, the console displays the following alert\.
 

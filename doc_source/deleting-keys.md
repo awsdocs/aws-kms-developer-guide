@@ -203,7 +203,7 @@ You can use the AWS Management Console to add permissions for scheduling and can
 
 1. Choose the alias or key ID of the CMK whose permissions you want to change\.
 
-1. In the **Key policy** section, under **Key deletion**, select **Allow key administrators to delete this key** and then choose **Save changes**\.
+1. Choose the **Key policy** tab\. Under **Key deletion**, select **Allow key administrators to delete this key** and then choose **Save changes**\.
 **Note**  
 If you do not see the **Allow key administrators to delete this key** option, this usually means that you have changed this key policy using the AWS KMS API\. In this case, you must update the key policy document manually\. Add the `kms:ScheduleKeyDeletion` and `kms:CancelKeyDeletion` permissions to the key administrators statement \(`"Sid": "Allow access for Key Administrators"`\) in the key policy, and then choose **Save changes**\. 
 

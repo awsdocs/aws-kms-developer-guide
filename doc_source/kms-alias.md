@@ -78,7 +78,7 @@ For example, you can associate the `test-key` and `project-key` aliases with the
 ```
 
 **An alias must be unique in an account and Region**  
-For example, you can have only one `test-key` alias in each Region\. Aliases are case\-sensitive, but aliases that differ only in their capitalization are very prone to error\. You cannot change an alias name\. However, you can delete the alias and create a new alias with the desired name\.
+For example, you can have only one `test-key` alias in each account and Region\. Aliases are case\-sensitive, but aliases that differ only in their capitalization are very prone to error\. You cannot change an alias name\. However, you can delete the alias and create a new alias with the desired name\.
 
 **You can create an alias with the same name in different Regions**  
 For example, you can have a `finance-key` alias in US East \(N\. Virginia\) and a `finance-key` alias in Europe \(Frankfurt\)\. Each alias would be associated with a CMK in its Region\. If your code refers to an alias name like `alias/finance-key`, you can run it in multiple Regions\. In each Region, it uses a different CMK\. For details, see [Using aliases in your applications](#alias-using)\.
@@ -342,7 +342,7 @@ If you delete an alias by mistake, you can create a new alias with the same name
 For example, the following command deletes the `test-key` alias\. This command does not return any output\. The alias name is case\-sensitive\.
 
 ```
-$ aws kms delete-alias --alias name alias/test-key
+$ aws kms delete-alias --alias-name alias/test-key
 ```
 
 To verify that the alias is deleted, use the [ListAliases](https://docs.aws.amazon.com/kms/latest/APIReference/API_ListAliases.html) operation\. The following command use the `--query` parameter in the AWS CLI to get only the `test-key` alias\. The empty brackets in the response indicate that the `ListAliases` response didn't include a `test-key` alias\. To eliminate the brackets, use the `--output text` parameter and value\.
@@ -368,7 +368,7 @@ To create an alias, the principal needs the following permissions for both the a
 
   ```
   {
-    "Sid": "IAM policy for an alias",
+    "Sid": "IAMPolicyForAnAlias",
     "Effect": "Allow",
     "Action": [
       "kms:CreateAlias",
@@ -418,7 +418,7 @@ For example, suppose you want to change the `test-key` alias from the CMK with k
 
   ```
   {
-    "Sid": "IAM policy for an alias",
+    "Sid": "IAMPolicyForAnAlias",
     "Effect": "Allow",
     "Action": [
       "kms:UpdateAlias",
@@ -466,7 +466,7 @@ As always, you should exercise caution when giving principals permission to dele
 
   ```
   {
-    "Sid": "IAM policy for an alias",
+    "Sid": "IAMPolicyForAnAlias",
     "Effect": "Allow",
     "Action": [
       "kms:CreateAlias",

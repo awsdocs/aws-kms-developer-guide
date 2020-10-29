@@ -55,12 +55,11 @@ Consider the relevant policies for this example\.
 Bob is a user in account 1 \(111122223333\)\. He is allowed to use a CMK in account 2 \(444455556666\) in [cryptographic operations](concepts.md#cryptographic-operations)\. How is this possible?
 
 **Tip**  
-When evaluating cross\-account permissions, remember that the key policy is specified in the CMK's account\. The IAM policy is specified in the caller's account, even when the caller is in a different account\.  
-For details about providing cross\-account access to CMKs, see [Allowing users in other accounts to use a CMK](key-policy-modifying-external-accounts.md)\.
+When evaluating cross\-account permissions, remember that the key policy is specified in the CMK's account\. The IAM policy is specified in the caller's account, even when the caller is in a different account\. For details about providing cross\-account access to CMKs, see [Allowing users in other accounts to use a CMK](key-policy-modifying-external-accounts.md)\.
 + The key policy for the CMK in account 2 allows account 2 to use IAM policies to control access to the CMK\. 
 + The key policy for the CMK in account 2 allows account 1 to use the CMK in cryptographic operations\. However, account 1 must use IAM policies to give its principals access to the CMK\.
-+ An IAM policy in account 1 allows the `ExampleRole` role to use the CMK in account 2 for cryptographic operations\.
-+ Bob, a user in account 1, has permission to assume the `ExampleRole` role\.
++ An IAM policy in account 1 allows the `Engineering` role to use the CMK in account 2 for cryptographic operations\.
++ Bob, a user in account 1, has permission to assume the `Engineering` role\.
 + Bob can trust this CMK, because even though it is not in his account, an IAM policy in his account gives him explicit permission to use this CMK\.
 
 ![\[Flowchart that describes the policy evaluation process\]](http://docs.aws.amazon.com/kms/latest/developerguide/images/kms-auth-flow-Bob.png)
@@ -104,7 +103,7 @@ Consider the policies that let Bob, a user in account 1, use the CMK in account 
       ]
   }
   ```
-+ An IAM policy in the caller's AWS account \(account 1, 111122223333\) gives the `ExampleRole` role in account 1 permission to perform cryptographic operations using the CMK in account 2 \(444455556666\)\. The `Action` element gives the role the same permissions that the key policy in account 2 gave to account 1\.
++ An IAM policy in the caller's AWS account \(account 1, 111122223333\) gives the principal permission to perform cryptographic operations using the CMK in account 2 \(444455556666\)\. The `Action` element delegates to the principal the same permissions that the key policy in account 2 gave to account 1\. To give these permission to the `Engineering` role in account 1, [this inline policy is embedded](https://docs.aws.amazon.com/IAM/latest/APIReference/API_PutRolePolicy.html) in the `Engineering` role\.
 
   Cross\-account IAM policies like this one are effective only when the key policy for the CMK in account 2 gives account 1 permission to use the CMK\. Also, account 1 can only give its principals permission to perform the actions that the key policy gave to the account\.
 
@@ -115,7 +114,6 @@ Consider the policies that let Bob, a user in account 1, use the CMK in account 
       "Version": "2012-10-17",
       "Statement": [
           {
-              "Principal": { "arn:aws:iam::111122223333:role/ExampleRole" }
               "Effect": "Allow",
               "Action": [
                   "kms:Encrypt",
@@ -133,12 +131,12 @@ Consider the policies that let Bob, a user in account 1, use the CMK in account 
       ]
   }
   ```
-+ The last required element is the definition of the `ExampleRole` role in account 1\. The `AssumeRolePolicyDocument` in the role allows Bob to assume the `ExampleRole` role\.
++ The last required element is the definition of the `Engineering` role in account 1\. The `AssumeRolePolicyDocument` in the role allows Bob to assume the `Engineering` role\.
 
   ```
   {
       "Role": {
-          "Arn": "arn:aws:iam::111122223333:role/ExampleRole",
+          "Arn": "arn:aws:iam::111122223333:role/Engineering",
           "CreateDate": "2019-05-16T00:09:25Z",
           "AssumeRolePolicyDocument": {
               "Version": "2012-10-17",
@@ -151,7 +149,7 @@ Consider the policies that let Bob, a user in account 1, use the CMK in account 
               }
           },
           "Path": "/",
-          "RoleName": "ExampleRole",
+          "RoleName": "Engineering",
           "RoleId": "AROA4KJY2TU23Y7NK62MV"
       }
   }

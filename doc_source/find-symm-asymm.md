@@ -30,7 +30,7 @@ To identify symmetric and asymmetric CMKs in your CMK table, use the following p
 
 ## Finding the key type on the details page<a name="find-key-type-details"></a>
 
-In the AWS KMS console, the details page for each CMK includes a **Cryptographic Configuration** section that displays the key type \(symmetric or asymmetric\) and other cryptographic details about the CMK\. 
+In the AWS KMS console, the details page for each CMK includes a **Cryptographic Configuration** tab that displays the key type \(symmetric or asymmetric\) and other cryptographic details about the CMK\. 
 
 To identify symmetric and asymmetric CMKs on the details page for a CMK, use the following procedure\.
 
@@ -42,15 +42,15 @@ To identify symmetric and asymmetric CMKs on the details page for a CMK, use the
 
 1. Choose the alias or key ID of a CMK\.
 
-1. Choose **Cryptographic configuration**\.
+1. Choose the **Cryptographic configuration** tab\. The tabs are below the **General configuration** section\.
 
-   The **Cryptographic configuration** section includes the **Key Type**, which indicates whether it is symmetric or asymmetric\. It also displays other details about the CMK, including the **Key Usage**, which tells whether a CMK can be used for encryption and decryption or signing and verification\. For asymmetric CMKs, it displays the encryption algorithms or signing algorithms that the CMK supports\.
+   The **Cryptographic configuration** tab displays the **Key Type**, which indicates whether it is symmetric or asymmetric\. It also displays other details about the CMK, including the **Key Usage**, which tells whether a CMK can be used for encryption and decryption or signing and verification\. For asymmetric CMKs, it displays the encryption algorithms or signing algorithms that the CMK supports\.
 
-   For example, the following is an example **Cryptographic configuration** section for a symmetric CMK\.  
-![\[The Cryptographic configuration section for a symmetric CMK\]](http://docs.aws.amazon.com/kms/latest/developerguide/images/console-cryptographic-config-symmetric.png)
+   For example, the following is an example **Cryptographic configuration** tab for a symmetric CMK\.  
+![\[The Cryptographic configuration tab for a symmetric CMK\]](http://docs.aws.amazon.com/kms/latest/developerguide/images/console-cryptographic-config-symmetric.png)
 
-   The following is an example **Cryptographic configuration** section for an asymmetric RSA CMK that's used for signing and verification\.  
-![\[The Cryptographic configuration section for an asymmetric CMK\]](http://docs.aws.amazon.com/kms/latest/developerguide/images/console-cryptographic-configuration.png)
+   The following is an example **Cryptographic configuration** tab for an asymmetric RSA CMK that's used for signing and verification\.  
+![\[The Cryptographic configuration tab for an asymmetric CMK\]](http://docs.aws.amazon.com/kms/latest/developerguide/images/console-cryptographic-configuration.png)
 
 ## Finding the key spec using the AWS KMS API<a name="find-key-type-api"></a>
 

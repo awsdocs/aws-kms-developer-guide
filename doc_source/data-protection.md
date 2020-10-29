@@ -31,7 +31,9 @@ Key material that AWS KMS generates for CMKs is never exported or transmitted in
 
 However, some AWS KMS API operations return [data keys](concepts.md#data-keys)\. Also, customers can use API operations to [import key material](importing-keys.md) for selected CMKs\. 
 
-All AWS KMS API calls must be signed and be transmitted using Transport Layer Security \(TLS\) 1\.2 or later\. Calls to AWS KMS also require a modern cipher suite that supports *perfect forward secrecy*, which means that compromise of any secret, such as a private key, does not also compromise the session key\.
+All AWS KMS API calls must be signed and be transmitted using Transport Layer Security \(TLS\) 1\.2 or later\. Calls to AWS KMS also require a modern cipher suite that supports *perfect forward secrecy*, which means that compromise of any secret, such as a private key, does not also compromise the session key\. 
+
+If you require FIPS 140\-2 validated cryptographic modules when accessing AWS through a command line interface or an API, use a FIPS endpoint\. For more information about the available FIPS endpoints, see [Federal Information Processing Standard \(FIPS\) 140\-2](http://aws.amazon.com/compliance/fips/)\. For a list of AWS KMS FIPS endpoints, see [AWS Key Management Service endpoints and quotas](https://docs.aws.amazon.com/general/latest/gr/kms.html) in the AWS General Reference\.
 
 Communications between AWS KMS service hosts and HSMs are protected using Elliptic Curve Cryptography \(ECC\) and Advanced Encryption Standard \(AES\) in an authenticated encryption scheme\. For more details, see the "Internal Communications Security" section of the [AWS Key Management Service Cryptographic Details](https://d0.awsstatic.com/whitepapers/KMS-Cryptographic-Details.pdf) whitepaper\.
 

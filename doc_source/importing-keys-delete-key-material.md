@@ -4,7 +4,7 @@ When you import key material, you can specify an expiration date\. When the key 
 
 Deleting key material affects the CMK immediately, but you can reverse the deletion of key material by [reimporting the same key material](importing-keys.md#reimport-key-material) into the CMK\. In contrast, deleting a CMK is irreversible\. If you [schedule key deletion](deleting-keys.md#deleting-keys-how-it-works) and the required waiting period expires, AWS KMS deletes the key material and all metadata associated with the CMK\.
 
-To delete key material, you can use the AWS Management Console or the AWS KMS API\. You can use the API directly by making HTTP requests, or through one of the [AWS SDKs](https://aws.amazon.com/tools/#sdk) or [command line tools](https://aws.amazon.com/tools/#cli)\.
+To delete key material, you can use the AWS Management Console or the AWS KMS API\. You can use the API directly by making HTTP requests, or by using an[AWS SDK](https://aws.amazon.com/tools/#sdk), the [AWS Command Line Interface](https://docs.aws.amazon.com/cli/latest/userguide/) \(AWS CLI\), or [AWS Tools for PowerShell](https://docs.aws.amazon.com/powershell/latest/userguide/)\.
 
 AWS KMS records an entry in your AWS CloudTrail log when you delete imported key material and when [AWS KMS deletes expired key material](ct-deleteexpiredkeymaterial.md)\.
 
@@ -41,7 +41,7 @@ You can use the AWS Management Console to delete key material\.
 
 1. Do one of the following:
    + Select the check box for a CMK with imported key material\. Choose **Key actions**, **Delete key material**\.
-   + Choose the alias or key ID of a CMK with imported key material\. In the **Key material** section of the page, choose **Delete key material**\.
+   + Choose the alias or key ID of a CMK with imported key material\. Choose the **Key material** tab and then choose **Delete key material**\.
 
 1. Confirm that you want to delete the key material and then choose **Delete key material**\. The CMK's status, which corresponds to its [key state](key-state.md), changes to **Pending import**\.
 

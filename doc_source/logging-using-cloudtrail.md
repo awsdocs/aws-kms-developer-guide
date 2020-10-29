@@ -13,7 +13,7 @@ Although, by default, all AWS KMS actions are logged as CloudTrail events, you c
 **Topics**
 + [Logging events in CloudTrail](#kms-info-in-cloudtrail)
 + [Excluding AWS KMS events from a trail](#filtering-kms-events)
-+ [Examples of AWS KMS log entries](#understanding-kms-entries)
++ [Examples of AWS KMS log entries](understanding-kms-entries.md)
 
 ## Logging events in CloudTrail<a name="kms-info-in-cloudtrail"></a>
 
@@ -50,41 +50,3 @@ To exclude AWS KMS events from a trail:
 You can disable this exclusion at any time by changing the console setting or the event selectors for a trail\. The trail will then start recording AWS KMS events\. However, it cannot recover AWS KMS events that occurred while the exclusion was effective\.
 
 When you exclude KMS events by using the console or API, the resulting CloudTrail `PutEventSelectors` API operation is also logged in your CloudTrail Logs\. If KMS events don't appear in your CloudTrail Logs, look for a `PutEventSelectors` event with the `ExcludeManagementEventSources` attribute set to `kms.amazonaws.com`\.
-
-## Examples of AWS KMS log entries<a name="understanding-kms-entries"></a>
-
-AWS KMS writes entries to your CloudTrail log when you call an AWS KMS operation and when an AWS service calls an operation on your behalf\. AWS KMS also writes an entry when it calls an operation for you\. For example, it writes an entry when it [deletes a CMK](ct-delete-key.md) that you scheduled for deletion\.
-
-The following topics display examples of CloudTrail log entries for AWS KMS operations\.
-
-**Topics**
-+ [CancelKeyDeletion](ct-cancel-key-deletion.md)
-+ [CreateAlias](ct-createalias.md)
-+ [CreateGrant](ct-creategrant.md)
-+ [CreateKey](ct-createkey.md)
-+ [Decrypt](ct-decrypt.md)
-+ [DeleteAlias](ct-deletealias.md)
-+ [DeleteExpiredKeyMaterial](ct-deleteexpiredkeymaterial.md)
-+ [DeleteKey](ct-delete-key.md)
-+ [DescribeKey](ct-describekey.md)
-+ [DisableKey](ct-disablekey.md)
-+ [EnableKey](ct-enablekey.md)
-+ [EnableKeyRotation](ct-enablekeyrotation.md)
-+ [Encrypt](ct-encrypt.md)
-+ [GenerateDataKey](ct-generatedatakey.md)
-+ [GenerateDataKeyPair](ct-generatedatakeypair.md)
-+ [GenerateDataKeyPairWithoutPlaintext](ct-generatedatakeypairwithoutplaintext.md)
-+ [GenerateDataKeyWithoutPlaintext](ct-generatedatakeyplaintext.md)
-+ [GenerateRandom](ct-generaterandom.md)
-+ [GetKeyPolicy](ct-getkeypolicy.md)
-+ [GetParametersForImport](ct-getparametersforimport.md)
-+ [ImportKeyMaterial](ct-importkeymaterial.md)
-+ [ListAliases](ct-listaliases.md)
-+ [ListGrants](ct-listgrants.md)
-+ [ReEncrypt](ct-reencrypt.md)
-+ [RotateKey](ct-rotatekey.md)
-+ [ScheduleKeyDeletion](ct-schedule-key-deletion.md)
-+ [TagResource](ct-tagresource.md)
-+ [UntagResource](ct-untagresource.md)
-+ [Amazon EC2 example one](ct-ec2one.md)
-+ [Amazon EC2 example two](ct-ec2two.md)

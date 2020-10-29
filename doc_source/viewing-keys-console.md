@@ -59,77 +59,92 @@ You can have multiple filters at the same time\. When you add additional filters
 
 The details page for each CMK displays the properties of the CMK\. It differs slightly for the different types of CMKs\. 
 
-To display detailed information about a CMK:
+To display detailed information about a CMK, on the **AWS managed keys** or **Customer managed keys** page, choose the alias or key ID of the CMK\. 
 
-1. To display the details page for a CMK, on the **AWS managed keys** or **Customer managed keys** page, choose the alias or key ID of the CMK\. 
-
-1. To display all details, expand the **General configuration** and **Cryptographic configuration** sections of the page\. If the CMK is configured for imported key material, the page also has a **Key materials** section that you can expand\.
+The details page for a CMK includes a **General Configuration** section that displays the basic properties of the CMK\. It also includes tabs on which you can view and edit properties of the CMK, such as its key policy, cryptographic configuration, tags, key material \(for CMKs with imported key material\), key rotation \(for symmetric CMKs\), and its public key \(for asymmetric CMKs\)\.
 
 ![\[Image NOT FOUND\]](http://docs.aws.amazon.com/kms/latest/developerguide/images/console-key-detail-view-symmetric-sm.png)
 
-The details page for a CMK includes a **General Configuration** section that displays the basic properties of the CMK, a **Cryptographic Configuration** section that displays the cryptographic properties of the CMK, and a tabbed display that includes the key policy, tags, key rotation \(for symmetric CMKs\), and public key \(for asymmetric CMKs\)\.
-
-The following list describes the fields in the detailed display\. Some of these fields are also available as columns in the table display\.
+The following list describes the fields in the detailed display, including field in the tabs\. Some of these fields are also available as columns in the table display\.
 
 **Alias**  
+Where: General configuration section  
 A friendly name for the CMK\. The **Alias** field in the console lists only one alias\. To find all aliases for the CMK, use the [ListAliases](https://docs.aws.amazon.com/kms/latest/APIReference/API_ListAliases.html) operation\.
 
 **ARN**  
+Where: General configuration section  
 The Amazon Resource Name \(ARN\) of the CMK\. This value uniquely identifies the CMK\. You can use it to identify the CMK in AWS KMS API operations\.
 
 **Creation date**  
+Where: General configuration section  
 The date and time that the CMK was created\. This value is displayed in local time for the device\. The time zone does not depend on the Region\.  
 Unlike **Expiration**, the creation refers only to the CMK, not its key material\. 
 
 **CloudHSM cluster ID**  
+Where: Cryptographic configuration tab  
 The cluster ID of the AWS CloudHSM cluster that contains the key material for the CMK\. This field appears only when the CMK is created in an AWS KMS [custom key store](custom-key-store-overview.md)\.  
 If you click the CloudHSM cluster ID, it opens the **Clusters** page in the AWS CloudHSM console\.
 
 **Custom key store ID**  
+Where: Cryptographic configuration tab  
 The ID of the [custom key store](custom-key-store-overview.md) that contains the CMK\. This field appears only when the CMK is created in an AWS KMS custom key store\.  
 If you click the custom key store ID, it opens the **Custom key stores** page in the AWS KMS console\.
 
 **Custom key store name**  
+Where: Cryptographic configuration tab  
 The name of the [custom key store](custom-key-store-overview.md) that contains the CMK\. This field appears only when the CMK is created in an AWS KMS custom key store\.
 
 **Description**  
-A brief, optional description of the CMK\. To add or update the description of a customer managed CMK, above **General Configuration**, choose **Edit**\.
+Where: General configuration section  
+A brief, optional description of the CMK that you can write and edit\. To add or update the description of a customer managed CMK, above **General Configuration**, choose **Edit**\.
 
 **Encryption algorithms**  
+Where: Cryptographic configuration tab  
 Lists the encryption algorithms that can be used with the CMK in AWS KMS\. This field appears only when the **Key type** is **Asymmetric** and the **Key usage** is **Encrypt and decrypt**\. For information about the encryption algorithms that AWS KMS supports, see [SYMMETRIC\_DEFAULT key spec](symm-asymm-choose.md#key-spec-symmetric-default) and [RSA key specs for encryption and decryption](symm-asymm-choose.md#key-spec-rsa-encryption)\.
 
 **Expiration date**  
+Where: Key material tab  
 The date and time when the key material for the CMK expires\. This field appears only for CMKs with [imported key material](importing-keys.md), that is, when the **Origin** is **External** and the CMK has key material that expires\.
 
 **Key policy**  
+Where: Key policy tab  
 Controls access to the CMK along with [IAM policies](iam-policies.md) and [grants](grants.md)\. Every CMK has one key policy\. It is the only mandatory authorization element\. To change the key policy of a customer managed CMK, on the **Key policy** tab, choose **Edit**\. For details, see [Using key policies in AWS KMS](key-policies.md)\.
 
 **Key rotation**  
+Where: Key rotation tab  
 Enables and disables [automatic key rotation](rotate-keys.md) every year\.   
 To change the key rotation status of a [customer managed CMK](concepts.md#customer-cmk), use the checkbox on the **Key rotation** tab\. All [AWS managed CMKs](concepts.md#aws-managed-cmk) are automatically rotated every three years\.
 
 **Key spec**  
+Where: Cryptographic configuration tab  
 The type of key material in the CMK\. AWS KMS supports symmetric CMKs \(SYMMETRIC\_DEFAULT\), CMKs for RSA keys of different lengths, and elliptic curve keys with different curves\. For details, see [Key spec](concepts.md#key-spec)\.
 
 **Key type**  
+Where: Cryptographic configuration tab  
 Indicates whether the CMK is **Symmetric** or **Asymmetric**\.
 
 **Key usage**  
+Where: Cryptographic configuration tab  
 Indicates whether a CMK can be used for **Encrypt and decrypt** or **Sign and verify**\. Only asymmetric CMKs can be used to sign and verify\. For details, see [Key usage](concepts.md#key-usage)\.
 
 **Origin**  
+Where: Cryptographic configuration tab  
 The source of the key material for the CMK\. Valid values are **AWS\_KMS** for key material that AWS KMS generates, **EXTERNAL** for [imported key material](importing-keys.md), and **AWS\_CloudHSM** for CMKs in [custom key stores](custom-key-store-overview.md)\.
 
 **Public key**  
+Where: Public key tab  
 Displays the public key of an asymmetric CMK\. Authorized users can use this tab to [copy and download the public key](download-public-key.md)\.
 
 **Signing algorithms**  
+Where: Cryptographic configuration tab  
 Lists the signing algorithms that can be used with the CMK in AWS KMS\. This field appears only when the **Key type** is **Asymmetric** and the **Key usage** is **Sign and verify**\. For information about the signing algorithms that AWS KMS supports, see [RSA key specs for signing and verification](symm-asymm-choose.md#key-spec-rsa-sign) and [Elliptic curve key specs](symm-asymm-choose.md#key-spec-ecc)\.
 
 **Status**  
+Where: General configuration section  
 The key state of the CMK\. You can use the CMK in [cryptographic operations](concepts.md#cryptographic-operations) only when the status is **Enabled**\. For a detailed description of each CMK status and its effect on the operations that you can run on the CMK, see [Key state: Effect on your CMK](key-state.md)\.
 
 **Tags**  
+Where: Tags tab  
 Optional key\-value pairs that describe the CMK\. To add or change the tags for a CMK, on the **Tags** tab, choose **Edit**\.  
 When you add tags to your AWS resources, AWS generates a cost allocation report with usage and costs aggregated by tags\. For information about tagging CMKs, see [Tagging keys](tagging-keys.md)\.
 

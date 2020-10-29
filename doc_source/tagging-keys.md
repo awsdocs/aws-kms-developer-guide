@@ -2,7 +2,7 @@
 
 A *tag* is a metadata label that you can assign \(or AWS can assign\) to an AWS resource\. Each tag consists of a *tag key* and a *tag value*, both of which are case\-sensitive strings\. The tag value can be an empty \(null\) string\. Each tag on a resource must have a different tag key, but you can add the same tag to multiple AWS resources\. Each resource can have up to 50 user\-created tags\. 
 
-In AWS KMS, you can add tags to a [customer managed CMK](concepts.md#master_keys) when you [create the CMK](create-keys.md), and [add or edit tags](editing-keys.md#edit-tags) on existing CMKs unless they are [pending deletion](key-state.md)\. You cannot tag aliases, [AWS managed CMKs](concepts.md#master_keys), or [AWS owned CMKs](concepts.md#aws-owned-cmk)\.
+In AWS KMS, you can add tags to a [customer managed CMK](concepts.md#master_keys) when you [create the CMK](create-keys.md)\. You can add or edit tags on existing CMKs unless they are [pending deletion](key-state.md)\. You cannot tag aliases, [AWS managed CMKs](concepts.md#master_keys), or [AWS owned CMKs](concepts.md#aws-owned-cmk)\.
 
 For example, you can add a `"Project"="Alpha"` tag to all CMKs and Amazon S3 buckets that you use for the Alpha project\.
 

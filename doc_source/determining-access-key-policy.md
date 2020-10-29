@@ -9,7 +9,7 @@ To view the key policy of an AWS KMS [customer managed CMK](concepts.md#customer
 Examine the key policy document and take note of all principals specified in each policy statement's `Principal` element\. The IAM users, IAM roles, and AWS accounts in the `Principal` elements are those that have access to this CMK\.
 
 **Note**  
-Do not set the Principal to an asterisk \(\*\) in any key policy statement that allows permissions\. An asterisk gives every identity in every AWS account permission to use the CMK, unless another policy statement explicitly denies it\. Users in other AWS accounts just need corresponding IAM permissions in their own accounts to use the CMK\.
+Do not set the Principal to an asterisk \(\*\) in any key policy statement that allows permissions unless you use conditions to limit the key policy\. An asterisk gives every identity in every AWS account permission to use the CMK, unless another policy statement explicitly denies it\. Users in other AWS accounts just need corresponding IAM permissions in their own accounts to use the CMK\.
 
 The following examples use the policy statements found in the [default key policy](key-policies.md#key-policy-default) to demonstrate how to do this\.
 

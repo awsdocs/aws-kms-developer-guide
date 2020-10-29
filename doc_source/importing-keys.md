@@ -26,7 +26,7 @@ The key material you import must be a 256\-bit symmetric encryption key\.
 + [Permissions for importing key material](#importing-keys-permissions)
 + [How to import key material](#importing-keys-overview)
 + [How to reimport key material](#reimport-key-material)
-+ [How to identify CMKs with imported key material](#identify-imported-keys)
++ [How to view CMKs with imported key material](#identify-imported-keys)
 
 ## About imported key material<a name="importing-keys-considerations"></a>
 
@@ -115,13 +115,13 @@ To reimport key material, use the same procedure that you used to [import the ke
 
 Each time you import key material to a CMK, you need to [download and use a new wrapping key and import token](importing-keys-get-public-key-and-token.md) for the CMK\. The wrapping procedure does not affect the content of the key material, so you can use different wrapping keys \(and different import tokens\) to import the same key material\.
 
-## How to identify CMKs with imported key material<a name="identify-imported-keys"></a>
+## How to view CMKs with imported key material<a name="identify-imported-keys"></a>
 
 When you create a CMK with no key material, the value of the `Origin` property of the CMK is `EXTERNAL`, and it cannot be changed\. You cannot convert a key that is designed to use imported key material to one that uses the key material that AWS KMS provides\.
 
-You can identify CMKs that require imported key material in the AWS KMS console or by using the AWS KMS API\.
+You can identify CMKs that require imported key material in the AWS KMS console or by using the AWS KMS API\. You can also view the properties of the key material, such as whether and when it expires by using the console or the APIs\.
 
-### To identify the value of the `Origin` property of CMKs \(console\)<a name="identify-imported-keys-console"></a>
+### To identify CMKs with imported key material \(console\)<a name="identify-imported-keys-console"></a>
 
 1. Open the AWS KMS console at [https://console\.aws\.amazon\.com/kms](https://console.aws.amazon.com/kms)\.
 
@@ -129,11 +129,13 @@ You can identify CMKs that require imported key material in the AWS KMS console 
 
 1. Use either of the following techniques to view the `Origin` property of your CMKs\.
    + To add an **Origin** column to your CMK table, in the upper right corner, choose the **Settings** icon\. Choose **Origin** and choose **Confirm**\. The **Origin** column makes it easy to identify CMKs with an `EXTERNAL` origin property value\.
-   + To find the value of the `Origin` property of a particular CMK, choose the key ID or alias of the CMK\. The `Origin` property value appears in the **General configuration** section\.
+   + To find the value of the `Origin` property of a particular CMK, choose the key ID or alias of the CMK\. Then choose the **Cryptographic configuration** tab\. The tabs are below the **General configuration** section\.
 
-### To identify the value of the `Origin` property of CMKs \(AWS KMS API\)<a name="identify-imported-keys-api"></a>
+1. To view detailed information about the key material, choose the **Key material** tab\. This tab appears on the detail page only for CMKs with imported key material\.
 
-Use the [DescribeKey](https://docs.aws.amazon.com/kms/latest/APIReference/API_DescribeKey.html) operation\. The response includes the `Origin` property of the CMK, as shown in the following example\.
+### To identify CMKs with imported key material \(AWS KMS API\)<a name="identify-imported-keys-api"></a>
+
+Use the [DescribeKey](https://docs.aws.amazon.com/kms/latest/APIReference/API_DescribeKey.html) operation\. The response includes the `Origin` property of the CMK, the expiration model, and the expiration date, as shown in the following example\.
 
 ```
 $  aws kms describe-key --key-id 1234abcd-12ab-34cd-56ef-1234567890ab

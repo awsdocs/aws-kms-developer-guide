@@ -268,7 +268,7 @@ This policy includes of two policy statements\. The `Resource` element in the fi
   "Version": "2012-10-17",
   "Statement": [
     {
-      "Sid": "Allow read-only permission to all CMKs in the account",
+      "Sid": "ReadOnlyAccessForAllCMKsInAccount",
       "Effect": "Allow",
       "Action": [
         "kms:GetPublicKey",        
@@ -281,7 +281,7 @@ This policy includes of two policy statements\. The `Resource` element in the fi
       "Resource": "arn:aws:kms:*:111122223333:key/*"
     },
     {
-      "Sid": "Allow read-only access to operations with no CMK resource",
+      "Sid": "ReadOnlyAccessForOperationsWithNoCMK",
       "Effect": "Allow",
       "Action": [
         "kms:ListKeys",
@@ -324,7 +324,7 @@ This IAM policy does not include `kms:PutKeyPolicy` permission or any other perm
   "Version": "2012-10-17",
   "Statement": [
     {
-      "Sid": "IAM permissions for particular CMKs",
+      "Sid": "IAMPermissionsForParticularCMKs",
       "Effect": "Allow",
       "Action": {
         "kms:TagResource"         
@@ -332,7 +332,7 @@ This IAM policy does not include `kms:PutKeyPolicy` permission or any other perm
       "Resource": "arn:aws:kms:*:111122223333:key/*"
     },
     {
-      "Sid": "IAM permissions for particular aliases",
+      "Sid": "IAMPermissionsForParticularAliases",
       "Effect": "Allow",
       "Action": {
         "kms:CreateAlias"
@@ -340,7 +340,7 @@ This IAM policy does not include `kms:PutKeyPolicy` permission or any other perm
       "Resource": "arn:aws:kms:*:111122223333:alias/*"
     },
     {
-      "Sid": "IAM permission that must be set for all CMKs",
+      "Sid": "IAMPermissionsForAllCMKs",
       "Effect": "Allow",
       "Action": [
         "kms:CreateKey",

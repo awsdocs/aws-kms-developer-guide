@@ -110,12 +110,12 @@ This table lists the [Service Quotas](https://docs.aws.amazon.com/servicequotas/
 | `GetParametersForImport request rate` | 0\.25 \(1 in each 4\-second interval\) | 
 | `GetPublicKey request rate` | 5 | 
 | `ImportKeyMaterial request rate` | 5 | 
-| `ListAliases request rate` | 100 | 
+| `ListAliases request rate` | 500 | 
 | `ListGrants request rate` | 100 | 
 | `ListKeyPolicies request rate` | 100 | 
-| `ListKeys request rate` | 100 | 
+| `ListKeys request rate` | 500 | 
 | `ListResourceTags request rate` | 100 | 
-| `ListRetirableGrants request rate` | 5 | 
+| `ListRetirableGrants request rate` | 100 | 
 | `PutKeyPolicy request rate` | 5 | 
 | `RetireGrant request rate` | 15 | 
 | `RevokeGrant request rate` | 15 | 
