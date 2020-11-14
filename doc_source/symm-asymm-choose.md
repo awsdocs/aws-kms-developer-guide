@@ -1,6 +1,6 @@
 # How to choose your CMK configuration<a name="symm-asymm-choose"></a>
 
-The type of CMK that you create depends largely on how your plan to use the CMK, your security requirements, and your authorization requirements\. When creating your CMK, remember that the cryptographic configuration of the CMK, including its key spec and key usage, are established when you create the CMK and cannot be changed\. For help with creating symmetric and asymmetric CMK, see [Creating keys](create-keys.md)\.
+The type of CMK that you create depends largely on how you plan to use the CMK, your security requirements, and your authorization requirements\. When creating your CMK, remember that the cryptographic configuration of the CMK, including its key spec and key usage, are established when you create the CMK and cannot be changed\. For help with creating symmetric and asymmetric CMK, see [Creating keys](create-keys.md)\.
 
 AWS KMS supports two CMK key types: **Symmetric** and **Asymmetric**\. Each key type is associated particular [key usage](#symm-asymm-choose-key-usage) and [key spec](#symm-asymm-choose-key-spec) options\.
 
