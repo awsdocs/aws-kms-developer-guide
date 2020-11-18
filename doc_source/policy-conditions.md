@@ -1297,7 +1297,7 @@ The following example policy statement uses the `kms:WrappingAlgorithm` conditio
 
 [AWS Nitro Enclaves](https://docs.aws.amazon.com/enclaves/latest/user/) is an Amazon EC2 capability that lets you create isolated compute environments called [enclaves](https://docs.aws.amazon.com/enclaves/latest/user/nitro-enclave-concepts.html#term-enclave) to protect and process highly sensitive data\. AWS KMS provides condition keys to support AWS Nitro Enclaves\. These conditions keys work only when a request for an AWS KMS operation originates in an enclave\. 
 
-When you call the `kms-decrypt`, `kms-generate-data-key`, or `kms-generate-random` APIs in the [aws\-nitro\-enclaves\-sdk\-c](https://github.com/aws/aws-nitro-enclaves-sdk-c) repository from an enclave, these APIs call the corresponding AWS KMS operation with a parameter that includes a signed [attestation document](https://docs.aws.amazon.com/enclaves/latest/user/nitro-enclave-concepts.html#term-attestdoc) from the enclave\. The signed attestation document proves the enclave's identity to AWS KMS\. 
+When you call the `kms-decrypt`, `kms-generate-data-key`, or `kms-generate-random` [AWS Nitro Enclaves SDK](https://github.com/aws/aws-nitro-enclaves-sdk-c) APIs from an enclave, these APIs call the corresponding AWS KMS operation with a parameter that includes a signed [attestation document](https://docs.aws.amazon.com/enclaves/latest/user/nitro-enclave-concepts.html#term-attestdoc) from the enclave\. The signed attestation document proves the enclave's identity to AWS KMS\. 
 
 The following condition keys let you limit the permissions for these operations based on the contents of the signed attestation document\. Before allowing an operation, AWS KMS compares the attestation document from the enclave to the values in these AWS KMS condition keys\.
 
@@ -1308,7 +1308,7 @@ The following condition keys let you limit the permissions for these operations 
 | --- | --- | --- | --- | 
 |  `kms:RecipientAttestation:ImageSha384`  |  String  |  `Decrypt` `GenerateDataKey` `GenerateRandom`  |  Key policies and IAM policies  | 
 
-The `kms:RecipientAttestation:ImageSha384` condition key allows the `kms-decrypt`, `kms-generate-data-key`, and `kms-generate-random` operations from an enclave only when the image hash from the signed attestation document in the request matches the value in the condition key\. The `ImageSha384` value corresponds to PCR\[0\] in the attestation document\. This condition key is effective only when you call these APIs from an enclave using the Nitro Enclaves SDK\.
+The `kms:RecipientAttestation:ImageSha384` condition key allows `kms-decrypt`, `kms-generate-data-key`, and `kms-generate-random` requests from an enclave only when the image hash from the signed attestation document in the request matches the value in the condition key\. The `ImageSha384` value corresponds to PCR\[0\] in the attestation document\. This condition key is effective only when you call the AWS Nitro Enclaves SDK APIs from an enclave\.
 
 For example, the following key policy statement allows the `data-processing` role to use the CMK for the `kms-decrypt` \([Decrypt](https://docs.aws.amazon.com/kms/latest/APIReference/API_Decrypt.html)\), `kms-generate-data-key` \([GenerateDataKey](https://docs.aws.amazon.com/kms/latest/APIReference/API_GenerateDataKey.html)\), and `kms-generate-random` \([GenerateRandom](https://docs.aws.amazon.com/kms/latest/APIReference/API_GenerateRandom.html)\) operations\. The `kms:RecipientAttestation:ImageSha384` condition key allows the operations only when the image hash value \(PCR\[0\]\) of the attestation document in the request matches the image hash value in the condition\. 
 
@@ -1319,7 +1319,7 @@ If the request doesn't include any attestation document, permission is denied be
   "Sid" : "Enable enclave data processing",
   "Effect" : "Allow",
   "Principal" : {
-    "AWS" : "arn:aws:iam::712816755609:role/data-processing"
+    "AWS" : "arn:aws:iam::111122223333:role/data-processing"
   },
   "Action": [
     "kms:Decrypt",
@@ -1342,7 +1342,7 @@ If the request doesn't include any attestation document, permission is denied be
 | --- | --- | --- | --- | 
 |  `kms:RecipientAttestation:PCR`  |  String  |  `Decrypt` `GenerateDataKey` `GenerateRandom`  |  Key policies and IAM policies  | 
 
-The `kms:RecipientAttestation:PCR` condition key allows the `kms-decrypt`, `kms-generate-data-key`, and `kms-generate-random` operations from an enclave only when the platform configuration registers \(PCRs\) from the signed attestation document in the request match the PCRs in the condition key\. This condition key is effective only when you call these APIs from an enclave using the Nitro Enclaves SDK\.
+The `kms:RecipientAttestation:PCR` condition key allows `kms-decrypt`, `kms-generate-data-key`, and `kms-generate-random` requests from an enclave only when the platform configuration registers \(PCRs\) from the signed attestation document in the request match the PCRs in the condition key\. This condition key is effective only when you call the AWS Nitro Enclaves SDK APIs from an enclave\.
 
 To specify a PCR value, use the following format\. Concatenate the PCR ID to the condition key name\. The PCR value must be a lower\-case hexadecimal string of up to 96 bytes\.
 
@@ -1367,7 +1367,7 @@ If the request doesn't include an attestation document, permission is denied bec
   "Sid" : "Enable enclave data processing",
   "Effect" : "Allow",
   "Principal" : {
-    "AWS" : "arn:aws:iam::712816755609:role/data-processing"
+    "AWS" : "arn:aws:iam::111122223333:role/data-processing"
   },
   "Action": "kms:Decrypt",
   "Resource" : "*",

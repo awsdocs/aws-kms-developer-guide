@@ -36,5 +36,6 @@ The following topics display examples of CloudTrail log entries for AWS KMS oper
 + [ScheduleKeyDeletion](ct-schedule-key-deletion.md)
 + [TagResource](ct-tagresource.md)
 + [UntagResource](ct-untagresource.md)
++ [UpdateAlias](ct-updatealias.md)
 + [Amazon EC2 example one](ct-ec2one.md)
 + [Amazon EC2 example two](ct-ec2two.md)
