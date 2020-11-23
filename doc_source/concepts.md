@@ -262,7 +262,7 @@ arn:aws:kms:us-west-2:111122223333:alias/ExampleAlias
 ```
 
 **Alias name**  <a name="key-id-alias-name"></a>
-The alias name uniquely identifies an associated CMK within an account and Region\. In the AWS KMS API, alias names always begin with `alias`\. For help finding the alias name of a CMK, see [Finding the alias name and alias ARN](find-cmk-alias.md)\.  
+The alias name is a string of up to 256 characters\. It uniquely identifies an associated CMK within an account and Region\. In the AWS KMS API, alias names always begin with `alias/`\. For help finding the alias name of a CMK, see [Finding the alias name and alias ARN](find-cmk-alias.md)\.  
 The format of an alias name is as follows:  
 
 ```

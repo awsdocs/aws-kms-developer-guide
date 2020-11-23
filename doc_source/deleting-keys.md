@@ -31,13 +31,13 @@ During the waiting period, the CMK status and key state is **Pending deletion**\
 + A CMK that is pending deletion cannot be used in any [cryptographic operations](concepts.md#cryptographic-operations)\. 
 + AWS KMS does not [rotate the backing keys](rotate-keys.md#rotate-keys-how-it-works) of CMKs that are pending deletion\.
 
-After the waiting period ends, AWS KMS deletes the CMK and all AWS KMS data associated with it, including all aliases that point to it\.
+After the waiting period ends, AWS KMS deletes the CMK, its aliases, and all related AWS KMS metadata\.
 
 When you schedule key deletion, AWS KMS reports the date and time when the waiting period ends\. This date and time is at least the specified number of days from when you scheduled key deletion, but it can be up to 24 hours longer\. For example, suppose you schedule key deletion and specify a waiting period of 7 days\. In that case, the end of the waiting period occurs no earlier than 7 days and no more than 8 days from the time of your request\. You can confirm the exact date and time when the waiting period ends in the AWS Management Console, AWS CLI, or AWS KMS API\.
 
 Use the waiting period to ensure that you don't need the CMK now or in the future\. You can [configure an Amazon CloudWatch alarm](deleting-keys-creating-cloudwatch-alarm.md) to warn you if a person or application attempts to use the CMK during the waiting period\. To recover the CMK, you can cancel key deletion before the waiting period ends\. After the waiting period ends you cannot cancel key deletion, and AWS KMS deletes the CMK\.
 
-AWS KMS records an entry in your AWS CloudTrail log when you [schedule deletion](ct-schedule-key-deletion.md) of the CMK and when the [CMK is actually deleted](ct-delete-key.md)\.
+AWS KMS records an entry in your AWS CloudTrail log when you [schedule deletion](ct-schedule-key-deletion.md) of the CMK and when the [CMK is actually deleted](ct-delete-key.md)\. 
 
 ### Deleting asymmetric CMKs<a name="deleting-asymmetric-cmks"></a>
 

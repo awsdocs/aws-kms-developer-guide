@@ -4,13 +4,14 @@ In the AWS Management Console, you can view lists of your CMKs and details about
 
 **Topics**
 + [Navigating to the key tables](#viewing-console-navigate)
++ [Navigating to key details](#viewing-details-navigate)
 + [Sorting and filtering your CMKs](#viewing-console-filter)
 + [Displaying CMK details](#viewing-console-details)
 + [Customizing your CMK tables](#viewing-console-customize)
 
 ## Navigating to the key tables<a name="viewing-console-navigate"></a>
 
-The AWS KMS customer master keys \(CMKs\) in each account and region are displayed in tables\. There are separate tables for the CMKs that you create and the CMKs that AWS services create for you\. 
+The AWS KMS customer master keys \(CMKs\) in each account and Region are displayed in tables\. There are separate tables for the CMKs that you create and the CMKs that AWS services create for you\. 
 
 1. Sign in to the AWS Management Console and open the AWS Key Management Service \(AWS KMS\) console at [https://console\.aws\.amazon\.com/kms](https://console.aws.amazon.com/kms)\.
 
@@ -21,37 +22,58 @@ The AWS KMS customer master keys \(CMKs\) in each account and region are display
 To view [AWS managed CMKs](concepts.md#aws-managed-cmk) that are missing an alias, use the **Customer managed keys** page\.  
 The AWS KMS console also displays the custom key stores in the account and Region\. CMKs that you create in custom key stores appear on the **Customer managed keys** page\. For information about custom key stores, see [Using a custom key store](custom-key-store-overview.md)\.
 
+## Navigating to key details<a name="viewing-details-navigate"></a>
+
+There is a details page for every AWS KMS customer master key \(CMK\) in the account and Region\. The details page displays the **General configuration** section for the CMK and includes tabs that let authorized users view and manage the **Cryptographic configuration** and **Key policy** for the key\. Depending on the type of key, the detail page might also include **Aliases**, **Key material**, **Key rotation** and **Tags** tabs\.
+
+To navigate to the key details page for a CMK\.
+
+1. Sign in to the AWS Management Console and open the AWS Key Management Service \(AWS KMS\) console at [https://console\.aws\.amazon\.com/kms](https://console.aws.amazon.com/kms)\.
+
+1. To change the AWS Region, use the Region selector in the upper\-right corner of the page\.
+
+1. To view the keys in your account that you create and manage, in the navigation pane choose **Customer managed keys**\. To view the keys in your account that AWS creates and manages for you, in the navigation pane, choose **AWS managed keys**\. For information about the different types of CMKs, see [Customer master keys](concepts.md#master_keys)\.
+
+1. To open the key details page, in the key table, choose the key ID or alias of the CMK\.
+
+   If the CMK has multiple aliases, an alias summary \(**\+*n* more**\) appears beside the name of the one of the aliases\. Choosing the alias summary takes you directly to the **Aliases** tab on the key details page\.
+
 ## Sorting and filtering your CMKs<a name="viewing-console-filter"></a>
 
-To make it easier to find your CMKs in the console, you can sort and filter them\. 
+To make it easier to find your CMKs in the console, you can sort and filter the key tables\. 
 
 **Note**  
 The **Key type** column is [displayed optionally](#viewing-console-customize) and is available only in AWS Regions where AWS KMS supports asymmetric CMKs\.
 
 **Sort**  
 You can sort customer managed CMKs in ascending or descending order by their column values\. This feature sorts all CMKs in the table, even if they don't appear on the current table page\.  
-Sortable columns are indicated by an arrow beside the column name\. On the **AWS managed keys** page, you can sort by **Alias** or **Key ID**\. On the **Customer managed keys** page, you can sort by **Alias**, **Key ID**, or **Key type**\.  
+Sortable columns are indicated by an arrow beside the column name\. On the **AWS managed keys** page, you can sort by **Aliases** or **Key ID**\. On the **Customer managed keys** page, you can sort by **Aliases**, **Key ID**, or **Key type**\.  
 To sort in ascending order, choose the column heading until the arrow points upward\. To sort in descending order, choose the column heading until the arrow points downward\. You can sort by only one column at a time\.  
-For example, you can sort CMKs in ascending order by key ID, instead of alias, which is the default\.  
+For example, you can sort CMKs in ascending order by key ID, instead of aliases, which is the default\.  
 
 ![\[Image NOT FOUND\]](http://docs.aws.amazon.com/kms/latest/developerguide/images/console-sort.png)
 When your sort CMKs on the **Customer master keys** page in ascending order by **Key type**, all asymmetric keys are displayed before all symmetric keys\.
 
 **Filter**  
-You can filter CMKs by their column values\. The filter applies to all CMKs in the table, even if they don't appear on the current table page\. The filter is not case\-sensitive\.  
-Filterable columns are listed in the filter box\. On the **AWS managed keys** page, you can filter by **Alias** and **Key ID**\. On the **Customer managed keys** page, you can filter by **Alias**, **Key ID**, and **Key type**\.  
-To filter by the value in a particular column, choose the filter, choose the column name, and then choose from the list of actual column values\. After choosing a column, you can also type all or part of the column value\. You'll see a preview of the results before you make your choice\.  
-For example, to display CMKs with an alias name that contains with `aws/e`, choose the filter box, choose **Alias**, type `aws/e`, and then press `Enter` or `Return` to add the filter\.  
+You can filter CMKs by their property values or tags\. The filter applies to all CMKs in the table, even if they don't appear on the current table page\. The filter is not case\-sensitive\.  
+Filterable properties are listed in the filter box\. On the **AWS managed keys** page, you can filter by alias and key ID\. On the **Customer managed keys** page, you can filter by the alias, key ID, and key type properties, and by tags\.  
+To filter by a property value, choose the filter, choose the property name, and then choose from the list of actual property values\. To filter by a tag, choose the tag key, and then choose from the list of actual tag values\. After choosing a property or tag key, you can also type all or part of the property value or tag value\. You'll see a preview of the results before you make your choice\.   
+For example, to display CMKs with an alias name that contains `aws/e`, choose the filter box, choose **Alias**, type `aws/e`, and then press `Enter` or `Return` to add the filter\.  
 
 ![\[Image NOT FOUND\]](http://docs.aws.amazon.com/kms/latest/developerguide/images/filter-alias.png)
 To display only asymmetric CMKs on the **Customer master keys** page, click the filter box, choose **Key type** and then choose **Key type: Asymmetric**\. The **Asymmetric** option appears only when you have asymmetric CMKs in the table\.  
 
 ![\[Image NOT FOUND\]](http://docs.aws.amazon.com/kms/latest/developerguide/images/filter-keytype.png)
-To search for text in all filterable columns, in the filter box, type all or part of a column value\. You'll see a preview of the results before you make your choice\.  
-For example, to display CMKs with `test` in any of the column values, type `test` in the filter box\. The preview shows the CMKs that the filter will select\. In this case, `test` appears only in the **Alias** column\.  
+Tag filtering is a bit different\. To display only CMKs with a particular tag, click the filter box, choose the tag key, and then choose from among the actual tag values\. You can also type all or part of the tag value\.   
+The resulting table displays all CMKs with the chosen tag\. However, it doesn't display the tag\. To see the tag, choose the key ID or alias of the CMK and on its detail page, choose the **Tags** tab\. The tabs appear below the **General configuration** section\.  
+This filter requires the tag key and tag value\. It won't find CMKs by typing only the tag key or only its value\. To filter tags by all or part of the tag key or value, use the [ListResourceTags](https://docs.aws.amazon.com/kms/latest/APIReference/API_ListResourceTags.html) operation to get tagged CMKs, then use the filtering features of your programming language\. For an example, see [ListResourceTags: Get the tags on CMKs](viewing-keys-cli.md#viewing-keys-list-resource-tags)\.  
+
+![\[Image NOT FOUND\]](http://docs.aws.amazon.com/kms/latest/developerguide/images/filter-tags-2.png)
+To search for text, in the filter box, type all or part of an alias, key ID, key type, or tag key\. \(After you select the tag key, you can search for a tag value \)\. You'll see a preview of the results before you make your choice\.  
+For example, to display CMKs with `test` in its tag keys or filterable properties, type `test` in the filter box\. The preview shows the CMKs that the filter will select\. In this case, `test` appears only in the **Alias** property\.  
 
 ![\[Image NOT FOUND\]](http://docs.aws.amazon.com/kms/latest/developerguide/images/filter-all-properties.png)
-You can have multiple filters at the same time\. When you add additional filters, you can also select a logical operator\.  
+You can use multiple filters at the same time\. When you add additional filters, you can also select a logical operator\.  
 
 ![\[Image NOT FOUND\]](http://docs.aws.amazon.com/kms/latest/developerguide/images/filter-multi-properties.png)
 
@@ -67,9 +89,10 @@ The details page for a CMK includes a **General Configuration** section that dis
 
 The following list describes the fields in the detailed display, including field in the tabs\. Some of these fields are also available as columns in the table display\.
 
-**Alias**  
-Where: General configuration section  
-A friendly name for the CMK\. The **Alias** field in the console lists only one alias\. To find all aliases for the CMK, use the [ListAliases](https://docs.aws.amazon.com/kms/latest/APIReference/API_ListAliases.html) operation\.
+**Aliases**  
+Where: Aliases tab  
+A friendly name for the CMK\. You can use an alias to identify the CMK in the console and in some AWS KMS APIs\. For details, see [Using aliases](kms-alias.md)\.  
+The **Aliases** tab displays all aliases associated with the CMK in the AWS account and Region\. 
 
 **ARN**  
 Where: General configuration section  
@@ -167,16 +190,16 @@ The data columns that you display might vary depending on the table, your job ro
 You can customize the columns that appear in your CMK table to display the information you need about your CMKs\.
 
 **AWS managed keys**  
-By default, the **AWS managed keys** table displays the **Alias**, **Key ID**, and **Status** columns\. These columns are ideal for most use cases\.
+By default, the **AWS managed keys** table displays the **Aliases**, **Key ID**, and **Status** columns\. These columns are ideal for most use cases\.
 
 **Symmetric customer managed keys**  
-If you use only symmetric CMKs with key material generated by AWS KMS, the **Alias**, **Key ID**, **Status**, and **Creation date** columns are likely to be the most useful\.
+If you use only symmetric CMKs with key material generated by AWS KMS, the **Aliases**, **Key ID**, **Status**, and **Creation date** columns are likely to be the most useful\.
 
 **Asymmetric customer managed keys**  
-If you use asymmetric CMKs, in addition to the **Alias**, **Key ID**, and **Status** columns, consider adding the **Key type**, **Key spec**, and **Key usage** columns\. These columns will show you whether a CMK is symmetric or asymmetric, the type of key material, and whether the CMK can be used for encryption or signing\.
+If you use asymmetric CMKs, in addition to the **Aliases**, **Key ID**, and **Status** columns, consider adding the **Key type**, **Key spec**, and **Key usage** columns\. These columns will show you whether a CMK is symmetric or asymmetric, the type of key material, and whether the CMK can be used for encryption or signing\.
 
 **Imported key material**  
-If you have CMKs with [imported key material](importing-keys.md), in addition to the **Alias**, **Key ID**, and **Status** columns, consider adding the **Origin** and **Expiration date** columns\. These columns will show you whether the key material in a CMK is imported or generated by AWS KMS and when the key material expires, if at all\. The **Creation date** field displays the date that the CMK was created \(without key material\)\. It doesn't reflect any characteristic of the key material\.
+If you have CMKs with [imported key material](importing-keys.md), in addition to the **Aliases**, **Key ID**, and **Status** columns, consider adding the **Origin** and **Expiration date** columns\. These columns will show you whether the key material in a CMK is imported or generated by AWS KMS and when the key material expires, if at all\. The **Creation date** field displays the date that the CMK was created \(without key material\)\. It doesn't reflect any characteristic of the key material\.
 
 **Keys in custom key stores**  
-If you have CMKs in [custom key stores](custom-key-store-overview.md), in addition to the **Alias**, **Key ID**, and **Status** columns, consider adding the **Custom key store ID** column\. A value in this column indicates that the CMK is in a custom key store, as well as showing which custom key store it's in\.
+If you have CMKs in [custom key stores](custom-key-store-overview.md), in addition to the **Aliases**, **Key ID**, and **Status** columns, consider adding the **Custom key store ID** column\. A value in this column indicates that the CMK is in a custom key store, as well as showing which custom key store it's in\.

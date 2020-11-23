@@ -7,10 +7,11 @@ You can use the [AWS Key Management Service \(AWS KMS\) API](https://docs.aws.am
 + [DescribeKey: Get detailed information about a CMK](#viewing-keys-describe-key)
 + [GetKeyPolicy: Get the key policy attached to a CMK](#viewing-keys-get-key-policy)
 + [ListAliases: Get alias names and ARNs for CMKs](#viewing-keys-list-aliases)
++ [ListResourceTags: Get the tags on CMKs](#viewing-keys-list-resource-tags)
 
 ## ListKeys: Get the ID and ARN of all CMKs<a name="viewing-keys-list-keys"></a>
 
-The [ListKeys](https://docs.aws.amazon.com/kms/latest/APIReference/API_ListKeys.html) operation returns the ID and Amazon Resource Name \(ARN\) of all CMKs in the account and Region\.
+The [ListKeys](https://docs.aws.amazon.com/kms/latest/APIReference/API_ListKeys.html) operation returns the ID and Amazon Resource Name \(ARN\) of all CMKs in the account and Region\. 
 
 For example, this call to the `ListKeys` operation returns the ID and ARN of each CMK in this fictitious account\. For examples in multiple programming languages, see [Getting key IDs and key ARNs of CMKs](programming-keys.md#listing-keys)\.
 
@@ -189,4 +190,71 @@ To get only the aliases for AWS managed CMKs, use the features of your programmi
 
 ```
 $ aws kms list-aliases --query 'Aliases[?starts_with(AliasName, `alias/aws/`)]'
+```
+
+## ListResourceTags: Get the tags on CMKs<a name="viewing-keys-list-resource-tags"></a>
+
+The [ListResourceTags](https://docs.aws.amazon.com/kms/latest/APIReference/API_ListAliases.html) operation returns the tags on the specified CMK\. The API returns tags for one CMK, but you can run the command in a loop to get tags for all CMKs in the account and Region, or for a set of CMKs you select\. This API returns one page at a time, so if you have numerous tags on numerous CMKs, you might have to use the paginator in your programming language to get all of the tags you want\. 
+
+The ListResourceTags operation returns tags for all AWS KMS CMKs, but [AWS managed CMKs](concepts.md#aws-managed-cmk) are not tagged\. 
+
+To find the tags for a CMK, use the `ListResourceTags` operation\. The `KeyId` parameter is required\. It accepts a [key ID](concepts.md#key-id-key-id) or [key ARN](concepts.md#key-id-key-ARN)\. Before running this example, replace the example key ARN with a valid one\.
+
+```
+$  aws kms list-resource-tags --key-id arn:aws:kms:us-west-2:111122223333:key/1234abcd-12ab-34cd-56ef-1234567890ab
+      {
+    "Tags": [
+        {
+            "TagKey": "Department",
+            "TagValue": "IT"
+        },
+        {
+            "TagKey": "Purpose",
+            "TagValue": "Test"
+        }
+    ],
+    "Truncated": false
+}
+```
+
+You might want to use the `ListResourceTags` operation to get all CMKs in the account and Region with a particular tag, tag key, or tag value\. To do this, use the filtering features of your programming language\.
+
+For example, the following Bash script uses the [ListKeys](https://docs.aws.amazon.com/kms/latest/APIReference/API_ListKeys.html) and `ListResourceTags` operations to get all CMKs in the account and Region with a `Project` tag key\. Both of these operations get only the first page of results\. If you have numerous CMKs or numerous tags, use the pagination features of your language to get the entire result from each operation\. Before running this example, replace the example key IDs with valid ones\.
+
+```
+TARGET_TAG_KEY='Project'
+
+for key in $(aws kms list-keys --query 'Keys[*].KeyId' --output text); do
+  key_tags=$(aws kms list-resource-tags --key-id "$key" --query "Tags[?TagKey==\`$TARGET_TAG_KEY\`]")
+  if [ "$key_tags" != "[]" ]; then
+    echo "Key: $key"
+    echo "$key_tags"
+  fi
+done
+```
+
+The output is formatted like the following example output\.
+
+```
+Key: 0987dcba-09fe-87dc-65ba-ab0987654321
+[
+    {
+        "TagKey": "Project",
+        "TagValue": "Gamma"
+    }
+]
+Key: 1a2b3c4d-5e6f-1a2b-3c4d-5e6f1a2b3c4d
+[
+    {
+        "TagKey": "Project",
+        "TagValue": "Alpha"
+    }
+]
+Key: 0987ab65-43cd-21ef-09ab-87654321cdef
+[
+    {
+        "TagKey": "Project",
+        "TagValue": "Alpha"
+    }
+]
 ```

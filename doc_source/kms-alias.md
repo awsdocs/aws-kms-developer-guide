@@ -33,19 +33,22 @@ The following resources can help you learn more:
 Learn how aliases work in AWS KMS\.
 
 **An alias is an independent AWS resource**  
-An alias is not a property of a CMK\. The actions that you take on the alias don't affect its associated CMK\. You can create an alias for a CMK and then update the alias so it's associated with a different CMK\. You can even delete the alias without any effect on the associated CMK\.  
-Each alias has two formats\.  
-+ An *alias ARN* is an Amazon Resource Name \(ARN\) that uniquely identifies the alias\.
+An alias is not a property of a CMK\. The actions that you take on the alias don't affect its associated CMK\. You can create an alias for a CMK and then update the alias so it's associated with a different CMK\. You can even delete the alias without any effect on the associated CMK\. However, if you delete a CMK, all aliases associated with that CMK are deleted\.  
+If you specify an alias as the resource in an IAM policy, the policy refers to the alias, not to the associated CMK\.
+
+**Each alias has two formats**  
+When you create an alias, you specify the alias name\. AWS KMS creates the alias ARN for you\.  
++ An [alias ARN](concepts.md#key-id-alias-ARN) is an Amazon Resource Name \(ARN\) that uniquely identifies the alias\. 
 
   ```
   # Alias ARN
-  arn:aws:kms:us-west-2:111122223333:alias/ExampleAlias
+  arn:aws:kms:us-west-2:111122223333:alias/<alias-name>
   ```
-+ An *alias name* that begins with `alias`\. The alias name is unique only to an account and Region\.
++ An [alias name](concepts.md#key-id-alias-name) that is unique in the account and Region\. In the AWS KMS APIs, the alias name is always prefixed by `alias/`\. That prefix is omitted in the AWS KMS console\.
 
   ```
   # Alias name
-  alias/ExampleAlias
+  alias/<alias-name>
   ```
 
 **Each alias is associated with one CMK at a time**  
@@ -62,7 +65,7 @@ For example, this [ListAliases](https://docs.aws.amazon.com/kms/latest/APIRefere
 ```
 
 **Multiple aliases can be associated with the same CMK**  
-For example, you can associate the `test-key` and `project-key` aliases with the same CMK\. Only one alias appears in the AWS KMS console, but the [ListAliases](https://docs.aws.amazon.com/kms/latest/APIReference/API_ListAliases.html) response displays all aliases or all aliases for a given CMK\.  
+For example, you can associate the `test-key` and `project-key` aliases with the same CMK\.  
 
 ```
 {
@@ -95,7 +98,7 @@ AWS creates aliases in your account for [AWS managed CMKs](concepts.md#aws-manag
 Some AWS aliases have no CMK\. These predefined aliases are usually associated with an AWS managed CMK when you start using the service\. Aliases that AWS creates in your account, including predefined aliases, do not count against your [AWS KMS aliases quota](resource-limits.md#aliases-limit)\.
 
 **Use aliases to identify CMKs**  
-You can use an [alias name](concepts.md#key-id-alias-name) or [alias ARN](concepts.md#key-id-alias-ARN) to identify a CMK in AWS KMS [cryptographic operations](concepts.md#cryptographic-operations) and in the [DescribeKey](https://docs.aws.amazon.com/kms/latest/APIReference/API_DescribeKey.html) operation\. However, you cannot use an alias names or alias ARNs in API operations that manage CMKs, such as [DisableKey](https://docs.aws.amazon.com/kms/latest/APIReference/API_DisableKey.html) or [GetKeyPolicy](https://docs.aws.amazon.com/kms/latest/APIReference/API_GetKeyPolicy.html)\. For information about the valid [key identifiers](concepts.md#key-id) for each AWS KMS API operation, see the descriptions of the `KeyId` parameters in the AWS Key Management Service API Reference\.  
+You can use an [alias name](concepts.md#key-id-alias-name) or [alias ARN](concepts.md#key-id-alias-ARN) to identify a CMK in AWS KMS [cryptographic operations](concepts.md#cryptographic-operations) and in the [DescribeKey](https://docs.aws.amazon.com/kms/latest/APIReference/API_DescribeKey.html) operation\. However, you cannot use an alias name or alias ARN in API operations that manage CMKs, such as [DisableKey](https://docs.aws.amazon.com/kms/latest/APIReference/API_DisableKey.html) or [GetKeyPolicy](https://docs.aws.amazon.com/kms/latest/APIReference/API_GetKeyPolicy.html)\. For information about the valid [key identifiers](concepts.md#key-id) for each AWS KMS API operation, see the descriptions of the `KeyId` parameters in the AWS Key Management Service API Reference\.  
 You cannot use an alias name or alias ARN to identify a CMK in the `Resource` element of an [IAM policy](iam-policies.md)\. This restriction prevents errors that might occur if you intended to control access to a particular CMK, but the alias is deleted or updated to a different CMK\.  
 
 ## Creating an alias<a name="alias-create"></a>
@@ -106,13 +109,25 @@ The alias must be string of 1–256 characters\. It can contain only alphanumeri
 
 You can create an alias for a new CMK or for an existing CMK\. You might add an alias so that a particular CMK is used in a project or application\. 
 
-### Creating an alias \(console\)<a name="alias-create-console"></a>
+### Create an alias \(console\)<a name="alias-create-console"></a>
 
-You can create an alias in the AWS KMS console, but only as part of the process of [creating a CMK](create-keys.md), where a new alias is required for every new CMK\. 
+When you [create a CMK](create-keys.md) in the AWS KMS console, you must create an alias for the new CMK\. To create an alias for an existing CMK, use the **Aliases** tab on the detail page for the CMK\.
 
-You cannot use the AWS KMS console to create a new alias for an existing CMK or to update or delete aliases\. To update or delete aliases, including aliases that you create in the console, use the AWS KMS API operations\.
+1. Sign in to the AWS Management Console and open the AWS Key Management Service \(AWS KMS\) console at [https://console\.aws\.amazon\.com/kms](https://console.aws.amazon.com/kms)\.
 
-### Creating an alias \(AWS KMS API\)<a name="alias-create-api"></a>
+1. To change the AWS Region, use the Region selector in the upper\-right corner of the page\.
+
+1. In the navigation pane, choose **Customer managed keys**\. You cannot manage aliases for AWS managed CMKs or AWS owned CMKs\.
+
+1. In the table, choose the key ID or alias of the CMK\. Then, on the CMK detail page, choose the **Aliases** tab\.
+
+   If a CMK has multiple aliases, the **Aliases** column in the table displays one alias and an alias summary, such as **\(\+*n* more\)**\. Choosing the alias summary takes you directly to the **Aliases** tab on the CMK detail page\.
+
+1. On the **Aliases** tab, choose **Create alias**\. Enter an alias name and choose **Create alias**\.
+**Note**  
+In the console, you're not required to specify the `alias/` prefix\. The console adds it for you\. If you enter `alias/ExampleAlias`, the actual alias name will be `alias/alias/ExampleAlias`\.
+
+### Create an alias \(AWS KMS API\)<a name="alias-create-api"></a>
 
 To create an alias, use the [CreateAlias](https://docs.aws.amazon.com/kms/latest/APIReference/API_CreateAlias.html) operation\. Unlike the process of creating CMKs in the console, the [CreateKey](https://docs.aws.amazon.com/kms/latest/APIReference/API_CreateKey.html) operation doesn't create an alias for a new CMK\. 
 
@@ -134,29 +149,31 @@ $ aws kms create-alias \
 
 ## Viewing aliases<a name="alias-view"></a>
 
-Aliases make it easy to recognize CMKs in the AWS KMS console\. But the console displays only one alias for each CMK\. To see all aliases for a CMK, use the [ListAliases](https://docs.aws.amazon.com/kms/latest/APIReference/API_ListAliases.html) operation\. The [DescribeKey](https://docs.aws.amazon.com/kms/latest/APIReference/API_DescribeKey.html) operation, which returns detailed information about a CMK, doesn't include aliases\.
+Aliases make it easy to recognize CMKs in the AWS KMS console\. You can view the aliases for a CMK in the AWS KMS console or by using the [ListAliases](https://docs.aws.amazon.com/kms/latest/APIReference/API_ListAliases.html) operation\. The [DescribeKey](https://docs.aws.amazon.com/kms/latest/APIReference/API_DescribeKey.html) operation, which returns the properties of a CMK, doesn't include aliases\.
 
 ### Viewing aliases \(console\)<a name="alias-view-console"></a>
 
-The **Customer managed keys** and **AWS managed keys** pages in the AWS KMS console display the alias associated with each CMK\. You can also search, sort, and filter CMKs based on their alias\.
+The **Customer managed keys** and **AWS managed keys** pages in the AWS KMS console display the alias associated with each CMK\. You can also [search, sort, and filter](viewing-keys-console.md#viewing-console-filter) CMKs based on their aliases\.
 
-The following image of the AWS KMS console shows the aliases on the **Customer managed keys** page of an example account\. As shown in the image, some CMKs don't have an alias\.
+The following image of the AWS KMS console shows the aliases on the **Customer managed keys** page of an example account\. As shown in the image, some CMKs don't have an alias\. 
+
+When a CMK has multiple aliases, the **Aliases** column displays one alias and an *alias summary* **\(\+*n* more\)**\. The alias summary shows how many additional aliases are associated with the CMK and links to the display of all aliases for the CMK on the **Aliases** tab\.
 
 ![\[Aliases in the Customer managed keys page of the AWS KMS console\]](http://docs.aws.amazon.com/kms/latest/developerguide/images/alias-console-sm.png)
 
-The details page for each CMK displays one of the aliases for the CMK\. To open the details page for a CMK, in the CMK table, choose its alias or key ID\.
+The **Aliases** tab on the details page for each CMK displays the alias name and alias ARN of all aliases for the CMK in the account and AWS Region\. You can also use the **Aliases** tab to [create aliases](#alias-create) and [delete aliases](#alias-delete)\.
 
-This page displays one alias name but doesn't display the alias ARN\. For help with finding the alias ARN, see [Finding the alias name and alias ARN](find-cmk-alias.md)\.
+To find the alias name and alias ARN of all aliases for the CMK, use the **Aliases** tab\.
++ To go directly to the **Aliases** tab, in the **Aliases** column, choose the alias summary \(**\+*n* more**\)\. An alias summary appears only if the CMK has more than one alias\.
++ Or, choose the alias or key ID of the CMK \(which opens the detail page for the CMK\) and then choose the **Aliases** tab\. The tabs are under the **General configuration** section\. 
 
-![\[Image NOT FOUND\]](http://docs.aws.amazon.com/kms/latest/developerguide/images/alias-console-key-detail.png)
+The following image shows the **Aliases** tab for an example CMK\.
+
+![\[Image NOT FOUND\]](http://docs.aws.amazon.com/kms/latest/developerguide/images/alias-tab-2.png)
 
 You can use the alias to recognize an AWS managed CMK, as shown in this example **AWS managed keys** page\. The aliases for AWS managed CMKs always have the format: `aws/<service-name>`\. For example, the alias for the AWS managed CMK for Amazon DynamoDB is `aws/dynamodb`\.
 
 ![\[Aliases in the AWS managed keys page of the AWS KMS console\]](http://docs.aws.amazon.com/kms/latest/developerguide/images/alias-console-aws-managed-sm.png)
-
-The AWS KMS console requires that you specify an alias when you create a CMK\. It also displays the alias name \(if any\) that is associated with the CMK\. But you cannot use the console to create additional aliases, change the CMK associated with an alias, or delete an alias\. Those tasks can be done only with the AWS KMS API\.
-
-Also, the AWS KMS console displays only one alias for each CMK and it does not display the alias ARN\. To view all aliases for a particular CMK or to view the alias ARN for any alias in the account and Region, use the [ListAliases](https://docs.aws.amazon.com/kms/latest/APIReference/API_ListAliases.html) operation\.
 
 ### Viewing aliases \(AWS KMS API\)<a name="alias-view-api"></a>
 
@@ -335,14 +352,34 @@ $ aws kms list-aliases --query 'Aliases[?AliasName==`alias/test-key`]'
 
 ## Deleting an alias<a name="alias-delete"></a>
 
-To delete an alias, use the [DeleteAlias](https://docs.aws.amazon.com/kms/latest/APIReference/API_DeleteAlias.html) operation\. There is no way to delete an alias in the AWS KMS console\. Before deleting an alias, make sure that it's not in use\. Although deleting an alias doesn't affect the associated CMK, it might create problems for any application that uses the alias\.
+You can delete an alias in the AWS KMS console or by using the [DeleteAlias](https://docs.aws.amazon.com/kms/latest/APIReference/API_DeleteAlias.html) operation\. Before deleting an alias, make sure that it's not in use\. Although deleting an alias doesn't affect the associated CMK, it might create problems for any application that uses the alias\. If you delete an alias by mistake, you can create a new alias with the same name and associate it with the same or a different CMK\.
 
-If you delete an alias by mistake, you can create a new alias with the same name and associate it with the same or a different CMK\.
+If you delete a CMK, all aliases associated with that CMK are deleted\.
 
-For example, the following command deletes the `test-key` alias\. This command does not return any output\. The alias name is case\-sensitive\.
+### Delete aliases \(console\)<a name="alias-delete-console"></a>
+
+To delete an alias in the AWS KMS console, use the **Aliases** tab on the detail page for the CMK\. You can delete multiple aliases for a CMK at one time\.
+
+1. Sign in to the AWS Management Console and open the AWS Key Management Service \(AWS KMS\) console at [https://console\.aws\.amazon\.com/kms](https://console.aws.amazon.com/kms)\.
+
+1. To change the AWS Region, use the Region selector in the upper\-right corner of the page\.
+
+1. In the navigation pane, choose **Customer managed keys**\. You cannot manage aliases for AWS managed CMKs or AWS owned CMKs\.
+
+1. In the table, choose the key ID or alias of the CMK\. Then, on the CMK detail page, choose the **Aliases** tab\.
+
+   If a CMK has multiple aliases, the **Aliases** column in the table displays one alias and an alias summary, such as **\(\+*n* more\)**\. Choosing the alias summary takes you directly to the **Aliases** tab on the CMK detail page\.
+
+1. On the **Aliases** tab, select the check box next to the aliases that you want to delete\. Then choose **Delete**\.
+
+### Delete an alias \(AWS KMS API\)<a name="alias-delete-api"></a>
+
+To delete an alias, use the [DeleteAlias](https://docs.aws.amazon.com/kms/latest/APIReference/API_DeleteAlias.html) operation\. This operation deletes one alias at a time\. The alias name is case\-sensitive and it must be preceded by the `alias/` prefix\.
+
+For example, the following command deletes the `test-key` alias\. This command does not return any output\. 
 
 ```
-$ aws kms delete-alias --alias-name alias/test-key
+$ aws kms delete-alias --alias name alias/test-key
 ```
 
 To verify that the alias is deleted, use the [ListAliases](https://docs.aws.amazon.com/kms/latest/APIReference/API_ListAliases.html) operation\. The following command use the `--query` parameter in the AWS CLI to get only the `test-key` alias\. The empty brackets in the response indicate that the `ListAliases` response didn't include a `test-key` alias\. To eliminate the brackets, use the `--output text` parameter and value\.
