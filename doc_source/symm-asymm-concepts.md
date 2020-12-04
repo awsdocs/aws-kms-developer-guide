@@ -16,9 +16,6 @@ You can use a symmetric CMK in AWS KMS to encrypt, decrypt, and re\-encrypt data
 
 ## Asymmetric customer master keys<a name="asymmetric-cmks"></a>
 
-**Note**  
-Asymmetric CMKs and asymmetric data key pairs are supported in all AWS Regions that AWS KMS supports except for China \(Beijing\) and China \(Ningxia\)\.
-
 You can create an asymmetric CMK in AWS KMS\. An *asymmetric CMK* represents a mathematically related public key and private key pair\. You can give the public key to anyone, even if they're not trusted, but the private key must be kept secret\. 
 
 In an asymmetric CMK, the private key is created in AWS KMS and never leaves AWS KMS unencrypted\. To use the private key, you must call AWS KMS\. You can use the public key within AWS KMS by calling the AWS KMS API operations\. Or, you can [download the public key](download-public-key.md) and use it outside of AWS KMS\.
@@ -32,3 +29,7 @@ AWS KMS supports two types of asymmetric CMKs\.
 For technical details about the encryption and signing algorithms that AWS KMS supports for RSA CMKs, see [RSA Key Specs](symm-asymm-choose.md#key-spec-rsa)\. For technical details about the signing algorithms that AWS KMS supports for ECC CMKs, see [Elliptic Curve Key Specs](symm-asymm-choose.md#key-spec-ecc)\.
 
 For a table comparing the operations that you can perform on symmetric and asymmetric CMKs, see [Comparing Symmetric and Asymmetric CMKs](symm-asymm-compare.md)\. For help determining whether a CMK is symmetric or asymmetric, see [Identifying symmetric and asymmetric CMKs](find-symm-asymm.md)\.
+
+**Regions**
+
+Asymmetric CMKs and asymmetric data key pairs are supported in all AWS Regions that AWS KMS supports except for China \(Beijing\) and China \(Ningxia\)\.

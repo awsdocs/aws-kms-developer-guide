@@ -6,7 +6,7 @@ If you are creating a CMK to encrypt data you store or manage in an AWS service,
 
 When you create a CMK in the AWS KMS console, you are required to give it an [alias](kms-alias.md) \(friendly name\)\. The `CreateKey` operation does not create an alias for the new CMK\. To create an alias for a new or existing CMK, use the console or the [CreateAlias](https://docs.aws.amazon.com/kms/latest/APIReference/API_CreateAlias.html) operation\. For detailed information about aliases in AWS KMS, see [Using aliases](kms-alias.md)\.
 
-To create a CMK, in the console or by using the APIs, you must have `kms:CreateKey` permission in an IAM policy\. To add [tags](tagging-keys.md) while creating a key, you must have `kms:TagResource` permission\. If you're using the console where an [alias](kms-alias.md) is required for every new CMK, you need `kms:CreateAlias` permission on the CMK and the alias\. For details, including example policies, see [Allow a user to create CMKs](iam-policies.md#iam-policy-example-create-key)\.
+To create a CMK, in the console or by using the APIs, you must have `kms:CreateKey` permission in an IAM policy\. To add [tags](tagging-keys.md) while creating a key, you must have `kms:TagResource` permission\. If you're using the console where an [alias](kms-alias.md) is required for every new CMK, you need `kms:CreateAlias` permission on the CMK and the alias\. For details, including example policies, see [Allow a user to create CMKs](customer-managed-policies.md#iam-policy-example-create-key)\.
 
 **Learn more:**
 + For help creating a CMK with imported key material \([key material origin](concepts.md#key-origin) is External\), see [Create a customer master key with no key material](importing-keys-create-cmk.md)\.

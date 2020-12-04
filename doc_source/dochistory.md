@@ -42,7 +42,7 @@ The following table describes the important changes to the AWS Key Management Se
 | New content | Added the following documentation: [Overview of managing access](control-access-overview.md), [Using IAM policies](iam-policies.md), [AWS KMS API permissions reference](kms-api-permissions-reference.md), and [Using policy conditions](policy-conditions.md)\. | July 5, 2016 | 
 | Update | Updated portions of the documentation in the [Authentication and access control](control-access.md) chapter\. | July 5, 2016 | 
 | Update | Updated the [Quotas](limits.md) page to reflect new default quotas\. | May 31, 2016 | 
-| Update | Updated the [Quotas](limits.md) page to reflect new default quotas, and updated the [Grant tokens](concepts.md#grant_token) documentation to improve clarity and accuracy\. | April 11, 2016 | 
+| Update | Updated the [Quotas](limits.md) page to reflect new default quotas, and updated the [](grants.md#grant_token) documentation to improve clarity and accuracy\. | April 11, 2016 | 
 | New content | Added documentation about [Allowing multiple IAM users to access a CMK](key-policy-modifying.md#key-policy-modifying-multiple-iam-users) and [Using the IP address condition](policy-conditions.md#conditions-aws-ip-address)\. | February 17, 2016 | 
 | Update | Updated the [Using key policies in AWS KMS](key-policies.md) and [Changing a key policy](key-policy-modifying.md) pages to improve clarity and accuracy\. | February 17, 2016 | 
 | Update | Updated the [Getting started](getting-started.md) topic pages to improve clarity\. | January 5, 2016 | 

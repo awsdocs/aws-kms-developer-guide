@@ -21,7 +21,7 @@ You can request encryption and select a CMK by using the Amazon S3 console or AP
 **Important**  
 Amazon S3 supports only [symmetric CMKs](symm-asymm-concepts.md#symmetric-cmks)\. You cannot use an [asymmetric CMK](symm-asymm-concepts.md#asymmetric-cmks) to encrypt your data in Amazon S3\. For help determining whether a CMK is symmetric or asymmetric, see [Identifying symmetric and asymmetric CMKs](find-symm-asymm.md)\.
 
-You can choose a [customer managed CMK](concepts.md#customer-cmk) or the [AWS managed CMK](concepts.md#aws-managed-cmk) for Amazon S3 in your account\. If you choose to encrypt your data, AWS KMS and Amazon S3 perform the following actions:
+You can choose a [customer managed CMK](concepts.md#customer-cmk) or the [AWS managed CMK](concepts.md#aws-managed-cmk) for Amazon S3 in your account\. If you choose to encrypt your data using the standard features, AWS KMS and Amazon S3 perform the following actions:
 + Amazon S3 requests a plaintext [data key](concepts.md#data-keys) and a copy of the key encrypted under the specified CMK\.
 + AWS KMS generates a data key, encrypts it under the CMK, and sends both the plaintext data key and the encrypted data key to Amazon S3\.
 + Amazon S3 encrypts the data using the data key and removes the plaintext key from memory as soon as possible after use\. 
@@ -31,6 +31,12 @@ Amazon S3 and AWS KMS perform the following actions when you request that your d
 + Amazon S3 sends the encrypted data key to AWS KMS\.
 + AWS KMS decrypts the key by using the same CMK and returns the plaintext data key to Amazon S3\.
 + Amazon S3 decrypts the ciphertext and removes the plaintext data key from memory as soon as possible\. 
+
+If you use the optional [S3 Bucket Keys](https://docs.aws.amazon.com/AmazonS3/latest/dev/bucket-key.html) feature, the following procedure is used\. The S3 Bucket Keys feature is designed to reduce calls to AWS KMS when objects in an encrypted bucket are accessed\. 
++ Amazon S3 requests a data key from AWS KMS using the CMK for the bucket\. AWS KMS generates a data key and returns a plaintext and encrypted copy of the data key\.
++ Amazon S3 uses this data key as a *bucket key*\. Amazon S3 creates unique data keys outside of AWS KMS for objects in the bucket and encrypts those data keys under the bucket key\. Amazon S3 uses each bucket key for a time\-limited period\.
+
+For more information about using S3 Bucket Keys, see [Reducing the cost of SSE\-KMS with Amazon S3 Bucket Keys](https://docs.aws.amazon.com/AmazonS3/latest/dev/bucket-key.html) in the Amazon Simple Storage Service Developer Guide\.
 
 ## Using the Amazon S3 encryption client<a name="sse-client"></a>
 
@@ -44,10 +50,20 @@ Each service that is integrated with AWS KMS specifies an [encryption context](c
 
 When an encryption context is specified for an encryption operation, Amazon S3 specifies the same encryption context for the decryption operation\. Otherwise, the decryption fails\.
 
-If you use SSE\-KMS or the Amazon S3 encryption client for encryption, Amazon S3 uses the bucket path as the encryption context\. In the `requestParameters` field of a CloudTrail log file, the encryption context will look similar to the following one\. 
+For Amazon S3, the encryption context key is always `aws:s3:arn`\.
+
+When you use SSE\-KMS or the Amazon S3 encryption client for encryption, the encryption context value is the bucket path\. In the `requestParameters` field of a CloudTrail log file, the encryption context will look similar to the following one\. 
 
 ```
 "encryptionContext": {
     "aws:s3:arn": "arn:aws:s3:::bucket_name/file_name"
-},
+}
+```
+
+When you use SSE\-KMS with the optional S3 Bucket Keys feature, the encryption context value is the ARN of the bucket\.
+
+```
+"encryptionContext": {
+    "aws:s3:arn": "arn:aws:s3:::bucket_name"
+}
 ```

@@ -5,7 +5,7 @@ You can allow IAM users or roles in one AWS account to use a customer master key
 **Warning**  
 Be cautious about giving principals permissions to use your CMKs\. Whenever possible, follow the *least privilege* principle\. Give users access only to the CMKs they need for only the operations they require\.  
 Also, be cautious about using any unfamiliar CMK, especially a CMK in a different account\. Malicious users might give you permissions to use their CMK to get information about you or your account\.   
-For information about using policies to protect the resources in your account, see [Best practices for IAM policies](iam-policies.md#iam-policies-best-practices)\.
+For information about using policies to protect the resources in your account, see [Best practices for IAM policies](iam-policies-best-practices.md)\.
 
 To give permission to use a CMK to users and roles in another account, you must use two different types of policies:
 + The **key policy** for the CMK must give the external account \(or users and roles in the external account\) permission to use the CMK\. The key policy is in the account that owns the CMK\.

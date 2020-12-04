@@ -61,7 +61,7 @@ To restore the key material after events like these, you must retain a copy of t
 To create and manage CMKs with imported key material, the user needs permission for the operations in this process\. You can provide the `kms:GetParameterForImport`, `kms:ImportKeyMaterial`, and `kms:DeleteImportedKeyMaterial` permissions in the key policy when you create the CMK\. The `kms:ImportKeyMaterial` permission is not included in the default permissions for key administrators, so you need to add it manually\.
 
 To create CMKs with imported key material, the principal needs the following permissions\.
-+ [kms:CreateKey](iam-policies.md#iam-policy-example-create-key) \(IAM policy\)
++ [kms:CreateKey](customer-managed-policies.md#iam-policy-example-create-key) \(IAM policy\)
   + To limit this permission to CMKs with imported key material, use the [kms:KeyOrigin](policy-conditions.md#conditions-kms-key-origin) policy condition with a value of `EXTERNAL`\.
 
     ```

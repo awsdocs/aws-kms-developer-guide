@@ -14,9 +14,8 @@ Learn the basic terms and concepts in AWS Key Management Service \(AWS KMS\) and
 + [Key usage](#key-usage)
 + [Envelope encryption](#enveloping)
 + [Encryption context](#encrypt_context)
-+ [Key policies](#key_permissions)
-+ [Grants](#grant)
-+ [Grant tokens](#grant_token)
++ [Key policy](#key_permissions)
++ [Grant](#grant)
 + [Auditing CMK usage](#auditing_key_use)
 + [Key management infrastructure](#key_management)
 
@@ -368,11 +367,11 @@ The key and value in an encryption context pair must be simple literal strings\.
 
 The encryption context key and value can include special characters, such as underscores \(\_\), dashes \(\-\), slashes \(/, \\\) and colons \(:\)\.
 
-For example, [Amazon Simple Storage Service](services-s3.md#s3-encryption-context) \(Amazon S3\) uses an encryption context in which the key is `aws:s3:arn`\. The value is the S3 bucket path to the file that is being encrypted\.
+For example, when encrypting volumes and snapshots created with the [Amazon Elastic Block Store](https://docs.aws.amazon.com/AWSEC2/latest/UserGuide/AmazonEBS.html) \(Amazon EBS\) [CreateSnapshot](https://docs.aws.amazon.com/AWSEC2/latest/APIReference/API_CreateSnapshot.html) operation, Amazon EBS uses the volume ID as encryption context value\.
 
 ```
 "encryptionContext": {
-    "aws:s3:arn": "arn:aws:s3:::bucket_name/file_name"
+  "aws:ebs:id": "vol-abcde12345abc1234"
 }
 ```
 
@@ -410,83 +409,29 @@ For more information about these encryption context condition keys, see [Using p
 
 ### Encryption context in grants<a name="encryption-context-grants"></a>
 
-When you [create a grant](grants.md), you can include [grant constraints](https://docs.aws.amazon.com/kms/latest/APIReference/API_GrantConstraints.html) that allow access only when a request includes a particular encryption context or encryption context keys\. For details about the `EncryptionContextEquals` and `EncryptionContextSubset` grant constraints, see [Grant constraints](grants.md#grant-constraints)\.
+When you [create a grant](grants.md), you can include [grant constraints](https://docs.aws.amazon.com/kms/latest/APIReference/API_GrantConstraints.html) that establish conditions for the grant permissions\. AWS KMS supports two grant constraints, `EncryptionContextEquals` and `EncryptionContextSubset`, both of which involve the [encryption context](#encrypt_context) in a request for a cryptographic operation\. When you use these grant constraints, the permissions in the grant are effective only when the encryption context in the request for the cryptographic operation satisfies the requirements of the grant constraints\. 
 
-To specify an encryption context constraint in a grant for a symmetric CMK, use the `Constraints` parameter in the [CreateGrant](https://docs.aws.amazon.com/kms/latest/APIReference/API_CreateGrant.html) operation\. This example uses the AWS Command Line Interface, but you can use any AWS SDK\. The grant that this command creates gives the `exampleUser` permission to call the [Decrypt](https://docs.aws.amazon.com/kms/latest/APIReference/API_Decrypt.html) operation\. But that permission is effective only when the encryption context in the `Decrypt` request includes a `"Department": "IT"` encryption context pair\.
+For example, you can add an `EncryptionContextEquals` grant constraint to a grant that allows the [GenerateDataKey](https://docs.aws.amazon.com/kms/latest/APIReference/API_GenerateDataKey.html) operation\. With this constraint, the grant allows the operation only when the encryption context in the request is a case\-sensitive match for the encryption context in the grant constraint\.
 
 ```
 $ aws kms create-grant \
     --key-id 1234abcd-12ab-34cd-56ef-1234567890ab \
     --grantee-principal arn:aws:iam::111122223333:user/exampleUser \
-    --operations Decrypt \
     --retiring-principal arn:aws:iam::111122223333:role/adminRole \
-    --constraints EncryptionContextSubset={Department=IT}
+    --operations GenerateDataKey \
+    --constraints EncryptionContextEquals={Purpose=Test}
 ```
 
-The resulting grant looks like the following one\. Notice that the permission granted to `exampleUser` is effective only when the `Decrypt` request includes the encryption context pair specified in the grant constraint\. To find the grants on a CMK, use the [ListGrants](https://docs.aws.amazon.com/kms/latest/APIReference/API_ListGrants.html) operation\.
+A request like the following from the grantee principal would satisfy the `EncryptionContextEquals` constraint\.
 
 ```
-$ aws kms list-grants --key-id 1234abcd-12ab-34cd-56ef-1234567890ab
-
-{
-    "Grants": [
-        {
-            "Name": "",
-            "IssuingAccount": "arn:aws:iam::111122223333:root",
-            "GrantId": "8c94d1f12f5e69f440bae30eaec9570bb1fb7358824f9ddfa1aa5a0dab1a59b2",
-            "Operations": [
-                "Decrypt"
-            ],
-            "GranteePrincipal": "arn:aws:iam::111122223333:user/exampleUser",
-            "Constraints": {
-                "EncryptionContextSubset": {
-                    "Department": "IT"
-                }
-            },
-            "CreationDate": 1568565290.0,
-            "KeyId": "arn:aws:kms:us-west-2:111122223333:key/1234abcd-12ab-34cd-56ef-1234567890ab",
-            "RetiringPrincipal": "arn:aws:iam::111122223333:role/adminRole"
-        }
-    ]
-}
+$ aws kms generate-data-key \
+    --key-id 1234abcd-12ab-34cd-56ef-1234567890ab \
+    --key-spec AES_256 \
+    --encryption-context Purpose=Test
 ```
 
-AWS services often use encryption context constraints in the grants that give them permission to use CMKs in your AWS account\. For example, Amazon DynamoDB uses a grant like the following one to get permission to use the [AWS managed CMK](#aws-managed-cmk) for DynamoDB in your account\. The `EncryptionContextSubset` grant constraint in this grant makes the permissions in the grant effective only when the encryption context in the request includes `"subscriberID": "111122223333"` and `"tableName": "Services"` pairs\. This grant constraint means that the grant allows DynamoDB to use the specified CMK only for a particular table in your AWS account\.
-
-To get this output, run the [ListGrants](https://docs.aws.amazon.com/kms/latest/APIReference/API_ListGrants.html) operation on the AWS managed CMK for DynamoDB in your account\.
-
-```
-$ aws kms list-grants --key-id 0987dcba-09fe-87dc-65ba-ab0987654321
-
-{
-    "Grants": [
-        {
-            "Operations": [
-                "Decrypt",
-                "Encrypt",
-                "GenerateDataKey",
-                "ReEncryptFrom",
-                "ReEncryptTo",
-                "RetireGrant",
-                "DescribeKey"
-            ],
-            "IssuingAccount": "arn:aws:iam::111122223333:root",
-            "Constraints": {
-                "EncryptionContextSubset": {
-                    "aws:dynamodb:tableName": "Services",
-                    "aws:dynamodb:subscriberId": "111122223333"
-                }
-            },
-            "CreationDate": 1518567315.0,
-            "KeyId": "arn:aws:kms:us-west-2:111122223333:key/0987dcba-09fe-87dc-65ba-ab0987654321",
-            "GranteePrincipal": "dynamodb.us-west-2.amazonaws.com",
-            "RetiringPrincipal": "dynamodb.us-west-2.amazonaws.com",
-            "Name": "8276b9a6-6cf0-46f1-b2f0-7993a7f8c89a",
-            "GrantId": "1667b97d27cf748cf05b487217dd4179526c949d14fb3903858e25193253fe59"
-        }
-    ]
-}
-```
+For details about the grant constraints, see [Using grant constraints](create-grant-overview.md#grant-constraints)\. For detailed information about grants, see [Using grants](grants.md)\.
 
 ### Logging encryption context<a name="encryption-context-auditing"></a>
 
@@ -501,27 +446,15 @@ To simplify use of any encryption context when you call the [https://docs.aws.am
 
 For example, if the encryption context is the fully qualified path to a file, store only part of that path with the encrypted file contents\. Then, when you need the full encryption context, reconstruct it from the stored fragment\. If someone tampers with the file, such as renaming it or moving it to a different location, the encryption context value changes and the decryption request fails\.
 
-## Key policies<a name="key_permissions"></a>
+## Key policy<a name="key_permissions"></a>
 
-When you create a CMK, you determine who can use and manage that CMK\. These permissions are contained in a document called the *key policy*\. You can use the key policy to add, remove, or change permissions at any time for a customer managed CMK\. But you cannot edit the key policy for an AWS managed CMK\. For more information, see [Authentication and access control for AWS KMS](control-access.md)\.
+When you create a CMK, you determine who can use and manage that CMK\. These permissions are contained in a document called the *key policy*\. You can use the key policy to add, remove, or change permissions at any time for a customer managed CMK\. But you cannot edit the key policy for an AWS managed CMK\. For more information, see [Using key policies in AWS KMS](key-policies.md)\.
 
-## Grants<a name="grant"></a>
+## Grant<a name="grant"></a>
 
-A *grant* is another mechanism for providing permissions\. It's an alternative to key policies\. Because grants can be very specific, and are easy to create and revoke, they are often used to provide temporary permissions or more granular permissions\.
+A *grant* is a policy instrument that allows AWS principals to use AWS KMS customer master keys \(CMKs\) in [cryptographic operations](#cryptographic-operations)\. It also can let them view a CMK \([DescribeKey](https://docs.aws.amazon.com/kms/latest/APIReference/API_DescribeKey.html)\) and create and manage grants\. When authorizing access to a CMK, grants are considered along with [key policies](key-policies.md) and [IAM policies](iam-policies.md)\. Grants are often used for temporary permissions because you can create one, use its permissions, and delete it without changing your key policies or IAM policies\. Because grants can be very specific, and are easy to create and revoke, they are often used to provide temporary permissions or more granular permissions\. 
 
-## Grant tokens<a name="grant_token"></a>
-
-When you create a grant, the permissions specified in the grant might not take effect immediately due to [eventual consistency](https://en.wikipedia.org/wiki/Eventual_consistency)\. If you need to mitigate the potential delay, use the *grant token* that you receive in the response to your [CreateGrant](https://docs.aws.amazon.com/kms/latest/APIReference/API_CreateGrant.html) request\. You can pass the grant token with some AWS KMS API requests to make the permissions in the grant take effect immediately\. The following AWS KMS API operations accept grant tokens:
-+ [CreateGrant](https://docs.aws.amazon.com/kms/latest/APIReference/API_CreateGrant.html)
-+ [Decrypt](https://docs.aws.amazon.com/kms/latest/APIReference/API_Decrypt.html)
-+ [DescribeKey](https://docs.aws.amazon.com/kms/latest/APIReference/API_DescribeKey.html)
-+ [Encrypt](https://docs.aws.amazon.com/kms/latest/APIReference/API_Encrypt.html)
-+ [GenerateDataKey](https://docs.aws.amazon.com/kms/latest/APIReference/API_GenerateDataKey.html)
-+ [GenerateDataKeyWithoutPlaintext](https://docs.aws.amazon.com/kms/latest/APIReference/API_GenerateDataKeyWithoutPlaintext.html)
-+ [ReEncrypt](https://docs.aws.amazon.com/kms/latest/APIReference/API_ReEncrypt.html)
-+ [RetireGrant](https://docs.aws.amazon.com/kms/latest/APIReference/API_RetireGrant.html)
-
-A grant token is not a secret\. The grant token contains information about who the grant is for and therefore who can use it to cause the grant's permissions to take effect more quickly\.
+For detailed information about grants, including grant terminology, see [Using grants](grants.md)\.
 
 ## Auditing CMK usage<a name="auditing_key_use"></a>
 

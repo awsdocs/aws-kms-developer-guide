@@ -7,7 +7,7 @@ AWS KMS is integrated with most [other AWS services](https://aws.amazon.com/kms/
 You can create and manage your AWS KMS customer master keys \(CMKs\):
 + [Create](create-keys.md), [edit](editing-keys.md), and [view](viewing-keys.md) [symmetric and asymmetric CMKs](symmetric-asymmetric.md)
 + [Enable and disable](enabling-keys.md) CMKs
-+ Create\. edit, and view [key policies](key-policies.md) and [grants](grants.md) for your CMKs
++ Create, edit, and view [key policies](key-policies.md) and [grants](grants.md) for your CMKs
 + Enable and disable [automatic rotation](rotate-keys.md) of the cryptographic material in a CMK
 + [Tag your CMKs](tagging-keys.md) for identification, automation, and cost tracking
 + [Create, delete, list, and update *aliases*](programming-aliases.md), which are friendly names for your CMKs
