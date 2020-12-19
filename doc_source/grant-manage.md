@@ -78,6 +78,8 @@ When you create a grant, the grant might not be effective immediately\. There's 
 
 To use the permissions in a new grant immediately, use the [grant token](grants.md#grant_token) for the grant\. Save the grant token that the [CreateGrant](https://docs.aws.amazon.com/kms/latest/APIReference/API_CreateGrant.html) operation returns\. Then submit the grant token in the request for the AWS KMS operation\. You can submit a grant token to any AWS KMS [grant operation](grants.md#terms-grant-operations) and you can submit multiple grant tokens in the same request\.
 
+
+
 The following example use the `CreateGrant` operation to create a grant that allows the [GenerateDataKey](https://docs.aws.amazon.com/kms/latest/APIReference/API_GenerateDataKey.html) and [Decrypt](https://docs.aws.amazon.com/kms/latest/APIReference/API_Decrypt.html) operations\. It saves the grant token that `CreateGrant` returns in the `token` variable\. Then, in a call to the `GenerateDataKey` operation, it uses the grant token in the `token` variable\.
 
 ```

@@ -108,7 +108,7 @@ When you begin using the new CMK, be sure to keep the original CMK enabled so th
 
 Because the new CMK is a different resource from the current CMK, it has a different key ID and ARN\. When you change CMKs, you need to update references to the CMK ID or ARN in your applications\. Aliases, which associate a friendly name with a CMK, make this process easier\. Use an alias to refer to a CMK in your applications\. Then, when you want to change the CMK that the application uses, change the target CMK of the alias\.
 
-To update the target CMK of an alias, use [UpdateAlias](https://docs.aws.amazon.com/kms/latest/APIReference/API_UpdateAlias.html) operation in the AWS KMS API\. For example, this command updates the `TestCMK` alias to point to a new CMK\. Because the operation does not return any output, the example uses the [ListAliases](https://docs.aws.amazon.com/kms/latest/APIReference/API_ListAliases.html) operation to show that the alias is now associated with a different CMK\.
+To update the target CMK of an alias, use [UpdateAlias](https://docs.aws.amazon.com/kms/latest/APIReference/API_UpdateAlias.html) operation in the AWS KMS API\. For example, this command updates the `TestCMK` alias to point to a new CMK\. Because the operation does not return any output, the example uses the [ListAliases](https://docs.aws.amazon.com/kms/latest/APIReference/API_ListAliases.html) operation to show that the alias is now associated with a different CMK and the `LastUpdatedDate` field is updated\. 
 
 ```
 $ aws kms list-aliases
@@ -117,7 +117,9 @@ $ aws kms list-aliases
         {
             "AliasArn": "arn:aws:kms:us-west-2:111122223333:alias/TestCMK",
             "AliasName": "alias/TestCMK",
-            "TargetKeyId": "1234abcd-12ab-34cd-56ef-1234567890ab"
+            "TargetKeyId": "1234abcd-12ab-34cd-56ef-1234567890ab",
+            "CreationDate": 1521097200.123,
+            "LastUpdatedDate": 1521097200.123
         },
     ]
 }            
@@ -130,7 +132,9 @@ $ aws kms list-aliases
         {
             "AliasArn": "arn:aws:kms:us-west-2:111122223333:alias/TestCMK",
             "AliasName": "alias/TestCMK",
-            "TargetKeyId": "0987dcba-09fe-87dc-65ba-ab0987654321"
+            "TargetKeyId": "0987dcba-09fe-87dc-65ba-ab0987654321",
+            "CreationDate": 1521097200.123,
+            "LastUpdatedDate": 1604958290.722
         },
     ]
 }

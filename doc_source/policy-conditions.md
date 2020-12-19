@@ -11,10 +11,11 @@ To specify conditions, you use predefined *condition keys* in the `Condition` el
 
 ## AWS global condition keys<a name="conditions-aws"></a>
 
-AWS defines [global condition keys](https://docs.aws.amazon.com/IAM/latest/UserGuide/reference_policies_condition-keys.html#AvailableKeys), a set of policy conditions keys for all AWS services that use IAM for access control\. You can use global condition keys in AWS KMS key policies and IAM policies\. For example, you can use the [aws:PrincipalArn](https://docs.aws.amazon.com/IAM/latest/UserGuide/reference_policies_condition-keys.html#condition-keys-principalarn) condition key to allow access to a customer master key \(CMK\) only when the principal in the request is represented by the Amazon Resource Name \(ARN\) in the condition key value\.
+AWS defines [global condition keys](https://docs.aws.amazon.com/IAM/latest/UserGuide/reference_policies_condition-keys.html#AvailableKeys), a set of policy conditions keys for all AWS services that use IAM for access control\. You can use global condition keys in AWS KMS key policies and IAM policies\. 
+
+For example, you can use the [aws:PrincipalArn](https://docs.aws.amazon.com/IAM/latest/UserGuide/reference_policies_condition-keys.html#condition-keys-principalarn) global condition key to allow access to a customer master key \(CMK\) only when the principal in the request is represented by the Amazon Resource Name \(ARN\) in the condition key value\. To support [attribute\-based access control](abac.md) \(ABAC\) in AWS KMS, you can use the [aws:ResourceTag](https://docs.aws.amazon.com/IAM/latest/UserGuide/reference_policies_condition-keys.html#condition-keys-resourcetag) global condition key in an IAM policy to allow access to CMKs with a particular tag\.
 
 AWS KMS supports all AWS global condition keys except for the following ones:
-+ [aws:ResourceTag](https://docs.aws.amazon.com/IAM/latest/UserGuide/reference_policies_condition-keys.html#condition-keys-resourcetag)
 + [aws:SourceAccount](https://docs.aws.amazon.com/IAM/latest/UserGuide/reference_policies_condition-keys.html#condition-keys-sourceaccount)
 + [aws:SourceArn](https://docs.aws.amazon.com/IAM/latest/UserGuide/reference_policies_condition-keys.html#condition-keys-sourcearn)
 
@@ -56,13 +57,13 @@ AWS KMS provides an additional set of predefined condition keys that you can use
 
 **Conditions for an API operation request**
 
-Many of the AWS KMS condition keys control access to a CMK based on the value of a parameter in the request for an AWS KMS operation\. For example, you can use the [kms:CustomerMasterKeySpec](#conditions-kms-customer-master-key-spec) condition key in an IAM policy to allow use of the [CreateKey](https://docs.aws.amazon.com/kms/latest/APIReference/API_CreateKey.html) operation only when the value of the `CustomerMasterKeySpec` parameter in the `CreateKey` request is `RSA_4096`\. 
+Many AWS KMS condition keys control access to a CMK based on the value of a parameter in the request for an AWS KMS operation\. For example, you can use the [kms:CustomerMasterKeySpec](#conditions-kms-customer-master-key-spec) condition key in an IAM policy to allow use of the [CreateKey](https://docs.aws.amazon.com/kms/latest/APIReference/API_CreateKey.html) operation only when the value of the `CustomerMasterKeySpec` parameter in the `CreateKey` request is `RSA_4096`\. 
 
 This type of condition works even when the parameter doesn't appear in the request, such as when you use the parameter's default value\. For example you can use the [kms:CustomerMasterKeySpec](#conditions-kms-customer-master-key-spec) condition key to allow users to use the `CreateKey` operation only when the value of the `CustomerMasterKeySpec` parameter is `SYMMETRIC_DEFAULT`, which is the default value\. This condition allows requests that have the `CustomerMasterKeySpec` parameter with the `SYMMETRIC_DEFAULT` value and requests that have no `CustomerMasterKeySpec` parameter\.
 
 **Conditions for CMKs used in API operations**
 
-Some of the AWS KMS condition keys control access to operations based on a property of the CMK that is used in the operation\. For example, you can use the [kms:KeyOrigin](#conditions-kms-key-origin) condition to allow principals to call [GenerateDataKey](https://docs.aws.amazon.com/kms/latest/APIReference/API_GenerateDataKey.html) on a CMK only when the `Origin` of the CMK is `AWS_KMS`\. To find out if a condition key can be used in this way, see the description of the condition key\.
+Some AWS KMS condition keys can control access to operations based on a property of the CMK that is used in the operation\. For example, you can use the [kms:KeyOrigin](#conditions-kms-key-origin) condition to allow principals to call [GenerateDataKey](https://docs.aws.amazon.com/kms/latest/APIReference/API_GenerateDataKey.html) on a CMK only when the `Origin` of the CMK is `AWS_KMS`\. To find out if a condition key can be used in this way, see the description of the condition key\.
 
 The operation must be a *CMK resource operation*, that is, an operation that is authorized for a particular CMK\. To identify the CMK resource operations, in the [Actions and Resources Table](kms-api-permissions-reference.md#kms-api-permissions-reference-table), look for a value of `CMK` in the `Resources` column for the operation\. If you use this type of condition key with an operation that is not authorized for a particular CMK resource, like [ListKeys](https://docs.aws.amazon.com/kms/latest/APIReference/API_ListKeys.html), the permission is not effective because the condition can never be satisfied\. There is no CMK resource involved in authorizing the `ListKeys` operation and no `CustomerMasterKeySpec` property\. 
 
@@ -85,6 +86,8 @@ The following topics describe each AWS KMS condition key and include example pol
 + [kms:KeyOrigin](#conditions-kms-key-origin)
 + [kms:MessageType](#conditions-kms-message-type)
 + [kms:ReEncryptOnSameKey](#conditions-kms-reencrypt-on-same-key)
++ [kms:RequestAlias](#conditions-kms-request-alias)
++ [kms:ResourceAliases](#conditions-kms-resource-aliases)
 + [kms:RetiringPrincipal](#conditions-kms-retiring-principal)
 + [kms:SigningAlgorithm](#conditions-kms-signing-algorithm)
 + [kms:ValidTo](#conditions-kms-valid-to)
@@ -999,6 +1002,84 @@ You can use this condition key to control access to the [ReEncrypt](https://docs
   "Condition": {
     "Bool": {
       "kms:ReEncryptOnSameKey": true
+    }
+  }
+}
+```
+
+### kms:RequestAlias<a name="conditions-kms-request-alias"></a>
+
+
+| AWS KMS condition keys | Condition type | API operations | Policy type | 
+| --- | --- | --- | --- | 
+|  `kms:RequestAlias`  |  String \(list\)  |  [Cryptographic operations](concepts.md#cryptographic-operations) [DescribeKey](https://docs.aws.amazon.com/kms/latest/APIReference/API_DescribeKey.html) [GetPublicKey](https://docs.aws.amazon.com/kms/latest/APIReference/API_GetPublicKey.html)  |  Key policies and IAM policies  | 
+
+You can use this condition key to allow an operation only when the request uses a particular alias to identify the CMK\. The `kms:RequestAlias` condition key controls access to a CMK used in a cryptographic operation, `GetPublicKey`, or `DescribeKey` based on the [alias](kms-alias.md) that identifies that CMK in the request\. \(This policy condition has no effect on the [GenerateRandom](https://docs.aws.amazon.com/kms/latest/APIReference/API_GenerateRandom.html) operation because the operation doesn't use a CMK or alias\.\) 
+
+This condition supports [attribute\-based access control](abac.md) \(ABAC\) in AWS KMS, which lets you control access to CMKs based on the tags and aliases of a CMK\. You can use tags and aliases to allow or deny access to a CMK without changing policies or grants\. For details, see [Using ABAC for AWS KMS](abac.md)\.
+
+To specify the alias in this policy condition, use an [alias name](concepts.md#key-id-alias-name), such as `alias/project-alpha`, or an alias name pattern, such as `alias/*test*`\. You cannot specify an [alias ARN](concepts.md#key-id-alias-ARN) in the value of this condition key\.
+
+To satisfy this condition, the value of the `KeyId` parameter in the request must be a matching alias name or alias ARN\. If the request uses a different [key identifier](concepts.md#key-id), it does not satisfy the condition, even if identifies the same CMK\.
+
+For example, the following key policy statement allows the principal to call the [GenerateDataKey](https://docs.aws.amazon.com/kms/latest/APIReference/API_GenerateDataKey.html) operation on the CMK, but only when the value of the `KeyId` parameter in the request is `alias/finance-key` or an alias ARN with that alias name, such as `arn:aws:kms:us-west-2:111122223333:alias/finance-key`\.
+
+```
+{
+  "Sid": "Key policy using a request alias condition",
+  "Effect": "Allow",
+  "Principal": {
+    "AWS": "arn:aws:iam::111122223333:role/developer"
+  },
+  "Action": "kms:GenerateDataKey",
+  "Resource": "*",
+  "Condition": {
+    "StringEquals": {
+      "kms:RequestAlias": "alias/finance-key"
+    }
+  }
+}
+```
+
+You cannot use this condition key to control access to alias operations, such as [CreateAlias](https://docs.aws.amazon.com/kms/latest/APIReference/API_CreateAlias.html) or [DeleteAlias](https://docs.aws.amazon.com/kms/latest/APIReference/API_DeleteAlias.html)\. For information about controlling access to alias operations, see [Controlling access to aliases](alias-access.md)\.
+
+### kms:ResourceAliases<a name="conditions-kms-resource-aliases"></a>
+
+
+| AWS KMS condition keys | Condition type | API operations | Policy type | 
+| --- | --- | --- | --- | 
+|  `kms:ResourceAliases`  |  String \(list\)  | CMK resource operations |  IAM policies only  | 
+
+Use this condition key to control access to a CMK based on the [aliases](kms-alias.md) associated with the CMK\. The operation must be a *CMK resource operation*, that is, an operation that is authorized for a particular CMK\. To identify the CMK resource operations, in the [Actions and Resources Table](kms-api-permissions-reference.md#kms-api-permissions-reference-table), look for a value of `CMK` in the `Resources` column for the operation\.
+
+This condition supports attribute\-based access control \(ABAC\) in AWS KMS, which lets you control access to CMKs based on the tags assigned to a CMK and the aliases associated with a CMK\. You can use tags and aliases to allow or deny access to a CMK without changing policies or grants\. For details, see [Using ABAC for AWS KMS](abac.md)\.
+
+**Note**  
+The [kms:ResourceAliases](#conditions-kms-resource-aliases) condition is effective only when the CMK conforms to the [aliases per CMK](resource-limits.md#aliases-per-key) quota\. If a CMK exceeds this quota, principals who are authorized to use the CMK by the `kms:ResourceAliases` condition are denied access to the CMK\.
+
+To specify the alias in this policy condition, use an [alias name](concepts.md#key-id-alias-name), such as `alias/project-alpha`, or an alias name pattern, such as `alias/*test*`\. You cannot specify an [alias ARN](concepts.md#key-id-alias-ARN) in the value of this condition key\. To satisfy the condition, the CMK used in the operation must have the specified alias\. It does not matter whether or how the CMK is identified in the request for the operation\.
+
+For example, the following IAM policy statement allows the principal to call the [GenerateDataKey](https://docs.aws.amazon.com/kms/latest/APIReference/API_GenerateDataKey.html) operation on any CMK in the specified AWS accounts that is associated with the `finance-key` alias\. An alias must be unique in an AWS account and Region, but this condition might allow access to several CMKs in different AWS Regions of each account\. \(The key policies of the affected CMKs must also allow the principal's account to use them for this operation\.\) 
+
+To indicate that the condition is satisfied when one of the many aliases that might be associated with the CMK is `alias/finance-key`, the condition uses the `ForAnyValue` set operator\.
+
+Because the `kms:ResourceAliases` condition is based on the resource, not the request, a call to `GenerateDataKey` succeeds for any CMK associated with the `finance-key` alias, even if the request uses a [key ID](concepts.md#key-id-key-id) or [key ARN](concepts.md#key-id-key-ARN) to identify the CMK\.
+
+```
+{
+  "Version": "2012-10-17",
+  "Statement": {
+    "Sid": "AliasBasedIAMPolicy",
+    "Effect": "Allow",
+    "Action": "kms:GenerateDataKey",
+    "Resource": [
+       "arn:aws:kms:*:111122223333:key/*",
+       "arn:aws:kms:*:444455556666:key/*",
+     ],
+    "Condition": {
+      "ForAnyValue:StringEquals": {
+        "kms:ResourceAliases": "alias/finance-key"
+      }
     }
   }
 }

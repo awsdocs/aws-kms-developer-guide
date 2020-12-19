@@ -169,7 +169,7 @@ The key state of the CMK\. You can use the CMK in [cryptographic operations](con
 **Tags**  
 Where: Tags tab  
 Optional key\-value pairs that describe the CMK\. To add or change the tags for a CMK, on the **Tags** tab, choose **Edit**\.  
-When you add tags to your AWS resources, AWS generates a cost allocation report with usage and costs aggregated by tags\. For information about tagging CMKs, see [Tagging keys](tagging-keys.md)\.
+When you add tags to your AWS resources, AWS generates a cost allocation report with usage and costs aggregated by tags\. Tags can also be used to control access to a CMK\. For information about tagging CMKs, see [Tagging keys](tagging-keys.md) and [Using ABAC for AWS KMS](abac.md)\. 
 
 ## Customizing your CMK tables<a name="viewing-console-customize"></a>
 

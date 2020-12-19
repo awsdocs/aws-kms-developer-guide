@@ -51,7 +51,7 @@ To apply the permission to all CMKs in a particular trusted AWS account, you can
 }
 ```
 
-You can also use a wildcard character \(`"*"`\) alone in the `Resource` element\. Because it allows access to all CMKs the account has permission to use, it's recommended primarily for operations that don't involve a particular CMK and for `Deny` statements\. You can also use it in policy statements that allow only less sensitive read\-only operations\. To determine whether an AWS KMS operation involves a particular CMK, look for the **CMK** value in the **Resources** column of the table in [AWS KMS API permissions: Actions and resources reference](kms-api-permissions-reference.md)\.
+You can also use a wildcard character \(`"*"`\) alone in the `Resource` element\. Because it allows access to all CMKs the account has permission to use, it's recommended primarily for operations that don't involve a particular CMK and for `Deny` statements\. You can also use it in policy statements that allow only less sensitive read\-only operations\. To determine whether an AWS KMS operation involves a particular CMK, look for the **CMK** value in the **Resources** column of the table in [AWS KMS permissions](kms-api-permissions-reference.md)\.
 
 For example, the following policy statement uses a `Deny` effect to prohibit the principals from using the specified operations on any CMK\. It uses a wildcard character in the `Resource` element to represent all CMKs\.
 

@@ -127,8 +127,7 @@ The following is a key policy for an example AWS managed CMK for Secrets Manager
   "Version" : "2012-10-17",
   "Id" : "auto-secretsmanager-1",
   "Statement" : [ {
-    "Sid" : "Allow access through AWS Secrets Manager for all principals in the account that are authorized to use AWS S
-ecrets Manager",
+    "Sid" : "Allow access to principals authorized to use AWS Secrets Manager",
     "Effect" : "Allow",
     "Principal" : {
       "AWS" : "*"

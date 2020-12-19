@@ -4,9 +4,7 @@ You can create [symmetric and asymmetric customer master keys](symmetric-asymmet
 
 If you are creating a CMK to encrypt data you store or manage in an AWS service, create a symmetric CMK\. [AWS services that are integrated with AWS KMS](https://aws.amazon.com/kms/features/#AWS_Service_Integration) use symmetric CMKs to encrypt your data\. These services do not support encryption with asymmetric CMKs\. For help deciding which type of CMK to create, see [How to choose your CMK configuration](symm-asymm-choose.md)\.
 
-When you create a CMK in the AWS KMS console, you are required to give it an [alias](kms-alias.md) \(friendly name\)\. The `CreateKey` operation does not create an alias for the new CMK\. To create an alias for a new or existing CMK, use the console or the [CreateAlias](https://docs.aws.amazon.com/kms/latest/APIReference/API_CreateAlias.html) operation\. For detailed information about aliases in AWS KMS, see [Using aliases](kms-alias.md)\.
-
-To create a CMK, in the console or by using the APIs, you must have `kms:CreateKey` permission in an IAM policy\. To add [tags](tagging-keys.md) while creating a key, you must have `kms:TagResource` permission\. If you're using the console where an [alias](kms-alias.md) is required for every new CMK, you need `kms:CreateAlias` permission on the CMK and the alias\. For details, including example policies, see [Allow a user to create CMKs](customer-managed-policies.md#iam-policy-example-create-key)\.
+When you create a CMK in the AWS KMS console, you are required to give it an alias \(friendly name\)\. The CreateKey operation does not create an alias for the new CMK\. To create an alias for a new or existing CMK, use the [CreateAlias](https://docs.aws.amazon.com/kms/latest/APIReference/API_CreateAlias.html) operation\. For detailed information about aliases in AWS KMS, see [Using aliases](kms-alias.md)\.
 
 **Learn more:**
 + For help creating a CMK with imported key material \([key material origin](concepts.md#key-origin) is External\), see [Create a customer master key with no key material](importing-keys-create-cmk.md)\.
@@ -16,8 +14,21 @@ To create a CMK, in the console or by using the APIs, you must have `kms:CreateK
 + For information about quotas that apply to CMKs, see [Quotas](limits.md)\.
 
 **Topics**
++ [Permissions for creating CMKs](#create-key-permissions)
 + [Creating symmetric CMKs](#create-symmetric-cmk)
 + [Creating asymmetric CMKs](#create-asymmetric-cmk)
+
+## Permissions for creating CMKs<a name="create-key-permissions"></a>
+
+To create a CMK in the console or by using the APIs, you must have the following permission in an IAM policy\. Whenever possible, use [condition keys](policy-conditions.md) to limit the permissions\. For an example of an IAM policy for principals who create keys, see [Allow a user to create CMKs](customer-managed-policies.md#iam-policy-example-create-key)\.
+
+**Note**  
+Be cautious when giving principals permission to manage tags and aliases\. Changing a tag or alias can allow or deny permission to the CMK\. For details, see [Using ABAC for AWS KMS](abac.md)\.
++ [kms:CreateKey](https://docs.aws.amazon.com/kms/latest/APIReference/API_CreateKey.html) is required\. 
++ [kms:CreateAlias](https://docs.aws.amazon.com/kms/latest/APIReference/API_CreateAlias.html) is required to create a CMK in the console where an alias is required for every new CMK\.
++ [kms:TagResource](https://docs.aws.amazon.com/kms/latest/APIReference/API_TagResource.html) is required to add tags while creating the CMK\.
+
+The [kms:PutKeyPolicy](https://docs.aws.amazon.com/kms/latest/APIReference/API_PutKeyPolicy.html) permission is not required to create the CMK\. The `kms:CreateKey` permission includes permission to set the initial key policy\. But you must add this permission to the key policy while creating the CMK to ensure that you can control access to the CMK\. The alternative is using the [BypassLockoutSafetyCheck](https://docs.aws.amazon.com/kms/latest/APIReference/API_CreateKey.html#KMS-CreateKey-request-BypassPolicyLockoutSafetyCheck) parameter, which is not recommended\.
 
 ## Creating symmetric CMKs<a name="create-symmetric-cmk"></a>
 
@@ -41,11 +52,13 @@ You can use the AWS Management Console to create customer master keys \(CMKs\)\.
 
 1. Choose **Next**\.
 
-1. Type an [alias](kms-alias.md) for the CMK\. The alias name cannot begin with **aws/**\. The **aws/** prefix is reserved by Amazon Web Services to represent AWS managed CMKs in your account\.
+1. Type an alias for the CMK\. The alias name cannot begin with **aws/**\. The **aws/** prefix is reserved by Amazon Web Services to represent AWS managed CMKs in your account\.
+**Note**  
+Adding, deleting, or updating an alias can allow or deny permission to the CMK\. For details, see [Using ABAC for AWS KMS](abac.md) and [Using aliases to control access to CMKs](alias-authorization.md)\.
 
-   An *alias* is a friendly name that you can use to identify the CMK in the console and in some AWS KMS APIs\. We recommend that you choose an alias that indicates the type of data you plan to protect or the application you plan to use with the CMK\. 
+   An alias is a display name that you can use to identify the CMK\. We recommend that you choose an alias that indicates the type of data you plan to protect or the application you plan to use with the CMK\.
 
-   Aliases are required when you create a CMK in the AWS Management Console\. You cannot specify an alias when you use the [CreateKey](https://docs.aws.amazon.com/kms/latest/APIReference/API_CreateKey.html) operation, but you can use the console or the [CreateAlias](https://docs.aws.amazon.com/kms/latest/APIReference/API_CreateAlias.html) operation to create an alias for an existing CMK\. For details, see [Using aliases](kms-alias.md)\.
+   Aliases are required when you create a CMK in the AWS Management Console\. They are optional when you use the [CreateKey](https://docs.aws.amazon.com/kms/latest/APIReference/API_CreateKey.html) operation\.
 
 1. \(Optional\) Type a description for the CMK\.
 
@@ -56,8 +69,10 @@ You can use the AWS Management Console to create customer master keys \(CMKs\)\.
 1. Choose **Next**\.
 
 1. \(Optional\) Type a tag key and an optional tag value\. To add more than one tag to the CMK, choose **Add tag**\.
+**Note**  
+Tagging or untagging a CMK can allow or deny permission to the CMK\. For details, see [Using ABAC for AWS KMS](abac.md) and [Using tags to control access to CMKs](tag-authorization.md)\.
 
-   When you add tags to your AWS resources, AWS generates a cost allocation report with usage and costs aggregated by tags\. For information about tagging CMKs, see [Tagging keys](tagging-keys.md)\.
+   When you add tags to your AWS resources, AWS generates a cost allocation report with usage and costs aggregated by tags\. Tags can also be used to control access to a CMK\. For information about tagging CMKs, see [Tagging keys](tagging-keys.md) and [Using ABAC for AWS KMS](abac.md)\. 
 
 1. Choose **Next**\.
 
@@ -164,7 +179,7 @@ You can use the AWS Management Console to create asymmetric customer master keys
 
 1. Select a specification \(**Key spec**\) for your asymmetric CMK\. 
 
-   Often the key spec that you select is determined by regulatory, security, or business requrirements\. It might also be influenced by the size of messages that you need to encrypt or sign\. In general, longer encryption keys are more resistant to brute\-force attacks\.
+   Often the key spec that you select is determined by regulatory, security, or business requirements\. It might also be influenced by the size of messages that you need to encrypt or sign\. In general, longer encryption keys are more resistant to brute\-force attacks\.
 
    For help choosing a key spec, see [Selecting the key spec](symm-asymm-choose.md#symm-asymm-choose-key-spec)\.
 
@@ -184,7 +199,7 @@ You can use the AWS Management Console to create asymmetric customer master keys
 
 1. \(Optional\) Type a tag key and an optional tag value\. To add more than one tag to the CMK, choose **Add tag**\.
 
-   When you add tags to your AWS resources, AWS generates a cost allocation report with usage and costs aggregated by tags\. For information about tagging CMKs, see [Tagging keys](tagging-keys.md)\.
+   When you add tags to your AWS resources, AWS generates a cost allocation report with usage and costs aggregated by tags\. Tags can also be used to control access to a CMK\. For information about tagging CMKs, see [Tagging keys](tagging-keys.md) and [Using ABAC for AWS KMS](abac.md)\. 
 
 1. Choose **Next**\.
 

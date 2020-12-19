@@ -14,6 +14,7 @@ The following table describes significant changes to this documentation since Ja
 
 | Change | Description | Date | 
 | --- |--- |--- |
+| [New feature](https://docs.aws.amazon.com/kms/latest/developerguide/abac.html) | Added support for attribute based access control \(ABAC\)\. You can use tags and aliases to control access to your AWS KMS customer master keys\. | December 17, 2020 | 
 | [New feature](https://docs.aws.amazon.com/kms/latest/developerguide/kms-vpc-endpoint.html#vpce-policy) | Added support for VPC endpoint policies\. | July 9, 2020 | 
 | [New content](https://docs.aws.amazon.com/kms/latest/developerguide/kms-security.html) | Explains the security properties of AWS KMS\. | June 18, 2020 | 
 | [New feature](https://docs.aws.amazon.com/kms/latest/developerguide/symmetric-asymmetric.html) | Added support for asymmetric customer master keys and asymmetric data keys\. | November 25, 2019 | 
@@ -42,7 +43,7 @@ The following table describes the important changes to the AWS Key Management Se
 | New content | Added the following documentation: [Overview of managing access](control-access-overview.md), [Using IAM policies](iam-policies.md), [AWS KMS API permissions reference](kms-api-permissions-reference.md), and [Using policy conditions](policy-conditions.md)\. | July 5, 2016 | 
 | Update | Updated portions of the documentation in the [Authentication and access control](control-access.md) chapter\. | July 5, 2016 | 
 | Update | Updated the [Quotas](limits.md) page to reflect new default quotas\. | May 31, 2016 | 
-| Update | Updated the [Quotas](limits.md) page to reflect new default quotas, and updated the [](grants.md#grant_token) documentation to improve clarity and accuracy\. | April 11, 2016 | 
+| Update | Updated the [Quotas](limits.md) page to reflect new default quotas, and updated the [grant token](grants.md#grant_token) documentation to improve clarity and accuracy\. | April 11, 2016 | 
 | New content | Added documentation about [Allowing multiple IAM users to access a CMK](key-policy-modifying.md#key-policy-modifying-multiple-iam-users) and [Using the IP address condition](policy-conditions.md#conditions-aws-ip-address)\. | February 17, 2016 | 
 | Update | Updated the [Using key policies in AWS KMS](key-policies.md) and [Changing a key policy](key-policy-modifying.md) pages to improve clarity and accuracy\. | February 17, 2016 | 
 | Update | Updated the [Getting started](getting-started.md) topic pages to improve clarity\. | January 5, 2016 | 

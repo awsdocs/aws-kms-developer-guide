@@ -23,4 +23,4 @@ You can enable and disable automatic key rotation on the Key rotation tab of the
 For details, see [Rotating customer master keys](rotate-keys.md)\.
 
 **See also**  
-[Updating aliases](kms-alias.md#alias-update)
+[Updating aliases](alias-manage.md#alias-update)

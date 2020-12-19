@@ -70,6 +70,8 @@ For more information, see [Using key policies](key-policies.md) and [Using IAM p
 
 ## Specifying conditions in a policy<a name="overview-policy-conditions"></a>
 
-You can use another policy element called the *condition* to specify the circumstances in which a policy takes effect\. For example, you might want a policy statement to take effect only after a specific date\. Or, you might want a policy statement to control access based on whether a specific value exists in the API request\.
+You can use another policy element called a *condition key* to specify the circumstances in which a policy takes effect\. For example, you might want a policy statement to take effect only after a specific date\. Or, you might want a policy statement to control access based on whether a specific value exists in the API request\.
 
 To specify conditions, you use predefined *condition keys*\. Some condition keys apply generally to AWS, and some are specific to AWS KMS\. For more information, see [Using policy conditions](policy-conditions.md)\.
+
+To support attribute\-based access control \(ABAC\), AWS KMS provides condition keys that control access to a customer master key \(CMK\) based on its tags and aliases\. For details, see [Using ABAC for AWS KMS](abac.md)\.

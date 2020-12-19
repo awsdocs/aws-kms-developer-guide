@@ -16,6 +16,8 @@ When you create a CMK in your custom key store, AWS KMS creates the CMK in AWS K
 
 When the command succeeds, the [key state](key-state.md) of the new CMK is `Enabled` and its origin is `AWS_CLOUDHSM`\. You cannot change the origin of any CMK after you create it\. When you view a CMK in a custom key store in the console or by using the [DescribeKey](https://docs.aws.amazon.com/kms/latest/APIReference/API_DescribeKey.html) operation, you can see typical properties, like its key ID, key state, and creation date\. But you can also see the custom key store ID and \(optionally\) the AWS CloudHSM cluster ID\. For details, see [Viewing CMKs in a custom key store](view-cmk-keystore.md)\.
 
+
+
 If your attempt to create a CMK in your custom key store fails, use the error message to help you determine the cause\. It might indicate that the custom key store is not connected \(`CustomKeyStoreInvalidStateException`\) or the associated AWS CloudHSM cluster doesn't have the two active HSMs that are required for this operation \(`CloudHsmClusterInvalidConfigurationException`\)\. For help see [Troubleshooting a custom key store](fix-keystore.md)\.
 
 **Topics**
@@ -56,7 +58,7 @@ Use the following procedure to create a customer master key \(CMK\) in a custom 
 
 1. \(Optional\)\. On the **Add Tags** page, add tags that identify or categorize your CMK\.
 
-   When you add tags to your AWS resources, AWS generates a cost allocation report with usage and costs aggregated by tags\. For information about tagging CMKs, see [Tagging keys](tagging-keys.md)\.
+   When you add tags to your AWS resources, AWS generates a cost allocation report with usage and costs aggregated by tags\. Tags can also be used to control access to a CMK\. For information about tagging CMKs, see [Tagging keys](tagging-keys.md) and [Using ABAC for AWS KMS](abac.md)\. 
 
 1. Choose **Next**\.
 

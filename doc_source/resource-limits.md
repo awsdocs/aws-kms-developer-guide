@@ -32,7 +32,10 @@ If you increase your [customer master keys quota](#customer-master-keys-limit), 
 
 ## Aliases per CMK: 50<a name="aliases-per-key"></a>
 
-You can associate up to 50 [aliases](kms-alias.md) with each [customer managed CMK](concepts.md#customer-cmk)\. Aliases that AWS associates with [AWS managed CMKs](concepts.md#aws-managed-cmk) do not count against this quota\. You might encounter this quota when you [create](kms-alias.md#alias-create) or [update](kms-alias.md#alias-update) an alias\.
+You can associate up to 50 [aliases](kms-alias.md) with each [customer managed CMK](concepts.md#customer-cmk)\. Aliases that AWS associates with [AWS managed CMKs](concepts.md#aws-managed-cmk) do not count against this quota\. You might encounter this quota when you [create](alias-manage.md#alias-create) or [update](alias-manage.md#alias-update) an alias\.
+
+**Note**  
+The [kms:ResourceAliases](policy-conditions.md#conditions-kms-resource-aliases) condition is effective only when the CMK conforms to this quota\. If a CMK exceeds this quota, principals who are authorized to use the CMK by the `kms:ResourceAliases` condition are denied access to the CMK\.
 
 ## Grants per CMK: 50,000<a name="grants-per-key"></a>
 

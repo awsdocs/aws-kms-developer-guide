@@ -6,11 +6,11 @@ AWS KMS is integrated with most [other AWS services](https://aws.amazon.com/kms/
 
 You can create and manage your AWS KMS customer master keys \(CMKs\):
 + [Create](create-keys.md), [edit](editing-keys.md), and [view](viewing-keys.md) [symmetric and asymmetric CMKs](symmetric-asymmetric.md)
++ Control access to your CMKs by using [key policies](key-policies.md), [IAM policies](iam-policies.md), and [grants](grants.md)\. AWS KMS supports [attribute\-based access control](abac.md) \(ABAC\)\. You can also refine policies by using [condition keys](policy-conditions.md)\. 
++ [Create, delete, list, and update *aliases*](kms-alias.md), which are friendly names for your CMKs\. You can also [use aliases to control access](alias-authorization.md) to your CMKs\.
++ [Tag your CMKs](tagging-keys.md) for identification, automation, and cost tracking\. You can also [use tags to control access](tag-authorization.md) to your CMKs\.
 + [Enable and disable](enabling-keys.md) CMKs
-+ Create, edit, and view [key policies](key-policies.md) and [grants](grants.md) for your CMKs
 + Enable and disable [automatic rotation](rotate-keys.md) of the cryptographic material in a CMK
-+ [Tag your CMKs](tagging-keys.md) for identification, automation, and cost tracking
-+ [Create, delete, list, and update *aliases*](programming-aliases.md), which are friendly names for your CMKs
 + [Delete CMKs](deleting-keys.md) to complete the key lifecycle
 
 You can use your CMKs in [cryptographic operations](concepts.md#cryptographic-operations)\. For examples, see [Programming the AWS KMS API](programming-top.md)\.

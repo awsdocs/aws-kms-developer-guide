@@ -70,7 +70,7 @@ You cannot delete your AWS account's root user, so allowing access to this user 
 1. Someone deletes IAM user Alice\.
 In this scenario, the CMK is now unmanageable, and you must [contact AWS Support](https://console.aws.amazon.com/support/home#/case/create) to regain access to the CMK\. The root user does not have access to the CMK, because the root user can access a CMK only when the key policy explicitly allows it\. This is different from most other resources in AWS, which implicitly allow access to the root user\.
 
-**2\. Enables IAM policies to allow access to the CMK\.**  
+**2\. Enables IAM policies to allow access to the CMK\.**  <a name="allow-iam-policies"></a>
 IAM policies by themselves are not sufficient to allow access to a CMK\. However, you can use them in combination with a CMK's key policy if the key policy enables it\. Giving the AWS account full access to the CMK does this; it enables you to use IAM policies to give IAM users and roles in the account access to the CMK\. It does not by itself give any IAM users or roles access to the CMK, but it enables you to use IAM policies to do so\. For more information, see [Managing access to AWS KMS CMKs](control-access-overview.md#managing-access)\.
 
 The following example shows the policy statement that allows access to the AWS account and thereby enables IAM policies\.
@@ -90,7 +90,8 @@ The following example shows the policy statement that allows access to the AWS a
 The default key policy created by the console allows you to choose IAM users and roles in the account and make them *key administrators*\. Key administrators have permissions to manage the CMK, but do not have permissions to use the CMK in [cryptographic operations](concepts.md#cryptographic-operations)\.
 
 **Warning**  
-Even though key administrators do not have permissions to use the CMK to encrypt and decrypt data, they do have permission to change the key policy\. This means they can give themselves any AWS KMS permission\.
+Because key administrators have permission to change the key policy and create grants, they can give themselves AWS KMS permissions not specified in this policy\.  
+Principals who have permission to manage tags and aliases can also control access to a CMK\. For details, see [Using ABAC for AWS KMS](abac.md)\.
 
 You can add IAM users and roles to the list of key administrators when you create the CMK\. You can also edit the list with the console's default view for key policies, as shown in the following image\. The default view for key policies is available on the key details page for each CMK\.
 

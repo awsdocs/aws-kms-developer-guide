@@ -7,6 +7,7 @@ Learn the basic terms and concepts in AWS Key Management Service \(AWS KMS\) and
 + [Data keys](#data-keys)
 + [Data key pairs](#data-key-pairs)
 + [Aliases](#alias-concept)
++ [Custom key stores](#keystore-concept)
 + [Cryptographic operations](#cryptographic-operations)
 + [Key identifiers \(KeyId\)](#key-id)
 + [Key material origin](#key-origin)
@@ -182,6 +183,14 @@ In AWS KMS, aliases are independent resources, not properties of a CMK\. As such
 + For help finding the aliases associated with a CMK, see [Finding the alias name and alias ARN](find-cmk-alias.md)
 + For examples of creating and managing aliases in multiple programming languages, see [Working with aliases](programming-aliases.md)\.
 
+## Custom key stores<a name="keystore-concept"></a>
+
+A *custom key store* is an AWS KMS resource that is associated with FIPS 140\-2 Level 3 hardware security modules \(HSMs\) in a AWS CloudHSM cluster that you own and manage\. 
+
+When you create an AWS KMS customer master key \(CMK\) in your custom key store, AWS KMS generates a 256\-bit, persistent, non\-exportable Advanced Encryption Standard \(AES\) symmetric key in the associated AWS CloudHSM cluster\. This key material never leaves your HSMs unencrypted\. When you use a CMK in a custom key store, the cryptographic operations are performed in the HSMs in the cluster\.
+
+For more information, see [Using a custom key store](custom-key-store-overview.md)\.
+
 ## Cryptographic operations<a name="cryptographic-operations"></a>
 
 In AWS KMS, *cryptographic operations* are API operations that use CMKs to protect data\. Because CMKs remain within AWS KMS, you must call AWS KMS to use a CMK in a cryptographic operation\. 
@@ -206,7 +215,7 @@ The following table lists the AWS KMS cryptographic operations\. It also shows t
 
 \[1\] `GenerateDataKeyPair` and `GenerateDataKeyPairWithoutPlaintext` generate an asymmetric data key pair that is protected by a symmetric CMK\.
 
-For information about the permissions for cryptographic operations, see the [AWS KMS API permissions: Actions and resources reference](kms-api-permissions-reference.md)\. 
+For information about the permissions for cryptographic operations, see the [AWS KMS permissions](kms-api-permissions-reference.md)\. 
 
 To make AWS KMS responsive and performant for all users, AWS KMS establishes quotas on number of cryptographic operations that can be called in each second\. For details, see [Shared quotas for cryptographic operations](requests-per-second.md#rps-shared-limit)\. 
 

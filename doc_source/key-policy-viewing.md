@@ -18,7 +18,9 @@ To view the key policy for a CMK in the AWS Management Console, you must have [k
 
 1. To change the AWS Region, use the Region selector in the upper\-right corner of the page\.
 
-1. To view the keys in your account that AWS creates and manages for you, in the navigation pane, choose **AWS managed keys**\. To view the keys in your account that you create and manage, in the navigation pane choose **Customer managed keys**\.
+1. 
+
+   To view the keys in your account that AWS creates and manages for you, in the navigation pane, choose **AWS managed keys**\. To view the keys in your account that you create and manage, in the navigation pane choose **Customer managed keys**\.
 
 1. In the list of CMKs, choose the alias or key ID of the CMK that you want to examine\.
 

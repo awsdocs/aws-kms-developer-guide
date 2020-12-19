@@ -8,15 +8,10 @@ Symmetric CMKs can be in the `Enabled`, `Disabled`, `PendingImport`, `PendingDel
 
 The `Unavailable` state applies only to a CMK in a [custom key store](custom-key-store-overview.md)\. A CMK in a custom key store is `Unavailable` when the custom key store is intentionally disconnected from its AWS CloudHSM cluster\. You can view and manage unavailable CMKs, but you cannot use them in cryptographic operations\.
 
-The following API operations do not appear in the table because they do not use an existing CMK\.
-+ ConnectCustomKeyStore
-+ CreateCustomKeyStore
-+ CreateKey
-+ DeleteCustomKeyStore
-+ DescribeCustomKeyStores
-+ DisconnectCustomKeyStore
-+ GenerateRandom
-+ UpdateCustomKeyStore
+This table omits `CreateKey`, `GenerateRandom`, and operations that create and manage custom key stores because they do not affect an existing CMK\.
+
+**Note**  
+You might have to scroll horizontally or vertically to see all of the data in the table\.
 
 
 ****  

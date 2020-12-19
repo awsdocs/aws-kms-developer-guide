@@ -1,6 +1,6 @@
 # DeleteAlias<a name="ct-deletealias"></a>
 
-The following example shows an AWS CloudTrail log entry for the [DeleteAlias](https://docs.aws.amazon.com/kms/latest/APIReference/API_DeleteAlias.html) operation\. For information about deleting aliases, see [Deleting an alias](kms-alias.md#alias-delete)\.
+The following example shows an AWS CloudTrail log entry for the [DeleteAlias](https://docs.aws.amazon.com/kms/latest/APIReference/API_DeleteAlias.html) operation\. For information about deleting aliases, see [Deleting an alias](alias-manage.md#alias-delete)\.
 
 ```
 {

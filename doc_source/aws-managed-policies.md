@@ -3,7 +3,8 @@
 You can use an [AWS managed policy](https://docs.aws.amazon.com/IAM/latest/UserGuide/access_policies_managed-vs-inline.html#aws-managed-policies) to give IAM principals in your account the permissions of a power user\. Power users can create CMKs, use and manage the CMKs they create, and view all CMKs and IAM identities\.
 
 **Note**  
-This policy gives the power user [kms:DescribeKey](https://docs.aws.amazon.com/IAM/latest/APIReference/API_DescribeKey.html) permissions on any CMK with a key policy that permits the operation\. This might include CMKs in untrusted AWS accounts\. For details, see [Best practices for IAM policies](iam-policies-best-practices.md)\.
+This policy gives the power user [kms:DescribeKey](https://docs.aws.amazon.com/IAM/latest/APIReference/API_DescribeKey.html) permissions on any CMK with a key policy that permits the operation\. This might include CMKs in untrusted AWS accounts\. For details, see [Best practices for IAM policies](iam-policies-best-practices.md)\.  
+This policy gives the power user permission to tag and untag resources and create and delete aliases\. Changing a tag or alias can allow or deny permission to use and manage the CMK\. For details, see [Using ABAC for AWS KMS](abac.md)\.
 
 The [AWSKeyManagementServicePowerUser](https://console.aws.amazon.com/iam/home#policies/arn:aws:iam::aws:policy/AWSKeyManagementServicePowerUser) managed policy includes the following permissions\.
 
