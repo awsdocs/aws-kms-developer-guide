@@ -114,7 +114,9 @@ The following topics describe the CloudWatch Events that AWS KMS creates\.
 
 When you enable [automatic key rotation](rotate-keys.md) for a [customer managed CMK](concepts.md#customer-cmk), AWS KMS creates new key material for the CMK each year\. The key material for [AWS managed CMKs](concepts.md#aws-managed-cmk) is automatically rotated every three years\. 
 
-Whenever AWS KMS rotates key material, it sends a KMS CMK Rotation event to CloudWatch Events\. The following is an example of this event\.
+Whenever AWS KMS rotates key material, it sends a KMS CMK Rotation event to CloudWatch Events\. AWS KMS generates this event on a best\-effort basis\.
+
+The following is an example of this event\.
 
 ```
 {
@@ -136,7 +138,9 @@ Whenever AWS KMS rotates key material, it sends a KMS CMK Rotation event to Clou
 
 ### KMS imported key material expiration<a name="kms-events-expiration"></a>
 
-When you [import key material into a CMK](importing-keys.md), you can optionally specify a time at which the key material expires\. When the key material expires, AWS KMS deletes the key material and sends a corresponding event to CloudWatch Events\. The following is an example of this event\.
+When you [import key material into a CMK](importing-keys.md), you can optionally specify a time at which the key material expires\. When the key material expires, AWS KMS deletes the key material and sends a corresponding event to CloudWatch Events\. AWS KMS generates this event on a best\-effort basis\.
+
+The following is an example of this event\.
 
 ```
 {
@@ -158,7 +162,9 @@ When you [import key material into a CMK](importing-keys.md), you can optionally
 
 ### KMS CMK deletion<a name="kms-events-deletion"></a>
 
-When you [schedule key deletion](deleting-keys.md) for a CMK, AWS KMS enforces a waiting period before deleting the CMK\. After the waiting period ends, AWS KMS deletes the CMK and sends a corresponding event to CloudWatch Events\. The following is an example of this event\.
+When you [schedule key deletion](deleting-keys.md) for a CMK, AWS KMS enforces a waiting period before deleting the CMK\. After the waiting period ends, AWS KMS deletes the CMK and sends a corresponding event to CloudWatch Events\. AWS KMS guarantees this CloudWatch event\. Due to retries, it might generate multiple events within a few seconds that delete the same CMK\.
+
+ The following is an example of this event\.
 
 ```
 {

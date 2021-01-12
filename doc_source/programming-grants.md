@@ -159,12 +159,14 @@ To use the AWS KMS PowerShell cmdlets, install the [AWS\.Tools\.KeyManagementSer
 
 ## Viewing a grant<a name="list-grants"></a>
 
-To get detailed information about the grants on an AWS KMS customer master key, use the [ListGrants](https://docs.aws.amazon.com/kms/latest/APIReference/API_ListGrants.html) operation\. These examples use the optional `Limits` parameter, which determines how many grants the operation returns\.
+To get detailed information about the grants on an AWS KMS customer master key, use the [ListGrants](https://docs.aws.amazon.com/kms/latest/APIReference/API_ListGrants.html) operation\. 
 
 **Note**  
 The `GranteePrincipal` field in the `ListGrants` response usually contains the grantee principal of the grant\. However, when the grantee principal in the grant is an AWS service, the `GranteePrincipal` field contains the [service principal](https://docs.aws.amazon.com/IAM/latest/UserGuide/reference_policies_elements_principal.html#principal-services), which might represent several different grantee principals\.
 
 In languages that require a client object, these examples use the AWS KMS client object that you created in [Creating a client](programming-client.md)\.
+
+These examples use the optional `Limits` parameter, which determines how many grants the operation returns\.
 
 ------
 #### [ Java ]
@@ -285,6 +287,133 @@ $keyId = 'arn:aws:kms:us-west-2:111122223333:key/1234abcd-12ab-34cd-56ef-1234567
 $limit = 10
 
 $response = Get-KMSGrantList -KeyId $keyId | Select-Object -First $limit
+```
+
+To use the AWS KMS PowerShell cmdlets, install the [AWS\.Tools\.KeyManagementService](https://www.powershellgallery.com/packages/AWS.Tools.KeyManagementService/) module\. For more information, see the [AWS Tools for Windows PowerShell User Guide](https://docs.aws.amazon.com/powershell/latest/userguide/)\.
+
+------
+
+You must specify the CMK in every `ListGrants` operations\. However, you can further filter the grant list by specifying the grant ID or a grantee principal\. The following examples get only the grants for a CMK where the `test-engineer` role is the grantee principal\.
+
+------
+#### [ Java ]
+
+For details about the Java implementation, see the [listGrants method](https://docs.aws.amazon.com/AWSJavaSDK/latest/javadoc/com/amazonaws/services/kms/AWSKMSClient.html#listGrants-com.amazonaws.services.kms.model.ListGrantsRequest-) in the *AWS SDK for Java API Reference*\.
+
+```
+// Listing grants on a CMK
+//
+// Replace the following example key ARN with a valid key ID or key ARN
+String keyId = "arn:aws:kms:us-west-2:111122223333:key/1234abcd-12ab-34cd-56ef-1234567890ab";
+String grantee = "arn:aws:iam::111122223333:role/test-engineer";
+
+ListGrantsRequest req = new ListGrantsRequest().withKeyId(keyId).withGranteePrincipal(grantee);
+ListGrantsResult result = kmsClient.listGrants(req);
+```
+
+------
+#### [ C\# ]
+
+For details, see the [ListGrants method](https://docs.aws.amazon.com/sdkfornet/v3/apidocs/items/KeyManagementService/MKeyManagementServiceListGrantsListGrantsRequest.html) in the *AWS SDK for \.NET*\.
+
+```
+// Listing grants on a CMK
+//
+// Replace the following example key ARN with a valid key ID or key ARN
+String keyId = "arn:aws:kms:us-west-2:111122223333:key/1234abcd-12ab-34cd-56ef-1234567890ab";
+String grantee = "arn:aws:iam::111122223333:role/test-engineer";
+
+ListGrantsRequest listGrantsRequest = new ListGrantsRequest()
+{
+    KeyId = keyId,
+    GranteePrincipal = grantee
+};
+ListGrantsResponse listGrantsResponse = kmsClient.ListGrants(listGrantsRequest);
+```
+
+------
+#### [ Python ]
+
+For details, see the [list\_grants method](http://boto3.amazonaws.com/v1/documentation/api/latest/reference/services/kms.html#KMS.Client.list_grants) in the AWS SDK for Python \(Boto3\)\.
+
+```
+# Listing grants on a CMK
+
+# Replace the following example key ARN with a valid key ID or key ARN
+key_id = 'arn:aws:kms:us-west-2:111122223333:key/1234abcd-12ab-34cd-56ef-1234567890ab'
+grantee = 'arn:aws:iam::111122223333:role/test-engineer'
+
+response = kms_client.list_grants(
+    KeyId=key_id,
+    GranteePrincipal=grantee
+)
+```
+
+------
+#### [ Ruby ]
+
+For details, see the [list\_grants](https://docs.aws.amazon.com/sdk-for-ruby/v3/api/Aws/KMS/Client.html#list_grants-instance_method) instance method in the [AWS SDK for Ruby](https://docs.aws.amazon.com/sdk-for-ruby/v3/api/Aws/KMS.html)\.
+
+```
+# Listing grants on a CMK
+
+# Replace the following example key ARN with a valid key ID or key ARN
+keyId = 'arn:aws:kms:us-west-2:111122223333:key/1234abcd-12ab-34cd-56ef-1234567890ab'
+grantee = 'arn:aws:iam::111122223333:role/test-engineer'
+
+response = kmsClient.list_grants({
+  key_id: keyId,
+  grantee_principal: grantee
+})
+```
+
+------
+#### [ PHP ]
+
+For details, see the [ListGrants method](https://docs.aws.amazon.com/aws-sdk-php/v3/api/api-kms-2014-11-01.html#listgrants) in the *AWS SDK for PHP*\.
+
+```
+// Listing grants on a CMK
+//
+// Replace the following example key ARN with a valid key ID or key ARN
+$keyId = 'arn:aws:kms:us-west-2:111122223333:key/1234abcd-12ab-34cd-56ef-1234567890ab';
+$grantee = 'arn:aws:iam::111122223333:role/test-engineer';
+
+$result = $KmsClient->listGrants([
+    'KeyId' => $keyId,
+    'GranteePrincipal' => $grantee,
+]);
+```
+
+------
+#### [ Node\.js ]
+
+For details, see the [listGrants property](https://docs.aws.amazon.com/AWSJavaScriptSDK/latest/AWS/KMS.html#listGrants-property) in the *AWS SDK for JavaScript in Node\.js*\.
+
+```
+// Listing grants on a CMK
+//
+// Replace the following example key ARN with a valid key ID or key ARN
+const KeyId = 'arn:aws:kms:us-west-2:111122223333:key/1234abcd-12ab-34cd-56ef-1234567890ab';
+const Grantee = 'arn:aws:iam::111122223333:role/test-engineer';
+
+kmsClient.listGrants({ KeyId, Grantee }, (err, data) => {
+  ...
+});
+```
+
+------
+#### [ PowerShell ]
+
+To view the details of all AWS KMS grants for a CMK, use the [Get\-KMSGrantList](https://docs.aws.amazon.com/powershell/latest/reference/items/Get-KMSGrantList.html) cmdlet\.
+
+```
+# Listing grants on a CMK
+
+# Replace the following example key ARN with a valid key ID or key ARN
+$keyId = 'arn:aws:kms:us-west-2:111122223333:key/1234abcd-12ab-34cd-56ef-1234567890ab'
+$grantee = 'arn:aws:iam::111122223333:role/test-engineer'
+$response = Get-KMSGrantList -KeyId $keyId -GranteePrincipal $grantee
 ```
 
 To use the AWS KMS PowerShell cmdlets, install the [AWS\.Tools\.KeyManagementService](https://www.powershellgallery.com/packages/AWS.Tools.KeyManagementService/) module\. For more information, see the [AWS Tools for Windows PowerShell User Guide](https://docs.aws.amazon.com/powershell/latest/userguide/)\.

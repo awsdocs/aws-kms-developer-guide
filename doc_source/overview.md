@@ -41,7 +41,7 @@ AWS Key Management Service is backed by a [service level agreement](https://aws.
 **Learn more**
 + To learn about the terms and concepts used in AWS KMS, see [AWS KMS Concepts](concepts.md)\.
 + For information about the AWS KMS API, see the [AWS Key Management Service API Reference](https://docs.aws.amazon.com/kms/latest/APIReference/)\. For examples in different programming languages, see [Programming the AWS KMS API](programming-top.md)\.
-+ For detailed technical information about how AWS KMS uses cryptography and secures CMKs, see the [AWS Key Management Service Cryptographic Details](https://d0.awsstatic.com/whitepapers/KMS-Cryptographic-Details.pdf) whitepaper\. This whitepaper does not describe how AWS KMS works in the China \(Beijing\) and China \(Ningxia\) Regions\.
++ For detailed technical information about how AWS KMS uses cryptography and secures CMKs, see [AWS Key Management Service Cryptographic Details](https://docs.aws.amazon.com/kms/latest/cryptographic-details/)\. The Cryptographic Details documentation does not describe how AWS KMS works in the China \(Beijing\) and China \(Ningxia\) Regions\.
 + For help with questions about AWS KMS, see the [AWS Key Management Service Discussion Forum](https://forums.aws.amazon.com/forum.jspa?forumID=182)\.
 
 **AWS KMS in the AWS SDKs**

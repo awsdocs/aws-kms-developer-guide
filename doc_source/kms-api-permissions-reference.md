@@ -26,7 +26,7 @@ When the resource is a customer master key \(CMK\), use its [key ARN](concepts.m
 For example:  
 arn:aws:kms:us\-west\-2:111122223333:key/1234abcd\-12ab\-34cd\-56ef\-1234567890ab  
 **Alias**  
-When the resource is an alias, use its [alias ARN](concepts.md#key-id-alias-ARN)\. To get the alias ARN, use the [ListAliases](https://docs.aws.amazon.com/kms/latest/APIReference/API_ListAliases.html) operation\.  
+When the resource is an alias, use its [alias ARN](concepts.md#key-id-alias-ARN)\. For help, see [Finding the alias name and alias ARN](find-cmk-alias.md)\.  
 `arn:AWS_partition_name:kms:AWS_region:AWS_account_ID:alias/alias_name`  
 For example:  
 arn:aws:kms:us\-west\-2:111122223333:alias/ExampleAlias  

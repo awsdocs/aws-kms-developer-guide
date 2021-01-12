@@ -40,7 +40,9 @@ Allows principals to create a grant only when the grant specifies a particular [
 
 ## Viewing grants<a name="grant-view"></a>
 
-To view the grants for a CMK, use the [ListGrants](https://docs.aws.amazon.com/kms/latest/APIReference/API_ListGrants.html) operation\. To view all grants in the AWS account and Region with a particular [retiring principal](grants.md#terms-retiring-principal), use [ListRetirableGrants](https://docs.aws.amazon.com/kms/latest/APIReference/API_ListRetirableGrants.html)\. The responses include details about each grant\.
+To view the grant, use the [ListGrants](https://docs.aws.amazon.com/kms/latest/APIReference/API_ListGrants.html) operation\. You must specify the CMK to which the grants apply\. You can also filter the grant list by grant ID or grantee principal\. For more examples, see [Viewing a grant](programming-grants.md#list-grants)\.
+
+To view all grants in the AWS account and Region with a particular [retiring principal](grants.md#terms-retiring-principal), use [ListRetirableGrants](https://docs.aws.amazon.com/kms/latest/APIReference/API_ListRetirableGrants.html)\. The responses include details about each grant\.
 
 **Note**  
 The `GranteePrincipal` field in the `ListGrants` response usually contains the grantee principal of the grant\. However, when the grantee principal in the grant is an AWS service, the `GranteePrincipal` field contains the [service principal](https://docs.aws.amazon.com/IAM/latest/UserGuide/reference_policies_elements_principal.html#principal-services), which might represent several different grantee principals\.

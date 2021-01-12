@@ -1255,9 +1255,9 @@ All [AWS managed CMKs](concepts.md#aws-managed-cmk) use a `kms:ViaService` condi
 
 The `kms:ViaService` condition key is valid in IAM and key policy statements\. The services that you specify must be [integrated with AWS KMS](https://aws.amazon.com/kms/features/#AWS_Service_Integration) and support the `kms:ViaService` condition key\.
 
-#### Services that support the `kms:ViaService` condition key \(in customer managed CMKs\)<a name="viaService_table"></a>
+#### Services that support the `kms:ViaService` condition key<a name="viaService_table"></a>
 
-The following table lists AWS services that are integrated with AWS KMS, support customer managed CMKs, and support the use of the `kms:ViaService` condition key in customer managed CMKs\. The services in this table might not be available in all regions\. Use the `.amazonaws.com` suffix of the AWS KMS ViaService name in all AWS partitions\.
+The following table lists AWS services that are integrated with AWS KMS and support the use of the `kms:ViaService` condition key in customer managed CMKs\. The services in this table might not be available in all regions\. Use the `.amazonaws.com` suffix of the AWS KMS ViaService name in all AWS partitions\.
 
 **Note**  
 You might need to scroll horizontally or vertically to see all of the data in this table\.
@@ -1267,6 +1267,7 @@ You might need to scroll horizontally or vertically to see all of the data in th
 | --- | --- | 
 | Amazon Appflow | appflow\.AWS\_region\.amazonaws\.com | 
 | Amazon Athena | athena\.AWS\_region\.amazonaws\.com | 
+| AWS Audit Manager | auditmanager\.AWS\_region\.amazonaws\.com | 
 | Amazon Aurora | rds\.AWS\_region\.amazonaws\.com | 
 | AWS Backup | backup\.AWS\_region\.amazonaws\.com | 
 | AWS CodeArtifact | codeartifact\.AWS\_region\.amazonaws\.com | 
@@ -1284,13 +1285,17 @@ You might need to scroll horizontally or vertically to see all of the data in th
 | Amazon Forecast | forecast\.AWS\_region\.amazonaws\.com | 
 | Amazon FSx | fsx\.AWS\_region\.amazonaws\.com | 
 | AWS Glue | glue\.AWS\_region\.amazonaws\.com | 
+| AWS IoT SiteWise | iotsitewise\.AWS\_region\.amazonaws\.com | 
 | Amazon Kendra | kendra\.AWS\_region\.amazonaws\.com | 
 | Amazon Kinesis | kinesis\.AWS\_region\.amazonaws\.com | 
 | Amazon Kinesis Data Firehose | firehose\.AWS\_region\.amazonaws\.com | 
 | Amazon Kinesis Video Streams | kinesisvideo\.AWS\_region\.amazonaws\.com | 
 | AWS Lambda | lambda\.AWS\_region\.amazonaws\.com | 
 | Amazon Lex | lex\.AWS\_region\.amazonaws\.com | 
+| AWS License Manager | license\-manager\.AWS\_region\.amazonaws\.com | 
 | Amazon Managed Streaming for Apache Kafka \(Amazon MSK\) | kafka\.AWS\_region\.amazonaws\.com | 
+| Amazon Managed Workflows for Apache Airflow \(MWAA\) | airflow\.AWS\_region\.amazonaws\.com | 
+| Amazon Monitron | monitron\.AWS\_region\.amazonaws\.com | 
 | Amazon MQ | mq\.AWS\_region\.amazonaws\.com | 
 | Amazon Neptune | rds\.AWS\_region\.amazonaws\.com | 
 | Amazon RDS Performance Insights | rds\.AWS\_region\.amazonaws\.com | 
