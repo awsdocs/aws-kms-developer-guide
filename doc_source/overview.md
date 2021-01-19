@@ -1,6 +1,6 @@
 # What is AWS Key Management Service?<a name="overview"></a>
 
-AWS Key Management Service \(AWS KMS\) is a managed service that makes it easy for you to create and control *customer master keys* \(CMKs\), the encryption keys used to encrypt your data\. AWS KMS CMKs are protected by hardware security modules \(HSMs\) that are validated by the [FIPS 140\-2 Cryptographic Module Validation Program](https://csrc.nist.gov/projects/cryptographic-module-validation-program/Certificate/3139) except in the China \(Beijing\) and China \(Ningxia\) Regions\. 
+AWS Key Management Service \(AWS KMS\) is a managed service that makes it easy for you to create and control *customer master keys* \(CMKs\), the encryption keys used to encrypt your data\. AWS KMS CMKs are protected by hardware security modules \(HSMs\) that are validated by the [FIPS 140\-2 Cryptographic Module Validation Program](https://csrc.nist.gov/projects/cryptographic-module-validation-program) except in the China \(Beijing\) and China \(Ningxia\) Regions\. 
 
 AWS KMS is integrated with most [other AWS services](https://aws.amazon.com/kms/features/#AWS_Service_Integration) that encrypt your data\. AWS KMS is also integrated with [AWS CloudTrail](https://docs.aws.amazon.com/awscloudtrail/latest/userguide/) to log use of your CMKs for auditing, regulatory, and compliance needs\.
 
