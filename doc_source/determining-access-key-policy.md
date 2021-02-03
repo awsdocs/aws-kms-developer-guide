@@ -1,6 +1,6 @@
 # Examining the key policy<a name="determining-access-key-policy"></a>
 
-[Key policies](key-policies.md) are the primary way to control access to AWS KMS customer master keys \(CMKs\)\.
+[Key policies](key-policies.md) are the primary way to control access to AWS KMS customer master keys \(CMKs\)\. Every CMK has exactly one key policy\.
 
 When a key policy consists of or includes the [default key policy](key-policies.md#key-policy-default-allow-root-enable-iam), the key policy allows IAM administrators in the account to use IAM policies to control access to the CMK\. Also, if the key policy gives [another AWS account](key-policy-modifying-external-accounts.md) permission to use the CMK, the IAM administrators in the external account can use IAM policies to delegate those permissions\. To determine the complete list of principals that can access the CMK, [examine the IAM policies](determining-access-iam-policies.md)\. 
 

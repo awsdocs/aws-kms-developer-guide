@@ -31,9 +31,11 @@ You can view the resulting cross\-account AWS KMS operations on the CMK in your 
 
 The key policy for a CMK is the primary determinant of who can access the CMK and which operations they can perform\. The key policy is always in the account that owns the CMK\. Unlike IAM policies, key policies do not specify a resource\. The resource is the CMK that is associated with the key policy\.
 
-To give an external account permission to use the CMK, add a statement to the key policy that specifies the external account\. In the `Principal` element of the key policy, enter the Amazon Resource Name \(ARN\) of the external account\.
+To give an external account permission to use the CMK, add a statement to the key policy that specifies the external account\. In the `Principal` element of the key policy, enter the Amazon Resource Name \(ARN\) of the external account\. 
 
 When you specify an external account in a key policy, IAM administrators in the external account can use IAM policies to delegate those permissions to any users and roles in the external account\. They can also decide which of the actions specified in the key policy the users and roles can perform\. 
+
+Permissions given to the external account and its principals are effective only if the external account is enabled in the Region that hosts the CMK and its key policy\. For information about Regions that are not enabled by default \("opt\-in Regions"\), see [Managing AWS Regions](https://docs.aws.amazon.com/general/latest/gr/rande-manage.html) in the *AWS General Reference*\.
 
 For example, assume that you want to allow account 444455556666 to use a symmetric CMK in account 111122223333\. To do that, add a policy statement like the one in the following example to the key policy for the CMK in account 111122223333\. This policy statement gives the external account, 444455556666, permission to use the CMK in cryptographic operations for symmetric CMKs\. 
 

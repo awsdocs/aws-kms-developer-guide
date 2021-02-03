@@ -1,7 +1,7 @@
 # Troubleshooting key access<a name="policy-evaluation"></a>
 
 When authorizing access to a customer master key \(CMK\), AWS KMS evaluates the following:
-+ The [key policy](determining-access-key-policy.md) that is attached to the CMK\. The key policy is always defined in the AWS account that owns the CMK\. 
++ The [key policy](determining-access-key-policy.md) that is attached to the CMK\. The key policy is always defined in the AWS account and Region that owns the CMK\. 
 + All [IAM policies](determining-access-iam-policies.md) that are attached to the IAM user or role making the request\. IAM policies that govern a principal's use of a CMK are always defined in the principal's AWS account\.
 + All [grants](determining-access-grants.md) that apply to the CMK\.
 + Other types of policies that might apply to the request to use the CMK, such as [AWS Organizations service control policies](https://docs.aws.amazon.com/organizations/latest/userguide/orgs_manage_policies_type-auth.html#orgs_manage_policies_scp) and [VPC endpoint policies](kms-vpc-endpoint.md#vpce-policy)\. These policies are optional and allow all actions by default, but you can use them to restrict permissions otherwise given to principals\.

@@ -88,17 +88,13 @@ This IAM policy does not include `kms:PutKeyPolicy` permission or any other perm
     {
       "Sid": "IAMPermissionsForParticularCMKs",
       "Effect": "Allow",
-      "Action": {
-        "kms:TagResource"         
-      },
+      "Action": "kms:TagResource",
       "Resource": "arn:aws:kms:*:111122223333:key/*"
     },
     {
       "Sid": "IAMPermissionsForParticularAliases",
       "Effect": "Allow",
-      "Action": {
-        "kms:CreateAlias"
-      },
+      "Action": "kms:CreateAlias",
       "Resource": "arn:aws:kms:*:111122223333:alias/*"
     },
     {

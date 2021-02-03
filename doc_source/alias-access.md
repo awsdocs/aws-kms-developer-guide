@@ -14,7 +14,7 @@ Permissions to create and manage aliases work as follows\.
 To create an alias, the principal needs the following permissions for both the alias and for the associated CMK\. 
 + `kms:CreateAlias` for the alias\. Provide this permission in an IAM policy that is attached to the principal who is allowed to create the alias\.
 
-  The following example policy statement specifies a particular alias in a `Resource` element\. But you can list multiple alias ARNs, specify an alias pattern, such as "test\*", or specify a `Resource` value of `"*"` to allow the principal to create any alias in the account and Region\. Permission to create an alias can also be included in a `kms:Create*` permission for all resources in an account and Region\.
+  The following example policy statement specifies a particular alias in a `Resource` element\. But you can list multiple alias ARNs or specify an alias pattern, such as "test\*"\. You can also specify a `Resource` value of `"*"` to allow the principal to create any alias in the account and Region\. Permission to create an alias can also be included in a `kms:Create*` permission for all resources in an account and Region\.
 
   ```
   {
@@ -70,7 +70,7 @@ For example, the following IAM policy statement gives the principal permission t
 To change the CMK that is associated with an alias, the principal needs three permission elements: one for the alias, one for the current CMK, and one for the new CMK\.
 
 For example, suppose you want to change the `test-key` alias from the CMK with key ID 1234abcd\-12ab\-34cd\-56ef\-1234567890ab to the CMK with key ID 0987dcba\-09fe\-87dc\-65ba\-ab0987654321\. In that case, include policy statements similar to the examples in this section\.
-+ `kms:UpdateAlias` for the alias\. You provide this permission in an IAM policy that is attached to the principal\. The following IAM policy specifies a particular alias\. But you can list multiple alias ARNs, specify an alias pattern, such as "test\*", or specify a `Resource` value of `"*"` to allow the principal to update any alias in the account and Region\.
++ `kms:UpdateAlias` for the alias\. You provide this permission in an IAM policy that is attached to the principal\. The following IAM policy specifies a particular alias\. But you can list multiple alias ARNs or specify an alias pattern, such as `"test*"`\. You can also specify a `Resource` value of `"*"` to allow the principal to update any alias in the account and Region\.
 
   ```
   {
@@ -122,7 +122,7 @@ To delete an alias, the principal needs permission for the alias and for the ass
 As always, you should exercise caution when giving principals permission to delete a resource\. However, deleting an alias has no effect on the associated CMK\. Although it might cause a failure in an application that relies on the alias, if you mistakenly delete an alias, you can recreate it\. 
 + `kms:DeleteAlias` for the alias\. Provide this permission in an IAM policy attached to the principal who is allowed to delete the alias\.
 
-  The following example policy statement specifies the alias in a `Resource` element\. But you can list multiple alias ARNs, specify an alias pattern, such as "test\*" or specify a `Resource` value of `"*"` to allow the principal to delete any alias in the account and Region\.
+  The following example policy statement specifies the alias in a `Resource` element\. But you can list multiple alias ARNs or specify an alias pattern, such as `"test*"`, You can also specify a `Resource` value of `"*"` to allow the principal to delete any alias in the account and Region\.
 
   ```
   {

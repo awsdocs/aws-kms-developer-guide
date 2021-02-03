@@ -14,7 +14,7 @@ When you create an alias, you specify the alias name\. AWS KMS creates the alias
   # Alias ARN
   arn:aws:kms:us-west-2:111122223333:alias/<alias-name>
   ```
-+ An [alias name](concepts.md#key-id-alias-name) that is unique in the account and Region\. In the AWS KMS APIs, the alias name is always prefixed by `alias/`\. That prefix is omitted in the AWS KMS console\.
++ An [alias name](concepts.md#key-id-alias-name) that is unique in the account and Region\. In the AWS KMS API, the alias name is always prefixed by `alias/`\. That prefix is omitted in the AWS KMS console\.
 
   ```
   # Alias name
@@ -74,5 +74,5 @@ AWS creates aliases in your account for [AWS managed CMKs](concepts.md#aws-manag
 Some AWS aliases have no CMK\. These predefined aliases are usually associated with an AWS managed CMK when you start using the service\. Aliases that AWS creates in your account, including predefined aliases, do not count against your [AWS KMS aliases quota](resource-limits.md#aliases-limit)\.
 
 **Use aliases to identify CMKs**  
-You can use an [alias name](concepts.md#key-id-alias-name) or [alias ARN](concepts.md#key-id-alias-ARN) to identify a CMK in AWS KMS [cryptographic operations](concepts.md#cryptographic-operations) and in the [DescribeKey](https://docs.aws.amazon.com/kms/latest/APIReference/API_DescribeKey.html) operation\. However, you cannot use an alias name or alias ARN in API operations that manage CMKs, such as [DisableKey](https://docs.aws.amazon.com/kms/latest/APIReference/API_DisableKey.html) or [GetKeyPolicy](https://docs.aws.amazon.com/kms/latest/APIReference/API_GetKeyPolicy.html)\. For information about the valid [key identifiers](concepts.md#key-id) for each AWS KMS API operation, see the descriptions of the `KeyId` parameters in the AWS Key Management Service API Reference\.  
+You can use an [alias name](concepts.md#key-id-alias-name) or [alias ARN](concepts.md#key-id-alias-ARN) to identify a CMK in AWS KMS [cryptographic operations](concepts.md#cryptographic-operations) and in the [DescribeKey](https://docs.aws.amazon.com/kms/latest/APIReference/API_DescribeKey.html) operation\. However, you cannot use an alias name or alias ARN in API operations that manage CMKs, such as [DisableKey](https://docs.aws.amazon.com/kms/latest/APIReference/API_DisableKey.html) or [GetKeyPolicy](https://docs.aws.amazon.com/kms/latest/APIReference/API_GetKeyPolicy.html)\. For information about the valid [key identifiers](concepts.md#key-id) for each AWS KMS API operation, see the descriptions of the `KeyId` parameters in the *AWS Key Management Service API Reference*\.  
 You cannot use an alias name or alias ARN to identify a CMK in the `Resource` element of an [IAM policy](iam-policies.md)\. This restriction prevents errors that might occur if you intended to control access to a particular CMK, but the alias is deleted or updated to a different CMK\.  

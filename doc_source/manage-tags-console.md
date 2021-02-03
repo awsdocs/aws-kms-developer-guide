@@ -22,7 +22,7 @@ To add tags when creating a CMK in the console, you must have `kms:TagResource` 
 
 ## View and manage tags on existing CMKs<a name="tag-existing"></a>
 
-To add, view, edit, and delete tags in the console, you need tagging permission on the CMK\. You can get this permission from the key policy for the CMK or, if the key policy allows it, from an IAM policy that includes the CMK\. You need these permission in addition to the permissions to view CMKs in the console\.
+To add, view, edit, and delete tags in the console, you need tagging permission on the CMK\. You can get this permission from the key policy for the CMK or, if the key policy allows it, from an IAM policy that includes the CMK\. You need these permissions in addition to the permissions to view CMKs in the console\.
 
 1. Sign in to the AWS Management Console and open the AWS Key Management Service \(AWS KMS\) console at [https://console\.aws\.amazon\.com/kms](https://console.aws.amazon.com/kms)\.
 

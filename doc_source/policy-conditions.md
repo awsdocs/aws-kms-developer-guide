@@ -124,7 +124,7 @@ The following example IAM policy statement prevents users from bypassing the pol
 
 You can also use the `kms:BypassPolicyLockoutSafetyCheck` condition key in an IAM policy or key policy to control access to the `PutKeyPolicy` operation\. The following example policy statement from a key policy prevents users from bypassing the policy lockout safety check when changing the policy of a CMK\. 
 
-Instead of using an explicit `Deny`, this policy statement uses `Allow` with the [Null condition operator](https://docs.aws.amazon.com/IAM/latest/UserGuide/reference_policies_elements_condition_operators.html#Conditions_Null) to allow access only when the request does not include the `BypassPolicyLockoutSafetyCheck` parameter\. When the parameter is not used, the default value is `false`\. This slightly weaker policy statement can be overriden in the rare case that a bypass is necessary\. 
+Instead of using an explicit `Deny`, this policy statement uses `Allow` with the [Null condition operator](https://docs.aws.amazon.com/IAM/latest/UserGuide/reference_policies_elements_condition_operators.html#Conditions_Null) to allow access only when the request does not include the `BypassPolicyLockoutSafetyCheck` parameter\. When the parameter is not used, the default value is `false`\. This slightly weaker policy statement can be overridden in the rare case that a bypass is necessary\. 
 
 ```
 {
@@ -584,7 +584,7 @@ You can also use [provider\-specific context keys](https://docs.aws.amazon.com/I
 
 Like all variables, these variables can be used only in the `kms:EncryptionContext:` policy condition, not in the actual encryption context\. And they can be used only in the value of the condition, not in the key\.
 
-For example, the following key policy statement is similar to the previous one\. However, the condition requires an encryption context where the key is `sub` and the value uniquely identifies a user logged into a Amazon Cognito user pool\. For details about identifying users and roles in Amazon Cognito, see [IAM Roles](https://docs.aws.amazon.com/cognito/latest/developerguide/iam-roles.html) in the [Amazon Cognito Developer Guide](https://docs.aws.amazon.com/cognito/latest/developerguide/)\.
+For example, the following key policy statement is similar to the previous one\. However, the condition requires an encryption context where the key is `sub` and the value uniquely identifies a user logged into an Amazon Cognito user pool\. For details about identifying users and roles in Amazon Cognito, see [IAM Roles](https://docs.aws.amazon.com/cognito/latest/developerguide/iam-roles.html) in the [Amazon Cognito Developer Guide](https://docs.aws.amazon.com/cognito/latest/developerguide/)\.
 
 ```
 {
@@ -1022,7 +1022,7 @@ To specify the alias in this policy condition, use an [alias name](concepts.md#k
 
 To satisfy this condition, the value of the `KeyId` parameter in the request must be a matching alias name or alias ARN\. If the request uses a different [key identifier](concepts.md#key-id), it does not satisfy the condition, even if identifies the same CMK\.
 
-For example, the following key policy statement allows the principal to call the [GenerateDataKey](https://docs.aws.amazon.com/kms/latest/APIReference/API_GenerateDataKey.html) operation on the CMK, but only when the value of the `KeyId` parameter in the request is `alias/finance-key` or an alias ARN with that alias name, such as `arn:aws:kms:us-west-2:111122223333:alias/finance-key`\.
+For example, the following key policy statement allows the principal to call the [GenerateDataKey](https://docs.aws.amazon.com/kms/latest/APIReference/API_GenerateDataKey.html) operation on the CMK\. However this is permitted only when the value of the `KeyId` parameter in the request is `alias/finance-key` or an alias ARN with that alias name, such as `arn:aws:kms:us-west-2:111122223333:alias/finance-key`\.
 
 ```
 {
@@ -1050,9 +1050,9 @@ You cannot use this condition key to control access to alias operations, such as
 | --- | --- | --- | --- | 
 |  `kms:ResourceAliases`  |  String \(list\)  | CMK resource operations |  IAM policies only  | 
 
-Use this condition key to control access to a CMK based on the [aliases](kms-alias.md) associated with the CMK\. The operation must be a *CMK resource operation*, that is, an operation that is authorized for a particular CMK\. To identify the CMK resource operations, in the [Actions and Resources Table](kms-api-permissions-reference.md#kms-api-permissions-reference-table), look for a value of `CMK` in the `Resources` column for the operation\.
+Use this condition key to control access to a CMK based on the [aliases](kms-alias.md) that are associated with the CMK\. The operation must be a *CMK resource operation*, that is, an operation that is authorized for a particular CMK\. To identify the CMK resource operations, in the [Actions and Resources Table](kms-api-permissions-reference.md#kms-api-permissions-reference-table), look for a value of `CMK` in the `Resources` column for the operation\.
 
-This condition supports attribute\-based access control \(ABAC\) in AWS KMS, which lets you control access to CMKs based on the tags assigned to a CMK and the aliases associated with a CMK\. You can use tags and aliases to allow or deny access to a CMK without changing policies or grants\. For details, see [Using ABAC for AWS KMS](abac.md)\.
+This condition supports attribute\-based access control \(ABAC\) in AWS KMS\. With ABAC, you can control access to CMKs based on the tags that are assigned to a CMK and the aliases that are associated with a CMK\. You can use tags and aliases to allow or deny access to a CMK without changing policies or grants\. For details, see [Using ABAC for AWS KMS](abac.md)\.
 
 **Note**  
 The [kms:ResourceAliases](#conditions-kms-resource-aliases) condition is effective only when the CMK conforms to the [aliases per CMK](resource-limits.md#aliases-per-key) quota\. If a CMK exceeds this quota, principals who are authorized to use the CMK by the `kms:ResourceAliases` condition are denied access to the CMK\.

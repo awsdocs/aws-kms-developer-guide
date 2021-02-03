@@ -1,6 +1,6 @@
 # Using key policies in AWS KMS<a name="key-policies"></a>
 
-Key policies are the primary way to control access to customer master keys \(CMKs\) in AWS KMS\. They are not the only way to control access, but you cannot control access without them\. For more information, see [Managing access to AWS KMS CMKs](control-access-overview.md#managing-access)\.
+Key policies are the primary way to control access to customer master keys \(CMKs\) in AWS KMS\. Every CMK must have exactly one key policy\. The statements in the key policy document determine who has permission to use the CMK and how they can use it\. You can also use [IAM policies](iam-policies.md) and [grants](grants.md) to control access to the CMK, but every CMK must have a key policy\. For more information, see [Managing access to AWS KMS CMKs](control-access-overview.md#managing-access)\.
 
 **Topics**
 + [Overview of key policies](#key-policy-overview)
@@ -11,11 +11,11 @@ For help writing and formatting a JSON policy document, see the [IAM JSON Policy
 
 ## Overview of key policies<a name="key-policy-overview"></a>
 
-A key policy is a document that uses [JSON \(JavaScript Object Notation\)](http://json.org/) to specify permissions\. You can work with these JSON documents directly, or you can use the AWS Management Console to work with them using a graphical interface called the *default view*\. 
+Every customer master key \(CMK\) must have exactly one key policy\. This key policy controls access only to its associated CMK, along with IAM policies and grants\. Unlike IAM policies, which are global, key policies are Regional\. Each key policy is effective only in the Region that hosts the CMK\.
 
-For more information about the console's default view for key policies, see [Default key policy](#key-policy-default) and [Changing a key policy](key-policy-modifying.md)\. For help writing and formatting a JSON policy document, see the [IAM JSON Policy Reference](https://docs.aws.amazon.com/IAM/latest/UserGuide/reference_policies.html) in the *IAM User Guide*\.
+A key policy is implemented as a [JSON \(JavaScript Object Notation\)](http://json.org/) document of up to [32 KB](resource-limits.md#key-policy-limit) \(32,768 bytes\)\. You can create and manage key policies in the AWS KMS console or by using AWS KMS API operations, such as [CreateKey](https://docs.aws.amazon.com/kms/latest/APIReference/API_CreateKey.html) and [PutKeyPolicy](https://docs.aws.amazon.com/kms/latest/APIReference/API_PutKeyPolicy.html)\. 
 
-A key policy document cannot exceed 32 KB \(32,768 bytes\)\. Key policy documents use the same JSON syntax as other policy documents in AWS and have the following basic structure:
+Key policy documents use the same JSON syntax as other policy documents in AWS and have the following basic structure:
 
 ```
 {
@@ -31,10 +31,14 @@ A key policy document cannot exceed 32 KB \(32,768 bytes\)\. Key policy document
 }
 ```
 
+For information about using the console's default view for key policies, see [Default key policy](#key-policy-default) and [Changing a key policy](key-policy-modifying.md)\. For help writing and formatting a JSON policy document, see the [IAM JSON Policy Reference](https://docs.aws.amazon.com/IAM/latest/UserGuide/reference_policies.html) in the *IAM User Guide*\.
+
 A key policy document must have a `Version` element\. We recommend setting the version to `2012-10-17` \(the latest version\)\. In addition, a key policy document must have one or more statements, and each statement consists of up to six elements:
 + **Sid** – \(Optional\) The Sid is a statement identifier, an arbitrary string you can use to identify the statement\.
 + **Effect** – \(Required\) The effect specifies whether to allow or deny the permissions in the policy statement\. The Effect must be Allow or Deny\. If you don't explicitly allow access to a CMK, access is implicitly denied\. You can also explicitly deny access to a CMK\. You might do this to make sure that a user cannot access it, even when a different policy allows access\.
-+ **Principal** – \(Required\) The [principal](https://docs.aws.amazon.com/IAM/latest/UserGuide/reference_policies_elements_principal.html#Principal_specifying) is the identity that gets the permissions specified in the policy statement\. You can specify AWS accounts \(root\), IAM users, IAM roles, and some AWS services as principals in a key policy\. IAM groups are not valid principals\.
++ **Principal** – \(Required\) The [principal](https://docs.aws.amazon.com/IAM/latest/UserGuide/reference_policies_elements_principal.html#Principal_specifying) is the identity that gets the permissions specified in the policy statement\. You can specify AWS accounts \(root\), IAM users, IAM roles, and some AWS services as principals in a key policy\. IAM groups are not valid principals\. 
+
+  When the principal is another AWS account or its principals, the permissions are effective only when the account is enabled in the Region with the CMK and key policy\. For information about Regions that are not enabled by default \("opt\-in Regions"\), see [Managing AWS Regions](https://docs.aws.amazon.com/general/latest/gr/rande-manage.html) in the *AWS General Reference*\.
 **Note**  
 Do not set the Principal to an asterisk \(\*\) in any key policy statement that allows permissions unless you use conditions to limit the key policy\. An asterisk gives every identity in every AWS account permission to use the CMK, unless another policy statement explicitly denies it\. Users in other AWS accounts just need corresponding IAM permissions in their own accounts to use the CMK\.
 + **Action** – \(Required\) Actions specify the API operations to allow or deny\. For example, the `kms:Encrypt` action corresponds to the AWS KMS [Encrypt](https://docs.aws.amazon.com/kms/latest/APIReference/API_Encrypt.html) operation\. You can list more than one action in a policy statement\. For more information, see [AWS KMS API permissions reference](kms-api-permissions-reference.md)\.

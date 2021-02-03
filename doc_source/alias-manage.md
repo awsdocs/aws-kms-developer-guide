@@ -218,7 +218,7 @@ Next, it uses the `UpdateAlias` operation to change the CMK that is associated w
 $ aws kms update-alias --alias-name 'alias/test-key' --target-key-id 0987dcba-09fe-87dc-65ba-ab0987654321
 ```
 
-To verify that the alias is now associated with the target CMK, use the `ListAliases` operation again\. This AWS CLI command uses the `--query` parameter to get only the `test-key` alias\. The `TargetKeyId` and `LastUpdatedDate` fields are upated\.
+To verify that the alias is now associated with the target CMK, use the `ListAliases` operation again\. This AWS CLI command uses the `--query` parameter to get only the `test-key` alias\. The `TargetKeyId` and `LastUpdatedDate` fields are updated\.
 
 ```
 $ aws kms list-aliases --query 'Aliases[?AliasName==`alias/test-key`]'
@@ -265,7 +265,7 @@ For example, the following command deletes the `test-key` alias\. This command d
 $ aws kms delete-alias --alias name alias/test-key
 ```
 
-To verify that the alias is deleted, use the [ListAliases](https://docs.aws.amazon.com/kms/latest/APIReference/API_ListAliases.html) operation\. The following command use the `--query` parameter in the AWS CLI to get only the `test-key` alias\. The empty brackets in the response indicate that the `ListAliases` response didn't include a `test-key` alias\. To eliminate the brackets, use the `--output text` parameter and value\.
+To verify that the alias is deleted, use the [ListAliases](https://docs.aws.amazon.com/kms/latest/APIReference/API_ListAliases.html) operation\. The following command uses the `--query` parameter in the AWS CLI to get only the `test-key` alias\. The empty brackets in the response indicate that the `ListAliases` response didn't include a `test-key` alias\. To eliminate the brackets, use the `--output text` parameter and value\.
 
 ```
 $ aws kms list-aliases --query 'Aliases[?AliasName==`alias/test-key`]'
