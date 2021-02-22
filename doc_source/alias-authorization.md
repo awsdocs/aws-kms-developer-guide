@@ -78,8 +78,9 @@ For example, the following IAM policy lets the principals manage automatic key r
        "arn:aws:kms:*:444455556666:key/*",
       ],
       "Condition": {
-      "ForAnyValue:StringLike": {
-        "kms:ResourceAliases": "alias/restricted*"
+        "ForAnyValue:StringLike": {
+          "kms:ResourceAliases": "alias/restricted*"
+        }
       }
     }
   ]
