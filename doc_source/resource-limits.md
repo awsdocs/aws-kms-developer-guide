@@ -12,7 +12,6 @@ For help requesting an increase in an AWS KMS quota, see [Request an AWS KMS Quo
 | Quota name | Default value | Applies to | 
 | --- | --- | --- | 
 | [Customer master keys \(CMKs\)](#customer-master-keys-limit) | 10,000 | Customer managed CMKs | 
-| [Aliases per Region](#aliases-limit) | 10,000 | Customer created aliases | 
 | [Aliases per CMK](#aliases-per-key) | 50 | Customer created aliases | 
 | [Grants per CMK](#grants-per-key) | 50,000 | Customer managed CMKs | 
 | [Grants for a given principal per CMK](#grants-per-principal-per-key) | 500 |  Customer managed CMKs AWS managed CMKs  | 
@@ -24,18 +23,14 @@ In addition to resource quotas, AWS KMS uses request quotas to ensure the respon
 
 You can have up to 10,000 [customer managed CMKs](concepts.md#customer-cmk) in each Region of your AWS account\. This quota applies to all [symmetric](symm-asymm-concepts.md#symmetric-cmks) and [asymmetric](symm-asymm-concepts.md#asymmetric-cmks) customer managed CMKs regardless of their [key state](key-state.md)\. Each CMK — whether symmetric or asymmetric — is considered to be one resource\. [AWS managed CMKs](concepts.md#aws-managed-cmk) and [AWS owned CMKs](concepts.md#aws-owned-cmk) do not count against this quota\.
 
-## Aliases per Region: 10,000<a name="aliases-limit"></a>
-
-You can create up to 10,000 [aliases](kms-alias.md) in each AWS Region of your account\. Aliases that AWS creates in your account, such as aws/*<service\-name>*, do not count against this quota\. 
-
-If you increase your [customer master keys quota](#customer-master-keys-limit), you might also need to [request an increase](increase-quota.md) in your aliases per Region quota\.
-
 ## Aliases per CMK: 50<a name="aliases-per-key"></a>
 
 You can associate up to 50 [aliases](kms-alias.md) with each [customer managed CMK](concepts.md#customer-cmk)\. Aliases that AWS associates with [AWS managed CMKs](concepts.md#aws-managed-cmk) do not count against this quota\. You might encounter this quota when you [create](alias-manage.md#alias-create) or [update](alias-manage.md#alias-update) an alias\.
 
 **Note**  
-The [kms:ResourceAliases](policy-conditions.md#conditions-kms-resource-aliases) condition is effective only when the CMK conforms to this quota\. If a CMK exceeds this quota, principals who are authorized to use the CMK by the `kms:ResourceAliases` condition are denied access to the CMK\.
+The [kms:ResourceAliases](policy-conditions.md#conditions-kms-resource-aliases) condition is effective only when the CMK conforms to this quota\. If a CMK exceeds this quota, principals who are authorized to use the CMK by the `kms:ResourceAliases` condition are denied access to the CMK\. For details, see [ Access denied due to alias quota  Users who are authorized to use a CMK by an [kms:ResourceAliases](policy-conditions.md#conditions-kms-resource-aliases) condition will get an `AccessDenied` exception if the CMK exceeds the default [aliases per CMK](resource-limits.md#aliases-per-key) quota for that account and Region\.  To restore access, delete aliases that are associated with the CMK so it complies with the quota\. Or use an alternate mechanism to give users access to the CMK\.  ](abac.md#access-denied-alias-quota)\.
+
+The Aliases per CMK quota replaces the Aliases per Region quota that limited the total number of aliases in each Region of an AWS account\. AWS KMS has eliminated the Aliases per Region quota\.
 
 ## Grants per CMK: 50,000<a name="grants-per-key"></a>
 

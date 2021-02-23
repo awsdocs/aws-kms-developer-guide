@@ -70,7 +70,7 @@ However, if you use this feature, be careful when managing tags and aliases\. Ad
 
 AWS KMS supports ABAC with tags and aliases\. Both options provide a flexible, scalable access control strategy, but they're slightly different from each other\. 
 
-You might decide to use tags or use aliases based on your particular AWS use patterns\. For example, if you have already given tagging permissions to most administrators, it might be easier to control an authorization strategy based on aliases\. Or, if you are close to the quota on [aliases in the account and Region](resource-limits.md#aliases-limit) or the quota for [aliases per CMK](resource-limits.md#aliases-per-key), you might prefer an authorization strategy based on tags\. 
+You might decide to use tags or use aliases based on your particular AWS use patterns\. For example, if you have already given tagging permissions to most administrators, it might be easier to control an authorization strategy based on aliases\. Or, if you are close to the quota for [aliases per CMK](resource-limits.md#aliases-per-key), you might prefer an authorization strategy based on tags\. 
 
 The following benefits are of general interest\.
 

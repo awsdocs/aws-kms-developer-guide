@@ -71,7 +71,7 @@ When you create a CMK in the AWS KMS console, you must give it a new alias\. But
 
 **AWS creates aliases in your account**  
 AWS creates aliases in your account for [AWS managed CMKs](concepts.md#aws-managed-cmk)\. These aliases have names of the form `alias/aws/<service-name>`, such as `alias/aws/s3`\.   
-Some AWS aliases have no CMK\. These predefined aliases are usually associated with an AWS managed CMK when you start using the service\. Aliases that AWS creates in your account, including predefined aliases, do not count against your [AWS KMS aliases quota](resource-limits.md#aliases-limit)\.
+Some AWS aliases have no CMK\. These predefined aliases are usually associated with an AWS managed CMK when you start using the service\.
 
 **Use aliases to identify CMKs**  
 You can use an [alias name](concepts.md#key-id-alias-name) or [alias ARN](concepts.md#key-id-alias-ARN) to identify a CMK in AWS KMS [cryptographic operations](concepts.md#cryptographic-operations) and in the [DescribeKey](https://docs.aws.amazon.com/kms/latest/APIReference/API_DescribeKey.html) operation\. However, you cannot use an alias name or alias ARN in API operations that manage CMKs, such as [DisableKey](https://docs.aws.amazon.com/kms/latest/APIReference/API_DisableKey.html) or [GetKeyPolicy](https://docs.aws.amazon.com/kms/latest/APIReference/API_GetKeyPolicy.html)\. For information about the valid [key identifiers](concepts.md#key-id) for each AWS KMS API operation, see the descriptions of the `KeyId` parameters in the *AWS Key Management Service API Reference*\.  

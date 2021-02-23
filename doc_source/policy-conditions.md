@@ -301,7 +301,7 @@ For example, the following IAM policy allows principals to perform the specified
 
 | AWS KMS condition keys | Condition type | API operations | Policy type | 
 | --- | --- | --- | --- | 
-|  `kms:DataKeySpec`  |  String  |  `GenerateDataKeyPair` `GenerateDataKeyPairWithoutPlaintext` |  Key policies and IAM policies  | 
+|  `kms:DataKeyPairSpec`  |  String  |  `GenerateDataKeyPair` `GenerateDataKeyPairWithoutPlaintext` |  Key policies and IAM policies  | 
 
 You can use this condition key to control access to the [GenerateDataKeyPair](https://docs.aws.amazon.com/kms/latest/APIReference/API_GenerateDataKeyPair.html) and [GenerateDataKeyPairWithoutPlaintext](https://docs.aws.amazon.com/kms/latest/APIReference/API_GenerateDataKeyPairWithoutPlaintext.html) operations based on the value of the `KeyPairSpec` parameter in the request\. For example, you can allow a user to generate only particular types of data key pairs\.
 

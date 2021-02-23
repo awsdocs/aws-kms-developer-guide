@@ -86,7 +86,7 @@ You can use the alias to recognize an AWS managed CMK, as shown in this example 
 
 The [ListAliases](https://docs.aws.amazon.com/kms/latest/APIReference/API_ListAliases.html) operation returns the alias name and alias ARN of aliases in the account and Region\. The output includes aliases for AWS managed CMKs and for customer managed CMKs\. The aliases for AWS managed CMKs have the format `aws/<service-name>`, such as `aws/dynamodb`\.
 
-The response might also include aliases that have no `TargetKeyId` field\. These are predefined aliases that AWS has created but has not yet associated with a CMK\. Aliases that AWS creates in your account, including predefined aliases, do not count against your [AWS KMS aliases quota](resource-limits.md#aliases-limit)\.
+The response might also include aliases that have no `TargetKeyId` field\. These are predefined aliases that AWS has created but has not yet associated with a CMK\.
 
 ```
 $ aws kms list-aliases
