@@ -102,7 +102,7 @@ In the past, Secrets Manager validation calls did not include an encryption cont
 When Secrets Manager uses a [customer master key](concepts.md#master_keys) \(CMK\) in cryptographic operations, it acts on behalf of the user who is creating or changing the secret value in the secret\.
 
 To use the AWS KMS customer master key \(CMK\) for a secret on your behalf, the user must have the following permissions\. You can specify these required permissions in an IAM policy or key policy\.
-+ kms:GenerateDataKey
++ kms:GenerateDataKey*
 + kms:Decrypt
 
 To allow the CMK to be used only for requests that originate in Secrets Manager, you can use the [kms:ViaService condition key](policy-conditions.md#conditions-kms-via-service) with the `secretsmanager.<region>.amazonaws.com` value\.
