@@ -80,7 +80,9 @@ Administrators of the other AWS accounts must also allow access to the CMK by cr
 
 1. Choose **Next**\.
 
-1. On the **Review and edit key policy** page, review and edit the policy document for the new CMK\. When you're done, choose **Finish**\.
+1. Review the key settings that you chose\. You can still go back and change all settings\.
+
+1. When you're done, choose **Finish** to create the key\.
 
 When the procedure succeeds, the display shows the new CMK in the custom key store that you chose\. When you choose the name or alias of the new CMK, its detail page displays the origin of the CMK \(**CloudHSM**\), the name and ID of the custom key store, and the ID of the AWS CloudHSM cluster\. If the procedure fails, an error message appears that describes the failure\.
 

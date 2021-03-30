@@ -94,7 +94,7 @@ To allow principals in the external accounts to use the CMK, Administrators of t
 
 1. Choose **Next**\.
 
-1. Review the key policy document that was created from your choices\. You can edit it, too\. 
+1. Review the key settings that you chose\. You can still go back and change all settings\.
 
 1. Choose **Finish** to create the CMK\.
 
@@ -153,9 +153,9 @@ $ aws kms get-key-policy --key-id 1234abcd-12ab-34cd-56ef-1234567890ab --policy-
 
 ## Creating asymmetric CMKs<a name="create-asymmetric-cmk"></a>
 
-You can create [asymmetric CMKs](symm-asymm-concepts.md#asymmetric-cmks) in the AWS Management Console or by using the AWS KMS API\. An asymmetric CMK represents a public and private key pair that can be used for encryption or signing\. 
+You can create [asymmetric CMKs](symm-asymm-concepts.md#asymmetric-cmks) in the AWS Management Console or by using the AWS KMS API\. An asymmetric CMK represents a public and private key pair that can be used for encryption or signing\. The private key remains within AWS KMS\. To download the public key for use outside of AWS KMS, see [Downloading public keys](download-public-key.md)\.
 
-If you are creating a CMK to encrypt data that you store or manage in an AWS service, use a symmetric CMK\. AWS services that integrate with AWS KMS do not support asymmetric CMKs\. For help deciding whether to create a symmetric or asymmetric CMK, see [How to Choose Your CMK Configuration](symm-asymm-choose.md)\. 
+When creating a CMK to encrypt data in an AWS service, [create a symmetric CMK](#create-symmetric-cmk)\. AWS services do not support asymmetric CMKs for encryption\. For help deciding whether to create a symmetric or asymmetric CMK, see [How to Choose Your CMK Configuration](symm-asymm-choose.md)\. 
 
 ### Creating asymmetric CMKs \(console\)<a name="create-asymmetric-cmks-console"></a>
 
@@ -221,7 +221,7 @@ To allow principals in the external accounts to use the CMK, Administrators of t
 
 1. Choose **Next**\.
 
-1. Review the key policy document that was created from your choices\. You can edit it, too\. 
+1. Review the key settings that you chose\. You can still go back and change all settings\.
 
 1. Choose **Finish** to create the CMK\.
 

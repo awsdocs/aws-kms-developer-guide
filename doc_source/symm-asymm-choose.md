@@ -20,7 +20,7 @@ To decrypt data that was encrypted with the public key outside of AWS KMS, call 
 To avoid these errors, anyone using a public key outside of AWS KMS must store the key configuration\. The AWS KMS console and the [GetPublicKey](https://docs.aws.amazon.com/kms/latest/APIReference/API_GetPublicKey.html) response provide the information that you must include when you share the public key\.
 
 **Use with integrated AWS services**  <a name="cmks-aws-service"></a>
-To create a CMK for use with an [AWS service that is integrated with AWS KMS](service-integration.md), consult the documentation for the service\. All AWS services that encrypt data on your behalf require a [symmetric CMK](symm-asymm-concepts.md#symmetric-cmks)\.
+To create a CMK for use with an [AWS service that is integrated with AWS KMS](service-integration.md), consult the documentation for the service\. AWS services that encrypt your data require a [symmetric CMK](symm-asymm-concepts.md#symmetric-cmks)\.
 
 In addition to these considerations, CMKs with different key specs have different prices and different request quotas\. For information about AWS KMS pricing, see [AWS Key Management Service Pricing](https://aws.amazon.com/kms/pricing/)\. For information about request quotas, see [Request quotas](requests-per-second.md)\.
 

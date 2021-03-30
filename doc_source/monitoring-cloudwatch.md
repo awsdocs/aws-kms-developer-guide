@@ -16,12 +16,12 @@ When you [import key material into a CMK](importing-keys.md) and set it to expir
 The `AWS/KMS` namespace includes the following metrics\.
 
 **SecondsUntilKeyMaterialExpiration**  
-This metric tracks the number of seconds remaining until imported key material expires\. This metric is valid only for CMKs whose origin is `EXTERNAL` and whose key material is or was set to expire\. The most useful statistic for this metric is `Minimum`, which tells you the smallest amount of time remaining for all data points in the specified statistic period\. The only valid unit for this metric is `Seconds`\.  
+This metric tracks the number of seconds remaining until imported key material expires\. This metric is valid only for AWS KMS keys whose origin is `EXTERNAL` and whose key material is or was set to expire\. The most useful statistic for this metric is `Minimum`, which tells you the smallest amount of time remaining for all data points in the specified statistic period\. The only valid unit for this metric is `Seconds`\.  
 Use this metric to track the amount of time that remains until your imported key material expires\. When that amount of time falls below a threshold that you define, you might want to take action such as reimporting the key material with a new expiration date\. You can create a CloudWatch alarm to notify you when that happens\. For more information, see [Creating CloudWatch alarms to monitor AWS KMS metrics](#creating-alarms)\.
 
 ### Dimensions for AWS KMS Metrics<a name="kms-dimensions"></a>
 
-AWS KMS metrics use the `AWS/KMS` namespace and have only one valid dimension: `KeyId`\. You can use this dimension to view metric data for a specific CMK or set of CMKs\.
+AWS KMS metrics use the `AWS/KMS` namespace and have only one valid dimension: `KeyId`\. You can use this dimension to view metric data for a specific KMS key or set of KMS keys\.
 
 ### How do I view AWS KMS metrics?<a name="how-to-view-kms-metrics"></a>
 

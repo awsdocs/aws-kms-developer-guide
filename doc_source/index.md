@@ -1,7 +1,7 @@
 # AWS Key Management Service Developer Guide
 
 -----
-*****Copyright &copy; 2021 Amazon Web Services, Inc. and/or its affiliates. All rights reserved.*****
+*****Copyright &copy;  Amazon Web Services, Inc. and/or its affiliates. All rights reserved.*****
 
 -----
 Amazon's trademarks and trade dress may not be used in 
@@ -158,6 +158,7 @@ Amazon's trademarks and trade dress may not be used in
    + [How Amazon Elastic Block Store (Amazon EBS) uses AWS KMS](services-ebs.md)
    + [How Amazon Elastic Transcoder uses AWS KMS](services-et.md)
    + [How Amazon EMR uses AWS KMS](services-emr.md)
+   + [How AWS Nitro Enclaves uses AWS KMS](services-nitro-enclaves.md)
    + [How Amazon Redshift uses AWS KMS](services-redshift.md)
    + [How Amazon Relational Database Service (Amazon RDS) uses AWS KMS](services-rds.md)
    + [How AWS Secrets Manager uses AWS KMS](services-secrets-manager.md)

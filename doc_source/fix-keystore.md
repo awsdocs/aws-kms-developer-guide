@@ -6,6 +6,7 @@ Custom key stores are designed to be available and resilient\. However, there ar
 + [How to fix unavailable CMKs](#fix-unavailable-cmks)
 + [How to fix a failing CMK](#fix-cmk-failed)
 + [How to fix a connection failure](#fix-keystore-failed)
++ [How to respond a cryptographic operation failure](#fix-keystore-communication)
 + [How to fix invalid `kmsuser` credentials](#fix-keystore-password)
 + [How to delete orphaned key material](#fix-keystore-orphaned-key)
 + [How to recover deleted key material for a CMK](#fix-keystore-recover-backing-key)
@@ -61,6 +62,16 @@ To avoid [resetting the `kmsuser` password](#fix-keystore-password), use the mos
   To fix this error, [disconnect the custom key store](disconnect-keystore.md) and use the [changePswd](https://docs.aws.amazon.com/cloudhsm/latest/userguide/cloudhsm_mgmt_util-changePswd.html) command in cloudhsm\_mgmt\_util to change the `kmsuser` account password\. Then, [edit the `kmsuser` password setting](update-keystore.md) for the custom key store, and try to connect again\. For help, use the procedure described in the [How to fix invalid `kmsuser` credentials](#fix-keystore-password) topic\.
 + `USER_LOGGED_IN` indicates that the `kmsuser` CU account is logged into the associated AWS CloudHSM cluster\. This prevents AWS KMS from rotating the `kmsuser` account password and logging into the cluster\. To fix this error, log the `kmsuser` CU out of the cluster\. If you changed the `kmsuser` password to log into the cluster, you must also and update the key store password value for the custom key store\. For help, see [How to log out and reconnect](#login-kmsuser-2)\.
 + `USER_NOT_FOUND` indicates that AWS KMS cannot find a `kmsuser` CU account in the associated AWS CloudHSM cluster\. To fix this error, [create a kmsuser CU account](create-keystore.md#kmsuser-concept) in the cluster, and then [update the key store password value](update-keystore.md) for the custom key store\. For help, see [How to fix invalid `kmsuser` credentials](#fix-keystore-password)\.
+
+## How to respond a cryptographic operation failure<a name="fix-keystore-communication"></a>
+
+A cryptographic operation that uses a CMK in a custom key store might fail with an error such as the following\.
+
+```
+KMSInvalidStateException: KMS cannot communicate with your CloudHSM cluster
+```
+
+Although this is an HTTPS 400 error, it might result from transient network issues\. To respond, begin by retrying the request\. However, if it continues to fail, examine the configuration of your networking components\. This error is most likely caused by the misconfiguration of a networking component, such as a firewall rule or VPC security group rule that is blocking outgoing traffic\. 
 
 ## How to fix invalid `kmsuser` credentials<a name="fix-keystore-password"></a>
 

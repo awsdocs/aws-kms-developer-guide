@@ -60,7 +60,9 @@ To allow principals in the external accounts to use the CMK, Administrators of t
 
    Choose **Next**\.
 
-1. On the **Review and edit key policy** page, review and edit the policy document for the new CMK\. When you're done, choose **Finish** \.
+1. Review the key settings that you chose\. You can still go back and change all settings\.
+
+1. When you're done, choose **Finish** to create the key\.
 
    If the operation succeeds, you have created a CMK with no key material\. Its status is **Pending import\.** To continue the process now, see [Downloading the public key and import token \(console\)](importing-keys-get-public-key-and-token.md#importing-keys-get-public-key-and-token-console)\. To continue the process later, choose **Cancel**\.
 

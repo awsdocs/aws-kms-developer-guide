@@ -56,7 +56,8 @@ When your sort CMKs on the **Customer master keys** page in ascending order by *
 
 **Filter**  
 You can filter CMKs by their property values or tags\. The filter applies to all CMKs in the table, even if they don't appear on the current table page\. The filter is not case\-sensitive\.  
-Filterable properties are listed in the filter box\. On the **AWS managed keys** page, you can filter by alias and key ID\. On the **Customer managed keys** page, you can filter by the alias, key ID, and key type properties, and by tags\.  
++ On the **AWS managed keys** page, you can filter by alias and key ID\. 
++ On the **Customer managed keys** page, you can filter by tags, or by the alias, key ID, or key type properties\.
 To filter by a property value, choose the filter, choose the property name, and then choose from the list of actual property values\. To filter by a tag, choose the tag key, and then choose from the list of actual tag values\. After choosing a property or tag key, you can also type all or part of the property value or tag value\. You'll see a preview of the results before you make your choice\.   
 For example, to display CMKs with an alias name that contains `aws/e`, choose the filter box, choose **Alias**, type `aws/e`, and then press `Enter` or `Return` to add the filter\.  
 
