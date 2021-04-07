@@ -427,8 +427,6 @@ For example, the following condition key specifies an encryption context in whic
 "kms:EncryptionContext:AppName": "ExampleApp"
 ```
 
-The following example key policy statement uses this condition key\. Because there can be multiple encryption context pairs in a request, the [condition operator](https://docs.aws.amazon.com/IAM/latest/UserGuide/reference_policies_multi-value-conditions.html) must include `ForAnyValue` or `ForAllValues`\. 
-
 This policy allows the principal to use the CMK in a `GenerateDataKey` request only when at least one of the encryption context pairs in the request is `"AppName": "ExampleApp"`\.
 
 ```
@@ -442,29 +440,6 @@ This policy allows the principal to use the CMK in a `GenerateDataKey` request o
   "Condition": {
     "ForAnyValue:StringEquals": {
       "kms:EncryptionContext:AppName": "ExampleApp"
-    }
-  }
-}
-```
-
-#### Requiring multiple encryption context pairs<a name="conditions-kms-encryption-context-many"></a>
-
-To require more than one encryption context pair, you can include multiple instances of the `kms:EncryptionContext:` condition\. For example, the following example policy statement uses the `ForAllValues` operator to require both of the following encryption context pairs \(and no others\)\. The order in which the pairs are specified does not matter\.
-+ `"AppName": "ExampleApp"`
-+ `"FilePath": "/var/opt/secrets/"`
-
-```
-{
-  "Effect": "Allow",
-  "Principal": {
-    "AWS": "arn:aws:iam::111122223333:role/RoleForExampleApp"
-  },
-  "Action": "kms:GenerateDataKey",
-  "Resource": "*",
-  "Condition": {
-    "ForAllValues:StringEquals": { 
-      "kms:EncryptionContext:AppName": "ExampleApp",
-      "kms:EncryptionContext:FilePath": "/var/opt/secrets/"
     }
   }
 }
@@ -644,30 +619,6 @@ The following example policy statement uses the `kms:EncryptionContextKeys` cond
 ```
 
 Because the [StringEquals](https://docs.aws.amazon.com/IAM/latest/UserGuide/reference_policies_elements_condition_operators.html) condition operation is case sensitive, the previous policy statement requires the spelling and case of the encryption context key\. But you can use a condition operator that ignores the case of the key, such as `StringEqualsIgnoreCase`\.
-
-You can specify multiple encryption context keys in each condition\. For example, the following policy statement uses the `ForAllValues` and `StringEquals` condition operators to allow the specified operations only when the encryption context in the request includes both the `AppName` and `FilePath` keys \(and no others\), regardless of their values\. The order of keys in the encryption context does not matter\.
-
-```
-{
-  "Effect": "Allow",
-  "Principal": {
-    "AWS": "arn:aws:iam::111122223333:role/RoleForExampleApp"
-  },
-  "Action": [
-    "kms:Encrypt",
-    "kms:GenerateDataKey*"
-  ],
-  "Resource": "*",
-  "Condition": {
-    "ForAllValues:StringEquals": {
-      "kms:EncryptionContextKeys": [
-        "AppName",
-        "FilePath"
-      ]
-    }
-  }
-}
-```
 
 You can also use the `kms:EncryptionContextKeys` condition key to require an encryption context in cryptographic operations that use the CMK\. 
 

@@ -14,7 +14,6 @@ For help requesting an increase in an AWS KMS quota, see [Request an AWS KMS Quo
 | [Customer master keys \(CMKs\)](#customer-master-keys-limit) | 10,000 | Customer managed CMKs | 
 | [Aliases per CMK](#aliases-per-key) | 50 | Customer created aliases | 
 | [Grants per CMK](#grants-per-key) | 50,000 | Customer managed CMKs | 
-| [Grants for a given principal per CMK](#grants-per-principal-per-key) | 500 |  Customer managed CMKs AWS managed CMKs  | 
 | [Key policy document size](#key-policy-limit) | 32 KB \(32,768 bytes\) |  Customer managed CMKs AWS managed CMKs  | 
 
 In addition to resource quotas, AWS KMS uses request quotas to ensure the responsiveness of the service\. For details, see [Request quotas](requests-per-second.md)\.
@@ -36,21 +35,9 @@ The Aliases per CMK quota replaces the Aliases per Region quota that limited the
 
 Each [customer managed CMK](concepts.md#customer-cmk) can have up to 50,000 [grants](grants.md), including the grants created by [AWS services that are integrated with AWS KMS](https://aws.amazon.com/kms/features/#AWS_Service_Integration)\. This quota does not apply to [AWS managed CMKs](concepts.md#aws-managed-cmk) or [AWS owned CMKs](concepts.md#aws-owned-cmk)\.
 
-One effect of this quota is that you cannot perform more than 50,000 grant\-authorized operations that use the same CMK at the same time\. After you reach the quota, you can create new grants on the CMK only when an active grant is retired or revoked\.
+One effect of this quota is that you cannot perform more than 50,000 grant\-authorized operations that use the same CMK at the same time\. After you reach the quota, you can create new grants on the CMK only when an active grant is retired or revoked\. For example, when you attach an Amazon Elastic Block Store \(Amazon EBS\) volume to an Amazon Elastic Compute Cloud \(Amazon EC2\) instance, the volume is decrypted so you can read it\. To get permission to decrypt the data, Amazon EBS creates a grant for each volume\. Therefore, if all of your Amazon EBS volumes use the same CMK, you cannot attach more than 50,000 volumes at one time\.
 
-For example, when you attach an Amazon Elastic Block Store \(Amazon EBS\) volume to an Amazon Elastic Compute Cloud \(Amazon EC2\) instance, the volume is decrypted so you can read it\. To get permission to decrypt the data, Amazon EBS creates a grant for each volume\. Therefore, if all of your Amazon EBS volumes use the same CMK, you cannot attach more than 50,000 volumes at one time\.
-
-## Grants for a given principal per CMK: 500<a name="grants-per-principal-per-key"></a>
-
-A CMK cannot have more than 500 grants for the same grantee principal\. The *grantee principal* is the identity that gets the permissions in the grant\.
-
-This quota is calculated separately for each CMK in the account\. It applies to [customer managed CMKs](concepts.md#customer-cmk) and [AWS managed CMKs](concepts.md#aws-managed-cmk), but not to [AWS owned CMKs](concepts.md#aws-owned-cmk)\.
-
-**Note**  
-Be careful when using the output from the [ListGrants](https://docs.aws.amazon.com/kms/latest/APIReference/API_ListGrants.html) operation to calculate the number of grants with the same grantee principal\.   
-The `GranteePrincipal` field in the `ListGrants` response usually contains the grantee principal of the grant\. However, when the grantee principal in the grant is an AWS service, the `GranteePrincipal` field contains the [service principal](https://docs.aws.amazon.com/IAM/latest/UserGuide/reference_policies_elements_principal.html#principal-services), which might represent several different grantee principals\.
-
-This quota can have practical consequences for your use of AWS resources\. For example, it prevents you from launching more than 500 Amazon WorkSpaces encrypted under the same CMK\. When you launch a WorkSpace, Amazon WorkSpaces creates a grant that allows it to decrypt the WorkSpace so you can use it\. Each WorkSpace grant is unique, but all of the grants have the same grantee principal\.
+AWS KMS has eliminated the quota on grants per given principal per CMK\.
 
 ## Key policy document size: 32 KB<a name="key-policy-limit"></a>
 

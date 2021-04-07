@@ -2,8 +2,6 @@
 
 A *grant* is a policy instrument that allows [AWS principals](https://docs.aws.amazon.com/IAM/latest/UserGuide/intro-structure.html#intro-structure-principal) to use AWS KMS [customer master keys](concepts.md#master_keys) \(CMKs\) in cryptographic operations\. It also can let them view a CMK \(`DescribeKey`\) and create and manage grants\. When authorizing access to a CMK, grants are considered along with [key policies](key-policies.md) and [IAM policies](iam-policies.md)\. Grants are often used for temporary permissions because you can create one, use its permissions, and delete it without changing your key policies or IAM policies\.
 
-Along with [key policies](key-policies.md), which are required, and [IAM policies](iam-policies.md), which are optional, grants provide a powerful and flexible component of your access control strategy\. Typically, you use key policies to establish long\-term, static permissions to the CMK\. You use IAM policies to control access to operations that don't involve a particular CMK, such as [CreateKey](https://docs.aws.amazon.com/kms/latest/APIReference/API_CreateKey.html), and to describe permissions that apply to multiple CMKs or include permissions for the resources of multiple AWS services\. Then, to provide temporary or limited access to a CMK, use a grant\.
-
 Grants are commonly used by AWS services that integrate with AWS KMS to encrypt your data at rest\. The service creates a grant on behalf of a user in the account, uses its permissions, and retires the grant as soon as its task is complete\. For details about how AWS services, use grants, see [How AWS services use AWS KMS](service-integration.md) or the *Encryption at rest* topic in the service's user guide or developer guide\.
 
 For code examples that demonstrate how to work with grants in several programming languages, see [Working with grants](programming-grants.md)\.
@@ -18,7 +16,8 @@ For code examples that demonstrate how to work with grants in several programmin
 ## About grants<a name="about-grants"></a>
 
 Grants are a very flexible and useful access control mechanism\. When you attach a grant to a [customer master key](concepts.md#master_keys) \(CMK\), the *grant* allows a principal to call particular operations on a CMK when the conditions specified in the grant are met\. 
-+ Each grant controls access to just one CMK\. The CMK can be in the same or a different AWS account\.
++ Each grant controls access to just one CMK\. The CMK can be in the same or a different AWS account\. 
++ AWS KMS limits the number of grants on each CMK\. For details, see [Resource quotas](resource-limits.md)\.
 + You can use a grant to allow access, but not to deny it\. Grants can only allow access to [grant operations](#terms-grant-operations)\.
 + Principals who get permissions from a grant can use those permissions without specifying the grant, just as they would if the permissions came from a key policy or IAM policy\. However, when you create, retire, or revoke a grant, there might be a brief delay, usually less than five minutes, until the operation achieves [eventual consistency](#terms-eventual-consistency)\. To use the permissions in a grant immediately, [use a grant token](grant-manage.md#using-grant-token)\.
 + You can use grants to allow principals in a different AWS account to use a CMK\. 
