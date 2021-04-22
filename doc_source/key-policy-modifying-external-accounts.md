@@ -37,7 +37,7 @@ When you specify an external account in a key policy, IAM administrators in the 
 
 Permissions given to the external account and its principals are effective only if the external account is enabled in the Region that hosts the CMK and its key policy\. For information about Regions that are not enabled by default \("opt\-in Regions"\), see [Managing AWS Regions](https://docs.aws.amazon.com/general/latest/gr/rande-manage.html) in the *AWS General Reference*\.
 
-For example, assume that you want to allow account 444455556666 to use a symmetric CMK in account 111122223333\. To do that, add a policy statement like the one in the following example to the key policy for the CMK in account 111122223333\. This policy statement gives the external account, 444455556666, permission to use the CMK in cryptographic operations for symmetric CMKs\. 
+For example, suppose you want to allow account 444455556666 to use a symmetric CMK in account 111122223333\. To do that, add a policy statement like the one in the following example to the key policy for the CMK in account 111122223333\. The following example key policy statement gives the external account, 444455556666, permission to use the CMK in cryptographic operations for symmetric CMKs\. 
 
 ```
 {
@@ -105,25 +105,20 @@ If the key policy gives permission to the external account, you can attach IAM p
 
 The key policy also limits the actions in the IAM policy\. The IAM policy can delegate all or a subset of the actions specified in the key policy\. If the IAM policy lists actions that are not specified in the key policy, those permissions are not effective\.
 
-The following example IAM policy allows the principal to use the CMK in account 111122223333 for cryptographic operations\. To give this permission to users and roles in account `444455556666`, [attach the policy](https://docs.aws.amazon.com/IAM/latest/UserGuide/access_policies_managed-using.html#attach-managed-policy-console) to the users or roles in account `444455556666`\.
+The following example IAM policy statement allows the principal to use the CMK in account 111122223333 for cryptographic operations\. To give this permission to users and roles in account `444455556666`, [attach the policy](https://docs.aws.amazon.com/IAM/latest/UserGuide/access_policies_managed-using.html#attach-managed-policy-console) to the users or roles in account `444455556666`\.
 
 ```
 {
-  "Version": "2012-10-17",
-  "Statement": [
-    {
-      "Sid": "AllowUseOfCMKInAccount111122223333",
-      "Effect": "Allow",
-      "Action": [
-        "kms:Encrypt",
-        "kms:Decrypt",
-        "kms:ReEncrypt*",
-        "kms:GenerateDataKey*",
-        "kms:DescribeKey"
-      ],
-      "Resource": "arn:aws:kms:us-west-2:111122223333:key/1234abcd-12ab-34cd-56ef-1234567890ab"
-    }
-  ]
+    "Sid": "AllowUseOfCMKInAccount111122223333",
+    "Effect": "Allow",
+    "Action": [
+      "kms:Encrypt",
+      "kms:Decrypt",
+      "kms:ReEncrypt*",
+      "kms:GenerateDataKey*",
+      "kms:DescribeKey"
+    ],
+    "Resource": "arn:aws:kms:us-west-2:111122223333:key/1234abcd-12ab-34cd-56ef-1234567890ab"
 }
 ```
 
@@ -147,7 +142,7 @@ The **Key Users** section also lets you add external accounts as key users\.
 
 When you enter the account ID of an external account, AWS KMS adds two statements to the key policy\. This action only affects the key policy\. Users and roles in the external account cannot use the CMK until you attach [IAM policies](#cross-account-iam-policy) to give them some or all of these permissions\.
 
-The first policy statement gives the external account permission to use the CMK in cryptographic operations\. 
+The first key policy statement gives the external account permission to use the CMK in cryptographic operations\. 
 
 ```
 {
@@ -167,7 +162,7 @@ The first policy statement gives the external account permission to use the CMK 
 }
 ```
 
-The second policy statement allows the external account to create, view, and revoke grants on the CMK, but only when the request comes from an [AWS service that is integrated with AWS KMS](https://aws.amazon.com/kms/features/#AWS_Service_Integration)\. These permissions allow other AWS services, such as that encrypt user data to use the CMK\. 
+The second key policy statement allows the external account to create, view, and revoke grants on the CMK, but only when the request comes from an [AWS service that is integrated with AWS KMS](https://aws.amazon.com/kms/features/#AWS_Service_Integration)\. These permissions allow other AWS services, such as that encrypt user data to use the CMK\. 
 
 These permissions are designed for CMKs that encrypt user data in AWS services, such as [Amazon WorkMail](services-wm.md)\. These services typically use grants to get the permissions they need to use the CMK on the user's behalf\. For details, see [Using external CMKs with AWS services](#cross-account-service)\.
 

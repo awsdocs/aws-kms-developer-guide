@@ -41,8 +41,8 @@ AWS KMS has eliminated the quota on grants per given principal per CMK\.
 
 ## Key policy document size: 32 KB<a name="key-policy-limit"></a>
 
-The maximum length of each key policy document is 32 KB \(32,768 bytes\)\. If you use a larger policy document to create or update the key policy for a CMK, the operation fails\. 
+The maximum length of each [key policy document](key-policies.md#key-policy-overview) is 32 KB \(32,768 bytes\)\. If you use a larger policy document to create or update the key policy for a CMK, the operation fails\. 
 
-A [key policy document](key-policies.md#key-policy-overview) is a collection of policy statements in JSON format\. The statements in the key policy document determine who has permission to use the CMK and how they can use it\. You may also use IAM policies and grants to control access to the CMK, but every CMK must have a key policy document\. 
+Unlike other AWS KMS quotas, this quota is not adjustable\. You cannot increase it by using Service Quotas or by creating a case in AWS Support\. If your key policy is approaching the limit, consider using [grants](grants.md) instead of policy statements\. Grants are particularly well suited to temporary or very specific permissions\.
 
 You use a key policy document whenever you create or change a key policy by using the [default view](key-policy-modifying.md#key-policy-modifying-how-to-console-default-view) or [policy view](key-policy-modifying.md#key-policy-modifying-how-to-console-policy-view) in the AWS Management Console, or the [PutKeyPolicy](https://docs.aws.amazon.com/kms/latest/APIReference/API_PutKeyPolicy.html) operation\. This quota applies to your key policy document, even if you use the [default view](key-policy-modifying.md#key-policy-modifying-how-to-console-default-view) in the AWS KMS console, where you don't edit the JSON statements directly\.

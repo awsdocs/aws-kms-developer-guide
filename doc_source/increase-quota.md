@@ -1,6 +1,6 @@
 # Request an AWS KMS Quota Increase<a name="increase-quota"></a>
 
-AWS KMS resource quotas and request quotas are adjustable, except for the [custom key store quota](requests-per-second.md#rps-key-stores)\.
+AWS KMS resource quotas and request quotas are adjustable, except for the [key policy document size quota](resource-limits.md#key-policy-limit) and the [custom key store quota](requests-per-second.md#rps-key-stores)\.
 
 If you need to exceed a quota, you can request a quota increase in Service Quotas\. Use the [Service Quotas console](https://console.aws.amazon.com/servicequotas) or the [RequestServiceQuotaIncrease](https://docs.aws.amazon.com/servicequotas/2019-06-24/apireference/API_RequestServiceQuotaIncrease.html) operation\. For details, see [Requesting a quota increase](https://docs.aws.amazon.com/servicequotas/latest/userguide/request-increase.html) in the *Service Quotas User Guide*\. If Service Quotas for AWS KMS are not available in the AWS Region, please visit the [AWS Support Center](https://console.aws.amazon.com/support/home) and create a case\. 
 

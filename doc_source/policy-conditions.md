@@ -13,7 +13,7 @@ To specify conditions, you use predefined *condition keys* in the `Condition` el
 
 AWS defines [global condition keys](https://docs.aws.amazon.com/IAM/latest/UserGuide/reference_policies_condition-keys.html#AvailableKeys), a set of policy conditions keys for all AWS services that use IAM for access control\. You can use global condition keys in AWS KMS key policies and IAM policies\. 
 
-For example, you can use the [aws:PrincipalArn](https://docs.aws.amazon.com/IAM/latest/UserGuide/reference_policies_condition-keys.html#condition-keys-principalarn) global condition key to allow access to a customer master key \(CMK\) only when the principal in the request is represented by the Amazon Resource Name \(ARN\) in the condition key value\. To support [attribute\-based access control](abac.md) \(ABAC\) in AWS KMS, you can use the [aws:ResourceTag](https://docs.aws.amazon.com/IAM/latest/UserGuide/reference_policies_condition-keys.html#condition-keys-resourcetag) global condition key in an IAM policy to allow access to CMKs with a particular tag\.
+For example, you can use the [aws:PrincipalArn](https://docs.aws.amazon.com/IAM/latest/UserGuide/reference_policies_condition-keys.html#condition-keys-principalarn) global condition key to allow access to a customer master key \(CMK\) only when the principal in the request is represented by the Amazon Resource Name \(ARN\) in the condition key value\. To support [attribute\-based access control](abac.md) \(ABAC\) in AWS KMS, you can use the [aws:ResourceTag/*tag\-key*](https://docs.aws.amazon.com/IAM/latest/UserGuide/reference_policies_condition-keys.html#condition-keys-resourcetag) global condition key in an IAM policy to allow access to CMKs with a particular tag\.
 
 AWS KMS supports all AWS global condition keys except for the following ones:
 + [aws:SourceAccount](https://docs.aws.amazon.com/IAM/latest/UserGuide/reference_policies_condition-keys.html#condition-keys-sourceaccount)
@@ -53,7 +53,7 @@ Take care to avoid a situation like the [IP address condition keys](#conditions-
 
 ## AWS KMS condition keys<a name="conditions-kms"></a>
 
-AWS KMS provides an additional set of predefined condition keys that you can use in key policies and IAM policies\. These condition keys are specific to AWS KMS\. For example, you can use the `kms:EncryptionContext` condition key to require a particular [encryption context](concepts.md#encrypt_context) when controlling access to an AWS KMS symmetric customer master key \(CMK\)\.
+AWS KMS provides an additional set of predefined condition keys that you can use in key policies and IAM policies\. These condition keys are specific to AWS KMS\. For example, you can use the `kms:EncryptionContext:context-key` condition key to require a particular [encryption context](concepts.md#encrypt_context) when controlling access to an AWS KMS symmetric customer master key \(CMK\)\.
 
 **Conditions for an API operation request**
 
@@ -76,7 +76,7 @@ The following topics describe each AWS KMS condition key and include example pol
 + [kms:CustomerMasterKeyUsage](#conditions-kms-customer-master-key-usage)
 + [kms:DataKeyPairSpec](#conditions-kms-data-key-spec)
 + [kms:EncryptionAlgorithm](#conditions-kms-encryption-algorithm)
-+ [kms:EncryptionContext:](#conditions-kms-encryption-context)
++ [kms:EncryptionContext:*context\-key*](#conditions-kms-encryption-context)
 + [kms:EncryptionContextKeys](#conditions-kms-encryption-context-keys)
 + [kms:ExpirationModel](#conditions-kms-expiration-model)
 + [kms:GrantConstraintType](#conditions-kms-grant-constraint-type)
@@ -158,7 +158,7 @@ You can use this condition key to allow or deny access to all identities \(IAM u
 
 Because this condition is valid only in key policies, you can use it to control access to any *CMK resource operation*, that is, any AWS KMS operation that uses a particular CMK\. To identify the CMK resource operations, in the [Actions and Resources Table](kms-api-permissions-reference.md#kms-api-permissions-reference-table), look for a value of `CMK` in the `Resources` column for the operation\.
 
-For example, the following policy statement demonstrates how to use the `kms:CallerAccount` condition key\. This policy statement is in the key policy for the AWS managed CMK for Amazon EBS\. It combines a `Principal` element that specifies all AWS identities with the `kms:CallerAccount` condition key to effectively allow access to all identities in AWS account 111122223333\. It contains an additional AWS KMS condition key \(`kms:ViaService`\) to further limit the permissions by only allowing requests that come through Amazon EBS\. For more information, see [kms:ViaService](#conditions-kms-via-service)\.
+For example, the following key policy statement demonstrates how to use the `kms:CallerAccount` condition key\. This policy statement is in the key policy for the AWS managed CMK for Amazon EBS\. It combines a `Principal` element that specifies all AWS identities with the `kms:CallerAccount` condition key to effectively allow access to all identities in AWS account 111122223333\. It contains an additional AWS KMS condition key \(`kms:ViaService`\) to further limit the permissions by only allowing requests that come through Amazon EBS\. For more information, see [kms:ViaService](#conditions-kms-via-service)\.
 
 ```
 {
@@ -217,18 +217,16 @@ For example, the following IAM policy allows principals to perform the specified
 {
   "Effect": "Allow",
   "Action": [
-    "kms:Encrypt",
-    "kms:Decrypt",
-    "kms:ReEncrypt*",    
-    "kms:DescribeKey"
+      "kms:Encrypt",
+      "kms:Decrypt",
+      "kms:ReEncrypt*",
+      "kms:DescribeKey"
   ],
-  "Resource": {
-      "arn:aws:kms:us-west-2:111122223333:key/*"
-  },
+  "Resource": "arn:aws:kms:us-west-2:111122223333:key/*",
   "Condition": {
-    "StringEquals": {
-      "kms:CustomerMasterKeySpec": "SYMMETRIC_DEFAULT"
-    }
+      "StringEquals": {
+        "kms:CustomerMasterKeySpec": "SYMMETRIC_DEFAULT"
+      }
   }
 }
 ```
@@ -280,9 +278,7 @@ For example, the following IAM policy allows principals to perform the specified
     "kms:GetPublicKey",
     "kms:ScheduleKeyDeletion"
   ],
-  "Resource": {
-      "arn:aws:kms:us-west-2:111122223333:key/*"
-  },
+  "Resource": "arn:aws:kms:us-west-2:111122223333:key/*",
   "Condition": {
     "StringEquals": {
       "kms:CustomerMasterKeyUsage": "SIGN_VERIFY"
@@ -329,7 +325,7 @@ The following example key policy statement uses the `kms:DataKeyPairSpec` condit
 **See also**
 + [kms:CustomerMasterKeySpec](#conditions-kms-customer-master-key-spec)
 + [kms:EncryptionAlgorithm](#conditions-kms-encryption-algorithm)
-+ [kms:EncryptionContext:](#conditions-kms-encryption-context)
++ [kms:EncryptionContext:*context\-key*](#conditions-kms-encryption-context)
 + [kms:EncryptionContextKeys](#conditions-kms-encryption-context-keys)
 
 ### kms:EncryptionAlgorithm<a name="conditions-kms-encryption-algorithm"></a>
@@ -347,7 +343,7 @@ This condition key has no effect on operations performed outside of AWS KMS, suc
 
 To allow users to use only a particular encryption algorithm with a CMK, use a policy statement with a `Deny` effect and a `StringNotEquals` condition operator\. For example, the following example key policy statement prohibits principals who can assume the `ExampleRole` role from using this symmetric CMK in the specified cryptographic operations unless the encryption algorithm in the request is `RSAES_OAEP_SHA_256`\. 
 
-Unlike a policy statement that allows a user to use a particular encryption algorithm, a policy statement with a double\-negative like this one prevents other policies and grants for this CMK from allowing this role to use other encryption algorithms\. The `Deny` in this policy statement takes precedence over any key policy or IAM policy with an `Allow` effect, and it takes precedence over all grants for this CMK and its principals\.
+Unlike a policy statement that allows a user to use a particular encryption algorithm, a policy statement with a double\-negative like this one prevents other policies and grants for this CMK from allowing this role to use other encryption algorithms\. The `Deny` in this key policy statement takes precedence over any key policy or IAM policy with an `Allow` effect, and it takes precedence over all grants for this CMK and its principals\.
 
 ```
 {
@@ -372,25 +368,23 @@ Unlike a policy statement that allows a user to use a particular encryption algo
 
 **Encryption algorithm used for the operation**
 
-You can also use the `kms:EncryptionAlgorithm` condition key to control access to the operations that generate data keys and data key pairs\. These operations use only symmetric CMKs and the `SYMMETRIC_DEFAULT` algorithm\. 
+You can also use the `kms:EncryptionAlgorithm` condition key to control access to operations based on the encryption algorithm used in the operation, even when the algorithm isn't specified in the request\. This allows you to require or forbid the `SYMMETRIC_DEFAULT` algorithm, which might not be specified in a request because it's the default value\.
 
-For example, this IAM policy limits its principals to symmetric encryption\. It denies access to any CMK in the example account for cryptographic operations unless the encryption algorithm specified in the request or used in the operation is SYMMETRIC\_DEFAULT\. The addition of [GenerateDataKey](https://docs.aws.amazon.com/kms/latest/APIReference/API_GenerateDataKey.html), [GenerateDataKeyWithoutPlaintext](https://docs.aws.amazon.com/kms/latest/APIReference/API_GenerateDataKeyWithoutPlaintext.html), [GenerateDataKeyPair](https://docs.aws.amazon.com/kms/latest/APIReference/API_GenerateDataKeyPair.html), and [GenerateDataKeyPairWithoutPlaintext](https://docs.aws.amazon.com/kms/latest/APIReference/API_GenerateDataKeyPairWithoutPlaintext.html) have no immediate practical effect because you can't use an asymmetric CMK or asymmetric encryption algorithm to encrypt a data key or encrypt the private key in a data key pair\.
+This feature lets you use the `kms:EncryptionAlgorithm` condition key to control access to the operations that generate data keys and data key pairs\. These operations use only symmetric CMKs and the `SYMMETRIC_DEFAULT` algorithm\. 
+
+For example, this IAM policy limits its principals to symmetric encryption\. It denies access to any CMK in the example account for cryptographic operations unless the encryption algorithm specified in the request or used in the operation is SYMMETRIC\_DEFAULT\. Including `GenerateDataKey*` adds [GenerateDataKey](https://docs.aws.amazon.com/kms/latest/APIReference/API_GenerateDataKey.html), [GenerateDataKeyWithoutPlaintext](https://docs.aws.amazon.com/kms/latest/APIReference/API_GenerateDataKeyWithoutPlaintext.html), [GenerateDataKeyPair](https://docs.aws.amazon.com/kms/latest/APIReference/API_GenerateDataKeyPair.html), and [GenerateDataKeyPairWithoutPlaintext](https://docs.aws.amazon.com/kms/latest/APIReference/API_GenerateDataKeyPairWithoutPlaintext.html) to the permissions\. The condition has no effect on these operations because they always use a symmetric encryption algorithm\.
 
 ```
 {
-  "Version": "2012-10-17",
-  "Statement": {
-    "Effect": "Deny",
-    "Action": [
+  "Sid": "AllowOnlySymmetricAlgorithm",
+  "Effect": "Deny",
+  "Action": [
     "kms:Encrypt",
     "kms:Decrypt",
     "kms:ReEncrypt*",
-    "kms:GenerateDataKey*",
-    "kms:GenerateDataKeyPair*"
+    "kms:GenerateDataKey*"
   ],
-    "Resource": {
-      "arn:aws:kms:us-west-2:111122223333:key/*"
-    },
+  "Resource": "arn:aws:kms:us-west-2:111122223333:key/*",
   "Condition": {
     "StringNotEquals": {
       "kms:EncryptionAlgorithm": "SYMMETRIC_DEFAULT"
@@ -402,23 +396,23 @@ For example, this IAM policy limits its principals to symmetric encryption\. It 
 **See also**
 + [kms:SigningAlgorithm](#conditions-kms-signing-algorithm)
 
-### kms:EncryptionContext:<a name="conditions-kms-encryption-context"></a>
+### kms:EncryptionContext:*context\-key*<a name="conditions-kms-encryption-context"></a>
 
 
 | AWS KMS condition keys | Condition type | API operations | Policy type | 
 | --- | --- | --- | --- | 
-|  `kms:EncryptionContext:`  |  String  |  `CreateGrant` `Encrypt` `Decrypt` `GenerateDataKey` `GenerateDataKeyPair` `GenerateDataKeyPairWithoutPlaintext` `GenerateDataKeyWithoutPlaintext` `ReEncrypt`  |  Key policies and IAM policies  | 
+|  `kms:EncryptionContext:context-key`  |  String  |  `CreateGrant` `Encrypt` `Decrypt` `GenerateDataKey` `GenerateDataKeyPair` `GenerateDataKeyPairWithoutPlaintext` `GenerateDataKeyWithoutPlaintext` `ReEncrypt`  |  Key policies and IAM policies  | 
 
-You can use the `kms:EncryptionContext:` condition key prefix to control access to a [symmetric CMK](symm-asymm-concepts.md#symmetric-cmks) based on the encryption context in a request for a cryptographic operation\. Use this condition key prefix to evaluate both the key and the value in the encryption context pair\. To evaluate only the encryption context keys, use the [kms:EncryptionContextKeys](#conditions-kms-encryption-context-keys) condition key\.
+You can use the `kms:EncryptionContext:context-key` condition key to control access to a [symmetric CMK](symm-asymm-concepts.md#symmetric-cmks) based on the encryption context in a request for a [cryptographic operation](concepts.md#cryptographic-operations)\. Use this condition key to evaluate both the key and the value in the encryption context pair\. To evaluate only the encryption context keys or require an encryption context regardless of keys or values, use the [kms:EncryptionContextKeys](#conditions-kms-encryption-context-keys) condition key\.
 
 An [encryption context](concepts.md#encrypt_context) is a set of nonsecret key–value pairs that you can include in a request for any AWS KMS cryptographic operation that uses a symmetric CMK \([Encrypt](https://docs.aws.amazon.com/kms/latest/APIReference/API_Encrypt.html), [Decrypt](https://docs.aws.amazon.com/kms/latest/APIReference/API_Decrypt.html), [GenerateDataKey](https://docs.aws.amazon.com/kms/latest/APIReference/API_GenerateDataKey.html), [GenerateDataKeyWithoutPlaintext](https://docs.aws.amazon.com/kms/latest/APIReference/API_GenerateDataKeyWithoutPlaintext.html), and [ReEncrypt](https://docs.aws.amazon.com/kms/latest/APIReference/API_ReEncrypt.html)\), and the [CreateGrant](https://docs.aws.amazon.com/kms/latest/APIReference/API_CreateGrant.html) operation\. When you specify an encryption context in an encryption operation, you must specify the same encryption context in the decryption operation\. Otherwise, the decryption request fails\.
 
 You cannot specify an encryption context in a cryptographic operation with an [asymmetric CMK](symm-asymm-concepts.md#asymmetric-cmks)\. The standard asymmetric encryption algorithms that AWS KMS uses do not support an encryption context\.
 
-To use the `kms:EncryptionContext:` condition key prefix, replace the `encryption_context_key` placeholder with the encryption context key\. Replace the `encryption_context_value` placeholder with the encryption context value\.
+To use the `kms:EncryptionContext:context-key` condition key, replace the *`context-key`* placeholder with the encryption context key\. Replace the *`context-value`* placeholder with the encryption context value\.
 
 ```
-"kms:EncryptionContext:encryption_context_key": "encryption_context_value"
+"kms:EncryptionContext:context-key": "context-value"
 ```
 
 For example, the following condition key specifies an encryption context in which the key is `AppName` and the value is `ExampleApp`\.
@@ -427,7 +421,7 @@ For example, the following condition key specifies an encryption context in whic
 "kms:EncryptionContext:AppName": "ExampleApp"
 ```
 
-This policy allows the principal to use the CMK in a `GenerateDataKey` request only when at least one of the encryption context pairs in the request is `"AppName": "ExampleApp"`\.
+The following example key policy statement allows principals who can assume the role to use the CMK in a `GenerateDataKey` request only when the encryption context is `"AppName": "ExampleApp"`\.
 
 ```
 {
@@ -438,7 +432,7 @@ This policy allows the principal to use the CMK in a `GenerateDataKey` request o
   "Action": "kms:GenerateDataKey",
   "Resource": "*",
   "Condition": {
-    "ForAnyValue:StringEquals": {
+    "StringEquals": {
       "kms:EncryptionContext:AppName": "ExampleApp"
     }
   }
@@ -451,7 +445,7 @@ The encryption context that is specified in a decryption operation must be an ex
 
 However, in policy conditions, the condition key is not case sensitive\. The case sensitivity of the condition value is determined by the [policy condition operator](https://docs.aws.amazon.com/IAM/latest/UserGuide/reference_policies_elements_condition_operators.html) that you use, such as `StringEquals` or `StringEqualsIgnoreCase`\.
 
-As such, the condition key, which consists of the `kms:EncryptionContext:` prefix and the *`encryption_context_key`* replacement, is not case sensitive\. A policy that uses this condition does not check the case of either element of the condition key\. The case sensitivity of the value, that is, the *`encryption_context_value`* replacement, is determined by the policy condition operator\.
+As such, the condition key, which consists of the `kms:EncryptionContext:` prefix and the *`context-key`* replacement, is not case sensitive\. A policy that uses this condition does not check the case of either element of the condition key\. The case sensitivity of the value, that is, the *`context-value`* replacement, is determined by the policy condition operator\.
 
 For example, the following policy statement allows the operation when the encryption context includes an `Appname` key, regardless of its capitalization\. The `StringEquals` condition requires that `ExampleApp` be capitalized as it is specified\. 
 
@@ -464,14 +458,14 @@ For example, the following policy statement allows the operation when the encryp
   "Action": "kms:Decrypt",
   "Resource": "*",
   "Condition": {
-    "ForAnyValue:StringEquals": {
+    "StringEquals": {
       "kms:EncryptionContext:Appname": "ExampleApp"
     }
   }
 }
 ```
 
-To require a case\-sensitive encryption context key, use the [kms:EncryptionContextKeys](#conditions-kms-encryption-context-keys) policy condition with a case\-sensitive condition operator, such as `StringEquals`\. In this policy condition, because the encryption context key is the policy condition value, its case sensitivity is determined by the condition operator\. 
+To require a case\-sensitive encryption context key, use the [kms:EncryptionContextKeys](#conditions-kms-encryption-context-keys) policy condition with a case\-sensitive condition operator, such as `StringEquals`\. In this policy condition, because the encryption context key is the value in this policy condition, its case sensitivity is determined by the condition operator\. 
 
 ```
 {
@@ -483,13 +477,15 @@ To require a case\-sensitive encryption context key, use the [kms:EncryptionCont
   "Resource": "*",
   "Condition": {
     "ForAnyValue:StringEquals": {
-      "kms:EncryptionContextKey": "AppName"
+      "kms:EncryptionContextKeys": "AppName"
     }
   }
 }
 ```
 
-To require a case\-sensitive evaluation of both the encryption context key and value, use the `kms:EncryptionContextKeys` and `kms:EncryptionContext:` policy conditions together in the same policy statement\. For example, in the following example policy statement, because the `StringEquals` operator is case sensitive, both the encryption context key and the encryption context value are case sensitive\.
+To require a case\-sensitive evaluation of both the encryption context key and value, use the `kms:EncryptionContextKeys` and `kms:EncryptionContext:context-key` policy conditions together in the same policy statement\. The case\-sensitive condition operator \(such as `StringEquals`\) always applies to the value of the condition\. The encryption context key \(such as `AppName`\) is the value of the `kms:EncryptionContextKeys` condition\. The encryption context value \(such as `ExampleApp`\) is the value of the `kms:EncryptionContext:context-key` condition\.
+
+For example, in the following example key policy statement, because the `StringEquals` operator is case sensitive, both the encryption context key and the encryption context value are case sensitive\.
 
 ```
 {
@@ -501,7 +497,9 @@ To require a case\-sensitive evaluation of both the encryption context key and v
   "Resource": "*",
   "Condition": {
     "ForAnyValue:StringEquals": {
-      "kms:EncryptionContextKeys": "AppName",
+      "kms:EncryptionContextKeys": "AppName"
+    },
+    "StringEquals": {
       "kms:EncryptionContext:AppName": "ExampleApp"
     }
   }
@@ -518,7 +516,7 @@ The key and value in an encryption context pair must be simple literal strings\.
 }
 ```
 
-However, the value in the `kms:EncryptionContext:` condition key pair can be an [IAM policy variable](https://docs.aws.amazon.com/IAM/latest/UserGuide/reference_policies_variables.html)\. These policy variables are resolved at runtime based on values in the request\. For example, `aws:CurrentTime `resolves to the time of the request and `aws:username` resolves to the friendly name of the caller\.
+However, the value of the `kms:EncryptionContext:context-key` condition key can be an [IAM policy variable](https://docs.aws.amazon.com/IAM/latest/UserGuide/reference_policies_variables.html)\. These policy variables are resolved at runtime based on values in the request\. For example, `aws:CurrentTime `resolves to the time of the request and `aws:username` resolves to the friendly name of the caller\.
 
 You can use these policy variables to create a policy statement with a condition that requires very specific information in an encryption context, such as the caller's user name\. Because it contains a variable, you can use the same policy statement for all users who can assume the role\. You don't have to write a separate policy statement for each user\.
 
@@ -543,21 +541,21 @@ When the request is evaluated, the caller's user name replaces the variable in t
   "Action": [
     "kms:Decrypt",
     "kms:Encrypt"
-  ]
+  ],
   "Resource": "*",
   "Condition": {
-    "ForAnyValue:StringEquals": {
-       "kms:EncryptionContext:user": "${aws:username}"
+    "StringEquals": {
+      "kms:EncryptionContext:user": "${aws:username}"
     }
   }
 }
 ```
 
-You can use an IAM policy variable only in the value of the `kms:EncryptionContext:` condition key pair\. You cannot use a variable in the key\.
+You can use an IAM policy variable only in the value of the `kms:EncryptionContext:context-key` condition key\. You cannot use a variable in the key\.
 
 You can also use [provider\-specific context keys](https://docs.aws.amazon.com/IAM/latest/UserGuide/id_roles_providers_oidc_user-id.html) in variables\. These context keys uniquely identify users who logged into AWS by using web identity federation\. 
 
-Like all variables, these variables can be used only in the `kms:EncryptionContext:` policy condition, not in the actual encryption context\. And they can be used only in the value of the condition, not in the key\.
+Like all variables, these variables can be used only in the `kms:EncryptionContext:context-key` policy condition, not in the actual encryption context\. And they can be used only in the value of the condition, not in the key\.
 
 For example, the following key policy statement is similar to the previous one\. However, the condition requires an encryption context where the key is `sub` and the value uniquely identifies a user logged into an Amazon Cognito user pool\. For details about identifying users and roles in Amazon Cognito, see [IAM Roles](https://docs.aws.amazon.com/cognito/latest/developerguide/iam-roles.html) in the [Amazon Cognito Developer Guide](https://docs.aws.amazon.com/cognito/latest/developerguide/)\.
 
@@ -570,10 +568,10 @@ For example, the following key policy statement is similar to the previous one\.
   "Action": [
     "kms:Decrypt",
     "kms:Encrypt"
-  ]
+  ],
   "Resource": "*",
   "Condition": {
-    "ForAnyValue:StringEquals": {
+    "StringEquals": {
        "kms:EncryptionContext:sub": "${cognito-identity.amazonaws.com:sub}"
     }
   }
@@ -591,13 +589,13 @@ For example, the following key policy statement is similar to the previous one\.
 | --- | --- | --- | --- | 
 |  `kms:EncryptionContextKeys`  |  String \(list\)  |  `CreateGrant` `Decrypt` `Encrypt` `GenerateDataKey` `GenerateDataKeyPair` `GenerateDataKeyPairWithoutPlaintext` `GenerateDataKeyWithoutPlaintext` `ReEncrypt`  |  Key policies and IAM policies  | 
 
-You can use the `kms:EncryptionContextKeys` condition key to control access to a [symmetric CMK](symm-asymm-concepts.md#symmetric-cmks) based on the encryption context in a request for a cryptographic operation\. Use this condition key prefix to evaluate only the key in each encryption context pair\. To evaluate both the key and the value, use the [kms:EncryptionContext:](#conditions-kms-encryption-context) condition key prefix\.
+You can use the `kms:EncryptionContextKeys` condition key to control access to a [symmetric CMK](symm-asymm-concepts.md#symmetric-cmks) based on the encryption context in a request for a cryptographic operation\. Use this condition key to evaluate only the key in each encryption context pair\. To evaluate both the key and the value, use the `kms:EncryptionContext:context-key` condition key\.
 
 You cannot specify an encryption context in a cryptographic operation with an [asymmetric CMK](symm-asymm-concepts.md#asymmetric-cmks)\. The standard asymmetric encryption algorithms that AWS KMS uses do not support an encryption context\. 
 
-You can use this condition key to control access based on the [encryption context](concepts.md#encrypt_context) in the AWS KMS API request\. Encryption context is a set of key–value pairs that you can include in AWS KMS cryptographic operations with symmetric CMKs \([Encrypt](https://docs.aws.amazon.com/kms/latest/APIReference/API_Encrypt.html), [Decrypt](https://docs.aws.amazon.com/kms/latest/APIReference/API_Decrypt.html), [GenerateDataKey](https://docs.aws.amazon.com/kms/latest/APIReference/API_GenerateDataKey.html), [GenerateDataKeyWithoutPlaintext](https://docs.aws.amazon.com/kms/latest/APIReference/API_GenerateDataKeyWithoutPlaintext.html), and [ReEncrypt](https://docs.aws.amazon.com/kms/latest/APIReference/API_ReEncrypt.html)\) and the [CreateGrant](https://docs.aws.amazon.com/kms/latest/APIReference/API_CreateGrant.html) operation\. Because there can be multiple encryption context pairs in a request, the [condition operator](https://docs.aws.amazon.com/IAM/latest/UserGuide/reference_policies_multi-value-conditions.html) must include `ForAnyValue` or `ForAllValues`\. 
+You can use this condition key to control access based on the [encryption context](concepts.md#encrypt_context) in the AWS KMS API request\. Encryption context is a set of key–value pairs that you can include in AWS KMS cryptographic operations with symmetric CMKs \([Encrypt](https://docs.aws.amazon.com/kms/latest/APIReference/API_Encrypt.html), [Decrypt](https://docs.aws.amazon.com/kms/latest/APIReference/API_Decrypt.html), [GenerateDataKey](https://docs.aws.amazon.com/kms/latest/APIReference/API_GenerateDataKey.html), [GenerateDataKeyWithoutPlaintext](https://docs.aws.amazon.com/kms/latest/APIReference/API_GenerateDataKeyWithoutPlaintext.html), and [ReEncrypt](https://docs.aws.amazon.com/kms/latest/APIReference/API_ReEncrypt.html)\) and the [CreateGrant](https://docs.aws.amazon.com/kms/latest/APIReference/API_CreateGrant.html) operation\. Because there can be multiple encryption context keys in a request, the [condition operator](https://docs.aws.amazon.com/IAM/latest/UserGuide/reference_policies_multi-value-conditions.html) must include a `ForAnyValue` or `ForAllValues` set operator\. 
 
-The following example policy statement uses the `kms:EncryptionContextKeys` condition key to allow use of a CMK for the specified operations only when at least one of the encryption context pairs in the request includes the `AppName` key, regardless of its value\. 
+The following example key policy statement uses the `kms:EncryptionContextKeys` condition key to allow use of a CMK for the specified operations only when at least one of the encryption context pairs in the request includes the `AppName` key, regardless of its value\. Because the [StringEquals](https://docs.aws.amazon.com/IAM/latest/UserGuide/reference_policies_elements_condition_operators.html) condition operation is case sensitive, the previous policy statement requires the spelling and case of the encryption context key\. But you can use a condition operator that ignores the case of the key, such as `StringEqualsIgnoreCase`\.
 
 ```
 {
@@ -618,11 +616,9 @@ The following example policy statement uses the `kms:EncryptionContextKeys` cond
 }
 ```
 
-Because the [StringEquals](https://docs.aws.amazon.com/IAM/latest/UserGuide/reference_policies_elements_condition_operators.html) condition operation is case sensitive, the previous policy statement requires the spelling and case of the encryption context key\. But you can use a condition operator that ignores the case of the key, such as `StringEqualsIgnoreCase`\.
-
 You can also use the `kms:EncryptionContextKeys` condition key to require an encryption context in cryptographic operations that use the CMK\. 
 
-The following example key policy statement uses the `kms:EncryptionContextKeys` condition key with the [Null condition operator](https://docs.aws.amazon.com/IAM/latest/UserGuide/reference_policies_elements_condition_operators.html#Conditions_Null) to allow access to CMK only when the `kms:EncryptionContextKeys` condition key exists \(is not null\) in the API request\. It does not check the keys or values of the encryption context, only that the encryption context exists\. 
+The following example key policy statement uses the `kms:EncryptionContextKeys` condition key with the [Null condition operator](https://docs.aws.amazon.com/IAM/latest/UserGuide/reference_policies_elements_condition_operators.html#Conditions_Null) to allow access to CMK only when encryption context in the API request is not null\. This condition does not check the keys or values of the encryption context\. It only verifies that the encryption context exists\. 
 
 ```
 {
@@ -644,7 +640,7 @@ The following example key policy statement uses the `kms:EncryptionContextKeys` 
 ```
 
 **See also**
-+ [kms:EncryptionContext:](#conditions-kms-encryption-context)
++ [kms:EncryptionContext:*context\-key*](#conditions-kms-encryption-context)
 + [kms:GrantConstraintType](#conditions-kms-grant-constraint-type)
 
 ### kms:ExpirationModel<a name="conditions-kms-expiration-model"></a>
@@ -660,7 +656,7 @@ The `kms:ExpirationModel` condition key controls access to the [ImportKeyMateria
 
 The expiration date and time is determined by the value of the [ValidTo](https://docs.aws.amazon.com/kms/latest/APIReference/API_ImportKeyMaterial.html#KMS-ImportKeyMaterial-request-ValidTo) parameter\. The `ValidTo` parameter is required unless the value of the `ExpirationModel` parameter is `KEY_MATERIAL_DOES_NOT_EXPIRE`\. You can also use the [kms:ValidTo](#conditions-kms-valid-to) condition key to require a particular expiration date as a condition for access\.
 
-The following example policy statement uses the `kms:ExpirationModel` condition key to allow a user to import key material into a CMK only when the request includes the `ExpirationModel` parameter and its value is `KEY_MATERIAL_DOES_NOT_EXPIRE`\. 
+The following example key policy statement uses the `kms:ExpirationModel` condition key to allow a user to import key material into a CMK only when the request includes the `ExpirationModel` parameter and its value is `KEY_MATERIAL_DOES_NOT_EXPIRE`\. 
 
 ```
 {
@@ -678,7 +674,7 @@ The following example policy statement uses the `kms:ExpirationModel` condition 
 }
 ```
 
-You can also use the `kms:ExpirationModel` condition key to allow a user to import key material only when the key material expires, without [specifying an expiration date](#conditions-kms-valid-to) in the condition\. The following example policy statement uses the `kms:ExpirationModel` condition key with the [Null condition operator](https://docs.aws.amazon.com/IAM/latest/UserGuide/reference_policies_elements_condition_operators.html#Conditions_Null) to allow a user to import key material only when the request does not have an `ExpirationModel` parameter\. 
+You can also use the `kms:ExpirationModel` condition key to allow a user to import key material only when the key material expires\. The following example key policy statement uses the `kms:ExpirationModel` condition key with the [Null condition operator](https://docs.aws.amazon.com/IAM/latest/UserGuide/reference_policies_elements_condition_operators.html#Conditions_Null) to allow a user to import key material only when the request does not have an `ExpirationModel` parameter\. The default value for ExpirationModel is `KEY_MATERIAL_EXPIRES`\.
 
 ```
 {
@@ -712,7 +708,7 @@ You can use this condition key to control access to the [CreateGrant](https://do
 
 When you create a grant, you can optionally specify a grant constraint to allow the operations that the grant permit only when a particular [encryption context](concepts.md#encrypt_context) is present\. The grant constraint can be one of two types: `EncryptionContextEquals` or `EncryptionContextSubset`\. You can use this condition key to check that the request contains one type or the other\.
 
-The following example policy statement uses the `kms:GrantConstraintType` condition key to allow a user to create grants only when the request includes an `EncryptionContextEquals` grant constraint\. The example shows a policy statement in a key policy\.
+The following example key policy statement uses the `kms:GrantConstraintType` condition key to allow a user to create grants only when the request includes an `EncryptionContextEquals` grant constraint\. The example shows a policy statement in a key policy\.
 
 ```
 {
@@ -731,7 +727,7 @@ The following example policy statement uses the `kms:GrantConstraintType` condit
 ```
 
 **See also**
-+ [kms:EncryptionContext:](#conditions-kms-encryption-context)
++ [kms:EncryptionContext:*context\-key*](#conditions-kms-encryption-context)
 + [kms:EncryptionContextKeys](#conditions-kms-encryption-context-keys)
 + [kms:GrantIsForAWSResource](#conditions-kms-grant-is-for-aws-resource)
 + [kms:GrantOperations](#conditions-kms-grant-operations)
@@ -778,9 +774,9 @@ The following example key policy statement uses the `kms:GrantIsForAWSResource` 
 | --- | --- | --- | --- | 
 |  `kms:GrantOperations`  |  String  |  `CreateGrant`  |  Key policies and IAM policies  | 
 
-You can use this condition key to control access to the [CreateGrant](https://docs.aws.amazon.com/kms/latest/APIReference/API_CreateGrant.html) operation based on the grant operations in the request\. For example, you can allow a user to create grants that delegate permission to encrypt but not decrypt\.
+You can use this condition key to control access to the [CreateGrant](https://docs.aws.amazon.com/kms/latest/APIReference/API_CreateGrant.html) operation based on the [grant operations](grants.md#terms-grant-operations) in the request\. For example, you can allow a user to create grants that delegate permission to encrypt but not decrypt\. 
 
-The following example policy statement uses the `kms:GrantOperations` condition key to allow a user to create grants that delegate permission to encrypt and re\-encrypt when this CMK is the destination CMK\. The example shows a policy statement in a key policy\.
+The following example key policy statement uses the `kms:GrantOperations` condition key to allow a user to create grants only when the grant operations are encrypt, re\-encrypt\-to, or both\. The `ForAllValues` set operator requires that every grant operation in the request match one of the grant operations in the policy\.
 
 ```
 {
@@ -816,7 +812,7 @@ The following example policy statement uses the `kms:GrantOperations` condition 
 
 You can use this condition key to control access to the [CreateGrant](https://docs.aws.amazon.com/kms/latest/APIReference/API_CreateGrant.html) operation based on the value of the [GranteePrincipal](https://docs.aws.amazon.com/kms/latest/APIReference/API_CreateGrant.html#KMS-CreateGrant-request-GranteePrincipal) parameter in the request\. For example, you can allow a user to create grants to use a CMK only when the grantee principal in the `CreateGrant` request matches the principal specified in the condition statement\.
 
-The following example policy statement uses the `kms:GranteePrincipal` condition key to allow a user to create grants for a CMK only when the grantee principal in the grant is the `LimitedAdminRole`\.
+The following example key policy statement uses the `kms:GranteePrincipal` condition key to allow a user to create grants for a CMK only when the grantee principal in the grant is the `LimitedAdminRole`\.
 
 ```
 {
@@ -853,7 +849,7 @@ You can use this condition key to control access to the [CreateKey](https://docs
 
 For example, you can allow a user to create a CMK only when the key material is generated in KMS \(`AWS_KMS`\), only when the key material is generated in an AWS CloudHSM cluster that is associated with a [custom key store](custom-key-store-overview.md) \(`AWS_CLOUDHSM`\), or only when the [key material is imported](importing-keys.md) from an external source \(`EXTERNAL`\)\. 
 
-The following example policy statement uses the `kms:KeyOrigin` condition key to allow a user to create a CMK only when AWS KMS creates the key material\.
+The following example key policy statement uses the `kms:KeyOrigin` condition key to allow a user to create a CMK only when AWS KMS creates the key material\.
 
 ```
 {
@@ -887,9 +883,7 @@ For example, the following IAM policy allows principals to perform the specified
     "kms:GenerateDataKeyPairWithoutPlaintext",
     "kms:ReEncrypt*"
   ],
-  "Resource": {
-      "arn:aws:kms:us-west-2:111122223333:key/*"
-  },
+  "Resource": "arn:aws:kms:us-west-2:111122223333:key/*",
   "Condition": {
     "StringEquals": {
       "kms:KeyOrigin": "AWS_CLOUDHSM"
@@ -940,7 +934,9 @@ For example, the following key policy statement uses the `kms:MessageType` condi
 | --- | --- | --- | --- | 
 |  `kms:ReEncryptOnSameKey`  |  Boolean  |  `ReEncrypt`  |  Key policies and IAM policies  | 
 
-You can use this condition key to control access to the [ReEncrypt](https://docs.aws.amazon.com/kms/latest/APIReference/API_ReEncrypt.html) operation based on whether the request specifies a destination CMK that is the same one used for the original encryption\. For example, the following policy statement uses the `kms:ReEncryptOnSameKey` condition key to allow a user to reencrypt only when the destination CMK is the same one used for the original encryption\. The example shows a policy statement in a key policy\.
+You can use this condition key to control access to the [ReEncrypt](https://docs.aws.amazon.com/kms/latest/APIReference/API_ReEncrypt.html) operation based on whether the request specifies a destination CMK that is the same one used for the original encryption\. 
+
+For example, the following key policy statement uses the `kms:ReEncryptOnSameKey` condition key to allow a user to reencrypt only when the destination CMK is the same one used for the original encryption\.
 
 ```
 {
@@ -1018,19 +1014,16 @@ Because the `kms:ResourceAliases` condition is based on the resource, not the re
 
 ```
 {
-  "Version": "2012-10-17",
-  "Statement": {
-    "Sid": "AliasBasedIAMPolicy",
-    "Effect": "Allow",
-    "Action": "kms:GenerateDataKey",
-    "Resource": [
-       "arn:aws:kms:*:111122223333:key/*",
-       "arn:aws:kms:*:444455556666:key/*",
-     ],
-    "Condition": {
-      "ForAnyValue:StringEquals": {
-        "kms:ResourceAliases": "alias/finance-key"
-      }
+  "Sid": "AliasBasedIAMPolicy",
+  "Effect": "Allow",
+  "Action": "kms:GenerateDataKey",
+  "Resource": [
+    "arn:aws:kms:*:111122223333:key/*",
+    "arn:aws:kms:*:444455556666:key/*",
+  ],
+  "Condition": {
+    "ForAnyValue:StringEquals": {
+      "kms:ResourceAliases": "alias/finance-key"
     }
   }
 }
@@ -1045,7 +1038,7 @@ Because the `kms:ResourceAliases` condition is based on the resource, not the re
 
 You can use this condition key to control access to the [CreateGrant](https://docs.aws.amazon.com/kms/latest/APIReference/API_CreateGrant.html) operation based on the value of the [RetiringPrincipal](https://docs.aws.amazon.com/kms/latest/APIReference/API_CreateGrant.html#KMS-CreateGrant-request-RetiringPrincipal) parameter in the request\. For example, you can allow a user to create grants to use a CMK only when the `RetiringPrincipal` in the `CreateGrant` request matches the `RetiringPrincipal` in the condition statement\.
 
-The following example policy statement allows a user to create grants for the CMK\. The `kms:RetiringPrincipal` condition key restricts the permission to `CreateGrant` requests where the retiring principal in the grant is either the `LimitedAdminRole` or the `OpsAdmin` user\.
+The following example key policy statement allows a user to create grants for the CMK\. The `kms:RetiringPrincipal` condition key restricts the permission to `CreateGrant` requests where the retiring principal in the grant is either the `LimitedAdminRole` or the `OpsAdmin` user\.
 
 ```
 {
@@ -1114,7 +1107,7 @@ The `kms:ValidTo` condition key controls access to the [ImportKeyMaterial](https
 
 By default, the `ValidTo` parameter is required in an `ImportKeyMaterial` request\. However, if the value of the [ExpirationModel](https://docs.aws.amazon.com/kms/latest/APIReference/API_ImportKeyMaterial.html#KMS-ImportKeyMaterial-request-ExpirationModel) parameter is `KEY_MATERIAL_DOES_NOT_EXPIRE`, the `ValidTo` parameter is invalid\. You can also use the [kms:ExpirationModel](#conditions-kms-expiration-model) condition key to require the `ExpirationModel` parameter or a specific parameter value\.
 
-The following example policy statement allows a user to import key material into a CMK\. The `kms:ValidTo` condition key limits the permission to `ImportKeyMaterial` requests where the `ValidTo` value is less than or equal to `1546257599.0` \(December 31, 2018 11:59:59 PM\)\. 
+The following example key policy statement allows a user to import key material into a CMK\. The `kms:ValidTo` condition key limits the permission to `ImportKeyMaterial` requests where the `ValidTo` value is less than or equal to `1546257599.0` \(December 31, 2018 11:59:59 PM\)\. 
 
 ```
 {
@@ -1146,7 +1139,7 @@ The following example policy statement allows a user to import key material into
 
 The `kms:ViaService` condition key limits use of an AWS KMS [customer master key](concepts.md#master_keys) \(CMK\) to requests from specified AWS services\. You can specify one or more services in each `kms:ViaService` condition key\. The operation must be a *CMK resource operation*, that is, an operation that is authorized for a particular CMK\. To identify the CMK resource operations, in the [Actions and Resources Table](kms-api-permissions-reference.md#kms-api-permissions-reference-table), look for a value of `CMK` in the `Resources` column for the operation\.
 
-For example, the following statement from a key policy uses the `kms:ViaService` condition key to allow a [customer managed CMK](concepts.md#customer-cmk) to be used for the specified actions only when the request comes from Amazon EC2 or Amazon RDS in the US West \(Oregon\) region on behalf of `ExampleUser`\.
+For example, the following key policy statement uses the `kms:ViaService` condition key to allow a [customer managed CMK](concepts.md#customer-cmk) to be used for the specified actions only when the request comes from Amazon EC2 or Amazon RDS in the US West \(Oregon\) region on behalf of `ExampleUser`\.
 
 ```
 {
@@ -1244,6 +1237,9 @@ You might need to scroll horizontally or vertically to see all of the data in th
 | AWS Lambda | lambda\.AWS\_region\.amazonaws\.com | 
 | Amazon Lex | lex\.AWS\_region\.amazonaws\.com | 
 | AWS License Manager | license\-manager\.AWS\_region\.amazonaws\.com | 
+| Amazon Lookout for Equipment | lookoutequipment\.AWS\_region\.amazonaws\.com | 
+| Amazon Lookout for Metrics | lookoutmetrics\.AWS\_region\.amazonaws\.com | 
+| Amazon Lookout for Vision | lookoutvision\.AWS\_region\.amazonaws\.com | 
 | Amazon Managed Streaming for Apache Kafka \(Amazon MSK\) | kafka\.AWS\_region\.amazonaws\.com | 
 | Amazon Managed Workflows for Apache Airflow \(MWAA\) | airflow\.AWS\_region\.amazonaws\.com | 
 | Amazon Monitron | monitron\.AWS\_region\.amazonaws\.com | 
@@ -1273,7 +1269,7 @@ You might need to scroll horizontally or vertically to see all of the data in th
 
 This condition key controls access to the [GetParametersForImport](https://docs.aws.amazon.com/kms/latest/APIReference/API_GetParametersForImport.html) operation based on the value of the [WrappingAlgorithm](https://docs.aws.amazon.com/kms/latest/APIReference/API_GetParametersForImport.html#KMS-GetParametersForImport-request-WrappingAlgorithm) parameter in the request\. You can use this condition to require principals to use a particular algorithm to encrypt key material during the import process\. Requests for the required public key and import token fail when they specify a different wrapping algorithm\.
 
-The following example policy statement uses the `kms:WrappingAlgorithm` condition key to give the example user permission to call the `GetParametersForImport` operation, but prevents them from using the `RSAES_OAEP_SHA_1` wrapping algorithm\. When the `WrappingAlgorithm` in the `GetParametersForImport` request is `RSAES_OAEP_SHA_1`, the operation fails\.
+The following example key policy statement uses the `kms:WrappingAlgorithm` condition key to give the example user permission to call the `GetParametersForImport` operation, but prevents them from using the `RSAES_OAEP_SHA_1` wrapping algorithm\. When the `WrappingAlgorithm` in the `GetParametersForImport` request is `RSAES_OAEP_SHA_1`, the operation fails\.
 
 ```
 {
@@ -1372,14 +1368,14 @@ If the request doesn't include any attestation document, permission is denied be
 }
 ```
 
-### kms:RecipientAttestation:PCR<a name="conditions-kms-recipient-pcrs"></a>
+### kms:RecipientAttestation:PCR<ID><a name="conditions-kms-recipient-pcrs"></a>
 
 
 | AWS KMS Condition Keys | Condition Type | API Operations | Policy Type | 
 | --- | --- | --- | --- | 
 |  `kms:RecipientAttestation:PCR`  |  String  |  `Decrypt` `GenerateDataKey` `GenerateRandom`  |  Key policies and IAM policies  | 
 
-The `kms:RecipientAttestation:PCR` condition key allows `kms-decrypt`, `kms-generate-data-key`, and `kms-generate-random` requests from an enclave only when the platform configuration registers \(PCRs\) from the signed attestation document in the request match the PCRs in the condition key\. This condition key is effective only when you call the AWS Nitro Enclaves SDK APIs from an enclave\.
+The `kms:RecipientAttestation:PCR<ID>` condition key allows `kms-decrypt`, `kms-generate-data-key`, and `kms-generate-random` requests from an enclave only when the platform configuration registers \(PCRs\) from the signed attestation document in the request match the PCRs in the condition key\. This condition key is effective only when you call the AWS Nitro Enclaves SDK APIs from an enclave\.
 
 To specify a PCR value, use the following format\. Concatenate the PCR ID to the condition key name\. The PCR value must be a lower\-case hexadecimal string of up to 96 bytes\.
 

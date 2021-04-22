@@ -1,8 +1,6 @@
 # Request quotas<a name="requests-per-second"></a>
 
-AWS KMS establishes quotas for the number of API operations requested in each second\. For a table that lists the per\-second request quota for each API operation, see [Request quotas for each AWS KMS API operation](#rps-table)\.
-
-When you exceed an API request quota, AWS KMS *throttles* the request, that is, it rejects an otherwise valid request and returns a `ThrottlingException` error like the following one\. To respond, use a [backoff and retry strategy](https://docs.aws.amazon.com/general/latest/gr/api-retries.html)\. 
+AWS KMS establishes quotas for the number of API operations requested in each second\. When you exceed an API request quota, AWS KMS *throttles* the request, that is, it rejects an otherwise valid request and returns a `ThrottlingException` error like the following one\. To respond, use a [backoff and retry strategy](https://docs.aws.amazon.com/general/latest/gr/api-retries.html)\. 
 
 ```
 You have exceeded the rate at which you may call KMS. Reduce the frequency of your calls. 
@@ -45,16 +43,16 @@ You might need to scroll horizontally or vertically to see all of the data in th
 | `CreateCustomKeyStore request rate` | 5 | 
 | `CreateGrant request rate` | 50 | 
 | `CreateKey request rate` | 5 | 
-| `DeleteAlias request rate` | 5 | 
+| `DeleteAlias request rate` | 15 | 
 | `DeleteCustomKeyStore request rate` | 5 | 
 | `DeleteImportedKeyMaterial request rate` | 5 | 
 | `DescribeCustomKeyStores request rate` | 5 | 
-| `DescribeKey request rate` | 1000 | 
+| `DescribeKey request rate` | 2000 | 
 | `DisableKey request rate` | 5 | 
 | `DisableKeyRotation request rate` | 5 | 
 | `DisconnectCustomKeyStore request rate` | 5 | 
 | `EnableKey request rate` | 5 | 
-| `EnableKeyRotation request rate` | 5 | 
+| `EnableKeyRotation request rate` | 15 | 
 |  `GenerateDataKeyPair (ECC_NIST_P256) request rate` Applies to: [\[See the AWS documentation website for more details\]](http://docs.aws.amazon.com/kms/latest/developerguide/requests-per-second.html)  |  25  | 
 |  `GenerateDataKeyPair (ECC_NIST_P384) request rate` Applies to: [\[See the AWS documentation website for more details\]](http://docs.aws.amazon.com/kms/latest/developerguide/requests-per-second.html)  |  10  | 
 |  `GenerateDataKeyPair (ECC_NIST_P521) request rate` Applies to: [\[See the AWS documentation website for more details\]](http://docs.aws.amazon.com/kms/latest/developerguide/requests-per-second.html)  |  5  | 
@@ -65,19 +63,19 @@ You might need to scroll horizontally or vertically to see all of the data in th
 | `GetKeyPolicy request rate` | 1000 | 
 | `GetKeyRotationStatus request rate` | 1000 | 
 | `GetParametersForImport request rate` | 0\.25 \(1 in each 4\-second interval\) | 
-| `GetPublicKey request rate` | 5 | 
+| `GetPublicKey request rate` | 2000 | 
 | `ImportKeyMaterial request rate` | 5 | 
 | `ListAliases request rate` | 500 | 
 | `ListGrants request rate` | 100 | 
 | `ListKeyPolicies request rate` | 100 | 
 | `ListKeys request rate` | 500 | 
-| `ListResourceTags request rate` | 100 | 
+| `ListResourceTags request rate` | 2000 | 
 | `ListRetirableGrants request rate` | 100 | 
-| `PutKeyPolicy request rate` | 5 | 
-| `RetireGrant request rate` | 15 | 
-| `RevokeGrant request rate` | 15 | 
-| `ScheduleKeyDeletion request rate` | 5 | 
-| `TagResource request rate` | 5 | 
+| `PutKeyPolicy request rate` | 15 | 
+| `RetireGrant request rate` | 30 | 
+| `RevokeGrant request rate` | 30 | 
+| `ScheduleKeyDeletion request rate` | 15 | 
+| `TagResource request rate` | 10 | 
 | `UntagResource request rate` | 5 | 
 | `UpdateAlias request rate` | 5 | 
 | `UpdateCustomKeyStore request rate` | 5 | 

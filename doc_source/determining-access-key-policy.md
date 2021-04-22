@@ -51,7 +51,7 @@ A key policy document with a statement that allows access to the AWS account \(r
   "Resource": "*"
 }
 ```
-In the preceding policy statement, `arn:aws:iam::111122223333:user/KMSKeyAdmin` refers to the IAM user named KMSKeyAdmin in AWS account 111122223333\. This user is allowed to perform the actions listed in the policy statement, which are the administrative actions for managing a CMK\.
+In the preceding key policy statement, `arn:aws:iam::111122223333:user/KMSKeyAdmin` refers to the IAM user named KMSKeyAdmin in AWS account 111122223333\. This user is allowed to perform the actions listed in the policy statement, which are the administrative actions for managing a CMK\.
 
 **Example Policy statement 3**  
 

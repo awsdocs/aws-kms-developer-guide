@@ -54,8 +54,8 @@ You can provide tagging permissions in a key policy or IAM policy\. For example,
       "Sid": "Allow roles to view tags",
       "Effect": "Allow",
       "Principal": {"AWS": [
-        "arn:aws:iam::111122223333:role/Administrator"},
-        "arn:aws:iam::111122223333:role/Developer"}
+        "arn:aws:iam::111122223333:role/Administrator",
+        "arn:aws:iam::111122223333:role/Developer"
       ]},
       "Action": "kms:ListResourceTags",
       "Resource": "*"
@@ -94,9 +94,9 @@ For example, the following IAM policy allows the principals to create CMKs\. It 
 
 ## Limiting tag permissions<a name="tag-permissions-conditions"></a>
 
-You can limit tagging permissions by using [policy conditions](policy-conditions.md)\. The following policy conditions can be applied to the `kms:TagResource` and `kms:UntagResource` permissions\. For example, you can use the `aws:RequestTag` condition to allow a principal to add only particular tags, or prevent a principal from adding tags with particular tag keys\. Or, you can use the `kms:KeyOrigin` condition to prevent principals from tagging or untagging CMKs with [imported key material](importing-keys.md)\. 
+You can limit tagging permissions by using [policy conditions](policy-conditions.md)\. The following policy conditions can be applied to the `kms:TagResource` and `kms:UntagResource` permissions\. For example, you can use the `aws:RequestTag/tag-key` condition to allow a principal to add only particular tags, or prevent a principal from adding tags with particular tag keys\. Or, you can use the `kms:KeyOrigin` condition to prevent principals from tagging or untagging CMKs with [imported key material](importing-keys.md)\. 
 + [aws:RequestTag](https://docs.aws.amazon.com/IAM/latest/UserGuide/reference_policies_condition-keys.html#condition-keys-requesttag)
-+ [aws:ResourceTag](https://docs.aws.amazon.com/IAM/latest/UserGuide/reference_policies_condition-keys.html#condition-keys-resourcetag) \(IAM policies only\)
++ [aws:ResourceTag/*tag\-key*](https://docs.aws.amazon.com/IAM/latest/UserGuide/reference_policies_condition-keys.html#condition-keys-resourcetag) \(IAM policies only\)
 + [aws:TagKeys](https://docs.aws.amazon.com/IAM/latest/UserGuide/reference_policies_condition-keys.html#condition-keys-tag-keys)
 + [kms:CallerAccount](policy-conditions.md#conditions-kms-caller-account)
 + [kms:CustomerMasterKeySpec](policy-conditions.md#conditions-kms-customer-master-key-spec)
@@ -104,9 +104,11 @@ You can limit tagging permissions by using [policy conditions](policy-conditions
 + [kms:KeyOrigin](policy-conditions.md#conditions-kms-key-origin)
 + [kms:ViaService](policy-conditions.md#conditions-kms-via-service)
 
-As a best practice when you use tags to control access to CMKs, use the `aws:RequestTag` or `aws:TagKeys` condition key to determine which tags \(or tag keys\) are allowed\. 
+As a best practice when you use tags to control access to CMKs, use the `aws:RequestTag/tag-key` or `aws:TagKeys` condition key to determine which tags \(or tag keys\) are allowed\. 
 
-For example, the following IAM policy is similar to the previous one\. However, this policy allows the principals to add and delete only tags with a `Project` tag key\.
+For example, the following IAM policy is similar to the previous one\. However, this policy allows the principals to create tags \(`TagResource`\) and delete tags `UntagResource` only for tags with a `Project` tag key\.
+
+Because `TagResource` and `UntagResource` requests can include multiple tags, you must specify a `ForAllValues` or `ForAnyValue` set operator with the [aws:TagKeys](https://docs.aws.amazon.com/IAM/latest/UserGuide/reference_policies_condition-keys.html#condition-keys-tagkeys) condition\. The `ForAnyValue` operator requires that at least one of the tag keys in the request matches one of the tag keys in the policy\. The `ForAllValues` operator requires that all of the tag keys in the request match one of the tag keys in the policy\. The `ForAllValues` operator also returns `true` if there are no tags in the request, but TagResource and UntagResource fail when no tags are specified\. For details about the set operators, see [Use multiple keys and values](https://docs.aws.amazon.com/IAM/latest/UserGuide/reference_policies_multi-value-conditions.html#reference_policies_multi-key-or-value-conditions) in the *IAM User Guide*\.
 
 ```
 {
@@ -122,7 +124,7 @@ For example, the following IAM policy is similar to the previous one\. However, 
       "Sid": "IAMPolicyViewAllTags",
       "Effect": "Allow",
       "Action": "kms:ListResourceTags",
-      "Resource": "arn:aws:kms:*:111122223333:key/*",
+      "Resource": "arn:aws:kms:*:111122223333:key/*"
     },
     {
       "Sid": "IAMPolicyManageTags",

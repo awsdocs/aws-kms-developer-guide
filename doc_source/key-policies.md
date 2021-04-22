@@ -83,7 +83,9 @@ The following example shows the policy statement that allows access to the AWS a
 {
   "Sid": "Enable IAM User Permissions",
   "Effect": "Allow",
-  "Principal": {"AWS": "arn:aws:iam::111122223333:root"},
+  "Principal": {
+    "AWS": "arn:aws:iam::111122223333:root"
+   },
   "Action": "kms:*",
   "Resource": "*"
 }
@@ -237,17 +239,19 @@ The console adds the following statement to the key policy for asymmetric CMKs w
 
 ```
 {
-    "Sid": "Allow use of the key",
-    "Effect": "Allow",
-    "Principal": {"AWS": "arn:aws:iam::111122223333:user/CMKUser"},
-    "Action": [
-        "kms:Encrypt",
-        "kms:Decrypt",
-        "kms:ReEncrypt*",
-        "kms:DescribeKey",
-        "kms:GetPublicKey"
-    ],
-    "Resource": "*"
+  "Sid": "Allow use of the key",
+  "Effect": "Allow",
+  "Principal": {
+    "AWS": "arn:aws:iam::111122223333:user/CMKUser"
+  },
+  "Action": [
+    "kms:Encrypt",
+    "kms:Decrypt",
+    "kms:ReEncrypt*",
+    "kms:DescribeKey",
+    "kms:GetPublicKey"
+  ],
+  "Resource": "*"
 }
 ```
 
@@ -256,16 +260,16 @@ The console adds the following statement to the key policy for asymmetric CMKs w
 
 ```
 {
-    "Sid": "Allow use of the key",
-    "Effect": "Allow",
-    "Principal": {"AWS": "arn:aws:iam::111122223333:user/CMKUser"},
-    "Action": [
-        "kms:DescribeKey",
-        "kms:GetPublicKey",
-        "kms:Sign",
-        "kms:Verify"
-    ],
-    "Resource": "*"
+  "Sid": "Allow use of the key",
+  "Effect": "Allow",
+  "Principal": {"AWS": "arn:aws:iam::111122223333:user/CMKUser"},
+  "Action": [
+    "kms:DescribeKey",
+    "kms:GetPublicKey",
+    "kms:Sign",
+    "kms:Verify"
+  ],
+  "Resource": "*"
 }
 ```
 

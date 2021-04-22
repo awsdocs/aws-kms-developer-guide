@@ -22,7 +22,7 @@ To create an alias, the principal needs the following permissions for both the a
     "Effect": "Allow",
     "Action": [
       "kms:CreateAlias",
-      "kms:UpdateAlias"
+      "kms:UpdateAlias",
       "kms:DeleteAlias"
     ],
     "Resource": "arn:aws:kms:us-west-2:111122223333:alias/test-key"
@@ -53,8 +53,7 @@ For example, the following IAM policy statement gives the principal permission t
 
 ```
 {
-  "Version": "2012-10-17",
-  "Statement": {
+    "Sid": "ListPermissions",
     "Effect": "Allow",
     "Action": [
       "kms:ListKeys",
@@ -79,7 +78,7 @@ For example, suppose you want to change the `test-key` alias from the CMK with k
     "Action": [
       "kms:UpdateAlias",
       "kms:ListAliases",
-      "kms:ListKeys",
+      "kms:ListKeys"
     ],
     "Resource": "arn:aws:kms:us-west-2:111122223333:alias/test-key"
   }
@@ -122,7 +121,7 @@ To delete an alias, the principal needs permission for the alias and for the ass
 As always, you should exercise caution when giving principals permission to delete a resource\. However, deleting an alias has no effect on the associated CMK\. Although it might cause a failure in an application that relies on the alias, if you mistakenly delete an alias, you can recreate it\. 
 + `kms:DeleteAlias` for the alias\. Provide this permission in an IAM policy attached to the principal who is allowed to delete the alias\.
 
-  The following example policy statement specifies the alias in a `Resource` element\. But you can list multiple alias ARNs or specify an alias pattern, such as `"test*"`, You can also specify a `Resource` value of `"*"` to allow the principal to delete any alias in the account and Region\.
+  The following example IAM policy statement specifies the alias in a `Resource` element\. But you can list multiple alias ARNs or specify an alias pattern, such as `"test*"`, You can also specify a `Resource` value of `"*"` to allow the principal to delete any alias in the account and Region\.
 
   ```
   {
@@ -130,7 +129,7 @@ As always, you should exercise caution when giving principals permission to dele
     "Effect": "Allow",
     "Action": [
       "kms:CreateAlias",
-      "kms:UpdateAlias"
+      "kms:UpdateAlias",
       "kms:DeleteAlias"
     ],
     "Resource": "arn:aws:kms:us-west-2:111122223333:alias/test-key"
@@ -142,7 +141,9 @@ As always, you should exercise caution when giving principals permission to dele
   {
     "Sid": "Key policy for 1234abcd-12ab-34cd-56ef-1234567890ab",
     "Effect": "Allow",
-    "Principal": {"AWS": "arn:aws:iam::111122223333:user/KMSAdminUser"},
+    "Principal": {
+      "AWS": "arn:aws:iam::111122223333:user/KMSAdminUser"
+    },
     "Action": [
       "kms:CreateAlias",
       "kms:UpdateAlias",
@@ -166,7 +167,7 @@ For a full list of conditions keys that you can use to limit alias permission on
   "Resource": "arn:aws:kms:us-west-2:111122223333:key/*",
   "Action": [
     "kms:CreateAlias",
-    "kms:UpdateAlias"
+    "kms:UpdateAlias",
     "kms:DeleteAlias"
   ],
   "Condition": {
@@ -174,10 +175,10 @@ For a full list of conditions keys that you can use to limit alias permission on
       "kms:CustomerMasterKeyUsage": "ENCRYPT_DECRYPT"
     }
   }  
-},
+}
 ```
 
-You can't use condition keys in a policy statement where the resource is an alias\. To limit the aliases that a principal can manage, use the value of the `Resource` element of the IAM policy statement that controls access to the alias\. For example, the following policy statements allows the principal to create, update, or delete any alias in the AWS account and Region unless the alias begins with `Restricted`\.
+You can't use condition keys in a policy statement where the resource is an alias\. To limit the aliases that a principal can manage, use the value of the `Resource` element of the IAM policy statement that controls access to the alias\. For example, the following policy statements allow the principal to create, update, or delete any alias in the AWS account and Region unless the alias begins with `Restricted`\.
 
 ```
 {
@@ -185,7 +186,7 @@ You can't use condition keys in a policy statement where the resource is an alia
   "Effect": "Allow",
   "Action": [
     "kms:CreateAlias",
-    "kms:UpdateAlias"
+    "kms:UpdateAlias",
     "kms:DeleteAlias"
   ],
   "Resource": "arn:aws:kms:us-west-2:111122223333:alias/*"
@@ -195,7 +196,7 @@ You can't use condition keys in a policy statement where the resource is an alia
   "Effect": "Deny",
   "Action": [
     "kms:CreateAlias",
-    "kms:UpdateAlias"
+    "kms:UpdateAlias",
     "kms:DeleteAlias"
   ],
   "Resource": "arn:aws:kms:us-west-2:111122223333:alias/Restricted*"

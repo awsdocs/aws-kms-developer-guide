@@ -59,7 +59,7 @@ $ aws kms describe-key --key-id "arn:aws:kms:us-west-2:111122223333:alias/projec
 
 Allow or deny access to a CMK based on the aliases associated with the CMK, even if the alias isn't used in a request\. The [kms:ResourceAliases](policy-conditions.md#conditions-kms-resource-aliases) condition key lets you specify an alias or alias pattern, such as `alias/test*`, so you can use it in an IAM policy to control access to several CMKs in the same Region\. It's valid for any AWS KMS operation that uses a CMK\. 
 
-For example, the following IAM policy lets the principals manage automatic key rotation on the CMKs in two AWS accounts\. However, the permission applies only to CMKs associated with aliases that begin with `restricted`\.
+For example, the following IAM policy lets the principals manage automatic key rotation on the CMKs in two AWS accounts\. However, the permission applies only to CMKs with aliases that begin with `restricted`\.
 
 ```
 {
@@ -74,8 +74,8 @@ For example, the following IAM policy lets the principals manage automatic key r
         "kms:GetKeyRotationStatus"
       ],
       "Resource": [
-       "arn:aws:kms:*:111122223333:key/*",
-       "arn:aws:kms:*:444455556666:key/*",
+        "arn:aws:kms:*:111122223333:key/*",
+        "arn:aws:kms:*:444455556666:key/*"
       ],
       "Condition": {
         "ForAnyValue:StringLike": {
@@ -87,7 +87,15 @@ For example, the following IAM policy lets the principals manage automatic key r
 }
 ```
 
-The following example request would fulfill the condition provided that the CMK that the key ID identifies is associated with an alias that begins with `restricted`, such as `restricted`, `restricted_key`, or `restricted-test`\. The request can also use the alias name or alias ARN\.
+The `kms:ResourceAliases` condition is a condition of the resource, not the request\. As such, a request that doesn't specify the alias can still satisfy the condition\. 
+
+The following example request, which specifies a matching alias, satisfies the condition\. 
+
+```
+$ aws kms enable-key-rotation --key-id "alias/restricted-project"
+```
+
+However, the following example request also satisfies the condition, provided that the specified CMK has an alias that begins with `restricted`, even if that alias isn't used in the request\.
 
 ```
 $ aws kms enable-key-rotation --key-id "1234abcd-12ab-34cd-56ef-1234567890ab"

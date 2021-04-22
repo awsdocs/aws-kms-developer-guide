@@ -23,7 +23,11 @@ The following example shows an AWS CloudTrail log entry for the [GenerateDataKey
         "userAgent": "AWS Internal",
         "requestParameters": {
             "keyId": "1234abcd-12ab-34cd-56ef-1234567890ab",
-            "numberOfBytes": 32
+            "keySpec": "AES_256",
+            "encryptionContext": {
+                "Department": "Engineering",
+                "Project": "Alpha"
+            }
         },
         "responseElements": null,
         "requestID": "e0eb83e3-63bc-11e4-bc2b-4198b6150d5c",

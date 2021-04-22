@@ -20,10 +20,16 @@ The following example shows an AWS CloudTrail log entry for the [ReEncrypt](http
     "sourceIPAddress": "192.0.2.0",
     "userAgent": "AWS Internal",
     "requestParameters": {
-        "destinationEncryptionAlgorithm": "SYMMETRIC_DEFAULT",
-        "destinationKeyId": "arn:aws:kms:us-west-2:111122223333:key/0987dcba-09fe-87dc-65ba-ab0987654321",
         "sourceEncryptionAlgorithm": "SYMMETRIC_DEFAULT",
-        "sourceKeyId": "arn:aws:kms:us-west-2:111122223333:key/1234abcd-12ab-34cd-56ef-1234567890ab"
+        "sourceEncryptionContext": {
+            "Project": "Alpha",
+            "Department": "Engineering"
+        },        
+        "destinationKeyId": "0987dcba-09fe-87dc-65ba-ab0987654321",
+        "destinationEncryptionAlgorithm": "SYMMETRIC_DEFAULT",        
+        "destinationEncryptionContext": {
+            "Level": "3A"
+        }
     },
     "responseElements": null,
     "requestID": "03769fd4-acf9-4b33-adf3-2ab8ca73aadf",

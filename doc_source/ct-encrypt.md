@@ -23,9 +23,10 @@ The following example shows an AWS CloudTrail log entry for the [Encrypt](https:
         "userAgent": "AWS Internal",
         "requestParameters": {
             "encryptionContext": {
-                "ContextKey1": "Value1"
+                "Department": "Engineering"
             },
-            "keyId": "arn:aws:kms:us-west-2:111122223333:key/1234abcd-12ab-34cd-56ef-1234567890ab"
+            "keyId": "arn:aws:kms:us-west-2:111122223333:key/1234abcd-12ab-34cd-56ef-1234567890ab",
+            "encryptionAlgorithm": "SYMMETRIC_DEFAULT",
         },
         "responseElements": null,
         "requestID": "f3423043-63bc-11e4-bc2b-4198b6150d5c",

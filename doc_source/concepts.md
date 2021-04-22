@@ -396,9 +396,9 @@ More about encryption context\.
 
 The encryption context is used primarily to verify integrity and authenticity\. But you can also use the encryption context to control access to symmetric customer master keys \(CMKs\) in key policies and IAM policies\. 
 
-The [kms:EncryptionContext:](policy-conditions.md#conditions-kms-encryption-context) and [kms:EncryptionContextKeys](policy-conditions.md#conditions-kms-encryption-context) condition keys allow \(or deny\) a permission only when the request includes particular encryption context keys or key–value pairs\. 
+The [kms:EncryptionContext:*context\-key*](policy-conditions.md#conditions-kms-encryption-context) and [kms:EncryptionContextKeys](policy-conditions.md#conditions-kms-encryption-context) condition keys allow \(or deny\) a permission only when the request includes particular encryption context keys or key–value pairs\. 
 
-For example, the following key policy statement allows the `RoleForExampleApp` role to use the CMK in `Decrypt` operations\. It uses the `kms:EncryptionContext:` condition key to allow this permission only when the encryption context in the request includes an `AppName:ExampleApp` encryption context pair\.
+For example, the following key policy statement allows principals who can assume the `RoleForExampleApp` role to use the CMK in `Decrypt` operations\. It uses the `kms:EncryptionContext:context-key` condition key to allow this permission only when the encryption context in the request specifies the `AppName:ExampleApp` encryption context pair\.
 
 ```
 {
@@ -409,7 +409,7 @@ For example, the following key policy statement allows the `RoleForExampleApp` r
   "Action": "kms:Decrypt",
   "Resource": "*",
   "Condition": {
-    "ForAnyValue:StringEquals": {
+    "StringEquals": {
       "kms:EncryptionContext:AppName": "ExampleApp"
     }
   }

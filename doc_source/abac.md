@@ -20,8 +20,8 @@ To authorize access to CMKs based on their tags and aliases, use the following c
 
 | ABAC condition key | Description | Policy type | AWS KMS operations | 
 | --- | --- | --- | --- | 
-| [aws:ResourceTag](https://docs.aws.amazon.com/IAM/latest/UserGuide/reference_policies_condition-keys.html#condition-keys-resourcetag) | Tag \(key and value\) on the CMK matches the tag \(key and value\) or tag pattern in the policy | IAM policy only | CMK resource operations 2 | 
-| [aws:RequestTag](https://docs.aws.amazon.com/IAM/latest/UserGuide/reference_policies_condition-keys.html#condition-keys-requesttag) | Tag \(key and value\) in the request matches the tag \(key and value\) or tag pattern in the policy | Key policy and IAM policies1 | [TagResource](https://docs.aws.amazon.com/kms/latest/APIReference/API_TagResource.html), [UntagResource](https://docs.aws.amazon.com/kms/latest/APIReference/API_UntagResource.html) | 
+| [aws:ResourceTag/*tag\-key*](https://docs.aws.amazon.com/IAM/latest/UserGuide/reference_policies_condition-keys.html#condition-keys-resourcetag) | Tag \(key and value\) on the CMK matches the tag \(key and value\) or tag pattern in the policy | IAM policy only | CMK resource operations 2 | 
+| [aws:RequestTag/*tag\-key*](https://docs.aws.amazon.com/IAM/latest/UserGuide/reference_policies_condition-keys.html#condition-keys-requesttag) | Tag \(key and value\) in the request matches the tag \(key and value\) or tag pattern in the policy | Key policy and IAM policies1 | [TagResource](https://docs.aws.amazon.com/kms/latest/APIReference/API_TagResource.html), [UntagResource](https://docs.aws.amazon.com/kms/latest/APIReference/API_UntagResource.html) | 
 | [aws:TagKeys](https://docs.aws.amazon.com/IAM/latest/UserGuide/reference_policies_condition-keys.html#condition-keys-tagkeys) | Tag keys in the request match the tag keys in the policy | Key policy and IAM policies1 | [TagResource](https://docs.aws.amazon.com/kms/latest/APIReference/API_TagResource.html), [UntagResource](https://docs.aws.amazon.com/kms/latest/APIReference/API_UntagResource.html) | 
 | [kms:ResourceAliases](policy-conditions.md#conditions-kms-resource-aliases) | Aliases associated with the CMK match the aliases or alias patterns in the policy | IAM policy only | CMK resource operations 2 | 
 | [kms:RequestAlias](policy-conditions.md#conditions-kms-request-alias) | Alias that represents the CMK in the request matches the alias or alias patterns in the policy\. | Key policy and IAM policies1 | [Cryptographic operations](concepts.md#cryptographic-operations), [DescribeKey](https://docs.aws.amazon.com/kms/latest/APIReference/API_DescribeKey.html), [GetPublicKey](https://docs.aws.amazon.com/kms/latest/APIReference/API_GetPublicKey.html) | 
@@ -31,13 +31,13 @@ To authorize access to CMKs based on their tags and aliases, use the following c
 2A *CMK resource operation* is an operation that is authorized for a particular CMK\. To identify the CMK resource operations, in the [AWS KMS permissions table](kms-api-permissions-reference.md#kms-api-permissions-reference-table), look for a value of CMK in the `Resources` column for the operation\. 
 
 For example, you can use these condition keys to create the following policies\.
-+ An IAM policy with `aws:ResourceAliases` that allows permission to use CMKs with a particular alias or alias pattern\. This is a bit different from policies that rely on tags: Although you can use alias patterns in a policy, each alias must be unique in an AWS account and Region\. This allows you to apply a policy to a select set of CMKs without listing the key ARNs of the CMKs in the policy statement\. To add or remove CMKs from the set, change the alias of the CMK\.
++ An IAM policy with `kms:ResourceAliases` that allows permission to use CMKs with a particular alias or alias pattern\. This is a bit different from policies that rely on tags: Although you can use alias patterns in a policy, each alias must be unique in an AWS account and Region\. This allows you to apply a policy to a select set of CMKs without listing the key ARNs of the CMKs in the policy statement\. To add or remove CMKs from the set, change the alias of the CMK\.
 + A key policy with `aws:RequestAlias` that allows principals to use a CMK in a `Encrypt` operation, but only when the `Encrypt` request uses that alias to identify the CMK\.
-+ An IAM policy with `aws:ResourceTag` that denies permission to use CMKs with a particular tag key and tag value\. This allows you to apply a policy to a select set of CMKs without listing the key ARNs of the CMKs in the policy statement\. To add or remove CMKs from the set, tag or untag the CMK\.
-+ An IAM policy with `aws:RequestTag` that allows principals to delete only `"Purpose"="Test"` CMK tags\. 
++ An IAM policy with `aws:ResourceTag/tag-key` that denies permission to use CMKs with a particular tag key and tag value\. This allows you to apply a policy to a select set of CMKs without listing the key ARNs of the CMKs in the policy statement\. To add or remove CMKs from the set, tag or untag the CMK\.
++ An IAM policy with `aws:RequestTag/tag-key` that allows principals to delete only `"Purpose"="Test"` CMK tags\. 
 + An IAM policy with `aws:TagKeys` that denies permission to tag or untag a CMK with a `Restricted` tag key\.
 
-ABAC makes access management flexible and scalable\. For example, you can use the `aws:ResourceTag` condition key to create an IAM policy that allows principals to use a CMK for certain operations only when the CMK has a `Purpose=Test` tag\. The policy applies to all CMKs in all Regions of the AWS account\.
+ABAC makes access management flexible and scalable\. For example, you can use the `aws:ResourceTag/tag-key` condition key to create an IAM policy that allows principals to use a CMK for certain operations only when the CMK has a `Purpose=Test` tag\. The policy applies to all CMKs in all Regions of the AWS account\.
 
 When attached to a user or role, the following IAM policy allows principals to use all existing CMKs with a `Purpose=Test` tag for the specified operations\. To provide this access to new or existing CMKs, you don't need to change the policy\. Just attach the `Purpose=Test` tag to the CMKs\. Similarly, to remove this access from CMKs with a `Purpose=Test` tag, edit or delete the tag\. 
 
@@ -56,8 +56,9 @@ When attached to a user or role, the following IAM policy allows principals to u
       ],
       "Resource": "arn:aws:kms:*:111122223333:key/*",
       "Condition": {
-      "StringEquals": {
-        "aws:ResourceTag/Purpose": "Test"
+        "StringEquals": {
+          "aws:ResourceTag/Purpose": "Test"
+        }
       }
     }
   ]
@@ -85,7 +86,7 @@ The following benefits are of general interest\.
 **Benefits of alias\-based access control**
 + Authorize access to cryptographic operations based on aliases\.
 
-  Most request\-based policy conditions for attributes, including [aws:RequestTag](https://docs.aws.amazon.com/IAM/latest/UserGuide/reference_policies_condition-keys.html#condition-keys-requesttag), affect only operations that add, edit, or delete the attribute\. But the [kms:RequestAlias](policy-conditions.md#conditions-kms-request-alias) condition key controls access to cryptographic operations based on the alias used to identify the CMK in the request\. For example, you can give a principal permission to use a CMK in a `Encrypt` operation but only when the value of the `KeyId` parameter is `alias/restricted-key-1`\. To satisfy this condition requires all of the following:
+  Most request\-based policy conditions for attributes, including [aws:RequestTag/*tag\-key*](https://docs.aws.amazon.com/IAM/latest/UserGuide/reference_policies_condition-keys.html#condition-keys-requesttag), affect only operations that add, edit, or delete the attribute\. But the [kms:RequestAlias](policy-conditions.md#conditions-kms-request-alias) condition key controls access to cryptographic operations based on the alias used to identify the CMK in the request\. For example, you can give a principal permission to use a CMK in a `Encrypt` operation but only when the value of the `KeyId` parameter is `alias/restricted-key-1`\. To satisfy this condition requires all of the following:
   + The CMK must be associated with that alias\.
   + The request must use the alias to identify the CMK\.
   + The principal must have permission to use the CMK subject to the `kms:RequestAlias` condition\. 
@@ -98,13 +99,6 @@ The following benefits are of general interest\.
 ## Troubleshooting ABAC for AWS KMS<a name="troubleshooting-tags-aliases"></a>
 
 Controlling access to CMKs based on their tags and aliases is convenient and powerful\. However, it's prone to a few predictable errors that you'll want to prevent\.
-
-**Topics**
-+ [Access changed due to tag change](#access-denied-tag)
-+ [Access change due to alias change](#access-denied-alias)
-+ [Access denied due to alias quota](#access-denied-alias-quota)
-+ [Delayed authorization change](#tag-alias-auth-delay)
-+ [Failed requests due to alias updates](#failed-requests)
 
 ### Access changed due to tag change<a name="access-denied-tag"></a>
 
@@ -120,12 +114,14 @@ For example, suppose that a principal has access to a CMK based on the `Project=
       "Sid": "IAMPolicyWithResourceTag",
       "Effect": "Allow",
       "Action": [
-          "kms:GenerateDataKeyWithoutPlaintext",
-          "kms:Decrypt"
-      ]
+        "kms:GenerateDataKeyWithoutPlaintext",
+        "kms:Decrypt"
+      ],
       "Resource": "arn:aws:kms:ap-southeast-1:111122223333:key/*",
       "Condition": {
-          "StringEquals": {"aws:ResourceTag/Project": "Alpha"}
+        "StringEquals": {
+          "aws:ResourceTag/Project": "Alpha"
+        }
       }
     }
   ]
@@ -156,12 +152,13 @@ For example, the following IAM policy statement uses the [kms:ResourceAliases](p
       ],
       "Resource": "arn:aws:kms:*:111122223333:key/*",
       "Condition": {
-      "ForAnyValue:StringEquals": {
-        "kms:ResourceAliases": [
+        "ForAnyValue:StringEquals": {
+          "kms:ResourceAliases": [
             "alias/ProjectAlpha",
             "alias/ProjectAlpha_Test",
             "alias/ProjectAlpha_Dev"
-        ]
+          ]
+        }
       }
     }
   ]
