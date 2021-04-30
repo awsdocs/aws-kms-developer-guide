@@ -19,7 +19,8 @@ As a best practice, specify the [key ARN](concepts.md#key-id-key-ARN) of each CM
     "arn:aws:kms:us-west-2:111122223333:key/0987dcba-09fe-87dc-65ba-ab0987654321"
 ]
 ```
-When specifying CMKs is impractical, use a `Resource` value that limits access to CMKs in a trusted AWS account and Region, such as `arn:aws:kms:region:account:key/*`\. Or limit access to CMKs in all Regions \(\*\) of a trusted AWS account, such as `arn:aws:kms:*:account:key/*`\.
+When specifying CMKs is impractical, use a `Resource` value that limits access to CMKs in a trusted AWS account and Region, such as `arn:aws:kms:region:account:key/*`\. Or limit access to CMKs in all Regions \(\*\) of a trusted AWS account, such as `arn:aws:kms:*:account:key/*`\.  
+You cannot use a [key ID](concepts.md#key-id-key-id), [alias name](concepts.md#key-id-alias-name), or [alias ARN](concepts.md#key-id-alias-ARN) to represent a CMK in the `Resource` field of an IAM policy\. If you specify an alias ARN, the policy applies to the alias, not to the CMK\. For information about IAM policies for aliases, see [Controlling access to aliases](alias-access.md)
 
 **Avoid "Resource": "\*" in an IAM policy**  <a name="avoid-resource-star"></a>
 Use wildcard characters \(\*\) judiciously\. In a key policy, the wildcard character in the `Resource` element represents the CMK to which the key policy is attached\. But in an IAM policy, a wildcard character alone in the `Resource` element \(`"Resource": "*"`\) applies the permissions to all CMKs in all AWS accounts that the principal's account has permission to use\. This might include [CMKs in other AWS accounts](key-policy-modifying-external-accounts.md), as well as CMKs in the principal's account\.  

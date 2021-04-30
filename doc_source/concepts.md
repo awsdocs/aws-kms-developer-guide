@@ -227,9 +227,9 @@ Key identifiers act as names for your AWS KMS customer master keys \(CMKs\)\. Th
 
 AWS KMS defines several key identifiers\. When you create a CMK, AWS KMS generates a key ARN and key ID, which are properties of the CMK\. When you create an alias, AWS KMS generates an alias ARN based on the alias name that you define\. You can view the key and alias identifiers in the AWS Management Console and in the AWS KMS API\. 
 
-In the AWS KMS console, you can view and filter CMKs by their key ARN, key ID, or alias name, and sort by key ID and alias name\. For help finding the key identifiers in the console, see [Finding the key ID and ARN](find-cmk-id-arn.md)\.
+In the AWS KMS console, you can [view and filter](viewing-keys-console.md) CMKs by their key ARN, key ID, or alias name, and sort by key ID and alias name\. For details, see [Finding the key ID and ARN](find-cmk-id-arn.md) and [Finding the alias name and alias ARN](find-cmk-alias.md)\.
 
-In the AWS KMS API, the parameters that you use to identify a CMK are named `KeyId` or a variation, such as `TargetKeyId` or `DestinationKeyId`\. However, the values of those parameters are not limited to key IDs\. Some can take any valid key identifier\. For information about the values for each parameter, see the parameter description in the AWS Key Management Service API Reference\.
+In the AWS KMS API, the parameters that you use to identify a CMK are named `KeyId` or a variation, such as `TargetKeyId` or `DestinationKeyId`\. However, the values of those parameters are not limited to key IDs\. Some can take any valid key identifier\. For information about the values for each parameter, see the parameter description in the *AWS Key Management Service API Reference*\.
 
 **Note**  
 When using the AWS KMS API, be careful about the key identifier that you use\. Different APIs require different key identifiers\. In general, use the most complete key identifier that is practical for your task\.
@@ -398,7 +398,7 @@ The encryption context is used primarily to verify integrity and authenticity\. 
 
 The [kms:EncryptionContext:*context\-key*](policy-conditions.md#conditions-kms-encryption-context) and [kms:EncryptionContextKeys](policy-conditions.md#conditions-kms-encryption-context) condition keys allow \(or deny\) a permission only when the request includes particular encryption context keys or key–value pairs\. 
 
-For example, the following key policy statement allows principals who can assume the `RoleForExampleApp` role to use the CMK in `Decrypt` operations\. It uses the `kms:EncryptionContext:context-key` condition key to allow this permission only when the encryption context in the request specifies the `AppName:ExampleApp` encryption context pair\.
+For example, the following key policy statement allows principals who can assume the `RoleForExampleApp` role to use the CMK in `Decrypt` operations\. It uses the `kms:EncryptionContext:context-key` condition key to allow this permission only when the encryption context in the request includes the `AppName:ExampleApp` encryption context pair\.
 
 ```
 {

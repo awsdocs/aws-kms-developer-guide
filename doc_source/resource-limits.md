@@ -2,7 +2,7 @@
 
 AWS KMS establishes resource quotas to ensure that it can provide fast and resilient service to all of our customers\. Some resource quotas apply only to resources that you create, but not to resources that AWS services create for you\. Resources that you use, but that aren't in your AWS account, such as [AWS owned CMKs](concepts.md#aws-owned-cmk), do not count against these quotas\.
 
-If you have reached a resource limit, requests to create an additional resource of that type generate an `LimitExceededException` error message\. 
+If you have exceeded a resource limit, requests to create an additional resource of that type generate an `LimitExceededException` error message\. 
 
 The following table lists and describes the AWS KMS resource quotas in each AWS account and Region\. If you need to exceed a quota, you can request a quota increase in Service Quotas\. Use the [Service Quotas console](https://console.aws.amazon.com/servicequotas) or the [RequestServiceQuotaIncrease](https://docs.aws.amazon.com/servicequotas/2019-06-24/apireference/API_RequestServiceQuotaIncrease.html) operation\. For details, see [Requesting a quota increase](https://docs.aws.amazon.com/servicequotas/latest/userguide/request-increase.html) in the *Service Quotas User Guide*\. If Service Quotas for AWS KMS are not available in the AWS Region, please visit the [AWS Support Center](https://console.aws.amazon.com/support/home) and create a case\. 
 

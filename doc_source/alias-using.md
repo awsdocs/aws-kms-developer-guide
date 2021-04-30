@@ -1,11 +1,19 @@
 # Using aliases in your applications<a name="alias-using"></a>
 
-You can use an alias to represent a CMK in your application code\. The `KeyId` parameter in the [DescribeKey](https://docs.aws.amazon.com/kms/latest/APIReference/API_DescribeKey.html) and [GetPublicKey](https://docs.aws.amazon.com/kms/latest/APIReference/API_GetPublicKey.html) operations and in all [cryptographic operations](concepts.md#cryptographic-operations) accepts an alias name or alias ARN\.
+You can use an alias to represent a CMK in your application code\. The `KeyId` parameter in AWS KMS [cryptographic operations](concepts.md#cryptographic-operations), [DescribeKey](https://docs.aws.amazon.com/kms/latest/APIReference/API_DescribeKey.html), and [GetPublicKey](https://docs.aws.amazon.com/kms/latest/APIReference/API_GetPublicKey.html) accepts an alias name or alias ARN\. If the CMK is in a different AWS account, you must use a key ARN or alias ARN\. 
 
 For example, the following `GenerateDataKey` command uses an alias name \(`alias/finance`\) to identify a CMK\. The alias name is the value of the `KeyId` parameter\. 
 
 ```
 $ aws kms generate-data-key --key-id alias/finance --key-spec AES_256
+```
+
+If you have [permission to use a CMK in a different AWS account](key-policy-modifying-external-accounts.md) for [cryptographic operations](concepts.md#cryptographic-operations), [DescribeKey](https://docs.aws.amazon.com/kms/latest/APIReference/API_DescribeKey.html), or [GetPublicKey](https://docs.aws.amazon.com/kms/latest/APIReference/API_GetPublicKey.html), you must specify the key ARN or alias ARN of the CMK\. When using an alias ARN, remember that the alias for a CMK is defined in the CMK's account and might differ in each Region\. For help finding the alias ARN, see [Finding the alias name and alias ARN](find-cmk-alias.md)\.
+
+For example, the following `GenerateDataKey` command uses a CMK that's not in the caller's account\. The `ExampleAlias` alias is associated with the CMK in the specified account and Region\.
+
+```
+$ aws kms generate-data-key --key-id arn:aws:kms:us-west-2:444455556666:alias/ExampleAlias --key-spec AES_256
 ```
 
 One of the most powerful uses of aliases is in applications that run in multiple AWS Regions\. For example, you might have a global application that uses an RSA [asymmetric CMK](symm-asymm-concepts.md#asymmetric-cmks) for signing and verification\. 

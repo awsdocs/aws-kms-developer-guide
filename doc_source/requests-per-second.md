@@ -1,13 +1,6 @@
 # Request quotas<a name="requests-per-second"></a>
 
-AWS KMS establishes quotas for the number of API operations requested in each second\. When you exceed an API request quota, AWS KMS *throttles* the request, that is, it rejects an otherwise valid request and returns a `ThrottlingException` error like the following one\. To respond, use a [backoff and retry strategy](https://docs.aws.amazon.com/general/latest/gr/api-retries.html)\. 
-
-```
-You have exceeded the rate at which you may call KMS. Reduce the frequency of your calls. 
-(Service: AWSKMS; Status Code: 400; Error Code: ThrottlingException; Request ID: <ID>
-```
-
-The request quotas differ with the API operation, the AWS Region, and other factors, such as the CMK type\.
+AWS KMS establishes quotas for the number of API operations requested in each second\. The request quotas differ with the API operation, the AWS Region, and other factors, such as the CMK type\. When you exceed an API request quota, AWS KMS [throttles the request](throttling.md)\.
 
 **Note**  
 If you need to exceed a quota, you can request a quota increase in Service Quotas\. Use the [Service Quotas console](https://console.aws.amazon.com/servicequotas) or the [RequestServiceQuotaIncrease](https://docs.aws.amazon.com/servicequotas/2019-06-24/apireference/API_RequestServiceQuotaIncrease.html) operation\. For details, see [Requesting a quota increase](https://docs.aws.amazon.com/servicequotas/latest/userguide/request-increase.html) in the *Service Quotas User Guide*\. If Service Quotas for AWS KMS are not available in the AWS Region, please visit the [AWS Support Center](https://console.aws.amazon.com/support/home) and create a case\.   

@@ -74,10 +74,13 @@ You cannot delete your AWS account's root user, so allowing access to this user 
 1. Someone deletes IAM user Alice\.
 In this scenario, the CMK is now unmanageable, and you must [contact AWS Support](https://console.aws.amazon.com/support/home#/case/create) to regain access to the CMK\. The root user does not have access to the CMK, because the root user can access a CMK only when the key policy explicitly allows it\. This is different from most other resources in AWS, which implicitly allow access to the root user\.
 
-**2\. Enables IAM policies to allow access to the CMK\.**  <a name="allow-iam-policies"></a>
-IAM policies by themselves are not sufficient to allow access to a CMK\. However, you can use them in combination with a CMK's key policy if the key policy enables it\. Giving the AWS account full access to the CMK does this; it enables you to use IAM policies to give IAM users and roles in the account access to the CMK\. It does not by itself give any IAM users or roles access to the CMK, but it enables you to use IAM policies to do so\. For more information, see [Managing access to AWS KMS CMKs](control-access-overview.md#managing-access)\.
+**2\. Allows IAM policies to control access to the CMK\.**  <a name="allow-iam-policies"></a>
+Every CMK must have a key policy\. You can also use IAM policies to control access to a CMK, but only if the key policy allows it\. If the key policy doesn't allow it, IAM policies that attempt to control access to a CMK are ineffective\.  
+To allow IAM policies to control access to a CMK, the key policy must include a policy statement that gives the AWS account full access to the CMK, like the following one\. For more information, see [Managing access to AWS KMS CMKs](control-access-overview.md#managing-access)\.
 
-The following example shows the policy statement that allows access to the AWS account and thereby enables IAM policies\.
+The following example shows the policy statement that gives an example AWS account full access to a CMK\. This policy statement lets the account use IAM policies, along with key policies, to control access to the CMK\. 
+
+A policy statement like this one is part of the default key policy\.
 
 ```
 {

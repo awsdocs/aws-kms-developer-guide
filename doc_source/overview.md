@@ -31,7 +31,7 @@ AWS KMS is integrated with AWS CloudTrail, a service that delivers log files to 
 
 **AWS KMS in AWS Regions**  
 The AWS Regions in which AWS KMS is supported are listed in [AWS Key Management Service Endpoints and Quotas](https://docs.aws.amazon.com/general/latest/gr/kms.html)\. If an AWS KMS feature is not supported in an AWS Region that AWS KMS supports, the regional difference is described in the topic about the feature\. 
-<a name="pricing"></a>
+
 **AWS KMS pricing**  
 As with other AWS products, there are no contracts or minimum purchase requirements for using AWS KMS\. For more information about AWS KMS pricing, see [AWS Key Management Service Pricing](https://aws.amazon.com/kms/pricing/)\.
 

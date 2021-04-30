@@ -1,6 +1,6 @@
 # Finding the alias name and alias ARN<a name="find-cmk-alias"></a>
 
-To identify an AWS KMS [customer master key](concepts.md#master_keys) \(CMK\) in a [cryptographic operation](concepts.md#cryptographic-operations), you can use its [key ID](concepts.md#key-id-key-id), [key ARN](concepts.md#key-id-key-ARN), [alias name](concepts.md#key-id-alias-name), or [alias ARN](concepts.md#key-id-alias-ARN)\. In other AWS KMS operations, only the key ID or key ARN are valid\.
+An alias is a friendly name for an AWS KMS [customer master key](concepts.md#master_keys) \(CMK\)\. You can find the [alias name](concepts.md#key-id-alias-name) and [alias ARN](concepts.md#key-id-alias-ARN) in the AWS KMS console or AWS KMS API\.
 
 For detailed information about the CMK identifiers that AWS KMS supports, see [Key identifiers \(KeyId\)](concepts.md#key-id)\. For help finding the key ID and key ARN, see [Finding the key ID and ARN](find-cmk-id-arn.md)\.
 
