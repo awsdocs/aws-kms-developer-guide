@@ -135,42 +135,42 @@ $ aws kms list-aliases
             "AliasArn": "arn:aws:kms:us-west-2:111122223333:alias/access-key",
             "TargetKeyId": "0987dcba-09fe-87dc-65ba-ab0987654321",
             "CreationDate": 1516435200.399,
-            "LastUpdatedDate: 1516435200.399
+            "LastUpdatedDate": 1516435200.399
         },        
         {
             "AliasName": "alias/ECC-P521-Sign",
             "AliasArn": "arn:aws:kms:us-west-2:111122223333:alias/ECC-P521-Sign",
             "TargetKeyId": "1234abcd-12ab-34cd-56ef-1234567890ab",
             "CreationDate": 1693622000.704,
-            "LastUpdatedDate: 1693622000.704
+            "LastUpdatedDate": 1693622000.704
         },
         {
             "AliasName": "alias/ImportedKey",
             "AliasArn": "arn:aws:kms:us-west-2:111122223333:alias/ImportedKey",
             "TargetKeyId": "1a2b3c4d-5e6f-1a2b-3c4d-5e6f1a2b3c4d",
             "CreationDate": 1493622000.704,
-            "LastUpdatedDate: 1521097200.235
+            "LastUpdatedDate": 1521097200.235
         },
         {
             "AliasArn": "arn:aws:kms:us-west-2:111122223333:alias/financeKey",
             "TargetKeyId": "0987dcba-09fe-87dc-65ba-ab0987654321",
             "AliasName": "alias/financeKey",
             "CreationDate": 1604958290.014,
-            "LastUpdatedDate: 1604958290.014
+            "LastUpdatedDate": 1604958290.014
         },
         {
             "AliasName": "alias/aws/dynamodb",
             "AliasArn": "arn:aws:kms:us-west-2:111122223333:alias/aws/dynamodb",
             "TargetKeyId": "0987ab65-43cd-21ef-09ab-87654321cdef",
             "CreationDate": 1521097200.454,
-            "LastUpdatedDate: 1521097200.454
+            "LastUpdatedDate": 1521097200.454
         },
         {
             "AliasName": "alias/aws/ebs",
             "AliasArn": "arn:aws:kms:us-west-2:111122223333:alias/aws/ebs",
             "TargetKeyId": "abcd1234-09fe-ef90-09fe-ab0987654321",
             "CreationDate": 1466518990.200,
-            "LastUpdatedDate: 1466518990.200
+            "LastUpdatedDate": 1466518990.200
         }
     ]
 }
@@ -190,14 +190,14 @@ $ aws kms list-aliases --key-id arn:aws:kms:us-west-2:111122223333:key:0987dcba-
             "AliasArn": "arn:aws:kms:us-west-2:111122223333:alias/access-key",
             "TargetKeyId": "0987dcba-09fe-87dc-65ba-ab0987654321",
             "CreationDate": 1516435200.399,
-            "LastUpdatedDate: 1516435200.399
+            "LastUpdatedDate": 1516435200.399
         },
         {
             "AliasArn": "arn:aws:kms:us-west-2:111122223333:alias/financeKey",
             "TargetKeyId": "0987dcba-09fe-87dc-65ba-ab0987654321",
             "AliasName": "alias/financeKey",
             "CreationDate": 1604958290.014,
-            "LastUpdatedDate: 1604958290.014
+            "LastUpdatedDate": 1604958290.014
         },
     ]
 }
