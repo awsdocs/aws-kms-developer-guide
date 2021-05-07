@@ -32,7 +32,7 @@ For example, this [ListAliases](https://docs.aws.amazon.com/kms/latest/APIRefere
      "AliasArn": "arn:aws:kms:us-west-2:111122223333:alias/test-key",
      "TargetKeyId": "1234abcd-12ab-34cd-56ef-1234567890ab",
      "CreationDate": 1593622000.191,
-     "LastUpdatedDate: 1593622000.191
+     "LastUpdatedDate": 1593622000.191
 }
 ```
 
@@ -45,14 +45,14 @@ For example, you can associate the `test-key` and `project-key` aliases with the
      "AliasArn": "arn:aws:kms:us-west-2:111122223333:alias/test-key",
      "TargetKeyId": "1234abcd-12ab-34cd-56ef-1234567890ab",
      "CreationDate": 1593622000.191,
-     "LastUpdatedDate: 1593622000.191
+     "LastUpdatedDate": 1593622000.191
 },
 {
      "AliasName": "alias/project-key",
      "AliasArn": "arn:aws:kms:us-west-2:111122223333:alias/project-key",
      "TargetKeyId": "1234abcd-12ab-34cd-56ef-1234567890ab",
      "CreationDate": 1516435200.399,
-     "LastUpdatedDate: 1516435200.399
+     "LastUpdatedDate": 1516435200.399
 }
 ```
 
