@@ -125,6 +125,7 @@ Amazon's trademarks and trade dress may not be used in
    + [Encrypting and decrypting data keys](programming-encryption.md)
    + [Working with key policies](programming-key-policies.md)
    + [Working with grants](programming-grants.md)
++ [Creating AWS KMS resources with AWS CloudFormation](creating-resources-with-cloudformation.md)
 + [Deleting customer master keys](deleting-keys.md)
    + [Creating an Amazon CloudWatch alarm to detect usage of a customer master key that is pending deletion](deleting-keys-creating-cloudwatch-alarm.md)
    + [Determining past usage of a customer master key](deleting-keys-determining-usage.md)

@@ -432,13 +432,13 @@ $result = $KmsClient->putKeyPolicy([
         "Version": "2012-10-17", 
         "Id": "custom-policy-2016-12-07", 
         "Statement": [ 
-            { "Sid": "Enable IAM User Permissions", 
+            { "Sid": "Enable IAM policies", 
             "Effect": "Allow", 
             "Principal": 
                { "AWS": "arn:aws:iam::111122223333:user/root" }, 
             "Action": [ "kms:*" ], 
             "Resource": "*" }, 
-            { "Sid": "Enable IAM User Permissions", 
+            { "Sid": "Enable IAM policies", 
             "Effect": "Allow", 
             "Principal":
                { "AWS": "arn:aws:iam::111122223333:user/ExampleUser" }, 
@@ -471,7 +471,7 @@ const Policy = `{
     "Id": "custom-policy-2016-12-07",
     "Statement": [
         {
-            "Sid": "Enable IAM User Permissions",
+            "Sid": "Enable IAM policies",
             "Effect": "Allow",
             "Principal": {
                 "AWS": "arn:aws:iam::111122223333:root"
@@ -480,7 +480,7 @@ const Policy = `{
             "Resource": "*"
         },
         {
-            "Sid": "Enable IAM User Permissions",
+            "Sid": "Enable IAM policies",
             "Effect": "Allow",
             "Principal": {
                 "AWS": "arn:aws:iam::111122223333:user/ExampleUser"
@@ -519,7 +519,7 @@ $policy = '{
     "Version": "2012-10-17", 
     "Statement": [
         {
-            "Sid": "Enable IAM User Permissions",
+            "Sid": "Enable IAM policies",
             "Effect": "Allow",
             "Principal": {
                 "AWS": "arn:aws:iam::111122223333:root"
@@ -528,7 +528,7 @@ $policy = '{
             "Resource": "*"
         },
         {
-            "Sid": "Enable IAM User Permissions",
+            "Sid": "Enable IAM policies",
             "Effect": "Allow",
             "Principal": {
                 "AWS": "arn:aws:iam::111122223333:user/ExampleUser"

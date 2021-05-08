@@ -150,8 +150,8 @@ $ aws kms list-aliases --key-id 0987dcba-09fe-87dc-65ba-ab0987654321
             "AliasName": "alias/access-key",
             "AliasArn": "arn:aws:kms:us-west-2:111122223333:alias/access-key",
             "TargetKeyId": "0987dcba-09fe-87dc-65ba-ab0987654321",
-            "CreationDate": 1516435200.399,
-            "LastUpdatedDate": 1516435200.399
+            "CreationDate": "2018-01-20T15:23:10.194000-07:00",
+            "LastUpdatedDate": "2018-01-20T15:23:10.194000-07:00"
         },
         {
             "AliasName": "alias/finance-project",
@@ -181,8 +181,8 @@ $ aws kms list-aliases --query 'Aliases[?AliasName==`alias/access-key`]'
         "AliasName": "alias/access-key",
         "AliasArn": "arn:aws:kms:us-west-2:111122223333:alias/access-key",
         "TargetKeyId": "0987dcba-09fe-87dc-65ba-ab0987654321",
-        "CreationDate": 1516435200.399,
-        "LastUpdatedDate": 1516435200.399
+        "CreationDate": "2018-01-20T15:23:10.194000-07:00",
+        "LastUpdatedDate": "2018-01-20T15:23:10.194000-07:00"
     }
 ]
 ```

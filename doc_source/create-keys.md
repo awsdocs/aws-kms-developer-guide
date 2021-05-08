@@ -140,7 +140,7 @@ $ aws kms get-key-policy --key-id 1234abcd-12ab-34cd-56ef-1234567890ab --policy-
   "Version" : "2012-10-17",
   "Id" : "key-default-1",
   "Statement" : [ {
-    "Sid" : "Enable IAM User Permissions",
+    "Sid" : "Enable IAM policies",
     "Effect" : "Allow",
     "Principal" : {
       "AWS" : "arn:aws:iam::111122223333:root"

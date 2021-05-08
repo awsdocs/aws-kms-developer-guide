@@ -30,7 +30,7 @@ You can provide tagging permissions in a key policy or IAM policy\. For example,
   "Id": "key-policy-example",
   "Statement": [
     { 
-      "Sid": "Enable IAM User Permissions",
+      "Sid": "Enable IAM policies",
       "Effect": "Allow",
       "Principal": {"AWS": "arn:aws:iam::111122223333:root"},
       "Action": "kms:*",

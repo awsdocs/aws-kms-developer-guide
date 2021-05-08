@@ -17,7 +17,7 @@ The following examples use the policy statements found in the [default key polic
 
 ```
 {
-  "Sid": "Enable IAM User Permissions",
+  "Sid": "Enable IAM policies",
   "Effect": "Allow",
   "Principal": {"AWS": "arn:aws:iam::111122223333:root"},
   "Action": "kms:*",

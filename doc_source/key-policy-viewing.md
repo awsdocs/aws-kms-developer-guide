@@ -57,7 +57,7 @@ The response should be similar to the following one, which returns the [default 
   "Version" : "2012-10-17",
   "Id" : "key-consolepolicy-3",
   "Statement" : [ {
-    "Sid" : "Enable IAM User Permissions",
+    "Sid" : "Enable IAM policies",
     "Effect" : "Allow",
     "Principal" : {
       "AWS" : "arn:aws:iam::111122223333:root"

@@ -107,7 +107,7 @@ The following diagram shows how to use the `Decrypt` operation to decrypt an enc
 
 ## Data key pairs<a name="data-key-pairs"></a>
 
-*Data key pairs* are asymmetric data keys that consist of a mathematically\-related public key and private key\. They are designed to be used for client\-side encryption and decryption or signing and verification outside of AWS KMS\. 
+*Data key pairs* are asymmetric data keys that consist of a mathematically\-related public key and private key\. They are designed to be used for client\-side encryption and decryption, or signing and verification outside of AWS KMS\. 
 
 Unlike the data key pairs that tools like OpenSSL generate, AWS KMS protects the private key in each data key pair under a symmetric CMK in AWS KMS that you specify\. However, AWS KMS does not store, manage, or track your data key pairs, or perform cryptographic operations with data key pairs\. You must use and manage data key pairs outside of AWS KMS\.
 
@@ -115,11 +115,11 @@ AWS KMS supports the following types of data key pairs:
 + RSA key pairs: RSA\_2048, RSA\_3072, and RSA\_4096
 + Elliptic curve key pairs, ECC\_NIST\_P256, ECC\_NIST\_P384, ECC\_NIST\_P521, and ECC\_SECG\_P256K1
 
-The type of data key pair that you select usually depends on your use case or regulatory requirements\. Most certificates require RSA keys\. Elliptic curve keys are often used for digital signatures\. ECC\_SECG\_P256K1 keys are commonly used for cryptocurrencies\.
+The type of data key pair that you select usually depends on your use case or regulatory requirements\. Most certificates require RSA keys\. Elliptic curve keys are often used for digital signatures\. ECC\_SECG\_P256K1 keys are commonly used for cryptocurrencies\. AWS KMS recommends that your use ECC key pairs for signing, and use RSA key pairs for either encryption or signing, but not both\. However, AWS KMS cannot enforce any restrictions on the use of data key pairs outside of AWS KMS\.
 
 ### Create a data key pair<a name="data-keys-pairs-create"></a>
 
-To create a data key pair, call the [GenerateDataKeyPair](https://docs.aws.amazon.com/kms/latest/APIReference/API_GenerateDataKeyPair.html) or [GenerateDataKeyPairWithoutPlaintext](https://docs.aws.amazon.com/kms/latest/APIReference/API_GenerateDataKeyPairWithoutPlaintext.html) operations\. Specify the symmetric CMK you want to use to encrypt the private key\.
+To create a data key pair, call the [GenerateDataKeyPair](https://docs.aws.amazon.com/kms/latest/APIReference/API_GenerateDataKeyPair.html) or [GenerateDataKeyPairWithoutPlaintext](https://docs.aws.amazon.com/kms/latest/APIReference/API_GenerateDataKeyPairWithoutPlaintext.html) operations\. Specify the symmetric CMK you want to use to encrypt the private key\. 
 
 `GenerateDataKeyPair` returns a plaintext public key, a plaintext private key, and an encrypted private key\. Use this operation when you need a plaintext private key immediately, such as to generate a digital signature\.
 

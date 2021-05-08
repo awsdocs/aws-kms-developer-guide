@@ -203,7 +203,7 @@ To use a policy like this one, replace the placeholder AWS account ID and VPC en
     "Version": "2012-10-17",
     "Statement": [
         {
-            "Sid": "Enable IAM user permissions",
+            "Sid": "Enable IAM policies",
             "Effect": "Allow",
             "Principal": {"AWS":["111122223333"]},
             "Action": ["kms:*"],

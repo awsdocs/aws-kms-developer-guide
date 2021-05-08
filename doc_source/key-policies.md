@@ -84,7 +84,7 @@ A policy statement like this one is part of the default key policy\.
 
 ```
 {
-  "Sid": "Enable IAM User Permissions",
+  "Sid": "Enable IAM policies",
   "Effect": "Allow",
   "Principal": {
     "AWS": "arn:aws:iam::111122223333:root"
@@ -329,7 +329,7 @@ The following example shows a complete key policy for a symmetric CMK\. This key
   "Id": "key-consolepolicy-2",
   "Statement": [
     {
-      "Sid": "Enable IAM User Permissions",
+      "Sid": "Enable IAM policies",
       "Effect": "Allow",
       "Principal": {"AWS": "arn:aws:iam::111122223333:root"},
       "Action": "kms:*",
