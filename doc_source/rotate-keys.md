@@ -1,16 +1,16 @@
 # Rotating customer master keys<a name="rotate-keys"></a>
 
-Cryptographic best practices discourage extensive reuse of encryption keys\. To create new cryptographic material for your AWS Key Management Service \(AWS KMS\) customer master keys \(CMKs\), you can create new CMKs, and then change your applications or aliases to use the new CMKs\. Or, you can enable automatic key rotation for an existing [customer managed CMK](concepts.md#customer-cmk)\. 
+Cryptographic best practices discourage extensive reuse of encryption keys\. To create new cryptographic key material for your AWS Key Management Service \(AWS KMS\) customer master keys \(CMKs\), you can create new CMKs, and then change your applications or aliases to use the new CMKs\. Or, you can enable automatic key rotation for an existing [customer managed CMK](concepts.md#customer-cmk)\. 
 
-When you enable *automatic key rotation* for a customer managed CMK, AWS KMS generates new cryptographic material for the CMK every year\. AWS KMS also saves the CMK's older cryptographic material in perpetuity so it can be used to decrypt data that it encrypted\. AWS KMS does not delete any rotated key material until you [delete the CMK](deleting-keys.md)\.
+When you enable *automatic key rotation* for a customer managed CMK, AWS KMS generates new key material for the CMK every year\. AWS KMS also saves the CMK's older key material in perpetuity so it can be used to decrypt data that it encrypted\. AWS KMS does not delete any rotated key material until you [delete the CMK](deleting-keys.md)\.
 
-Key rotation changes only the CMK's *backing key*, which is the cryptographic material that is used in encryption operations\. The CMK is the same logical resource, regardless of whether or how many times its backing key changes\. The properties of the CMK do not change, as shown in the following image\.
+Key rotation changes only the CMK's *key material*, which is the cryptographic material that is used in encryption operations\. The CMK is the same logical resource, regardless of whether or how many times its key material changes\. The properties of the CMK do not change, as shown in the following image\.
 
 ![\[Image NOT FOUND\]](http://docs.aws.amazon.com/kms/latest/developerguide/images/key-rotation-auto.png)
 
 Automatic key rotation has the following benefits:
-+ The properties of the CMK, including its key ID, key ARN, region, policies, and permissions, do not change when the key is rotated\.
-+ You do not need to change applications or aliases that refer to the CMK ID or ARN\.
++ The properties of the CMK, including its [key ID](concepts.md#key-id-key-id), [key ARN](concepts.md#key-id-key-ARN), region, policies, and permissions, do not change when the key is rotated\.
++ You do not need to change applications or aliases that refer to the key ID or key ARN of the CMK\.
 + After you enable key rotation, AWS KMS rotates the CMK automatically every year\. You don't need to remember or schedule the update\.
 
 However, automatic key rotation has no effect on the data that the CMK protects\. It does not rotate the data keys that the CMK generated or re\-encrypt any data protected by the CMK, and it will not mitigate the effect of a compromised data key\.
@@ -18,7 +18,7 @@ However, automatic key rotation has no effect on the data that the CMK protects\
 You might decide to create a new CMK and use it in place of the original CMK\. This has the same effect as rotating the key material in an existing CMK, so it's often thought of as [manually rotating the key](#rotate-keys-manually)\. Manual rotation is a good choice when you want to control the key rotation schedule\. It also provides a way to rotate CMKs that are not eligible for automatic key rotation, including [asymmetric CMKs](symmetric-asymmetric.md), CMKs in [custom key stores](custom-key-store-overview.md), and CMKs with [imported key material](#rotate-keys)\.
 
 **Key rotation and pricing**  
-Rotating customer managed CMKs might result in extra monthly charges\. For details, see [AWS Key Management Service Pricing](https://aws.amazon.com/kms/pricing/)\. For more detailed information about backing keys and rotation, see [AWS Key Management Service Cryptographic Details](https://docs.aws.amazon.com/kms/latest/cryptographic-details/)\.
+Rotating customer managed CMKs might result in extra monthly charges\. For details, see [AWS Key Management Service Pricing](https://aws.amazon.com/kms/pricing/)\. For more detailed information about key material and rotation, see [AWS Key Management Service Cryptographic Details](https://docs.aws.amazon.com/kms/latest/cryptographic-details/)\.
 
 **Topics**
 + [How automatic key rotation works](#rotate-keys-how-it-works)
@@ -28,14 +28,15 @@ Rotating customer managed CMKs might result in extra monthly charges\. For detai
 ## How automatic key rotation works<a name="rotate-keys-how-it-works"></a>
 
 Key rotation in AWS KMS is a cryptographic best practice that is designed to be transparent and easy to use\. AWS KMS supports optional automatic key rotation only for [customer managed CMKs](concepts.md#customer-cmk)\.
-+ **Backing key management\.** AWS KMS retains all backing keys for a CMK, even if key rotation is disabled\. The backing keys are deleted only when the CMK is deleted\. When you use a CMK to encrypt, AWS KMS uses the current backing key\. When you use the CMK to decrypt, AWS KMS uses the backing key that was used to encrypt\. 
-+ **Enable and disable key rotation\. **Automatic key rotation is disabled by default on customer managed CMKs\. When you enable \(or re\-enable\) key rotation, AWS KMS automatically rotates the CMK 365 days after the enable date and every 365 days thereafter\. 
-+ **Disabled CMKs\.** While a CMK is disabled, AWS KMS does not rotate it\. However, the key rotation status does not change, and you cannot change it while the CMK is disabled\. When the CMK is re\-enabled, if the backing key is more than 365 days old, AWS KMS rotates it immediately and every 365 days thereafter\. If the backing key is less than 365 days old, AWS KMS resumes the original key rotation schedule\.
-+ **CMKs pending deletion\.** While a CMK is pending deletion, AWS KMS does not rotate it\. The key rotation status is set to `false` and you cannot change it while deletion is pending\. If deletion is canceled, the previous key rotation status is restored\. If the backing key is more than 365 days old, AWS KMS rotates it immediately and every 365 days thereafter\. If the backing key is less than 365 days old, AWS KMS resumes the original key rotation schedule\.
++ **Managing key material** AWS KMS retains all key material for a CMK, even if key rotation is disabled\. Key material is deleted only when the CMK is deleted\. When you use a CMK to encrypt, AWS KMS uses the current key material\. When you use the CMK to decrypt, AWS KMS uses the key material that was used to encrypt\. 
++ **Enable and disable key rotation\. **Automatic key rotation is disabled by default on [customer managed CMKs](concepts.md#customer-cmk)\. When you enable \(or re\-enable\) key rotation, AWS KMS automatically rotates the CMK 365 days after the enable date and every 365 days thereafter\. 
++ **Disabled CMKs\.** While a CMK is disabled, AWS KMS does not rotate it\. However, the key rotation status does not change, and you cannot change it while the CMK is disabled\. When the CMK is re\-enabled, if the key material is more than 365 days old, AWS KMS rotates it immediately and every 365 days thereafter\. If the key material is less than 365 days old, AWS KMS resumes the original key rotation schedule\.
++ **CMKs pending deletion\.** While a CMK is pending deletion, AWS KMS does not rotate it\. The key rotation status is set to `false` and you cannot change it while deletion is pending\. If deletion is canceled, the previous key rotation status is restored\. If the key material is more than 365 days old, AWS KMS rotates it immediately and every 365 days thereafter\. If the key material is less than 365 days old, AWS KMS resumes the original key rotation schedule\.
 + **AWS managed CMKs\.** You cannot manage key rotation for [AWS managed CMKs](concepts.md#aws-managed-cmk)\. AWS KMS automatically rotates AWS managed CMKs every three years \(1095 days\)\.  
-+ **AWS owned CMKs\.** You cannot manage key rotation for AWS owned CMKs\. The [key rotation](#rotate-keys) strategy for an AWS owned CMK is determined by the AWS service that creates and manages the CMK\. For details, see the *Encryption at Rest* topic in the user guide or developer guide for the service\.
++ **AWS owned CMKs\.** You cannot manage key rotation for [AWS owned CMKs](concepts.md#aws-owned-cmk)\. The [key rotation](#rotate-keys) strategy for an AWS owned CMK is determined by the AWS service that creates and manages the CMK\. For details, see the *Encryption at Rest* topic in the user guide or developer guide for the service\.
 + **AWS services**\. You can enable automatic key rotation on the [customer managed CMKs](concepts.md#customer-cmk) that you use for server\-side encryption in AWS services\. The annual rotation is transparent and compatible with AWS services\.
-+ **Monitoring key rotation\.** When AWS KMS automatically rotates the key material for an [AWS managed CMK](concepts.md#aws-managed-cmk) or [customer managed CMK](concepts.md#customer-cmk), it writes a `KMS CMK Rotation` event to [Amazon CloudWatch Events](https://docs.aws.amazon.com/AmazonCloudWatch/latest/events/) and a [RotateKey event](ct-rotatekey.md) to your AWS CloudTrail log\. You can use these records to verify that the CMK was rotated\.
++ **Multi\-Region CMKs**\. You can enable and disable automatic key rotation for [multi\-Region keys](multi-region-keys-overview.md)\. You set the property only on the primary key\. When AWS KMS synchronizes the keys, it copies the property setting from the primary key to its replica keys\. When the key material of the primary key is rotated, AWS KMS automatically copies that key material to all of its replica keys\. For details, see [Rotating multi\-Region keys](multi-region-keys-manage.md#multi-region-rotate)\.
++ **Monitoring key rotation\.** When AWS KMS automatically rotates the key material for an [AWS managed CMK](concepts.md#aws-managed-cmk) or [customer managed CMK](concepts.md#customer-cmk), it writes a `CMK Rotation` event to [Amazon CloudWatch Events](https://docs.aws.amazon.com/AmazonCloudWatch/latest/events/) and a [RotateKey event](ct-rotatekey.md) to your AWS CloudTrail log\. You can use these records to verify that the CMK was rotated\.
 + **Unsupported CMK types\.** Automatic key rotation is *not* supported on the following types of CMKs, but you can [rotate these CMKs manually](#rotate-keys-manually)\.
   + [Asymmetric CMKs](symm-asymm-concepts.md#asymmetric-cmks)
   + CMKs in [custom key stores](custom-key-store-overview.md)
@@ -97,32 +98,33 @@ $ aws kms get-key-rotation-status --key-id 1234abcd-12ab-34cd-56ef-1234567890ab
 
 ## Rotating keys manually<a name="rotate-keys-manually"></a>
 
-You might want to create a new CMK and use it in place of a current CMK instead of enabling automatic key rotation\. When the new CMK has different cryptographic material than the current CMK, using the new CMK has the same effect as changing the backing key in an existing CMK\. The process of replacing one CMK with another is known as *manual key rotation*\.
+You might want to create a new CMK and use it in place of a current CMK instead of enabling automatic key rotation\. When the new CMK has different key material than the current CMK, using the new CMK has the same effect as changing the key material in an existing CMK\. The process of replacing one CMK with another is known as *manual key rotation*\.
 
 ![\[Image NOT FOUND\]](http://docs.aws.amazon.com/kms/latest/developerguide/images/key-rotation-manual.png)
 
 You might prefer to rotate keys manually so you can control the rotation frequency\. It's also a good solution for CMKs that are not eligible for automatic key rotation, such as asymmetric CMKs, CMKs in [custom key stores](custom-key-store-overview.md) and CMKs with [imported key material](importing-keys.md)\.
 
 **Note**  
-When you begin using the new CMK, be sure to keep the original CMK enabled so that AWS KMS can decrypt data that the original CMK encrypted\. When decrypting data, KMS identifies the CMK that was used to encrypt the data, and it uses the same CMK to decrypt the data\. As long as you keep both the original and new CMKs enabled, AWS KMS can decrypt any data that was encrypted by either CMK\.
+When you begin using the new CMK, be sure to keep the original CMK enabled so that AWS KMS can decrypt data that the original CMK encrypted\. When decrypting data, AWS KMS identifies the CMK that was used to encrypt the data, and it uses the same CMK to decrypt the data\. As long as you keep both the original and new CMKs enabled, AWS KMS can decrypt any data that was encrypted by either CMK\.
 
-Because the new CMK is a different resource from the current CMK, it has a different key ID and ARN\. When you change CMKs, you need to update references to the CMK ID or ARN in your applications\. Aliases, which associate a friendly name with a CMK, make this process easier\. Use an alias to refer to a CMK in your applications\. Then, when you want to change the CMK that the application uses, change the target CMK of the alias\.
+Because the new CMK is a different resource from the current CMK, it has a different key ID and key ARN\. When you change CMKs, you need to update references to the key ID or key ARN in your applications\. [Aliases](kms-alias.md), which associate a friendly name with a CMK, make this process easier\. Use an alias to refer to a CMK in your applications\. Then, when you want to change the CMK that the application uses, change the target CMK of the alias\. For details, see [Using aliases in your applications](alias-using.md)\.
 
-To update the target CMK of an alias, use [UpdateAlias](https://docs.aws.amazon.com/kms/latest/APIReference/API_UpdateAlias.html) operation in the AWS KMS API\. For example, this command updates the `TestCMK` alias to point to a new CMK\. Because the operation does not return any output, the example uses the [ListAliases](https://docs.aws.amazon.com/kms/latest/APIReference/API_ListAliases.html) operation to show that the alias is now associated with a different CMK and the `LastUpdatedDate` field is updated\. 
+To update the target CMK of an alias, use [UpdateAlias](https://docs.aws.amazon.com/kms/latest/APIReference/API_UpdateAlias.html) operation in the AWS KMS API\. For example, this command updates the `TestKey` alias to point to a new CMK\. Because the operation does not return any output, the example uses the [ListAliases](https://docs.aws.amazon.com/kms/latest/APIReference/API_ListAliases.html) operation to show that the alias is now associated with a different CMK and the `LastUpdatedDate` field is updated\. 
 
 ```
 $ aws kms list-aliases
 {
     "Aliases": [
         {
-            "AliasArn": "arn:aws:kms:us-west-2:111122223333:alias/TestCMK",
-            "AliasName": "alias/TestCMK",
+            "AliasArn": "arn:aws:kms:us-west-2:111122223333:alias/TestKey",
+            "AliasName": "alias/TestKey",
             "TargetKeyId": "1234abcd-12ab-34cd-56ef-1234567890ab",
             "CreationDate": 1521097200.123,
             "LastUpdatedDate": 1521097200.123
         },
     ]
-}            
+}
+
 
 $ aws kms update-alias --alias-name alias/TestCMK --target-key-id 0987dcba-09fe-87dc-65ba-ab0987654321
             
@@ -130,8 +132,8 @@ $ aws kms list-aliases
 {
     "Aliases": [
         {
-            "AliasArn": "arn:aws:kms:us-west-2:111122223333:alias/TestCMK",
-            "AliasName": "alias/TestCMK",
+            "AliasArn": "arn:aws:kms:us-west-2:111122223333:alias/TestKey",
+            "AliasName": "alias/TestKey",
             "TargetKeyId": "0987dcba-09fe-87dc-65ba-ab0987654321",
             "CreationDate": 1521097200.123,
             "LastUpdatedDate": 1604958290.722

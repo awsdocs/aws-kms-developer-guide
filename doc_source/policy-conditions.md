@@ -102,9 +102,13 @@ For detailed information about the `ForAnyValue` and `ForAllValues` set operator
 + [kms:GranteePrincipal](#conditions-kms-grantee-principal)
 + [kms:KeyOrigin](#conditions-kms-key-origin)
 + [kms:MessageType](#conditions-kms-message-type)
++ [kms:MultiRegion](#conditions-kms-multiregion)
++ [kms:MultiRegionKeyType](#conditions-kms-multiregion-key-type)
++ [kms:PrimaryRegion](#conditions-kms-primary-region)
 + [kms:ReEncryptOnSameKey](#conditions-kms-reencrypt-on-same-key)
 + [kms:RequestAlias](#conditions-kms-request-alias)
 + [kms:ResourceAliases](#conditions-kms-resource-aliases)
++ [kms:ReplicaRegion](#conditions-kms-replica-region)
 + [kms:RetiringPrincipal](#conditions-kms-retiring-principal)
 + [kms:SigningAlgorithm](#conditions-kms-signing-algorithm)
 + [kms:ValidTo](#conditions-kms-valid-to)
@@ -1041,7 +1045,7 @@ The `kms:KeyOrigin` condition key controls access to operations based on the val
 
 You can use this condition key to control access to the [CreateKey](https://docs.aws.amazon.com/kms/latest/APIReference/API_CreateKey.html) operation based on the value of the [Origin](https://docs.aws.amazon.com/kms/latest/APIReference/API_CreateKey.html#KMS-CreateKey-request-Origin) parameter in the request\. Valid values for `Origin` are `AWS_KMS`, `AWS_CLOUDHSM`, and `EXTERNAL`\. 
 
-For example, you can allow a user to create a CMK only when the key material is generated in KMS \(`AWS_KMS`\), only when the key material is generated in an AWS CloudHSM cluster that is associated with a [custom key store](custom-key-store-overview.md) \(`AWS_CLOUDHSM`\), or only when the [key material is imported](importing-keys.md) from an external source \(`EXTERNAL`\)\. 
+For example, you can allow a user to create a CMK only when the key material is generated in AWS KMS \(`AWS_KMS`\), only when the key material is generated in an AWS CloudHSM cluster that is associated with a [custom key store](custom-key-store-overview.md) \(`AWS_CLOUDHSM`\), or only when the [key material is imported](importing-keys.md) from an external source \(`EXTERNAL`\)\. 
 
 The following example key policy statement uses the `kms:KeyOrigin` condition key to allow a user to create a CMK only when AWS KMS creates the key material\.
 
@@ -1120,6 +1124,95 @@ For example, the following key policy statement uses the `kms:MessageType` condi
 
 **See also**
 + [kms:SigningAlgorithm](#conditions-kms-signing-algorithm)
+
+### kms:MultiRegion<a name="conditions-kms-multiregion"></a>
+
+
+| AWS KMS condition keys | Condition type | API operations | Policy type | 
+| --- | --- | --- | --- | 
+|  `kms:MultiRegion`  |  Boolean  |  `CreateKey` CMK resource operations  |  Key policies and IAM policies  | 
+
+You can use this condition key to allow operations only on single\-Region keys or only on [multi\-Region keys](multi-region-keys-overview.md)\. The `kms:MultiRegion` condition key controls access to AWS KMS operations on CMKs and to the [CreateKey](https://docs.aws.amazon.com/kms/latest/APIReference/API_CreateKey.html) operation based on the value of the `MultiRegion` property of the CMK\. Valid values are `true` \(multi\-Region\), and `false` \(single\-Region\)\. All CMKs have a `MultiRegion` property\.
+
+For example, the following IAM policy statement uses the `kms:MultiRegion` condition key to allow principals to create only single\-Region keys\. 
+
+```
+{
+  "Effect": "Allow",
+  "Action": "kms:CreateKey",
+  "Resource": {
+      "*"
+  },
+  "Condition": {
+    "Bool": "kms:MultiRegion": false
+  }
+}
+```
+
+### kms:MultiRegionKeyType<a name="conditions-kms-multiregion-key-type"></a>
+
+
+| AWS KMS condition keys | Condition type | API operations | Policy type | 
+| --- | --- | --- | --- | 
+|  `kms:MultiRegionKeyType`  |  String  |  `CreateKey` CMK resource operations  |  Key policies and IAM policies  | 
+
+You can use this condition key to allow operations only on [multi\-Region primary keys](multi-region-keys-overview.md#mrk-primary-key) or only on [multi\-Region replica keys](multi-region-keys-overview.md#mrk-replica-key)\. The `kms:MultiRegionKeyType` condition key controls access to AWS KMS operations on CMKs and the [CreateKey](https://docs.aws.amazon.com/kms/latest/APIReference/API_CreateKey.html) operation based on the `MultiRegionKeyType` property of the CMK\. The valid values are `PRIMARY` and `REPLICA`\. Only multi\-Region CMKs have a `MultiRegionKeyType` property\.
+
+Typically, you use the `kms:MultiRegionKeyType` condition key in an IAM policy to control access to multiple CMKs\. However, because a given multi\-Region CMK can change to primary or replica, you might want to use this condition in a key policy to allow an operation only when the particular multi\-Region CMK is a primary or replica key\.
+
+For example, the following IAM policy statement uses the `kms:MultiRegionKeyType` condition key to allow principals to schedule and cancel key deletion only on multi\-Region replica keys in the specified AWS account\. 
+
+```
+{
+  "Effect": "Allow",  
+  "Action": [
+    "kms:ScheduleKeyDeletion",
+    "kms:CancelKeyDeletion"
+  ],
+  "Resource": {
+      "arn:aws:kms:*:111122223333:key/*"
+  },
+  "Condition": {
+    "StringEquals": "kms:MultiRegionKeyType": "REPLICA"
+  }
+}
+```
+
+To allow or deny access to all multi\-Region keys, you can use both values or a null value with `kms:MultiRegionKeyType`\. However, the [kms:MultiRegion](#conditions-kms-multiregion) condition key is recommended for that purpose\.
+
+### kms:PrimaryRegion<a name="conditions-kms-primary-region"></a>
+
+
+| AWS KMS condition keys | Condition type | API operations | Policy type | 
+| --- | --- | --- | --- | 
+|  `kms:PrimaryRegion`  |  String \(list\)  |  `UpdatePrimaryRegion`  |  Key policies and IAM policies  | 
+
+You can use this condition key to limit the destination Regions in an [UpdatePrimaryRegion](https://docs.aws.amazon.com/kms/latest/APIReference/API_UpdatePrimaryRegion.html) operation\. These are AWS Regions that can host your multi\-Region primary keys\. 
+
+The `kms:PrimaryRegion` condition key controls access to the [UpdatePrimaryRegion](https://docs.aws.amazon.com/kms/latest/APIReference/API_UpdatePrimaryRegion.html) operation based on the value of the `PrimaryRegion` parameter\. The `PrimaryRegion` parameter specifies the AWS Region of the CMK that is being converted from a [multi\-Region replica key](multi-region-keys-overview.md#mrk-replica-key) to a [multi\-Region primary key](multi-region-keys-overview.md#mrk-primary-key)\. The value of the condition is one or more AWS Region names, such as `us-east-1` or `ap-southeast-2`, or Region name patterns, such as `eu-*`
+
+For example, the following key policy statement uses the `kms:PrimaryRegion` condition key to allow principals to update the primary region of a multi\-Region CMK to one of the four specified Regions\.
+
+```
+{
+  "Effect": "Allow",
+  "Action": "kms:UpdatePrimaryRegion",
+  "Principal": {
+    "AWS": "arn:aws:iam::111122223333:role/Developer"
+  },
+  "Resource": "*",
+  "Condition": {
+    "StringEquals": {
+      "kms:PrimaryRegion": [ 
+         "us-east-1",
+         "us-west-2",
+         "eu-west-3",
+         "ap-southeast-2"
+      ]
+    }
+  }
+}
+```
 
 ### kms:ReEncryptOnSameKey<a name="conditions-kms-reencrypt-on-same-key"></a>
 
@@ -1204,7 +1297,7 @@ This is a multivalued condition key that compares the set of aliases associated 
 + ForAnyValue: At least one alias associated with the CMK must match an alias in the policy condition\. Other aliases are permitted\. If the CMK has no aliases, the condition is not satisfied\.
 + ForAllValues: Every alias associated with the CMK must match an alias in the policy\. This set operator limits the aliases associated with the CMK to those in the policy condition\. It doesn't require any aliases, but it forbids unspecified aliases\.
 
-For example, the following IAM policy statement allows the principal to call the [GenerateDataKey](https://docs.aws.amazon.com/kms/latest/APIReference/API_GenerateDataKey.html) operation on any CMK in the specified AWS accounts that is associated with the `finance-key` alias\. \(The key policies of the affected CMKs must also allow the principal's account to use them for this operation\.\) To indicate that the condition is satisfied when one of the many aliases that might be associated with the CMK is `alias/finance-key`, the condition uses the `ForAnyValue` set operator\. 
+For example, the following IAM policy statement allows the principal to call the [GenerateDataKey](https://docs.aws.amazon.com/kms/latest/APIReference/API_GenerateDataKey.html) operation on any CMK in the specified AWS account that is associated with the `finance-key` alias\. \(The key policies of the affected CMKs must also allow the principal's account to use them for this operation\.\) To indicate that the condition is satisfied when one of the many aliases that might be associated with the CMK is `alias/finance-key`, the condition uses the `ForAnyValue` set operator\. 
 
 Because the `kms:ResourceAliases` condition is based on the resource, not the request, a call to `GenerateDataKey` succeeds for any CMK associated with the `finance-key` alias, even if the request uses a [key ID](concepts.md#key-id-key-id) or [key ARN](concepts.md#key-id-key-ARN) to identify the CMK\. 
 
@@ -1250,6 +1343,41 @@ The following example IAM policy statement allows the principal to enable and di
   ]
 }
 ```
+
+### kms:ReplicaRegion<a name="conditions-kms-replica-region"></a>
+
+
+| AWS KMS condition keys | Condition type | API operations | Policy type | 
+| --- | --- | --- | --- | 
+|  `kms:ReplicaRegion`  |  String \(list\)  |  `ReplicateKey`  |  Key policies and IAM policies  | 
+
+You can use this condition key to limit the AWS Regions in which a principal can replicate a [multi\-Region key](multi-region-keys-overview.md)\. The `kms:ReplicaRegion` condition key controls access to the [ReplicateKey](https://docs.aws.amazon.com/kms/latest/APIReference/API_CreateGrant.html) operation based on the value of the [ReplicaRegion](https://docs.aws.amazon.com/kms/latest/APIReference/API_CreateGrant.html#KMS-CreateGrant-request-RetiringPrincipal) parameter in the request\. This parameter specifies the AWS Region for the new [replica key](multi-region-keys-overview.md#mrk-replica-key)\. 
+
+The value of the condition is one or more AWS Region names, such as `us-east-1` or `ap-southeast-2`, or name patterns, such as `eu-*`\. For a list of the names of AWS Regions that AWS KMS supports, see [AWS Key Management Service endpoints and quotas](https://docs.aws.amazon.com/general/latest/gr/kms.html) in the AWS General Reference\.
+
+For example, the following key policy statement uses the `kms:ReplicaRegion` condition key to allow principals to call the [ReplicateKey](https://docs.aws.amazon.com/kms/latest/APIReference/API_ReplicateKey.html) operation only when the value of the `ReplicaRegion` parameter is one of the specified Regions\.
+
+```
+{
+  "Effect": "Allow",
+  "Principal": {
+    "AWS": "arn:aws:iam::111122223333:role/Administrator"
+  },
+  "Action": "kms:ReplicateKey"
+  "Resource": "*",
+  "Condition": {
+    "StringEquals": {
+      "kms:ReplicaRegion": { 
+         "us-east-1",
+         "eu-west-3",
+         "ap-southeast-2"
+      }
+    }
+  }
+}
+```
+
+This condition key controls access only to the [ReplicateKey](https://docs.aws.amazon.com/kms/latest/APIReference/API_ReplicateKey.html) operation\. To control access to the [UpdatePrimaryRegion](https://docs.aws.amazon.com/kms/latest/APIReference/API_UpdatePrimaryRegion.html) operation, use the [kms:PrimaryRegion](#conditions-kms-primary-region) condition key\.
 
 ### kms:RetiringPrincipal<a name="conditions-kms-retiring-principal"></a>
 
@@ -1431,12 +1559,16 @@ You might need to scroll horizontally or vertically to see all of the data in th
 
 | Service name | AWS KMS ViaService name | 
 | --- | --- | 
-| Amazon Appflow | appflow\.AWS\_region\.amazonaws\.com | 
+| AWS App Runner | apprunner\.AWS\_region\.amazonaws\.com | 
+| Amazon AppFlow | appflow\.AWS\_region\.amazonaws\.com | 
+| Amazon Application Migration Service | mgn\.AWS\_region\.amazonaws\.com | 
 | Amazon Athena | athena\.AWS\_region\.amazonaws\.com | 
 | AWS Audit Manager | auditmanager\.AWS\_region\.amazonaws\.com | 
 | Amazon Aurora | rds\.AWS\_region\.amazonaws\.com | 
 | AWS Backup | backup\.AWS\_region\.amazonaws\.com | 
 | AWS CodeArtifact | codeartifact\.AWS\_region\.amazonaws\.com | 
+| Amazon CodeGuru Reviewer | codeguru\-reviewer\.AWS\_region\.amazonaws\.com | 
+| Amazon Comprehend | comprehend\.AWS\_region\.amazonaws\.com | 
 | Amazon Connect | connect\.AWS\_region\.amazonaws\.com | 
 | AWS Database Migration Service \(AWS DMS\) | dms\.AWS\_region\.amazonaws\.com | 
 | AWS Directory Service | directoryservice\.AWS\_region\.amazonaws\.com | 
@@ -1448,6 +1580,7 @@ You might need to scroll horizontally or vertically to see all of the data in th
 | Amazon Elastic Kubernetes Service \(Amazon EKS\) | eks\.AWS\_region\.amazonaws\.com | 
 | Amazon ElastiCache |  Include both ViaService names in the condition key value: [\[See the AWS documentation website for more details\]](http://docs.aws.amazon.com/kms/latest/developerguide/policy-conditions.html)  | 
 | Amazon Elasticsearch Service \(Amazon ES\) | es\.AWS\_region\.amazonaws\.com | 
+| Amazon FinSpace | finspace\.AWS\_region\.amazonaws\.com | 
 | Amazon Forecast | forecast\.AWS\_region\.amazonaws\.com | 
 | Amazon FSx | fsx\.AWS\_region\.amazonaws\.com | 
 | AWS Glue | glue\.AWS\_region\.amazonaws\.com | 
@@ -1462,13 +1595,17 @@ You might need to scroll horizontally or vertically to see all of the data in th
 | Amazon Lookout for Equipment | lookoutequipment\.AWS\_region\.amazonaws\.com | 
 | Amazon Lookout for Metrics | lookoutmetrics\.AWS\_region\.amazonaws\.com | 
 | Amazon Lookout for Vision | lookoutvision\.AWS\_region\.amazonaws\.com | 
+| Amazon Managed Blockchain | managedblockchain\.AWS\_region\.amazonaws\.com | 
 | Amazon Managed Streaming for Apache Kafka \(Amazon MSK\) | kafka\.AWS\_region\.amazonaws\.com | 
 | Amazon Managed Workflows for Apache Airflow \(MWAA\) | airflow\.AWS\_region\.amazonaws\.com | 
 | Amazon Monitron | monitron\.AWS\_region\.amazonaws\.com | 
 | Amazon MQ | mq\.AWS\_region\.amazonaws\.com | 
 | Amazon Neptune | rds\.AWS\_region\.amazonaws\.com | 
+| Amazon Nimble Studio | nimble\.AWS\_region\.amazonaws\.com | 
+| AWS Proton | proton\.AWS\_region\.amazonaws\.com | 
 | Amazon RDS Performance Insights | rds\.AWS\_region\.amazonaws\.com | 
 | Amazon Redshift | redshift\.AWS\_region\.amazonaws\.com | 
+| Amazon Rekognition | rekognition\.AWS\_region\.amazonaws\.com | 
 | Amazon Relational Database Service \(Amazon RDS\) | rds\.AWS\_region\.amazonaws\.com | 
 | AWS Secrets Manager | secretsmanager\.AWS\_region\.amazonaws\.com | 
 | Amazon Simple Email Service \(Amazon SES\) | ses\.AWS\_region\.amazonaws\.com | 
@@ -1477,9 +1614,11 @@ You might need to scroll horizontally or vertically to see all of the data in th
 | Amazon Simple Storage Service \(Amazon S3\) | s3\.AWS\_region\.amazonaws\.com | 
 | AWS Snowball | importexport\.AWS\_region\.amazonaws\.com | 
 | AWS Storage Gateway | storagegateway\.AWS\_region\.amazonaws\.com | 
+| AWS Systems Manager Incident Manager | ssm\-incidents\.AWS\_region\.amazonaws\.com | 
+| AWS Systems Manager Incident Manager Contacts | ssm\-contacts\.AWS\_region\.amazonaws\.com | 
 | Amazon Timestream | timestream\.AWS\_region\.amazonaws\.com | 
 | Amazon WorkMail | workmail\.AWS\_region\.amazonaws\.com | 
-| Amazon WorkSpaces | workspaces\.AWS\_region\.amazonaws\.com | 
+| Amazon Workspaces | workspaces\.AWS\_region\.amazonaws\.com | 
 | AWS X\-Ray | xray\.AWS\_region\.amazonaws\.com | 
 
 ### kms:WrappingAlgorithm<a name="conditions-kms-wrapping-algorithm"></a>

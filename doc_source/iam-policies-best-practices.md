@@ -40,6 +40,6 @@ In an IAM policy, use a wildcard character in the `Resource` element only for pe
 + Permissions for custom key stores, such as [kms:CreateCustomKeyStore](https://docs.aws.amazon.com/kms/latest/APIReference/API_CreateCustomKeyStore.html) and [kms:ConnectCustomKeyStore](https://docs.aws.amazon.com/kms/latest/APIReference/API_ConnectCustomKeyStore.html)\.
 Permissions for alias operations \([kms:CreateAlias](https://docs.aws.amazon.com/kms/latest/APIReference/API_CreateAlias.html), [kms:UpdateAlias](https://docs.aws.amazon.com/kms/latest/APIReference/API_UpdateAlias.html), [kms:DeleteAlias](https://docs.aws.amazon.com/kms/latest/APIReference/API_DeleteAlias.html)\) must be attached to the alias and the CMK\. You can use `"Resource": "*"` in an IAM policy to represent the aliases and the CMKs, or specify the aliases and CMKs in the `Resource` element\. For examples, see [Controlling access to aliases](alias-access.md)\.
 
- 
+ 
 
 The examples in this topic provide more information and guidance for designing IAM policies for CMKs\. For general AWS KMS best practice guidance, see the [AWS Key Management Service Best Practices](https://d0.awsstatic.com/whitepapers/aws-kms-best-practices.pdf)\. For IAM best practices for all AWS resources, see [Security best practices in IAM](https://docs.aws.amazon.com/IAM/latest/UserGuide/best-practices.html) in the *IAM User Guide*\.

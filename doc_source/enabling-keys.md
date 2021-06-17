@@ -7,7 +7,7 @@ When you create a CMK, it is enabled by default\. If you disable a CMK, it canno
 You can also delete CMKs\. For more information, see [Deleting customer master keys](deleting-keys.md)\.
 
 **Note**  
-AWS KMS does not rotate the backing keys of customer managed CMKs while they are disabled\. For more information, see [How automatic key rotation works](rotate-keys.md#rotate-keys-how-it-works)\.
+AWS KMS does not rotate the key material of customer managed CMKs while they are disabled\. For more information, see [How automatic key rotation works](rotate-keys.md#rotate-keys-how-it-works)\.
 
 **Topics**
 + [Enabling and disabling CMKs \(console\)](#enabling-keys-console)
@@ -53,12 +53,13 @@ $ aws kms describe-key --key-id 1234abcd-12ab-34cd-56ef-1234567890ab
         "KeyId": "1234abcd-12ab-34cd-56ef-1234567890ab",
         "Description": "",
         "KeyManager": "CUSTOMER",
+        "MultiRegion": false,
         "Enabled": false,
         "KeyState": "Disabled",
         "KeyUsage": "ENCRYPT_DECRYPT",        
         "CreationDate": 1502910355.475,
         "Arn": "arn:aws:kms:us-west-2:111122223333:key/1234abcd-12ab-34cd-56ef-1234567890ab",
-        "AWSAccountId": "111122223333"
+        "AWSAccountId": "111122223333",
         "CustomerMasterKeySpec": "SYMMETRIC_DEFAULT",
         "EncryptionAlgorithms": [
             "SYMMETRIC_DEFAULT"

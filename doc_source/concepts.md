@@ -10,6 +10,7 @@ Learn the basic terms and concepts in AWS Key Management Service \(AWS KMS\) and
 + [Custom key stores](#keystore-concept)
 + [Cryptographic operations](#cryptographic-operations)
 + [Key identifiers \(KeyId\)](#key-id)
++ [Key material](#key-material)
 + [Key material origin](#key-origin)
 + [Key spec](#key-spec)
 + [Key usage](#key-usage)
@@ -22,15 +23,15 @@ Learn the basic terms and concepts in AWS Key Management Service \(AWS KMS\) and
 
 ## Customer master keys \(CMKs\)<a name="master_keys"></a>
 
-Customer master keys are the primary resources in AWS KMS\.
+A *customer master key* \(CMK\) is the primary resource in AWS KMS\. You can use a CMK to encrypt, decrypt, and re\-encrypt data\. It can also generate data keys that you can use outside of AWS KMS\. Typically, you'll use symmetric CMKs, but you can create and use asymmetric CMKs for encryption or signing\.
 
-A *customer master key* \(CMK\) is a logical representation of a master key\. The CMK includes metadata, such as the key ID, creation date, description, and key state\. The CMK also contains the key material used to encrypt and decrypt data\.
-
-AWS KMS supports symmetric and asymmetric CMKs\. A *symmetric CMK* represents a 256\-bit key that is used for encryption and decryption\. An *asymmetric CMK* represents an RSA key pair that is used for encryption and decryption or signing and verification \(but not both\), or an elliptic curve \(ECC\) key pair that is used for signing and verification\. For detailed information about symmetric and asymmetric CMKs, see [Using symmetric and asymmetric keys](symmetric-asymmetric.md)\.
-
-CMKs are created in AWS KMS\. Symmetric CMKs and the private keys of asymmetric CMKs never leave AWS KMS unencrypted\.  To manage your CMK, you can use the AWS Management Console or the [AWS KMS API](https://docs.aws.amazon.com/kms/latest/APIReference/)\. To use a CMK in [cryptographic operations](#cryptographic-operations), you must use the AWS KMS API\. This strategy differs from [data keys](#data-keys)\. AWS KMS does not store, manage, or track your data keys\. You must use them outside of AWS KMS\.
+Symmetric CMKs and the private keys of asymmetric CMKs never leave AWS KMS unencrypted\.  To manage your CMK, you can use the AWS Management Console or the [AWS KMS API](https://docs.aws.amazon.com/kms/latest/APIReference/)\. To use a CMK in [cryptographic operations](#cryptographic-operations), you must use the AWS KMS API\. This strategy differs from [data keys](#data-keys)\. AWS KMS does not store, manage, or track your data keys\. You must use them outside of AWS KMS\.
 
 By default, AWS KMS creates the key material for a CMK\. You cannot extract, export, view, or manage this key material\. Also, you cannot delete this key material; you must [delete the CMK](deleting-keys.md)\. However, you can [import your own key material](importing-keys.md) into a CMK or create the key material for a CMK in the AWS CloudHSM cluster associated with an [AWS KMS custom key store](custom-key-store-overview.md)\.
+
+AWS KMS also supports [multi\-Region CMKs](multi-region-keys-overview.md), which let you encrypt data in one AWS Region and decrypt it in a different AWS Region\. 
+
+In addition to the key material that makes the CMK an encryption or signing key, the CMK includes metadata, such as its key ID, creation date, description, and key state\.
 
 For information about creating and managing CMKs, see [Getting started](getting-started.md)\. For information about using CMKs, see the [AWS Key Management Service API Reference](https://docs.aws.amazon.com/kms/latest/APIReference/)\.
 
@@ -79,11 +80,11 @@ The [key rotation](rotate-keys.md) strategy for an AWS owned CMK is determined b
 
 *Data keys* are encryption keys that you can use to encrypt data, including large amounts of data and other data encryption keys\. 
 
-You can use AWS KMS [customer master keys](#master_keys) \(CMKs\) to generate, encrypt, and decrypt data keys\. However, AWS KMS does not store, manage, or track your data keys, or perform cryptographic operations with data keys\. You must use and manage data keys outside of AWS KMS\.
+You can use symmetric AWS KMS [customer master keys](#master_keys) \(CMKs\) to generate, encrypt, and decrypt data keys\. However, AWS KMS does not store, manage, or track your data keys, or perform cryptographic operations with data keys\. You must use and manage data keys outside of AWS KMS\.
 
 ### Create a data key<a name="data-keys-create"></a>
 
-To create a data key, call the [GenerateDataKey](https://docs.aws.amazon.com/kms/latest/APIReference/API_GenerateDataKey.html) operation\. AWS KMS uses the CMK that you specify to generate a data key\. The operation returns a plaintext copy of the data key and a copy of the data key encrypted under the CMK\. The following image shows this operation\.
+To create a data key, call the [GenerateDataKey](https://docs.aws.amazon.com/kms/latest/APIReference/API_GenerateDataKey.html) operation\. AWS KMS uses the symmetric CMK that you specify to generate a data key\. The operation returns a plaintext copy of the data key and a copy of the data key encrypted under the CMK\. The following image shows this operation\.
 
 ![\[Generate a data key\]](http://docs.aws.amazon.com/kms/latest/developerguide/images/generate-data-key.png)
 
@@ -91,7 +92,7 @@ AWS KMS also supports the [GenerateDataKeyWithoutPlaintext](https://docs.aws.ama
 
 ### Encrypt data with a data key<a name="data-keys-encrypt"></a>
 
-AWS KMS cannot use a data key to encrypt data\. But you can use the data key outside of KMS, such as by using OpenSSL or a cryptographic library like the [AWS Encryption SDK](https://docs.aws.amazon.com/encryption-sdk/latest/developer-guide/)\.
+AWS KMS cannot use a data key to encrypt data\. But you can use the data key outside of AWS KMS, such as by using OpenSSL or a cryptographic library like the [AWS Encryption SDK](https://docs.aws.amazon.com/encryption-sdk/latest/developer-guide/)\.
 
 After using the plaintext data key to encrypt data, remove it from memory as soon as possible\. You can safely store the encrypted data key with the encrypted data so it is available to decrypt the data\.
 
@@ -243,18 +244,28 @@ The format of a key ARN is as follows:
 ```
 arn:<partition>:kms:<region>:<account-id>:key/<key-id>
 ```
-The following is an example key ARN\.  
+The following is an example key ARN for a single\-Region CMK\.  
 
 ```
 arn:aws:kms:us-west-2:111122223333:key/1234abcd-12ab-34cd-56ef-1234567890ab
 ```
+The *key\-id* element of the key ARNs of [multi\-Region keys](multi-region-keys-overview.md) begin with the `mrk-` prefix\. The following is an example key ARN for a multi\-Region CMK\.  
+
+```
+arn:aws:kms:us-west-2:111122223333:key/mrk-1234abcd12ab34cd56ef1234567890ab
+```
 
 **Key ID**  <a name="key-id-key-id"></a>
 The key ID uniquely identifies a CMK within an account and Region\. For help finding the key ID of a CMK, see [Finding the key ID and ARN](find-cmk-id-arn.md)\.  
-The following is an example key ID\.  
+The following is an example key ID for a single\-Region CMK\.  
 
 ```
 1234abcd-12ab-34cd-56ef-1234567890ab
+```
+The key IDs of [multi\-Region keys](multi-region-keys-overview.md) begin with the `mrk-` prefix\. The following is an example key ID for a multi\-Region CMK\.  
+
+```
+mrk-1234abcd12ab34cd56ef1234567890ab
 ```
 
 **Alias ARN**  <a name="key-id-alias-ARN"></a>
@@ -288,6 +299,14 @@ The `aws/` prefix for an alias name is reserved for [AWS managed CMKs](#aws-mana
 ```
 alias/aws/s3
 ```
+
+## Key material<a name="key-material"></a>
+
+*Key material* is the secret string of bits used in a cryptographic algorithm\. Key material must be kept secret to protect the cryptographic operations that use it\.
+
+In AWS KMS, each customer master key includes key material along with metadata, such as its [key ID](#key-id) and [key policy](key-policies.md)\. The [key material origin](#key-origin) can vary\. You can use key material that AWS KMS generates, key material that is generated in the AWS CloudHSM cluster of a [custom key store](custom-key-store-overview.md), or [import your own key material](importing-keys.md)\. If you use AWS KMS key material, you can enable [automatic rotation](rotate-keys.md) of your key material\.
+
+By default, each CMK has unique key material\. However, you can create a set of [multi\-Region keys](multi-region-keys-overview.md) with the same key material\.
 
 ## Key material origin<a name="key-origin"></a>
 

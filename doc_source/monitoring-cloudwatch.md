@@ -106,15 +106,15 @@ For more information about using CloudWatch Events with other kinds of events, i
 The following topics describe the CloudWatch Events that AWS KMS creates\.
 
 **Topics**
-+ [KMS CMK rotation](#kms-events-rotation)
++ [CMK rotation](#kms-events-rotation)
 + [KMS imported key material expiration](#kms-events-expiration)
-+ [KMS CMK deletion](#kms-events-deletion)
++ [CMK deletion](#kms-events-deletion)
 
-### KMS CMK rotation<a name="kms-events-rotation"></a>
+### CMK rotation<a name="kms-events-rotation"></a>
 
 When you enable [automatic key rotation](rotate-keys.md) for a [customer managed CMK](concepts.md#customer-cmk), AWS KMS creates new key material for the CMK each year\. The key material for [AWS managed CMKs](concepts.md#aws-managed-cmk) is automatically rotated every three years\. 
 
-Whenever AWS KMS rotates key material, it sends a KMS CMK Rotation event to CloudWatch Events\. AWS KMS generates this event on a best\-effort basis\.
+Whenever AWS KMS rotates key material, it sends a CMK Rotation event to CloudWatch Events\. AWS KMS generates this event on a best\-effort basis\.
 
 The following is an example of this event\.
 
@@ -122,7 +122,7 @@ The following is an example of this event\.
 {
   "version": "0",
   "id": "6a7e8feb-b491-4cf7-a9f1-bf3703467718",
-  "detail-type": "KMS CMK Rotation",
+  "detail-type": "CMK Rotation",
   "source": "aws.kms",
   "account": "111122223333",
   "time": "2016-08-25T21:05:33Z",
@@ -160,7 +160,7 @@ The following is an example of this event\.
 }
 ```
 
-### KMS CMK deletion<a name="kms-events-deletion"></a>
+### CMK deletion<a name="kms-events-deletion"></a>
 
 When you [schedule key deletion](deleting-keys.md) for a CMK, AWS KMS enforces a waiting period before deleting the CMK\. After the waiting period ends, AWS KMS deletes the CMK and sends a corresponding event to CloudWatch Events\. AWS KMS guarantees this CloudWatch event\. Due to retries, it might generate multiple events within a few seconds that delete the same CMK\.
 
@@ -170,7 +170,7 @@ When you [schedule key deletion](deleting-keys.md) for a CMK, AWS KMS enforces a
 {
   "version": "0",
   "id": "e9ce3425-7d22-412a-a699-e7a5fc3fbc9a",
-  "detail-type": "KMS CMK Deletion",
+  "detail-type": "CMK Deletion",
   "source": "aws.kms",
   "account": "111122223333",
   "time": "2016-08-19T03:23:45Z",

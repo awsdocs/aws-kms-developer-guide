@@ -177,6 +177,7 @@ $ aws kms create-key --origin AWS_CLOUDHSM --custom-key-store-id cks-1234567890a
     "CreationDate": 1.499288695918E9,
     "Description": "Example key",
     "Enabled": true,
+    "MultiRegion": false,
     "KeyId": "1234abcd-12ab-34cd-56ef-1234567890ab",
     "KeyManager": "CUSTOMER",
     "KeyState": "Enabled",

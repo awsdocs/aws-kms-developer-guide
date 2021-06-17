@@ -29,7 +29,7 @@ Before you create a CloudWatch alarm, you must create an AWS CloudTrail trail an
 
 To receive a notification when AWS KMS API requests attempt to use a CMK that is pending deletion in a cryptographic operation, create a CloudWatch alarm and configure notifications\.
 
-**To create a CloudWatch alarm that monitors attempted usage of a KMS CMK that is pending deletion**
+**To create a CloudWatch alarm that monitors attempted usage of a CMK that is pending deletion**
 
 1. Sign in to the AWS Management Console and open the CloudWatch console at [https://console\.aws\.amazon\.com/cloudwatch/](https://console.aws.amazon.com/cloudwatch/)\.
 

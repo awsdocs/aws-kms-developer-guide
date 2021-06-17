@@ -14,8 +14,13 @@ If you [close or delete your AWS account](https://docs.aws.amazon.com/awsaccount
 
 AWS KMS records an entry in your AWS CloudTrail log when you [schedule deletion](ct-schedule-key-deletion.md) of the CMK and when the [CMK is actually deleted](ct-delete-key.md)\. 
 
+For information about deleting multi\-Region primary and replica keys, see [Deleting multi\-Region keys](multi-region-keys-delete.md)\.
+
 **Topics**
 + [About the waiting period](#deleting-keys-how-it-works)
++ [Deleting asymmetric CMKs](#deleting-asymmetric-cmks)
++ [Deleting multi\-Region CMKs](#deleting-mrks)
++ [Deleting CMKs for AWS services](#deleting-keys-how-it-affects-aws-services-integrated-with-kms)
 + [Scheduling and canceling key deletion](#deleting-keys-scheduling-key-deletion)
 + [Adding permission to schedule and cancel key deletion](#deleting-keys-adding-permission)
 + [Creating an Amazon CloudWatch alarm to detect usage of a customer master key that is pending deletion](deleting-keys-creating-cloudwatch-alarm.md)
@@ -35,7 +40,7 @@ After the waiting period ends, AWS KMS deletes the CMK, its aliases, and all rel
 
 Use the waiting period to ensure that you don't need the CMK now or in the future\. You can [configure an Amazon CloudWatch alarm](deleting-keys-creating-cloudwatch-alarm.md) to warn you if a person or application attempts to use the CMK during the waiting period\. To recover the CMK, you can cancel key deletion before the waiting period ends\. After the waiting period ends you cannot cancel key deletion, and AWS KMS deletes the CMK\.
 
-### Deleting asymmetric CMKs<a name="deleting-asymmetric-cmks"></a>
+## Deleting asymmetric CMKs<a name="deleting-asymmetric-cmks"></a>
 
 Users [who are authorized](#deleting-keys-adding-permission) can delete symmetric or asymmetric CMKs\. The procedure to schedule the deletion of these CMKs is the same for both types of keys\. However, because the [public key of an asymmetric CMK can be downloaded](download-public-key.md) and used outside of AWS KMS, the operation poses significant additional risks, especially for asymmetric CMKs used for encryption \(the key usage is `ENCRYPT_DECRYPT`\)\.
 + When you schedule the deletion of a CMK, the key state of CMK changes to **Pending deletion**, and the CMK cannot be used in [cryptographic operations](concepts.md#cryptographic-operations)\. However, scheduling deletion has no effect on public keys outside of AWS KMS\. Users who have the public key can continue to use them to encrypt messages\. They do not receive any notification that the key state is changed\. Unless the deletion is canceled, ciphertext created with the public key cannot be decrypted\.
@@ -44,7 +49,11 @@ Users [who are authorized](#deleting-keys-adding-permission) can delete symmetri
 
 If you must delete an asymmetric CMK with a key usage of `ENCRYPT_DECRYPT`, use your CloudTrail Log entries to determine whether the public key has been downloaded and shared\. If it has, verify that the public key is not being used outside of AWS KMS\. Then, consider [disabling the CMK](enabling-keys.md) instead of deleting it\.
 
-### How deleting customer master keys affects AWS services integrated with AWS KMS<a name="deleting-keys-how-it-affects-aws-services-integrated-with-kms"></a>
+## Deleting multi\-Region CMKs<a name="deleting-mrks"></a>
+
+Users [who are authorized](#deleting-keys-adding-permission) can schedule the deletion of multi\-Region primary and replica keys\. However, AWS KMS will not delete a multi\-Region primary key that has replica keys\. Also, as long as its primary key exists, you can recreate a deleted multi\-Region replica key\. For details, see [Deleting multi\-Region keys](multi-region-keys-delete.md)\.
+
+## Deleting CMKs for AWS services<a name="deleting-keys-how-it-affects-aws-services-integrated-with-kms"></a>
 
 Several AWS services integrate with AWS KMS to protect your data\. Some of these services, such as [Amazon EBS](https://docs.aws.amazon.com/kms/latest/developerguide/services-ebs.html) and [Amazon Redshift](https://docs.aws.amazon.com/kms/latest/developerguide/services-redshift.html), use a [customer master key](concepts.md#master_keys) \(CMK\) in AWS KMS to generate a [data key](concepts.md#data-keys) and then use the data key to encrypt your data\. These plaintext data keys persist in memory as long as the data they are protecting is actively in use\.
 
@@ -64,7 +73,9 @@ For example, consider this scenario:
 
 ## Scheduling and canceling key deletion<a name="deleting-keys-scheduling-key-deletion"></a>
 
-The following procedures describe how to schedule key deletion and cancel key deletion in AWS KMS using the AWS Management Console, the AWS CLI, and the AWS SDK for Java\.
+The following procedures describe how to schedule key deletion and cancel key deletion of single\-Region customer master keys \(CMKs\) in AWS KMS using the AWS Management Console, the AWS CLI, and the AWS SDK for Java\.
+
+For information about scheduling the deletion of multi\-Region keys, see [Deleting multi\-Region keys](multi-region-keys-delete.md)\.
 
 **Warning**  
 Deleting a customer master key \(CMK\) in AWS KMS is destructive and potentially dangerous\. You should proceed only when you are sure that you don't need to use the CMK anymore and won't need to use it in the future\. If you are not sure, you should [disable the CMK](enabling-keys.md) instead of deleting it\.
@@ -100,7 +111,7 @@ In the AWS Management Console, you can schedule and cancel the deletion of multi
 
 1. Review the CMKs that you are deleting\.
 
-1. Select the **Confirm that you want to schedule these keys for deletion after a** *<waiting period>* **day waiting period** check box\.
+1. Select the check box next to **Confirm you want to schedule this key for deletion in *<number of days>* days\.**\.
 
 1. Choose **Schedule deletion**\.
 
@@ -114,7 +125,7 @@ The CMK status changes to **Pending deletion**\.
 
 1. In the navigation pane, choose **Customer managed keys**\.
 
-1. Select the check boxes next to the CMK that you want to recover\.
+1. Select the check boxes next to the CMKs that you want to recover\.
 
 1. Choose **Key actions**, **Cancel key deletion**\.
 
@@ -133,7 +144,9 @@ When used successfully, the AWS CLI returns output like the output shown in the 
 ```
 {
     "KeyId": "arn:aws:kms:us-west-2:111122223333:key/1234abcd-12ab-34cd-56ef-1234567890ab",
-    "DeletionDate": 1442102400.0
+    "DeletionDate": 1598304792.0,
+    "KeyState": "PendingDeletion",
+    "PendingWindowInDays": 10
 }
 ```
 
@@ -181,13 +194,7 @@ The status of the CMK changes from **Pending Deletion** to **Disabled**\. To use
 
 ## Adding permission to schedule and cancel key deletion<a name="deleting-keys-adding-permission"></a>
 
-If you use IAM policies to allow AWS KMS permissions, all IAM users and roles that have AWS administrator access \(`"Action": "*"`\) or AWS KMS full access \(`"Action": "kms:*"`\) are already allowed to schedule and cancel key deletion for AWS KMS CMKs\. If you rely on the key policy alone to allow AWS KMS permissions, you might need to add additional permissions to allow your IAM users and roles to delete CMKs\. To add those permissions, see the following steps\. 
-
-The following procedures describe how to add permissions to a key policy using the AWS Management Console or the AWS CLI\.
-
-**Topics**
-+ [Using the AWS Management Console](#deleting-keys-adding-permission-console)
-+ [Using the AWS CLI](#deleting-keys-adding-permission-cli)
+If you use IAM policies to allow AWS KMS permissions, all IAM users and roles that have AWS administrator access \(`"Action": "*"`\) or AWS KMS full access \(`"Action": "kms:*"`\) are already allowed to schedule and cancel key deletion for AWS KMS CMKs\. If you rely on the key policy alone to allow AWS KMS permissions, you might need to add additional permissions to allow your IAM users and roles to delete CMKs\. To add those permissions, use one of the following procedures\.
 
 ### Adding permission to schedule and cancel key deletion \(console\)<a name="deleting-keys-adding-permission-console"></a>
 

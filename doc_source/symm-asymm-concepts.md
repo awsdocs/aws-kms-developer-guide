@@ -23,8 +23,8 @@ In an asymmetric CMK, the private key is created in AWS KMS and never leaves AWS
 If your use case requires encryption outside of AWS by users who cannot call AWS KMS, asymmetric CMKs are a good choice\. However, if you are creating a CMK to encrypt the data that you store or manage in an AWS service, use a symmetric CMK\. [AWS services that are integrated with AWS KMS](https://aws.amazon.com/kms/features/#AWS_Service_Integration) use symmetric CMKs to encrypt your data\. These services do not support encryption with asymmetric CMKs\.
 
 AWS KMS supports two types of asymmetric CMKs\. 
-+ **RSA CMKs**: A CMK with an RSA key pair for encryption and decryption or signing and verification \(but not both\)\. KMS supports several key lengths for different security requirements\.
-+ **Elliptic Curve \(ECC\) CMKs**: A CMK with an elliptic curve key pair for signing and verification\. KMS supports several commonly\-used curves\.
++ **RSA CMKs**: A CMK with an RSA key pair for encryption and decryption or signing and verification \(but not both\)\. AWS KMS supports several key lengths for different security requirements\.
++ **Elliptic Curve \(ECC\) CMKs**: A CMK with an elliptic curve key pair for signing and verification\. AWS KMS supports several commonly\-used curves\.
 
 For technical details about the encryption and signing algorithms that AWS KMS supports for RSA CMKs, see [RSA Key Specs](symm-asymm-choose.md#key-spec-rsa)\. For technical details about the signing algorithms that AWS KMS supports for ECC CMKs, see [Elliptic Curve Key Specs](symm-asymm-choose.md#key-spec-ecc)\.
 

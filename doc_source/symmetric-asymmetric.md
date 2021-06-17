@@ -21,8 +21,9 @@ This topic explains how symmetric and asymmetric CMKs work, how they differ, and
 Asymmetric CMKs and asymmetric data key pairs are supported in all AWS Regions that AWS KMS supports except for China \(Beijing\) and China \(Ningxia\)\.
 
 **Learn more**
-+ For a table that compares the AWS KMS API operations that apply to each type of CMK, see [Comparing symmetric and asymmetric CMKs](symm-asymm-compare.md)\.
++ To create symmetric and asymmetric CMKs, see [Creating keys](create-keys.md)\.
 + To find out whether a CMK is symmetric or asymmetric, see [Identifying symmetric and asymmetric CMKs](find-symm-asymm.md)\. 
++ For a table that compares the AWS KMS API operations that apply to each type of CMK, see [Comparing symmetric and asymmetric CMKs](symm-asymm-compare.md)\.
 + To examine the difference in the default key policy that the AWS KMS console sets for symmetric and asymmetric CMKs, see [Allows key users to use the CMK with AWS services](key-policies.md#key-policy-service-integration)\. 
 + To control access to the key specs, key usage, encryption algorithms, and signing algorithms that principals in your account can use for CMKs and data keys, see [AWS KMS condition keys](policy-conditions.md#conditions-kms)\.
 + To learn about the request quotas that apply to different types of CMKs, see [Request quotas](requests-per-second.md)\.

@@ -1,7 +1,7 @@
 # AWS Key Management Service Developer Guide
 
 -----
-*****Copyright &copy;  Amazon Web Services, Inc. and/or its affiliates. All rights reserved.*****
+*****Copyright &copy; Amazon Web Services, Inc. and/or its affiliates. All rights reserved.*****
 
 -----
 Amazon's trademarks and trade dress may not be used in 
@@ -78,6 +78,15 @@ Amazon's trademarks and trade dress may not be used in
    + [How to choose your CMK configuration](symm-asymm-choose.md)
    + [Viewing the cryptographic configuration of CMKs](symm-asymm-crypto-config.md)
    + [Comparing symmetric and asymmetric CMKs](symm-asymm-compare.md)
++ [Using multi-Region keys](multi-region-keys-overview.md)
+   + [Controlling access to multi-Region keys](multi-region-keys-auth.md)
+   + [Creating multi-Region keys](multi-region-keys-create.md)
+      + [Creating multi-Region primary keys](create-primary-keys.md)
+      + [Creating multi-Region replica keys](multi-region-keys-replicate.md)
+   + [Viewing multi-Region keys](multi-region-keys-view.md)
+   + [Managing multi-Region keys](multi-region-keys-manage.md)
+   + [Importing key material into multi-Region keys](multi-region-keys-import.md)
+   + [Deleting multi-Region keys](multi-region-keys-delete.md)
 + [Rotating customer master keys](rotate-keys.md)
 + [Key state: Effect on your CMK](key-state.md)
 + [Monitoring customer master keys](monitoring-overview.md)
@@ -110,11 +119,14 @@ Amazon's trademarks and trade dress may not be used in
          + [ListAliases](ct-listaliases.md)
          + [ListGrants](ct-listgrants.md)
          + [ReEncrypt](ct-reencrypt.md)
+         + [ReplicateKey](ct-replicate-key.md)
          + [RotateKey](ct-rotatekey.md)
          + [ScheduleKeyDeletion](ct-schedule-key-deletion.md)
+         + [SynchronizeMultiRegionKey](ct-synchronize-multi-region-key.md)
          + [TagResource](ct-tagresource.md)
          + [UntagResource](ct-untagresource.md)
          + [UpdateAlias](ct-updatealias.md)
+         + [UpdatePrimaryRegion](ct-update-primary-region.md)
          + [Amazon EC2 example one](ct-ec2one.md)
          + [Amazon EC2 example two](ct-ec2two.md)
    + [Monitoring with Amazon CloudWatch](monitoring-cloudwatch.md)
@@ -167,7 +179,7 @@ Amazon's trademarks and trade dress may not be used in
    + [How Amazon Simple Storage Service (Amazon S3) uses AWS KMS](services-s3.md)
    + [How AWS Systems Manager Parameter Store uses AWS KMS](services-parameter-store.md)
    + [How Amazon WorkMail uses AWS KMS](services-wm.md)
-   + [How Amazon WorkSpaces uses AWS KMS](services-workspaces.md)
+   + [How Workspaces uses AWS KMS](services-workspaces.md)
 + [Quotas](limits.md)
    + [Resource quotas](resource-limits.md)
    + [Request quotas](requests-per-second.md)

@@ -1,6 +1,6 @@
 # Creating AWS KMS resources with AWS CloudFormation<a name="creating-resources-with-cloudformation"></a>
 
-AWS Key Management Service is integrated with AWS CloudFormation, a service that helps you to model and set up your AWS resources so that you can spend less time creating and managing your resources and infrastructure\. You create a template that describes the AWS resources that you want, including customer master keys \(CMKs\) and aliases, and AWS CloudFormation provisions and configures those resources for you\. 
+AWS Key Management Service is integrated with AWS CloudFormation, a service that helps you to model and set up your AWS resources so that you can spend less time creating and managing your resources and infrastructure\. You create a template that describes the AWS resources that you want, including customer master keys \(CMKs\) and aliases, and AWS CloudFormation provisions and configures those resources for you\. For information about AWS KMS support for CloudFormation, see the [KMS resource type reference](https://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/AWS_KMS.html) in the *AWS CloudFormation User Guide*\.
 
 When you use AWS CloudFormation, you can reuse your template to set up your AWS KMS resources consistently and repeatedly\. Describe your resources once, and then provision the same resources over and over in multiple AWS accounts and Regions\. 
 
@@ -8,9 +8,10 @@ To provision and configure resources for AWS KMS and other AWS services, you mus
 
 ## AWS KMS resources in AWS CloudFormation templates<a name="working-with-templates"></a>
 
-AWS KMS supports two AWS CloudFormation resources:
+AWS KMS supports the following AWS CloudFormation resources\. 
 + `AWS::KMS::Key` creates a [symmetric or asymmetric CMK](concepts.md#master_keys)\. You cannot use this resource to create CMKs with [imported key material](importing-keys.md) or CMKs in a [custom key store](custom-key-store-overview.md)\. 
 + `AWS::KMS::Alias` creates an [alias](kms-alias.md) and associates it with a CMK\. The CMK can be defined in the template, or created by another mechanism\.
++ `AWS::KMS::ReplicaKey` creates a [multi\-Region replica key](multi-region-keys-overview.md#mrk-replica-key)\. To create a multi\-Region primary key, use the `AWS::KMS::Key` resource\. You cannot use this resource to create multi\-Region keys with [imported key material](multi-region-keys-import.md)\. For details about multi\-Region keys, see [Using multi\-Region keys](multi-region-keys-overview.md)\.
 
 The CMKs that the template creates are actual resources in your AWS account\. Authorized principals can use and manage the CMKs that the template creates, either by using the template, the AWS KMS console, or the AWS KMS APIs\. When you delete a CMK from your template, the CMK is scheduled for deletion using a waiting period that you specify in advance\. 
 
@@ -18,7 +19,7 @@ For example, you can use an AWS CloudFormation template to create a test CMK wit
 
 Or you can use an AWS CloudFormation template to define a particular CMK configuration that satisfies your business rules and security standards\. Then you can use that template any time you need to create a CMK\. You don't have to worry about misconfigured keys\. If your preferred configuration changes, you can use your template to update your CMKs\. For example, the template makes it easy to programmatically enable automatic key rotation on all CMKs that the template defines\.
 
-For more information, including examples, see the [KMS resource type reference](https://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/AWS_KMS.html) in the *AWS CloudFormation User Guide*\.
+For more information about AWS KMS resources, including examples, see the [KMS resource type reference](https://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/AWS_KMS.html) in the *AWS CloudFormation User Guide*\.
 
 ## Learn more about AWS CloudFormation<a name="learn-more-cloudformation"></a>
 

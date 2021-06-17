@@ -39,7 +39,9 @@ You are responsible for generating 256 bits of key material using a source of ra
 When you import key material into a CMK, the CMK is permanently associated with that key material\. You can [reimport the same key material](#reimport-key-material), but you cannot import different key material into that CMK\. Also, you cannot [enable automatic key rotation](rotate-keys.md) for a CMK with imported key material\. However, you can [manually rotate a CMK](rotate-keys.md#rotate-keys-manually) with imported key material\. 
 
 **Can't decrypt with any other CMK**  
-When you encrypt data under a KMS CMK, the ciphertext cannot be decrypted with any other CMK\. This is true even when you import the same key material into a different CMK\.
+When you encrypt data under a CMK, the ciphertext cannot be decrypted with any other CMK, even when you import the same key material into a different CMK\. This is a security feature of AWS KMS customer master keys\.
+
+The only exception is [multi\-Region keys](multi-region-keys-overview.md), which are designed to be interoperable\. For details, see [Why aren't all CMKs with imported key material interoperable?](multi-region-keys-import.md#mrk-import-why)\.
 
 **No portability or escrow features**  
 The ciphertexts that AWS KMS produces are not portable\. AWS KMS does not support decrypting any AWS KMS ciphertext outside of AWS KMS, even if the ciphertext was encrypted under a CMK with imported key material\. AWS KMS does not publish the ciphertext format this task requires, and the format might change without notice\. 
@@ -151,6 +153,7 @@ $  aws kms describe-key --key-id 1234abcd-12ab-34cd-56ef-1234567890ab
         "AWSAccountId": "111122223333",
         "CreationDate": 1568289600.0,
         "Enabled": false,
+        "MultiRegion": false,
         "Description": "",
         "KeyUsage": "ENCRYPT_DECRYPT",
         "KeyState": "PendingImport",

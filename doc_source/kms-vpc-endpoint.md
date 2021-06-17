@@ -144,7 +144,7 @@ The following is an example of a VPC endpoint policy for AWS KMS\. When attached
 
 AWS CloudTrail logs all operations that use the VPC endpoint\. However, your CloudTrail logs don’t include operations requested by principals in other accounts or operations for CMKs in other accounts\.
 
-As such, you might want to create a VPC endpoint policy that prevents principals in external accounts from using the VPC endpoint to call any KMS operations on any keys in the local account\.
+As such, you might want to create a VPC endpoint policy that prevents principals in external accounts from using the VPC endpoint to call any AWS KMS operations on any keys in the local account\.
 
 The following example uses the [aws:PrincipalAccount](https://docs.aws.amazon.com/IAM/latest/UserGuide/reference_policies_condition-keys.html#condition-keys-principalaccount) global condition key to deny access to all principals for all operations on all CMKs unless the principal is in the local account\. Before using a policy like this one, replace the example account ID with a valid one\.
 

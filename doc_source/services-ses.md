@@ -17,11 +17,11 @@ For more information about receiving email using Amazon SES, go to [Receiving Em
 
 When you configure Amazon SES to receive email and encrypt the email messages before saving them to your S3 bucket, the process works like this:
 
-1. You [create a receipt rule](https://docs.aws.amazon.com/ses/latest/DeveloperGuide/receiving-email-receipt-rules.html) for Amazon SES, specifying the S3 action, an S3 bucket for storage, and a KMS customer master key \(CMK\) for encryption\.
+1. You [create a receipt rule](https://docs.aws.amazon.com/ses/latest/DeveloperGuide/receiving-email-receipt-rules.html) for Amazon SES, specifying the S3 action, an S3 bucket for storage, and a customer master key \(CMK\) for encryption\.
 
 1. Amazon SES receives an email message that matches your receipt rule\.
 
-1. <a name="SES-requests-data-key"></a>Amazon SES requests a unique data key encrypted with the KMS CMK that you specified in the applicable receipt rule\.
+1. <a name="SES-requests-data-key"></a>Amazon SES requests a unique data key encrypted with the CMK that you specified in the applicable receipt rule\.
 
 1. AWS KMS creates a new data key, encrypts it with the specified CMK, and then sends the encrypted and plaintext copies of the data key to Amazon SES\.
 

@@ -44,6 +44,7 @@ $ aws kms describe-key --key-id 1234abcd-12ab-34cd-56ef-1234567890ab
       "Arn": "arn:aws:kms:us-west-2:111122223333:key/1234abcd-12ab-34cd-56ef-1234567890ab",
       "CreationDate": 1537582718.431,
       "Enabled": true,
+      "MultiRegion": false,
       "KeyManager": "CUSTOMER",
       "KeyState": "Enabled",
       "KeyUsage": "ENCRYPT_DECRYPT",

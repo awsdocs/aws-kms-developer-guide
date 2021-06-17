@@ -50,7 +50,7 @@ The following combination of settings are available\.
 | S3\-AWS\-KMS | Default | Amazon S3 uses a data key encrypted by the default AWS managed CMK for Amazon S3 in your account to encrypt the media file\. | 
 | S3\-AWS\-KMS | Custom \(with ARN\) | Amazon S3 uses a data key encrypted by the specified customer managed CMK to encrypt the media file\. | 
 
-When **S3\-AWS\-KMS** is specified, Amazon S3 and AWS KMS work together in the following manner to perform the decryption\.
+When `S3-AWS-KMS` is specified, Amazon S3 and AWS KMS work together in the following manner to perform the decryption\.
 
 1. Amazon S3 sends the encrypted data key to AWS KMS\.
 

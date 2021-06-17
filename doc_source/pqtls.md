@@ -1,6 +1,6 @@
 # Using hybrid post\-quantum TLS with AWS KMS<a name="pqtls"></a>
 
-AWS Key Management Service \(AWS KMS\) supports a hybrid post\-quantum key exchange option for the Transport Layer Security \(TLS\) network encryption protocol\. You can use this TLS option when you connect to KMS API endpoints\. We're offering this feature before post\-quantum algorithms are standardized so you can begin testing the effect of these key exchange protocols on AWS KMS calls\. These optional hybrid post\-quantum key exchange features are at least as secure as the TLS encryption we use today and are likely to provide additional security benefits\. However, they affect latency and throughput compared to the classic key exchange protocols in use today\.
+AWS Key Management Service \(AWS KMS\) supports a hybrid post\-quantum key exchange option for the Transport Layer Security \(TLS\) network encryption protocol\. You can use this TLS option when you connect to AWS KMS API endpoints\. We're offering this feature before post\-quantum algorithms are standardized so you can begin testing the effect of these key exchange protocols on AWS KMS calls\. These optional hybrid post\-quantum key exchange features are at least as secure as the TLS encryption we use today and are likely to provide additional security benefits\. However, they affect latency and throughput compared to the classic key exchange protocols in use today\.
 
 The data that you send to AWS Key Management Service \(AWS KMS\) is protected in transit by the encryption provided by a Transport Layer Security \(TLS\) connection\. The classic cipher suites that AWS KMS supports for TLS sessions make brute force attacks on the key exchange mechanisms infeasible with current technology\. However, if large\-scale quantum computing becomes practical in the future, the classic cipher suites used in TLS key exchange mechanisms will be susceptible to these attacks\. If you’re developing applications that rely on the long\-term confidentiality of data passed over a TLS connection, you should consider a plan to migrate to post\-quantum cryptography before large\-scale quantum computers become available for use\. AWS is working to prepare for this future, and we want you to be well\-prepared, too\.
 
@@ -102,9 +102,9 @@ To see a complete working examples of configuring and using hybrid post\-quantum
             .build();
    ```
 
-1. Test your KMS calls with post\-quantum TLS\.
+1. Test your AWS KMS calls with post\-quantum TLS\.
 
-   When you call AWS KMS API operations on the configured AWS KMS client, your calls are transmitted to the AWS KMS endpoint using hybrid post\-quantum TLS\. To test your configuration, run a simple KMS API call, such as `[ListKeys](https://docs.aws.amazon.com/kms/latest/APIReference/API_ListKeys.html)`\.
+   When you call AWS KMS API operations on the configured AWS KMS client, your calls are transmitted to the AWS KMS endpoint using hybrid post\-quantum TLS\. To test your configuration, run a simple AWS KMS API call, such as `[ListKeys](https://docs.aws.amazon.com/kms/latest/APIReference/API_ListKeys.html)`\.
 
    ```
    ListKeysReponse keys = kmsAsync.listKeys().get();

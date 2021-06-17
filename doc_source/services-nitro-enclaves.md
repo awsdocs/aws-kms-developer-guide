@@ -77,7 +77,7 @@ Your use of the two encrypted data keys in the `GenerateDataKey` response depend
 
   If you don’t intend to keep your enclave running or you don't want to rely on the durability of the private key in enclave memory, you should include the `CiphertextBlob` object with your encrypted data\. To decrypt this copy of the data key, you must send it to AWS KMS in a `Decrypt` \(`kms-decrypt`\) request\. 
 
-  You can also pass the `CiphertextBlob` object to a different enclave, and then decrypt it by calling the `kms-decrypt` \(`Decrypt`\) operation in the AWS Nitro Enclaves Development Kit\. This request will include the attestation document for the new enclave with a new public key\. AWS KMS will decrypt the data key that was encrypted under the KMS key, then re\-encrypt it under the public key of the new enclave\. This data key can be decrypted only by using the corresponding private key within the new enclave\.
+  You can also pass the `CiphertextBlob` object to a different enclave, and then decrypt it by calling the `kms-decrypt` \(`Decrypt`\) operation in the AWS Nitro Enclaves Development Kit\. This request will include the attestation document for the new enclave with a new public key\. AWS KMS will decrypt the data key that was encrypted under the AWS KMS key, then re\-encrypt it under the public key of the new enclave\. This data key can be decrypted only by using the corresponding private key within the new enclave\.
 
 ### GenerateRandom<a name="recipient-generate-random"></a>
 

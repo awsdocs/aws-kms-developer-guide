@@ -23,6 +23,7 @@ In the AWS KMS API, use the [DescribeKey](https://docs.aws.amazon.com/kms/latest
     "KeyState": "Disabled",
     "Origin": "AWS_KMS",
     "KeyManager": "CUSTOMER",
+    "MultiRegion": false,
     "CustomerMasterKeySpec": "RSA_2048",
     "SigningAlgorithms": [
         "RSASSA_PKCS1_V1_5_SHA_256",

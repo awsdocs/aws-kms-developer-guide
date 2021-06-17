@@ -168,7 +168,7 @@ The following workflow shows how Parameter Store uses an AWS KMS CMK to encrypt 
 
 1. You can include the `WithDecryption` parameter in a `GetParameter` request to get an advanced secure string parameter\. When you do, Parameter Store passes the [encrypted message](https://docs.aws.amazon.com/encryption-sdk/latest/developer-guide/concepts.html#message) from the parameter value to a decryption method of the AWS Encryption SDK\.
 
-1. The AWS Encryption SDK calls the KMS [Decrypt](https://docs.aws.amazon.com/kms/latest/APIReference/API_Decrypt.html) operation\. It passes in the encrypted data key and the Parameter Store encryption context from the encrypted message\.
+1. The AWS Encryption SDK calls the AWS KMS [Decrypt](https://docs.aws.amazon.com/kms/latest/APIReference/API_Decrypt.html) operation\. It passes in the encrypted data key and the Parameter Store encryption context from the encrypted message\.
 
 1. AWS KMS uses the CMK and the Parameter Store encryption context to decrypt the encrypted data key\. Then it returns the plaintext \(decrypted\) data key to the AWS Encryption SDK\.
 

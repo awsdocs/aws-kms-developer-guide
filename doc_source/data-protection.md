@@ -65,4 +65,4 @@ To ensure privacy, all AWS KMS API calls must be signed and be transmitted over 
 
 To connect directly to AWS KMS from your virtual private cloud \(VPC\) without sending traffic over the public internet, use VPC endpoints, powered by AWS PrivateLink\. For more information, see [Connecting to AWS KMS through a VPC endpoint](kms-vpc-endpoint.md)\.
 
-AWS KMS also supports a [hybrid post\-quantum key exchange](pqtls.md) option for the Transport Layer Security \(TLS\) network encryption protocol\. You can use this option with TLS when you connect to KMS API endpoints\.
+AWS KMS also supports a [hybrid post\-quantum key exchange](pqtls.md) option for the Transport Layer Security \(TLS\) network encryption protocol\. You can use this option with TLS when you connect to AWS KMS API endpoints\.

@@ -55,8 +55,9 @@ $ aws kms describe-key --key-id 1234abcd-12ab-34cd-56ef-1234567890ab
         "KeyUsage": "ENCRYPT_DECRYPT",
         "KeyState": "Enabled",
         "CreationDate": 1499988169.234,
+        "MultiRegion": false,
         "Arn": "arn:aws:kms:us-west-2:111122223333:key/1234abcd-12ab-34cd-56ef-1234567890ab",
-        "AWSAccountId": "111122223333"
+        "AWSAccountId": "111122223333",
         "EncryptionAlgorithms": [
             "SYMMETRIC_DEFAULT"
         ]
@@ -81,7 +82,8 @@ $ aws kms describe-key --key-id 0987dcba-09fe-87dc-65ba-ab0987654321
         "CustomerMasterKeySpec": "ECC_NIST_P521",
         "AWSAccountId": "111122223333",
         "Enabled": true,
-        "KeyManager": "CUSTOMER"
+        "MultiRegion": false,
+        "KeyManager": "CUSTOMER",
         "SigningAlgorithms": [
             "ECDSA_SHA_512"
         ]
@@ -181,7 +183,7 @@ To get the aliases that refer to a particular CMK, use the `KeyId` parameter\. T
 The command in the following example gets the aliases that refer to a [customer managed CMK](concepts.md#customer-cmk)\. But you can use a command like this one to find the aliases that refer to [AWS managed CMKs](concepts.md#aws-managed-cmk), too\.
 
 ```
-$ aws kms list-aliases --key-id arn:aws:kms:us-west-2:111122223333:key:0987dcba-09fe-87dc-65ba-ab0987654321
+$ aws kms list-aliases --key-id arn:aws:kms:us-west-2:111122223333:key/1234abcd-12ab-34cd-56ef-1234567890ab
 
 {
     "Aliases": [

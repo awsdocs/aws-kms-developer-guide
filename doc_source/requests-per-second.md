@@ -65,6 +65,7 @@ You might need to scroll horizontally or vertically to see all of the data in th
 | `ListResourceTags request rate` | 2000 | 
 | `ListRetirableGrants request rate` | 100 | 
 | `PutKeyPolicy request rate` | 15 | 
+| ReplcateKey request rate A `ReplicateKey` operation counts as one `ReplicateKey` request in the primary key's Region and two `CreateKey` requests in the replica's Region\. One of the `CreateKey` requests is a dry run to detect potential problems before creating the key\.  | 5 | 
 | `RetireGrant request rate` | 30 | 
 | `RevokeGrant request rate` | 30 | 
 | `ScheduleKeyDeletion request rate` | 15 | 
@@ -73,6 +74,7 @@ You might need to scroll horizontally or vertically to see all of the data in th
 | `UpdateAlias request rate` | 5 | 
 | `UpdateCustomKeyStore request rate` | 5 | 
 | `UpdateKeyDescription request rate` | 5 | 
+| `UpdatePrimaryRegion request rate` An `UpdatePrimaryRegion` operation counts as two `UpdatePrimaryRegion` requests; one request in each of the two affected Regions\.  | 5 | 
 
 ## Applying request quotas<a name="about-rate-limits"></a>
 

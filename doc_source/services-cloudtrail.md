@@ -13,7 +13,7 @@ AWS CloudTrail and Amazon S3 support only [symmetric customer master keys](symm-
 
 Encrypting CloudTrail log files with AWS KMS builds on the Amazon S3 feature called server\-side encryption with AWS KMS–managed keys \(SSE\-KMS\)\. To learn more about SSE\-KMS, see [How Amazon Simple Storage Service \(Amazon S3\) uses AWS KMS](services-s3.md) in this guide or [Protecting Data Using Server\-Side Encryption with AWS KMS–Managed Keys \(SSE\-KMS\)](https://docs.aws.amazon.com/AmazonS3/latest/dev/UsingKMSEncryption.html) in the *Amazon Simple Storage Service Developer Guide*\.
 
-When you configure AWS CloudTrail to use SSE\-KMS to encrypt your log files, CloudTrail and Amazon S3 use your KMS customer master key \(CMK\) when you perform certain actions with those services\. The following sections explain when and how those services can use your CMK, and provide additional information that you can use to validate this explanation\.
+When you configure AWS CloudTrail to use SSE\-KMS to encrypt your log files, CloudTrail and Amazon S3 use your customer master key \(CMK\) when you perform certain actions with those services\. The following sections explain when and how those services can use your CMK, and provide additional information that you can use to validate this explanation\.
 
 **Contents**
 + [You configure CloudTrail to encrypt log files with your customer master key \(CMK\)](#cloudtrail-details-update-configuration)

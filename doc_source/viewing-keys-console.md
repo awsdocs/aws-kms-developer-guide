@@ -57,15 +57,18 @@ When your sort CMKs on the **Customer master keys** page in ascending order by *
 **Filter**  
 You can filter CMKs by their property values or tags\. The filter applies to all CMKs in the table, even if they don't appear on the current table page\. The filter is not case\-sensitive\.  
 + On the **AWS managed keys** page, you can filter by alias and key ID\. 
-+ On the **Customer managed keys** page, you can filter by tags, or by the alias, key ID, or key type properties\.
++ On the **Customer managed keys** page, you can filter by tags, or by the alias, key ID, key type, or regionality properties\.
 To filter by a property value, choose the filter, choose the property name, and then choose from the list of actual property values\. To filter by a tag, choose the tag key, and then choose from the list of actual tag values\. After choosing a property or tag key, you can also type all or part of the property value or tag value\. You'll see a preview of the results before you make your choice\.   
 For example, to display CMKs with an alias name that contains `aws/e`, choose the filter box, choose **Alias**, type `aws/e`, and then press `Enter` or `Return` to add the filter\.  
 
 ![\[Image NOT FOUND\]](http://docs.aws.amazon.com/kms/latest/developerguide/images/filter-alias.png)
-To display only asymmetric CMKs on the **Customer master keys** page, click the filter box, choose **Key type** and then choose **Key type: Asymmetric**\. The **Asymmetric** option appears only when you have asymmetric CMKs in the table\.  
+To display only asymmetric CMKs on the **Customer master keys** page, choose the filter box, choose **Key type** and then choose **Key type: Asymmetric**\. The **Asymmetric** option appears only when you have asymmetric CMKs in the table\. For more information about identifying asymmetric CMKs, see [Identifying symmetric and asymmetric CMKs](find-symm-asymm.md)\.  
 
 ![\[Image NOT FOUND\]](http://docs.aws.amazon.com/kms/latest/developerguide/images/filter-keytype.png)
-Tag filtering is a bit different\. To display only CMKs with a particular tag, click the filter box, choose the tag key, and then choose from among the actual tag values\. You can also type all or part of the tag value\.   
+To display only multi\-Region CMKs on the **Customer master keys** page, choose the filter box, choose **Regionality** and then choose **Regionality: Multi\-Region**\. The **Multi\-Region** option appears only when you have multi\-Region CMKs in the table\. For more information about identifying multi\-Region CMKs, see [Viewing multi\-Region keys](multi-region-keys-view.md)\.  
+
+![\[Image NOT FOUND\]](http://docs.aws.amazon.com/kms/latest/developerguide/images/mrk-view-regionality-filter.png)
+Tag filtering is a bit different\. To display only CMKs with a particular tag, choose the filter box, choose the tag key, and then choose from among the actual tag values\. You can also type all or part of the tag value\.   
 The resulting table displays all CMKs with the chosen tag\. However, it doesn't display the tag\. To see the tag, choose the key ID or alias of the CMK and on its detail page, choose the **Tags** tab\. The tabs appear below the **General configuration** section\.  
 This filter requires the tag key and tag value\. It won't find CMKs by typing only the tag key or only its value\. To filter tags by all or part of the tag key or value, use the [ListResourceTags](https://docs.aws.amazon.com/kms/latest/APIReference/API_ListResourceTags.html) operation to get tagged CMKs, then use the filtering features of your programming language\. For an example, see [ListResourceTags: Get the tags on CMKs](viewing-keys-cli.md#viewing-keys-list-resource-tags)\.  
 
@@ -107,12 +110,12 @@ Unlike **Expiration**, the creation refers only to the CMK, not its key material
 **CloudHSM cluster ID**  
 Where: Cryptographic configuration tab  
 The cluster ID of the AWS CloudHSM cluster that contains the key material for the CMK\. This field appears only when the CMK is created in an AWS KMS [custom key store](custom-key-store-overview.md)\.  
-If you click the CloudHSM cluster ID, it opens the **Clusters** page in the AWS CloudHSM console\.
+If you choose the CloudHSM cluster ID, it opens the **Clusters** page in the AWS CloudHSM console\.
 
 **Custom key store ID**  
 Where: Cryptographic configuration tab  
 The ID of the [custom key store](custom-key-store-overview.md) that contains the CMK\. This field appears only when the CMK is created in an AWS KMS custom key store\.  
-If you click the custom key store ID, it opens the **Custom key stores** page in the AWS KMS console\.
+If you choose the custom key store ID, it opens the **Custom key stores** page in the AWS KMS console\.
 
 **Custom key store name**  
 Where: Cryptographic configuration tab  
@@ -155,9 +158,26 @@ Indicates whether a CMK can be used for **Encrypt and decrypt** or **Sign and ve
 Where: Cryptographic configuration tab  
 The source of the key material for the CMK\. Valid values are **AWS\_KMS** for key material that AWS KMS generates, **EXTERNAL** for [imported key material](importing-keys.md), and **AWS\_CloudHSM** for CMKs in [custom key stores](custom-key-store-overview.md)\.
 
+**Primary key**  
+Where: Regionality tab  
+Indicates that this CMK is a [multi\-Region primary key](multi-region-keys-overview.md#mrk-primary-key)\. Authorized users can use this section to [change the primary key](multi-region-keys-manage.md) to a different related multi\-Region key\.
+
 **Public key**  
 Where: Public key tab  
 Displays the public key of an asymmetric CMK\. Authorized users can use this tab to [copy and download the public key](download-public-key.md)\.
+
+**Regionality**  
+Where: General configuration section and Regionality tabs  
+Indicates whether a CMK is a single\-Region CMK, a [multi\-Region primary key](multi-region-keys-overview.md#mrk-primary-key), or a [multi\-Region replica key](multi-region-keys-overview.md#mrk-replica-key)\.
+
+**Related multi\-Region keys**  
+Where: Regionality tab  
+Displays all related [multi\-Region CMKs primary and replica keys](multi-region-keys-overview.md), except for the current CMK\.   
+In the **Related multi\-Region keys** section of a primary key, authorized users can [create new replica keys](multi-region-keys-replicate.md)\.
+
+**Replica key**  
+Where: Regionality tab  
+Indicates that this CMK is a [multi\-Region replica key](multi-region-keys-overview.md#mrk-replica-key)\.
 
 **Signing algorithms**  
 Where: Cryptographic configuration tab  
@@ -197,10 +217,13 @@ By default, the **AWS managed keys** table displays the **Aliases**, **Key ID**,
 If you use only symmetric CMKs with key material generated by AWS KMS, the **Aliases**, **Key ID**, **Status**, and **Creation date** columns are likely to be the most useful\.
 
 **Asymmetric customer managed keys**  
-If you use asymmetric CMKs, in addition to the **Aliases**, **Key ID**, and **Status** columns, consider adding the **Key type**, **Key spec**, and **Key usage** columns\. These columns will show you whether a CMK is symmetric or asymmetric, the type of key material, and whether the CMK can be used for encryption or signing\.
+If you use asymmetric CMKs, consider adding the **Key type**, **Key spec**, and **Key usage** columns\. These columns will show you whether a CMK is symmetric or asymmetric, the type of key material, and whether the CMK can be used for encryption or signing\.
 
 **Imported key material**  
-If you have CMKs with [imported key material](importing-keys.md), in addition to the **Aliases**, **Key ID**, and **Status** columns, consider adding the **Origin** and **Expiration date** columns\. These columns will show you whether the key material in a CMK is imported or generated by AWS KMS and when the key material expires, if at all\. The **Creation date** field displays the date that the CMK was created \(without key material\)\. It doesn't reflect any characteristic of the key material\.
+If you have CMKs with [imported key material](importing-keys.md), consider adding the **Origin** and **Expiration date** columns\. These columns will show you whether the key material in a CMK is imported or generated by AWS KMS and when the key material expires, if at all\. The **Creation date** field displays the date that the CMK was created \(without key material\)\. It doesn't reflect any characteristic of the key material\.
 
 **Keys in custom key stores**  
-If you have CMKs in [custom key stores](custom-key-store-overview.md), in addition to the **Aliases**, **Key ID**, and **Status** columns, consider adding the **Custom key store ID** column\. A value in this column indicates that the CMK is in a custom key store, as well as showing which custom key store it's in\.
+If you have CMKs in [custom key stores](custom-key-store-overview.md), consider adding the **Custom key store ID** column\. A value in this column indicates that the CMK is in a custom key store, as well as showing which custom key store it's in\.
+
+**Multi\-Region keys**  
+If you have [multi\-Region CMKs](multi-region-keys-overview.md), consider adding the **Regionality** column\. This shows whether a CMK is Regional \(**Single Region**\), a [multi\-Region primary key](multi-region-keys-overview.md#mrk-primary-key) or a [multi\-Region replica key](multi-region-keys-overview.md#mrk-replica-key)\.

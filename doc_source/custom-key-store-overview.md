@@ -49,7 +49,12 @@ AWS KMS supports custom key stores in all AWS Regions where both AWS KMS and AWS
 
 **Unsupported features**
 
-Custom key stores do not support [asymmetric CMKs](symmetric-asymmetric.md), [asymmetric data key pairs](concepts.md#data-key-pairs), or CMKs with [imported key material](importing-keys.md), and you cannot enable [automatic key rotation](rotate-keys.md) on a CMK in a custom key store\.
+AWS KMS does not support the following AWS KMS features in custom key stores\.
++ [Asymmetric CMKs](symmetric-asymmetric.md)
++ [Asymmetric data key pairs](concepts.md#data-key-pairs)
++ [Imported key material in CMKs](importing-keys.md)
++ [Automatic key rotation](rotate-keys.md)
++ [Multi\-Region keys](multi-region-keys-overview.md)
 
 **Topics**
 + [What is a custom key store?](key-store-concepts.md)

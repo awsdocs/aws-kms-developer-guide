@@ -4,10 +4,11 @@ You can create [symmetric and asymmetric customer master keys](symmetric-asymmet
 
 If you are creating a CMK to encrypt data you store or manage in an AWS service, create a symmetric CMK\. [AWS services that are integrated with AWS KMS](https://aws.amazon.com/kms/features/#AWS_Service_Integration) use symmetric CMKs to encrypt your data\. These services do not support encryption with asymmetric CMKs\. For help deciding which type of CMK to create, see [How to choose your CMK configuration](symm-asymm-choose.md)\.
 
-When you create a CMK in the AWS KMS console, you are required to give it an alias \(friendly name\)\. The CreateKey operation does not create an alias for the new CMK\. To create an alias for a new or existing CMK, use the [CreateAlias](https://docs.aws.amazon.com/kms/latest/APIReference/API_CreateAlias.html) operation\. For detailed information about aliases in AWS KMS, see [Using aliases](kms-alias.md)\.
+When you create a CMK in the AWS KMS console, you are required to give it an alias \(friendly name\)\. The `CreateKey` operation does not create an alias for the new CMK\. For detailed information about aliases in AWS KMS, see [Using aliases](kms-alias.md)\.
 
 **Learn more:**
 + For help creating a CMK with imported key material \([key material origin](concepts.md#key-origin) is External\), see [Create a customer master key with no key material](importing-keys-create-cmk.md)\.
++ For help creating a multi\-Region primary key or replica key, see [Creating multi\-Region keys](multi-region-keys-create.md)\.
 + For help creating a CMK in a custom key store \([key material origin](concepts.md#key-origin) is Custom Key Store \(CloudHSM\)\), see [Creating CMKs in a Custom Key Store](create-cmk-keystore.md)\.
 + For help determining whether an existing CMK is symmetric or asymmetric, see [Identifying symmetric and asymmetric CMKs](find-symm-asymm.md)\.
 + To use your CMKs programmatically and in command line interface operations, you need a [key ID](concepts.md#key-id-key-id) or [key ARN](concepts.md#key-id-key-ARN)\. For detailed instructions, see [Finding the key ID and ARN](find-cmk-id-arn.md)\.
@@ -27,6 +28,7 @@ Be cautious when giving principals permission to manage tags and aliases\. Chang
 + [kms:CreateKey](https://docs.aws.amazon.com/kms/latest/APIReference/API_CreateKey.html) is required\. 
 + [kms:CreateAlias](https://docs.aws.amazon.com/kms/latest/APIReference/API_CreateAlias.html) is required to create a CMK in the console where an alias is required for every new CMK\.
 + [kms:TagResource](https://docs.aws.amazon.com/kms/latest/APIReference/API_TagResource.html) is required to add tags while creating the CMK\.
++ [iam:CreateServiceLinkedRole](https://docs.aws.amazon.com/IAM/latest/APIReference/API_CreateServiceLinkedRole.html) is required to create multi\-Region primary CMKs\. For details, see [Controlling access to multi\-Region keys](multi-region-keys-auth.md)\.
 
 The [kms:PutKeyPolicy](https://docs.aws.amazon.com/kms/latest/APIReference/API_PutKeyPolicy.html) permission is not required to create the CMK\. The `kms:CreateKey` permission includes permission to set the initial key policy\. But you must add this permission to the key policy while creating the CMK to ensure that you can control access to the CMK\. The alternative is using the [BypassLockoutSafetyCheck](https://docs.aws.amazon.com/kms/latest/APIReference/API_CreateKey.html#KMS-CreateKey-request-BypassPolicyLockoutSafetyCheck) parameter, which is not recommended\.
 
@@ -52,7 +54,7 @@ You can use the AWS Management Console to create customer master keys \(CMKs\)\.
 
 1. Choose **Next**\.
 
-1. Type an alias for the CMK\. The alias name cannot begin with **aws/**\. The **aws/** prefix is reserved by Amazon Web Services to represent AWS managed CMKs in your account\.
+1. Type an [alias](concepts.md#alias-concept) for the CMK\. The alias name cannot begin with **aws/**\. The **aws/** prefix is reserved by Amazon Web Services to represent AWS managed CMKs in your account\.
 **Note**  
 Adding, deleting, or updating an alias can allow or deny permission to the CMK\. For details, see [Using ABAC for AWS KMS](abac.md) and [Using aliases to control access to CMKs](alias-authorization.md)\.
 
@@ -122,10 +124,11 @@ $ aws kms create-key
         "KeyState": "Enabled",
         "CreationDate": 1502910355.475,
         "Arn": "arn:aws:kms:us-west-2:111122223333:key/1234abcd-12ab-34cd-56ef-1234567890ab",
-        "AWSAccountId": "111122223333"
+        "AWSAccountId": "111122223333",
+        "MultiRegion": false
         "EncryptionAlgorithms": [
             "SYMMETRIC_DEFAULT"
-        ]
+        ],
     }
 }
 ```
@@ -247,6 +250,7 @@ $ aws kms create-key --customer-master-key-spec RSA_4096 --key-usage ENCRYPT_DEC
         "KeyUsage": "ENCRYPT_DECRYPT",
         "Arn": "arn:aws:kms:us-west-2:111122223333:key/1234abcd-12ab-34cd-56ef-1234567890ab",
         "CreationDate": 1569973196.214,
+        "MultiRegion": false,
         "EncryptionAlgorithms": [
             "RSAES_OAEP_SHA_1",
             "RSAES_OAEP_SHA_256"
@@ -277,6 +281,7 @@ $ aws kms create-key --customer-master-key-spec ECC_NIST_P521 --key-usage SIGN_V
         "KeyManager": "CUSTOMER",
         "Description": "",
         "Enabled": true,
+        "MultiRegion": false,
         "KeyUsage": "SIGN_VERIFY"
     }
 }

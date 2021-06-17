@@ -70,6 +70,7 @@ For example, `DescribeKey` returns the following response for a symmetric CMK\. 
     "KeyState": "Enabled",
     "Origin": "AWS_KMS",
     "KeyManager": "CUSTOMER",
+    "MultiRegion": false,
     "CustomerMasterKeySpec": "SYMMETRIC_DEFAULT",
     "KeyUsage": "ENCRYPT_DECRYPT",
     "EncryptionAlgorithms": [
@@ -92,6 +93,7 @@ The `DescribeKey` response for an asymmetric RSA CMK used in signing and verific
     "Description": "",
     "KeyState": "Disabled",
     "Origin": "AWS_KMS",
+    "MultiRegion": false,
     "KeyManager": "CUSTOMER",
     "CustomerMasterKeySpec": "RSA_2048",
     "KeyUsage": "SIGN_VERIFY",

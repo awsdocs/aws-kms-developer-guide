@@ -10,6 +10,8 @@ To create a CMK with no key material, you can use the AWS Management Console or 
 + [Creating a CMK with no key material \(console\)](#importing-keys-create-cmk-console)
 + [Creating a CMK with no key material \(AWS KMS API\)](#importing-keys-create-cmk-api)
 
+For information about creating multi\-Region keys with imported key material, see [Importing key material into multi\-Region keys](multi-region-keys-import.md)\.
+
 ## Creating a CMK with no key material \(console\)<a name="importing-keys-create-cmk-console"></a>
 
 You can use the AWS Management Console to create a CMK with no key material\. Before you do this, you can configure the console to show the **Origin** column in the list of CMKs\. Imported keys have an **Origin** value of **External**\.
@@ -32,7 +34,9 @@ You need to create a CMK for the imported key material only once\. To reimport t
 
    Then select the check box next to **I understand the security, availability, and durability implications of using an imported key** to indicate that you understand the implications of using imported key material\. To read about these implications, see [About imported key material](importing-keys.md#importing-keys-considerations)\.
 
-   Choose **Next**\.
+1. Use the **Multi\-Region replication** section only to create a multi\-Region primary key with no key material\. For details, see [Importing key material into multi\-Region keys](multi-region-keys-import.md)\.
+
+1. Choose **Next**\.
 
 1. Type an alias and \(optionally\) a description for the CMK\. 
 
@@ -85,11 +89,12 @@ When the command is successful, you see output similar to the following\. The CM
         "KeyId": "1234abcd-12ab-34cd-56ef-1234567890ab",
         "Description": "",
         "Enabled": false,
+        "MultiRegion": false,
         "KeyUsage": "ENCRYPT_DECRYPT",
         "KeyState": "PendingImport",
         "CreationDate": 1568289600.0,
         "Arn": "arn:aws:kms:us-west-2:111122223333:key/1234abcd-12ab-34cd-56ef-1234567890ab",
-        "AWSAccountId": "111122223333"
+        "AWSAccountId": "111122223333",
         "KeyManager": "CUSTOMER",
         "CustomerMasterKeySpec": "SYMMETRIC_DEFAULT",
         "EncryptionAlgorithms": [

@@ -90,3 +90,5 @@ For example, this command deletes the **Purpose** tag and its value from the spe
 ```
 $ aws kms untag-resource --key-id 1234abcd-12ab-34cd-56ef-1234567890ab --tag-keys Purpose
 ```
+
+When this command is successful, it does not return any output\.

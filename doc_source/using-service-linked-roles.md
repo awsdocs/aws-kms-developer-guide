@@ -17,3 +17,11 @@ The **AWSServiceRoleForKeyManagementServiceCustomKeyStores** service\-linked rol
 The permissions in the role are limited to the actions that AWS KMS performs to connect a custom key store to an AWS CloudHSM cluster\. It does not give AWS KMS any additional permissions\. For example, AWS KMS does not have permission to create, manage, or delete your AWS CloudHSM clusters, HSMs, or backups\.
 
 For more information about the **AWSServiceRoleForKeyManagementServiceCustomKeyStores** role, including a list of permissions and instructions for how to view the role, edit the role description, delete the role, and have AWS KMS recreate it for you, see [Authorizing AWS KMS to manage AWS CloudHSM and Amazon EC2 resources](authorize-key-store.md#authorize-kms)\.
+
+## Service\-linked role permissions for AWS KMS multi\-Region keys<a name="slr-permissions-multi-region"></a>
+
+AWS KMS uses a service\-linked role named **AWSServiceRoleForKeyManagementServiceMultiRegionKeys** to support [multi\-Region keys](multi-region-keys-overview.md)\. This service\-linked role gives AWS KMS permission to synchronize any changes to the key material of a multi\-Region primary key to its replica keys\. AWS KMS creates this role only when you create a [multi\-Region primary key](multi-region-keys-overview.md#mrk-primary-key)\. You cannot create this service\-linked role directly\.
+
+The **AWSServiceRoleForKeyManagementServiceMultiRegionKeys** service\-linked role trusts `mrk.kms.amazonaws.com` to assume the role\. As a result, only AWS KMS can assume this service\-linked role\. The permissions in the role are limited to the actions that AWS KMS performs to keep the key material in related multi\-Region keys synchronized\. It does not give AWS KMS any additional permissions\.
+
+For more information about the **AWSServiceRoleForKeyManagementServiceMultiRegionKeys** role, including a list of permissions and instructions for how to view the role, edit the role description, delete the role, and have AWS KMS recreate it for you, see [Authorizing AWS KMS to synchronize multi\-Region keys](multi-region-keys-auth.md#multi-region-auth-slr)\.

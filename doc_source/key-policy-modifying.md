@@ -28,7 +28,7 @@ You can use the console to change a key policy with a graphical interface called
 
 If the following steps don't match what you see in the console, it might mean that this key policy was not created by the console\. Or it might mean that the key policy has been modified in a way that the console's default view does not support\. In that case, follow the steps at [Using the AWS Management Console policy view](#key-policy-modifying-how-to-console-policy-view) or [Using the AWS KMS API](#key-policy-modifying-how-to-api)\.
 
-1. View the key policy for a customer managed CMK as decribed in [Viewing a key policy \(console\)](key-policy-viewing.md#key-policy-viewing-console)\. \(You cannot change the key policies of AWS managed keys\.\)
+1. View the key policy for a customer managed CMK as described in [Viewing a key policy \(console\)](key-policy-viewing.md#key-policy-viewing-console)\. \(You cannot change the key policies of AWS managed keys\.\)
 
 1. Decide what to change\.
    + To add or remove [key administrators](key-policies.md#key-policy-default-allow-administrators), and to allow or prevent key administrators from [deleting the CMK](deleting-keys.md), use the controls in the **Key administrators** section of the page\. Key administrators manage the CMK, including enabling and disabling it, setting key policy, and [enabling key rotation](rotate-keys.md)\.
@@ -38,7 +38,7 @@ If the following steps don't match what you see in the console, it might mean th
 
 You can use the console to change a key policy document with the console's *policy view*\.
 
-1. View the key policy for a customer managed CMK as decribed in [Viewing a key policy \(console\)](key-policy-viewing.md#key-policy-viewing-console)\. \(You cannot change the key policies of AWS managed keys\.\)
+1. View the key policy for a customer managed CMK as described in [Viewing a key policy \(console\)](key-policy-viewing.md#key-policy-viewing-console)\. \(You cannot change the key policies of AWS managed keys\.\)
 
 1. In the **Key Policy** section, choose **Switch to policy view**\.
 
