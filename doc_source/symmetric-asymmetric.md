@@ -18,7 +18,7 @@ This topic explains how symmetric and asymmetric CMKs work, how they differ, and
 
 **Regions**
 
-Asymmetric CMKs and asymmetric data key pairs are supported in all AWS Regions that AWS KMS supports except for China \(Beijing\) and China \(Ningxia\)\.
+Asymmetric CMKs and asymmetric data key pairs are supported in all AWS Regions that AWS KMS supports\.
 
 **Learn more**
 + To create symmetric and asymmetric CMKs, see [Creating keys](create-keys.md)\.

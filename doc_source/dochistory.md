@@ -51,7 +51,7 @@ The following table describes the important changes to the AWS Key Management Se
 | New content | Added documentation about [How AWS CloudTrail uses AWS KMS](services-cloudtrail.md)\. | November 18, 2015 | 
 | New content | Added instructions for [Changing a key policy](key-policy-modifying.md)\. | November 18, 2015 | 
 | Update | Updated the documentation about [How Amazon Relational Database Service \(Amazon RDS\) uses AWS KMS](services-rds.md)\. | November 18, 2015 | 
-| New content | Added documentation about [How Workspaces uses AWS KMS](services-workspaces.md)\. | November 6, 2015 | 
+| New content | Added documentation about [How WorkSpaces uses AWS KMS](services-workspaces.md)\. | November 6, 2015 | 
 | Update | Updated the [Using key policies in AWS KMS](key-policies.md) page to improve clarity\. | October 22, 2015 | 
 | New content | Added documentation about [Deleting customer master keys](deleting-keys.md), including supporting documentation about [Creating an Amazon CloudWatch alarm](deleting-keys-creating-cloudwatch-alarm.md) and [Determining past usage of a customer master key](deleting-keys-determining-usage.md)\. | October 15, 2015 | 
 | New content | Added documentation about [Determining access to an AWS KMS customer master key](determining-access.md)\. | October 15, 2015 | 

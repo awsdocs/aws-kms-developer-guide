@@ -32,4 +32,4 @@ For a table comparing the operations that you can perform on symmetric and asymm
 
 **Regions**
 
-Asymmetric CMKs and asymmetric data key pairs are supported in all AWS Regions that AWS KMS supports except for China \(Beijing\) and China \(Ningxia\)\.
+Asymmetric CMKs and asymmetric data key pairs are supported in all AWS Regions that AWS KMS supports\.

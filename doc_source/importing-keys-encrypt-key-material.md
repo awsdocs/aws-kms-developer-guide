@@ -8,7 +8,7 @@ When you encrypt your key material, use the encryption scheme with the padding o
 
 ## Example: Encrypt key material with OpenSSL<a name="importing-keys-encrypt-key-material-openssl"></a>
 
-The following example demonstrates how to use [OpenSSL](https://openssl.org/) to generate a 256\-bit symmetric key and then encrypt this key material for import into a KMS customer master key \(CMK\)\.
+The following example demonstrates how to use [OpenSSL](https://openssl.org/) to generate a 256\-bit symmetric key and then encrypt this key material for import into a AWS KMS customer master key \(CMK\)\.
 
 **Important**  
 This example is a proof of concept demonstration only\. For production systems, use a more secure method \(such as a commercial HSM or key management system\) to generate and store your key material\.  

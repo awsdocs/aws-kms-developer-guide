@@ -26,7 +26,7 @@ To create a multi\-Region primary key in the AWS KMS console, use the same proce
 
 1. Expand **Advanced options**\.
 
-1. Under **Key material origin**, choose **KMS** to have AWS KMS generate the key material that your primary and replica keys will share\. If you plan to import key material that you provide into the primary and replica keys, choose **External**\. For detailed information about multi\-Region keys with imported key material, see [Importing key material into multi\-Region keys](multi-region-keys-import.md)\.
+1. Under **Key material origin**, to have AWS KMS generate the key material that your primary and replica keys will share, choose **KMS**\. If you are [importing key material](multi-region-keys-import.md) into the primary and replica keys, choose **External**\. 
 
 1. Under **Multi\-Region replication**, choose **Allow this key to be replicated into other Regions**\.
 
@@ -34,17 +34,17 @@ To create a multi\-Region primary key in the AWS KMS console, use the same proce
 
 1. Type an [alias](kms-alias.md) for the CMK\. 
 
-   You can give your multi\-Region primary CMK and its replicas the same alias or different aliases\. Aliases are not a shared property of multi\-Region CMKs\. AWS KMS does not synchronize them\.
+   Aliases are not a shared property of multi\-Region CMKs\. You can give your multi\-Region primary CMK and its replicas the same alias or different aliases\. AWS KMS does not synchronize the aliases of multi\-Region keys\.
 **Note**  
 Adding, deleting, or updating an alias can allow or deny permission to the CMK\. For details, see [Using ABAC for AWS KMS](abac.md) and [Using aliases to control access to CMKs](alias-authorization.md)\.
 
 1. \(Optional\) Type a description for the CMK\.
 
-   Descriptions are not a shared property of multi\-Region CMKs\. You can give your multi\-Region primary CMK and its replicas the same description or different descriptions\. AWS KMS does not synchronize them\.
+   Descriptions are not a shared property of multi\-Region CMKs\. You can give your multi\-Region primary CMK and its replicas the same description or different descriptions\. AWS KMS does not synchronize the key descriptions of multi\-Region keys\.
 
 1. \(Optional\) Type a tag key and an optional tag value\. To assign more than one tag to the CMK, choose **Add tag**\.
 
-   Tags are not a shared property of multi\-Region CMKs\. You can give your multi\-Region primary CMK and its replicas the same tags or different tags\. AWS KMS does not synchronize them\. You can change the tags on CMKs at any time\.
+   Tags are not a shared property of multi\-Region CMKs\. You can give your multi\-Region primary CMK and its replicas the same tags or different tags\. AWS KMS does not synchronize the tags of multi\-Region keys\. You can change the tags on CMKs at any time\.
 **Note**  
 Tagging or untagging a CMK can allow or deny permission to the CMK\. For details, see [Using ABAC for AWS KMS](abac.md) and [Using tags to control access to CMKs](tag-authorization.md)\.
 
@@ -52,7 +52,7 @@ Tagging or untagging a CMK can allow or deny permission to the CMK\. For details
 **Note**  
 IAM policies can give other IAM users and roles permission to manage the CMK\.
 
-   This step begins the process of creating a [key policy](key-policies.md) for the CMK\. Key policies are not a shared property of multi\-Region CMKs\. You can give your multi\-Region primary CMK and its replicas the same key policy or different key policies\. AWS KMS does not synchronize them\. You can change the key policy on CMKs at any time\.
+   This step starts the process of creating a [key policy](key-policies.md) for the CMK\. Key policies are not a shared property of multi\-Region CMKs\. You can give your multi\-Region primary CMK and its replicas the same key policy or different key policies\. AWS KMS does not synchronize the key policies of multi\-Region keys\. You can change the key policy of a CMK at any time\.
 
 1. Complete the steps for creating the key policy, including selecting key administrators\. After you review the key policy, choose **Finish** to create the CMK\.
 

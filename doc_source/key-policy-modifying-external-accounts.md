@@ -1,8 +1,20 @@
 # Allowing users in other accounts to use a CMK<a name="key-policy-modifying-external-accounts"></a>
 
-You can allow IAM users or roles in a different AWS account to use a customer master key \(CMK\) in your account for the following operations: [Cryptographic operations](concepts.md#cryptographic-operations), [CreateGrant](https://docs.aws.amazon.com/kms/latest/APIReference/API_CreateGrant.html), [DescribeKey](https://docs.aws.amazon.com/kms/latest/APIReference/API_DescribeKey.html), [GetKeyRotationStatus](https://docs.aws.amazon.com/kms/latest/APIReference/API_GetKeyRotationStatus.html), [GetPublicKey](https://docs.aws.amazon.com/kms/latest/APIReference/API_GetPublicKey.html), [ListGrants](https://docs.aws.amazon.com/kms/latest/APIReference/ListGrants.html), and [RevokeGrant](https://docs.aws.amazon.com/kms/latest/APIReference/RevokeGrant.html)\. Cross\-account access requires permission in the key policy of the CMK and in an IAM policy in the external user's account\.
+You can allow IAM users or roles in a different AWS account to use a customer master key \(CMK\) in your account\. Cross\-account access requires permission in the key policy of the CMK and in an IAM policy in the external user's account\.
 
-For details about using CMKs in different accounts for AWS KMS operations, see [Using CMKs in other accounts](#cross-account-use) and the **Cross\-account use** section in each API description in the [AWS Key Management Service API Reference](https://docs.aws.amazon.com/kms/latest/APIReference/)\.
+Cross\-account permission is effective only for the following operations:
++ [Cryptographic operations](concepts.md#cryptographic-operations)
++ [CreateGrant](https://docs.aws.amazon.com/kms/latest/APIReference/API_CreateGrant.html)
++ [DescribeKey](https://docs.aws.amazon.com/kms/latest/APIReference/API_DescribeKey.html)
++ [GetKeyRotationStatus](https://docs.aws.amazon.com/kms/latest/APIReference/API_GetKeyRotationStatus.html)
++ [GetPublicKey](https://docs.aws.amazon.com/kms/latest/APIReference/API_GetPublicKey.html)
++ [ListGrants](https://docs.aws.amazon.com/kms/latest/APIReference/ListGrants.html)
++ [RetireGrant](https://docs.aws.amazon.com/kms/latest/APIReference/RetireGrant.html)
++ [RevokeGrant](https://docs.aws.amazon.com/kms/latest/APIReference/RevokeGrant.html)
+
+If you give a user in a different account permission for other operations, those permissions have no effect\. For example, if you give a principal in a different account [kms:ListKeys](https://docs.aws.amazon.com/kms/latest/APIReference/API_ListKeys.html) permission in an IAM policy, or [kms:ScheduleKeyDeletion](https://docs.aws.amazon.com/kms/latest/APIReference/API_ScheduleKeyDeletion.html) permission on a CMK in your account, the user's attempts to call those operations on your resources still fail\. 
+
+For details about using CMKs in different accounts for AWS KMS operations, see the **Cross\-account use** column in the [AWS KMS permissions](kms-api-permissions-reference.md) and [Using CMKs in other accounts](#cross-account-use)\. There is also a **Cross\-account use** section in each API description in the [AWS Key Management Service API Reference](https://docs.aws.amazon.com/kms/latest/APIReference/)\.
 
 **Warning**  
 Be cautious about giving principals permissions to use your CMKs\. Whenever possible, follow the *least privilege* principle\. Give users access only to the CMKs they need for only the operations they require\.  

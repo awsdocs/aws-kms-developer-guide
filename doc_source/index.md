@@ -179,7 +179,7 @@ Amazon's trademarks and trade dress may not be used in
    + [How Amazon Simple Storage Service (Amazon S3) uses AWS KMS](services-s3.md)
    + [How AWS Systems Manager Parameter Store uses AWS KMS](services-parameter-store.md)
    + [How Amazon WorkMail uses AWS KMS](services-wm.md)
-   + [How Workspaces uses AWS KMS](services-workspaces.md)
+   + [How WorkSpaces uses AWS KMS](services-workspaces.md)
 + [Quotas](limits.md)
    + [Resource quotas](resource-limits.md)
    + [Request quotas](requests-per-second.md)

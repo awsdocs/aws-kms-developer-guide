@@ -173,11 +173,11 @@ Instead of using an explicit `Deny`, this policy statement uses `Allow` with the
 
 | AWS KMS condition keys | Condition type | Value type | API operations | Policy type | 
 | --- | --- | --- | --- | --- | 
-|  `kms:CallerAccount`  |  String  | Single\-valued |  CMK resource operations  |  Key policies only  | 
+|  `kms:CallerAccount`  |  String  | Single\-valued |  CMK resource operations Custom key store operations  |  Key policies and IAM policies  | 
 
 You can use this condition key to allow or deny access to all identities \(IAM users and roles\) in an AWS account\. In key policies, you use the `Principal` element to specify the identities to which the policy statement applies\. The syntax for the `Principal` element does not provide a way to specify all identities in an AWS account\. But you can achieve this effect by combining this condition key with a `Principal` element that specifies all AWS identities\.
 
-Because this condition is valid only in key policies, you can use it to control access to any *CMK resource operation*, that is, any AWS KMS operation that uses a particular CMK\. To identify the CMK resource operations, in the [Actions and Resources Table](kms-api-permissions-reference.md#kms-api-permissions-reference-table), look for a value of `CMK` in the `Resources` column for the operation\.
+You can use it to control access to any *CMK resource operation*, that is, any AWS KMS operation that uses a particular CMK\. To identify the CMK resource operations, in the [Actions and Resources Table](kms-api-permissions-reference.md#kms-api-permissions-reference-table), look for a value of `CMK` in the `Resources` column for the operation\. It is also valid for operations that manage [custom key stores](custom-key-store-overview.md)\.
 
 For example, the following key policy statement demonstrates how to use the `kms:CallerAccount` condition key\. This policy statement is in the key policy for the AWS managed CMK for Amazon EBS\. It combines a `Principal` element that specifies all AWS identities with the `kms:CallerAccount` condition key to effectively allow access to all identities in AWS account 111122223333\. It contains an additional AWS KMS condition key \(`kms:ViaService`\) to further limit the permissions by only allowing requests that come through Amazon EBS\. For more information, see [kms:ViaService](#conditions-kms-via-service)\.
 
@@ -1618,7 +1618,7 @@ You might need to scroll horizontally or vertically to see all of the data in th
 | AWS Systems Manager Incident Manager Contacts | ssm\-contacts\.AWS\_region\.amazonaws\.com | 
 | Amazon Timestream | timestream\.AWS\_region\.amazonaws\.com | 
 | Amazon WorkMail | workmail\.AWS\_region\.amazonaws\.com | 
-| Amazon Workspaces | workspaces\.AWS\_region\.amazonaws\.com | 
+| Amazon WorkSpaces | workspaces\.AWS\_region\.amazonaws\.com | 
 | AWS X\-Ray | xray\.AWS\_region\.amazonaws\.com | 
 
 ### kms:WrappingAlgorithm<a name="conditions-kms-wrapping-algorithm"></a>

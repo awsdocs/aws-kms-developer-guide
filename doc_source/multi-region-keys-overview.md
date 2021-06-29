@@ -23,7 +23,7 @@ You can use multi\-Region keys with client\-side encryption libraries, such as t
 
 [AWS services that integrate with AWS KMS](https://aws.amazon.com/kms/features/) for encryption at rest or digital signatures currently treat multi\-Region keys as though they were single\-Region keys\. They don't avoid re\-wrapping or re\-encrypting data moved between Regions\. For example, Amazon S3 cross\-region replication decrypts and re\-encrypts data under a CMK in the destination Region, even when replicating objects protected by a multi\-Region key\.
 
-Multi\-Region keys are not global\. You create a multi\-Region primary key and then replicate it into Regions that you select within an AWS partition\. Then you manage the multi\-Region key in each Region independently\. Neither AWS nor AWS KMS ever automatically creates or replicates multi\-Region keys into any Region on your behalf\. [AWS managed CMKs](concepts.md#aws-managed-cmk), the CMKs that AWS services create in your account for you, are always single\-Region keys\.
+Multi\-Region keys are not global\. You create a multi\-Region primary key and then replicate it into Regions that you select within an [AWS partition](https://docs.aws.amazon.com/general/latest/gr/aws-arns-and-namespaces.html)\. Then you manage the multi\-Region key in each Region independently\. Neither AWS nor AWS KMS ever automatically creates or replicates multi\-Region keys into any Region on your behalf\. [AWS managed CMKs](concepts.md#aws-managed-cmk), the CMKs that AWS services create in your account for you, are always single\-Region keys\.
 
 You cannot convert an existing single\-Region key to a multi\-Region key\. This design ensures that all data protected with existing single\-Region keys maintain the same data residency and data sovereignty properties\.
 
@@ -70,13 +70,13 @@ You can [create a multi\-Region primary key](create-primary-keys.md) in the AWS 
 
 ![\[Image NOT FOUND\]](http://docs.aws.amazon.com/kms/latest/developerguide/images/multi-region-primary-key.png)
 
-If you choose, you can [replicate](#replicate) the multi\-Region primary key into one or more different AWS Regions in the same AWS partition, such as Europe \(Ireland\)\. When you do, AWS KMS creates a [replica key](#mrk-replica-key) in the specified Region with the same key ID and other [shared properties](#mrk-sync-properties) as the primary key\. Then it securely transports the key material across the Region boundary and associates it with the new CMK in the destination Region, all within AWS KMS\. The result is two *related* multi\-Region keys — a primary key and a replica key — that can be used interchangeably\.
+If you choose, you can [replicate](#replicate) the multi\-Region primary key into one or more different AWS Regions in the same [AWS partition](https://docs.aws.amazon.com/general/latest/gr/aws-arns-and-namespaces.html), such as Europe \(Ireland\)\. When you do, AWS KMS creates a [replica key](#mrk-replica-key) in the specified Region with the same key ID and other [shared properties](#mrk-sync-properties) as the primary key\. Then it securely transports the key material across the Region boundary and associates it with the new CMK in the destination Region, all within AWS KMS\. The result is two *related* multi\-Region keys — a primary key and a replica key — that can be used interchangeably\.
 
 You can [create a multi\-Region replica key](multi-region-keys-replicate.md) in the AWS KMS console or by using the [ReplicateKey](https://docs.aws.amazon.com/kms/latest/APIReference/API_ReplicateKey.html) API\. 
 
 ![\[Image NOT FOUND\]](http://docs.aws.amazon.com/kms/latest/developerguide/images/multi-region-replica-key.png)
 
-The resulting [multi\-Region replica key](#mrk-replica-key) is a fully\-functional CMK the same [shared properties](#mrk-sync-properties) as the primary key\. In all other respects, it is an independent CMK with its own description, key policy, grants, aliases, and tags\. Enabling or disabling a multi\-Region key has no effect on related multi\-Region keys\. You can use the primary and replica keys independently in cryptographic operations or coordinate their use\. For example, you can encrypt data with the primary key in the US East \(N\. Virginia\) Region, move the data to the Europe \(Ireland\) Region and use the replica key to decrypt the data\. 
+The resulting [multi\-Region replica key](#mrk-replica-key) is a fully\-functional CMK with the same [shared properties](#mrk-sync-properties) as the primary key\. In all other respects, it is an independent CMK with its own description, key policy, grants, aliases, and tags\. Enabling or disabling a multi\-Region key has no effect on related multi\-Region keys\. You can use the primary and replica keys independently in cryptographic operations or coordinate their use\. For example, you can encrypt data with the primary key in the US East \(N\. Virginia\) Region, move the data to the Europe \(Ireland\) Region and use the replica key to decrypt the data\. 
 
 Related multi\-Region keys have the same key ID\. Their key ARNs \(Amazon Resource Names\) differ only in the Region field\. For example, the multi\-Region primary key and replica keys might have the following example key ARNs\. The key ID – the last element in the key ARN – is identical\. Both keys have the distinctive key ID of multi\-Region keys, which begins with *mrk\-*\.
 
@@ -113,7 +113,7 @@ You set the multi\-Region property of a CMK when you create it\. You cannot chan
 
 A multi\-Region key can be [symmetric or asymmetric](symmetric-asymmetric.md) and it can use AWS KMS key material or [imported key material](importing-keys.md)\. You cannot create multi\-Region keys in a [custom key store](custom-key-store-overview.md)\.
 
-In a set of related multi\-Region keys, there is exactly one [primary key](#mrk-primary-key) at any time\. You can create [replica keys](#mrk-replica-key) of that primary key in other AWS Regions\. You can also [update the primary region](multi-region-keys-manage.md#update-primary-console), which changes the primary key to a replica key and changes a specified replica key to the primary key\. However, you can maintain only one primary key or replica key in each AWS Region\. All of the Regions must be in the same AWS partition\.
+In a set of related multi\-Region keys, there is exactly one [primary key](#mrk-primary-key) at any time\. You can create [replica keys](#mrk-replica-key) of that primary key in other AWS Regions\. You can also [update the primary region](multi-region-keys-manage.md#update-primary-console), which changes the primary key to a replica key and changes a specified replica key to the primary key\. However, you can maintain only one primary key or replica key in each AWS Region\. All of the Regions must be in the same [AWS partition](https://docs.aws.amazon.com/general/latest/gr/aws-arns-and-namespaces.html)\.
 
 You can have multiple sets of related multi\-Region keys in the same or different AWS Regions\. Although related multi\-Region keys are interoperable, unrelated multi\-Region keys are not interoperable\.
 
@@ -131,9 +131,9 @@ You are not required to replicate a primary key\. You can use it just as you wou
 
 ### Replica key<a name="mrk-replica-key"></a>
 
-A multi\-Region *replica key* is a customer master key \(CMK\) that has the same [key ID](concepts.md#key-id-key-id) and [key material](concepts.md#key-material) as its [primary key](#mrk-primary-key) and related replica keys, but exists in a different AWS Region\. A replica key is a fully functional CMK with it own key policy, grants, alias, tags, and other properties\. It is not a copy of or pointer to the primary key or any other key\. 
+A multi\-Region *replica key* is a customer master key \(CMK\) that has the same [key ID](concepts.md#key-id-key-id) and [key material](concepts.md#key-material) as its [primary key](#mrk-primary-key) and related replica keys, but exists in a different AWS Region\. You can use a replica key to encrypt plaintext that might be decrypted by a related multi\-Region key in a different AWS Region\. And you can use it to decrypt ciphertext that was encrypted by a related multi\-Region key \(primary or replica\) in a different AWS Region\. 
 
-You can use a replica key to decrypt ciphertext that was encrypted by a related multi\-Region key \(primary or replica\) in a different AWS Region\. You can use it to encrypt plaintext that might be decrypted by a related multi\-Region key in a different AWS Region\.
+A replica key is a fully functional CMK with it own key policy, grants, alias, tags, and other properties\. It is not a copy of or pointer to the primary key or any other key\. You can use a replica key even if its primary key and all related replica keys are disabled\. You can also convert a replica key to a primary key and a primary key to a replica key\. Once it is created, a replica key relies on its primary key only for [key rotation](multi-region-keys-manage.md#multi-region-rotate) and [updating the primary Region](multi-region-keys-manage.md#multi-region-update)\. 
 
 ### Replicate<a name="replicate"></a>
 

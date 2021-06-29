@@ -77,17 +77,17 @@ For example, this IAM policy allows a principal to create any type of AWS KMS CM
 }
 ```
 
-To allow or deny permission to create multi\-Region primary keys, use the [kms:MultiRegion](policy-conditions.md#conditions-kms-multiregion) condition key\. Valid values are `true` \(multi\-Region key\) or `false` \(single\-Region key\)\. For example, the following IAM policy statement allows the principals to create single\-Region CMKs, but not multi\-Region CMKs\. 
+To allow or deny permission to create multi\-Region primary keys, use the [kms:MultiRegion](policy-conditions.md#conditions-kms-multiregion) condition key\. Valid values are `true` \(multi\-Region key\) or `false` \(single\-Region key\)\. For example, the following IAM policy statement uses a `Deny` action with the `kms:MultiRegion` condition key to prevent principals from creating multi\-Region keys\. 
 
 ```
 {
   "Version": "2012-10-17",
   "Statement":{
       "Action":"kms:CreateKey",
-      "Effect":"Allow",
+      "Effect":"Deny",
       "Resource":"*",
       "Condition": {
-          "Bool": "kms:MultiRegion": false
+          "Bool": "kms:MultiRegion": true
       }
   }
 }

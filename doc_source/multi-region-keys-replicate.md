@@ -18,7 +18,7 @@ You typically choose to replicate a multi\-Region key into an AWS Region based o
 The following are the AWS KMS requirements for replica Regions\. If the Region that you choose doesn't comply with these requirements, attempts to replicate a key fail\.
 + **One related multi\-Region key per Region** — You can't create a replica key in the same Region as its primary key, or in the same Region as another replica of the primary key\.
 + **Multiple unrelated multi\-Region keys in the same Region** — You can have multiple unrelated multi\-Region keys in the same Region\. For example, you can have two multi\-Region primary keys in the `us-east-1` Region\. Each of the primary keys can have a replica key in `us-west-2` Region\.
-+ **Regions in the same partition** — The replica key Region must be in the same AWS partition as the primary key Region\.
++ **Regions in the same partition** — The replica key Region must be in the same [AWS partition](https://docs.aws.amazon.com/general/latest/gr/aws-arns-and-namespaces.html) as the primary key Region\.
 + **Region must be enabled** — If a Region is [disabled by default](https://docs.aws.amazon.com/general/latest/gr/rande-manage.html#rande-manage-enable), you cannot create any resources in that Region until it is enabled for your AWS account\. 
 
 ## Creating replica keys \(console\)<a name="replicate-console"></a>
@@ -53,17 +53,17 @@ You do specify properties that are not shared, including an alias, tags, a descr
 
 1. Type an [alias](kms-alias.md) for the CMK\. 
 
-   The console displays one of the current aliases of the primary key, but you can change it\. You can give your multi\-Region primary CMK and its replicas the same alias or different aliases\. Aliases are not a [shared property](multi-region-keys-overview.md#mrk-sync-properties) of multi\-Region CMKs\. AWS KMS does not synchronize them\.
+   The console displays one of the current aliases of the primary key, but you can change it\. You can give your multi\-Region primary CMK and its replicas the same alias or different aliases\. Aliases are not a [shared property](multi-region-keys-overview.md#mrk-sync-properties) of multi\-Region CMKs\. AWS KMS does not synchronize the aliases of multi\-Region keys\.
 
    Adding, deleting, or updating an alias can allow or deny permission to the CMK\. For details, see [Using ABAC for AWS KMS](abac.md) and [Using aliases to control access to CMKs](alias-authorization.md)\.
 
 1. \(Optional\) Type a description for the CMK\.
 
-   The console displays the current description of the primary key, but you can change it\. Descriptions are not a shared property of multi\-Region CMKs\. You can give your multi\-Region primary CMK and its replicas the same description or different descriptions\. AWS KMS does not synchronize them\.
+   The console displays the current description of the primary key, but you can change it\. Descriptions are not a shared property of multi\-Region CMKs\. You can give your multi\-Region primary CMK and its replicas the same description or different descriptions\. AWS KMS does not synchronize the key descriptions of multi\-Region keys\.
 
 1. \(Optional\) Type a tag key and an optional tag value\. To assign more than one tag to the CMK, choose **Add tag**\.
 
-   The console displays the tags currently attached to the primary key, but you can change them\. Tags are not a shared property of multi\-Region CMKs\. You can give your multi\-Region primary CMK and its replicas the same tags or different tags\. AWS KMS does not synchronize them\. 
+   The console displays the tags currently attached to the primary key, but you can change them\. Tags are not a shared property of multi\-Region CMKs\. You can give your multi\-Region primary CMK and its replicas the same tags or different tags\. AWS KMS does not synchronize the tags of multi\-Region keys\. 
 
    Tagging or untagging a CMK can allow or deny permission to the CMK\. For details, see [Using ABAC for AWS KMS](abac.md) and [Using tags to control access to CMKs](tag-authorization.md)\.
 
@@ -71,7 +71,7 @@ You do specify properties that are not shared, including an alias, tags, a descr
 **Note**  
 IAM policies can give other IAM users and roles permission to manage the CMK\.
 
-   This step begins the process of creating a [key policy](key-policies.md) for the CMK\. The console displays the current key policy of the primary key, but you can change it\. Key policies are not a shared property of multi\-Region CMKs\. You can give your multi\-Region primary CMK and its replicas the same key policy or different key policies\. AWS KMS does not synchronize them\. You can change the key policy on CMKs at any time\.
+   This step begins the process of creating a [key policy](key-policies.md) for the CMK\. The console displays the current key policy of the primary key, but you can change it\. Key policies are not a shared property of multi\-Region CMKs\. You can give your multi\-Region primary CMK and its replicas the same key policy or different key policies\. AWS KMS does not synchronize key policies\. You can change the key policy of a CMK at any time\.
 
 1. Complete the steps for creating the key policy, including selecting key administrators\. After you review the key policy, choose **Finish** to create the replica key\.
 

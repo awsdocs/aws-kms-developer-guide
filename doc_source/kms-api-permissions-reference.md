@@ -14,6 +14,13 @@ The columns in this table provide the following information:
   *Key policy* means that you can specify the permission in the key policy\. When the key policy contains the [policy statement that enables IAM policies](key-policies.md#key-policy-default-allow-root-enable-iam), you can specify the permission in an IAM policy\. 
 
   *IAM policy* means that you can specify the permission only in an IAM policy\.
++ **Cross\-account use** shows the operations that authorized users can perform on resources in a different AWS account\. 
+
+  A value of *Yes* means that principals can perform the operation on resources in a different AWS account\.
+
+  A value of *No* means that principals can perform the operation only on resources in their own AWS account\.
+
+  If you give a principal in a different account a permission that can't be used on a cross\-account resource, the permission is not effective\. For example, if you give a principal in a different account [kms:TagResource](https://docs.aws.amazon.com/kms/latest/APIReference/API_TagResource.html) permission to a CMK in your account, their attempts to tag the CMK in your account will fail\.
 + **Resources** lists the AWS KMS resources to which the permissions apply\. AWS KMS supports two resource types: a customer master key \(CMK\) and an alias\. In a key policy, the value of the `Resource` element is always `*`, which indicates the CMK to which the key policy is attached\. 
 
   Use the following values to represent an AWS KMS resource in an IAM policy\.  

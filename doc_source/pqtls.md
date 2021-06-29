@@ -96,7 +96,7 @@ To see a complete working examples of configuring and using hybrid post\-quantum
              .tlsCipherPreference(TLS_CIPHER_PREF_KMS_PQ_TLSv1_0_2020_07)
              .build();
    
-   // Create the KMS async client
+   // Create the AWS KMS async client
    KmsAsyncClient kmsAsync = KmsAsyncClient.builder()
             .httpClient(awsCrtHttpClient)
             .build();
