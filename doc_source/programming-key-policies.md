@@ -18,7 +18,7 @@ In languages that require a client object, these examples use the AWS KMS client
 ------
 #### [ Java ]
 
-For details about the Java implementation, see the [listKeyPolicies method](https://docs.aws.amazon.com/AWSJavaSDK/latest/javadoc/com/amazonaws/services/kms/AWSKMSClient.html#listKeyPolicies-com.amazonaws.services.kms.model.ListKeyPoliciesRequest-) in the *AWS SDK for Java API Reference*\.
+For details about the Java implementation, see the [listKeyPolicies method](https://docs.aws.amazon.com/sdk-for-java/latest/reference/com/amazonaws/services/kms/AWSKMSClient.html#listKeyPolicies-com.amazonaws.services.kms.model.ListKeyPoliciesRequest-) in the *AWS SDK for Java API Reference*\.
 
 ```
 // List key policies
@@ -140,7 +140,7 @@ In languages that require a client object, these examples use the AWS KMS client
 ------
 #### [ Java ]
 
-For details, see the [getKeyPolicy method](https://docs.aws.amazon.com/AWSJavaSDK/latest/javadoc/com/amazonaws/services/kms/AWSKMSClient.html#getKeyPolicy-com.amazonaws.services.kms.model.GetKeyPolicyRequest-) in the *AWS SDK for Java API Reference*\.
+For details, see the [getKeyPolicy method](https://docs.aws.amazon.com/sdk-for-java/latest/reference/com/amazonaws/services/kms/AWSKMSClient.html#getKeyPolicy-com.amazonaws.services.kms.model.GetKeyPolicyRequest-) in the *AWS SDK for Java API Reference*\.
 
 ```
 // Get the policy for a CMK
@@ -273,7 +273,7 @@ In languages that require a client object, these examples use the AWS KMS client
 ------
 #### [ Java ]
 
-For details, see the [putKeyPolicy method](https://docs.aws.amazon.com/AWSJavaSDK/latest/javadoc/com/amazonaws/services/kms/AWSKMSClient.html#putKeyPolicy-com.amazonaws.services.kms.model.PutKeyPolicyRequest-) in the *AWS SDK for Java API Reference*\.
+For details, see the [putKeyPolicy method](https://docs.aws.amazon.com/sdk-for-java/latest/reference/com/amazonaws/services/kms/AWSKMSClient.html#putKeyPolicy-com.amazonaws.services.kms.model.PutKeyPolicyRequest-) in the *AWS SDK for Java API Reference*\.
 
 ```
 // Set a key policy for a CMK

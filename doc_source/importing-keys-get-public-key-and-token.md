@@ -19,7 +19,7 @@ If you plan to try the [Encrypt Key Material with OpenSSL](importing-keys-encryp
 If your HSM or key management system supports it, we recommend using RSAES\_OAEP\_SHA\_256 to encrypt your key material\. If that option is not available, you should use RSAES\_OAEP\_SHA\_1\. If neither of the OAEP options are available, you must use RSAES\_PKCS1\_V1\_5\. For information about how to encrypt your key material, see the documentation for the hardware security module or key management system that protects your key material\.  
 The public key and import token are valid for 24 hours\. If you don't use them to import key material within 24 hours of downloading them, you must download new ones\.
 
-To download the public key and import token, you can use the AWS Management Console or the AWS KMS API\. You can use the API directly by making HTTP requests, or through one of the [AWS SDKs](https://aws.amazon.com/tools/#sdk) or [command line tools](https://aws.amazon.com/tools/#cli)\.
+To download the public key and import token, you can use the AWS Management Console or the AWS KMS API\. You can use the API directly by making HTTP requests, or by using an [AWS SDKs](https://aws.amazon.com/tools/#sdk), [AWS Command Line Interface](https://docs.aws.amazon.com/cli/latest/userguide/) or [AWS Tools for PowerShell](https://docs.aws.amazon.com/powershell/latest/userguide/)\.
 
 When you download the public key and import token, a [GetParametersForImport entry](ct-getparametersforimport.md) is added to your AWS CloudTrail log to record the [GetParametersForImport](https://docs.aws.amazon.com/kms/latest/APIReference/API_GetParametersForImport.html) operation\. The CloudTrail entry is the same whether you use the AWS KMS console or the AWS KMS API\.
 

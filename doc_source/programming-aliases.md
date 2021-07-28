@@ -19,7 +19,7 @@ In languages that require a client object, these examples use the AWS KMS client
 ------
 #### [ Java ]
 
-For details, see the [createAlias method](https://docs.aws.amazon.com/AWSJavaSDK/latest/javadoc/com/amazonaws/services/kms/AWSKMSClient.html#createAlias-com.amazonaws.services.kms.model.CreateAliasRequest-) in the *AWS SDK for Java API Reference*\.
+For details, see the [createAlias method](https://docs.aws.amazon.com/sdk-for-java/latest/reference/com/amazonaws/services/kms/AWSKMSClient.html#createAlias-com.amazonaws.services.kms.model.CreateAliasRequest-) in the *AWS SDK for Java API Reference*\.
 
 ```
 // Create an alias for a CMK
@@ -91,7 +91,7 @@ response = kmsClient.create_alias({
 ------
 #### [ PHP ]
 
-For details, see the [CreateAlias method](https://docs.aws.amazon.com/aws-sdk-php/latest/api-kms-2014-11-01.html#createalias) in the *AWS SDK for PHP*\.
+For details, see the [CreateAlias method](https://docs.aws.amazon.com/sdk-for-php/latest/reference/api-kms-2014-11-01.html#createalias) in the *AWS SDK for PHP*\.
 
 ```
 // Create an alias for a CMK
@@ -154,7 +154,7 @@ In languages that require a client object, these examples use the AWS KMS client
 ------
 #### [ Java ]
 
-For details about the Java implementation, see the [listAliases method](https://docs.aws.amazon.com/AWSJavaSDK/latest/javadoc/com/amazonaws/services/kms/AWSKMSClient.html#listAliases-com.amazonaws.services.kms.model.ListAliasesRequest-) in the *AWS SDK for Java API Reference*\.
+For details about the Java implementation, see the [listAliases method](https://docs.aws.amazon.com/sdk-for-java/latest/reference/com/amazonaws/services/kms/AWSKMSClient.html#listAliases-com.amazonaws.services.kms.model.ListAliasesRequest-) in the *AWS SDK for Java API Reference*\.
 
 ```
 // List the aliases in this AWS account
@@ -211,7 +211,7 @@ response = kmsClient.list_aliases({
 ------
 #### [ PHP ]
 
-For details, see the [List Aliases method](https://docs.aws.amazon.com/aws-sdk-php/latest/api-kms-2014-11-01.html#listaliases) in the *AWS SDK for PHP*\.
+For details, see the [List Aliases method](https://docs.aws.amazon.com/sdk-for-php/latest/reference/api-kms-2014-11-01.html#listaliases) in the *AWS SDK for PHP*\.
 
 ```
 // List the aliases in this AWS account
@@ -260,7 +260,7 @@ To list only the aliases that are associated with a particular CMK, use the `Key
 ------
 #### [ Java ]
 
-For details about the Java implementation, see the [listAliases method](https://docs.aws.amazon.com/AWSJavaSDK/latest/javadoc/com/amazonaws/services/kms/AWSKMSClient.html#listAliases-com.amazonaws.services.kms.model.ListAliasesRequest-) in the *AWS SDK for Java API Reference*\.
+For details about the Java implementation, see the [listAliases method](https://docs.aws.amazon.com/sdk-for-java/latest/reference/com/amazonaws/services/kms/AWSKMSClient.html#listAliases-com.amazonaws.services.kms.model.ListAliasesRequest-) in the *AWS SDK for Java API Reference*\.
 
 ```
 // List the aliases for one CMK
@@ -325,7 +325,7 @@ response = kmsClient.list_aliases({
 ------
 #### [ PHP ]
 
-For details, see the [List Aliases method](https://docs.aws.amazon.com/aws-sdk-php/latest/api-kms-2014-11-01.html#listaliases) in the *AWS SDK for PHP*\.
+For details, see the [List Aliases method](https://docs.aws.amazon.com/sdk-for-php/latest/reference/api-kms-2014-11-01.html#listaliases) in the *AWS SDK for PHP*\.
 
 ```
 // List the aliases for one CMK
@@ -380,7 +380,7 @@ In languages that require a client object, these examples use the AWS KMS client
 ------
 #### [ Java ]
 
-For details about the Java implementation, see the [updateAlias method](https://docs.aws.amazon.com/AWSJavaSDK/latest/javadoc/com/amazonaws/services/kms/AWSKMSClient.html#updateAlias-com.amazonaws.services.kms.model.UpdateAliasRequest-) in the *AWS SDK for Java API Reference*\.
+For details about the Java implementation, see the [updateAlias method](https://docs.aws.amazon.com/sdk-for-java/latest/reference/com/amazonaws/services/kms/AWSKMSClient.html#updateAlias-com.amazonaws.services.kms.model.UpdateAliasRequest-) in the *AWS SDK for Java API Reference*\.
 
 ```
 // Updating an alias
@@ -456,7 +456,7 @@ response = kmsClient.update_alias({
 ------
 #### [ PHP ]
 
-For details, see the [UpdateAlias method](https://docs.aws.amazon.com/aws-sdk-php/latest/api-kms-2014-11-01.html#updatealias) in the *AWS SDK for PHP*\.
+For details, see the [UpdateAlias method](https://docs.aws.amazon.com/sdk-for-php/latest/reference/api-kms-2014-11-01.html#updatealias) in the *AWS SDK for PHP*\.
 
 ```
 // Updating an alias
@@ -519,7 +519,7 @@ In languages that require a client object, these examples use the AWS KMS client
 ------
 #### [ Java ]
 
-For details, see the [deleteAlias method](https://docs.aws.amazon.com/AWSJavaSDK/latest/javadoc/com/amazonaws/services/kms/AWSKMSClient.html#deleteAlias-com.amazonaws.services.kms.model.DeleteAliasRequest-) in the *AWS SDK for Java API Reference*\.
+For details, see the [deleteAlias method](https://docs.aws.amazon.com/sdk-for-java/latest/reference/com/amazonaws/services/kms/AWSKMSClient.html#deleteAlias-com.amazonaws.services.kms.model.DeleteAliasRequest-) in the *AWS SDK for Java API Reference*\.
 
 ```
 // Delete an alias for a CMK
@@ -580,7 +580,7 @@ response = kmsClient.delete_alias({
 ------
 #### [ PHP ]
 
-For details, see the [DeleteAlias method](https://docs.aws.amazon.com/aws-sdk-php/latest/api-kms-2014-11-01.html#deletealias) in the *AWS SDK for PHP*\.
+For details, see the [DeleteAlias method](https://docs.aws.amazon.com/sdk-for-php/latest/reference/api-kms-2014-11-01.html#deletealias) in the *AWS SDK for PHP*\.
 
 ```
 // Delete an alias for a CMK

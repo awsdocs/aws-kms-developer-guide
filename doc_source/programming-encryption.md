@@ -20,7 +20,7 @@ In languages that require a client object, these examples use the AWS KMS client
 ------
 #### [ Java ]
 
-For details, see the [encrypt method](https://docs.aws.amazon.com/AWSJavaSDK/latest/javadoc/com/amazonaws/services/kms/AWSKMSClient.html#encrypt-com.amazonaws.services.kms.model.EncryptRequest-) in the *AWS SDK for Java API Reference*\.
+For details, see the [encrypt method](https://docs.aws.amazon.com/sdk-for-java/latest/reference/com/amazonaws/services/kms/AWSKMSClient.html#encrypt-com.amazonaws.services.kms.model.EncryptRequest-) in the *AWS SDK for Java API Reference*\.
 
 ```
 // Encrypt a data key
@@ -183,7 +183,7 @@ In languages that require a client object, these examples use the AWS KMS client
 ------
 #### [ Java ]
 
-For details, see the [decrypt method](https://docs.aws.amazon.com/AWSJavaSDK/latest/javadoc/com/amazonaws/services/kms/AWSKMSClient.html#decrypt-com.amazonaws.services.kms.model.DecryptRequest-) in the *AWS SDK for Java API Reference*\.
+For details, see the [decrypt method](https://docs.aws.amazon.com/sdk-for-java/latest/reference/com/amazonaws/services/kms/AWSKMSClient.html#decrypt-com.amazonaws.services.kms.model.DecryptRequest-) in the *AWS SDK for Java API Reference*\.
 
 ```
 // Decrypt a data key
@@ -338,7 +338,7 @@ In languages that require a client object, these examples use the AWS KMS client
 ------
 #### [ Java ]
 
-For details, see the [reEncrypt method](https://docs.aws.amazon.com/AWSJavaSDK/latest/javadoc/com/amazonaws/services/kms/AWSKMSClient.html#reEncrypt-com.amazonaws.services.kms.model.ReEncryptRequest-) in the *AWS SDK for Java API Reference*\.
+For details, see the [reEncrypt method](https://docs.aws.amazon.com/sdk-for-java/latest/reference/com/amazonaws/services/kms/AWSKMSClient.html#reEncrypt-com.amazonaws.services.kms.model.ReEncryptRequest-) in the *AWS SDK for Java API Reference*\.
 
 ```
 // Re-encrypt a data key

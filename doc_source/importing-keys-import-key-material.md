@@ -6,7 +6,7 @@ When you import key material, you can optionally specify a time at which the key
 
 After you successfully import key material, the CMK's key state changes to enabled, and you can use the CMK\.
 
-To import key material, you can use the AWS Management Console or the AWS KMS API\. You can use the API directly by making HTTP requests, or through one of the [AWS SDKs](https://aws.amazon.com/tools/#sdk) or [command line tools](https://aws.amazon.com/tools/#cli)\.
+To import key material, you can use the AWS Management Console or the AWS KMS API\. You can use the API directly by making HTTP requests, or by using an [AWS SDKs](https://aws.amazon.com/tools/#sdk), [AWS Command Line Interface](https://docs.aws.amazon.com/cli/latest/userguide/) or [AWS Tools for PowerShell](https://docs.aws.amazon.com/powershell/latest/userguide/)\.
 
 When you import the key material, an [ImportKeyMaterial entry](ct-importkeymaterial.md) is added to your AWS CloudTrail log to record the [ImportKeyMaterial](https://docs.aws.amazon.com/kms/latest/APIReference/API_ImportKeyMaterial.html) operation\. The CloudTrail entry is the same whether you use the AWS KMS console or the AWS KMS API\.
 

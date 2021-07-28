@@ -1584,6 +1584,7 @@ You might need to scroll horizontally or vertically to see all of the data in th
 | Amazon Forecast | forecast\.AWS\_region\.amazonaws\.com | 
 | Amazon FSx | fsx\.AWS\_region\.amazonaws\.com | 
 | AWS Glue | glue\.AWS\_region\.amazonaws\.com | 
+| Amazon HealthLake | healthlake\.AWS\_region\.amazonaws\.com | 
 | AWS IoT SiteWise | iotsitewise\.AWS\_region\.amazonaws\.com | 
 | Amazon Kendra | kendra\.AWS\_region\.amazonaws\.com | 
 | Amazon Kinesis | kinesis\.AWS\_region\.amazonaws\.com | 
@@ -1603,6 +1604,7 @@ You might need to scroll horizontally or vertically to see all of the data in th
 | Amazon Neptune | rds\.AWS\_region\.amazonaws\.com | 
 | Amazon Nimble Studio | nimble\.AWS\_region\.amazonaws\.com | 
 | AWS Proton | proton\.AWS\_region\.amazonaws\.com | 
+| Amazon Quantum Ledger Database \(Amazon QLDB\) | qldb\.AWS\_region\.amazonaws\.com | 
 | Amazon RDS Performance Insights | rds\.AWS\_region\.amazonaws\.com | 
 | Amazon Redshift | redshift\.AWS\_region\.amazonaws\.com | 
 | Amazon Rekognition | rekognition\.AWS\_region\.amazonaws\.com | 

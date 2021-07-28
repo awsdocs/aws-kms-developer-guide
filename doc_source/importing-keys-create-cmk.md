@@ -4,7 +4,7 @@ By default, AWS KMS creates key material for you when you create a customer mast
 
 A CMK with no key material is in the *pending import* state and is not available for use\. To use it, you must import key material as explained later\. When you import key material, the CMK's key state changes to *enabled*\. For more information about key state, see [Key state: Effect on your CMK](key-state.md)\.
 
-To create a CMK with no key material, you can use the AWS Management Console or the AWS KMS API\. You can use the API directly by making HTTP requests, or through one of the [AWS SDKs](https://aws.amazon.com/tools/#sdk) or [command line tools](https://aws.amazon.com/tools/#cli)\.
+To create a CMK with no key material, you can use the AWS Management Console or the AWS KMS API\. You can use the API directly by making HTTP requests, or by using an [AWS SDK](https://aws.amazon.com/tools/#sdk), [AWS Command Line Interface](https://docs.aws.amazon.com/cli/latest/userguide/) or [AWS Tools for PowerShell](https://docs.aws.amazon.com/powershell/latest/userguide/)\.
 
 **AWS KMS records an entry in your AWS CloudTrail log when you [create the CMK](ct-createkey.md), [download the public key and import token](ct-getparametersforimport.md), and [import the key material](ct-importkeymaterial.md)\. AWS KMS also records an entry when you delete imported key material or when AWS KMS [deletes expired key material](ct-deleteexpiredkeymaterial.md)\.**
 + [Creating a CMK with no key material \(console\)](#importing-keys-create-cmk-console)

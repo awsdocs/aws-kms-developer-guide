@@ -19,7 +19,7 @@ In languages that require a client object, these examples use the AWS KMS client
 ------
 #### [ Java ]
 
-For details, see the [createGrant method](https://docs.aws.amazon.com/AWSJavaSDK/latest/javadoc/com/amazonaws/services/kms/AWSKMSClient.html#createGrant-com.amazonaws.services.kms.model.CreateGrantRequest-) in the *AWS SDK for Java API Reference*\.
+For details, see the [createGrant method](https://docs.aws.amazon.com/sdk-for-java/latest/reference/com/amazonaws/services/kms/AWSKMSClient.html#createGrant-com.amazonaws.services.kms.model.CreateGrantRequest-) in the *AWS SDK for Java API Reference*\.
 
 ```
 // Create a grant
@@ -171,7 +171,7 @@ These examples use the optional `Limits` parameter, which determines how many gr
 ------
 #### [ Java ]
 
-For details about the Java implementation, see the [listGrants method](https://docs.aws.amazon.com/AWSJavaSDK/latest/javadoc/com/amazonaws/services/kms/AWSKMSClient.html#listGrants-com.amazonaws.services.kms.model.ListGrantsRequest-) in the *AWS SDK for Java API Reference*\.
+For details about the Java implementation, see the [listGrants method](https://docs.aws.amazon.com/sdk-for-java/latest/reference/com/amazonaws/services/kms/AWSKMSClient.html#listGrants-com.amazonaws.services.kms.model.ListGrantsRequest-) in the *AWS SDK for Java API Reference*\.
 
 ```
 // Listing grants on a CMK
@@ -298,7 +298,7 @@ You must specify the CMK in every `ListGrants` operations\. However, you can fur
 ------
 #### [ Java ]
 
-For details about the Java implementation, see the [listGrants method](https://docs.aws.amazon.com/AWSJavaSDK/latest/javadoc/com/amazonaws/services/kms/AWSKMSClient.html#listGrants-com.amazonaws.services.kms.model.ListGrantsRequest-) in the *AWS SDK for Java API Reference*\.
+For details about the Java implementation, see the [listGrants method](https://docs.aws.amazon.com/sdk-for-java/latest/reference/com/amazonaws/services/kms/AWSKMSClient.html#listGrants-com.amazonaws.services.kms.model.ListGrantsRequest-) in the *AWS SDK for Java API Reference*\.
 
 ```
 // Listing grants on a CMK
@@ -433,7 +433,7 @@ In languages that require a client object, these examples use the AWS KMS client
 ------
 #### [ Java ]
 
-For details, see the [retireGrant method](https://docs.aws.amazon.com/AWSJavaSDK/latest/javadoc/com/amazonaws/services/kms/AWSKMSClient.html#retireGrant-com.amazonaws.services.kms.model.RetireGrantRequest-) in the *AWS SDK for Java API Reference*\.
+For details, see the [retireGrant method](https://docs.aws.amazon.com/sdk-for-java/latest/reference/com/amazonaws/services/kms/AWSKMSClient.html#retireGrant-com.amazonaws.services.kms.model.RetireGrantRequest-) in the *AWS SDK for Java API Reference*\.
 
 ```
 // Retire a grant
@@ -545,7 +545,7 @@ In languages that require a client object, these examples use the AWS KMS client
 ------
 #### [ Java ]
 
-For details, see the [revokeGrant method](https://docs.aws.amazon.com/AWSJavaSDK/latest/javadoc/com/amazonaws/services/kms/AWSKMSClient.html#revokeGrant-com.amazonaws.services.kms.model.RevokeGrantRequest-) in the *AWS SDK for Java API Reference*\.
+For details, see the [revokeGrant method](https://docs.aws.amazon.com/sdk-for-java/latest/reference/com/amazonaws/services/kms/AWSKMSClient.html#revokeGrant-com.amazonaws.services.kms.model.RevokeGrantRequest-) in the *AWS SDK for Java API Reference*\.
 
 ```
 // Revoke a grant on a CMK

@@ -105,7 +105,7 @@ You might want to create a new CMK and use it in place of a current CMK instead 
 You might prefer to rotate keys manually so you can control the rotation frequency\. It's also a good solution for CMKs that are not eligible for automatic key rotation, such as asymmetric CMKs, CMKs in [custom key stores](custom-key-store-overview.md) and CMKs with [imported key material](importing-keys.md)\.
 
 **Note**  
-When you begin using the new CMK, be sure to keep the original CMK enabled so that AWS KMS can decrypt data that the original CMK encrypted\. When decrypting data, AWS KMS identifies the CMK that was used to encrypt the data, and it uses the same CMK to decrypt the data\. As long as you keep both the original and new CMKs enabled, AWS KMS can decrypt any data that was encrypted by either CMK\.
+When you begin using the new CMK, be sure to keep the original CMK enabled so that AWS KMS can decrypt data that the original CMK encrypted\. 
 
 Because the new CMK is a different resource from the current CMK, it has a different key ID and key ARN\. When you change CMKs, you need to update references to the key ID or key ARN in your applications\. [Aliases](kms-alias.md), which associate a friendly name with a CMK, make this process easier\. Use an alias to refer to a CMK in your applications\. Then, when you want to change the CMK that the application uses, change the target CMK of the alias\. For details, see [Using aliases in your applications](alias-using.md)\.
 
@@ -126,7 +126,7 @@ $ aws kms list-aliases
 }
 
 
-$ aws kms update-alias --alias-name alias/TestCMK --target-key-id 0987dcba-09fe-87dc-65ba-ab0987654321
+$ aws kms update-alias --alias-name alias/TestKey --target-key-id 0987dcba-09fe-87dc-65ba-ab0987654321
             
 $ aws kms list-aliases
 {

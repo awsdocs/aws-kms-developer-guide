@@ -15,8 +15,8 @@ AWSKMS kmsClient = AWSKMSClientBuilder.standard().build();
 
 For more information about using the Java client builder, see the following resources\.
 + [Fluent Client Builders](https://aws.amazon.com/blogs/developer/fluent-client-builders/) on the AWS Developer Blog
-+ [Creating Service Clients](https://docs.aws.amazon.com/sdk-for-java/v1/developer-guide/creating-clients.html) in the *AWS SDK for Java Developer Guide*
-+ [AWSKMSClientBuilder](https://docs.aws.amazon.com/AWSJavaSDK/latest/javadoc/index.html?com/amazonaws/services/kms/AWSKMSClientBuilder.html) in the *AWS SDK for Java API Reference*
++ [Creating Service Clients](https://docs.aws.amazon.com/sdk-for-java/latest/developer-guide/creating-clients.html) in the *AWS SDK for Java Developer Guide*
++ [AWSKMSClientBuilder](https://docs.aws.amazon.com/sdk-for-java/latest/reference/index.html?com/amazonaws/services/kms/AWSKMSClientBuilder.html) in the *AWS SDK for Java API Reference*
 
 ------
 #### [ C\# ]

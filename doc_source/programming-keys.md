@@ -21,7 +21,7 @@ For help with creating CMKs in the AWS KMS console, see [Creating keys](create-k
 ------
 #### [ Java ]
 
-For details, see the [createKey method](https://docs.aws.amazon.com/AWSJavaSDK/latest/javadoc/com/amazonaws/services/kms/AWSKMSClient.html#createKey-com.amazonaws.services.kms.model.CreateKeyRequest-) in the *AWS SDK for Java API Reference*\.
+For details, see the [createKey method](https://docs.aws.amazon.com/sdk-for-java/latest/reference/com/amazonaws/services/kms/AWSKMSClient.html#createKey-com.amazonaws.services.kms.model.CreateKeyRequest-) in the *AWS SDK for Java API Reference*\.
 
 ```
 // Create a CMK
@@ -134,7 +134,7 @@ In languages that require a client object, these examples use the AWS KMS client
 ------
 #### [ Java ]
 
-For details, see the [generateDataKey method](https://docs.aws.amazon.com/AWSJavaSDK/latest/javadoc/com/amazonaws/services/kms/AWSKMSClient.html#generateDataKey-com.amazonaws.services.kms.model.GenerateDataKeyRequest-) in the *AWS SDK for Java API Reference*\.
+For details, see the [generateDataKey method](https://docs.aws.amazon.com/sdk-for-java/latest/reference/com/amazonaws/services/kms/AWSKMSClient.html#generateDataKey-com.amazonaws.services.kms.model.GenerateDataKeyRequest-) in the *AWS SDK for Java API Reference*\.
 
 ```
 // Generate a data key
@@ -296,7 +296,7 @@ For help with viewing CMKs in the AWS KMS console, see [Viewing keys](viewing-ke
 ------
 #### [ Java ]
 
-For details, see the [describeKey method](https://docs.aws.amazon.com/AWSJavaSDK/latest/javadoc/com/amazonaws/services/kms/AWSKMS.html#describeKey-com.amazonaws.services.kms.model.DescribeKeyRequest-) in the *AWS SDK for Java API Reference*\.
+For details, see the [describeKey method](https://docs.aws.amazon.com/sdk-for-java/latest/reference/com/amazonaws/services/kms/AWSKMS.html#describeKey-com.amazonaws.services.kms.model.DescribeKeyRequest-) in the *AWS SDK for Java API Reference*\.
 
 ```
 // Describe a CMK
@@ -418,7 +418,7 @@ For help with finding key IDs and key ARNs in the AWS KMS console, see [Finding 
 ------
 #### [ Java ]
 
-For details, see the [listKeys method](https://docs.aws.amazon.com/AWSJavaSDK/latest/javadoc/com/amazonaws/services/kms/AWSKMSClient.html#listKeys-com.amazonaws.services.kms.model.ListKeysRequest-) in the *AWS SDK for Java API Reference*\.
+For details, see the [listKeys method](https://docs.aws.amazon.com/sdk-for-java/latest/reference/com/amazonaws/services/kms/AWSKMSClient.html#listKeys-com.amazonaws.services.kms.model.ListKeysRequest-) in the *AWS SDK for Java API Reference*\.
 
 ```
 // List CMKs in this account
@@ -530,7 +530,7 @@ For help with enabling and disabling CMKs in the AWS KMS console, see [Enabling 
 ------
 #### [ Java ]
 
-For details about the Java implementation, see the [enableKey method](https://docs.aws.amazon.com/AWSJavaSDK/latest/javadoc/com/amazonaws/services/kms/AWSKMSClient.html#enableKey-com.amazonaws.services.kms.model.EnableKeyRequest-) in the *AWS SDK for Java API Reference*\.
+For details about the Java implementation, see the [enableKey method](https://docs.aws.amazon.com/sdk-for-java/latest/reference/com/amazonaws/services/kms/AWSKMSClient.html#enableKey-com.amazonaws.services.kms.model.EnableKeyRequest-) in the *AWS SDK for Java API Reference*\.
 
 ```
 // Enable a CMK
@@ -651,7 +651,7 @@ For help with enabling and disabling CMKs in the AWS KMS console, see [Enabling 
 ------
 #### [ Java ]
 
-For details, see the [disableKey method](https://docs.aws.amazon.com/AWSJavaSDK/latest/javadoc/com/amazonaws/services/kms/AWSKMSClient.html#disableKey-com.amazonaws.services.kms.model.DisableKeyRequest-) in the *AWS SDK for Java API Reference*\.
+For details, see the [disableKey method](https://docs.aws.amazon.com/sdk-for-java/latest/reference/com/amazonaws/services/kms/AWSKMSClient.html#disableKey-com.amazonaws.services.kms.model.DisableKeyRequest-) in the *AWS SDK for Java API Reference*\.
 
 ```
 // Disable a CMK
