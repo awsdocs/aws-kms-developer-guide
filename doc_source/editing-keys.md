@@ -19,7 +19,7 @@ You can enable and disable CMKs of the **Customer managed keys** or **AWS manage
 For details, see [Enabling and disabling keys](enabling-keys.md)\.
 
 **Automatic key rotation**  
-You can enable and disable automatic key rotation on the Key rotation tab of the [details page for the CMK](viewing-keys-console.md#viewing-console-details) or by using the [EnableKeyRotation](https://docs.aws.amazon.com/kms/latest/APIReference/API_TagResource.html) and [DisableKeyRotation](https://docs.aws.amazon.com/kms/latest/APIReference/API_UntagResource.html) operations\.  
+You can enable and disable automatic key rotation on the Key rotation tab of the [details page for the CMK](viewing-keys-console.md#viewing-console-details) or by using the [EnableKeyRotation](https://docs.aws.amazon.com/kms/latest/APIReference/API_EnableKeyRotation.html) and [DisableKeyRotation](https://docs.aws.amazon.com/kms/latest/APIReference/API_DisableKeyRotation.html) operations\.  
 For details, see [Rotating customer master keys](rotate-keys.md)\.
 
 **See also**  
