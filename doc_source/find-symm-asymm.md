@@ -1,21 +1,21 @@
-# Identifying symmetric and asymmetric CMKs<a name="find-symm-asymm"></a>
+# Identifying symmetric and asymmetric KMS keys<a name="find-symm-asymm"></a>
 
-To determine whether a particular CMK is [symmetric or asymmetric](symmetric-asymmetric.md), find its *key type* or [key spec](concepts.md#key-spec)\. You can use the AWS KMS console or AWS KMS API\. 
+To determine if a particular KMS key is [symmetric or asymmetric](symmetric-asymmetric.md), find the *key type* or [key spec](concepts.md#key-spec)\. You can use the AWS KMS console or AWS KMS API\. 
 
-Some of these methods will also show you other aspects of the cryptographic configuration of a CMK, including its key usage and the encryption or signing algorithms that the CMK supports\. You can view the cryptographic configuration of an existing CMK, but you cannot change it\.
+Some of these methods also show you other aspects of the cryptographic configuration of a KMS key, including the key usage and the encryption or signing algorithms that the KMS key supports\. You can view the cryptographic configuration of an existing KMS key, but you cannot change it\.
 
-For general information about viewing CMKs, including sorting, filtering, and choosing columns for your console display, see [Viewing CMKs in the console](viewing-keys-console.md)\.
+For general information about viewing KMS keys, including sorting, filtering, and choosing columns for your console display, see [Viewing KMS keys in the console](viewing-keys-console.md)\.
 
 **Topics**
-+ [Finding the key type in the CMK table](#find-key-type-table)
++ [Finding the key type in the KMS key table](#find-key-type-table)
 + [Finding the key type on the details page](#find-key-type-details)
 + [Finding the key spec using the AWS KMS API](#find-key-type-api)
 
-## Finding the key type in the CMK table<a name="find-key-type-table"></a>
+## Finding the key type in the KMS key table<a name="find-key-type-table"></a>
 
-In the AWS KMS console, the **Key type** column shows whether each CMK is symmetric or asymmetric\. You can add a **Key type** column to the CMK table on the **Customer managed keys** or **AWS managed keys** pages in the console\.
+In the AWS KMS console, the **Key type** column shows whether each KMS key is symmetric or asymmetric\. You can add a **Key type** column to the KMS key table on the **Customer managed keys** or **AWS managed keys** pages in the console\.
 
-To identify symmetric and asymmetric CMKs in your CMK table, use the following procedure\.
+To identify symmetric and asymmetric KMS keys in your KMS key table, use the following procedure\.
 
 1. Open the AWS KMS console at [https://console\.aws\.amazon\.com/kms](https://console.aws.amazon.com/kms)\.
 
@@ -23,16 +23,16 @@ To identify symmetric and asymmetric CMKs in your CMK table, use the following p
 
 1. To view the keys in your account that you create and manage, in the navigation pane choose **Customer managed keys**\. To view the keys in your account that AWS creates and manages for you, in the navigation pane, choose **AWS managed keys**\.
 
-1. The **Key type** columns shows whether each CMK is symmetric or asymmetric\. You can also [sort and filter](viewing-keys-console.md#viewing-console-filter) by the **Key type** value\. 
+1. The **Key type** columns shows whether each KMS key is symmetric or asymmetric\. You can also [sort and filter](viewing-keys-console.md#viewing-console-filter) by the **Key type** value\. 
 
-   If the **Key type** column does not appear in your CMK table, choose the gear icon in the upper right corner of the page, choose **Key type**, and then choose **Confirm**\. You can also add the **Key spec** and **Key usage** columns\.  
-![\[The Key type column in a CMK table\]](http://docs.aws.amazon.com/kms/latest/developerguide/images/console-table-key-type.png)
+   If the **Key type** column does not appear in your KMS key table, choose the gear icon in the upper right corner of the page, choose **Key type**, and then choose **Confirm**\. You can also add the **Key spec** and **Key usage** columns\.  
+![\[The Key type column in a KMS key table\]](http://docs.aws.amazon.com/kms/latest/developerguide/images/console-table-key-type.png)
 
 ## Finding the key type on the details page<a name="find-key-type-details"></a>
 
-In the AWS KMS console, the details page for each CMK includes a **Cryptographic Configuration** tab that displays the key type \(symmetric or asymmetric\) and other cryptographic details about the CMK\. 
+In the AWS KMS console, the details page for each KMS key includes a **Cryptographic Configuration** tab that displays the key type \(symmetric or asymmetric\) and other cryptographic details about the KMS key\. 
 
-To identify symmetric and asymmetric CMKs on the details page for a CMK, use the following procedure\.
+To identify symmetric and asymmetric KMS keys on the details page for a KMS key, use the following procedure\.
 
 1. Open the AWS KMS console at [https://console\.aws\.amazon\.com/kms](https://console.aws.amazon.com/kms)\.
 
@@ -40,23 +40,26 @@ To identify symmetric and asymmetric CMKs on the details page for a CMK, use the
 
 1. To view the keys in your account that you create and manage, in the navigation pane choose **Customer managed keys**\. To view the keys in your account that AWS creates and manages for you, in the navigation pane, choose **AWS managed keys**\.
 
-1. Choose the alias or key ID of a CMK\.
+1. Choose the alias or key ID of a KMS key\.
 
 1. Choose the **Cryptographic configuration** tab\. The tabs are below the **General configuration** section\.
 
-   The **Cryptographic configuration** tab displays the **Key Type**, which indicates whether it is symmetric or asymmetric\. It also displays other details about the CMK, including the **Key Usage**, which tells whether a CMK can be used for encryption and decryption or signing and verification\. For asymmetric CMKs, it displays the encryption algorithms or signing algorithms that the CMK supports\.
+   The **Cryptographic configuration** tab displays the **Key Type**, which indicates whether it is symmetric or asymmetric\. It also displays other details about the KMS key, including the **Key Usage**, which tells whether a KMS key can be used for encryption and decryption or signing and verification\. For asymmetric KMS keys, it displays the encryption algorithms or signing algorithms that the KMS key supports\.
 
-   For example, the following is an example **Cryptographic configuration** tab for a symmetric CMK\.  
-![\[The Cryptographic configuration tab for a symmetric CMK\]](http://docs.aws.amazon.com/kms/latest/developerguide/images/console-cryptographic-config-symmetric.png)
+   For example, the following is an example **Cryptographic configuration** tab for a symmetric KMS key\.  
+![\[The Cryptographic configuration tab for a symmetric KMS key\]](http://docs.aws.amazon.com/kms/latest/developerguide/images/console-cryptographic-config-symmetric.png)
 
-   The following is an example **Cryptographic configuration** tab for an asymmetric RSA CMK that's used for signing and verification\.  
-![\[The Cryptographic configuration tab for an asymmetric CMK\]](http://docs.aws.amazon.com/kms/latest/developerguide/images/console-cryptographic-configuration.png)
+   The following is an example **Cryptographic configuration** tab for an asymmetric RSA KMS key that's used for signing and verification\.  
+![\[The Cryptographic configuration tab for an asymmetric KMS key\]](http://docs.aws.amazon.com/kms/latest/developerguide/images/console-cryptographic-configuration.png)
 
 ## Finding the key spec using the AWS KMS API<a name="find-key-type-api"></a>
 
-To determine whether a CMK is symmetric or asymmetric, use the [DescribeKey](https://docs.aws.amazon.com/kms/latest/APIReference/API_DescribeKey.html) operation\. The `CustomerMasterKeySpec` field in the response contains the [key spec](concepts.md#key-spec) of the CMK\. For a symmetric CMK, the value of `CustomerMasterKeySpec` is `SYMMETRIC_DEFAULT`\. All other values indicate an asymmetric CMK\.
+To determine whether a KMS key is symmetric or asymmetric, use the [DescribeKey](https://docs.aws.amazon.com/kms/latest/APIReference/API_DescribeKey.html) operation\. The `KeySpec` field in the response contains the [key spec](concepts.md#key-spec) of the KMS key\. For a symmetric KMS key, the value of `KeySpec` is `SYMMETRIC_DEFAULT`\. Other values indicate an asymmetric key\.
 
-For example, `DescribeKey` returns the following response for a symmetric CMK\. The `CustomerMasterKeySpec` value is `SYMMETRIC_DEFAULT`\.
+**Note**  
+The `CustomerMasterKeySpec` member is deprecated\. Instead, use `KeySpec`\. To prevent breaking changes, the `DescribeKey` response includes `KeySpec` and `CustomerMasterKeySpec` members with the same value\.
+
+For example, `DescribeKey` returns the following response for a symmetric KMS key\. The `KeySpec` value is `SYMMETRIC_DEFAULT`\.
 
 ```
 {
@@ -71,6 +74,7 @@ For example, `DescribeKey` returns the following response for a symmetric CMK\. 
     "Origin": "AWS_KMS",
     "KeyManager": "CUSTOMER",
     "MultiRegion": false,
+    "KeySpec": "SYMMETRIC_DEFAULT",
     "CustomerMasterKeySpec": "SYMMETRIC_DEFAULT",
     "KeyUsage": "ENCRYPT_DECRYPT",
     "EncryptionAlgorithms": [
@@ -80,7 +84,7 @@ For example, `DescribeKey` returns the following response for a symmetric CMK\. 
 }
 ```
 
-The `DescribeKey` response for an asymmetric RSA CMK used in signing and verification looks similar to this example\. The key spec, as shown in the `CustomerMasterKeySpec` value is [RSA\_2048](symm-asymm-choose.md#key-spec-rsa)\. The `KeyUsage` is `SIGN_VERIFY`, and the `SigningAlgorithms` element lists the valid signing algorithms for the CMK\.
+The `DescribeKey` response for an asymmetric RSA KMS key used in signing and verification looks similar to this example\. The `KeySpec` value is [RSA\_2048](symm-asymm-choose.md#key-spec-rsa) and the `KeyUsage` is `SIGN_VERIFY`\. The `SigningAlgorithms` element lists the valid signing algorithms for the KMS key\.
 
 ```
 {
@@ -89,13 +93,14 @@ The `DescribeKey` response for an asymmetric RSA CMK used in signing and verific
     "KeyId": "1234abcd-12ab-34cd-56ef-1234567890ab",
     "Arn": "arn:aws:kms:us-west-2:111122223333:key/1234abcd-12ab-34cd-56ef-1234567890ab",
     "CreationDate": 1571767572.317,
+    "CustomerMasterKeySpec": "RSA_2048",
     "Enabled": false,
     "Description": "",
     "KeyState": "Disabled",
     "Origin": "AWS_KMS",
     "MultiRegion": false,
     "KeyManager": "CUSTOMER",
-    "CustomerMasterKeySpec": "RSA_2048",
+    "KeySpec": "RSA_2048",
     "KeyUsage": "SIGN_VERIFY",
     "SigningAlgorithms": [
         "RSASSA_PKCS1_V1_5_SHA_256",

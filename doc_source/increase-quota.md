@@ -14,7 +14,7 @@ To request an increase for an AWS KMS quota, you can use the [Service Quotas con
 
    You can search for the quota name in the Service Quotas console\. There are several pages of AWS KMS quotas\. You can also find the quota names and descriptions of AWS KMS quotas in the [resource quota](resource-limits.md) and [request quota](requests-per-second.md) tables\.
 
-   For example, to request an increase to the quota for cryptographic operations on a symmetric CMK, choose **Cryptographic operations \(symmetric\) request rate**\.
+   For example, to request an increase to the quota for cryptographic operations on a symmetric KMS key, choose **Cryptographic operations \(symmetric\) request rate**\.
 
 1. Choose **Request quota increase**\.
 

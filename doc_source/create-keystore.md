@@ -17,7 +17,7 @@ Each AWS KMS custom key store is backed by an AWS CloudHSM cluster\. To create a
 Before you create a custom key store, do the following:
 
 **Select an AWS CloudHSM cluster**  
-Every custom key store is [associated with exactly one AWS CloudHSM cluster](key-store-concepts.md#concept-cluster)\. When you create a [customer master key](concepts.md#master_keys) \(CMK\) in your custom key store, AWS KMS creates the CMK metadata, such as an ID and Amazon Resource Name \(ARN\) in AWS KMS\. It then creates the key material in the HSMs of the associated cluster\. You can [create a new AWS CloudHSM](https://docs.aws.amazon.com/cloudhsm/latest/userguide/getting-started.html) cluster or use an existing one\. AWS KMS does not require exclusive access to the cluster\.  
+Every custom key store is [associated with exactly one AWS CloudHSM cluster](key-store-concepts.md#concept-cluster)\. When you create a [AWS KMS keys](concepts.md#kms_keys) in your custom key store, AWS KMS creates the KMS key metadata, such as an ID and Amazon Resource Name \(ARN\) in AWS KMS\. It then creates the key material in the HSMs of the associated cluster\. You can [create a new AWS CloudHSM](https://docs.aws.amazon.com/cloudhsm/latest/userguide/getting-started.html) cluster or use an existing one\. AWS KMS does not require exclusive access to the cluster\.  
 The AWS CloudHSM cluster that you select is permanently associated with the custom key store\. After you create the custom key store, you can [change the cluster ID](update-keystore.md) of the associated cluster, but the cluster that you specify must share a backup history with the original cluster\. To use an unrelated cluster, you need to create a new custom key store\.  
 The AWS CloudHSM cluster that you select must have the following characteristics:  
 + **The cluster must be active**\. 
@@ -76,7 +76,7 @@ When you create a [custom key store](key-store-concepts.md#concept-custom-key-st
 
 When the procedure is successful, the new custom key store appears in the list of custom key stores in the account and Region\. If it is unsuccessful, an error message appears that describes the problem and provides help on how to fix it\. If you need more help, see [Troubleshooting a custom key store](fix-keystore.md)\.
 
-**Next**: New custom key stores are not automatically connected\. Before you can create customer master keys \(CMKs\) in the custom key store, you must [connect the custom key store](disconnect-keystore.md) to its associated AWS CloudHSM cluster\.
+**Next**: New custom key stores are not automatically connected\. Before you can create AWS KMS keys in the custom key store, you must [connect the custom key store](disconnect-keystore.md) to its associated AWS CloudHSM cluster\.
 
 ## Create a custom key store \(API\)<a name="create-keystore-api"></a>
 
@@ -118,4 +118,4 @@ When the operation is successful, `CreateCustomKeyStore` returns the custom key 
 
 If the operation fails, correct the error indicated by the exception, and try again\. For additional help, see [Troubleshooting a custom key store](fix-keystore.md)\.
 
-Next, to use the custom key store, [connect it to its AWS CloudHSM cluster](disconnect-keystore.md)\.
+Next, to use the custom key store, [connect it to the AWS CloudHSM cluster](disconnect-keystore.md)\.

@@ -40,14 +40,14 @@ Allows principals to create a grant only when the grant specifies a particular [
 
 ## Viewing grants<a name="grant-view"></a>
 
-To view the grant, use the [ListGrants](https://docs.aws.amazon.com/kms/latest/APIReference/API_ListGrants.html) operation\. You must specify the CMK to which the grants apply\. You can also filter the grant list by grant ID or grantee principal\. For more examples, see [Viewing a grant](programming-grants.md#list-grants)\.
+To view the grant, use the [ListGrants](https://docs.aws.amazon.com/kms/latest/APIReference/API_ListGrants.html) operation\. You must specify the KMS key to which the grants apply\. You can also filter the grant list by grant ID or grantee principal\. For more examples, see [Viewing a grant](programming-grants.md#list-grants)\.
 
 To view all grants in the AWS account and Region with a particular [retiring principal](grants.md#terms-retiring-principal), use [ListRetirableGrants](https://docs.aws.amazon.com/kms/latest/APIReference/API_ListRetirableGrants.html)\. The responses include details about each grant\.
 
 **Note**  
 The `GranteePrincipal` field in the `ListGrants` response usually contains the grantee principal of the grant\. However, when the grantee principal in the grant is an AWS service, the `GranteePrincipal` field contains the [service principal](https://docs.aws.amazon.com/IAM/latest/UserGuide/reference_policies_elements_principal.html#principal-services), which might represent several different grantee principals\.
 
-For example, the following command lists all of the grants for a CMK\.
+For example, the following command lists all of the grants for a KMS key\.
 
 ```
 $  aws kms list-grants --key-id 1234abcd-12ab-34cd-56ef-1234567890ab
@@ -112,18 +112,18 @@ $ aws kms retire-grant --grant-token $token
 
 To delete a grant, retire or revoke it\.
 
-The [RetireGrant](https://docs.aws.amazon.com/kms/latest/APIReference/API_RetireGrant.html) and [RevokeGrant](https://docs.aws.amazon.com/kms/latest/APIReference/API_RevokeGrant.html) operations are very similar to each other\. They both delete a grant, which eliminates the permissions that the grant allows\. The difference is how they are authorized\.
+The [RetireGrant](https://docs.aws.amazon.com/kms/latest/APIReference/API_RetireGrant.html) and [RevokeGrant](https://docs.aws.amazon.com/kms/latest/APIReference/API_RevokeGrant.html) operations are very similar to each other\. The operations both delete a grant, which eliminates the permissions allowed by the\. The difference is how they are authorized\.
 
 RevokeGrant  
 Like most AWS KMS operations, access to the `RevokeGrant` operation is controlled through [key policies](key-policies.md) and [IAM policies](iam-policies.md)\. The [RevokeGrant](https://docs.aws.amazon.com/kms/latest/APIReference/API_RevokeGrant.html) API can be called by any principal with `kms:RevokeGrant` permission\. This permission is included in the standard permissions given to key administrators\. Typically, administrators revoke a grant to deny permissions the grant allows\.
 
 RetireGrant  
 The grant determines who can retire it\. This design allows you to control the lifecycle of a grant without changing key policies or IAM policies\. Typically, you retire a grant when you are done using its permissions\.  
-A grant can be retired by an optional [retiring principal](grants.md#terms-retiring-principal) specified in the grant\. The [grantee principal](grants.md#terms-grantee-principal) can also retire the grant, but only if they are also a retiring principal or the grant includes the RetireGrant operation\. As a backup, the AWS account \(root user\) in which the grant was created can retire the grant\.  
+A grant can be retired by an optional [retiring principal](grants.md#terms-retiring-principal) specified in the grant\. The [grantee principal](grants.md#terms-grantee-principal) can also retire the grant, but only if they are also a retiring principal or the grant includes the RetireGrant operation\. As a backup, the AWS account in which the grant was created can retire the grant\.  
 There is a `kms:RetireGrant` permission that can be used in IAM policies, but it has limited utility\. Principals specified in the grant can retire a grant without the `kms:RetireGrant` permission\. The `kms:RetireGrant` permission alone does not allow principals to retire a grant\. The `kms:RetireGrant` permission is not effective in a key policy\.  
 + To deny permission to retire a grant, you can use a `Deny` action with the `kms:RetireGrant` permission\.
-+ The AWS account \(root user\) that owns the CMK can use the `kms:RetireGrant` permission to delegate permission to retire the grant\. 
-+ If the retiring principal is the root user of a different AWS account, administrators in the other account can use `kms:RetireGrant` to delegate permission to retire the grant to an IAM user in that account\.
++ The AWS account that owns the KMS key can use the `kms:RetireGrant` permission to delegate permission to retire the grant\.to an IAM user in the account\. 
++ If the retiring principal is a different AWS account, administrators in the other account can use `kms:RetireGrant` to delegate permission to retire the grant to an IAM user in that account\.
 
 You can use a [grant token](grants.md#grant_token) to retire a grant, but not to revoke it\. If you need to delete a new grant immediately, before it is available throughout AWS KMS, you must retire it\.
 

@@ -1,6 +1,6 @@
 # CreateKey<a name="ct-createkey"></a>
 
-The following example shows an AWS CloudTrail log entry for a [CreateKey](https://docs.aws.amazon.com/kms/latest/APIReference/API_CreateKey.html) operation that creates a [symmetric customer master key](symm-asymm-concepts.md#symmetric-cmks)\. For information about creating customer master keys in AWS KMS, see [Creating keys](create-keys.md)\.
+The following example shows an AWS CloudTrail log entry for a [CreateKey](https://docs.aws.amazon.com/kms/latest/APIReference/API_CreateKey.html) operation that creates a [symmetric KMS key](symm-asymm-concepts.md#symmetric-cmks)\. For information about creating KMS keys, see [Creating keys](create-keys.md)\.
 
 A `CreateKey` log entry can result from a `CreateKey` request or the `CreateKey` operation for a [ReplicateKey](https://docs.aws.amazon.com/kms/latest/APIReference/API_ReplicateKey.html) request\.
 
@@ -43,6 +43,7 @@ A `CreateKey` log entry can result from a `CreateKey` request or the `CreateKey`
             "keyState": "Enabled",
             "origin": "AWS_KMS",
             "keyManager": "CUSTOMER",
+            "keySpec": "SYMMETRIC_DEFAULT",
             "customerMasterKeySpec": "SYMMETRIC_DEFAULT",
             "encryptionAlgorithms": [
                 "SYMMETRIC_DEFAULT"

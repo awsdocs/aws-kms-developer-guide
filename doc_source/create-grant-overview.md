@@ -9,11 +9,11 @@ Before creating a grant, learn about the options for customizing your grant\. Yo
 
 ## Creating a grant<a name="grant-create"></a>
 
-To create a grant, call the [CreateGrant](https://docs.aws.amazon.com/kms/latest/APIReference/API_CreateGrant.html) operation\. Specify a CMK, a [grantee principal](grants.md#terms-grantee-principal), and a list of allowed [grant operations](grants.md#terms-grant-operations)\. You can also designate an optional [retiring principal](grants.md#terms-retiring-principal)\. To customize the grant, use optional `Constraints` parameters to define [grant constraints](https://docs.aws.amazon.com/kms/latest/APIReference/API_GrantConstraints.html)\.
+To create a grant, call the [CreateGrant](https://docs.aws.amazon.com/kms/latest/APIReference/API_CreateGrant.html) operation\. Specify a KMS key, a [grantee principal](grants.md#terms-grantee-principal), and a list of allowed [grant operations](grants.md#terms-grant-operations)\. You can also designate an optional [retiring principal](grants.md#terms-retiring-principal)\. To customize the grant, use optional `Constraints` parameters to define [grant constraints](https://docs.aws.amazon.com/kms/latest/APIReference/API_GrantConstraints.html)\.
 
 When you create, retire, or revoke a grant, there might be a brief delay, usually less than five minutes, until the operation achieves [eventual consistency](grants.md#terms-eventual-consistency)\.
 
-For example, the following `CreateGrant` command creates a grant that allows `exampleUser` to call the [Decrypt](https://docs.aws.amazon.com/kms/latest/APIReference/API_Decrypt.html) operation on the specified [symmetric CMK](symm-asymm-concepts.md#symmetric-cmks)\. The grant uses the `RetiringPrincipal` parameter to designate a principal that can retire the grant\. It also includes a grant constraint that allows the permission only when the [encryption context](concepts.md#encrypt_context) in the request includes `"Department": "IT"`\.
+For example, the following `CreateGrant` command creates a grant that allows `exampleUser` to call the [Decrypt](https://docs.aws.amazon.com/kms/latest/APIReference/API_Decrypt.html) operation on the specified [symmetric KMS key](symm-asymm-concepts.md#symmetric-cmks)\. The grant uses the `RetiringPrincipal` parameter to designate a principal that can retire the grant\. It also includes a grant constraint that allows the permission only when the [encryption context](concepts.md#encrypt_context) in the request includes `"Department": "IT"`\.
 
 ```
 $  aws kms create-grant \
@@ -40,18 +40,24 @@ For code examples that demonstrate how to work with grants in several programmin
 
 ## Using grant constraints<a name="grant-constraints"></a>
 
-[Grant constraints](https://docs.aws.amazon.com/kms/latest/APIReference/API_GrantConstraints.html) set conditions on the permissions that the grantee principal can perform\. Grant constraints take the place of [condition keys](policy-conditions.md) in a [key policy](key-policies.md) or [IAM policy](iam-policies.md)\. You cannot use condition keys in a grant\.
+[Grant constraints](https://docs.aws.amazon.com/kms/latest/APIReference/API_GrantConstraints.html) set conditions on the permissions that the grant gives to the grantee principal\. Grant constraints take the place of [condition keys](policy-conditions.md) in a [key policy](key-policies.md) or [IAM policy](iam-policies.md)\. Each grant constraint value can include up to 8 encryption context pairs\. The encryption context value in each grant constraint cannot exceed 384 characters\.
 
 AWS KMS supports two grant constraints, `EncryptionContextEquals` and `EncryptionContextSubset`, both of which involve the [encryption context](concepts.md#encrypt_context) in a request for a cryptographic operation\. These grant constraints are supported only on [grant operations](grants.md#terms-grant-operations) that include an encryption context\.
 
 **Note**  
-You cannot use encryption context grant constraints in a grant for an asymmetric CMK\. The asymmetric encryption algorithms that AWS KMS uses do not support an encryption context\. 
-+ `EncryptionContextEquals` specifies that the grant applies only when the encryption context pairs in the request are an exact, case\-sensitive match for the encryption context pairs in the grant constraint\. The pairs can appear in any order, but the keys and values in each pair cannot vary\.
-+ `EncryptionContextSubset` specifies that the grant applies only when the encryption context in the request includes the encryption context specified in the grant constraint\. The encryption context in the request must be an exact, case\-sensitive match of the encryption context in the constraint, but it can also include additional encryption context pairs\. The pairs can appear in any order, but the keys and values in each included pair cannot vary\. 
+You cannot use encryption context grant constraints in a grant for an asymmetric KMS key\. The asymmetric encryption algorithms that AWS KMS uses do not support an encryption context\. 
 
-Each constraint value can include up to 8 encryption context pairs\. The encryption context value in each constraint cannot exceed 384 characters\.
+**EncryptionContextEquals**  
+Use `EncryptionContextEquals` to specify the exact encryption context for permitted requests\.   
+`EncryptionContextEquals` requires that the encryption context pairs in the request are an exact, case\-sensitive match for the encryption context pairs in the grant constraint\. The pairs can appear in any order, but the keys and values in each pair cannot vary\.   
+For example, if the `EncryptionContextEquals` grant constraint requires the `"Department": "IT"` encryption context pair, the grant allows requests of the specified type only when the encryption context in the request is exactly `"Department": "IT"`\.
 
-To specify an encryption context constraint in a grant for a symmetric CMK, use the `Constraints` parameter in the [CreateGrant](https://docs.aws.amazon.com/kms/latest/APIReference/API_CreateGrant.html) operation\. The grant that this command creates gives the `exampleUser` permission to call the [Decrypt](https://docs.aws.amazon.com/kms/latest/APIReference/API_Decrypt.html) operation\. But that permission is effective only when the encryption context in the `Decrypt` request includes a `"Department": "IT"` encryption context pair\.
+**EncryptionContextSubset**  
+Use `EncryptionContextSubset` to require that requests include particular encryption context pairs\.  
+`EncryptionContextSubset` requires that the request include all encryption context pairs in the grant constraint \(an exact, case\-sensitive match\), but the request can also have additional encryption context pairs\. The pairs can appear in any order, but the keys and values in each pair cannot vary\.   
+For example, if the `EncryptionContextSubset` grant constraint requires the `Department=IT` encryption context pair, the grant allows requests of the specified type when the encryption context in the request is `"Department": "IT"`, or includes `"Department": "IT"` along with other encryption context pairs, such as `"Department": "IT","Purpose": "Test"`\.
+
+To specify an encryption context constraint in a grant for a symmetric KMS key, use the `Constraints` parameter in the [CreateGrant](https://docs.aws.amazon.com/kms/latest/APIReference/API_CreateGrant.html) operation\. The grant that this command creates gives the `exampleUser` permission to call the [Decrypt](https://docs.aws.amazon.com/kms/latest/APIReference/API_Decrypt.html) operation\. But that permission is effective only when the encryption context in the `Decrypt` request is a `"Department": "IT"` encryption context pair\.
 
 ```
 $ aws kms create-grant \
@@ -59,16 +65,13 @@ $ aws kms create-grant \
     --grantee-principal arn:aws:iam::111122223333:user/exampleUser \
     --operations Decrypt \
     --retiring-principal arn:aws:iam::111122223333:role/adminRole \
-    --constraints EncryptionContextSubset={Department=IT}
+    --constraints EncryptionContextEquals={Department=IT}
 ```
 
-The resulting grant looks like the following one\. Notice that the permission granted to `exampleUser` is effective only when the `Decrypt` request includes the encryption context pair specified in the grant constraint\. To find the grants on a CMK, use the [ListGrants](https://docs.aws.amazon.com/kms/latest/APIReference/API_ListGrants.html) operation\.
-
-To satisfy this constraint, the encryption context in the request for the Decrypt operation must include a `"Department": "IT"` pair\. This pair can be the only pair in the encryption context, or it can be one of many pairs\. 
+The resulting grant looks like the following one\. Notice that the permission granted to `exampleUser` is effective only when the `Decrypt` request uses the same encryption context pair specified in the grant constraint\. To find the grants on a KMS key, use the [ListGrants](https://docs.aws.amazon.com/kms/latest/APIReference/API_ListGrants.html) operation\.
 
 ```
 $ aws kms list-grants --key-id 1234abcd-12ab-34cd-56ef-1234567890ab
-
 {
     "Grants": [
         {
@@ -80,7 +83,7 @@ $ aws kms list-grants --key-id 1234abcd-12ab-34cd-56ef-1234567890ab
             ],
             "GranteePrincipal": "arn:aws:iam::111122223333:user/exampleUser",
             "Constraints": {
-                "EncryptionContextSubset": {
+                "EncryptionContextEquals": {
                     "Department": "IT"
                 }
             },
@@ -92,18 +95,46 @@ $ aws kms list-grants --key-id 1234abcd-12ab-34cd-56ef-1234567890ab
 }
 ```
 
-A request like the following from the grantee principal would satisfy the `EncryptionContextSubset` constraint\.
+To satisfy the `EncryptionContextEquals` grant constraint, the encryption context in the request for the `Decrypt` operation must be a `"Department": "IT"` pair\. A request like the following from the grantee principal would satisfy the `EncryptionContextEquals` grant constraint\.
 
 ```
-$ aws kms generate-data-key \
-    --key-id 1234abcd-12ab-34cd-56ef-1234567890ab \
-    --key-spec AES_256 \
+$ aws kms decrypt \
+    --key-id arn:aws:kms:us-west-2:111122223333:key/1234abcd-12ab-34cd-56ef-1234567890ab\
+    --ciphertext-blob fileb://encrypted_msg \
+    --encryption-context Department=IT
+```
+
+When the grant constraint is `EncryptionContextSubset`, the encryption context pairs in the request must include the encryption context pairs in the grant constraint, but the request can also include other encryption context pairs\. The following grant constraint requires that one of encryption context pairs in the request is `"Deparment": "IT"`\.
+
+```
+"Constraints": {
+   "EncryptionContextSubset": {
+       "Department": "IT"
+   }
+}
+```
+
+The following request from the grantee principal would satisfy both of the `EncryptionContextEqual` and `EncryptionContextSubset` grant constraints in this example\.
+
+```
+$ aws kms decrypt \
+    --key-id arn:aws:kms:us-west-2:111122223333:key/1234abcd-12ab-34cd-56ef-1234567890ab \
+    --ciphertext-blob fileb://encrypted_msg \
+    --encryption-context Department=IT
+```
+
+However, a request like the following from the grantee principal would satisfy the `EncryptionContextSubset` grant constraint, but it would fail the `EncryptionContextEquals` grant constraint\.
+
+```
+$ aws kms decrypt \
+    --key-id arn:aws:kms:us-west-2:111122223333:key/1234abcd-12ab-34cd-56ef-1234567890ab \
+    --ciphertext-blob fileb://encrypted_msg \
     --encryption-context Department=IT,Purpose=Test
 ```
 
-AWS services often use encryption context constraints in the grants that give them permission to use CMKs in your AWS account\. For example, Amazon DynamoDB uses a grant like the following one to get permission to use the [AWS managed CMK](concepts.md#aws-managed-cmk) for DynamoDB in your account\. The `EncryptionContextSubset` grant constraint in this grant makes the permissions in the grant effective only when the encryption context in the request includes `"subscriberID": "111122223333"` and `"tableName": "Services"` pairs\. This grant constraint means that the grant allows DynamoDB to use the specified CMK only for a particular table in your AWS account\.
+AWS services often use encryption context constraints in the grants that give them permission to use KMS keys in your AWS account\. For example, Amazon DynamoDB uses a grant like the following one to get permission to use the [AWS managed key](concepts.md#aws-managed-cmk) for DynamoDB in your account\. The `EncryptionContextSubset` grant constraint in this grant makes the permissions in the grant effective only when the encryption context in the request includes `"subscriberID": "111122223333"` and `"tableName": "Services"` pairs\. This grant constraint means that the grant allows DynamoDB to use the specified KMS key only for a particular table in your AWS account\.
 
-To get this output, run the [ListGrants](https://docs.aws.amazon.com/kms/latest/APIReference/API_ListGrants.html) operation on the AWS managed CMK for DynamoDB in your account\.
+To get this output, run the [ListGrants](https://docs.aws.amazon.com/kms/latest/APIReference/API_ListGrants.html) operation on the AWS managed key for DynamoDB in your account\.
 
 ```
 $ aws kms list-grants --key-id 0987dcba-09fe-87dc-65ba-ab0987654321

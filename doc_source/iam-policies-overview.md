@@ -4,7 +4,7 @@ You can use IAM policies in the following ways:
 + **Attach a permissions policy to a user or a group** – You can attach a policy that allows an IAM user or group of users to call AWS KMS operations\.
 + **Attach a permissions policy to a role for federation or cross\-account permissions** – You can attach an IAM policy to an IAM role to enable identity federation, allow cross\-account permissions, or give permissions to applications running on EC2 instances\. For more information about the various use cases for IAM roles, see [IAM Roles](https://docs.aws.amazon.com/IAM/latest/UserGuide/id_roles.html) in the *IAM User Guide*\.
 
-The following example shows an IAM policy with AWS KMS permissions\. This policy allows the IAM identities to which it is attached to list all CMKs and aliases\.
+The following example shows an IAM policy with AWS KMS permissions\. This policy allows the IAM identities to which it is attached to list all KMS keys and aliases\.
 
 ```
 {

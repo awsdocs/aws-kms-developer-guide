@@ -1,6 +1,6 @@
 # Monitoring with Amazon CloudWatch<a name="monitoring-cloudwatch"></a>
 
-You can monitor your customer master keys \(CMKs\) using Amazon CloudWatch, which collects and processes raw data from AWS KMS into readable, near real\-time metrics\. These data are recorded for a period of two weeks so that you can access historical information and gain a better understanding of the usage of your CMKs and their changes over time\. For more information about Amazon CloudWatch, see the [Amazon CloudWatch User Guide](https://docs.aws.amazon.com/AmazonCloudWatch/latest/monitoring/)\.
+You can monitor your AWS KMS keys using Amazon CloudWatch, which collects and processes raw data from AWS KMS into readable, near real\-time metrics\. These data are recorded for a period of two weeks so that you can access historical information and gain a better understanding of the usage of your KMS keys and their changes over time\. For more information about Amazon CloudWatch, see the [Amazon CloudWatch User Guide](https://docs.aws.amazon.com/AmazonCloudWatch/latest/monitoring/)\.
 
 **Topics**
 + [AWS KMS metrics and dimensions](#kms-metrics-dimensions)
@@ -9,14 +9,14 @@ You can monitor your customer master keys \(CMKs\) using Amazon CloudWatch, whic
 
 ## AWS KMS metrics and dimensions<a name="kms-metrics-dimensions"></a>
 
-When you [import key material into a CMK](importing-keys.md) and set it to expire, AWS KMS sends metrics and dimensions to CloudWatch\. You can view the AWS KMS metrics using the AWS Management Console and the Amazon CloudWatch API\.
+When you [import key material into a KMS key](importing-keys.md) and set it to expire, AWS KMS sends metrics and dimensions to CloudWatch\. You can view the AWS KMS metrics using the AWS Management Console and the Amazon CloudWatch API\.
 
 ### AWS KMS Metrics<a name="kms-metrics"></a>
 
 The `AWS/KMS` namespace includes the following metrics\.
 
 **SecondsUntilKeyMaterialExpiration**  
-This metric tracks the number of seconds remaining until imported key material expires\. This metric is valid only for AWS KMS keys whose origin is `EXTERNAL` and whose key material is or was set to expire\. The most useful statistic for this metric is `Minimum`, which tells you the smallest amount of time remaining for all data points in the specified statistic period\. The only valid unit for this metric is `Seconds`\.  
+This metric tracks the number of seconds remaining until imported key material expires\. This metric is valid only for KMS keys whose origin is `EXTERNAL` and whose key material is or was set to expire\. The most useful statistic for this metric is `Minimum`, which tells you the smallest amount of time remaining for all data points in the specified statistical period\. The only valid unit for this metric is `Seconds`\.  
 Use this metric to track the amount of time that remains until your imported key material expires\. When that amount of time falls below a threshold that you define, you might want to take action such as reimporting the key material with a new expiration date\. You can create a CloudWatch alarm to notify you when that happens\. For more information, see [Creating CloudWatch alarms to monitor AWS KMS metrics](#creating-alarms)\.
 
 ### Dimensions for AWS KMS Metrics<a name="kms-dimensions"></a>
@@ -52,11 +52,11 @@ You can create a CloudWatch alarm that sends an Amazon SNS message when the valu
 
 **Topics**
 + [Monitor the expiration of imported key material](#key-material-expiration-alarm)
-+ [Monitor usage of CMKs that are pending deletion](#cmk-pending-deletion-alarm)
++ [Monitor usage of KMS keys that are pending deletion](#cmk-pending-deletion-alarm)
 
 ### Create a CloudWatch alarm to monitor the expiration of imported key material<a name="key-material-expiration-alarm"></a>
 
-When you [import key material into a CMK](importing-keys.md), you can optionally specify a time at which the key material expires\. When the key material expires, AWS KMS deletes the key material and the CMK becomes unusable\. To use the CMK again, you must reimport key material\. You can create a CloudWatch alarm to notify you when the amount of time that remains until your imported key material expires falls below a threshold that you define \(for example, 10 days\)\. If you receive a notification from such an alarm, you might want to take action such as reimporting the key material with a new expiration date\.
+When you [import key material into a KMS key](importing-keys.md), you can optionally specify a time at which the key material expires\. When the key material expires, AWS KMS deletes the key material and the KMS key becomes unusable\. To use the KMS key again, you must reimport key material\. You can create a CloudWatch alarm to notify you when the amount of time that remains until your imported key material expires falls below a threshold that you define \(for example, 10 days\)\. If you receive a notification from such an alarm, you might want to take action such as reimporting the key material with a new expiration date\.
 
 **To create an alarm to monitor the expiration of imported key material \(AWS Management Console\)**
 
@@ -68,7 +68,7 @@ When you [import key material into a CMK](importing-keys.md), you can optionally
 
 1. Choose **Browse Metrics** and then choose **KMS**\.
 
-1. Select the check box next to the key ID of the CMK to monitor\.
+1. Select the check box next to the key ID of the KMS key to monitor\.
 
 1. In the lower pane, use the menus to change the statistic to **Minimum** and the time period to **1 Minute**\. Then choose **Next**\.
 
@@ -91,28 +91,23 @@ When you [import key material into a CMK](importing-keys.md), you can optionally
 **Important**  
 You will not receive email notifications until after you have confirmed your email address\.
 
-### Create a CloudWatch alarm to monitor usage of CMKs that are pending deletion<a name="cmk-pending-deletion-alarm"></a>
+### Create a CloudWatch alarm to monitor usage of KMS keys that are pending deletion<a name="cmk-pending-deletion-alarm"></a>
 
-When you [schedule key deletion](deleting-keys.md) for a CMK, AWS KMS enforces a waiting period before deleting the CMK\. You can use the waiting period to ensure that you don't need the CMK now or in the future\. You can also configure a CloudWatch alarm to warn you if a person or application attempts to use the CMK during the waiting period\. If you receive a notification from such an alarm, you might want to cancel deletion of the CMK\.
+When you [schedule key deletion](deleting-keys.md) for a KMS key, AWS KMS enforces a waiting period before deleting the KMS key\. You can use the waiting period to ensure that you don't need the KMS key now or in the future\. You can also configure a CloudWatch alarm to warn you if a person or application attempts to use the KMS key during the waiting period\. If you receive a notification from such an alarm, you might want to cancel deletion of the KMS key\.
 
-For more information, see [Creating an Amazon CloudWatch alarm to detect usage of a customer master key that is pending deletion](deleting-keys-creating-cloudwatch-alarm.md)\.
+For more information, see [Creating an Amazon CloudWatch alarm to detect usage of a AWS KMS key pending deletion](deleting-keys-creating-cloudwatch-alarm.md)\.
 
 ## AWS KMS events<a name="kms-events"></a>
 
-AWS KMS integrates with Amazon CloudWatch Events to notify you of certain events that affect your CMKs\. Each event is represented in [JSON \(JavaScript Object Notation\)](http://json.org) and contains the event name, the date and time when the event occurred, the CMK affected, and more\. You can use CloudWatch Events to collect these events and set up rules that route them to one or more *targets* such as AWS Lambda functions, Amazon SNS topics, Amazon SQS queues, streams in Amazon Kinesis Data Streams, or built\-in targets\.
+AWS KMS integrates with Amazon CloudWatch Events to notify you of certain events that affect your KMS keys\. Each event is represented in [JSON \(JavaScript Object Notation\)](http://json.org) and contains the event name, the date and time when the event occurred, the KMS key affected, and more\. You can use CloudWatch Events to collect these events and set up rules that route them to one or more *targets* such as AWS Lambda functions, Amazon SNS topics, Amazon SQS queues, streams in Amazon Kinesis Data Streams, or built\-in targets\.
 
 For more information about using CloudWatch Events with other kinds of events, including those emitted by AWS CloudTrail when it records a read/write API request, see the [Amazon CloudWatch Events User Guide](https://docs.aws.amazon.com/AmazonCloudWatch/latest/events/)\.
 
 The following topics describe the CloudWatch Events that AWS KMS creates\.
 
-**Topics**
-+ [Automatic rotation of key material](#kms-events-rotation)
-+ [Expiration of imported key material](#kms-events-expiration)
-+ [Deletion of a CMK](#kms-events-deletion)
+### KMS CMK Rotation<a name="kms-events-rotation"></a>
 
-### Automatic rotation of key material<a name="kms-events-rotation"></a>
-
-When you enable [automatic key rotation](rotate-keys.md) for a [customer managed CMK](concepts.md#customer-cmk), AWS KMS creates new key material for the CMK each year\. The key material for [AWS managed CMKs](concepts.md#aws-managed-cmk) is automatically rotated every three years\. 
+When you enable [automatic key rotation](rotate-keys.md) for a [customer managed key](concepts.md#customer-cmk), AWS KMS creates new key material for the KMS key each year\. The key material for [AWS managed keys](concepts.md#aws-managed-cmk) is automatically rotated every three years\. 
 
 Whenever AWS KMS rotates key material, it sends a `KMS CMK Rotation` event to CloudWatch Events\. AWS KMS generates this event on a best\-effort basis\.
 
@@ -136,9 +131,9 @@ The following is an example of this event\.
 }
 ```
 
-### Expiration of imported key material<a name="kms-events-expiration"></a>
+### KMS Imported Key Material Expiration<a name="kms-events-expiration"></a>
 
-When you [import key material into a CMK](importing-keys.md), you can optionally specify a time at which the key material expires\. When the key material expires, AWS KMS deletes the key material and sends a corresponding event to CloudWatch Events\. AWS KMS generates this event on a best\-effort basis\.
+When you [import key material into a KMS key](importing-keys.md), you can optionally specify a time at which the key material expires\. When the key material expires, AWS KMS deletes the key material and sends a corresponding `KMS Imported Key Material Expiration` event to CloudWatch Events\. AWS KMS generates this event on a best\-effort basis\.
 
 The following is an example of this event\.
 
@@ -160,9 +155,9 @@ The following is an example of this event\.
 }
 ```
 
-### Deletion of a CMK<a name="kms-events-deletion"></a>
+### KMS CMK Deletion<a name="kms-events-deletion"></a>
 
-When you [schedule key deletion](deleting-keys.md) for a CMK, AWS KMS enforces a waiting period before deleting the CMK\. After the waiting period ends, AWS KMS deletes the CMK and sends a corresponding event to CloudWatch Events\. AWS KMS guarantees this CloudWatch event\. Due to retries, it might generate multiple events within a few seconds that delete the same CMK\.
+When you [schedule key deletion](deleting-keys.md) of a KMS key, AWS KMS enforces a waiting period before deleting the KMS key\. After the waiting period ends, AWS KMS deletes the KMS key and sends a `KMS CMK Deletion` event to CloudWatch Events\. AWS KMS guarantees this CloudWatch event\. Due to retries, it might generate multiple events within a few seconds that delete the same KMS key\.
 
  The following is an example of this event\.
 
@@ -170,7 +165,7 @@ When you [schedule key deletion](deleting-keys.md) for a CMK, AWS KMS enforces a
 {
   "version": "0",
   "id": "e9ce3425-7d22-412a-a699-e7a5fc3fbc9a",
-  "detail-type": "CMK Deletion",
+  "detail-type": "KMS CMK Deletion",
   "source": "aws.kms",
   "account": "111122223333",
   "time": "2016-08-19T03:23:45Z",

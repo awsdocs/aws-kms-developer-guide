@@ -25,7 +25,7 @@ The following are the AWS KMS requirements for replica Regions\. If the Region t
 
 In the AWS KMS console, you can create one or many replicas of a multi\-Region primary key in the same operation\. 
 
-This procedure is similar to creating a standard single\-Region CMK in the console\. However, because a replica key is based on the primary key, you do not select values for [shared properties](multi-region-keys-overview.md#mrk-sync-properties), such as the key spec \(symmetric or asymmetric\), key usage, or key origin\. 
+This procedure is similar to creating a standard single\-Region KMS key in the console\. However, because a replica key is based on the primary key, you do not select values for [shared properties](multi-region-keys-overview.md#mrk-sync-properties), such as the key spec \(symmetric or asymmetric\), key usage, or key origin\. 
 
 You do specify properties that are not shared, including an alias, tags, a description, and a key policy\. As a convenience, the console displays the current property values of the primary key, but you can change them\. Even if you keep the primary key values, AWS KMS does not keep these values synchronized\.
 
@@ -35,7 +35,7 @@ You do specify properties that are not shared, including an alias, tags, a descr
 
 1. In the navigation pane, choose **Customer managed keys**\.
 
-1. Select the key ID or alias of a [multi\-Region primary key](multi-region-keys-overview.md#mrk-primary-key)\. This opens the key details page for the CMK\.
+1. Select the key ID or alias of a [multi\-Region primary key](multi-region-keys-overview.md#mrk-primary-key)\. This opens the key details page for the KMS key\.
 
    To identify a multi\-Region primary key, use the tool icon in the upper right corner to add the **Regionality** column to the table\.
 
@@ -51,42 +51,42 @@ You do specify properties that are not shared, including an alias, tags, a descr
 
    When you are finished choosing Regions, close the menu\. The Regions you chose are displayed\. To cancel replication into a Region, choose the **X** beside the Region name\.
 
-1. Type an [alias](kms-alias.md) for the CMK\. 
+1. Type an [alias](kms-alias.md) for the replica key\. 
 
-   The console displays one of the current aliases of the primary key, but you can change it\. You can give your multi\-Region primary CMK and its replicas the same alias or different aliases\. Aliases are not a [shared property](multi-region-keys-overview.md#mrk-sync-properties) of multi\-Region CMKs\. AWS KMS does not synchronize the aliases of multi\-Region keys\.
+   The console displays one of the current aliases of the primary key, but you can change it\. You can give your multi\-Region primary key and its replicas the same alias or different aliases\. Aliases are not a [shared property](multi-region-keys-overview.md#mrk-sync-properties) of multi\-Region keys\. AWS KMS does not synchronize the aliases of multi\-Region keys\.
 
-   Adding, deleting, or updating an alias can allow or deny permission to the CMK\. For details, see [Using ABAC for AWS KMS](abac.md) and [Using aliases to control access to CMKs](alias-authorization.md)\.
+   Adding, deleting, or updating an alias can allow or deny permission to the KMS key\. For details, see [Using ABAC for AWS KMS](abac.md) and [Using aliases to control access to KMS keys](alias-authorization.md)\.
 
-1. \(Optional\) Type a description for the CMK\.
+1. \(Optional\) Type a description of the replica key\.
 
-   The console displays the current description of the primary key, but you can change it\. Descriptions are not a shared property of multi\-Region CMKs\. You can give your multi\-Region primary CMK and its replicas the same description or different descriptions\. AWS KMS does not synchronize the key descriptions of multi\-Region keys\.
+   The console displays the current description of the primary key, but you can change it\. Descriptions are not a shared property of multi\-Region keys\. You can give your multi\-Region primary key and its replicas the same description or different descriptions\. AWS KMS does not synchronize the key descriptions of multi\-Region keys\.
 
-1. \(Optional\) Type a tag key and an optional tag value\. To assign more than one tag to the CMK, choose **Add tag**\.
+1. \(Optional\) Type a tag key and an optional tag value\. To assign more than one tag to the replica key, choose **Add tag**\.
 
-   The console displays the tags currently attached to the primary key, but you can change them\. Tags are not a shared property of multi\-Region CMKs\. You can give your multi\-Region primary CMK and its replicas the same tags or different tags\. AWS KMS does not synchronize the tags of multi\-Region keys\. 
+   The console displays the tags currently attached to the primary key, but you can change them\. Tags are not a shared property of multi\-Region keys\. You can give your multi\-Region primary key and its replicas the same tags or different tags\. AWS KMS does not synchronize the tags of multi\-Region keys\. 
 
-   Tagging or untagging a CMK can allow or deny permission to the CMK\. For details, see [Using ABAC for AWS KMS](abac.md) and [Using tags to control access to CMKs](tag-authorization.md)\.
+   Tagging or untagging a KMS key can allow or deny permission to the KMS key\. For details, see [Using ABAC for AWS KMS](abac.md) and [Using tags to control access to KMS keys](tag-authorization.md)\.
 
-1. Select the IAM users and roles that can administer the CMK\.
+1. Select the IAM users and roles that can administer the replica key\.
 **Note**  
-IAM policies can give other IAM users and roles permission to manage the CMK\.
+IAM policies can give other IAM users and roles permission to manage the replica keys\.
 
-   This step begins the process of creating a [key policy](key-policies.md) for the CMK\. The console displays the current key policy of the primary key, but you can change it\. Key policies are not a shared property of multi\-Region CMKs\. You can give your multi\-Region primary CMK and its replicas the same key policy or different key policies\. AWS KMS does not synchronize key policies\. You can change the key policy of a CMK at any time\.
+   This step begins the process of creating a [key policy](key-policies.md) for the replica key\. The console displays the current key policy of the primary key, but you can change it\. Key policies are not a shared property of multi\-Region keys\. You can give your multi\-Region primary key and its replicas the same key policy or different key policies\. AWS KMS does not synchronize key policies\. You can change the key policy of any KMS key at any time\.
 
 1. Complete the steps for creating the key policy, including selecting key administrators\. After you review the key policy, choose **Finish** to create the replica key\.
 
 ## Creating a replica key \(AWS KMS API\)<a name="replicate-api"></a>
 
-To create a multi\-Region primary key, use the [ReplicateKey](https://docs.aws.amazon.com/kms/latest/APIReference/API_ReplicateKey.html) operation\. You cannot use the [CreateKey](https://docs.aws.amazon.com/kms/latest/APIReference/API_CreateKey.html) operation to create a replica key\. This operation creates one replica key at a time\. The Region that you specify must comply with the [Region requirements](#replica-region) for replica keys\.
+To create a multi\-Region replica key, use the [ReplicateKey](https://docs.aws.amazon.com/kms/latest/APIReference/API_ReplicateKey.html) operation\. You cannot use the [CreateKey](https://docs.aws.amazon.com/kms/latest/APIReference/API_CreateKey.html) operation to create a replica key\. This operation creates one replica key at a time\. The Region that you specify must comply with the [Region requirements](#replica-region) for replica keys\.
 
-When you use the `ReplicateKey` operation, you don't specify values for any [shared properties](multi-region-keys-overview.md#mrk-sync-properties) of multi\-Region keys\. Shared property values are copied from the primary key and kept synchronized\. However, you can specify values for properties that are not shared\. Otherwise, AWS KMS applies the standard default values for CMKs, not the values of the primary key\.
+When you use the `ReplicateKey` operation, you don't specify values for any [shared properties](multi-region-keys-overview.md#mrk-sync-properties) of multi\-Region keys\. Shared property values are copied from the primary key and kept synchronized\. However, you can specify values for properties that are not shared\. Otherwise, AWS KMS applies the standard default values for KMS keys, not the values of the primary key\.
 
 **Note**  
 If you don't specify values for the `Tags`, `Description`, or `KeyPolicy` parameters, AWS KMS creates the replica key with no tags, an empty string description, and the [default key policy](key-policies.md#key-policy-default)\.
 
 For example, the following command creates a multi\-Region replica key in the Asia Pacific \(Sydney\) Region \(ap\-southeast\-2\)\. This replica key is modeled on the primary key in the US East \(N\. Virginia\) Region \(us\-east\-1\), which is identified by the value of the `KeyId` parameter\. This example accepts default values for all other properties, including the key policy\.
 
-The response describes the new replica key\. It includes fields for shared properties, such as the `KeyId`, key spec \(`CustomerMasterKeySpec`\), `KeyUsage`, and key material origin \(`Origin`\)\. It also includes properties that are independent of the primary key, such as the `Description`, key policy \(`ReplicaKeyPolicy`\), and tags \(`ReplicaTags`\)\. 
+The response describes the new replica key\. It includes fields for shared properties, such as the `KeyId`, `KeySpec`, `KeyUsage`, and key material origin \(`Origin`\)\. It also includes properties that are independent of the primary key, such as the `Description`, key policy \(`ReplicaKeyPolicy`\), and tags \(`ReplicaTags`\)\. 
 
 The response also includes the key ARN and region of the primary key and all of its replica keys, including the one that was just created in the ap\-southeast\-2 Region\. In this example, the `ReplicaKey` element shows that this primary key was already replicated in the Europe \(Ireland\) Region \(eu\-west\-1\)\.
 
@@ -121,6 +121,7 @@ $ aws kms replicate-key \
         "Enabled": true,
         "KeyId": "mrk-1234abcd12ab34cd56ef1234567890ab",
         "KeyManager": "CUSTOMER",
+        "KeySpec": "SYMMETRIC_DEFAULT",
         "KeyState": "Enabled",
         "KeyUsage": "ENCRYPT_DECRYPT",
         "Origin": "AWS_KMS",

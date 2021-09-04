@@ -1,6 +1,6 @@
 # DisableKey<a name="ct-disablekey"></a>
 
-The following example shows an AWS CloudTrail log entry for the [DisableKey](https://docs.aws.amazon.com/kms/latest/APIReference/API_DisableKey.html) operation\. For information about enabling and disabling customer master keys in AWS KMS, see [Enabling and disabling keys](enabling-keys.md)\.
+The following example shows an AWS CloudTrail log entry for the [DisableKey](https://docs.aws.amazon.com/kms/latest/APIReference/API_DisableKey.html) operation\. For information about enabling and disabling AWS KMS keys in AWS KMS, see [Enabling and disabling keys](enabling-keys.md)\.
 
 ```
 {

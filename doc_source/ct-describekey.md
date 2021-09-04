@@ -1,6 +1,6 @@
 # DescribeKey<a name="ct-describekey"></a>
 
-The following example shows a log file that records multiple calls to the [DescribeKey](https://docs.aws.amazon.com/kms/latest/APIReference/API_DescribeKey.html) operation\. AWS KMS records an entry like the following one when you call the `DescribeKey` operation or [view CMKs](viewing-keys.md) in the AWS KMS console\. These calls were the result of [viewing keys](viewing-keys.md) in the AWS KMS management console\.
+The following example shows a log file that records multiple calls to the [DescribeKey](https://docs.aws.amazon.com/kms/latest/APIReference/API_DescribeKey.html) operation\. AWS KMS records an entry like the following one when you call the `DescribeKey` operation or [view KMS keys](viewing-keys.md) in the AWS KMS console\. These calls were the result of [viewing keys](viewing-keys.md) in the AWS KMS management console\.
 
 ```
 {

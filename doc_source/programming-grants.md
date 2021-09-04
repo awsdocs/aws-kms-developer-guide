@@ -1,6 +1,6 @@
 # Working with grants<a name="programming-grants"></a>
 
-The examples in this topic use the AWS KMS API to create, view, retire, and revoke grants on AWS KMS customer master keys \(CMKs\)\. For more details about using grants in AWS KMS, see [Using grants](grants.md)\.
+The examples in this topic use the AWS KMS API to create, view, retire, and revoke grants on AWS KMS keys\. For more details about using grants in AWS KMS, see [Using grants](grants.md)\.
 
 **Topics**
 + [Creating a grant](#create-grant)
@@ -10,9 +10,9 @@ The examples in this topic use the AWS KMS API to create, view, retire, and revo
 
 ## Creating a grant<a name="create-grant"></a>
 
-To create a grant for an AWS KMS customer master key, use the [CreateGrant](https://docs.aws.amazon.com/kms/latest/APIReference/API_CreateGrant.html) operation\. The response includes only the grant ID and grant token\. To get detailed information about the grant, use the [ListGrants](https://docs.aws.amazon.com/kms/latest/APIReference/API_ListGrants.html) operation, as shown in [Viewing a grant](#list-grants)\.
+To create a grant for an AWS KMS key, use the [CreateGrant](https://docs.aws.amazon.com/kms/latest/APIReference/API_CreateGrant.html) operation\. The response includes only the grant ID and grant token\. To get detailed information about the grant, use the [ListGrants](https://docs.aws.amazon.com/kms/latest/APIReference/API_ListGrants.html) operation, as shown in [Viewing a grant](#list-grants)\.
 
-These examples create a grant that allows Alice, an IAM user in the account, to call the [GenerateDataKey](https://docs.aws.amazon.com/kms/latest/APIReference/API_GenerateDataKey.html) operation on the CMK identified by the `KeyId` parameter\.
+These examples create a grant that allows Alice, an IAM user in the account, to call the [GenerateDataKey](https://docs.aws.amazon.com/kms/latest/APIReference/API_GenerateDataKey.html) operation on the KMS key identified by the `KeyId` parameter\.
 
 In languages that require a client object, these examples use the AWS KMS client object that you created in [Creating a client](programming-client.md)\.
 
@@ -63,7 +63,7 @@ CreateGrantResponse createGrantResult = kmsClient.CreateGrant(createGrantRequest
 ------
 #### [ Python ]
 
-For details, see the [create\_grant method](http://boto3.amazonaws.com/v1/documentation/api/latest/reference/services/kms.html#KMS.Client.create_grant) in the AWS SDK for Python \(Boto3\)\.
+For details, see the [create\_grant method](https://boto3.amazonaws.com/v1/documentation/api/latest/reference/services/kms.html#KMS.Client.create_grant) in the AWS SDK for Python \(Boto3\)\.
 
 ```
 # Create a grant
@@ -159,7 +159,7 @@ To use the AWS KMS PowerShell cmdlets, install the [AWS\.Tools\.KeyManagementSer
 
 ## Viewing a grant<a name="list-grants"></a>
 
-To get detailed information about the grants on an AWS KMS customer master key, use the [ListGrants](https://docs.aws.amazon.com/kms/latest/APIReference/API_ListGrants.html) operation\. 
+To get detailed information about the grants on a KMS key, use the [ListGrants](https://docs.aws.amazon.com/kms/latest/APIReference/API_ListGrants.html) operation\. 
 
 **Note**  
 The `GranteePrincipal` field in the `ListGrants` response usually contains the grantee principal of the grant\. However, when the grantee principal in the grant is an AWS service, the `GranteePrincipal` field contains the [service principal](https://docs.aws.amazon.com/IAM/latest/UserGuide/reference_policies_elements_principal.html#principal-services), which might represent several different grantee principals\.
@@ -174,7 +174,7 @@ These examples use the optional `Limits` parameter, which determines how many gr
 For details about the Java implementation, see the [listGrants method](https://docs.aws.amazon.com/sdk-for-java/latest/reference/com/amazonaws/services/kms/AWSKMSClient.html#listGrants-com.amazonaws.services.kms.model.ListGrantsRequest-) in the *AWS SDK for Java API Reference*\.
 
 ```
-// Listing grants on a CMK
+// Listing grants on a KMS key
 //
 // Replace the following example key ARN with a valid key ID or key ARN
 String keyId = "arn:aws:kms:us-west-2:111122223333:key/1234abcd-12ab-34cd-56ef-1234567890ab";
@@ -190,7 +190,7 @@ ListGrantsResult result = kmsClient.listGrants(req);
 For details, see the [ListGrants method](https://docs.aws.amazon.com/sdkfornet/v3/apidocs/items/KeyManagementService/MKeyManagementServiceListGrantsListGrantsRequest.html) in the *AWS SDK for \.NET*\.
 
 ```
-// Listing grants on a CMK
+// Listing grants on a KMS key
 //
 // Replace the following example key ARN with a valid key ID or key ARN
 String keyId = "arn:aws:kms:us-west-2:111122223333:key/1234abcd-12ab-34cd-56ef-1234567890ab";
@@ -207,10 +207,10 @@ ListGrantsResponse listGrantsResponse = kmsClient.ListGrants(listGrantsRequest);
 ------
 #### [ Python ]
 
-For details, see the [list\_grants method](http://boto3.amazonaws.com/v1/documentation/api/latest/reference/services/kms.html#KMS.Client.list_grants) in the AWS SDK for Python \(Boto3\)\.
+For details, see the [list\_grants method](https://boto3.amazonaws.com/v1/documentation/api/latest/reference/services/kms.html#KMS.Client.list_grants) in the AWS SDK for Python \(Boto3\)\.
 
 ```
-# Listing grants on a CMK
+# Listing grants on a KMS key
 
 # Replace the following example key ARN with a valid key ID or key ARN
 key_id = 'arn:aws:kms:us-west-2:111122223333:key/1234abcd-12ab-34cd-56ef-1234567890ab'
@@ -227,7 +227,7 @@ response = kms_client.list_grants(
 For details, see the [list\_grants](https://docs.aws.amazon.com/sdk-for-ruby/v3/api/Aws/KMS/Client.html#list_grants-instance_method) instance method in the [AWS SDK for Ruby](https://docs.aws.amazon.com/sdk-for-ruby/v3/api/Aws/KMS.html)\.
 
 ```
-# Listing grants on a CMK
+# Listing grants on a KMS key
 
 # Replace the following example key ARN with a valid key ID or key ARN
 key_id = 'arn:aws:kms:us-west-2:111122223333:key/1234abcd-12ab-34cd-56ef-1234567890ab'
@@ -244,7 +244,7 @@ response = kmsClient.list_grants({
 For details, see the [ListGrants method](https://docs.aws.amazon.com/aws-sdk-php/v3/api/api-kms-2014-11-01.html#listgrants) in the *AWS SDK for PHP*\.
 
 ```
-// Listing grants on a CMK
+// Listing grants on a KMS key
 //
 // Replace the following example key ARN with a valid key ID or key ARN
 $keyId = 'arn:aws:kms:us-west-2:111122223333:key/1234abcd-12ab-34cd-56ef-1234567890ab';
@@ -262,7 +262,7 @@ $result = $KmsClient->listGrants([
 For details, see the [listGrants property](https://docs.aws.amazon.com/AWSJavaScriptSDK/latest/AWS/KMS.html#listGrants-property) in the *AWS SDK for JavaScript in Node\.js*\.
 
 ```
-// Listing grants on a CMK
+// Listing grants on a KMS key
 //
 // Replace the following example key ARN with a valid key ID or key ARN
 const KeyId = 'arn:aws:kms:us-west-2:111122223333:key/1234abcd-12ab-34cd-56ef-1234567890ab';
@@ -275,12 +275,12 @@ kmsClient.listGrants({ KeyId, Limit }, (err, data) => {
 ------
 #### [ PowerShell ]
 
-To view the details of all AWS KMS grants for a CMK, use the [Get\-KMSGrantList](https://docs.aws.amazon.com/powershell/latest/reference/items/Get-KMSGrantList.html) cmdlet\. 
+To view the details of all AWS KMS grants for a KMS key, use the [Get\-KMSGrantList](https://docs.aws.amazon.com/powershell/latest/reference/items/Get-KMSGrantList.html) cmdlet\. 
 
 To limit the number of output objects, this example uses the [Select\-Object](https://docs.microsoft.com/en-us/powershell/module/microsoft.powershell.utility/select-object) cmdlet, instead of the `Limit` parameter, which is being deprecated in list cmdlets\. For help with paginating output in AWS Tools for PowerShell, see [Output Pagination with AWS Tools for PowerShell](http://aws.amazon.com/blogs/developer/output-pagination-with-aws-tools-for-powershell/)\.
 
 ```
-# Listing grants on a CMK
+# Listing grants on a KMS key
 
 # Replace the following example key ARN with a valid key ID or key ARN
 $keyId = 'arn:aws:kms:us-west-2:111122223333:key/1234abcd-12ab-34cd-56ef-1234567890ab'
@@ -293,7 +293,7 @@ To use the AWS KMS PowerShell cmdlets, install the [AWS\.Tools\.KeyManagementSer
 
 ------
 
-You must specify the CMK in every `ListGrants` operations\. However, you can further filter the grant list by specifying the grant ID or a grantee principal\. The following examples get only the grants for a CMK where the `test-engineer` role is the grantee principal\.
+You must specify the KMS key in every `ListGrants` operations\. However, you can further filter the grant list by specifying the grant ID or a grantee principal\. The following examples get only the grants for a KMS key where the `test-engineer` role is the grantee principal\.
 
 ------
 #### [ Java ]
@@ -301,7 +301,7 @@ You must specify the CMK in every `ListGrants` operations\. However, you can fur
 For details about the Java implementation, see the [listGrants method](https://docs.aws.amazon.com/sdk-for-java/latest/reference/com/amazonaws/services/kms/AWSKMSClient.html#listGrants-com.amazonaws.services.kms.model.ListGrantsRequest-) in the *AWS SDK for Java API Reference*\.
 
 ```
-// Listing grants on a CMK
+// Listing grants on a KMS key
 //
 // Replace the following example key ARN with a valid key ID or key ARN
 String keyId = "arn:aws:kms:us-west-2:111122223333:key/1234abcd-12ab-34cd-56ef-1234567890ab";
@@ -317,7 +317,7 @@ ListGrantsResult result = kmsClient.listGrants(req);
 For details, see the [ListGrants method](https://docs.aws.amazon.com/sdkfornet/v3/apidocs/items/KeyManagementService/MKeyManagementServiceListGrantsListGrantsRequest.html) in the *AWS SDK for \.NET*\.
 
 ```
-// Listing grants on a CMK
+// Listing grants on a KMS key
 //
 // Replace the following example key ARN with a valid key ID or key ARN
 String keyId = "arn:aws:kms:us-west-2:111122223333:key/1234abcd-12ab-34cd-56ef-1234567890ab";
@@ -334,10 +334,10 @@ ListGrantsResponse listGrantsResponse = kmsClient.ListGrants(listGrantsRequest);
 ------
 #### [ Python ]
 
-For details, see the [list\_grants method](http://boto3.amazonaws.com/v1/documentation/api/latest/reference/services/kms.html#KMS.Client.list_grants) in the AWS SDK for Python \(Boto3\)\.
+For details, see the [list\_grants method](https://boto3.amazonaws.com/v1/documentation/api/latest/reference/services/kms.html#KMS.Client.list_grants) in the AWS SDK for Python \(Boto3\)\.
 
 ```
-# Listing grants on a CMK
+# Listing grants on a KMS key
 
 # Replace the following example key ARN with a valid key ID or key ARN
 key_id = 'arn:aws:kms:us-west-2:111122223333:key/1234abcd-12ab-34cd-56ef-1234567890ab'
@@ -355,7 +355,7 @@ response = kms_client.list_grants(
 For details, see the [list\_grants](https://docs.aws.amazon.com/sdk-for-ruby/v3/api/Aws/KMS/Client.html#list_grants-instance_method) instance method in the [AWS SDK for Ruby](https://docs.aws.amazon.com/sdk-for-ruby/v3/api/Aws/KMS.html)\.
 
 ```
-# Listing grants on a CMK
+# Listing grants on a KMS key
 
 # Replace the following example key ARN with a valid key ID or key ARN
 keyId = 'arn:aws:kms:us-west-2:111122223333:key/1234abcd-12ab-34cd-56ef-1234567890ab'
@@ -373,7 +373,7 @@ response = kmsClient.list_grants({
 For details, see the [ListGrants method](https://docs.aws.amazon.com/aws-sdk-php/v3/api/api-kms-2014-11-01.html#listgrants) in the *AWS SDK for PHP*\.
 
 ```
-// Listing grants on a CMK
+// Listing grants on a KMS key
 //
 // Replace the following example key ARN with a valid key ID or key ARN
 $keyId = 'arn:aws:kms:us-west-2:111122223333:key/1234abcd-12ab-34cd-56ef-1234567890ab';
@@ -391,7 +391,7 @@ $result = $KmsClient->listGrants([
 For details, see the [listGrants property](https://docs.aws.amazon.com/AWSJavaScriptSDK/latest/AWS/KMS.html#listGrants-property) in the *AWS SDK for JavaScript in Node\.js*\.
 
 ```
-// Listing grants on a CMK
+// Listing grants on a KMS key
 //
 // Replace the following example key ARN with a valid key ID or key ARN
 const KeyId = 'arn:aws:kms:us-west-2:111122223333:key/1234abcd-12ab-34cd-56ef-1234567890ab';
@@ -405,10 +405,10 @@ kmsClient.listGrants({ KeyId, Grantee }, (err, data) => {
 ------
 #### [ PowerShell ]
 
-To view the details of all AWS KMS grants for a CMK, use the [Get\-KMSGrantList](https://docs.aws.amazon.com/powershell/latest/reference/items/Get-KMSGrantList.html) cmdlet\.
+To view the details of all AWS KMS grants for a KMS key, use the [Get\-KMSGrantList](https://docs.aws.amazon.com/powershell/latest/reference/items/Get-KMSGrantList.html) cmdlet\.
 
 ```
-# Listing grants on a CMK
+# Listing grants on a KMS key
 
 # Replace the following example key ARN with a valid key ID or key ARN
 $keyId = 'arn:aws:kms:us-west-2:111122223333:key/1234abcd-12ab-34cd-56ef-1234567890ab'
@@ -422,9 +422,9 @@ To use the AWS KMS PowerShell cmdlets, install the [AWS\.Tools\.KeyManagementSer
 
 ## Retiring a grant<a name="retire-grant"></a>
 
-To retire a grant for an AWS KMS customer master key, use the [RetireGrant](https://docs.aws.amazon.com/kms/latest/APIReference/API_RetireGrant.html) operation\. You should retire a grant to clean up after you are done using it\. 
+To retire a grant for a KMS key, use the [RetireGrant](https://docs.aws.amazon.com/kms/latest/APIReference/API_RetireGrant.html) operation\. You should retire a grant to clean up after you are done using it\. 
 
-To retire a grant, provide the grant token, or both the grant ID and CMK ID\. For this operation, the CMK ID must be [Amazon Resource Name \(ARN\) of the CMK](find-cmk-id-arn.md)\. The grant token is returned by the [CreateGrant](https://docs.aws.amazon.com/kms/latest/APIReference/API_CreateGrant.html) operation\. The grant ID is returned by the CreateGrant and [ListGrants](https://docs.aws.amazon.com/kms/latest/APIReference/API_ListGrants.html) operations\.
+To retire a grant, provide the grant token, or both the grant ID and KMS key ID\. For this operation, the KMS key ID must be [Amazon Resource Name \(ARN\) of the KMS key](find-cmk-id-arn.md)\. The grant token is returned by the [CreateGrant](https://docs.aws.amazon.com/kms/latest/APIReference/API_CreateGrant.html) operation\. The grant ID is returned by the CreateGrant and [ListGrants](https://docs.aws.amazon.com/kms/latest/APIReference/API_ListGrants.html) operations\.
 
 RetireGrant doesn't return a response\. To verify that it was effective, use the [ListGrants](https://docs.aws.amazon.com/kms/latest/APIReference/API_ListGrants.html) operation\.
 
@@ -464,7 +464,7 @@ kmsClient.RetireGrant(retireGrantRequest);
 ------
 #### [ Python ]
 
-For details, see the [retire\_grant method](http://boto3.amazonaws.com/v1/documentation/api/latest/reference/services/kms.html#KMS.Client.retire_grant) in the AWS SDK for Python \(Boto3\)\.
+For details, see the [retire\_grant method](https://boto3.amazonaws.com/v1/documentation/api/latest/reference/services/kms.html#KMS.Client.retire_grant) in the AWS SDK for Python \(Boto3\)\.
 
 ```
 # Retire a grant
@@ -538,7 +538,7 @@ To use the AWS KMS PowerShell cmdlets, install the [AWS\.Tools\.KeyManagementSer
 
 ## Revoking a grant<a name="revoke-grant"></a>
 
-To revoke a grant to an AWS KMS customer master key, use the [RevokeGrant](https://docs.aws.amazon.com/kms/latest/APIReference/API_RevokeGrant.html) operation\. You can revoke a grant to explicitly deny operations that depend on it\. 
+To revoke a grant to a KMS key, use the [RevokeGrant](https://docs.aws.amazon.com/kms/latest/APIReference/API_RevokeGrant.html) operation\. You can revoke a grant to explicitly deny operations that depend on it\. 
 
 In languages that require a client object, these examples use the AWS KMS client object that you created in [Creating a client](programming-client.md)\.
 
@@ -548,7 +548,7 @@ In languages that require a client object, these examples use the AWS KMS client
 For details, see the [revokeGrant method](https://docs.aws.amazon.com/sdk-for-java/latest/reference/com/amazonaws/services/kms/AWSKMSClient.html#revokeGrant-com.amazonaws.services.kms.model.RevokeGrantRequest-) in the *AWS SDK for Java API Reference*\.
 
 ```
-// Revoke a grant on a CMK
+// Revoke a grant on a KMS key
 //
 // Replace the following example key ARN with a valid key ID or key ARN
 String keyId = "arn:aws:kms:us-west-2:111122223333:key/1234abcd-12ab-34cd-56ef-1234567890ab";
@@ -566,7 +566,7 @@ kmsClient.revokeGrant(req);
 For details, see the [RevokeGrant method](https://docs.aws.amazon.com/sdkfornet/v3/apidocs/items/KeyManagementService/MKeyManagementServiceRevokeGrantRevokeGrantRequest.html) in the *AWS SDK for \.NET*\.
 
 ```
-// Revoke a grant on a CMK
+// Revoke a grant on a KMS key
 //
 // Replace the following example key ARN with a valid key ID or key ARN
 String keyId = "arn:aws:kms:us-west-2:111122223333:key/1234abcd-12ab-34cd-56ef-1234567890ab";
@@ -587,10 +587,10 @@ To use the AWS KMS PowerShell cmdlets, install the [AWS\.Tools\.KeyManagementSer
 ------
 #### [ Python ]
 
-For details, see the [revoke\_grant method](http://boto3.amazonaws.com/v1/documentation/api/latest/reference/services/kms.html#KMS.Client.revoke_grant) in the AWS SDK for Python \(Boto3\)\.
+For details, see the [revoke\_grant method](https://boto3.amazonaws.com/v1/documentation/api/latest/reference/services/kms.html#KMS.Client.revoke_grant) in the AWS SDK for Python \(Boto3\)\.
 
 ```
-# Revoke a grant on a CMK
+# Revoke a grant on a KMS key
 
 # Replace the following example key ARN with a valid key ID or key ARN
 key_id = 'arn:aws:kms:us-west-2:111122223333:key/1234abcd-12ab-34cd-56ef-1234567890ab'
@@ -610,7 +610,7 @@ response = kms_client.revoke_grant(
 For details, see the [revoke\_grant](https://docs.aws.amazon.com/sdk-for-ruby/v3/api/Aws/KMS/Client.html#revoke_grant-instance_method) instance method in the [AWS SDK for Ruby](https://docs.aws.amazon.com/sdk-for-ruby/v3/api/Aws/KMS.html)\.
 
 ```
-# Revoke a grant on a CMK
+# Revoke a grant on a KMS key
 
 # Replace the following example key ARN with a valid key ID or key ARN
 key_id = 'arn:aws:kms:us-west-2:111122223333:key/1234abcd-12ab-34cd-56ef-1234567890ab'
@@ -630,7 +630,7 @@ response = kmsClient.revoke_grant({
 For details, see the [RevokeGrant method](https://docs.aws.amazon.com/aws-sdk-php/v3/api/api-kms-2014-11-01.html#revokegrant) in the *AWS SDK for PHP*\.
 
 ```
-// Revoke a grant on a CMK
+// Revoke a grant on a KMS key
 //
 // Replace the following example key ARN with a valid key ID or key ARN
 $keyId = 'arn:aws:kms:us-west-2:111122223333:key/1234abcd-12ab-34cd-56ef-1234567890ab';
@@ -650,7 +650,7 @@ $result = $KmsClient->revokeGrant([
 For details, see the [revokeGrant property](https://docs.aws.amazon.com/AWSJavaScriptSDK/latest/AWS/KMS.html#revokeGrant-property) in the *AWS SDK for JavaScript in Node\.js*\.
 
 ```
-// Revoke a grant on a CMK
+// Revoke a grant on a KMS key
 //
 // Replace the following example key ARN with a valid key ID or key ARN
 const KeyId = 'arn:aws:kms:us-west-2:111122223333:key/1234abcd-12ab-34cd-56ef-1234567890ab';
@@ -668,7 +668,7 @@ kmsClient.revokeGrant({ GrantId, KeyId }, (err, data) => {
 To revoke a grant, use the [Revoke\-KMSGrant](https://docs.aws.amazon.com/powershell/latest/reference/items/Revoke-KMSGrant.html) cmdlet\. 
 
 ```
-# Revoke a grant on a CMK
+# Revoke a grant on a KMS key
 
 # Replace the following example key ARN with a valid key ID or key ARN
 $keyId = 'arn:aws:kms:us-west-2:111122223333:key/1234abcd-12ab-34cd-56ef-1234567890ab'

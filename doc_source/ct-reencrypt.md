@@ -1,6 +1,6 @@
 # ReEncrypt<a name="ct-reencrypt"></a>
 
-The following example shows an AWS CloudTrail log entry for the [ReEncrypt](https://docs.aws.amazon.com/kms/latest/APIReference/API_ReEncrypt.html) operation\. The `resources` field in this log entry specifies two customer master keys \(CMKs\), the source CMK and the destination CMK, in that order\.
+The following example shows an AWS CloudTrail log entry for the [ReEncrypt](https://docs.aws.amazon.com/kms/latest/APIReference/API_ReEncrypt.html) operation\. The `resources` field in this log entry specifies two AWS KMS keys, the source KMS key and the destination KMS key, in that order\.
 
 ```
 {

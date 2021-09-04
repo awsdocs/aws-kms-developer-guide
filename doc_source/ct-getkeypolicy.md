@@ -1,6 +1,6 @@
 # GetKeyPolicy<a name="ct-getkeypolicy"></a>
 
-The following example shows an AWS CloudTrail log entry for the [GetKeyPolicy](https://docs.aws.amazon.com/kms/latest/APIReference/API_GetKeyPolicy.html) operation\. For information about viewing the key policy for an AWS KMS customer master key \(CMK\), see [Viewing a key policy](key-policy-viewing.md)\.
+The following example shows an AWS CloudTrail log entry for the [GetKeyPolicy](https://docs.aws.amazon.com/kms/latest/APIReference/API_GetKeyPolicy.html) operation\. For information about viewing the key policy for a KMS key, see [Viewing a key policy](key-policy-viewing.md)\.
 
 ```
 {

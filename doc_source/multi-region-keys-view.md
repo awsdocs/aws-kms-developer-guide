@@ -8,16 +8,16 @@ You can view single\-Region and multi\-Region keys in the AWS KMS console and by
 
 ## Viewing multi\-Region keys in the console<a name="mrk-view-console"></a>
 
-In the AWS KMS console, you can view customer master keys in the selected Region\. However, if you have a multi\-Region key, you can see its related multi\-Region keys in other AWS Regions\.
+In the AWS KMS console, you can view KMS keys in the selected Region\. However, if you have a multi\-Region key, you can see its related multi\-Region keys in other AWS Regions\.
 
-The [**Customer master keys** table](viewing-keys-console.md#viewing-console-navigate) in the AWS KMS console displays only CMKs in the selected Region\. You can view multi\-Region primary and replica keys in the selected Region\. To change the AWS Region, use the Region selector in the upper\-right corner of the page\.
+The [**Customer managed keys** table](viewing-keys-console.md#viewing-console-navigate) in the AWS KMS console displays only KMS keys in the selected Region\. You can view multi\-Region primary and replica keys in the selected Region\. To change the AWS Region, use the Region selector in the upper\-right corner of the page\.
 
 The AWS managed keys table does not have the regionality features because AWS managed keys are always single\-Region keys\. 
-+ To make it easy to identify your multi\-Region keys, add the **Regionality** column to your key table\. For help, see [Customizing your CMK tables](viewing-keys-console.md#viewing-console-customize)\.  
++ To make it easy to identify your multi\-Region keys, add the **Regionality** column to your key table\. For help, see [Customizing your KMS key tables](viewing-keys-console.md#viewing-console-customize)\.  
 ![\[Image NOT FOUND\]](http://docs.aws.amazon.com/kms/latest/developerguide/images/mrk-view-regionality-column.png)
-+ To display only single\-Region keys or only multi\-Region keys in your key table, filter your keys by the **Regionality** property of each key\. For help, see [Sorting and filtering your CMKs](viewing-keys-console.md#viewing-console-filter)\.  
++ To display only single\-Region keys or only multi\-Region keys in your key table, filter your keys by the **Regionality** property of each key\. For help, see [Sorting and filtering your KMS keys](viewing-keys-console.md#viewing-console-filter)\.  
 ![\[Image NOT FOUND\]](http://docs.aws.amazon.com/kms/latest/developerguide/images/mrk-view-regionality-filter.png)
-+ You can also sort and filter your Customer managed keys table for the distinctive **mrk\-** key ID prefix\.  
++ You can also sort and filter your **Customer managed keys** table for the distinctive **mrk\-** key ID prefix\.  
 ![\[Image NOT FOUND\]](http://docs.aws.amazon.com/kms/latest/developerguide/images/mrk-view-keyid.png)
 + For details about a multi\-Region primary key or replica key, [go to the detail page](viewing-keys-console.md#viewing-details-navigate) for the key, and choose the **Regionality** tab\.
 

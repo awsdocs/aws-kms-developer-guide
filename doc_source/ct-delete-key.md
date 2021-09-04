@@ -1,8 +1,8 @@
 # DeleteKey<a name="ct-delete-key"></a>
 
-The following example shows an AWS CloudTrail log entry generated when a customer master key \(CMK\) is deleted\. To delete a CMK, you use the [ScheduleKeyDeletion](https://docs.aws.amazon.com/kms/latest/APIReference/API_ScheduleKeyDeletion.html) operation\. After the specified waiting period expires, AWS KMS deletes the key\. AWS KMS records an entry like the following one in your CloudTrail log to record that event\. 
+The following example shows an AWS CloudTrail log entry generated when a KMS key is deleted\. To delete a KMS key, you use the [ScheduleKeyDeletion](https://docs.aws.amazon.com/kms/latest/APIReference/API_ScheduleKeyDeletion.html) operation\. After the specified waiting period expires, AWS KMS deletes the key\. AWS KMS records an entry like the following one in your CloudTrail log to record that event\. 
 
-For an example of the CloudTrail log entry for the `ScheduleKeyDeletion` operation, see [ScheduleKeyDeletion](ct-schedule-key-deletion.md)\. For information about deleting CMKs, see [Deleting customer master keys](deleting-keys.md)\.
+For an example of the CloudTrail log entry for the `ScheduleKeyDeletion` operation, see [ScheduleKeyDeletion](ct-schedule-key-deletion.md)\. For information about deleting KMS keys, see [Deleting AWS KMS keys](deleting-keys.md)\.
 
 ```
 {

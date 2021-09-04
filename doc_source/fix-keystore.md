@@ -3,39 +3,39 @@
 Custom key stores are designed to be available and resilient\. However, there are some error conditions that you might have to repair to keep your custom key store operational\.
 
 **Topics**
-+ [How to fix unavailable CMKs](#fix-unavailable-cmks)
-+ [How to fix a failing CMK](#fix-cmk-failed)
++ [How to fix unavailable KMS keys](#fix-unavailable-cmks)
++ [How to fix a failing KMS key](#fix-cmk-failed)
 + [How to fix a connection failure](#fix-keystore-failed)
 + [How to respond a cryptographic operation failure](#fix-keystore-communication)
 + [How to fix invalid `kmsuser` credentials](#fix-keystore-password)
 + [How to delete orphaned key material](#fix-keystore-orphaned-key)
-+ [How to recover deleted key material for a CMK](#fix-keystore-recover-backing-key)
++ [How to recover deleted key material for a KMS key](#fix-keystore-recover-backing-key)
 + [How to log in as `kmsuser`](#fix-login-as-kmsuser)
 
-## How to fix unavailable CMKs<a name="fix-unavailable-cmks"></a>
+## How to fix unavailable KMS keys<a name="fix-unavailable-cmks"></a>
 
-The [key state](key-state.md) of customer master keys \(CMKs\) in a custom key store is typically `Enabled`\. Like all CMKs, the key state changes when you disable the CMKs in a custom key store or schedule them for deletion\. However, unlike other CMKs, the CMKs in a custom key store can also have a [key state](key-state.md) of `Unavailable`\. 
+The [key state](key-state.md) of AWS KMS keys in a custom key store is typically `Enabled`\. Like all KMS keys, the key state changes when you disable the KMS keys in a custom key store or schedule them for deletion\. However, unlike other KMS keys, the KMS keys in a custom key store can also have a [key state](key-state.md) of `Unavailable`\. 
 
-A key state of `Unavailable` indicates that the CMK is in a custom key store that was intentionally [disconnected from its AWS CloudHSM cluster](disconnect-keystore.md) and attempts to reconnect it, if any, failed\. While a CMK is unavailable, you can view and manage the CMK, but you cannot use it for [cryptographic operations](use-cmk-keystore.md)\.
+A key state of `Unavailable` indicates that the KMS key is in a custom key store that was intentionally [disconnected from its AWS CloudHSM cluster](disconnect-keystore.md) and attempts to reconnect it, if any, failed\. While a KMS key is unavailable, you can view and manage the KMS key, but you cannot use it for [cryptographic operations](use-cmk-keystore.md)\.
 
-To find the key state of a CMK, on the **Customer managed keys** page, view the **Status** field of the CMK\. Or, use the [DescribeKey](https://docs.aws.amazon.com/kms/latest/APIReference/API_DescribeKey.html) operation and view the `KeyState` element in the response\. For details, see [Viewing keys](viewing-keys.md)\.
+To find the key state of a KMS key, on the **Customer managed keys** page, view the **Status** field of the KMS key\. Or, use the [DescribeKey](https://docs.aws.amazon.com/kms/latest/APIReference/API_DescribeKey.html) operation and view the `KeyState` element in the response\. For details, see [Viewing keys](viewing-keys.md)\.
 
-The CMKs in a disconnected custom key store will have a key state of `Unavailable` or `PendingDeletion`\. CMKs that are scheduled for deletion from a custom key store have a `Pending Deletion` key state, even when the custom key store is disconnected from its AWS CloudHSM cluster\. This allows you to cancel the scheduled key deletion without reconnecting the custom key store\. 
+The KMS keys in a disconnected custom key store will have a key state of `Unavailable` or `PendingDeletion`\. KMS keys that are scheduled for deletion from a custom key store have a `Pending Deletion` key state, even when the custom key store is disconnected from its AWS CloudHSM cluster\. This allows you to cancel the scheduled key deletion without reconnecting the custom key store\. 
 
-To fix an unavailable CMK, [reconnect the custom key store](disconnect-keystore.md)\. After the custom key store is reconnected, the key state of the CMKs in the custom key store is automatically restored to its previous state, such as `Enabled` or `Disabled`\. CMKs that are pending deletion remain in the `PendingDeletion` state\. However, while the problem persists, [enabling and disabling an unavailable CMK](enabling-keys.md) does not change its key state\. The enable or disable action takes effect only when the key becomes available\.
+To fix an unavailable KMS key, [reconnect the custom key store](disconnect-keystore.md)\. After the custom key store is reconnected, the key state of the KMS keys in the custom key store is automatically restored to its previous state, such as `Enabled` or `Disabled`\. KMS keys that are pending deletion remain in the `PendingDeletion` state\. However, while the problem persists, [enabling and disabling an unavailable KMS key](enabling-keys.md) does not change its key state\. The enable or disable action takes effect only when the key becomes available\.
 
 For help with failed connections, see [How to fix a connection failure](#fix-keystore-failed)\. 
 
-## How to fix a failing CMK<a name="fix-cmk-failed"></a>
+## How to fix a failing KMS key<a name="fix-cmk-failed"></a>
 
-Problems with creating and using CMKs in custom key stores can be caused by a problem with your custom key store, its associated AWS CloudHSM cluster, the CMK, or its key material\. 
+Problems with creating and using KMS keys in custom key stores can be caused by a problem with your custom key store, its associated AWS CloudHSM cluster, the KMS key, or its key material\. 
 
-When a custom key store is disconnected from its AWS CloudHSM cluster, the key state of CMKs in the custom key store is `Unavailable`\. All requests to create CMKs in a disconnected custom key store return a `CustomKeyStoreInvalidStateException` exception\. All requests to encrypt, decrypt, re\-encrypt, or generate data keys return a `KMSInvalidStateException` exception\. To fix the problem, [reconnect the custom key store](disconnect-keystore.md)\.
+When a custom key store is disconnected from its AWS CloudHSM cluster, the key state of KMS keys in the custom key store is `Unavailable`\. All requests to create KMS keys in a disconnected custom key store return a `CustomKeyStoreInvalidStateException` exception\. All requests to encrypt, decrypt, re\-encrypt, or generate data keys return a `KMSInvalidStateException` exception\. To fix the problem, [reconnect the custom key store](disconnect-keystore.md)\.
 
-However, your attempts to use a custom key store CMK for [cryptographic operations](use-cmk-keystore.md) might fail even when its key state is `Enabled` and the connection status of the custom key store is `Connected`\. This might be caused by any of the following conditions\.
-+ The key material for the CMK might have been deleted from the associated AWS CloudHSM cluster\. To investigate, [find the key handle](view-cmk-keystore.md) of the key material for a CMK and, if necessary, try to [recover the key material](#fix-keystore-recover-backing-key)\.
-+ All HSMs were deleted from the AWS CloudHSM cluster that is associated with the custom key store\. To use a CMK in a custom key store in a cryptographic operation, its AWS CloudHSM cluster must contain at least one active HSM\. To verify the number and state of HSMs in an AWS CloudHSM cluster, [use the AWS CloudHSM console](https://docs.aws.amazon.com/cloudhsm/latest/userguide/add-remove-hsm.html) or the [DescribeClusters](https://docs.aws.amazon.com/cloudhsm/latest/APIReference/API_DescribeClusters.html) operation\. To add an HSM to the cluster, use the AWS CloudHSM console or the [CreateHsm](https://docs.aws.amazon.com/cloudhsm/latest/APIReference/API_CreateHsm.html) operation\.
-+ The AWS CloudHSM cluster associated with the custom key store was deleted\. To fix the problem, [create a cluster from a backup](https://docs.aws.amazon.com/cloudhsm/latest/userguide/create-cluster-from-backup.html) that is related to the original cluster, such as a backup of the original cluster, or a backup that was used to create the original cluster\. Then, [edit the cluster ID](update-keystore.md) in the custom key store settings\. For instructions, see [How to recover deleted key material for a CMK](#fix-keystore-recover-backing-key)\.
+However, your attempts to use a custom key store KMS key for [cryptographic operations](use-cmk-keystore.md) might fail even when its key state is `Enabled` and the connection status of the custom key store is `Connected`\. This might be caused by any of the following conditions\.
++ The key material for the KMS key might have been deleted from the associated AWS CloudHSM cluster\. To investigate, [find the key handle](view-cmk-keystore.md) of the key material for a KMS key and, if necessary, try to [recover the key material](#fix-keystore-recover-backing-key)\.
++ All HSMs were deleted from the AWS CloudHSM cluster that is associated with the custom key store\. To use a KMS key in a custom key store in a cryptographic operation, its AWS CloudHSM cluster must contain at least one active HSM\. To verify the number and state of HSMs in an AWS CloudHSM cluster, [use the AWS CloudHSM console](https://docs.aws.amazon.com/cloudhsm/latest/userguide/add-remove-hsm.html) or the [DescribeClusters](https://docs.aws.amazon.com/cloudhsm/latest/APIReference/API_DescribeClusters.html) operation\. To add an HSM to the cluster, use the AWS CloudHSM console or the [CreateHsm](https://docs.aws.amazon.com/cloudhsm/latest/APIReference/API_CreateHsm.html) operation\.
++ The AWS CloudHSM cluster associated with the custom key store was deleted\. To fix the problem, [create a cluster from a backup](https://docs.aws.amazon.com/cloudhsm/latest/userguide/create-cluster-from-backup.html) that is related to the original cluster, such as a backup of the original cluster, or a backup that was used to create the original cluster\. Then, [edit the cluster ID](update-keystore.md) in the custom key store settings\. For instructions, see [How to recover deleted key material for a KMS key](#fix-keystore-recover-backing-key)\.
 
 ## How to fix a connection failure<a name="fix-keystore-failed"></a>
 
@@ -65,7 +65,7 @@ To avoid [resetting the `kmsuser` password](#fix-keystore-password), use the mos
 
 ## How to respond a cryptographic operation failure<a name="fix-keystore-communication"></a>
 
-A cryptographic operation that uses a CMK in a custom key store might fail with an error such as the following\.
+A cryptographic operation that uses a KMS key in a custom key store might fail with an error such as the following\.
 
 ```
 KMSInvalidStateException: KMS cannot communicate with your CloudHSM cluster
@@ -127,11 +127,11 @@ To repair any of these conditions, use the following procedure\.
 
 ## How to delete orphaned key material<a name="fix-keystore-orphaned-key"></a>
 
-After scheduling deletion of a CMK from a custom key store, you might need to manually delete the corresponding key material from the associated cluster\. 
+After scheduling deletion of a KMS key from a custom key store, you might need to manually delete the corresponding key material from the associated cluster\. 
 
-When you create a CMK in a custom key store, AWS KMS creates the CMK metadata in AWS KMS and generates the key material in the associated AWS CloudHSM cluster\. When you schedule deletion of a CMK in a custom key store, after the waiting period, AWS KMS deletes the CMK metadata\. Then AWS KMS makes a best effort to delete the corresponding key material from the cluster\. AWS KMS does not attempt to delete key material from cluster backups\.
+When you create a KMS key in a custom key store, AWS KMS creates the KMS key metadata in AWS KMS and generates the key material in the associated AWS CloudHSM cluster\. When you schedule deletion of a KMS key in a custom key store, after the waiting period, AWS KMS deletes the KMS key metadata\. Then AWS KMS makes a best effort to delete the corresponding key material from the cluster\. AWS KMS does not attempt to delete key material from cluster backups\.
 
-If AWS KMS cannot delete the key material, such as when the custom key store is disconnected, AWS KMS writes an entry to your AWS CloudTrail logs\. The entry includes the CMK ID, the AWS CloudHSM cluster ID, and the key handle of the key material\.
+If AWS KMS cannot delete the key material, such as when the custom key store is disconnected, AWS KMS writes an entry to your AWS CloudTrail logs\. The entry includes the KMS key ID, the AWS CloudHSM cluster ID, and the key handle of the key material\.
 
 To delete the key material from the associated AWS CloudHSM cluster, use a procedure like the following one\. This example uses the AWS CLI and AWS CloudHSM command line tools, but you can use the AWS Management Console instead of the CLI\.
 
@@ -154,13 +154,13 @@ To delete the key material from the associated AWS CloudHSM cluster, use a proce
 
 1. Log out of key\_mgmt\_util and reconnect the custom key store as described in [How to log out and reconnect](#login-kmsuser-2)\.
 
-## How to recover deleted key material for a CMK<a name="fix-keystore-recover-backing-key"></a>
+## How to recover deleted key material for a KMS key<a name="fix-keystore-recover-backing-key"></a>
 
-If the key material for a customer master key is deleted, the CMK is unusable and all ciphertext that was encrypted under the CMK cannot be decrypted\. This can happen if the key material for a CMK in a custom key store is deleted from the associated AWS CloudHSM cluster\. However, it might be possible to recover the key material\.
+If the key material for a AWS KMS key is deleted, the KMS key is unusable and all ciphertext that was encrypted under the KMS key cannot be decrypted\. This can happen if the key material for a KMS key in a custom key store is deleted from the associated AWS CloudHSM cluster\. However, it might be possible to recover the key material\.
 
-When you create a customer master key \(CMK\) in a custom key store, AWS KMS logs into the associated AWS CloudHSM cluster and creates the key material for the CMK\. It also changes the password to a value that only it knows and remains logged in as long as the custom key store is connected\. Because only the key owner, that is, the CU who created a key, can delete the key, it is unlikely that the key will be deleted from the HSMs accidentally\. 
+When you create a AWS KMS key \(KMS key\) in a custom key store, AWS KMS logs into the associated AWS CloudHSM cluster and creates the key material for the KMS key\. It also changes the password to a value that only it knows and remains logged in as long as the custom key store is connected\. Because only the key owner, that is, the CU who created a key, can delete the key, it is unlikely that the key will be deleted from the HSMs accidentally\. 
 
-However, if the key material for a CMK is deleted from the HSMs in a cluster, the CMK key state eventually changes to `UNAVAILABLE`\. If you attempt to use the CMK for a cryptographic operation, the operation fails with a **KMSInvalidStateException** exception\. Most importantly, any data that was encrypted under the CMK cannot be decrypted\.
+However, if the key material for a KMS key is deleted from the HSMs in a cluster, the KMS key key state eventually changes to `UNAVAILABLE`\. If you attempt to use the KMS key for a cryptographic operation, the operation fails with a **KMSInvalidStateException** exception\. Most importantly, any data that was encrypted under the KMS key cannot be decrypted\.
 
 Under certain circumstances, you can recover deleted key material by [creating a cluster from a backup](https://docs.aws.amazon.com/cloudhsm/latest/userguide/create-cluster-from-backup.html) that contains the key material\. This strategy works only when at least one backup was created while the key existed and before it was deleted\. 
 
@@ -200,7 +200,7 @@ To create and manage the key material in the AWS CloudHSM cluster for your custo
 In general, AWS KMS manages the `kmsuser` account\. However, for some tasks, you need to disconnect the custom key store, log into the cluster as the `kmsuser` CU, and use the cloudhsm\_mgmt\_util and key\_mgmt\_util command line tools\.
 
 **Note**  
-While a custom key store is disconnected, all attempts to create customer master keys \(CMKs\) in the custom key store or to use existing CMKs in cryptographic operations will fail\. This action can prevent users from storing and accessing sensitive data\.
+While a custom key store is disconnected, all attempts to create KMS keys in the custom key store or to use existing KMS keys in cryptographic operations will fail\. This action can prevent users from storing and accessing sensitive data\.
 
 This topic explains how to [disconnect your custom key store and log in](#login-kmsuser-1) as `kmsuser`, run the AWS CloudHSM command line tool, and [log out and reconnect your custom key store](#login-kmsuser-2)\.
 

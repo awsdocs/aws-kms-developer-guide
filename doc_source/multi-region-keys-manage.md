@@ -25,7 +25,7 @@ The update operation has no effect on the [key ARN](concepts.md#key-id-key-ARN) 
 
 The process of updating a primary Region takes a bit longer than the brief eventual consistency delay that affects most AWS KMS operations\. The process might still be in progress after the `UpdatePrimaryRegion` operation returns or you've completed the update procedure in the console\. Operations such as [DescribeKey](https://docs.aws.amazon.com/kms/latest/APIReference/API_DescribeKey.html) might display both the old and new primary keys as replicas until the process completes\.
 
-During the process of updating the primary Region, the old primary key and new primary key are in the `Updating` key state\. When the update process completes successfully, both keys return to the `Enabled` key state\. While in the `Updating` state, some management operations, such as enabling and disabling the keys, are not available\. However, you can continue to use both keys in cryptographic operations without interruption\. For information about the effect of the `Updating` key state, see [Key state: Effect on your CMK](key-state.md)\.
+During the process of updating the primary Region, the old primary key and new primary key are in the `Updating` key state\. When the update process completes successfully, both keys return to the `Enabled` key state\. While in the `Updating` state, some management operations, such as enabling and disabling the keys, are not available\. However, you can continue to use both keys in cryptographic operations without interruption\. For information about the effect of the `Updating` key state, see [Key state: Effect on your KMS key](key-state.md)\.
 
 ### Updating a primary Region \(console\)<a name="update-primary-console"></a>
 
@@ -37,7 +37,7 @@ You can update the primary key in the AWS KMS console\. Start on the key details
 
 1. In the navigation pane, choose **Customer managed keys**\.
 
-1. Select the key ID or alias of the [multi\-Region primary key](multi-region-keys-overview.md#mrk-primary-key)\. This opens the key details page for the CMK\.
+1. Select the key ID or alias of the [multi\-Region primary key](multi-region-keys-overview.md#mrk-primary-key)\. This opens the key details page for the primary key\.
 
    To identify a multi\-Region primary key, use the tool icon in the upper right corner to add the **Regionality** column to the table\.
 
@@ -65,7 +65,7 @@ $ aws kms update-primary-region \
       --primary-region eu-west-1
 ```
 
-When successful, this operation doesn't return any output; just the HTTP status code\. To see the effect, call the [DescribeKey](https://docs.aws.amazon.com/kms/latest/APIReference/API_DescribeKey.html) operation on either of the CMKs\. You might want to wait until the key state returns to `Enabled`\. While the key state is [Updating](#update-primary-keystate), the values for the key might still be in flux\.
+When successful, this operation doesn't return any output; just the HTTP status code\. To see the effect, call the [DescribeKey](https://docs.aws.amazon.com/kms/latest/APIReference/API_DescribeKey.html) operation on either of the multi\-Region keys\. You might want to wait until the key state returns to `Enabled`\. While the key state is [Updating](#update-primary-keystate), the values for the key might still be in flux\.
 
 For example, the following `DescribeKey` call gets the details about the multi\-Region key in the `eu-west-1` Region\. The output shows that the multi\-Region key in the `eu-west-1` Region is now the primary key\. The related multi\-Region key \(same key ID\) in the `us-west-2` Region is now a replica key\.
 
@@ -81,8 +81,9 @@ $ aws kms describe-key \
         "CreationDate": 1609193147.831,
         "Enabled": true,
         "Description": "multi-region-key",
-        "KeyUsage": "ENCRYPT_DECRYPT",
+        "KeySpec": "SYMMETRIC_DEFAULT",
         "KeyState": "Enabled",
+        "KeyUsage": "ENCRYPT_DECRYPT",
         "Origin": "AWS_KMS",
         "KeyManager": "CUSTOMER",
         "CustomerMasterKeySpec": "SYMMETRIC_DEFAULT",
@@ -119,10 +120,10 @@ You enable and disable automatic key rotation only on the primary key\.
 
 This pattern ensures that related multi\-Region keys are fully interoperable\. Any multi\-Region key can decrypt any ciphertext encrypted by a related multi\-Region key, even if the ciphertext was encrypted before the key was created\.
 
-Automatic key rotation is not supported on multi\-Region asymmetric CMKs or multi\-Region CMKs with imported key material\. For information about automatic key rotation and instructions for enabling and disabling it, see [Rotating customer master keys](rotate-keys.md)\.
+Automatic key rotation is not supported on asymmetric KMS keys or KMS keys with imported key material\. For information about automatic key rotation and instructions for enabling and disabling it, see [Rotating AWS KMS keys](rotate-keys.md)\.
 
 ## Downloading public keys<a name="multi-region-public-key"></a>
 
-When you create a multi\-Region [asymmetric CMK](symm-asymm-concepts.md#asymmetric-cmks), AWS KMS creates an RSA or elliptic curve \(ECC\) key pair for the primary key\. Then it copies that key pair to every replica of the primary key\. As a result, you can download the public key from the primary key or any of its replica keys\. You will always get the same key material\.
+When you create a multi\-Region [asymmetric KMS key](symm-asymm-concepts.md#asymmetric-cmks), AWS KMS creates an RSA or elliptic curve \(ECC\) key pair for the primary key\. Then it copies that key pair to every replica of the primary key\. As a result, you can download the public key from the primary key or any of its replica keys\. You will always get the same key material\.
 
 For information about downloading and using public keys outside of AWS KMS, see [Special considerations for downloading public keys](download-public-key.md#download-public-key-considerations)\. For instructions, see [Downloading public keys](download-public-key.md)\.

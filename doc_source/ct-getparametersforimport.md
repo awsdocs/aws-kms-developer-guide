@@ -1,6 +1,6 @@
 # GetParametersForImport<a name="ct-getparametersforimport"></a>
 
-The following example shows an AWS CloudTrail log entry generated when you use the [GetParametersForImport](https://docs.aws.amazon.com/kms/latest/APIReference/API_GetParametersForImport.html) operation\. This operation returns the public key and import token that you use when importing key material into a CMK\. The same CloudTrail entry is recorded when you use the `GetParametersForImport` operation or use the AWS KMS console to [download the public key and import token](importing-keys-get-public-key-and-token.md)\.
+The following example shows an AWS CloudTrail log entry generated when you use the [GetParametersForImport](https://docs.aws.amazon.com/kms/latest/APIReference/API_GetParametersForImport.html) operation\. This operation returns the public key and import token that you use when importing key material into a KMS key\. The same CloudTrail entry is recorded when you use the `GetParametersForImport` operation or use the AWS KMS console to [download the public key and import token](importing-keys-get-public-key-and-token.md)\.
 
 ```
 {

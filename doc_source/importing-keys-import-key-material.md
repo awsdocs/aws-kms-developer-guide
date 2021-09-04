@@ -1,10 +1,10 @@
 # Importing key material step 4: Import the key material<a name="importing-keys-import-key-material"></a>
 
-After you [encrypt your key material](importing-keys-encrypt-key-material.md), you can import the key material to use with an AWS KMS customer master key \(CMK\)\. To import key material, you upload the encrypted key material from [Step 3: Encrypt the key material](importing-keys-encrypt-key-material.md) and the import token that you downloaded at [Step 2: Download the public key and import token](importing-keys-get-public-key-and-token.md)\. You must import key material into the same CMK that you specified when you downloaded the public key and import token\.
+After you [encrypt your key material](importing-keys-encrypt-key-material.md), you can import the key material to use with an AWS KMS key\. To import key material, you upload the encrypted key material from [Step 3: Encrypt the key material](importing-keys-encrypt-key-material.md) and the import token that you downloaded at [Step 2: Download the public key and import token](importing-keys-get-public-key-and-token.md)\. You must import key material into the same KMS key that you specified when you downloaded the public key and import token\.
 
-When you import key material, you can optionally specify a time at which the key material expires\. When the key material expires, AWS KMS deletes the key material and the CMK becomes unusable\. To use the CMK again, you must reimport key material\.
+When you import key material, you can optionally specify a time at which the key material expires\. When the key material expires, AWS KMS deletes the key material and the KMS key becomes unusable\. To use the KMS key again, you must reimport key material\.
 
-After you successfully import key material, the CMK's key state changes to enabled, and you can use the CMK\.
+After you successfully import key material, the KMS key's key state changes to enabled, and you can use the KMS key\.
 
 To import key material, you can use the AWS Management Console or the AWS KMS API\. You can use the API directly by making HTTP requests, or by using an [AWS SDKs](https://aws.amazon.com/tools/#sdk), [AWS Command Line Interface](https://docs.aws.amazon.com/cli/latest/userguide/) or [AWS Tools for PowerShell](https://docs.aws.amazon.com/powershell/latest/userguide/)\.
 
@@ -22,15 +22,15 @@ You can use the AWS Management Console to import key material\.
 
 1. In the navigation pane, choose **Customer managed keys**\.
 
-1. Choose the key ID or alias of the CMK for which you downloaded the public key and import token\.
+1. Choose the key ID or alias of the KMS key for which you downloaded the public key and import token\.
 
-1. Choose the **Cryptographic configuration** tab and view its values\. The tabs are on the detail page for a CMK below the **General configuration** section\.
+1. Choose the **Cryptographic configuration** tab and view its values\. The tabs are on the detail page for a KMS key below the **General configuration** section\.
 
-   You can only import key material into CMKs with a **Key type** of **Symmetric** and an **Origin** of **EXTERNAL**\. For information about creating CMKs with imported key material, see [Importing key material in AWS Key Management Service \(AWS KMS\)](importing-keys.md)\.
+   You can only import key material into KMS keys with a **Key type** of **Symmetric** and an **Origin** of **EXTERNAL**\. For information about creating KMS keys with imported key material, see [Importing key material in AWS Key Management Service \(AWS KMS\)](importing-keys.md)\.
 
 1. Choose the **Key material** tab and then choose **Upload key material**\.
 
-   The **Key material** tab appears only for CMKs with a **Key type** of **Symmetric** and an **Origin** value of **EXTERNAL**\.
+   The **Key material** tab appears only for KMS keys with a **Key type** of **Symmetric** and an **Origin** value of **EXTERNAL**\.
 
 1. <a name="id-key-materials-step"></a>In the **Encrypted key material and import token** section, under **Wrapped key material**, choose **Choose file**\. Then upload the file that contains your wrapped \(encrypted\) key material\. 
 
@@ -48,7 +48,7 @@ This example specifies an expiration time for the key material\. To import key m
 
 To use this example:
 
-1. Replace `1234abcd-12ab-34cd-56ef-1234567890ab` with the key ID of the CMK that you used when you downloaded the public key and import token\. To identify the CMK, use its key ID or ARN\. You cannot use an alias for this operation\.
+1. Replace `1234abcd-12ab-34cd-56ef-1234567890ab` with the key ID of the KMS key that you used when you downloaded the public key and import token\. To identify the KMS key, use its key ID or ARN\. You cannot use an alias for this operation\.
 
 1. Replace `EncryptedKeyMaterial.bin` with the name of the file that contains the encrypted key material\.
 

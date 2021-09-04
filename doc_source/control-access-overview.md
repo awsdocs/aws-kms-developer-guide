@@ -9,20 +9,20 @@ When managing permissions, you decide who gets the permissions, the resources th
 
 **Topics**
 + [AWS KMS resources and operations](#kms-resources-operations)
-+ [Managing access to AWS KMS CMKs](#managing-access)
++ [Managing access to KMS keys](#managing-access)
 + [Specifying permissions in a policy](#overview-policy-elements)
 + [Specifying conditions in a policy](#overview-policy-conditions)
 
 ## AWS KMS resources and operations<a name="kms-resources-operations"></a>
 
-In AWS KMS, the primary resource is a [customer master key](concepts.md#master_keys) \(CMK\)\. AWS KMS also supports an [alias](programming-aliases.md), a resource that is independent of a CMK, but provides a friendly name that you can associate with a CMK\. Some AWS KMS operations allow you to use an alias to identify a CMK\.
+In AWS KMS, the primary resource is a [AWS KMS keys](concepts.md#kms_keys)\. AWS KMS also supports an [alias](kms-alias.md), an independent resource that provides a friendly name for a KMS key\. Some AWS KMS operations allow you to use an alias to identify a KMS key\.
 
-Each instance of a CMK or alias has a unique [Amazon Resource Name](https://docs.aws.amazon.com/general/latest/gr/aws-arns-and-namespaces.html#arns-syntax) \(ARN\) with a standard format\. In AWS KMS resources, the AWS service name is `kms`\. 
-+ **Customer master key \(CMK\)**
+Each instance of a KMS key or alias has a unique [Amazon Resource Name](https://docs.aws.amazon.com/general/latest/gr/aws-arns-and-namespaces.html#arns-syntax) \(ARN\) with a standard format\. In AWS KMS resources, the AWS service name is `kms`\. 
++ **AWS KMS key**
 
   ARN format:
 
-  `arn:AWS partition name:AWS service name:AWS Region:AWS account ID:key/CMK key ID`
+  `arn:AWS partition name:AWS service name:AWS Region:AWS account ID:key/key ID`
 
   Example ARN:
 
@@ -37,18 +37,18 @@ Each instance of a CMK or alias has a unique [Amazon Resource Name](https://docs
 
   `arn:aws:kms:us-west-2:111122223333:alias/example-alias`
 
-AWS KMS provides a set of API operations to work with your AWS KMS resources\. For more information about identifying CMKs in the AWS Management Console and AWS KMS API operations, see [Key identifiers \(KeyId\)](concepts.md#key-id)\. For a list of AWS KMS operations, see the [AWS Key Management Service API Reference](https://docs.aws.amazon.com/kms/latest/APIReference/)\.
+AWS KMS provides a set of API operations to work with your AWS KMS resources\. For more information about identifying KMS keys in the AWS Management Console and AWS KMS API operations, see [Key identifiers \(KeyId\)](concepts.md#key-id)\. For a list of AWS KMS operations, see the [AWS Key Management Service API Reference](https://docs.aws.amazon.com/kms/latest/APIReference/)\.
 
-## Managing access to AWS KMS CMKs<a name="managing-access"></a>
+## Managing access to KMS keys<a name="managing-access"></a>
 
-The primary way to manage access to your AWS KMS CMKs is with *policies*\. Policies are documents that describe who has access to what\. Policies attached to an IAM identity are called *identity\-based policies* \(or *IAM policies*\), and policies attached to other kinds of resources are called *resource\-based policies*\. In AWS KMS, you must attach resource\-based policies to your customer master keys \(CMKs\)\. These are called *key policies*\. All CMKs have a key policy\.
+The primary way to manage access to your KMS keys is with *policies*\. Policies are documents that describe which principals can access which resources\. Policies attached to an IAM identity are called *identity\-based policies* \(or *IAM policies*\), and policies attached to other kinds of resources are called *resource\-based policies*\. In AWS KMS, you must attach resource\-based policies to your KMS keys\. These are called *key policies*\. All KMS keys have a key policy\.
 
-You can control access to your CMKs in these ways:
-+ **Use the key policy** – You must use the key policy to control access to a CMK\. You can use the key policy alone to control access, which means the full scope of access to the CMK is defined in a single document \(the key policy\)\.
-+ **Use IAM policies in combination with the key policy** – You can use IAM policies in combination with the key policy to control access to a CMK\. Controlling access this way enables you to manage all of the permissions for your IAM identities in IAM\.
-+ **Use grants in combination with the key policy** – You can use grants in combination with the key policy to allow access to a CMK\. Controlling access this way enables you to allow access to the CMK in the key policy, and to allow users to delegate their access to others\.
+You can control access to your KMS keys in these ways:
++ **Use the key policy** – You must use the key policy to control access to a KMS key\. You can use the key policy alone to control access, which means the full scope of access to the KMS key is defined in a single document \(the key policy\)\.
++ **Use IAM policies in combination with the key policy** – You can use IAM policies in combination with the key policy to control access to a KMS key\. Controlling access this way enables you to manage all of the permissions for your IAM identities in IAM\.
++ **Use grants in combination with the key policy** – You can use grants in combination with the key policy to allow access to a KMS key\. Controlling access this way enables you to allow access to the KMS key in the key policy, and to allow users to delegate their access to others\.
 
-For most AWS services, IAM policies are the only way to control access to the service's resources\. Some services offer resource\-based policies or other access control mechanisms to complement IAM policies, but these are generally optional and you can control access to the resources in these services with only IAM policies\. This is not the case for AWS KMS, however\. To allow access to a CMK, you must use the key policy, either alone or in combination with IAM policies or grants\. IAM policies by themselves are not sufficient to allow access to a CMK, though you can use them in combination with a CMK's key policy\.
+For most AWS services, IAM policies are the only way to control access to the service's resources\. Some services offer resource\-based policies or other access control mechanisms to complement IAM policies, but these are generally optional and you can control access to the resources in these services with only IAM policies\. This is not the case for AWS KMS, however\. To allow access to a KMS key, you must use the key policy, either alone or in combination with IAM policies or grants\. IAM policies by themselves are not sufficient to allow access to a KMS key, though you can use them in combination with a key policy\.
 
 For more information about using key policies, see [Using key policies](key-policies.md)\.
 
@@ -61,7 +61,7 @@ For more information about using grants, see [Using grants](grants.md)\.
 AWS KMS provides a set of API operations\. To control access to these API operations, AWS KMS provides a set of *actions* that you can specify in a policy\. For more information, see [AWS KMS API permissions reference](kms-api-permissions-reference.md)\.
 
 A policy is a document that describes a set of permissions\. The following are the basic elements of a policy\.
-+ **Resource** – In an IAM policy, you use an Amazon Resource Name \(ARN\) to specify the resource that the policy applies to\. For more information, see [AWS KMS resources and operations](#kms-resources-operations)\. In a key policy, you use `"*"` for the resource, which effectively means "this CMK\." A key policy applies only to the CMK it is attached to\.
++ **Resource** – In an IAM policy, you use an Amazon Resource Name \(ARN\) to specify the resource that the policy applies to\. For more information, see [AWS KMS resources and operations](#kms-resources-operations)\. In a key policy, you use `"*"` for the resource, which effectively means "this KMS key\." A key policy applies only to the KMS key it is attached to\.
 + **Action** – You use actions to specify the API operations you want to allow or deny\. For example, the `kms:Encrypt` action corresponds to the AWS KMS [Encrypt](https://docs.aws.amazon.com/kms/latest/APIReference/API_Encrypt.html) operation\.
 + **Effect** – You use the effect to specify whether to allow or deny the permissions\. If you don't explicitly allow access to a resource, access is implicitly denied\. You can also explicitly deny access to a resource, which you might do to make sure that a user cannot access it, even when a different policy allows access\.
 + **Principal** – In an IAM policy, you don't specify an [AWS principal](https://docs.aws.amazon.com/IAM/latest/UserGuide/intro-structure.html#intro-structure-principal)\. Instead, the identity \(the IAM user, group, or role\) that the policy is attached to is the implicit principal\. In a key policy, you must specify the principal \(the identity\) that the permissions apply to\. You can specify AWS accounts \(root\), IAM users, IAM roles, and some AWS services as principals in a key policy\. IAM groups are not valid principals in a key policy\.
@@ -74,4 +74,4 @@ You can use another policy element called a *condition key* to specify the circu
 
 To specify conditions, you use predefined *condition keys*\. Some condition keys apply generally to AWS, and some are specific to AWS KMS\. For more information, see [Using policy conditions](policy-conditions.md)\.
 
-To support attribute\-based access control \(ABAC\), AWS KMS provides condition keys that control access to a customer master key \(CMK\) based on its tags and aliases\. For details, see [Using ABAC for AWS KMS](abac.md)\.
+To support attribute\-based access control \(ABAC\), AWS KMS provides condition keys that control access to a KMS key based on tags and aliases\. For details, see [Using ABAC for AWS KMS](abac.md)\.

@@ -1,8 +1,8 @@
 # Working with key policies<a name="programming-key-policies"></a>
 
-The examples in this topic use the AWS KMS API to view and change the key policies of AWS KMS customer master keys \(CMKs\)\. 
+The examples in this topic use the AWS KMS API to view and change the key policies of AWS KMS keys\. 
 
-For details about how to use key policies, IAM policies, and grants to manage access to your CMKs, see [Authentication and access control for AWS KMS](control-access.md)\. For help writing and formatting a JSON policy document, see the [IAM JSON Policy Reference](https://docs.aws.amazon.com/IAM/latest/UserGuide/reference_policies.html) in the *IAM User Guide*\.
+For details about how to use key policies, IAM policies, and grants to manage access to your KMS keys, see [Authentication and access control for AWS KMS](control-access.md)\. For help writing and formatting a JSON policy document, see the [IAM JSON Policy Reference](https://docs.aws.amazon.com/IAM/latest/UserGuide/reference_policies.html) in the *IAM User Guide*\.
 
 **Topics**
 + [Listing key policy names](#list-policies)
@@ -11,7 +11,7 @@ For details about how to use key policies, IAM policies, and grants to manage ac
 
 ## Listing key policy names<a name="list-policies"></a>
 
-To get the names of key policies for a customer master key, use the [ListKeyPolicies](https://docs.aws.amazon.com/kms/latest/APIReference/API_ListKeyPolicies.html) operation\. The only key policy name it returns is **default**\.
+To get the names of key policies for a AWS KMS key, use the [ListKeyPolicies](https://docs.aws.amazon.com/kms/latest/APIReference/API_ListKeyPolicies.html) operation\. The only key policy name it returns is **default**\.
 
 In languages that require a client object, these examples use the AWS KMS client object that you created in [Creating a client](programming-client.md)\.
 
@@ -51,7 +51,7 @@ ListKeyPoliciesResponse listKeyPoliciesResponse = kmsClient.ListKeyPolicies(list
 ------
 #### [ Python ]
 
-For details, see the [list\_key\_policies method](http://boto3.amazonaws.com/v1/documentation/api/latest/reference/services/kms.html#KMS.Client.list_key_policies) in the AWS SDK for Python \(Boto3\)\.
+For details, see the [list\_key\_policies method](https://boto3.amazonaws.com/v1/documentation/api/latest/reference/services/kms.html#KMS.Client.list_key_policies) in the AWS SDK for Python \(Boto3\)\.
 
 ```
 # List key policies
@@ -131,7 +131,7 @@ To use the AWS KMS PowerShell cmdlets, install the [AWS\.Tools\.KeyManagementSer
 
 ## Getting a key policy<a name="get-policy"></a>
 
-To get the key policy for a customer master key, use the [GetKeyPolicy](https://docs.aws.amazon.com/kms/latest/APIReference/API_GetKeyPolicy.html) operation\.
+To get the key policy for a AWS KMS key, use the [GetKeyPolicy](https://docs.aws.amazon.com/kms/latest/APIReference/API_GetKeyPolicy.html) operation\.
 
 GetKeyPolicy requires a policy name\. The only valid policy name is **default**\.
 
@@ -143,7 +143,7 @@ In languages that require a client object, these examples use the AWS KMS client
 For details, see the [getKeyPolicy method](https://docs.aws.amazon.com/sdk-for-java/latest/reference/com/amazonaws/services/kms/AWSKMSClient.html#getKeyPolicy-com.amazonaws.services.kms.model.GetKeyPolicyRequest-) in the *AWS SDK for Java API Reference*\.
 
 ```
-// Get the policy for a CMK
+// Get the policy for a KMS key
 //
 // Replace the following example key ARN with a valid key ID or key ARN
 String keyId = "arn:aws:kms:us-west-2:111122223333:key/1234abcd-12ab-34cd-56ef-1234567890ab";
@@ -159,7 +159,7 @@ GetKeyPolicyResult result = kmsClient.getKeyPolicy(req);
 For details, see the [GetKeyPolicy method](https://docs.aws.amazon.com/sdkfornet/v3/apidocs/items/KeyManagementService/MKeyManagementServiceGetKeyPolicyGetKeyPolicyRequest.html) in the *AWS SDK for \.NET*\.
 
 ```
-// Get the policy for a CMK
+// Get the policy for a KMS key
 //
 // Replace the following example key ARN with a valid key ID or key ARN
 String keyId = "arn:aws:kms:us-west-2:111122223333:key/1234abcd-12ab-34cd-56ef-1234567890ab";
@@ -176,10 +176,10 @@ GetKeyPolicyResponse getKeyPolicyResponse = kmsClient.GetKeyPolicy(getKeyPolicyR
 ------
 #### [ Python ]
 
-For details, see the [get\_key\_policy method](http://boto3.amazonaws.com/v1/documentation/api/latest/reference/services/kms.html#KMS.Client.get_key_policy) in the AWS SDK for Python \(Boto3\)\.
+For details, see the [get\_key\_policy method](https://boto3.amazonaws.com/v1/documentation/api/latest/reference/services/kms.html#KMS.Client.get_key_policy) in the AWS SDK for Python \(Boto3\)\.
 
 ```
-# Get the policy for a CMK
+# Get the policy for a KMS key
 
 # Replace the following example key ARN with a valid key ID or key ARN
 key_id = 'arn:aws:kms:us-west-2:111122223333:key/1234abcd-12ab-34cd-56ef-1234567890ab'
@@ -197,7 +197,7 @@ response = kms_client.get_key_policy(
 For details, see the [get\_key\_policy](https://docs.aws.amazon.com/sdk-for-ruby/v3/api/Aws/KMS/Client.html#get_key_policy-instance_method) instance method in the [AWS SDK for Ruby](https://docs.aws.amazon.com/sdk-for-ruby/v3/api/Aws/KMS.html)\.
 
 ```
-# Get the policy for a CMK
+# Get the policy for a KMS key
 
 # Replace the following example key ARN with a valid key ID or key ARN
 key_id = 'arn:aws:kms:us-west-2:111122223333:key/1234abcd-12ab-34cd-56ef-1234567890ab'
@@ -215,7 +215,7 @@ response = kmsClient.get_key_policy({
 For details, see the [GetKeyPolicy method](https://docs.aws.amazon.com/aws-sdk-php/v3/api/api-kms-2014-11-01.html#getkeypolicy) in the *AWS SDK for PHP*\.
 
 ```
-// Get the policy for a CMK
+// Get the policy for a KMS key
 //
 // Replace the following example key ARN with a valid key ID or key ARN
 $keyId = 'arn:aws:kms:us-west-2:111122223333:key/1234abcd-12ab-34cd-56ef-1234567890ab';
@@ -233,7 +233,7 @@ $result = $KmsClient->getKeyPolicy([
 For details, see the [getKeyPolicy property](https://docs.aws.amazon.com/AWSJavaScriptSDK/latest/AWS/KMS.html#getKeyPolicy-property) in the *AWS SDK for JavaScript in Node\.js*\.
 
 ```
-// Get the policy for a CMK
+// Get the policy for a KMS key
 //
 // Replace the following example key ARN with a valid key ID or key ARN
 const KeyId = 'arn:aws:kms:us-west-2:111122223333:key/1234abcd-12ab-34cd-56ef-1234567890ab';
@@ -246,10 +246,10 @@ kmsClient.getKeyPolicy({ KeyId, PolicyName }, (err, data) => {
 ------
 #### [ PowerShell ]
 
-To get the key policy for a CMK, use the [Get\-KMSKeyPolicy](https://docs.aws.amazon.com/powershell/latest/reference/items/Get-KMSKeyPolicy.html) cmdlet\. This cmdlet returns the key policy as a string \(System\.String\) that you can use in a [Write\-KMSKeyPolicy](https://docs.aws.amazon.com/powershell/latest/reference/items/Write-KMSKeyPolicy.html) \(`PutKeyPolicy`\) command\. To convert the policies in the JSON string to `PSCustomObject` objects, use the [ConvertFrom\-JSON](https://docs.microsoft.com/en-us/powershell/module/microsoft.powershell.utility/convertfrom-json) cmdlet\.
+To get the key policy for a KMS key, use the [Get\-KMSKeyPolicy](https://docs.aws.amazon.com/powershell/latest/reference/items/Get-KMSKeyPolicy.html) cmdlet\. This cmdlet returns the key policy as a string \(System\.String\) that you can use in a [Write\-KMSKeyPolicy](https://docs.aws.amazon.com/powershell/latest/reference/items/Write-KMSKeyPolicy.html) \(`PutKeyPolicy`\) command\. To convert the policies in the JSON string to `PSCustomObject` objects, use the [ConvertFrom\-JSON](https://docs.microsoft.com/en-us/powershell/module/microsoft.powershell.utility/convertfrom-json) cmdlet\.
 
 ```
-# Get the policy for a CMK
+# Get the policy for a KMS key
 
 # Replace the following example key ARN with a valid key ID or key ARN
 $keyId = 'arn:aws:kms:us-west-2:111122223333:key/1234abcd-12ab-34cd-56ef-1234567890ab'
@@ -264,7 +264,7 @@ To use the AWS KMS PowerShell cmdlets, install the [AWS\.Tools\.KeyManagementSer
 
 ## Setting a key policy<a name="put-policy"></a>
 
-To create or replace the key policy for a CMK, use the [PutKeyPolicy](https://docs.aws.amazon.com/kms/latest/APIReference/API_PutKeyPolicy.html) operation\.
+To create or replace the key policy for a KMS key, use the [PutKeyPolicy](https://docs.aws.amazon.com/kms/latest/APIReference/API_PutKeyPolicy.html) operation\.
 
 `PutKeyPolicy` requires a policy name\. The only valid policy name is **default**\.
 
@@ -276,7 +276,7 @@ In languages that require a client object, these examples use the AWS KMS client
 For details, see the [putKeyPolicy method](https://docs.aws.amazon.com/sdk-for-java/latest/reference/com/amazonaws/services/kms/AWSKMSClient.html#putKeyPolicy-com.amazonaws.services.kms.model.PutKeyPolicyRequest-) in the *AWS SDK for Java API Reference*\.
 
 ```
-// Set a key policy for a CMK
+// Set a key policy for a KMS key
 //
 // Replace the following example key ARN with a valid key ID or key ARN
 String keyId = "arn:aws:kms:us-west-2:111122223333:key/1234abcd-12ab-34cd-56ef-1234567890ab";
@@ -309,7 +309,7 @@ kmsClient.putKeyPolicy(req);
 For details, see the [PutKeyPolicy method](https://docs.aws.amazon.com/sdkfornet/v3/apidocs/items/KeyManagementService/MKeyManagementServicePutKeyPolicyPutKeyPolicyRequest.html) in the *AWS SDK for \.NET*\.
 
 ```
-// Set a key policy for a CMK
+// Set a key policy for a KMS key
 //
 // Replace the following example key ARN with a valid key ID or key ARN
 String keyId = "arn:aws:kms:us-west-2:111122223333:key/1234abcd-12ab-34cd-56ef-1234567890ab";
@@ -344,10 +344,10 @@ kmsClient.PutKeyPolicy(putKeyPolicyRequest);
 ------
 #### [ Python ]
 
-For details, see the [put\_key\_policy method](http://boto3.amazonaws.com/v1/documentation/api/latest/reference/services/kms.html#KMS.Client.put_key_policy) in the AWS SDK for Python \(Boto3\)\.
+For details, see the [put\_key\_policy method](https://boto3.amazonaws.com/v1/documentation/api/latest/reference/services/kms.html#KMS.Client.put_key_policy) in the AWS SDK for Python \(Boto3\)\.
 
 ```
-# Set a key policy for a CMK
+# Set a key policy for a KMS key
 
 # Replace the following example key ARN with a valid key ID or key ARN
 key_id = 'arn:aws:kms:us-west-2:111122223333:key/1234abcd-12ab-34cd-56ef-1234567890ab'
@@ -383,7 +383,7 @@ response = kms_client.put_key_policy(
 For details, see the [put\_key\_policy](https://docs.aws.amazon.com/sdk-for-ruby/v3/api/Aws/KMS/Client.html#put_key_policy-instance_method) instance method in the [AWS SDK for Ruby](https://docs.aws.amazon.com/sdk-for-ruby/v3/api/Aws/KMS.html)\.
 
 ```
-# Set a key policy for a CMK
+# Set a key policy for a KMS key
 
 # Replace the following example key ARN with a valid key ID or key ARN
 key_id = 'arn:aws:kms:us-west-2:111122223333:key/1234abcd-12ab-34cd-56ef-1234567890ab'
@@ -419,7 +419,7 @@ response = kmsClient.put_key_policy({
 For details, see the [PutKeyPolicy method](https://docs.aws.amazon.com/aws-sdk-php/v3/api/api-kms-2014-11-01.html#putkeypolicy) in the *AWS SDK for PHP*\.
 
 ```
-// Set a key policy for a CMK
+// Set a key policy for a KMS key
 //
 // Replace the following example key ARN with a valid key ID or key ARN
 $keyId = 'arn:aws:kms:us-west-2:111122223333:key/1234abcd-12ab-34cd-56ef-1234567890ab';
@@ -458,10 +458,10 @@ $result = $KmsClient->putKeyPolicy([
 ------
 #### [ Node\.js ]
 
-For details, see the [putKeyPolicy property](https://docs.aws.amazon.com/AWSJavaScriptSDK/latest/AWS/KMS.html#putKeyPolicy-property) in the *AWS SDK for Node\.js*\.
+For details, see the [putKeyPolicy property](https://docs.aws.amazon.com/AWSJavaScriptSDK/latest/AWS/KMS.html#putKeyPolicy-property) in the *AWS SDK for JavaScript in Node\.js*\.
 
 ```
-// Set a key policy for a CMK
+// Set a key policy for a KMS key
 //
 // Replace the following example key ARN with a valid key ID or key ARN
 const KeyId = 'arn:aws:kms:us-west-2:111122223333:key/1234abcd-12ab-34cd-56ef-1234567890ab';
@@ -505,12 +505,12 @@ kmsClient.putKeyPolicy({ KeyId, Policy, PolicyName }, (err, data) => {
 ------
 #### [ PowerShell ]
 
-To set a key policy for a CMK, use the [Write\-KMSKeyPolicy](https://docs.aws.amazon.com/powershell/latest/reference/items/Write-KMSKeyPolicy.html) cmdlet\. This cmdlet doesn't return any output\. To verify that the command was effective, use the [Get\-KMSKeyPolicy](https://docs.aws.amazon.com/powershell/latest/reference/items/Get-KMSKeyPolicy.html) cmdlet\.
+To set a key policy for a KMS key, use the [Write\-KMSKeyPolicy](https://docs.aws.amazon.com/powershell/latest/reference/items/Write-KMSKeyPolicy.html) cmdlet\. This cmdlet doesn't return any output\. To verify that the command was effective, use the [Get\-KMSKeyPolicy](https://docs.aws.amazon.com/powershell/latest/reference/items/Get-KMSKeyPolicy.html) cmdlet\.
 
 The `Policy` parameter takes a string\. Enclose the string in single quotes to make it a literal string\. You don't have to use continuation characters or escape characters in the literal string\.
 
 ```
-# Set a key policy for a CMK
+# Set a key policy for a KMS key
 
 # Replace the following example key ARN with a valid key ID or key ARN
 $keyId = 'arn:aws:kms:us-west-2:111122223333:key/1234abcd-12ab-34cd-56ef-1234567890ab'

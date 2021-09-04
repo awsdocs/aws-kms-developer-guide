@@ -1,6 +1,6 @@
 # EnableKey<a name="ct-enablekey"></a>
 
-The following example shows an AWS CloudTrail log entry for the [EnableKey](https://docs.aws.amazon.com/kms/latest/APIReference/API_EnableKey.html) operation\. For information about enabling and disabling customer master keys in AWS KMS, see [Enabling and disabling keys](enabling-keys.md)\.\.
+The following example shows an AWS CloudTrail log entry for the [EnableKey](https://docs.aws.amazon.com/kms/latest/APIReference/API_EnableKey.html) operation\. For information about enabling and disabling AWS KMS keys in AWS KMS, see [Enabling and disabling keys](enabling-keys.md)\.\.
 
 ```
 {

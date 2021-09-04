@@ -8,22 +8,22 @@ However, you must manage the key material\.
 
   The key states of related multi\-Region keys are independent of each other\. For example, if the key material in the primary key expires, its replica keys are unaffected\. 
 
-The same [Region requirements for replica keys](multi-region-keys-replicate.md#replica-region) apply to multi\-Region keys with imported key material\. If you import the same key material into single\-Region CMKs or unrelated multi\-Region CMKs, these CMKs are [not interoperable\.](#mrk-import-why) 
+The same [Region requirements for replica keys](multi-region-keys-replicate.md#replica-region) apply to multi\-Region keys with imported key material\. If you import the same key material into single\-Region keys or unrelated multi\-Region keys, these KMS keys are [not interoperable\.](#mrk-import-why) 
 
-Multi\-Region keys with imported key material must be [symmetric CMKs](symm-asymm-concepts.md#symmetric-cmks) with a [key material origin](concepts.md#key-origin) of EXTERNAL\. AWS KMS does not support imported key material in [asymmetric CMKs](symm-asymm-concepts.md#asymmetric-cmks) or CMKs in [custom key stores](custom-key-store-overview.md)\. Also, you cannot enable [automatic key rotation](rotate-keys.md) of any CMK with imported key material\.
+Multi\-Region keys with imported key material must be [symmetric KMS keys](symm-asymm-concepts.md#symmetric-cmks) with a [key material origin](concepts.md#key-origin) of EXTERNAL\. AWS KMS does not support imported key material in [asymmetric KMS keys](symm-asymm-concepts.md#asymmetric-cmks) or KMS keys in [custom key stores](custom-key-store-overview.md)\. Also, you cannot enable [automatic key rotation](rotate-keys.md) of any KMS key with imported key material\.
 
-Aside from their multi\-Region features, multi\-Region keys with imported key material are the same as other CMKs with imported key material\. For detailed information about creating and configuring single\-Region CMKs with imported key material, see [About imported key material](importing-keys.md#importing-keys-considerations)\.
+Aside from their multi\-Region features, multi\-Region keys with imported key material are the same as other KMS keys with imported key material\. For detailed information about creating and configuring single\-Region keys with imported key material, see [About imported key material](importing-keys.md#importing-keys-considerations)\.
 
 **Topics**
-+ [Why aren't all CMKs with imported key material interoperable?](#mrk-import-why)
++ [Why aren't all KMS keys with imported key material interoperable?](#mrk-import-why)
 + [Creating a primary key with imported key material](#mrk-import-create-primary)
 + [Creating a replica key with imported key material](#mrk-import-replicate)
 
-## Why aren't all CMKs with imported key material interoperable?<a name="mrk-import-why"></a>
+## Why aren't all KMS keys with imported key material interoperable?<a name="mrk-import-why"></a>
 
-Single\-region AWS KMS customer master keys \(CMKs\) with imported key material are not interoperable, even when they have the same key material\. When AWS KMS uses a CMK to encrypt data, it cryptographically binds some of the key metadata to the ciphertext\. This secures the ciphertext so that only the CMK that encrypted data can decrypt that data\.
+Single\-region KMS keys with imported key material are not interoperable, even when they have the same key material\. When AWS KMS uses a KMS key to encrypt data, it cryptographically binds some of the key metadata to the ciphertext\. This secures the ciphertext so that only the KMS key that encrypted data can decrypt that data\.
 
-Multi\-Region keys are designed to be interoperable\. In addition to having the same key material, they have the same key ID and other metadata\. Thus, the ciphertexts they generate can be decrypted by any related multi\-Region key\. As a result, the trust properties of multi\-Region keys are different than those of single\-Region keys\. But for some customers, the benefit of decrypting in multiple Regions outweighs the security value of a ciphertext reliant on a single CMK in a single AWS Region\.
+Multi\-Region keys are designed to be interoperable\. In addition to having the same key material, they have the same key ID and other metadata\. Thus, the ciphertexts they generate can be decrypted by any related multi\-Region key\. As a result, the trust properties of multi\-Region keys are different than those of single\-Region keys\. But for some customers, the benefit of decrypting in multiple Regions outweighs the security value of a ciphertext reliant on a single KMS key in a single AWS Region\.
 
 ## Creating a primary key with imported key material<a name="mrk-import-create-primary"></a>
 
@@ -33,7 +33,7 @@ The procedure for creating a multi\-Region primary key with no key material is a
 
 The permissions for creating a multi\-Region primary key with imported key material are the same as those required to [create a multi\-Region primary key](multi-region-keys-create.md) with AWS KMS key material, including the [kms:CreateKey](https://docs.aws.amazon.com/kms/latest/APIReference/API_CreateKey.html) and [iam:CreateServiceLinkedRole](https://docs.aws.amazon.com/IAM/latest/APIReference/API_CreateServiceLinkedRole.html) permissions in an IAM policy\. You can use the [kms:MultiRegionKeyType](policy-conditions.md#conditions-kms-multiregion-key-type) and [kms:KeyOrigin](policy-conditions.md#conditions-kms-key-origin) condition keys to allow or deny permission to create multi\-Region primary keys with imported key material\.
 
-When creating a primary key in the AWS KMS console, use the settings in the **Advanced options** section\. Set **Key material origin** to **External**\. Set **Multi\-Region replication** to **Allow this key to be replicated into other Regions**\. You cannot change these properties after the CMK is created\.
+When creating a primary key in the AWS KMS console, use the settings in the **Advanced options** section\. Set **Key material origin** to **External**\. Set **Multi\-Region replication** to **Allow this key to be replicated into other Regions**\. You cannot change these properties after the KMS key is created\.
 
 ![\[Image NOT FOUND\]](http://docs.aws.amazon.com/kms/latest/developerguide/images/mrk-import-createkey-console.png)
 
@@ -45,11 +45,11 @@ $ aws kms create-key --origin EXTERNAL --multi-region true
 
 The result is a multi\-Region primary key with no key material and a key state of `PendingImport`\.
 
-To enable this CMK, you must download a public key and import token, use the public key to encrypt your key material, and then import your key material\. For instructions, see [Importing key material in AWS Key Management Service \(AWS KMS\)](importing-keys.md)\.
+To enable this KMS key, you must download a public key and import token, use the public key to encrypt your key material, and then import your key material\. For instructions, see [Importing key material in AWS Key Management Service \(AWS KMS\)](importing-keys.md)\.
 
 ## Creating a replica key with imported key material<a name="mrk-import-replicate"></a>
 
-You can create a multi\-Region replica key in the AWS KMS console or by using the AWS KMS API operations\. To replicate a multi\-Region primary key with imported key material, you use the same procedure that you use to [create a replica key](multi-region-keys-replicate.md) with AWS KMS key material\. However, the result is different\. Instead of returning a replica key with the same key material as the primary key, the replicate process returns a replica key with no key material and a key state of `PendingImport`\. To enable the replica key, you must import into it the same key material that you imported into its primary key\.
+You can create a multi\-Region replica key in the AWS KMS console or by using the AWS KMS API operations\. To replicate a multi\-Region primary key with imported key material, you use the same procedure that you use to [create a replica key](multi-region-keys-replicate.md) with AWS KMS key material\. However, the result is different\. Instead of returning a replica key with the same key material as the primary key, the replicate process returns a replica key with no key material and a key state of `PendingImport`\. To enable the replica key, you must import the same key material into the replica key that you imported into its primary key\.
 
 Although it doesn't replicate the key material, AWS KMS creates the replica key with the same [key ID](concepts.md#key-id-key-id), [key spec](concepts.md#key-spec), [key usage](concepts.md#key-usage), and [key material origin](concepts.md#key-origin) as the primary key\. It also ensures that the key material that you import into the replica key is identical to the key material that you imported into the primary key\.
 
@@ -72,7 +72,7 @@ To create a replica key with imported key material:
 To create a replica key with imported key material, you must have the following permissions\. 
 
 In the primary key Region:
-+ [kms:ReplicateKey](https://docs.aws.amazon.com/kms/latest/APIReference/API_ReplicateKey.html) on the primary CMK \(in the primary CMK's Region\)\. Include this permission in the primary CMK's key policy or in an IAM policy\.
++ [kms:ReplicateKey](https://docs.aws.amazon.com/kms/latest/APIReference/API_ReplicateKey.html) on the primary key \(in the primary key's Region\)\. Include this permission in the primary key's key policy or in an IAM policy\.
 
 In the replica key Region:
 + [kms:CreateKey](https://docs.aws.amazon.com/kms/latest/APIReference/API_CreateKey.html) in an IAM policy\.

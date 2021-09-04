@@ -4,7 +4,7 @@ This topic discusses in detail how [Amazon Elastic Block Store \(Amazon EBS\)](h
 
 **Topics**
 + [Amazon EBS encryption](#ebs-encrypt)
-+ [Using CMKs and data keys](#ebs-cmk)
++ [Using KMS keys and data keys](#ebs-cmk)
 + [Amazon EBS encryption context](#ebs-encryption-context)
 + [Detecting Amazon EBS failures](#ebs-failures)
 + [Using AWS CloudFormation to create encrypted Amazon EBS volumes](#ebs-encryption-using-cloudformation)
@@ -19,16 +19,16 @@ The encryption status of an EBS volume is determined when you create the volume\
 
 Amazon EBS supports optional encryption by default\. You can enable encryption automatically on all new EBS volumes and snapshot copies in your AWS account and Region\. This configuration setting doesn't affect existing volumes or snapshots\. For details, see **Encryption by default** in the [Amazon EC2 User Guide for Linux Instances](https://docs.aws.amazon.com/AWSEC2/latest/UserGuide/EBSEncryption.html#encryption-by-default) or [Amazon EC2 User Guide for Windows Instances](https://docs.aws.amazon.com/AWSEC2/latest/WindowsGuide/EBSEncryption.html#encryption-by-default)\.
 
-## Using CMKs and data keys<a name="ebs-cmk"></a>
+## Using KMS keys and data keys<a name="ebs-cmk"></a>
 
-When you [create an encrypted Amazon EBS volume](https://docs.aws.amazon.com/AWSEC2/latest/UserGuide/ebs-creating-volume.html), you specify an AWS KMS customer master key \(CMK\)\. By default, Amazon EBS uses the [AWS managed CMK](concepts.md#aws-managed-cmk) for Amazon EBS in your account \(`aws/ebs`\)\. However, you can specify a [customer managed CMK](concepts.md#customer-cmk) that you create and manage\. 
+When you [create an encrypted Amazon EBS volume](https://docs.aws.amazon.com/AWSEC2/latest/UserGuide/ebs-creating-volume.html), you specify an AWS KMS key\. By default, Amazon EBS uses the [AWS managed key](concepts.md#aws-managed-cmk) for Amazon EBS in your account \(`aws/ebs`\)\. However, you can specify a [customer managed key](concepts.md#customer-cmk) that you create and manage\. 
 
-To use a customer managed CMK, you must give Amazon EBS permission to use the CMK on your behalf\. For a list of required permissions, see **Permissions for IAM users** in the [Amazon EC2 User Guide for Linux Instances](https://docs.aws.amazon.com/AWSEC2/latest/UserGuide/EBSEncryption.html#ebs-encryption-permissions) or [Amazon EC2 User Guide for Windows Instances](https://docs.aws.amazon.com/AWSEC2/latest/WindowsGuide/EBSEncryption.html#ebs-encryption-permissions)\.
+To use a customer managed key, you must give Amazon EBS permission to use the KMS key on your behalf\. For a list of required permissions, see **Permissions for IAM users** in the [Amazon EC2 User Guide for Linux Instances](https://docs.aws.amazon.com/AWSEC2/latest/UserGuide/EBSEncryption.html#ebs-encryption-permissions) or [Amazon EC2 User Guide for Windows Instances](https://docs.aws.amazon.com/AWSEC2/latest/WindowsGuide/EBSEncryption.html#ebs-encryption-permissions)\.
 
 **Important**  
-Amazon EBS supports only [symmetric CMKs](symm-asymm-concepts.md#symmetric-cmks)\. You cannot use an [asymmetric CMK](symm-asymm-concepts.md#asymmetric-cmks) to encrypt an Amazon EBS volume\. For help determining whether a CMK is symmetric or asymmetric, see [Identifying symmetric and asymmetric CMKs](find-symm-asymm.md)\.
+Amazon EBS supports only [symmetric KMS keys](symm-asymm-concepts.md#symmetric-cmks)\. You cannot use an [asymmetric KMS key](symm-asymm-concepts.md#asymmetric-cmks) to encrypt an Amazon EBS volume\. For help determining whether a KMS key is symmetric or asymmetric, see [Identifying symmetric and asymmetric KMS keys](find-symm-asymm.md)\.
 
-For each volume, Amazon EBS asks AWS KMS to generate a unique data key encrypted under the CMK that you specify\. Amazon EBS stores the encrypted data key with the volume\. Then, when you attach the volume to an Amazon EC2 instance, Amazon EBS calls AWS KMS to decrypt the data key\. Amazon EBS uses the plaintext data key in hypervisor memory to encrypt all disk I/O to the volume\. For details, see **How EBS encryption works** in the [Amazon EC2 User Guide for Linux Instances](https://docs.aws.amazon.com/AWSEC2/latest/UserGuide/EBSEncryption.html#how-ebs-encryption-works) or [Amazon EC2 User Guide for Windows Instances](https://docs.aws.amazon.com/AWSEC2/latest/WindowsGuide/EBSEncryption.html#how-ebs-encryption-works)\.
+For each volume, Amazon EBS asks AWS KMS to generate a unique data key encrypted under the KMS key that you specify\. Amazon EBS stores the encrypted data key with the volume\. Then, when you attach the volume to an Amazon EC2 instance, Amazon EBS calls AWS KMS to decrypt the data key\. Amazon EBS uses the plaintext data key in hypervisor memory to encrypt all disk I/O to the volume\. For details, see **How EBS encryption works** in the [Amazon EC2 User Guide for Linux Instances](https://docs.aws.amazon.com/AWSEC2/latest/UserGuide/EBSEncryption.html#how-ebs-encryption-works) or [Amazon EC2 User Guide for Windows Instances](https://docs.aws.amazon.com/AWSEC2/latest/WindowsGuide/EBSEncryption.html#how-ebs-encryption-works)\.
 
 ## Amazon EBS encryption context<a name="ebs-encryption-context"></a>
 
@@ -54,16 +54,16 @@ For encrypted snapshots created with the Amazon EC2 [CopySnapshot](https://docs.
 
 ## Detecting Amazon EBS failures<a name="ebs-failures"></a>
 
-To create an encrypted EBS volume or attach the volume to an EC2 instance, Amazon EBS and the Amazon EC2 infrastructure must be able to use the CMK that you specified for EBS volume encryption\. When the CMK is not usable—for example, when its [key state](key-state.md) is not `Enabled` —the volume creation or volume attachment fails\.
+To create an encrypted EBS volume or attach the volume to an EC2 instance, Amazon EBS and the Amazon EC2 infrastructure must be able to use the KMS key that you specified for EBS volume encryption\. When the KMS key is not usable—for example, when its [key state](key-state.md) is not `Enabled` —the volume creation or volume attachment fails\.
 
  In this case, Amazon EBS sends an *event* to Amazon CloudWatch Events to notify you about the failure\. With CloudWatch Events, you can establish rules that trigger automatic actions in response to these events\. For more information, see [Amazon CloudWatch Events for Amazon EBS](https://docs.aws.amazon.com/AWSEC2/latest/UserGuide/ebs-cloud-watch-events.html) in the *Amazon EC2 User Guide for Linux Instances*, especially the following sections:
 + [Invalid Encryption Key on Volume Attach or Reattach](https://docs.aws.amazon.com/AWSEC2/latest/UserGuide/ebs-cloud-watch-events.html#attach-fail-key)
 + [Invalid Encryption Key on Create Volume](https://docs.aws.amazon.com/AWSEC2/latest/UserGuide/ebs-cloud-watch-events.html#create-fail-key)
 
-To fix these failures, ensure that the CMK that you specified for EBS volume encryption is enabled\. To do this, first [view the CMK](viewing-keys.md) to determine its current key state \(the **Status** column in the AWS Management Console\)\. Then, see the information at one of the following links:
-+ If the CMK's key state is disabled, [enable it](enabling-keys.md)\.
-+ If the CMK's key state is pending import, [import key material](importing-keys.md#importing-keys-overview)\.
-+ If the CMK's key state is pending deletion, [cancel key deletion](deleting-keys.md#deleting-keys-scheduling-key-deletion)\.
+To fix these failures, ensure that the KMS key that you specified for EBS volume encryption is enabled\. To do this, first [view the KMS key](viewing-keys.md) to determine its current key state \(the **Status** column in the AWS Management Console\)\. Then, see the information at one of the following links:
++ If the KMS key's key state is disabled, [enable it](enabling-keys.md)\.
++ If the KMS key's key state is pending import, [import key material](importing-keys.md#importing-keys-overview)\.
++ If the KMS key's key state is pending deletion, [cancel key deletion](deleting-keys.md#deleting-keys-scheduling-key-deletion)\.
 
 ## Using AWS CloudFormation to create encrypted Amazon EBS volumes<a name="ebs-encryption-using-cloudformation"></a>
 

@@ -1,22 +1,22 @@
 # Working with keys<a name="programming-keys"></a>
 
-The examples in this topic use the AWS KMS API to create, view, enable, and disable AWS KMS [customer master keys](concepts.md#master_keys) \(CMKs\), and to generate [data keys](concepts.md#data-keys)\.
+The examples in this topic use the AWS KMS API to create, view, enable, and disable AWS KMS [AWS KMS keys](concepts.md#kms_keys), and to generate [data keys](concepts.md#data-keys)\.
 
 **Topics**
-+ [Creating a customer master key](#creating-keys)
++ [Creating a KMS key](#creating-keys)
 + [Generating a data key](#generate-datakeys)
-+ [Viewing a customer master key](#describing-keys)
-+ [Getting key IDs and key ARNs of CMKs](#listing-keys)
-+ [Enabling customer master keys](#enable-keys)
-+ [Disabling customer master keys](#disable-keys)
++ [Viewing a AWS KMS key](#describing-keys)
++ [Getting key IDs and key ARNs of KMS keys](#listing-keys)
++ [Enabling AWS KMS keys](#enable-keys)
++ [Disabling AWS KMS key](#disable-keys)
 
-## Creating a customer master key<a name="creating-keys"></a>
+## Creating a KMS key<a name="creating-keys"></a>
 
-To create a [customer master key](concepts.md#master_keys) \(CMK\), use the [CreateKey](https://docs.aws.amazon.com/kms/latest/APIReference/API_CreateKey.html) operation\. The examples in this section create a symmetric CMK\. The `Description` parameter used in these examples is optional\.
+To create an [AWS KMS key](concepts.md#kms_keys) \(KMS key\), use the [CreateKey](https://docs.aws.amazon.com/kms/latest/APIReference/API_CreateKey.html) operation\. The examples in this section create a symmetric KMS key\. The `Description` parameter used in these examples is optional\.
 
 In languages that require a client object, these examples use the AWS KMS client object that you created in [Creating a client](programming-client.md)\.
 
-For help with creating CMKs in the AWS KMS console, see [Creating keys](create-keys.md)\.
+For help with creating KMS keys in the AWS KMS console, see [Creating keys](create-keys.md)\.
 
 ------
 #### [ Java ]
@@ -24,7 +24,7 @@ For help with creating CMKs in the AWS KMS console, see [Creating keys](create-k
 For details, see the [createKey method](https://docs.aws.amazon.com/sdk-for-java/latest/reference/com/amazonaws/services/kms/AWSKMSClient.html#createKey-com.amazonaws.services.kms.model.CreateKeyRequest-) in the *AWS SDK for Java API Reference*\.
 
 ```
-// Create a CMK
+// Create a KMS key
 //
 String desc = "Key for protecting critical data";
     
@@ -38,7 +38,7 @@ CreateKeyResult result = kmsClient.createKey(req);
 For details, see the [CreateKey method](https://docs.aws.amazon.com/sdkfornet/v3/apidocs/items/KeyManagementService/MKeyManagementServiceCreateKeyCreateKeyRequest.html) in the *AWS SDK for \.NET*\.
 
 ```
-// Create a CMK
+// Create a KMS key
 //
 String desc = "Key for protecting critical data";
 
@@ -52,10 +52,10 @@ CreateKeyResponse response = kmsClient.CreateKey(req);
 ------
 #### [ Python ]
 
-For details, see the [create\_key method](http://boto3.amazonaws.com/v1/documentation/api/latest/reference/services/kms.html#KMS.Client.create_key) in the AWS SDK for Python \(Boto3\)\.
+For details, see the [create\_key method](https://boto3.amazonaws.com/v1/documentation/api/latest/reference/services/kms.html#KMS.Client.create_key) in the AWS SDK for Python \(Boto3\)\.
 
 ```
-# Create a CMK
+# Create a KMS key
 
 desc = 'Key for protecting critical data'
 
@@ -70,7 +70,7 @@ response = kms_client.create_key(
 For details, see the [create\_key](https://docs.aws.amazon.com/sdk-for-ruby/v3/api/Aws/KMS/Client.html#create_key-instance_method) instance method in the [AWS SDK for Ruby](https://docs.aws.amazon.com/sdk-for-ruby/v3/api/Aws/KMS.html)\.
 
 ```
-# Create a CMK
+# Create a KMS key
 
 desc = 'Key for protecting critical data'
 
@@ -85,7 +85,7 @@ response = kmsClient.create_key({
 For details, see the [CreateKey method](https://docs.aws.amazon.com/aws-sdk-php/v3/api/api-kms-2014-11-01.html#createkey) in the *AWS SDK for PHP*\.
 
 ```
-// Create a CMK
+// Create a KMS key
 //
 $desc = "Key for protecting critical data";
 
@@ -100,7 +100,7 @@ $result = $KmsClient->createKey([
 For details, see the [createKey property](https://docs.aws.amazon.com/AWSJavaScriptSDK/latest/AWS/KMS.html#createKey-property) in the *AWS SDK for JavaScript in Node\.js*\.
 
 ```
-// Create a CMK
+// Create a KMS key
 //
 const Description = 'Key for protecting critical data';
 
@@ -112,10 +112,10 @@ kmsClient.createKey({ Description }, (err, data) => {
 ------
 #### [ PowerShell ]
 
-To create a CMK in PowerShell, use the [New\-KmsKey](https://docs.aws.amazon.com/powershell/latest/reference/items/New-KMSKey.html) cmdlet\.
+To create a KMS key in PowerShell, use the [New\-KmsKey](https://docs.aws.amazon.com/powershell/latest/reference/items/New-KMSKey.html) cmdlet\.
 
 ```
-# Create a CMK
+# Create a KMS key
 
 $desc = 'Key for protecting critical data'
 New-KmsKey -Description $desc
@@ -127,7 +127,7 @@ To use the AWS KMS PowerShell cmdlets, install the [AWS\.Tools\.KeyManagementSer
 
 ## Generating a data key<a name="generate-datakeys"></a>
 
-To generate a symmetric data key, use the [GenerateDataKey](https://docs.aws.amazon.com/kms/latest/APIReference/API_GenerateDataKey.html) operation\. This operation takes a symmetric CMK and returns a plaintext data key and a copy of that data key encrypted under the CMK that you specified\. You must specify either a `KeySpec` or `NumberOfBytes` \(but not both\) in each command\.
+To generate a symmetric data key, use the [GenerateDataKey](https://docs.aws.amazon.com/kms/latest/APIReference/API_GenerateDataKey.html) operation\. This operation takes a symmetric KMS key and returns a plaintext data key and a copy of that data key encrypted under the KMS key that you specified\. You must specify either a `KeySpec` or `NumberOfBytes` \(but not both\) in each command\.
 
 In languages that require a client object, these examples use the AWS KMS client object that you created in [Creating a client](programming-client.md)\.
 
@@ -179,7 +179,7 @@ MemoryStream encryptedKey = dataKeyResponse.CiphertextBlob;
 ------
 #### [ Python ]
 
-For details, see the [generate\_data\_key method](http://boto3.amazonaws.com/v1/documentation/api/latest/reference/services/kms.html#KMS.Client.generate_data_key) in the AWS SDK for Python \(Boto3\)\.
+For details, see the [generate\_data\_key method](https://boto3.amazonaws.com/v1/documentation/api/latest/reference/services/kms.html#KMS.Client.generate_data_key) in the AWS SDK for Python \(Boto3\)\.
 
 ```
 # Generate a data key
@@ -283,15 +283,15 @@ To use the AWS KMS PowerShell cmdlets, install the [AWS\.Tools\.KeyManagementSer
 
 ------
 
-## Viewing a customer master key<a name="describing-keys"></a>
+## Viewing a AWS KMS key<a name="describing-keys"></a>
 
-To get detailed information about a customer master key \(CMK\), including the CMK ARN and [key state](key-state.md), use the [DescribeKey](https://docs.aws.amazon.com/kms/latest/APIReference/API_DescribeKey.html) operation\. 
+To get detailed information about a AWS KMS key, including the KMS key ARN and [key state](key-state.md), use the [DescribeKey](https://docs.aws.amazon.com/kms/latest/APIReference/API_DescribeKey.html) operation\. 
 
 `DescribeKey` does not get aliases\. To get aliases, use the [ListAliases](https://docs.aws.amazon.com/kms/latest/APIReference/API_ListAliases.html) operation\. For examples, see [Working with aliases](programming-aliases.md)\.
 
 In languages that require a client object, these examples use the AWS KMS client object that you created in [Creating a client](programming-client.md)\.
 
-For help with viewing CMKs in the AWS KMS console, see [Viewing keys](viewing-keys.md)\.
+For help with viewing KMS keys in the AWS KMS console, see [Viewing keys](viewing-keys.md)\.
 
 ------
 #### [ Java ]
@@ -299,7 +299,7 @@ For help with viewing CMKs in the AWS KMS console, see [Viewing keys](viewing-ke
 For details, see the [describeKey method](https://docs.aws.amazon.com/sdk-for-java/latest/reference/com/amazonaws/services/kms/AWSKMS.html#describeKey-com.amazonaws.services.kms.model.DescribeKeyRequest-) in the *AWS SDK for Java API Reference*\.
 
 ```
-// Describe a CMK
+// Describe a KMS key
 //
 // Replace the following example key ARN with any valid key identfier
 String keyId = "arn:aws:kms:us-west-2:111122223333:key/1234abcd-12ab-34cd-56ef-1234567890ab";
@@ -314,7 +314,7 @@ DescribeKeyResult result = kmsClient.describeKey(req);
 For details, see the [DescribeKey method](https://docs.aws.amazon.com/sdkfornet/v3/apidocs/items/KeyManagementService/MKeyManagementServiceDescribeKeyDescribeKeyRequest.html) in the *AWS SDK for \.NET*\. 
 
 ```
-// Describe a CMK
+// Describe a KMS key
 //
 // Replace the following example key ARN with any valid key identfier
 String keyId = "arn:aws:kms:us-west-2:111122223333:key/1234abcd-12ab-34cd-56ef-1234567890ab";
@@ -330,10 +330,10 @@ DescribeKeyResponse describeKeyResponse = kmsClient.DescribeKey(describeKeyReque
 ------
 #### [ Python ]
 
-For details, see the [describe\_key method](http://boto3.amazonaws.com/v1/documentation/api/latest/reference/services/kms.html#KMS.Client.describe_key) in the AWS SDK for Python \(Boto3\)\.
+For details, see the [describe\_key method](https://boto3.amazonaws.com/v1/documentation/api/latest/reference/services/kms.html#KMS.Client.describe_key) in the AWS SDK for Python \(Boto3\)\.
 
 ```
-# Describe a CMK
+# Describe a KMS key
 
 # Replace the following example key ARN with any valid key identfier
 key_id = 'arn:aws:kms:us-west-2:111122223333:key/1234abcd-12ab-34cd-56ef-1234567890ab'
@@ -349,7 +349,7 @@ response = kms_client.describe_key(
 For details, see the [describe\_key](https://docs.aws.amazon.com/sdk-for-ruby/v3/api/Aws/KMS/Client.html#describe_key-instance_method) instance method in the [AWS SDK for Ruby](https://docs.aws.amazon.com/sdk-for-ruby/v3/api/Aws/KMS.html)\.
 
 ```
-# Describe a CMK
+# Describe a KMS key
 
 # Replace the following example key ARN with any valid key identfier
 key_id = 'arn:aws:kms:us-west-2:111122223333:key/1234abcd-12ab-34cd-56ef-1234567890ab'
@@ -365,7 +365,7 @@ response = kmsClient.describe_key({
 For details, see the [DescribeKey method](https://docs.aws.amazon.com/aws-sdk-php/v3/api/api-kms-2014-11-01.html#describekey) in the *AWS SDK for PHP*\.
 
 ```
-// Describe a CMK
+// Describe a KMS key
 //
 // Replace the following example key ARN with any valid key identfier
 $keyId = 'arn:aws:kms:us-west-2:111122223333:key/1234abcd-12ab-34cd-56ef-1234567890ab';
@@ -381,7 +381,7 @@ $result = $KmsClient->describeKey([
 For details, see the [describeKey property](https://docs.aws.amazon.com/AWSJavaScriptSDK/latest/AWS/KMS.html#describeKey-property) in the *AWS SDK for JavaScript in Node\.js*\.
 
 ```
-// Describe a CMK
+// Describe a KMS key
 //
 // Replace the following example key ARN with any valid key identfier
 const KeyId = 'arn:aws:kms:us-west-2:111122223333:key/1234abcd-12ab-34cd-56ef-1234567890ab';
@@ -393,10 +393,10 @@ kmsClient.describeKey({ KeyId }, (err, data) => {
 ------
 #### [ PowerShell ]
 
-To get detailed information about a CMK, use the [Get\-KmsKey](https://docs.aws.amazon.com/powershell/latest/reference/items/Get-KMSKey.html) cmdlet\.
+To get detailed information about a KMS key, use the [Get\-KmsKey](https://docs.aws.amazon.com/powershell/latest/reference/items/Get-KMSKey.html) cmdlet\.
 
 ```
-# Describe a CMK
+# Describe a KMS key
 
 # Replace the following example key ARN with any valid key identfier
 $keyId = 'arn:aws:kms:us-west-2:111122223333:key/1234abcd-12ab-34cd-56ef-1234567890ab'
@@ -407,9 +407,9 @@ To use the AWS KMS PowerShell cmdlets, install the [AWS\.Tools\.KeyManagementSer
 
 ------
 
-## Getting key IDs and key ARNs of CMKs<a name="listing-keys"></a>
+## Getting key IDs and key ARNs of KMS keys<a name="listing-keys"></a>
 
-To get the [key IDs](concepts.md#key-id-key-id) and [key ARNs](concepts.md#key-id-key-ARN) of the customer master keys, use the [ListKeys](https://docs.aws.amazon.com/kms/latest/APIReference/API_ListKeys.html) operation\. These examples use the optional `Limit` parameter, which sets the maximum number of CMKs returned in each call\. For help identifying a CMK in an AWS KMS operations, see [Key identifiers \(KeyId\)](concepts.md#key-id)\.
+To get the [key IDs](concepts.md#key-id-key-id) and [key ARNs](concepts.md#key-id-key-ARN) of the AWS KMS keys, use the [ListKeys](https://docs.aws.amazon.com/kms/latest/APIReference/API_ListKeys.html) operation\. These examples use the optional `Limit` parameter, which sets the maximum number of KMS keys returned in each call\. For help identifying a KMS key in an AWS KMS operations, see [Key identifiers \(KeyId\)](concepts.md#key-id)\.
 
 In languages that require a client object, these examples use the AWS KMS client object that you created in [Creating a client](programming-client.md)\.
 
@@ -421,7 +421,7 @@ For help with finding key IDs and key ARNs in the AWS KMS console, see [Finding 
 For details, see the [listKeys method](https://docs.aws.amazon.com/sdk-for-java/latest/reference/com/amazonaws/services/kms/AWSKMSClient.html#listKeys-com.amazonaws.services.kms.model.ListKeysRequest-) in the *AWS SDK for Java API Reference*\.
 
 ```
-// List CMKs in this account
+// List KMS keys in this account
 //
 Integer limit = 10;
 
@@ -435,7 +435,7 @@ ListKeysResult result = kmsClient.listKeys(req);
 For details, see the [ListKeys method](https://docs.aws.amazon.com/sdkfornet/v3/apidocs/items/KeyManagementService/MKeyManagementServiceListKeysListKeysRequest.html) in the *AWS SDK for \.NET*\.
 
 ```
-// List CMKs in this account
+// List KMS keys in this account
 //
 int limit = 10;
 
@@ -449,10 +449,10 @@ ListKeysResponse listKeysResponse = kmsClient.ListKeys(listKeysRequest);
 ------
 #### [ Python ]
 
-For details, see the [list\_keys method](http://boto3.amazonaws.com/v1/documentation/api/latest/reference/services/kms.html#KMS.Client.list_keys) in the AWS SDK for Python \(Boto3\)\.
+For details, see the [list\_keys method](https://boto3.amazonaws.com/v1/documentation/api/latest/reference/services/kms.html#KMS.Client.list_keys) in the AWS SDK for Python \(Boto3\)\.
 
 ```
-# List CMKs in this account
+# List KMS keys in this account
 
 response = kms_client.list_keys(
     Limit=10
@@ -465,7 +465,7 @@ response = kms_client.list_keys(
 For details, see the [list\_keys](https://docs.aws.amazon.com/sdk-for-ruby/v3/api/Aws/KMS/Client.html#list_keys-instance_method) instance method in the [AWS SDK for Ruby](https://docs.aws.amazon.com/sdk-for-ruby/v3/api/Aws/KMS.html)\.
 
 ```
-# List CMKS in this account
+# List KMS keys in this account
 
 response = kmsClient.list_keys({
   limit: 10
@@ -478,7 +478,7 @@ response = kmsClient.list_keys({
 For details, see the [ListKeys method](https://docs.aws.amazon.com/aws-sdk-php/v3/api/api-kms-2014-11-01.html#listkeys) in the *AWS SDK for PHP*\.
 
 ```
-// List CMKs in this account
+// List KMS keys in this account
 //
 $limit = 10;
 
@@ -493,7 +493,7 @@ $result = $KmsClient->listKeys([
 For details, see the [listKeys property](https://docs.aws.amazon.com/AWSJavaScriptSDK/latest/AWS/KMS.html#listKeys-property) in the *AWS SDK for JavaScript in Node\.js*\.
 
 ```
-// List CMKs in this account
+// List KMS keys in this account
 //
 const Limit = 10;
 kmsClient.listKeys({ Limit }, (err, data) => {
@@ -504,12 +504,12 @@ kmsClient.listKeys({ Limit }, (err, data) => {
 ------
 #### [ PowerShell ]
 
-To get the key ID and key ARN of all CMKs in the account and Region, use the [Get\-KmsKeyList](https://docs.aws.amazon.com/powershell/latest/reference/items/Get-KMSKeyList.html) cmdlet\.
+To get the key ID and key ARN of all KMS keys in the account and Region, use the [Get\-KmsKeyList](https://docs.aws.amazon.com/powershell/latest/reference/items/Get-KMSKeyList.html) cmdlet\.
 
 To limit the number of output objects, this example uses the [Select\-Object](https://docs.microsoft.com/en-us/powershell/module/microsoft.powershell.utility/select-object) cmdlet, instead of the `Limit` parameter, which is being deprecated in list cmdlets\. For help with paginating output in AWS Tools for PowerShell, see [Output Pagination with AWS Tools for PowerShell](http://aws.amazon.com/blogs/developer/output-pagination-with-aws-tools-for-powershell/)\.
 
 ```
-# List CMKs in this account
+# List KMS keys in this account
 
 $limit = 10
 Get-KmsKeyList | Select-Object -First $limit
@@ -519,13 +519,13 @@ To use the AWS KMS PowerShell cmdlets, install the [AWS\.Tools\.KeyManagementSer
 
 ------
 
-## Enabling customer master keys<a name="enable-keys"></a>
+## Enabling AWS KMS keys<a name="enable-keys"></a>
 
-To enable a disabled customer master key \(CMK\), use the [EnableKey](https://docs.aws.amazon.com/kms/latest/APIReference/API_EnableKey.html) operation\.
+To enable a disabled AWS KMS key, use the [EnableKey](https://docs.aws.amazon.com/kms/latest/APIReference/API_EnableKey.html) operation\.
 
 In languages that require a client object, these examples use the AWS KMS client object that you created in [Creating a client](programming-client.md)\.
 
-For help with enabling and disabling CMKs in the AWS KMS console, see [Enabling and disabling keys](enabling-keys.md)\.
+For help with enabling and disabling KMS keys in the AWS KMS console, see [Enabling and disabling keys](enabling-keys.md)\.
 
 ------
 #### [ Java ]
@@ -533,7 +533,7 @@ For help with enabling and disabling CMKs in the AWS KMS console, see [Enabling 
 For details about the Java implementation, see the [enableKey method](https://docs.aws.amazon.com/sdk-for-java/latest/reference/com/amazonaws/services/kms/AWSKMSClient.html#enableKey-com.amazonaws.services.kms.model.EnableKeyRequest-) in the *AWS SDK for Java API Reference*\.
 
 ```
-// Enable a CMK
+// Enable a KMS key
 //
 // Replace the following example key ARN with a valid key ID or key ARN
 String keyId = "arn:aws:kms:us-west-2:111122223333:key/1234abcd-12ab-34cd-56ef-1234567890ab";
@@ -548,7 +548,7 @@ kmsClient.enableKey(req);
 For details, see the [EnableKey method](https://docs.aws.amazon.com/sdkfornet/v3/apidocs/items/KeyManagementService/MKeyManagementServiceEnableKeyEnableKeyRequest.html) in the *AWS SDK for \.NET*\.
 
 ```
-// Enable a CMK
+// Enable a KMS key
 //
 // Replace the following example key ARN with a valid key ID or key ARN
 String keyId = "arn:aws:kms:us-west-2:111122223333:key/1234abcd-12ab-34cd-56ef-1234567890ab";
@@ -563,10 +563,10 @@ kmsClient.EnableKey(enableKeyRequest);
 ------
 #### [ Python ]
 
-For details, see the [enable\_key method](http://boto3.amazonaws.com/v1/documentation/api/latest/reference/services/kms.html#KMS.Client.enable_key) in the AWS SDK for Python \(Boto3\)\.
+For details, see the [enable\_key method](https://boto3.amazonaws.com/v1/documentation/api/latest/reference/services/kms.html#KMS.Client.enable_key) in the AWS SDK for Python \(Boto3\)\.
 
 ```
-# Enable a CMK
+# Enable a KMS key
 
 # Replace the following example key ARN with a valid key ID or key ARN
 key_id = 'arn:aws:kms:us-west-2:111122223333:key/1234abcd-12ab-34cd-56ef-1234567890ab'
@@ -582,7 +582,7 @@ response = kms_client.enable_key(
 For details, see the [enable\_key](https://docs.aws.amazon.com/sdk-for-ruby/v3/api/Aws/KMS/Client.html#enable_key-instance_method) instance method in the [AWS SDK for Ruby](https://docs.aws.amazon.com/sdk-for-ruby/v3/api/Aws/KMS.html)\.
 
 ```
-# Enable a CMK
+# Enable a KMS key
 
 # Replace the following example key ARN with a valid key ID or key ARN
 key_id = 'arn:aws:kms:us-west-2:111122223333:key/1234abcd-12ab-34cd-56ef-1234567890ab'
@@ -598,7 +598,7 @@ response = kmsClient.enable_key({
 For details, see the [EnableKey method](https://docs.aws.amazon.com/aws-sdk-php/v3/api/api-kms-2014-11-01.html#enablekey) in the *AWS SDK for PHP*\.
 
 ```
-// Enable a CMK
+// Enable a KMS key
 //
 // Replace the following example key ARN with a valid key ID or key ARN
 $keyId = 'arn:aws:kms:us-west-2:111122223333:key/1234abcd-12ab-34cd-56ef-1234567890ab';
@@ -614,7 +614,7 @@ $result = $KmsClient->enableKey([
 For details, see the [enableKey property](https://docs.aws.amazon.com/AWSJavaScriptSDK/latest/AWS/KMS.html#enableKey-property) in the *AWS SDK for JavaScript in Node\.js*\.
 
 ```
-// Enable a CMK
+// Enable a KMS key
 //
 // Replace the following example key ARN with a valid key ID or key ARN
 const KeyId = 'arn:aws:kms:us-west-2:111122223333:key/1234abcd-12ab-34cd-56ef-1234567890ab';
@@ -626,10 +626,10 @@ kmsClient.enableKey({ KeyId }, (err, data) => {
 ------
 #### [ PowerShell ]
 
-To enable a CMK, use the [Enable\-KmsKey](https://docs.aws.amazon.com/powershell/latest/reference/items/Enable-KMSKey.html) cmdlet\.
+To enable a KMS key, use the [Enable\-KmsKey](https://docs.aws.amazon.com/powershell/latest/reference/items/Enable-KMSKey.html) cmdlet\.
 
 ```
-# Enable a CMK
+# Enable a KMS key
 
 # Replace the following example key ARN with a valid key ID or key ARN
 $keyId = 'arn:aws:kms:us-west-2:111122223333:key/1234abcd-12ab-34cd-56ef-1234567890ab'
@@ -640,13 +640,13 @@ To use the AWS KMS PowerShell cmdlets, install the [AWS\.Tools\.KeyManagementSer
 
 ------
 
-## Disabling customer master keys<a name="disable-keys"></a>
+## Disabling AWS KMS key<a name="disable-keys"></a>
 
-To disable a CMK, use the [DisableKey](https://docs.aws.amazon.com/kms/latest/APIReference/API_DisableKey.html) operation\. Disabling a CMK prevents it from being used in [cryptographic operations](concepts.md#cryptographic-operations)\.
+To disable a KMS key, use the [DisableKey](https://docs.aws.amazon.com/kms/latest/APIReference/API_DisableKey.html) operation\. Disabling a KMS key prevents it from being used in [cryptographic operations](concepts.md#cryptographic-operations)\.
 
 In languages that require a client object, these examples use the AWS KMS client object that you created in [Creating a client](programming-client.md)\.
 
-For help with enabling and disabling CMKs in the AWS KMS console, see [Enabling and disabling keys](enabling-keys.md)\.
+For help with enabling and disabling KMS keys in the AWS KMS console, see [Enabling and disabling keys](enabling-keys.md)\.
 
 ------
 #### [ Java ]
@@ -654,7 +654,7 @@ For help with enabling and disabling CMKs in the AWS KMS console, see [Enabling 
 For details, see the [disableKey method](https://docs.aws.amazon.com/sdk-for-java/latest/reference/com/amazonaws/services/kms/AWSKMSClient.html#disableKey-com.amazonaws.services.kms.model.DisableKeyRequest-) in the *AWS SDK for Java API Reference*\.
 
 ```
-// Disable a CMK
+// Disable a KMS key
 //
 // Replace the following example key ARN with a valid key ID or key ARN
 String keyId = "arn:aws:kms:us-west-2:111122223333:key/1234abcd-12ab-34cd-56ef-1234567890ab";
@@ -669,7 +669,7 @@ kmsClient.disableKey(req);
 For details, see the [DisableKey method](https://docs.aws.amazon.com/sdkfornet/v3/apidocs/items/KeyManagementService/MKeyManagementServiceDisableKeyDisableKeyRequest.html) in the *AWS SDK for \.NET*\.
 
 ```
-// Disable a CMK
+// Disable a KMS key
 //
 // Replace the following example key ARN with a valid key ID or key ARN
 String keyId = "arn:aws:kms:us-west-2:111122223333:key/1234abcd-12ab-34cd-56ef-1234567890ab";
@@ -684,10 +684,10 @@ kmsClient.DisableKey(disableKeyRequest);
 ------
 #### [ Python ]
 
-For details, see the [disable\_key method](http://boto3.amazonaws.com/v1/documentation/api/latest/reference/services/kms.html#KMS.Client.disable_key) in the AWS SDK for Python \(Boto3\)\.
+For details, see the [disable\_key method](https://boto3.amazonaws.com/v1/documentation/api/latest/reference/services/kms.html#KMS.Client.disable_key) in the AWS SDK for Python \(Boto3\)\.
 
 ```
-# Disable a CMK
+# Disable a KMS key
 
 # Replace the following example key ARN with a valid key ID or key ARN
 key_id = 'arn:aws:kms:us-west-2:111122223333:key/1234abcd-12ab-34cd-56ef-1234567890ab'
@@ -703,7 +703,7 @@ response = kms_client.disable_key(
 For details, see the [disable\_key](https://docs.aws.amazon.com/sdk-for-ruby/v3/api/Aws/KMS/Client.html#disable_key-instance_method) instance method in the [AWS SDK for Ruby](https://docs.aws.amazon.com/sdk-for-ruby/v3/api/Aws/KMS.html)\.
 
 ```
-# Disable a CMK
+# Disable a KMS key
 
 # Replace the following example key ARN with a valid key ID or key ARN
 key_id = 'arn:aws:kms:us-west-2:111122223333:key/1234abcd-12ab-34cd-56ef-1234567890ab'
@@ -719,7 +719,7 @@ response = kmsClient.disable_key({
 For details, see the [DisableKey method](https://docs.aws.amazon.com/aws-sdk-php/v3/api/api-kms-2014-11-01.html#disablekey) in the *AWS SDK for PHP*\.
 
 ```
-// Disable a CMK
+// Disable a KMS key
 //
 // Replace the following example key ARN with a valid key ID or key ARN
 $keyId = 'arn:aws:kms:us-west-2:111122223333:key/1234abcd-12ab-34cd-56ef-1234567890ab';
@@ -735,7 +735,7 @@ $result = $KmsClient->disableKey([
 For details, see the [disableKey property](https://docs.aws.amazon.com/AWSJavaScriptSDK/latest/AWS/KMS.html#disableKey-property) in the *AWS SDK for JavaScript in Node\.js*\.
 
 ```
-// Disable a CMK
+// Disable a KMS key
 //
 // Replace the following example key ARN with a valid key ID or key ARN
 const KeyId = 'arn:aws:kms:us-west-2:111122223333:key/1234abcd-12ab-34cd-56ef-1234567890ab';
@@ -747,10 +747,10 @@ kmsClient.disableKey({ KeyId }, (err, data) => {
 ------
 #### [ PowerShell ]
 
-To disable a CMK, use the [Disable\-KmsKey](https://docs.aws.amazon.com/powershell/latest/reference/items/Disable-KMSKey.html) cmdlet\.
+To disable a KMS key, use the [Disable\-KmsKey](https://docs.aws.amazon.com/powershell/latest/reference/items/Disable-KMSKey.html) cmdlet\.
 
 ```
-# Disable a CMK
+# Disable a KMS key
 
 # Replace the following example key ARN with a valid key ID or key ARN
 $keyId = 'arn:aws:kms:us-west-2:111122223333:key/1234abcd-12ab-34cd-56ef-1234567890ab'

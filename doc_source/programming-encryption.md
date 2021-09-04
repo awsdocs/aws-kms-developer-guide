@@ -2,18 +2,18 @@
 
 The examples in this topic use the [Encrypt](https://docs.aws.amazon.com/kms/latest/APIReference/API_Encrypt.html), [Decrypt](https://docs.aws.amazon.com/kms/latest/APIReference/API_Decrypt.html), and [ReEncrypt](https://docs.aws.amazon.com/kms/latest/APIReference/API_ReEncrypt.html) operations in the AWS KMS API\. 
 
-These operations are designed to encrypt and decrypt [data keys](concepts.md#data-keys)\. They use an AWS KMS [customer master key](concepts.md#master_keys) \(CMK\) in the encryption operations and they cannot accept more than 4 KB \(4096 bytes\) of data\. Although you might use them to encrypt small amounts of data, such as a password or RSA key, they are not designed to encrypt application data\.
+These operations are designed to encrypt and decrypt [data keys](concepts.md#data-keys)\. They use an [AWS KMS keys](concepts.md#kms_keys) in the encryption operations and they cannot accept more than 4 KB \(4096 bytes\) of data\. Although you might use them to encrypt small amounts of data, such as a password or RSA key, they are not designed to encrypt application data\.
 
 To encrypt application data, use the server\-side encryption features of an AWS service, or a client\-side encryption library, such as the [AWS Encryption SDK](https://docs.aws.amazon.com/encryption-sdk/latest/developer-guide/) or the [Amazon S3 encryption client](https://docs.aws.amazon.com/AmazonS3/latest/dev/UsingClientSideEncryption.html)\. 
 
 **Topics**
 + [Encrypting a data key](#encryption)
 + [Decrypting a data key](#decryption)
-+ [Re\-encrypting a data key under a different customer master key](#reencryption)
++ [Re\-encrypting a data key under a different AWS KMS key](#reencryption)
 
 ## Encrypting a data key<a name="encryption"></a>
 
-The [Encrypt](https://docs.aws.amazon.com/kms/latest/APIReference/API_Encrypt.html) operation is designed to encrypt data keys, but it is not frequently used\. The [GenerateDataKey](https://docs.aws.amazon.com/kms/latest/APIReference/API_GenerateDataKey.html) and [GenerateDataKeyWithoutPlaintext](https://docs.aws.amazon.com/kms/latest/APIReference/API_GenerateDataKeyWithoutPlaintext.html) operations return encrypted data keys\. You might use this method when you are moving encrypted data to a different Region and want to encrypt its data key with a CMK in the new Region\. 
+The [Encrypt](https://docs.aws.amazon.com/kms/latest/APIReference/API_Encrypt.html) operation is designed to encrypt data keys, but it is not frequently used\. The [GenerateDataKey](https://docs.aws.amazon.com/kms/latest/APIReference/API_GenerateDataKey.html) and [GenerateDataKeyWithoutPlaintext](https://docs.aws.amazon.com/kms/latest/APIReference/API_GenerateDataKeyWithoutPlaintext.html) operations return encrypted data keys\. You might use this method when you are moving encrypted data to a different Region and want to encrypt its data key with a KMS key in the new Region\. 
 
 In languages that require a client object, these examples use the AWS KMS client object that you created in [Creating a client](programming-client.md)\.
 
@@ -57,7 +57,7 @@ MemoryStream ciphertext = kmsClient.Encrypt(encryptRequest).CiphertextBlob;
 ------
 #### [ Python ]
 
-For details, see the [encrypt method](http://boto3.amazonaws.com/v1/documentation/api/latest/reference/services/kms.html#KMS.Client.encrypt) in the AWS SDK for Python \(Boto3\)\.
+For details, see the [encrypt method](https://boto3.amazonaws.com/v1/documentation/api/latest/reference/services/kms.html#KMS.Client.encrypt) in the AWS SDK for Python \(Boto3\)\.
 
 ```
 # Encrypt a data key
@@ -137,7 +137,7 @@ kmsClient.encrypt({ KeyId, Plaintext }, (err, data) => {
 ------
 #### [ PowerShell ]
 
-To encrypt a data key under an AWS KMS CMK, use the [Invoke\-KMSEncrypt](https://docs.aws.amazon.com/powershell/latest/reference/items/Invoke-KMSEncrypt.html) cmdlet\. It returns the ciphertext as a `MemoryStream` \([System\.IO\.MemoryStream](https://docs.microsoft.com/en-us/dotnet/api/system.io.memorystream)\) object\. You can use the `MemoryStream` object as the input to the [Invoke\-KMSDecrypt](https://docs.aws.amazon.com/powershell/latest/reference/items/Invoke-KMSDecrypt.html) cmdlet\.
+To encrypt a data key under an KMS key, use the [Invoke\-KMSEncrypt](https://docs.aws.amazon.com/powershell/latest/reference/items/Invoke-KMSEncrypt.html) cmdlet\. It returns the ciphertext as a `MemoryStream` \([System\.IO\.MemoryStream](https://docs.microsoft.com/en-us/dotnet/api/system.io.memorystream)\) object\. You can use the `MemoryStream` object as the input to the [Invoke\-KMSDecrypt](https://docs.aws.amazon.com/powershell/latest/reference/items/Invoke-KMSDecrypt.html) cmdlet\.
 
 AWS KMS also returns data keys as `MemoryStream` objects\. In this example, to simulate a plaintext data key, we create a byte array and write it to a `MemoryStream` object\. 
 
@@ -174,9 +174,9 @@ To use the AWS KMS PowerShell cmdlets, install the [AWS\.Tools\.KeyManagementSer
 
 To decrypt a data key, use the [Decrypt](https://docs.aws.amazon.com/kms/latest/APIReference/API_Decrypt.html) operation\.
 
-The `ciphertextBlob` that you specify must be the value of the `CiphertextBlob` field from a [GenerateDataKey](https://docs.aws.amazon.com/kms/latest/APIReference/API_GenerateDataKey.html), [GenerateDataKeyWithoutPlaintext](https://docs.aws.amazon.com/kms/latest/APIReference/API_GenerateDataKeyWithoutPlaintext.html), or [Encrypt](https://docs.aws.amazon.com/kms/latest/APIReference/API_Encrypt.html) response, or the `PrivateKeyCiphertextBlob` field from a [GenerateDataKeyPair](https://docs.aws.amazon.com/kms/latest/APIReference/API_GenerateDataKeyPair.html) or [GenerateDataKeyPairWithoutPlaintext](https://docs.aws.amazon.com/kms/latest/APIReference/API_GenerateDataKeyPairWithoutPlaintext.html) response\. You can also use the `Decrypt` operation to decrypt data encrypted outside of AWS KMS by the public key in an asymmetric CMK\.
+The `ciphertextBlob` that you specify must be the value of the `CiphertextBlob` field from a [GenerateDataKey](https://docs.aws.amazon.com/kms/latest/APIReference/API_GenerateDataKey.html), [GenerateDataKeyWithoutPlaintext](https://docs.aws.amazon.com/kms/latest/APIReference/API_GenerateDataKeyWithoutPlaintext.html), or [Encrypt](https://docs.aws.amazon.com/kms/latest/APIReference/API_Encrypt.html) response, or the `PrivateKeyCiphertextBlob` field from a [GenerateDataKeyPair](https://docs.aws.amazon.com/kms/latest/APIReference/API_GenerateDataKeyPair.html) or [GenerateDataKeyPairWithoutPlaintext](https://docs.aws.amazon.com/kms/latest/APIReference/API_GenerateDataKeyPairWithoutPlaintext.html) response\. You can also use the `Decrypt` operation to decrypt data encrypted outside of AWS KMS by the public key in an asymmetric KMS key\.
 
-The `KeyId` parameter is not required when decrypting with symmetric CMKs\. AWS KMS can get the CMK that was used to encrypt the data from the metadata in the ciphertext blob\. But it's always a best practice to specify the CMK you are using\. This practice ensures that you use the CMK that you intend, and prevents you from inadvertently decrypting a ciphertext using a CMK you do not trust\.
+The `KeyId` parameter is not required when decrypting with symmetric KMS keys\. AWS KMS can get the KMS key that was used to encrypt the data from the metadata in the ciphertext blob\. But it's always a best practice to specify the KMS key you are using\. This practice ensures that you use the intended KMS key, and prevents you from inadvertently decrypting a ciphertext using a KMS key you do not trust\.
 
 In languages that require a client object, these examples use the AWS KMS client object that you created in [Creating a client](programming-client.md)\.
 
@@ -222,7 +222,7 @@ MemoryStream plainText = kmsClient.Decrypt(decryptRequest).Plaintext;
 ------
 #### [ Python ]
 
-For details, see the [decrypt method](http://boto3.amazonaws.com/v1/documentation/api/latest/reference/services/kms.html#KMS.Client.decrypt) in the AWS SDK for Python \(Boto3\)\.
+For details, see the [decrypt method](https://boto3.amazonaws.com/v1/documentation/api/latest/reference/services/kms.html#KMS.Client.decrypt) in the AWS SDK for Python \(Boto3\)\.
 
 ```
 # Decrypt a data key
@@ -325,13 +325,13 @@ To use the AWS KMS PowerShell cmdlets, install the [AWS\.Tools\.KeyManagementSer
 
 ------
 
-## Re\-encrypting a data key under a different customer master key<a name="reencryption"></a>
+## Re\-encrypting a data key under a different AWS KMS key<a name="reencryption"></a>
 
-To decrypt an encrypted data key, and then immediately re\-encrypt the data key under a different customer master key \(CMK\), use the [ReEncrypt](https://docs.aws.amazon.com/kms/latest/APIReference/API_ReEncrypt.html) operation\. The operations are performed entirely on the server side within AWS KMS, so they never expose your plaintext outside of AWS KMS\.
+To decrypt an encrypted data key, and then immediately re\-encrypt the data key under a different AWS KMS key, use the [ReEncrypt](https://docs.aws.amazon.com/kms/latest/APIReference/API_ReEncrypt.html) operation\. The operations are performed entirely on the server side within AWS KMS, so they never expose your plaintext outside of AWS KMS\.
 
-The `ciphertextBlob` that you specify must be the value of the `CiphertextBlob` field from a [GenerateDataKey](https://docs.aws.amazon.com/kms/latest/APIReference/API_GenerateDataKey.html), [GenerateDataKeyWithoutPlaintext](https://docs.aws.amazon.com/kms/latest/APIReference/API_GenerateDataKeyWithoutPlaintext.html), or [Encrypt](https://docs.aws.amazon.com/kms/latest/APIReference/API_Encrypt.html) response, or the `PrivateKeyCiphertextBlob` field from a [GenerateDataKeyPair](https://docs.aws.amazon.com/kms/latest/APIReference/API_GenerateDataKeyPair.html) or [GenerateDataKeyPairWithoutPlaintext](https://docs.aws.amazon.com/kms/latest/APIReference/API_GenerateDataKeyPairWithoutPlaintext.html) response\. You can also use the `ReEncrypt` operation to re\-encrypt data encrypted outside of AWS KMS by the public key in an asymmetric CMK\.
+The `ciphertextBlob` that you specify must be the value of the `CiphertextBlob` field from a [GenerateDataKey](https://docs.aws.amazon.com/kms/latest/APIReference/API_GenerateDataKey.html), [GenerateDataKeyWithoutPlaintext](https://docs.aws.amazon.com/kms/latest/APIReference/API_GenerateDataKeyWithoutPlaintext.html), or [Encrypt](https://docs.aws.amazon.com/kms/latest/APIReference/API_Encrypt.html) response, or the `PrivateKeyCiphertextBlob` field from a [GenerateDataKeyPair](https://docs.aws.amazon.com/kms/latest/APIReference/API_GenerateDataKeyPair.html) or [GenerateDataKeyPairWithoutPlaintext](https://docs.aws.amazon.com/kms/latest/APIReference/API_GenerateDataKeyPairWithoutPlaintext.html) response\. You can also use the `ReEncrypt` operation to re\-encrypt data encrypted outside of AWS KMS by the public key in an asymmetric KMS key\.
 
-The `SourceKeyId` parameter is not required when re\-encrypting with symmetric CMKs\. AWS KMS can get the CMK that was used to encrypt the data from the metadata in the ciphertext blob\. But it's always a best practice to specify the CMK you are using\. This practice ensures that you use the CMK that you intend, and prevents you from inadvertently decrypting a ciphertext using a CMK you do not trust\.
+The `SourceKeyId` parameter is not required when re\-encrypting with symmetric KMS keys\. AWS KMS can get the KMS key that was used to encrypt the data from the metadata in the ciphertext blob\. But it's always a best practice to specify the KMS key you are using\. This practice ensures that you use the intended KMS key, and prevents you from inadvertently decrypting a ciphertext using a KMS key you do not trust\.
 
 In languages that require a client object, these examples use the AWS KMS client object that you created in [Creating a client](programming-client.md)\.
 
@@ -383,7 +383,7 @@ MemoryStream destinationCipherTextBlob = kmsClient.ReEncrypt(reEncryptRequest).C
 ------
 #### [ Python ]
 
-For details, see the [re\_encrypt method](http://boto3.amazonaws.com/v1/documentation/api/latest/reference/services/kms.html#KMS.Client.re_encrypt) in the AWS SDK for Python \(Boto3\)\.
+For details, see the [re\_encrypt method](https://boto3.amazonaws.com/v1/documentation/api/latest/reference/services/kms.html#KMS.Client.re_encrypt) in the AWS SDK for Python \(Boto3\)\.
 
 ```
 # Re-encrypt a data key
@@ -467,7 +467,7 @@ kmsClient.reEncrypt({ CiphertextBlob, SourceKeyId, DestinationKeyId }, (err, dat
 ------
 #### [ PowerShell ]
 
-To re\-encrypt a ciphertext under the same or a different CMK, use the [Invoke\-KMSReEncrypt](https://docs.aws.amazon.com/powershell/latest/reference/items/Invoke-KMSReEncrypt.html) cmdlet\.
+To re\-encrypt a ciphertext under the same or a different KMS key, use the [Invoke\-KMSReEncrypt](https://docs.aws.amazon.com/powershell/latest/reference/items/Invoke-KMSReEncrypt.html) cmdlet\.
 
 Because this example uses the ciphertext that an AWS KMS encryption cmdlet returned, it uses a `MemoryStream` object for the value of the `CiphertextBlob` parameter\. However, the `CiphertextBlob` parameter of `Invoke-KMSReEncrypt` takes a byte array \(`byte[]`\); it does not require a `MemoryStream` object\. Beginning in AWSPowerShell version 4\.0, parameters in all AWSPowerShell modules that take byte arrays and `MemoryStream` objects accept byte arrays, `MemoryStream` objects, strings, string arrays, and `FileInfo` \([System\.IO\.FileInfo](https://docs.microsoft.com/en-us/dotnet/api/system.io.fileinfo)\) objects\. You can pass any of these types to `Invoke-KMSReEncrypt`\.
 

@@ -1,6 +1,6 @@
-# Determining access to an AWS KMS customer master key<a name="determining-access"></a>
+# Determining access to AWS KMS keys<a name="determining-access"></a>
 
-To determine the full extent of who or what currently has access to a customer master key \(CMK\) in AWS KMS, you must examine the CMK's key policy, all [grants](grants.md) that apply to the CMK, and potentially all AWS Identity and Access Management \(IAM\) policies\. You might do this to determine the scope of potential usage of a CMK, or to help you meet compliance or auditing requirements\. The following topics can help you generate a complete list of the AWS principals \(identities\) that currently have access to a CMK\.
+To determine the full extent of who or what currently has access to a AWS KMS key, you must examine the key policy of the KMS key, all [grants](grants.md) that apply to the KMS key, and potentially all AWS Identity and Access Management \(IAM\) policies\. You might do this to determine the scope of potential usage of a KMS key, or to help you meet compliance or auditing requirements\. The following topics can help you generate a complete list of the AWS principals \(identities\) that currently have access to a KMS key\.
 
 **Topics**
 + [Examining the key policy](determining-access-key-policy.md)

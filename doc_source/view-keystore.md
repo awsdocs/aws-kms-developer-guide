@@ -2,7 +2,7 @@
 
 You can view the custom key stores in each account and region by using the AWS Management Console or the AWS KMS API\. 
 
-For help with viewing the CMKs in your custom key store, see [Viewing CMKs in a custom key store](view-cmk-keystore.md)\.
+For help with viewing the KMS keys in your custom key store, see [Viewing KMS keys in a custom key store](view-cmk-keystore.md)\.
 
 **Topics**
 + [View a custom key store \(console\)](#view-keystore-console)
@@ -16,7 +16,7 @@ When you view the custom key stores in the AWS Management Console, you can see t
 + The number of HSMs in the cluster
 + The current connection status
 
-A connection status of **Disconnected** indicates that the custom key store is new and has never been connected, or it was intentionally [disconnected from its AWS CloudHSM cluster](disconnect-keystore.md)\. However, if your attempts to use a CMK in a connected custom key store fail, that might indicate a problem with the custom key store or its AWS CloudHSM cluster\. For help, see [How to fix a failing CMK](fix-keystore.md#fix-cmk-failed)\.
+A connection status of **Disconnected** indicates that the custom key store is new and has never been connected, or it was intentionally [disconnected from its AWS CloudHSM cluster](disconnect-keystore.md)\. However, if your attempts to use a KMS key in a connected custom key store fail, that might indicate a problem with the custom key store or its AWS CloudHSM cluster\. For help, see [How to fix a failing KMS key](fix-keystore.md#fix-cmk-failed)\.
 
 To view the custom key stores in a given account and Region, use the following procedure\.
 
@@ -60,7 +60,7 @@ $ aws kms describe-custom-key-stores --custom-key-store-name ExampleKeyStore
 }
 ```
 
-A `ConnectionState` of `Disconnected` indicates that a custom key store has never been connected or it was intentionally [disconnected from its AWS CloudHSM cluster](disconnect-keystore.md)\. However, if attempts to use a CMK in a connected custom key store fail, that might indicate a problem with the custom key store or its AWS CloudHSM cluster\. For help, see [How to fix a failing CMK](fix-keystore.md#fix-cmk-failed)\. 
+A `ConnectionState` of `Disconnected` indicates that a custom key store has never been connected or it was intentionally [disconnected from its AWS CloudHSM cluster](disconnect-keystore.md)\. However, if attempts to use a KMS key in a connected custom key store fail, that might indicate a problem with the custom key store or the AWS CloudHSM cluster\. For help, see [How to fix a failing KMS key](fix-keystore.md#fix-cmk-failed)\. 
 
 If the `ConnectionState` of the custom key store is `FAILED`, the `DescribeCustomKeyStores` response includes a `ConnectionErrorCode` element that explains the reason for the error\.
 

@@ -39,9 +39,9 @@ You can use hybrid post\-quantum TLS for your calls to AWS KMS\. When setting up
 
 **Encryption in Transit**
 
-The hybrid cipher suites in s2n are used only for encryption in transit\. They protect your data while it is traveling from your client to the AWS KMS endpoint\. AWS KMS does not use these cipher suites to encrypt data under customer master keys \(CMKs\)\. 
+The hybrid cipher suites in s2n are used only for encryption in transit\. They protect your data while it is traveling from your client to the AWS KMS endpoint\. AWS KMS does not use these cipher suites to encrypt data under AWS KMS keys\. 
 
-Instead, when AWS KMS encrypts your data under CMKs, it uses symmetric cryptography with 256\-bit keys and the Advanced Encryption Standard in Galois Counter Mode \(AES\-GCM\) algorithm, which is already quantum resistant\. Theoretical future, large\-scale quantum computing attacks on ciphertexts created under 256\-bit AES\-GCM keys [reduce the effective security of the key to 128 bits](https://www.etsi.org/images/files/ETSIWhitePapers/QuantumSafeWhitepaper.pdf)\. This security level is sufficient to make brute force attacks on AWS KMS ciphertexts infeasible\. 
+Instead, when AWS KMS encrypts your data under KMS keys, it uses symmetric cryptography with 256\-bit keys and the Advanced Encryption Standard in Galois Counter Mode \(AES\-GCM\) algorithm, which is already quantum resistant\. Theoretical future, large\-scale quantum computing attacks on ciphertexts created under 256\-bit AES\-GCM keys [reduce the effective security of the key to 128 bits](https://www.etsi.org/images/files/ETSIWhitePapers/QuantumSafeWhitepaper.pdf)\. This security level is sufficient to make brute force attacks on AWS KMS ciphertexts infeasible\. 
 
 **Supported Systems**
 

@@ -2,12 +2,12 @@
 
 When you delete a custom key store, AWS KMS deletes all metadata about the custom key store from KMS, including information about its association with an AWS CloudHSM cluster\. This operation does not affect the AWS CloudHSM cluster, its HSMs, or its users\. You can create a new custom key store that is associated with the specified cluster, but you cannot undo the delete operation\.
 
-You can only delete a custom key store that is disconnected from AWS KMS and does not contain any customer master keys \(CMKs\)\. Before you delete a custom key store, do the following\.
-+ Verify that you will never need to use any of the CMKs in the key store for any [cryptographic operations](use-cmk-keystore.md)\. Then [schedule deletion](delete-cmk-keystore.md) of all of the CMKs from the key store\. For help finding the CMKs in a custom key store, see [Find the CMKs in a custom key store](find-key-material.md#find-cmk-in-keystore)\.
-+ Confirm that all CMKs have been deleted\. To view the CMKs in a custom key store, see [Viewing CMKs in a custom key store](view-cmk-keystore.md)\.
+You can only delete a custom key store that is disconnected from AWS KMS and does not contain any AWS KMS keys\. Before you delete a custom key store, do the following\.
++ Verify that you will never need to use any of the KMS keys in the key store for any [cryptographic operations](use-cmk-keystore.md)\. Then [schedule deletion](delete-cmk-keystore.md) of all of the KMS keys from the key store\. For help finding the KMS keys in a custom key store, see [Find the KMS keys in a custom key store](find-key-material.md#find-cmk-in-keystore)\.
++ Confirm that all KMS keys have been deleted\. To view the KMS keys in a custom key store, see [Viewing KMS keys in a custom key store](view-cmk-keystore.md)\.
 + [Disconnect the custom key store](disconnect-keystore.md) from AWS KMS\.
 
-Instead of deleting the custom key store, consider [disconnecting it](disconnect-keystore.md) from its associated AWS CloudHSM cluster\. While a custom key store is disconnected, you can manage the custom key store and its customer master keys \(CMKs\)\. But you cannot create or use CMKs in the custom key store\. You can reconnect the custom key store at any time\.
+Instead of deleting the custom key store, consider [disconnecting it](disconnect-keystore.md) from its associated AWS CloudHSM cluster\. While a custom key store is disconnected, you can manage the custom key store and its AWS KMS keys\. But you cannot create or use KMS keys in the custom key store\. You can reconnect the custom key store at any time\.
 
 If you have deleted all custom key stores from all Regions of your AWS account and you do not plan to create any more, you should [delete the service\-linked role](authorize-key-store.md#authorize-kms) that AWS KMS uses for custom key stores\.
 
@@ -35,7 +35,7 @@ When the operation completes, a success message appears and the custom key store
 
 To delete a custom key store, use the [DeleteCustomKeyStore](https://docs.aws.amazon.com/kms/latest/APIReference/API_DeleteCustomKeyStore.html) operation\. If the operation is successful, AWS KMS returns an HTTP 200 response and a JSON object with no properties\.
 
-To begin, verify that the custom key store does not contain any AWS KMS customer master keys \(CMKs\)\. You cannot delete a custom key store that contains CMKs\. The first example command uses [ListKeys](https://docs.aws.amazon.com/kms/latest/APIReference/API_ListKeys.html) and [DescribeKey](https://docs.aws.amazon.com/kms/latest/APIReference/API_DescribeKey.html) to search for AWS KMS customer master keys in the custom key store with the *cks\-1234567890abcdef0* fictitious key store ID\. In this case, the command does not return any CMKs\. If it does, use the [ScheduleKeyDeletion](https://docs.aws.amazon.com/kms/latest/APIReference/API_ScheduleKeyDeletion.html) operation to schedule deletion of each of the CMKs\.
+To begin, verify that the custom key store does not contain any AWS KMS keys\. You cannot delete a custom key store that contains KMS keys\. The first example command uses [ListKeys](https://docs.aws.amazon.com/kms/latest/APIReference/API_ListKeys.html) and [DescribeKey](https://docs.aws.amazon.com/kms/latest/APIReference/API_DescribeKey.html) to search for AWS KMS keys in the custom key store with the *cks\-1234567890abcdef0* fictitious key store ID\. In this case, the command does not return any KMS keys\. If it does, use the [ScheduleKeyDeletion](https://docs.aws.amazon.com/kms/latest/APIReference/API_ScheduleKeyDeletion.html) operation to schedule deletion of each of the KMS keys\.
 
 ------
 #### [ Bash ]

@@ -1,6 +1,6 @@
 # Connecting and disconnecting a custom key store<a name="disconnect-keystore"></a>
 
-New custom key stores are not connected\. Before you can create and use customer master keys \(CMKs\) in your custom key store, you need to connect it to its associated AWS CloudHSM cluster\. You can connect and disconnect your custom key store at any time, and [view its connection status](view-keystore.md#view-keystore-console)\. 
+New custom key stores are not connected\. Before you can create and use AWS KMS keys in your custom key store, you need to connect it to its associated AWS CloudHSM cluster\. You can connect and disconnect your custom key store at any time, and [view its connection status](view-keystore.md#view-keystore-console)\. 
 
 You are not required to connect your custom key store\. You can leave a custom key store in a disconnected state indefinitely and connect it only when you need to use it\. However, you might want to test the connection periodically to verify that the settings are correct and it can be connected\.
 
@@ -20,23 +20,23 @@ Before you connect the custom key store, verify that it meets the requirements\.
 + The cluster must have a [kmsuser crypto user](create-keystore.md#kmsuser-concept) \(CU\) account, but that CU cannot be logged into the cluster when you connect the custom key store\. For help with logging out, see [How to log out and reconnect](fix-keystore.md#login-kmsuser-2)\.
 + The connection status of the custom key store cannot be `DISCONNECTING` or `FAILED`\. You can [view the connection status](view-keystore.md#view-keystore-console) in the console or by using the [DescribeCustomKeyStores](https://docs.aws.amazon.com/kms/latest/APIReference/API_DescribeCustomKeyStores.html) operation\. If the connection status is `FAILED`, disconnect the custom key store, and then connect it\.
 
-When your custom key store is connected, you can [create CMKs in it](create-cmk-keystore.md) and use existing CMKs in [cryptographic operations](use-cmk-keystore.md)\. 
+When your custom key store is connected, you can [create KMS keys in it](create-cmk-keystore.md) and use existing KMS keys in [cryptographic operations](use-cmk-keystore.md)\. 
 
 **Disconnecting a custom key store**
 
 When you disconnect a custom key store, AWS KMS logs out of the AWS CloudHSM client, disconnects from the associated AWS CloudHSM cluster, and removes the network infrastructure that it created to support the connection\.
 
-While a custom key store is disconnected, you can manage the custom key store and its customer master keys \(CMKs\), but you cannot create or use CMKs in the custom key store\. The status of the key store is `DISCONNECTED` and the [key state](key-state.md) of CMKs in the custom key store is `Unavailable`, unless they are `PendingDeletion`\.  You can reconnect the custom key store at any time\.
+While a custom key store is disconnected, you can manage the custom key store and its AWS KMS keys \(KMS keys\), but you cannot create or use KMS keys in the custom key store\. The status of the key store is `DISCONNECTED` and the [key state](key-state.md) of KMS keys in the custom key store is `Unavailable`, unless they are `PendingDeletion`\.  You can reconnect the custom key store at any time\.
 
 **Note**  
-While a custom key store is disconnected, all attempts to create customer master keys \(CMKs\) in the custom key store or to use existing CMKs in cryptographic operations will fail\. This action can prevent users from storing and accessing sensitive data\.
+While a custom key store is disconnected, all attempts to create KMS keys in the custom key store or to use existing KMS keys in cryptographic operations will fail\. This action can prevent users from storing and accessing sensitive data\.
 
-To better estimate the effect of disconnecting your key store, [identify the CMKs](find-key-material.md#find-cmk-in-keystore) in the custom key store and [determine their past use](deleting-keys-determining-usage.md)\.
+To better estimate the effect of disconnecting your key store, [identify the KMS keys](find-key-material.md#find-cmk-in-keystore) in the custom key store and [determine their past use](deleting-keys-determining-usage.md)\.
 
 You might disconnect the custom key store for reasons such as the following:
 + **To rotate of the `kmsuser` password\.** AWS KMS changes the `kmsuser` password each time that it connects to the AWS CloudHSM cluster\. To force a password rotation, just disconnect and reconnect\.
-+ **To audit the key material** for the CMKs in the AWS CloudHSM cluster\. When you disconnect the custom key store, AWS KMS logs out of the [`kmsuser` crypto user](key-store-concepts.md#concept-kmsuser) account in the AWS CloudHSM client\. This allows you to log into the cluster as the `kmsuser` CU and audit and manage the key material for the CMK\.
-+ **To immediately disable all CMKs** in the custom key store\. You can [disable and re\-enable CMKs](enabling-keys.md) in a custom key store by using the AWS Management Console or the [DisableKey](https://docs.aws.amazon.com/kms/latest/APIReference/API_DisableKey.html) operation\. These operations complete quickly, but they act on one CMK at a time\. Disconnecting immediately changes the key state of all CMKs in the custom key to `Unavailable`, which prevents them from being used in any cryptographic operation\.
++ **To audit the key material** for the KMS keys in the AWS CloudHSM cluster\. When you disconnect the custom key store, AWS KMS logs out of the [`kmsuser` crypto user](key-store-concepts.md#concept-kmsuser) account in the AWS CloudHSM client\. This allows you to log into the cluster as the `kmsuser` CU and audit and manage the key material for the KMS key\.
++ **To immediately disable all KMS keys** in the custom key store\. You can [disable and re\-enable KMS keys](enabling-keys.md) in a custom key store by using the AWS Management Console or the [DisableKey](https://docs.aws.amazon.com/kms/latest/APIReference/API_DisableKey.html) operation\. These operations complete quickly, but they act on one KMS key at a time\. Disconnecting immediately changes the key state of all KMS keys in the custom key to `Unavailable`, which prevents them from being used in any cryptographic operation\.
 + **To repair a failed connection attempt**\. If an attempt to connect a custom key store fails \(the connection status of the custom key store is `FAILED`\), you must disconnect the custom key store before you try to connect it again\.
 
 **Topics**
@@ -65,7 +65,7 @@ AWS KMS begins the process of connecting your custom key store\. It finds the as
 
 If the operation fails, an error message appears that describes the reason for the failure\. Before you try to connect again, [view the connection status](view-keystore.md) of your custom key store\. If it is **FAILED**, you must [disconnect the custom key store](#disconnect-keystore-console) before you connect it again\. If you need help, see [Troubleshooting a custom key store](fix-keystore.md)\.
 
-**Next:** [Create CMKs in a custom key store](create-cmk-keystore.md)\.
+**Next:** [Create KMS keys in a custom key store](create-cmk-keystore.md)\.
 
 ## Connect a custom key store \(API\)<a name="connect-keystore-api"></a>
 
@@ -114,7 +114,7 @@ $ aws kms describe-custom-key-stores --custom-key-store-id cks-1234567890abcdef0
 }
 ```
 
-**Next:** [Create CMKs in a custom key store](create-cmk-keystore.md)\.
+**Next:** [Create KMS keys in a custom key store](create-cmk-keystore.md)\.
 
 ## Disconnect a custom key store \(console\)<a name="disconnect-keystore-console"></a>
 

@@ -2,7 +2,7 @@
 
 The following example shows an AWS CloudTrail log entry of a call to the [UntagResource](https://docs.aws.amazon.com/kms/latest/APIReference/API_UntagResource.html) operation to delete a tag with a tag key of `Dept`\.
 
-For an example of an `TagResource` CloudTrail log entry, see [TagResource](ct-tagresource.md)\. For information about tagging AWS KMS customer master keys, see [Tagging keys](tagging-keys.md)\.
+For an example of an `TagResource` CloudTrail log entry, see [TagResource](ct-tagresource.md)\. For information about tagging AWS KMS keys, see [Tagging keys](tagging-keys.md)\.
 
 ```
 {

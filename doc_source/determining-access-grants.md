@@ -1,8 +1,8 @@
 # Examining grants<a name="determining-access-grants"></a>
 
-Grants are advanced mechanisms for specifying permissions that you or an AWS service integrated with AWS KMS can use to specify how and when a CMK can be used\. Grants are attached to a CMK, and each grant contains the principal who receives permission to use the CMK and a list of operations that are allowed\. Grants are an alternative to the key policy, and are useful for specific use cases\. For more information, see [Using grants](grants.md)\.
+Grants are advanced mechanisms for specifying permissions that you or an AWS service integrated with AWS KMS can use to specify how and when a KMS key can be used\. Grants are attached to a KMS key, and each grant contains the principal who receives permission to use the KMS key and a list of operations that are allowed\. Grants are an alternative to the key policy, and are useful for specific use cases\. For more information, see [Using grants](grants.md)\.
 
-To get a list of grants for a CMK, use the AWS KMS [ListGrants](https://docs.aws.amazon.com/kms/latest/APIReference/API_ListGrants.html) operation\. You can examine the grants for a CMK to determine who or what currently has access to use the CMK via those grants\. For example, the following is a JSON representation of a grant that was obtained from the [list\-grants](https://docs.aws.amazon.com/cli/latest/reference/kms/list-grants.html) command in the AWS CLI\.
+To get a list of grants for a KMS key, use the AWS KMS [ListGrants](https://docs.aws.amazon.com/kms/latest/APIReference/API_ListGrants.html) operation\. You can examine the grants for a KMS key to determine who or what currently has access to use the KMS key via those grants\. For example, the following is a JSON representation of a grant that was obtained from the [list\-grants](https://docs.aws.amazon.com/cli/latest/reference/kms/list-grants.html) command in the AWS CLI\.
 
 ```
 {"Grants": [{
@@ -18,7 +18,7 @@ To get a list of grants for a CMK, use the AWS KMS [ListGrants](https://docs.aws
 }]}
 ```
 
-To find out who or what has access to use the CMK, look for the `"GranteePrincipal"` element\. In the preceding example, the grantee principal is an assumed role user that is associated with the EC2 instance i\-5d476fab\. The EC2 infrastructure uses this role to attach the encrypted EBS volume vol\-5cccfb4e to the instance\. In this case, the EC2 infrastructure role has permission to use the CMK because you previously created an encrypted EBS volume that is protected by this CMK\. You then attached the volume to an EC2 instance\.
+To find out who or what has access to use the KMS key, look for the `"GranteePrincipal"` element\. In the preceding example, the grantee principal is an assumed role user that is associated with the EC2 instance i\-5d476fab\. The EC2 infrastructure uses this role to attach the encrypted EBS volume vol\-5cccfb4e to the instance\. In this case, the EC2 infrastructure role has permission to use the KMS key because you previously created an encrypted EBS volume that is protected by this KMS key\. You then attached the volume to an EC2 instance\.
 
 The following is another example of a JSON representation of a grant that was obtained from the [list\-grants](https://docs.aws.amazon.com/cli/latest/reference/kms/list-grants.html) command in the AWS CLI\. In the following example, the grantee principal is another AWS account\.
 

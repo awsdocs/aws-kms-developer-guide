@@ -1,23 +1,23 @@
-# Key state: Effect on your CMK<a name="key-state"></a>
+# Key state: Effect on your KMS key<a name="key-state"></a>
 
-A customer master key \(CMK\) always has a key state\. Operations on the CMK and its environment can change that key state, either transiently, or until another operation changes its key state\.
+An AWS KMS key always has a key state\. Operations on the KMS key and its environment can change that key state, either transiently, or until another operation changes its key state\.
 
-The table in this section shows how key states affect calls to AWS KMS API operations\. As a result of its key state, an operation on a CMK is expected to succeed \(`✓`\), fail \(`X`\), or succeed only under certain conditions \(`?`\)\. The result often differs for CMKs with imported key material\.
+The table in this section shows how key states affect calls to AWS KMS API operations\. As a result of its key state, an operation on a KMS key is expected to succeed \(`✓`\), fail \(`X`\), or succeed only under certain conditions \(`?`\)\. The result often differs for KMS keys with imported key material\.
 
-This table includes only the API operations that use an existing CMK\. Other operations, such as [CreateKey](https://docs.aws.amazon.com/kms/latest/APIReference/API_CreateKey.html) and [ListKeys](https://docs.aws.amazon.com/kms/latest/APIReference/API_ListKeys.html), are omitted\.
+This table includes only the API operations that use an existing KMS key\. Other operations, such as [CreateKey](https://docs.aws.amazon.com/kms/latest/APIReference/API_CreateKey.html) and [ListKeys](https://docs.aws.amazon.com/kms/latest/APIReference/API_ListKeys.html), are omitted\.
 
 **Topics**
-+ [Key states and CMK types](#key-state-cmk-type)
++ [Key states and KMS key types](#key-state-cmk-type)
 + [Key state table](#key-state-table)
 
-## Key states and CMK types<a name="key-state-cmk-type"></a>
+## Key states and KMS key types<a name="key-state-cmk-type"></a>
 
-The type of the CMK determines the key states it can have\.
-+ Most CMKs are created in the `Enabled` state\. Keys with imported key material are created in the `PendingImport` state\.
-+ Symmetric CMKs can be in the `Enabled`, `Disabled`, `PendingImport`, `PendingDeletion`, or `Unavailable` states\. 
-+ Asymmetric CMKs can be in the `Enabled`, `Disabled`, or `PendingDeletion` key state\.
-+ The `PendingImport` state applies only to CMKs with [imported key material](importing-keys.md)\.
-+ The `Unavailable` state applies only to a CMK in a [custom key store](custom-key-store-overview.md)\. A CMK in a custom key store is `Unavailable` when the custom key store is intentionally disconnected from its AWS CloudHSM cluster\. You can view and manage unavailable CMKs, but you cannot use them in cryptographic operations\.
+The type of the KMS key determines the key states it can have\.
++ Most KMS keys are created in the `Enabled` state\. Keys with imported key material are created in the `PendingImport` state\.
++ Symmetric KMS keys can be in the `Enabled`, `Disabled`, `PendingImport`, `PendingDeletion`, or `Unavailable` states\. 
++ Asymmetric KMS keys can be in the `Enabled`, `Disabled`, or `PendingDeletion` key state\.
++ The `PendingImport` state applies only to KMS keys with [imported key material](importing-keys.md)\.
++ The `Unavailable` state applies only to a KMS key in a [custom key store](custom-key-store-overview.md)\. A KMS key in a custom key store is `Unavailable` when the custom key store is intentionally disconnected from its AWS CloudHSM cluster\. You can view and manage unavailable KMS keys, but you cannot use them in cryptographic operations\.
 + The `Creating`, `Updating`, and `PendingReplicaDeletion` key states apply only to [multi\-Region keys](multi-region-keys-overview.md)\. 
   + A multi\-Region replica key is in the transient `Creating` key state while it is being created\. This process might still be in progress when the [ReplicateKey](https://docs.aws.amazon.com/kms/latest/APIReference/API_ReplicateKey.html) operation completes\. When the replicate process completes, the replica key is in the `Enabled` or `PendingImport` state\.
   + Multi\-Region keys are in the transient `Updating` key state while the primary Region is being updated\. This process might still be in progress when the [UpdatePrimaryRegion](https://docs.aws.amazon.com/kms/latest/APIReference/API_UpdatePrimaryRegion.html) operation completes\. When the update process completes, the primary and replica keys resume the `Enabled` key state\.
@@ -25,7 +25,7 @@ The type of the CMK determines the key states it can have\.
 
 ## Key state table<a name="key-state-table"></a>
 
-The following table shows how the key state of a customer master key \(CMK\) affects AWS KMS operations\.
+The following table shows how the key state of a KMS key affects AWS KMS operations\.
 
 The descriptions of the numbered footnotes \(\[*n*\]\) are at the end of this topic\.
 
@@ -77,18 +77,18 @@ You might need to scroll horizontally or vertically to see all of the data in th
 | Verify | ![\[Image NOT FOUND\]](http://docs.aws.amazon.com/kms/latest/developerguide/images/icon-successful.png) | ![\[Image NOT FOUND\]](http://docs.aws.amazon.com/kms/latest/developerguide/images/icon-disabled-pending-deletion.png) \[1\]  | ![\[Image NOT FOUND\]](http://docs.aws.amazon.com/kms/latest/developerguide/images/icon-disabled-pending-deletion.png) \[2\] or \[3\]  | N/A | N/A | ![\[Image NOT FOUND\]](http://docs.aws.amazon.com/kms/latest/developerguide/images/icon-disabled-pending-deletion.png) \[14\]  | ![\[Image NOT FOUND\]](http://docs.aws.amazon.com/kms/latest/developerguide/images/icon-successful.png)  | 
 
 **Table Details**
-+ \[1\] `DisabledException: <CMK ARN> is disabled.`
-+ \[2\] `DisabledException: <CMK ARN> is pending deletion (or pending replica deletion).`
-+ \[3\] `KMSInvalidStateException: <CMK ARN> is pending deletion (or pending replica deletion).`
-+ \[4\] `KMSInvalidStateException: <CMK ARN> is not pending deletion (or pending replica deletion).`
-+ \[5\] `KMSInvalidStateException: <CMK ARN> is pending import.`
-+ \[6\] `UnsupportedOperationException: <CMK ARN> origin is EXTERNAL which is not valid for this operation.`
-+ \[7\] If the CMK has imported key material or is in a custom key store: `UnsupportedOperationException`\.
-+ \[8\] If the CMK has imported key material: `KMSInvalidStateException`
-+ \[9\] If the CMK cannot or does not have imported key material: `UnsupportedOperationException`\.
-+ \[10\] If the source CMK is pending deletion, the command succeeds\. If the destination CMK is pending deletion, the command fails with error: `KMSInvalidStateException : <CMK ARN> is pending deletion.`
-+ \[11\] `KMSInvalidStateException: <CMK ARN> is unavailable.` You cannot perform this operation on an unavailable CMK\.
-+ \[12\] The operation succeeds, but the key state of the CMK does not change until it becomes available\.
-+ \[13\] While a CMK in a custom key store is pending deletion, its key state remains `PendingDeletion` even if the CMK becomes unavailable\. This allows you to cancel deletion of the CMK at any time during the waiting period\.
-+ \[14\] `KMSInvalidStateException: <CMK ARN> is creating.` AWS KMS throws this exception while it is replicating a multi\-region CMK \(`ReplicateKey`\)\.
-+ \[15\] `KMSInvalidStateException: <CMK ARN> is updating.` AWS KMS throws this exception while it is updating the primary region of a multi\-region CMK \(`UpdatePrimaryRegion`\)\.
++ \[1\] `DisabledException: <key ARN> is disabled.`
++ \[2\] `DisabledException: <key ARN> is pending deletion (or pending replica deletion).`
++ \[3\] `KMSInvalidStateException: <key ARN> is pending deletion (or pending replica deletion).`
++ \[4\] `KMSInvalidStateException: <key ARN> is not pending deletion (or pending replica deletion).`
++ \[5\] `KMSInvalidStateException: <key ARN> is pending import.`
++ \[6\] `UnsupportedOperationException: <key ARN> origin is EXTERNAL which is not valid for this operation.`
++ \[7\] If the KMS key has imported key material or is in a custom key store: `UnsupportedOperationException`\.
++ \[8\] If the KMS key has imported key material: `KMSInvalidStateException`
++ \[9\] If the KMS key cannot or does not have imported key material: `UnsupportedOperationException`\.
++ \[10\] If the source KMS key is pending deletion, the command succeeds\. If the destination KMS key is pending deletion, the command fails with error: `KMSInvalidStateException : <key ARN> is pending deletion.`
++ \[11\] `KMSInvalidStateException: <key ARN> is unavailable.` You cannot perform this operation on an unavailable KMS key\.
++ \[12\] The operation succeeds, but the key state of the KMS key does not change until it becomes available\.
++ \[13\] While a KMS key in a custom key store is pending deletion, its key state remains `PendingDeletion` even if the KMS key becomes unavailable\. This allows you to cancel deletion of the KMS key at any time during the waiting period\.
++ \[14\] `KMSInvalidStateException: <key ARN> is creating.` AWS KMS throws this exception while it is replicating a multi\-region key \(`ReplicateKey`\)\.
++ \[15\] `KMSInvalidStateException: <key ARN> is updating.` AWS KMS throws this exception while it is updating the primary region of a multi\-region key \(`UpdatePrimaryRegion`\)\.

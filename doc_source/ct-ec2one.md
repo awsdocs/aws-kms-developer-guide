@@ -2,7 +2,7 @@
 
 The following example demonstrates an IAM user creating an encrypted volume using the default volume key in the Amazon EC2 management console\.
 
-The following example shows a CloudTrail log entry that demonstrates the user Alice creating an encrypted volume using a default volume key in Amazon EC2 Management Console\. The EC2 log file record includes a `volumeId` field with a value of `"vol-13439757"`\. The AWS KMS record contains an `encryptionContext` field with a value of `"aws:ebs:id": "vol-13439757"`\. Similarly, the `principalId` and `accountId` between the two records match\. The records reflect the fact that creating an encrypted volume generates a data key that is used to encrypt the volume content\.
+The following example shows a CloudTrail log entry in which user Alice creates an encrypted volume with a default volume key in the Amazon EC2 management console\. The EC2 log file record includes a `volumeId` field with a value of `"vol-13439757"`\. The AWS KMS record contains an `encryptionContext` field with a value of `"aws:ebs:id": "vol-13439757"`\. Similarly, the `principalId` and `accountId` between the two records match\. The records reflect the fact that creating an encrypted volume generates a data key that is used to encrypt the volume content\.
 
 ```
 {

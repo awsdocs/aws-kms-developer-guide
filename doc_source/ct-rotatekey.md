@@ -1,8 +1,8 @@
 # RotateKey<a name="ct-rotatekey"></a>
 
-The following example shows an AWS CloudTrail log entry of the operation that rotates a customer master key \(CMK\)\. AWS KMS calls this operation when it is time to rotate a CMK on which automatic key rotation is enabled\. When you enable automatic key rotation \([EnableKeyRotation](https://docs.aws.amazon.com/kms/latest/APIReference/API_EnableKeyRotation.html)\), AWS KMS rotates the CMK 365 days later and every 365 days thereafter\.
+The following example shows an AWS CloudTrail log entry of the operation that rotates an AWS KMS key\. AWS KMS calls this operation when it is time to rotate a KMS key on which automatic key rotation is enabled\. When you enable automatic key rotation \([EnableKeyRotation](https://docs.aws.amazon.com/kms/latest/APIReference/API_EnableKeyRotation.html)\), AWS KMS rotates the KMS key 365 days later and every 365 days thereafter\.
 
-For an example of the CloudTrail log entry that records the `EnableKeyRotation` operation, see [EnableKeyRotation](ct-enablekeyrotation.md)\. For information about rotating AWS KMS customer master keys, see [Rotating customer master keys](rotate-keys.md)\.
+For an example of the CloudTrail log entry that records the `EnableKeyRotation` operation, see [EnableKeyRotation](ct-enablekeyrotation.md)\. For information about rotating KMS keys, see [Rotating AWS KMS keys](rotate-keys.md)\.
 
 ```
 {

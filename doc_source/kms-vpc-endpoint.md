@@ -24,7 +24,7 @@ Before you set up an interface VPC endpoint for AWS KMS, review the [Interface e
 AWS KMS supports the following features to support a VPC endpoint\.
 + You can use your VPC interface endpoint to call all [AWS KMS API operations](https://docs.aws.amazon.com/kms/latest/APIReference/) from your VPC\.
 + AWS KMS does not support creating a VPC interface endpoint to an AWS KMS FIPS endpoint\.
-+ You can use AWS CloudTrail logs to audit your use of AWS KMS customer master key \(CMKs\) through the VPC endpoint\. For details, see [Logging your VPC endpoint](#vpce-logging)\.
++ You can use AWS CloudTrail logs to audit your use of AWS KMS key \(KMS key\) through the VPC endpoint\. For details, see [Logging your VPC endpoint](#vpce-logging)\.
 
 ## Creating a VPC endpoint for AWS KMS<a name="vpce-create-endpoint"></a>
 
@@ -82,12 +82,12 @@ For help writing and formatting a JSON policy document, see the [IAM JSON Policy
 ### About VPC endpoint policies<a name="vpce-policy-about"></a>
 
 For an AWS KMS request that uses a VPC endpoint to be successful, the principal requires permissions from two sources:
-+ A [key policy](key-policies.md), [IAM policy](iam-policies.md), or [grant](grants.md) must give principal permission to call the operation on the resource \(CMK or alias\)\.
++ A [key policy](key-policies.md), [IAM policy](iam-policies.md), or [grant](grants.md) must give principal permission to call the operation on the resource \(KMS key or alias\)\.
 + A VPC endpoint policy must give the principal permission to use the endpoint to make the request\.
 
-For example, a key policy might give a principal permission to call [Decrypt](https://docs.aws.amazon.com/kms/latest/APIReference/API_Decrypt.html) on a particular CMK\. However, the VPC endpoint policy might not allow that principal to call `Decrypt` on that CMK by using the endpoint\.
+For example, a key policy might give a principal permission to call [Decrypt](https://docs.aws.amazon.com/kms/latest/APIReference/API_Decrypt.html) on a particular KMS key\. However, the VPC endpoint policy might not allow that principal to call `Decrypt` on that KMS key by using the endpoint\.
 
-Or a VPC endpoint policy might allow a principal to use the endpoint to call [DisableKey](https://docs.aws.amazon.com/kms/latest/APIReference/API_DisableKey.html) on certain CMKs\. But if the principal doesn't have those permissions from a key policy, IAM policy, or grant, the request fails\.
+Or a VPC endpoint policy might allow a principal to use the endpoint to call [DisableKey](https://docs.aws.amazon.com/kms/latest/APIReference/API_DisableKey.html) on certain KMS keys\. But if the principal doesn't have those permissions from a key policy, IAM policy, or grant, the request fails\.
 
 ### Default VPC endpoint policy<a name="vpce-default-policy"></a>
 
@@ -121,7 +121,7 @@ Each VPC endpoint policy statement requires the following elements:
 
 The policy statement doesn't specify the VPC endpoint\. Instead, it applies to any VPC endpoint to which the policy is attached\. For more information, see [Controlling access to services with VPC endpoints](https://docs.aws.amazon.com/vpc/latest/userguide/vpc-endpoints-access.html) in the *Amazon VPC User Guide*\. 
 
-The following is an example of a VPC endpoint policy for AWS KMS\. When attached to a VPC endpoint, this policy allows `ExampleUser` to use the VPC endpoint to call the specified operations on the specified CMK\. Before using a policy like this one, replace the example principal and [key ARN](concepts.md#key-id-key-ARN) with valid values from your account\.
+The following is an example of a VPC endpoint policy for AWS KMS\. When attached to a VPC endpoint, this policy allows `ExampleUser` to use the VPC endpoint to call the specified operations on the specified KMS keys\. Before using a policy like this one, replace the example principal and [key ARN](concepts.md#key-id-key-ARN) with valid values from your account\.
 
 ```
 {
@@ -142,11 +142,11 @@ The following is an example of a VPC endpoint policy for AWS KMS\. When attached
 }
 ```
 
-AWS CloudTrail logs all operations that use the VPC endpoint\. However, your CloudTrail logs don’t include operations requested by principals in other accounts or operations for CMKs in other accounts\.
+AWS CloudTrail logs all operations that use the VPC endpoint\. However, your CloudTrail logs don’t include operations requested by principals in other accounts or operations for KMS keys in other accounts\.
 
 As such, you might want to create a VPC endpoint policy that prevents principals in external accounts from using the VPC endpoint to call any AWS KMS operations on any keys in the local account\.
 
-The following example uses the [aws:PrincipalAccount](https://docs.aws.amazon.com/IAM/latest/UserGuide/reference_policies_condition-keys.html#condition-keys-principalaccount) global condition key to deny access to all principals for all operations on all CMKs unless the principal is in the local account\. Before using a policy like this one, replace the example account ID with a valid one\.
+The following example uses the [aws:PrincipalAccount](https://docs.aws.amazon.com/IAM/latest/UserGuide/reference_policies_condition-keys.html#condition-keys-principalaccount) global condition key to deny access to all principals for all operations on all KMS keys unless the principal is in the local account\. Before using a policy like this one, replace the example account ID with a valid one\.
 
 ```
 {
@@ -191,9 +191,9 @@ You can control access to AWS KMS resources and operations when the request come
 Use caution when creating key policies and IAM policies based on your VPC endpoint\. If a policy statement requires that requests come from a particular VPC or VPC endpoint, requests from integrated AWS services that use an AWS KMS resource on your behalf might fail\. For help, see [Using VPC endpoint conditions in policies with AWS KMS permissions](policy-conditions.md#conditions-aws-vpce)\.  
 Also, the `aws:sourceIP` condition key is not effective when the request comes from an [Amazon VPC endpoint](https://docs.aws.amazon.com/vpc/latest/userguide/vpc-endpoints.html)\. To restrict requests to a VPC endpoint, use the `aws:sourceVpce` or `aws:sourceVpc` condition keys\. For more information, see [VPC Endpoints \- Controlling the Use of Endpoints](https://docs.aws.amazon.com/vpc/latest/userguide/vpc-endpoints.html#vpc-endpoints-iam-access) in the *Amazon VPC User Guide*\. 
 
-You can use these global condition keys to control access to customer master keys \(CMKs\), aliases, and to operations like [CreateKey](https://docs.aws.amazon.com/kms/latest/APIReference/API_CreateKey.html) that don't depend on any particular resource\.
+You can use these global condition keys to control access to AWS KMS keys \(KMS keys\), aliases, and to operations like [CreateKey](https://docs.aws.amazon.com/kms/latest/APIReference/API_CreateKey.html) that don't depend on any particular resource\.
 
-For example, the following sample key policy allows a user to perform some cryptographic operations with a CMK only when the request uses the specified VPC endpoint\. When a user makes a request to AWS KMS, the VPC endpoint ID in the request is compared to the `aws:sourceVpce` condition key value in the policy\. If they do not match, the request is denied\. 
+For example, the following sample key policy allows a user to perform some cryptographic operations with a KMS key only when the request uses the specified VPC endpoint\. When a user makes a request to AWS KMS, the VPC endpoint ID in the request is compared to the `aws:sourceVpce` condition key value in the policy\. If they do not match, the request is denied\. 
 
 To use a policy like this one, replace the placeholder AWS account ID and VPC endpoint IDs with valid values for your account\.
 
@@ -231,9 +231,9 @@ To use a policy like this one, replace the placeholder AWS account ID and VPC en
 }
 ```
 
-You can also use the `aws:sourceVpc` condition key to restrict access to your CMKs based on the VPC in which VPC endpoint resides\. 
+You can also use the `aws:sourceVpc` condition key to restrict access to your KMS keys based on the VPC in which VPC endpoint resides\. 
 
-The following sample key policy allows commands that manage the CMK only when they come from `vpc-12345678`\. In addition, it allows commands that use the CMK for cryptographic operations only when they come from `vpc-2b2b2b2b`\. You might use a policy like this one if an application is running in one VPC, but you use a second, isolated VPC for management functions\. 
+The following sample key policy allows commands that manage the KMS key only when they come from `vpc-12345678`\. In addition, it allows commands that use the KMS key for cryptographic operations only when they come from `vpc-2b2b2b2b`\. You might use a policy like this one if an application is running in one VPC, but you use a second, isolated VPC for management functions\. 
 
 To use a policy like this one, replace the placeholder AWS account ID and VPC endpoint IDs with valid values for your account\.
 
@@ -289,7 +289,7 @@ To use a policy like this one, replace the placeholder AWS account ID and VPC en
 
 AWS CloudTrail logs all operations that use the VPC endpoint\. When a request to AWS KMS uses a VPC endpoint, the VPC endpoint ID appears in the [AWS CloudTrail log](logging-using-cloudtrail.md) entry that records the request\. You can use the endpoint ID to audit the use of your AWS KMS VPC endpoint\.
 
-However, your CloudTrail logs don't include operations requested by principals in other accounts or requests for AWS KMS operations on CMKs and aliases in other accounts\. Also, to protect your VPC, requests that are denied by a [VPC endpoint policy](#vpce-policy), but otherwise would have been allowed, are not recorded in [AWS CloudTrail](logging-using-cloudtrail.md)\.
+However, your CloudTrail logs don't include operations requested by principals in other accounts or requests for AWS KMS operations on KMS keys and aliases in other accounts\. Also, to protect your VPC, requests that are denied by a [VPC endpoint policy](#vpce-policy), but otherwise would have been allowed, are not recorded in [AWS CloudTrail](logging-using-cloudtrail.md)\.
 
 For example, this sample log entry records a [GenerateDataKey](https://docs.aws.amazon.com/kms/latest/APIReference/API_GenerateDataKey.html) request that used the VPC endpoint\. The `vpcEndpointId` field appears at the end of the log entry\.
 
