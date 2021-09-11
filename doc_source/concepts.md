@@ -30,7 +30,7 @@ AWS KMS is replacing the term *customer master key \(CMK\)* with *AWS KMS key* a
 
 An *AWS KMS key* is a logical representation of an encryption key\. In addition to the key material used to encrypt and decrypt data, a KMS key includes metadata, such as the key ID, creation date, description, and key state\. 
 
-KMS keys can be symmetric or asymmetric\. A *symmetric KMS key* represents a 256\-bit key used for encryption and decryption\. An *asymmetric KMS key* represents an RSA key pair used for encryption and decryption or signing and verification, but not both\. Or it represents an elliptic curve \(ECC\) key pair used for signing and verification\. For detailed information about symmetric and asymmetric KMS keys, see [Using symmetric and asymmetric keys](symmetric-asymmetric.md)\.
+KMS keys can be symmetric or asymmetric\. A *symmetric KMS key* represents a 256\-bit key used for encryption and decryption\. An *asymmetric KMS key* can represent an RSA key pair used for encryption and decryption or signing and verification \(but not both\)\. Or an asymmetric KMS key can represent an elliptic curve \(ECC\) key pair used for signing and verification\. For detailed information about symmetric and asymmetric KMS keys, see [Using symmetric and asymmetric keys](symmetric-asymmetric.md)\.
 
 You create KMS keys in AWS KMS\. Symmetric KMS keys and the private keys of asymmetric KMS key never leave AWS KMS unencrypted\.  To use or manage your KMS keys, you must use AWS KMS\. For information about creating and managing KMS keys, see [Getting started](getting-started.md)\. For information about using KMS keys, see the [AWS Key Management Service API Reference](https://docs.aws.amazon.com/kms/latest/APIReference/)\.
 

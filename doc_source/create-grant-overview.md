@@ -42,10 +42,14 @@ For code examples that demonstrate how to work with grants in several programmin
 
 [Grant constraints](https://docs.aws.amazon.com/kms/latest/APIReference/API_GrantConstraints.html) set conditions on the permissions that the grant gives to the grantee principal\. Grant constraints take the place of [condition keys](policy-conditions.md) in a [key policy](key-policies.md) or [IAM policy](iam-policies.md)\. Each grant constraint value can include up to 8 encryption context pairs\. The encryption context value in each grant constraint cannot exceed 384 characters\.
 
-AWS KMS supports two grant constraints, `EncryptionContextEquals` and `EncryptionContextSubset`, both of which involve the [encryption context](concepts.md#encrypt_context) in a request for a cryptographic operation\. These grant constraints are supported only on [grant operations](grants.md#terms-grant-operations) that include an encryption context\.
+AWS KMS supports two grant constraints, `EncryptionContextEquals` and `EncryptionContextSubset`, both of which establish requirements for the [encryption context](concepts.md#encrypt_context) in a request for a cryptographic operation\. 
 
-**Note**  
-You cannot use encryption context grant constraints in a grant for an asymmetric KMS key\. The asymmetric encryption algorithms that AWS KMS uses do not support an encryption context\. 
+The encryption context grant constraints are designed to be used with [grant operations](grants.md#terms-grant-operations) that have an encryption context parameter\. 
++ You cannot use an encryption context constraint in a grant for an asymmetric KMS key\. Cryptographic operations with asymmetric KMS keys don't support an encryption context\.
++ The encryption context constraint is ignored for `DescribeKey` and `RetireGrant` operations\. `DescribeKey` and `RetireGrant` don't have an encryption context parameter, but you can include these operations in a grant that has an encryption context constraint\.
++ You can use an encryption context constraint in a grant for the `CreateGrant` operation\. The encryption context constraint requires that any grants created with the `CreateGrant` permission have an equally strict or stricter encryption context constraint\.
+
+AWS KMS supports the following encryption context grant constraints\.
 
 **EncryptionContextEquals**  
 Use `EncryptionContextEquals` to specify the exact encryption context for permitted requests\.   

@@ -8,7 +8,6 @@ For code examples that demonstrate how to work with grants in several programmin
 
 **Topics**
 + [About grants](#about-grants)
-+ [Grants for symmetric and asymmetric KMS keys](#grants-asymm)
 + [Grant concepts](#grant-concepts)
 + [Best practices for AWS KMS grants](#grant-best-practices)
 + [Creating grants](create-grant-overview.md)
@@ -16,33 +15,22 @@ For code examples that demonstrate how to work with grants in several programmin
 
 ## About grants<a name="about-grants"></a>
 
-Grants are a very flexible and useful access control mechanism\. When you attach a grant to a [AWS KMS keys](concepts.md#kms_keys) \(KMS key\), the *grant* allows a principal to call particular operations on a KMS key when the conditions specified in the grant are met\. 
-+ Each grant controls access to just one KMS key\. The KMS key can be in the same or a different AWS account\.
-+ AWS KMS limits the number of grants on each KMS key\. For details, see [Resource quotas](resource-limits.md)\.
-+ You can use a grant to allow access, but not to deny it\. Grants can only allow access to [grant operations](#terms-grant-operations)\.
-+ Principals who get permissions from a grant can use those permissions without specifying the grant, just as they would if the permissions came from a key policy or IAM policy\. However, when you create, retire, or revoke a grant, there might be a brief delay, usually less than five minutes, until the operation achieves [eventual consistency](#terms-eventual-consistency)\. To use the permissions in a grant immediately, [use a grant token](grant-manage.md#using-grant-token)\.
-+ You can use grants to allow principals in a different AWS account to use a KMS key\. 
-+ If a principal has the required permissions, they can delete the grant \([retire](#terms-retire-grant) or [revoke](#terms-revoke-grant) it\)\. These actions eliminate all permissions that the grant allowed\. You do not have to figure out which policies to add or adjust to undo the grant\. 
-+ When you create, retire, or revoke a grant, there might be a brief interval, usually less than 5 minutes, until the change is available throughout AWS KMS\. For details, see [Eventual consistency for grants](#terms-eventual-consistency)\.
+Grants are a very flexible and useful access control mechanism\. When you create a grant for a KMS key, the grant allows the grantee principals to call the specified grant operations on the KMS key provided that all conditions specified in the grant are met\. 
++ Each grant allows access to exactly one KMS key\. You can create a grant for a KMS key in a different AWS account\.
++ A grant can allow access to a KMS key, but not deny access\.
++ Each grant must have at least one [grantee principal](#terms-grantee-principal)\. The grantee principal can be an identity in a different AWS account\.
++ A grant can only allow [grant operations](#terms-grant-operations)\. The grant operations must be supported by the KMS key in the grant\. If you specify an unsupported operation, the [CreateGrant](https://docs.aws.amazon.com/kms/latest/APIReference/API_CreateGrant.html) request fails with a `ValidationError` exception\.
++ Grantee principals can use the permissions that the grant gives them without specifying the grant, just as they would if the permissions came from a key policy or IAM policy\. However, when you create, retire, or revoke a grant, there might be a brief delay, usually less than five minutes, until the operation achieves [eventual consistency](#terms-eventual-consistency)\. To use the permissions in a grant immediately, [use a grant token](grant-manage.md#using-grant-token)\.
++ An authorized principal can delete the grant \([retire](#terms-retire-grant) or [revoke](#terms-revoke-grant) it\)\. Deleting a grant eliminates all permissions that the grant allowed\. You do not have to figure out which policies to add or remove to undo the grant\. 
++ AWS KMS limits the number of grants on each KMS key\. For details, see [Grants per KMS key: 50,000](resource-limits.md#grants-per-key)\.
 
 Be cautious when creating grants and when giving others permission to create grants\. Permission to create grants has security implications, much like allowing the [kms:PutKeyPolicy](https://docs.aws.amazon.com/kms/latest/APIReference/API_PutKeyPolicy.html) permission to set policies\.
-+ Users with permission to create grants for a KMS key \(`kms:CreateGrant`\) can use a grant to allow users and roles, including AWS services, to use the KMS key\. The principals can be identities in your own AWS account or identities in a different account or organization\.
++ Users with permission to create grants for a KMS key \(`kms:CreateGrant`\) can use a grant to allow users and roles, including AWS services, to use t he KMS key\. The principals can be identities in your own AWS account or identities in a different account or organization\.
 + Grants can allow only a subset of AWS KMS operations\. You can use grants to allow principals to view the KMS key, use it in cryptographic operations, and create and retire grants\. For details, see [Grant operations](#terms-grant-operations)\. You can also use [grant constraints](create-grant-overview.md#grant-constraints) to limit the permissions in a grant\.
 + Principals can get permission to create grants from a key policy or IAM policy\. These principals can create grants for any [grant operation](#terms-grant-operations) on the KMS key, even if they don't have the permission\. When you allow `kms:CreateGrant` permission in a policy, you can use [policy conditions](grant-manage.md#grant-authorization) to limit this permission\.
 + Principals can also get permission to create grants from a grant\. These principal can only delegate the permissions that they were granted, even if they have other permissions from a policy\. For details, see [Granting CreateGrant permission](create-grant-overview.md#grant-creategrant)\.
 
 For help with concepts related to grants, see [Grant terminology](#grant-concepts)\.
-
-## Grants for symmetric and asymmetric KMS keys<a name="grants-asymm"></a>
-
-You can create a grant that controls access to a symmetric KMS key or an asymmetric KMS key\. However, you cannot create a grant that allows a principal to perform an operation that is not supported by the KMS key\. If you try, AWS KMS returns a `ValidationError` exception\.
-
-**Symmetric KMS keys**  
-Grants for symmetric KMS keys cannot allow the [Sign](https://docs.aws.amazon.com/kms/latest/APIReference/API_Sign.html), [Verify](https://docs.aws.amazon.com/kms/latest/APIReference/API_Verify.html), or [GetPublicKey](https://docs.aws.amazon.com/kms/latest/APIReference/API_GetPublicKey.html) operations\. \(There are limited exceptions to this rule for legacy operations, but you should not create a grant for an operation that AWS KMS does not support\.\)
-
-**Asymmetric KMS keys**  
-Grants for asymmetric KMS keys cannot allow operations that generate data keys or data key pairs\. They also cannot allow operations related to [automatic key rotation](rotate-keys.md), [imported key material](importing-keys.md), or KMS keys in [custom key stores](custom-key-store-overview.md)\.  
-Grants for KMS keys with a key usage of `SIGN_VERIFY` cannot allow encryption operations\. Grants for KMS keys with a key usage of `ENCRYPT_DECRYPT` cannot allow the `Sign` or `Verify` operations\.
 
 ## Grant concepts<a name="grant-concepts"></a>
 
@@ -52,11 +40,11 @@ To use grants effectively, you'll need to understand the terms and concepts that
 A condition that limits the permissions in the grant\. Currently, AWS KMS supports grant constraints based on the [encryption context](concepts.md#encrypt_context) in the request for a cryptographic operation\. For details, see [Using grant constraints](create-grant-overview.md#grant-constraints)\.
 
 **Grant ID**  <a name="terms-grant-id"></a>
-The unique identifier of a grant for a KMS key\. You can use a grant, along with a [key identifier](concepts.md#key-id), to identify a grant in a [RetireGrant](https://docs.aws.amazon.com/kms/latest/APIReference/API_RetireGrant.html) or [RevokeGrant](https://docs.aws.amazon.com/kms/latest/APIReference/API_RevokeGrant.html) request\.
+The unique identifier of a grant for a KMS key\. You can use a grant ID, along with a [key identifier](concepts.md#key-id), to identify a grant in a [RetireGrant](https://docs.aws.amazon.com/kms/latest/APIReference/API_RetireGrant.html) or [RevokeGrant](https://docs.aws.amazon.com/kms/latest/APIReference/API_RevokeGrant.html) request\.
 
 **Grant operations**  <a name="terms-grant-operations"></a>
-The AWS KMS operations that you can allow in a grant\. These are also the operations that accept a [grant token](#grant_token)\. For detailed information about these permissions, see the [AWS KMS permissions](kms-api-permissions-reference.md)\.  
-These operations actually represent permission to use the operation\. Therefore, for the `ReEncrypt` operation, you can specify `ReEncryptFrom`, `ReEncryptTo`, or both `ReEncrypt*`\.  
+The AWS KMS operations that you can allow in a grant\. If you specify other operations, the [CreateGrant](https://docs.aws.amazon.com/kms/latest/APIReference/API_CreateGrant.html) request fails with a `ValidationError` exception\. These are also the operations that accept a [grant token](#grant_token)\. For detailed information about these permissions, see the [AWS KMS permissions](kms-api-permissions-reference.md)\.  
+These grant operations actually represent permission to use the operation\. Therefore, for the `ReEncrypt` operation, you can specify `ReEncryptFrom`, `ReEncryptTo`, or both `ReEncrypt*`\.  
 The grant operations are:  
 + Cryptographic operations
   + [Decrypt](https://docs.aws.amazon.com/kms/latest/APIReference/API_Decrypt.html)
@@ -74,8 +62,8 @@ The grant operations are:
   + [DescribeKey](https://docs.aws.amazon.com/kms/latest/APIReference/API_DescribeKey.html)
   + [GetPublicKey](https://docs.aws.amazon.com/kms/latest/APIReference/API_GetPublicKey.html)
   + [RetireGrant](https://docs.aws.amazon.com/kms/latest/APIReference/API_RetireGrant.html)
-You cannot create a grant for an operation that is not supported by the KMS key\. If you try, AWS KMS returns a `ValidationError` exception\.  
-+ Grants for [symmetric KMS keys](symm-asymm-concepts.md#symmetric-cmks) cannot allow the [Sign](https://docs.aws.amazon.com/kms/latest/APIReference/API_Sign.html), [Verify](https://docs.aws.amazon.com/kms/latest/APIReference/API_Verify.html), or [GetPublicKey](https://docs.aws.amazon.com/kms/latest/APIReference/API_GetPublicKey.html) operations\. \(There are limited exceptions to this rule for legacy operations, but you should not create a grant for an operation that AWS KMS does not support\.\)
+The grant operations that you allow must be supported by the KMS key in the grant\. If you specify an unsupported operation, the [CreateGrant](https://docs.aws.amazon.com/kms/latest/APIReference/API_CreateGrant.html) request fails with a `ValidationError` exception\.  
++ Grants for [symmetric KMS keys](symm-asymm-concepts.md#symmetric-cmks) cannot allow the [Sign](https://docs.aws.amazon.com/kms/latest/APIReference/API_Sign.html), [Verify](https://docs.aws.amazon.com/kms/latest/APIReference/API_Verify.html), or [GetPublicKey](https://docs.aws.amazon.com/kms/latest/APIReference/API_GetPublicKey.html) operations\. \(There are limited exceptions to this rule for legacy operations, but you should not create a grant for an operation that the KMS key does not support\.\)
 + Grants for [asymmetric KMS keys](symm-asymm-concepts.md#asymmetric-cmks) cannot allow the [GenerateDataKey](https://docs.aws.amazon.com/kms/latest/APIReference/API_GenerateDataKey.html), [GenerateDataKeyWithoutPlaintext](https://docs.aws.amazon.com/kms/latest/APIReference/API_GenerateDataKeyWithoutPlaintext.html), [GenerateDataKeyPair](https://docs.aws.amazon.com/kms/latest/APIReference/API_GenerateDataKeyPair.html), or [GenerateDataKeyPairWithoutPlaintext](https://docs.aws.amazon.com/kms/latest/APIReference/API_GenerateDataKeyPairWithoutPlaintext.html) operations\.
 + Grants for KMS keys with a [key usage](concepts.md#key-usage) of `ENCRYPT_DECRYPT` cannot allow the [Sign](https://docs.aws.amazon.com/kms/latest/APIReference/API_Sign.html) or [Verify](https://docs.aws.amazon.com/kms/latest/APIReference/API_Verify.html) operations\.
 + Grants for KMS keys with a key usage of `SIGN_VERIFY` cannot allow the [Encrypt](https://docs.aws.amazon.com/kms/latest/APIReference/API_Encrypt.html), [Decrypt](https://docs.aws.amazon.com/kms/latest/APIReference/API_Decrypt.html), or [ReEncrypt](https://docs.aws.amazon.com/kms/latest/APIReference/API_ReEncrypt.html) operations\.
@@ -127,7 +115,7 @@ Grant tokens supersede the validity of the grant until all endpoints in the serv
 ## Best practices for AWS KMS grants<a name="grant-best-practices"></a>
 
 AWS KMS recommends the following best practices when creating, using, and managing grants\.
-+ Limit the permissions in the grant to those that the principal requires\. Use the principle of [least privileged access](https://docs.aws.amazon.com/IAM/latest/UserGuide/best-practices.html#grant-least-privilege)\.
++ Limit the permissions in the grant to those that the grantee principal requires\. Use the principle of [least privileged access](https://docs.aws.amazon.com/IAM/latest/UserGuide/best-practices.html#grant-least-privilege)\.
 + Use a specific grantee principal, such as an IAM role, and give the grantee principal permission to use only the API operations that they require\. 
 + Use the encryption context [grant constraints](#terms-grant-constraint) to ensure that callers are using the KMS key for the intended purpose\. For details about how to use the encryption context in a request to secure your data, see [How to Protect the Integrity of Your Encrypted Data by Using AWS Key Management Service and EncryptionContext](http://aws.amazon.com/blogs/security/how-to-protect-the-integrity-of-your-encrypted-data-by-using-aws-key-management-service-and-encryptioncontext/) in the *AWS Security Blog*\.
 **Tip**  

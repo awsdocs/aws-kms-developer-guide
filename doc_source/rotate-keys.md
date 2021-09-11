@@ -41,6 +41,7 @@ Key rotation in AWS KMS is a cryptographic best practice that is designed to be 
   + [Asymmetric KMS keys](symm-asymm-concepts.md#asymmetric-cmks)
   + KMS keys in [custom key stores](custom-key-store-overview.md)
   + KMS keys that have [imported key material](importing-keys.md)
++ **Eventual consistency**\. Automatic key rotation is subject to the same eventual consistency effects as other AWS KMS management operations\. There might be a slight delay before the new key material is available throughout AWS KMS\. However, rotating key material does not cause any interruption or delay in cryptographic operations\. The current key material is used in cryptographic operations until the new key material is available throughout AWS KMS\. When key material for a multi\-Region key is automatically rotated, AWS KMS uses the current key material until the new key material is available in all Regions with a related multi\-Region key\.
 
 ## How to enable and disable automatic key rotation<a name="rotating-keys-enable-disable"></a>
 

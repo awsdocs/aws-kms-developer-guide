@@ -1601,7 +1601,7 @@ You might need to scroll horizontally or vertically to see all of the data in th
 | Amazon Elastic File System \(Amazon EFS\) | elasticfilesystem\.AWS\_region\.amazonaws\.com | 
 | Amazon Elastic Kubernetes Service \(Amazon EKS\) | eks\.AWS\_region\.amazonaws\.com | 
 | Amazon ElastiCache |  Include both ViaService names in the condition key value: [\[See the AWS documentation website for more details\]](http://docs.aws.amazon.com/kms/latest/developerguide/policy-conditions.html)  | 
-| Amazon Elasticsearch Service \(Amazon ES\) | es\.AWS\_region\.amazonaws\.com | 
+| Amazon OpenSearch Service \(OpenSearch Service\) | es\.AWS\_region\.amazonaws\.com | 
 | AWS Elemental MediaTailor | mediatailor\.AWS\_region\.amazonaws\.com | 
 | Amazon FinSpace | finspace\.AWS\_region\.amazonaws\.com | 
 | Amazon Forecast | forecast\.AWS\_region\.amazonaws\.com | 

@@ -127,13 +127,17 @@ A primary key differs from a replica key in the following ways:
 + You can enable and disable [automatic key rotation](rotate-keys.md) only on a primary key\.
 + You can [schedule the deletion of a primary key](multi-region-keys-delete.md) at any time\. But AWS KMS will not delete a primary key until all of its replica keys are deleted\.
 
+However, primary and replica keys don't differ in any cryptographic properties\. You can use a primary key and its replica keys interchangeably\. 
+
 You are not required to replicate a primary key\. You can use it just as you would any KMS key and replicate it if and when it is useful\. However, because multi\-Region keys have different security properties than single\-Region keys, we recommend that you create a multi\-Region key only when you plan to replicate it\.
 
 ### Replica key<a name="mrk-replica-key"></a>
 
-A multi\-Region *replica key* is a KMS key that has the same [key ID](concepts.md#key-id-key-id) and [key material](concepts.md#key-material) as its [primary key](#mrk-primary-key) and related replica keys, but exists in a different AWS Region\. You can use a replica key to encrypt plaintext that might be decrypted by a related multi\-Region key in a different AWS Region\. And you can use it to decrypt ciphertext that was encrypted by a related multi\-Region key \(primary or replica\) in a different AWS Region\. 
+A multi\-Region *replica key* is a KMS key that has the same [key ID](concepts.md#key-id-key-id) and [key material](concepts.md#key-material) as its [primary key](#mrk-primary-key) and related replica keys, but exists in a different AWS Region\. 
 
 A replica key is a fully functional KMS key with it own key policy, grants, alias, tags, and other properties\. It is not a copy of or pointer to the primary key or any other key\. You can use a replica key even if its primary key and all related replica keys are disabled\. You can also convert a replica key to a primary key and a primary key to a replica key\. Once it is created, a replica key relies on its primary key only for [key rotation](multi-region-keys-manage.md#multi-region-rotate) and [updating the primary Region](multi-region-keys-manage.md#multi-region-update)\. 
+
+Primary and replica keys don't differ in any cryptographic properties\. You can use a primary key and its replica keys interchangeably\. Data encrypted by a primary or replica key can be decrypted by the same key, or by any related primary or replica key\.
 
 ### Replicate<a name="replicate"></a>
 

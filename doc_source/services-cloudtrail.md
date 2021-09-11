@@ -1,13 +1,14 @@
 # How AWS CloudTrail uses AWS KMS<a name="services-cloudtrail"></a>
 
-You can use AWS CloudTrail to record AWS API calls and other activity for your AWS account and to save the recorded information to log files in an Amazon Simple Storage Service \(Amazon S3\) bucket that you choose\. By default, the log files delivered by CloudTrail to your S3 bucket are encrypted using server\-side encryption with Amazon S3–managed encryption keys \(SSE\-S3\)\. But you can choose instead to use server\-side encryption with AWS KMS–managed keys \(SSE\-KMS\)\. To learn how to encrypt your CloudTrail log files with AWS KMS, see [Encrypting CloudTrail Log Files with AWS KMS–Managed Keys \(SSE\-KMS\)](https://docs.aws.amazon.com/awscloudtrail/latest/userguide/encrypting-cloudtrail-log-files-with-aws-kms.html) in the *AWS CloudTrail User Guide*\.
+You can use AWS CloudTrail to record AWS API calls and other activity for your AWS account and to save the recorded information to log files in an Amazon Simple Storage Service \(Amazon S3\) bucket that you choose\. By default, the log files that CloudTrail puts in your S3 bucket are encrypted using server\-side encryption with Amazon S3–managed encryption keys \(SSE\-S3\)\. But you can choose instead to use server\-side encryption with AWS KMS–managed keys \(SSE\-KMS\)\. To learn how to encrypt your CloudTrail log files with AWS KMS, see [Encrypting CloudTrail Log Files with AWS KMS–Managed Keys \(SSE\-KMS\)](https://docs.aws.amazon.com/awscloudtrail/latest/userguide/encrypting-cloudtrail-log-files-with-aws-kms.html) in the *AWS CloudTrail User Guide*\.
 
 **Important**  
 AWS CloudTrail and Amazon S3 support only [symmetric AWS KMS keys](symm-asymm-concepts.md#symmetric-cmks)\. You cannot use an [asymmetric KMS key](symm-asymm-concepts.md#asymmetric-cmks) to encrypt your CloudTrail Logs\. For help determining whether a KMS key is symmetric or asymmetric, see [Identifying symmetric and asymmetric KMS keys](find-symm-asymm.md)\.
 
+You do not pay a key usage charge when CloudTrail reads or writes log files encrypted with an SSE\-KMS key\. However, you pay a key usage charge when you access CloudTrail log files encrypted with an SSE\-KMS key\. For information about AWS KMS pricing, see [AWS Key Management Service Pricing](https://aws.amazon.com/kms/pricing/)\. For information about CloudTrail pricing, see [AWS CloudTrail pricing](aws.amazon.comcloudtrail/pricing/) and [Managing costs](https://docs.aws.amazon.com/awscloudtrail/latest/userguide/cloudtrail-trail-manage-costs.html) in the *AWS CloudTrail User Guide*\.
+
 **Topics**
 + [Understanding when your KMS key is used](#cloudtrail-details)
-+ [Understanding how often your KMS key is used](#cloudtrail-requests)
 
 ## Understanding when your KMS key is used<a name="cloudtrail-details"></a>
 
@@ -193,13 +194,3 @@ You might need to scroll to the right to see some of the callouts in the followi
   "recipientAccountId": "111122223333"
 }
 ```
-
-## Understanding how often your KMS key is used<a name="cloudtrail-requests"></a>
-
-To predict costs and better understand your AWS bill, you might want to know how often CloudTrail uses your KMS key\. AWS KMS charges for all API requests to the service that exceed the free tier\. For the exact charges, see [AWS Key Management Service Pricing](https://aws.amazon.com/kms/pricing/)\.
-
-When you encrypt CloudTrail log files with AWS KMS–Managed Keys \(SSE\-KMS\), each time [CloudTrail puts a log file into your S3 bucket](#cloudtrail-details-put-log-file) it results in an AWS KMS API request\. Typically, CloudTrail puts a log file into your S3 bucket once every five minutes, which results in approximately 288 AWS KMS API requests per day, per region, and per AWS account\. For example:
-+ If you enable this feature in two regions in a single AWS account, you can expect approximately 576 AWS KMS API requests per day \(2 x 288\)\.
-+ If you enable this feature in two regions in each of three AWS accounts, you can expect approximately 1,728 AWS KMS API requests per day \(6 x 288\)\.
-
-These numbers represent only the AWS KMS calls that result from `PUT` requests\. They do not count the [decrypt](https://docs.aws.amazon.com/kms/latest/APIReference/API_Decrypt.html) calls to AWS KMS that result from `GET` requests when you get an encrypted log file from your S3 bucket\.
