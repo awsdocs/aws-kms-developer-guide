@@ -13,7 +13,7 @@ To create a grant, call the [CreateGrant](https://docs.aws.amazon.com/kms/latest
 
 When you create, retire, or revoke a grant, there might be a brief delay, usually less than five minutes, until the operation achieves [eventual consistency](grants.md#terms-eventual-consistency)\.
 
-For example, the following `CreateGrant` command creates a grant that allows `exampleUser` to call the [Decrypt](https://docs.aws.amazon.com/kms/latest/APIReference/API_Decrypt.html) operation on the specified [symmetric KMS key](symm-asymm-concepts.md#symmetric-cmks)\. The grant uses the `RetiringPrincipal` parameter to designate a principal that can retire the grant\. It also includes a grant constraint that allows the permission only when the [encryption context](concepts.md#encrypt_context) in the request includes `"Department": "IT"`\.
+For example, the following `CreateGrant` command creates a grant that allows `exampleUser` to call the [Decrypt](https://docs.aws.amazon.com/kms/latest/APIReference/API_Decrypt.html) operation on the specified [symmetric KMS key](concepts.md#symmetric-cmks)\. The grant uses the `RetiringPrincipal` parameter to designate a principal that can retire the grant\. It also includes a grant constraint that allows the permission only when the [encryption context](concepts.md#encrypt_context) in the request includes `"Department": "IT"`\.
 
 ```
 $  aws kms create-grant \

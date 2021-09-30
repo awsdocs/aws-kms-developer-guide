@@ -1,4 +1,4 @@
-# Importing key material in AWS Key Management Service \(AWS KMS\)<a name="importing-keys"></a>
+# Importing key material in AWS KMS keys<a name="importing-keys"></a>
 
 You can create a [AWS KMS keys](concepts.md#kms_keys) \(KMS key\) with key material that you supply\. 
 
@@ -9,7 +9,7 @@ A KMS key is a logical representation of an encryption key\. It contains *key ma
 **Note**  
 AWS KMS does not support decrypting any AWS KMS ciphertext outside of AWS KMS, even if the ciphertext was encrypted under a KMS key with imported key material\. AWS KMS does not publish the ciphertext format this task requires, and the format might change without notice\.
 
-Imported key material is supported only for symmetric KMS keys in AWS KMS key stores\. It is not supported on [asymmetric KMS keys](symm-asymm-concepts.md#asymmetric-cmks) or KMS keys in [custom key stores](custom-key-store-overview.md)\.
+Imported key material is supported only for symmetric KMS keys in AWS KMS key stores\. It is not supported on [asymmetric KMS keys](symmetric-asymmetric.md#asymmetric-cmks) or KMS keys in [custom key stores](custom-key-store-overview.md)\.
 
 When you use imported key material, you remain responsible for the key material while allowing AWS KMS to use a copy of it\. You might choose to do this for one or more of the following reasons:
 + To prove that you generated the key material using a source of entropy that meets your requirements\.
@@ -46,7 +46,7 @@ The only exception is [multi\-Region keys](multi-region-keys-overview.md), which
 **No portability or escrow features**  
 The ciphertexts that AWS KMS produces are not portable\. AWS KMS does not support decrypting any AWS KMS ciphertext outside of AWS KMS, even if the ciphertext was encrypted under a KMS key with imported key material\. AWS KMS does not publish the ciphertext format this task requires, and the format might change without notice\. 
 
-Also, you cannot use any AWS tools, such as the [AWS Encryption SDK](https://docs.aws.amazon.com/encryption-sdk/latest/developer-guide/) or [Amazon S3 client\-side encryption](https://docs.aws.amazon.com/AmazonS3/latest/dev/UsingClientSideEncryption.html), to decrypt AWS KMS ciphertexts\.
+Also, you cannot use any AWS tools, such as the [AWS Encryption SDK](https://docs.aws.amazon.com/encryption-sdk/latest/developer-guide/) or [Amazon S3 client\-side encryption](https://docs.aws.amazon.com/AmazonS3/latest/userguide/UsingClientSideEncryption.html), to decrypt AWS KMS ciphertexts\.
 
 As a result, you cannot use keys with imported key material to support key escrow arrangements where an authorized third party with conditional access to key material can decrypt certain ciphertexts outside of AWS KMS\. To support key escrow, use the [AWS Encryption SDK](https://docs.aws.amazon.com/encryption-sdk/latest/developer-guide/java-example-code.html#java-example-multiple-providers) to encrypt your message under a key that is independent of AWS KMS\.
 

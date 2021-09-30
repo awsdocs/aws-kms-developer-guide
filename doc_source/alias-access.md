@@ -3,9 +3,9 @@
 When you create or change an alias, you affect the alias and its associated KMS key\. Therefore, principals who manage aliases must have permission to call the alias operation on the alias and on all affected KMS keys\. You can provide these permissions by using [key policies](key-policies.md), [IAM policies](iam-policies.md) and [grants](grants.md)\. 
 
 **Note**  
-Be cautious when giving principals permission to manage tags and aliases\. Changing a tag or alias can allow or deny permission to the customer managed key\. For details, see [Using ABAC for AWS KMS](abac.md) and [Using aliases to control access to KMS keys](alias-authorization.md)\.
+Be cautious when giving principals permission to manage tags and aliases\. Changing a tag or alias can allow or deny permission to the customer managed key\. For details, see [ABAC for AWS KMS](abac.md) and [Using aliases to control access to KMS keys](alias-authorization.md)\.
 
-For information about controlling access to all AWS KMS operations, see [AWS KMS API permissions reference](kms-api-permissions-reference.md)\.
+For information about controlling access to all AWS KMS operations, see [Permissions reference](kms-api-permissions-reference.md)\.
 
 Permissions to create and manage aliases work as follows\.
 

@@ -1,4 +1,4 @@
-# Using key policies in AWS KMS<a name="key-policies"></a>
+# Key policies in AWS KMS<a name="key-policies"></a>
 
 Key policies are the primary way to control access to KMS keys in AWS KMS\. Every KMS key must have exactly one key policy\. The statements in the key policy document determine who has permission to use the KMS key and how they can use it\. You can also use [IAM policies](iam-policies.md) and [grants](grants.md) to control access to the KMS key, but every KMS key must have a key policy\. For more information, see [Managing access to KMS keys](control-access-overview.md#managing-access)\.
 
@@ -41,9 +41,9 @@ A key policy document must have a `Version` element\. We recommend setting the v
   When the principal is another AWS account or its principals, the permissions are effective only when the account is enabled in the Region with the KMS key and key policy\. For information about Regions that are not enabled by default \("opt\-in Regions"\), see [Managing AWS Regions](https://docs.aws.amazon.com/general/latest/gr/rande-manage.html) in the *AWS General Reference*\.
 **Note**  
 Do not set the Principal to an asterisk \(\*\) in any key policy statement that allows permissions unless you use conditions to limit the key policy\. An asterisk gives every identity in every AWS account permission to use the KMS key, unless another policy statement explicitly denies it\. Users in other AWS accounts just need corresponding IAM permissions in their own accounts to use the KMS key\.
-+ **Action** – \(Required\) Actions specify the API operations to allow or deny\. For example, the `kms:Encrypt` action corresponds to the AWS KMS [Encrypt](https://docs.aws.amazon.com/kms/latest/APIReference/API_Encrypt.html) operation\. You can list more than one action in a policy statement\. For more information, see [AWS KMS API permissions reference](kms-api-permissions-reference.md)\.
++ **Action** – \(Required\) Actions specify the API operations to allow or deny\. For example, the `kms:Encrypt` action corresponds to the AWS KMS [Encrypt](https://docs.aws.amazon.com/kms/latest/APIReference/API_Encrypt.html) operation\. You can list more than one action in a policy statement\. For more information, see [Permissions reference](kms-api-permissions-reference.md)\.
 + **Resource** – \(Required\) In a key policy, the value of the Resource element is `"*"`, which means "this KMS key\." The asterisk \(`"*"`\) identifies the KMS key to which the key policy is attached\.
-+ **Condition** – \(Optional\) Conditions specify requirements that must be met for a key policy to take effect\. With conditions, AWS can evaluate the context of an API request to determine whether or not the policy statement applies\. For more information, see [Using policy conditions](policy-conditions.md)\.
++ **Condition** – \(Optional\) Conditions specify requirements that must be met for a key policy to take effect\. With conditions, AWS can evaluate the context of an API request to determine whether or not the policy statement applies\. For more information, see [Policy conditions](policy-conditions.md)\.
 
 For more information about AWS policy syntax, see [AWS IAM Policy Reference](https://docs.aws.amazon.com/IAM/latest/UserGuide/reference_policies.html) in the *IAM User Guide*\.
 
@@ -100,7 +100,7 @@ The default key policy created by the console allows you to choose IAM users and
 
 **Warning**  
 Because key administrators have permission to change the key policy and create grants, they can give themselves AWS KMS permissions not specified in this policy\.  
-Principals who have permission to manage tags and aliases can also control access to a KMS key\. For details, see [Using ABAC for AWS KMS](abac.md)\.
+Principals who have permission to manage tags and aliases can also control access to a KMS key\. For details, see [ABAC for AWS KMS](abac.md)\.
 
 You can add IAM users and roles to the list of key administrators when you create the KMS key\. You can also edit the list with the console's default view for key policies, as shown in the following image\. The default view for key policies is available on the key details page for each KMS key\.
 
@@ -145,7 +145,7 @@ The key administrators statement allows the following permissions:
 + **kms:Update\*** – Allows key administrators to change the target of an alias to this KMS key, and to change this KMS key's description\.
 + **kms:Revoke\*** – Allows key administrators to revoke the permissions for this KMS key that are allowed by a [grant](grants.md)\.
 + **kms:Disable\*** – Allows key administrators to set this KMS key's key state to disabled\. For symmetric KMS keys, it allows key administrators to disable [annual rotation of this KMS key's key material](rotate-keys.md)\.
-+ **kms:Get\*** – Allows key administrators to get the key policy for this KMS key and to determine whether this KMS key's key material is rotated annually\. For [symmetric KMS keys](symm-asymm-concepts.md#symmetric-cmks) with [imported key material](importing-keys.md), it also allows key administrators to download the import token and public key that they need to import key material into the KMS key\. For [asymmetric KMS keys](symm-asymm-concepts.md#asymmetric-cmks), it allows key administrators to [download the public key](download-public-key.md) of the KMS key\.
++ **kms:Get\*** – Allows key administrators to get the key policy for this KMS key and to determine whether this KMS key's key material is rotated annually\. For [symmetric KMS keys](concepts.md#symmetric-cmks) with [imported key material](importing-keys.md), it also allows key administrators to download the import token and public key that they need to import key material into the KMS key\. For [asymmetric KMS keys](symmetric-asymmetric.md#asymmetric-cmks), it allows key administrators to [download the public key](download-public-key.md) of the KMS key\.
 + **kms:Delete\*** – Allows key administrators to delete an alias that is associated with this KMS key\. For symmetric KMS keys with [imported key material](importing-keys.md), it lets the key administrator, delete the imported key material\. Note that this permission does not allow key administrators to [delete the KMS key](deleting-keys.md)\.
 + **kms:ImportKeyMaterial** – Allows key administrators to import key material into the KMS key\. This permission is included in the key policy only when you [create a KMS key with no key material](importing-keys-create-cmk.md)\.
 **Note**  

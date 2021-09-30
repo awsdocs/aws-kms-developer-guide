@@ -33,7 +33,7 @@ You can use the following automated monitoring tools to watch your KMS keys and 
 
 Another important part of monitoring KMS keys involves manually monitoring those items that the CloudWatch alarms and events don't cover\. The AWS KMS, CloudWatch, AWS Trusted Advisor, and other AWS dashboards provide an at\-a\-glance view of the state of your AWS environment\.
 
-You can [customize](viewing-keys-console.md) the **** and **Customer managed keys** pages of the [AWS KMS console](https://console.aws.amazon.com/kms) to display the following information about each KMS key: 
+You can [customize](viewing-keys-console.md) the **AWS managed keys** and **Customer managed keys** pages of the [AWS KMS console](https://console.aws.amazon.com/kms) to display the following information about each KMS key: 
 + Key ID
 + Status
 + Creation date

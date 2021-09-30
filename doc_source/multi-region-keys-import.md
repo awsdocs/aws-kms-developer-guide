@@ -10,7 +10,7 @@ However, you must manage the key material\.
 
 The same [Region requirements for replica keys](multi-region-keys-replicate.md#replica-region) apply to multi\-Region keys with imported key material\. If you import the same key material into single\-Region keys or unrelated multi\-Region keys, these KMS keys are [not interoperable\.](#mrk-import-why) 
 
-Multi\-Region keys with imported key material must be [symmetric KMS keys](symm-asymm-concepts.md#symmetric-cmks) with a [key material origin](concepts.md#key-origin) of EXTERNAL\. AWS KMS does not support imported key material in [asymmetric KMS keys](symm-asymm-concepts.md#asymmetric-cmks) or KMS keys in [custom key stores](custom-key-store-overview.md)\. Also, you cannot enable [automatic key rotation](rotate-keys.md) of any KMS key with imported key material\.
+Multi\-Region keys with imported key material must be [symmetric KMS keys](concepts.md#symmetric-cmks) with a [key material origin](concepts.md#key-origin) of EXTERNAL\. AWS KMS does not support imported key material in [asymmetric KMS keys](symmetric-asymmetric.md#asymmetric-cmks) or KMS keys in [custom key stores](custom-key-store-overview.md)\. Also, you cannot enable [automatic key rotation](rotate-keys.md) of any KMS key with imported key material\.
 
 Aside from their multi\-Region features, multi\-Region keys with imported key material are the same as other KMS keys with imported key material\. For detailed information about creating and configuring single\-Region keys with imported key material, see [About imported key material](importing-keys.md#importing-keys-considerations)\.
 
@@ -45,7 +45,7 @@ $ aws kms create-key --origin EXTERNAL --multi-region true
 
 The result is a multi\-Region primary key with no key material and a key state of `PendingImport`\.
 
-To enable this KMS key, you must download a public key and import token, use the public key to encrypt your key material, and then import your key material\. For instructions, see [Importing key material in AWS Key Management Service \(AWS KMS\)](importing-keys.md)\.
+To enable this KMS key, you must download a public key and import token, use the public key to encrypt your key material, and then import your key material\. For instructions, see [Importing key material in AWS KMS keys](importing-keys.md)\.
 
 ## Creating a replica key with imported key material<a name="mrk-import-replicate"></a>
 
@@ -65,7 +65,7 @@ To create a replica key with imported key material:
 
 1. For each new replica key, follow the steps to [download a public key and import token](importing-keys-get-public-key-and-token.md)\. Use the public key to encrypt the primary key's key material, and then import the primary key's key material in the replica key\. You need a different public key and import token for each replica key\. 
 
-   If the key material that you try to import into the replica key isn't the same the key material as its primary key, the operation fails\. AWS KMS doesn't require that the expiration model and expiration dates be coordinated, but you might establish business rules for your multi\-Region keys\. For instructions, see [Importing key material in AWS Key Management Service \(AWS KMS\)](importing-keys.md)\.
+   If the key material that you try to import into the replica key isn't the same the key material as its primary key, the operation fails\. AWS KMS doesn't require that the expiration model and expiration dates be coordinated, but you might establish business rules for your multi\-Region keys\. For instructions, see [Importing key material in AWS KMS keys](importing-keys.md)\.
 
 ### Permissions to replicate keys with imported key materials<a name="mrk-import-replica-permissions"></a>
 

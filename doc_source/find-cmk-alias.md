@@ -2,7 +2,7 @@
 
 An alias is a friendly name for an AWS KMS [AWS KMS keys](concepts.md#kms_keys) \(KMS key\)\. You can find the [alias name](concepts.md#key-id-alias-name) and [alias ARN](concepts.md#key-id-alias-ARN) in the AWS KMS console or AWS KMS API\.
 
-For detailed information about the KMS key identifiers that AWS KMS supports, see [Key identifiers \(KeyId\)](concepts.md#key-id)\. For help finding the key ID and key ARN, see [Finding the key ID and ARN](find-cmk-id-arn.md)\.
+For detailed information about the KMS key identifiers that AWS KMS supports, see [Key identifiers \(KeyId\)](concepts.md#key-id)\. For help finding the key ID and key ARN, see [Finding the key ID and key ARN](find-cmk-id-arn.md)\.
 
 **Topics**
 + [To find the alias name and alias ARN \(console\)](#find-alias-console)

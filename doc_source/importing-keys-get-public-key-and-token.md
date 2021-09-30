@@ -45,7 +45,7 @@ You can import key material only into a symmetric KMS key with an **Origin** of 
 
 1. Choose the **Cryptographic configuration** tab and view its values\. The tabs are below the **General configuration** section\.
 
-   You can only import key material into KMS keys with a **Key type** of **Symmetric** and an **Origin** of **EXTERNAL**\. For information about creating KMS keys with imported key material, see, [Importing key material in AWS Key Management Service \(AWS KMS\)](importing-keys.md)\.
+   You can only import key material into KMS keys with a **Key type** of **Symmetric** and an **Origin** of **EXTERNAL**\. For information about creating KMS keys with imported key material, see, [Importing key material in AWS KMS keys](importing-keys.md)\.
 
 1. Choose the **Key material** tab and then choose **Download wrapping key and import token**\. 
 

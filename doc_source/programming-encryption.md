@@ -4,7 +4,7 @@ The examples in this topic use the [Encrypt](https://docs.aws.amazon.com/kms/lat
 
 These operations are designed to encrypt and decrypt [data keys](concepts.md#data-keys)\. They use an [AWS KMS keys](concepts.md#kms_keys) in the encryption operations and they cannot accept more than 4 KB \(4096 bytes\) of data\. Although you might use them to encrypt small amounts of data, such as a password or RSA key, they are not designed to encrypt application data\.
 
-To encrypt application data, use the server\-side encryption features of an AWS service, or a client\-side encryption library, such as the [AWS Encryption SDK](https://docs.aws.amazon.com/encryption-sdk/latest/developer-guide/) or the [Amazon S3 encryption client](https://docs.aws.amazon.com/AmazonS3/latest/dev/UsingClientSideEncryption.html)\. 
+To encrypt application data, use the server\-side encryption features of an AWS service, or a client\-side encryption library, such as the [AWS Encryption SDK](https://docs.aws.amazon.com/encryption-sdk/latest/developer-guide/) or the [Amazon S3 encryption client](https://docs.aws.amazon.com/AmazonS3/latest/userguide/UsingClientSideEncryption.html)\. 
 
 **Topics**
 + [Encrypting a data key](#encryption)

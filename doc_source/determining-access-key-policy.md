@@ -92,4 +92,4 @@ In policy statement 4, `arn:aws:iam::111122223333:role/EncryptionApp` refers to 
 
 To learn all the different ways you can specify a principal in a key policy document, see [Specifying a Principal](https://docs.aws.amazon.com/IAM/latest/UserGuide/reference_policies_elements.html#Principal_specifying) in the *IAM User Guide*\.
 
-To learn more about AWS KMS key policies, see [Using key policies in AWS KMS](key-policies.md)\.
+To learn more about AWS KMS key policies, see [Key policies in AWS KMS](key-policies.md)\.

@@ -4,7 +4,7 @@ You can change the key policy for a KMS key in your AWS account by using the AWS
 
 When changing a key policy, keep in mind the following rules:
 + You can view the key policy for an [AWS managed key](concepts.md#aws-managed-cmk) or a [customer managed key](concepts.md#customer-cmk), but you can only change the key policy for a customer managed key\. The policies of AWS managed keys are created and managed by the AWS service that created the KMS key in your account\. You cannot view or change the key policy for an [AWS owned key](concepts.md#aws-owned-cmk)\.
-+ You can add or remove IAM users, IAM roles, and AWS accounts \(root users\) in the key policy, and change the actions that are allowed or denied for those principals\. For more information about the ways to specify principals and permissions in a key policy, see [Using key policies](key-policies.md)\.
++ You can add or remove IAM users, IAM roles, and AWS accounts \(root users\) in the key policy, and change the actions that are allowed or denied for those principals\. For more information about the ways to specify principals and permissions in a key policy, see [Key policies](key-policies.md)\.
 + You cannot add IAM groups to a key policy, but you can add multiple IAM users\. For more information, see [Allowing multiple IAM users to access a KMS key](#key-policy-modifying-multiple-iam-users)\.
 + If you add external AWS accounts to a key policy, you must also use IAM policies in the external accounts to give permissions to IAM users, groups, or roles in those accounts\. For more information, see [Allowing users in other accounts to use a KMS key](key-policy-modifying-external-accounts.md)\.
 + The resulting key policy document cannot exceed 32 KB \(32,768 bytes\)\.

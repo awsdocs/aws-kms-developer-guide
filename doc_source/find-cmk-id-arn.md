@@ -1,4 +1,4 @@
-# Finding the key ID and ARN<a name="find-cmk-id-arn"></a>
+# Finding the key ID and key ARN<a name="find-cmk-id-arn"></a>
 
 To identify an AWS KMS key, you can use the [key ID](concepts.md#key-id-key-id) or the Amazon Resource Name \([key ARN](concepts.md#key-id-key-ARN)\)\. In [cryptographic operations](concepts.md#cryptographic-operations), you can also use the [alias name](concepts.md#key-id-alias-name) or [alias ARN](concepts.md#key-id-alias-ARN)\.
 

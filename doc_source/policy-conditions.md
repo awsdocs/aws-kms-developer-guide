@@ -329,9 +329,9 @@ For example, this IAM policy limits its principals to symmetric encryption\. It 
 | --- | --- | --- | --- | --- | 
 |  `kms:EncryptionContext:context-key`  |  String  | Single\-valued |  `CreateGrant` `Encrypt` `Decrypt` `GenerateDataKey` `GenerateDataKeyPair` `GenerateDataKeyPairWithoutPlaintext` `GenerateDataKeyWithoutPlaintext` `ReEncrypt`  |  Key policies and IAM policies  | 
 
-You can use the `kms:EncryptionContext:context-key` condition key to control access to a [symmetric KMS key](symm-asymm-concepts.md#symmetric-cmks) based on the [encryption context](concepts.md#encrypt_context) in a request for a [cryptographic operation](concepts.md#cryptographic-operations)\. Use this condition key to evaluate both the key and the value in the encryption context pair\. To evaluate only the encryption context keys or require an encryption context regardless of keys or values, use the [kms:EncryptionContextKeys](#conditions-kms-encryption-context-keys) condition key\.
+You can use the `kms:EncryptionContext:context-key` condition key to control access to a [symmetric KMS key](concepts.md#symmetric-cmks) based on the [encryption context](concepts.md#encrypt_context) in a request for a [cryptographic operation](concepts.md#cryptographic-operations)\. Use this condition key to evaluate both the key and the value in the encryption context pair\. To evaluate only the encryption context keys or require an encryption context regardless of keys or values, use the [kms:EncryptionContextKeys](#conditions-kms-encryption-context-keys) condition key\.
 
-You cannot specify an encryption context in a cryptographic operation with an [asymmetric KMS key](symm-asymm-concepts.md#asymmetric-cmks)\. The standard asymmetric encryption algorithms that AWS KMS uses do not support an encryption context\.
+You cannot specify an encryption context in a cryptographic operation with an [asymmetric KMS key](symmetric-asymmetric.md#asymmetric-cmks)\. The standard asymmetric encryption algorithms that AWS KMS uses do not support an encryption context\.
 
 To use the kms:EncryptionContext:*context\-key* condition key, replace the *context\-key* placeholder with the encryption context key\. Replace the *context\-value* placeholder with the encryption context value\.
 
@@ -678,9 +678,9 @@ For example, the following key policy statement is similar to the previous one\.
 | --- | --- | --- | --- | --- | 
 |  `kms:EncryptionContextKeys`  |  String \(list\)  | Multi\-valued |  `CreateGrant` `Decrypt` `Encrypt` `GenerateDataKey` `GenerateDataKeyPair` `GenerateDataKeyPairWithoutPlaintext` `GenerateDataKeyWithoutPlaintext` `ReEncrypt`  |  Key policies and IAM policies  | 
 
-You can use the `kms:EncryptionContextKeys` condition key to control access to a [symmetric KMS key](symm-asymm-concepts.md#symmetric-cmks) based on the [encryption context](concepts.md#encrypt_context) in a request for a cryptographic operation\. Use this condition key to evaluate only the key in each encryption context pair\. To evaluate both the key and the value in the encryption context, use the `kms:EncryptionContext:context-key` condition key\.
+You can use the `kms:EncryptionContextKeys` condition key to control access to a [symmetric KMS key](concepts.md#symmetric-cmks) based on the [encryption context](concepts.md#encrypt_context) in a request for a cryptographic operation\. Use this condition key to evaluate only the key in each encryption context pair\. To evaluate both the key and the value in the encryption context, use the `kms:EncryptionContext:context-key` condition key\.
 
-You cannot specify an encryption context in a cryptographic operation with an [asymmetric KMS key](symm-asymm-concepts.md#asymmetric-cmks)\. The standard asymmetric encryption algorithms that AWS KMS uses do not support an encryption context\.
+You cannot specify an encryption context in a cryptographic operation with an [asymmetric KMS key](symmetric-asymmetric.md#asymmetric-cmks)\. The standard asymmetric encryption algorithms that AWS KMS uses do not support an encryption context\.
 
 This is a [multi\-valued condition key](#set-operators)\. You can specifiy multiple encryption context pairs in each API request\. `kms:EncryptionContextKeys` compares the encryption context keys in the request to the set of encryption context keys in the policy\. To determine how these sets are compared, you must provide a `ForAnyValue` or `ForAllValues` set operator in the policy condition\. For details about the set operators, see [Using multiple keys and values](https://docs.aws.amazon.com/IAM/latest/UserGuide/reference_policies_multi-value-conditions.html#reference_policies_multi-key-or-value-conditions) in the IAM User Guide\.
 + `ForAnyValue`: At least one encryption context key in the request must match an encryption context key in the policy condition\. Other encryption context keys are permitted\. If the request has no encryption context, the condition is not satisfied\.
@@ -1270,7 +1270,7 @@ For example, the following key policy statement uses the `kms:ReEncryptOnSameKey
 
 You can use this condition key to allow an operation only when the request uses a particular alias to identify the KMS key\. The `kms:RequestAlias` condition key controls access to a KMS key used in a cryptographic operation, `GetPublicKey`, or `DescribeKey` based on the [alias](kms-alias.md) that identifies that KMS key in the request\. \(This policy condition has no effect on the [GenerateRandom](https://docs.aws.amazon.com/kms/latest/APIReference/API_GenerateRandom.html) operation because the operation doesn't use a KMS key or alias\.\) 
 
-This condition supports [attribute\-based access control](abac.md) \(ABAC\) in AWS KMS, which lets you control access to KMS keys based on the tags and aliases of a KMS key\. You can use tags and aliases to allow or deny access to a KMS key without changing policies or grants\. For details, see [Using ABAC for AWS KMS](abac.md)\.
+This condition supports [attribute\-based access control](abac.md) \(ABAC\) in AWS KMS, which lets you control access to KMS keys based on the tags and aliases of a KMS key\. You can use tags and aliases to allow or deny access to a KMS key without changing policies or grants\. For details, see [ABAC for AWS KMS](abac.md)\.
 
 To specify the alias in this policy condition, use an [alias name](concepts.md#key-id-alias-name), such as `alias/project-alpha`, or an alias name pattern, such as `alias/*test*`\. You cannot specify an [alias ARN](concepts.md#key-id-alias-ARN) in the value of this condition key\.
 
@@ -1306,7 +1306,7 @@ You cannot use this condition key to control access to alias operations, such as
 
 Use this condition key to control access to a KMS key based on the [aliases](kms-alias.md) that are associated with the KMS key\. The operation must be a *KMS key resource operation*, that is, an operation that is authorized for a particular KMS key\. To identify the KMS key resource operations, in the [Actions and Resources Table](kms-api-permissions-reference.md#kms-api-permissions-reference-table), look for a value of `KMS key` in the `Resources` column for the operation\.
 
-This condition supports attribute\-based access control \(ABAC\) in AWS KMS\. With ABAC, you can control access to KMS keys based on the tags that are assigned to a KMS key and the aliases that are associated with a KMS key\. You can use tags and aliases to allow or deny access to a KMS key without changing policies or grants\. For details, see [Using ABAC for AWS KMS](abac.md)\.
+This condition supports attribute\-based access control \(ABAC\) in AWS KMS\. With ABAC, you can control access to KMS keys based on the tags that are assigned to a KMS key and the aliases that are associated with a KMS key\. You can use tags and aliases to allow or deny access to a KMS key without changing policies or grants\. For details, see [ABAC for AWS KMS](abac.md)\.
 
 An alias must be unique in an AWS account and Region, but this condition lets you control access to multiple KMS keys in the same Region \(using the `StringLike` comparison operator\) or to multiple KMS keys in different AWS Regions of each account\.
 
@@ -1592,6 +1592,8 @@ You might need to scroll horizontally or vertically to see all of the data in th
 | Amazon CodeGuru Reviewer | codeguru\-reviewer\.AWS\_region\.amazonaws\.com | 
 | Amazon Comprehend | comprehend\.AWS\_region\.amazonaws\.com | 
 | Amazon Connect | connect\.AWS\_region\.amazonaws\.com | 
+| Amazon Connect Customer Profiles | profile\.AWS\_region\.amazonaws\.com | 
+| Amazon Connect Wisdom | wisdom\.AWS\_region\.amazonaws\.com | 
 | AWS Database Migration Service \(AWS DMS\) | dms\.AWS\_region\.amazonaws\.com | 
 | AWS Directory Service | directoryservice\.AWS\_region\.amazonaws\.com | 
 | Amazon DynamoDB | dynamodb\.AWS\_region\.amazonaws\.com | 
@@ -1622,6 +1624,7 @@ You might need to scroll horizontally or vertically to see all of the data in th
 | Amazon Managed Blockchain | managedblockchain\.AWS\_region\.amazonaws\.com | 
 | Amazon Managed Streaming for Apache Kafka \(Amazon MSK\) | kafka\.AWS\_region\.amazonaws\.com | 
 | Amazon Managed Workflows for Apache Airflow \(MWAA\) | airflow\.AWS\_region\.amazonaws\.com | 
+| Amazon MemoryDB | memorydb\.AWS\_region\.amazonaws\.com | 
 | Amazon Monitron | monitron\.AWS\_region\.amazonaws\.com | 
 | Amazon MQ | mq\.AWS\_region\.amazonaws\.com | 
 | Amazon Neptune | rds\.AWS\_region\.amazonaws\.com | 

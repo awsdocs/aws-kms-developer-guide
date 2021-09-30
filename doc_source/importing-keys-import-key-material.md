@@ -26,7 +26,7 @@ You can use the AWS Management Console to import key material\.
 
 1. Choose the **Cryptographic configuration** tab and view its values\. The tabs are on the detail page for a KMS key below the **General configuration** section\.
 
-   You can only import key material into KMS keys with a **Key type** of **Symmetric** and an **Origin** of **EXTERNAL**\. For information about creating KMS keys with imported key material, see [Importing key material in AWS Key Management Service \(AWS KMS\)](importing-keys.md)\.
+   You can only import key material into KMS keys with a **Key type** of **Symmetric** and an **Origin** of **EXTERNAL**\. For information about creating KMS keys with imported key material, see [Importing key material in AWS KMS keys](importing-keys.md)\.
 
 1. Choose the **Key material** tab and then choose **Upload key material**\.
 

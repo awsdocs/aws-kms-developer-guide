@@ -5,7 +5,7 @@ You can use an IAM policy to allow a principal to use or manage KMS keys\. KMS k
 
   For example: "`Resource": "arn:aws:kms:us-west-2:111122223333:key/1234abcd-12ab-34cd-56ef-1234567890ab`"
 
-  To control access to a KMS key based on its aliases, use the [kms:RequestAlias](policy-conditions.md#conditions-kms-request-alias) or [kms:ResourceAliases](policy-conditions.md#conditions-kms-resource-aliases) condition keys\. For details, see [Using ABAC for AWS KMS](abac.md)\.
+  To control access to a KMS key based on its aliases, use the [kms:RequestAlias](policy-conditions.md#conditions-kms-request-alias) or [kms:ResourceAliases](policy-conditions.md#conditions-kms-resource-aliases) condition keys\. For details, see [ABAC for AWS KMS](abac.md)\.
 
   Use an alias ARN as the resource only in a policy statement that controls access to alias operations, such as [CreateAlias](https://docs.aws.amazon.com/kms/latest/APIReference/CreateAlias.html), [UpdateAlias](https://docs.aws.amazon.com/kms/latest/APIReference/UpdateAlias.html), or [DeleteAlias](https://docs.aws.amazon.com/kms/latest/APIReference/DeleteAlias.html)\. For details, see [Controlling access to aliases](alias-access.md)\.
 + To specify multiple KMS keys in the account and Region, use wildcard characters \(\*\) in the Region or resource ID positions of the key ARN\. 

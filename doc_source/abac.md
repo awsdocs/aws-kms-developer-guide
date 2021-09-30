@@ -1,4 +1,4 @@
-# Using ABAC for AWS KMS<a name="abac"></a>
+# ABAC for AWS KMS<a name="abac"></a>
 
 Attribute\-based access control \(ABAC\) is an authorization strategy that defines permissions based on attributes\. AWS KMS supports ABAC by allowing you to control access to your customer managed keys based on the tags and aliases associated with the KMS keys\. The tag and alias condition keys that enable ABAC in AWS KMS provide a powerful and flexible way to authorize principals to use KMS keys without editing policies or managing grants\. But you should use these feature with care so principals aren't inadvertently allowed or denied access\. 
 

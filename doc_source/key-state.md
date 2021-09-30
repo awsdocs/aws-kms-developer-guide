@@ -1,4 +1,4 @@
-# Key state: Effect on your KMS key<a name="key-state"></a>
+# Key states of AWS KMS keys<a name="key-state"></a>
 
 An AWS KMS key always has a key state\. Operations on the KMS key and its environment can change that key state, either transiently, or until another operation changes its key state\.
 

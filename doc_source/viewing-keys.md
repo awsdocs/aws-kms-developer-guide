@@ -5,6 +5,6 @@ You can use [AWS Management Console](https://console.aws.amazon.com/kms) or the 
 **Topics**
 + [Viewing KMS keys in the console](viewing-keys-console.md)
 + [Viewing KMS keys with the API](viewing-keys-cli.md)
-+ [Finding the key ID and ARN](find-cmk-id-arn.md)
++ [Viewing the cryptographic configuration of KMS keys](symm-asymm-crypto-config.md)
++ [Finding the key ID and key ARN](find-cmk-id-arn.md)
 + [Finding the alias name and alias ARN](find-cmk-alias.md)
-+ [Identifying symmetric and asymmetric KMS keys](find-symm-asymm.md)

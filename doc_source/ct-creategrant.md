@@ -1,6 +1,6 @@
 # CreateGrant<a name="ct-creategrant"></a>
 
-The following example shows an AWS CloudTrail log entry for the [CreateGrant](https://docs.aws.amazon.com/kms/latest/APIReference/API_CreateGrant.html) operation\. For information about creating grants in AWS KMS, see [Using grants](grants.md)\.
+The following example shows an AWS CloudTrail log entry for the [CreateGrant](https://docs.aws.amazon.com/kms/latest/APIReference/API_CreateGrant.html) operation\. For information about creating grants in AWS KMS, see [Using grants in AWS KMS](grants.md)\.
 
 ```
 {

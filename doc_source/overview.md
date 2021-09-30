@@ -1,8 +1,10 @@
-# What is AWS Key Management Service?<a name="overview"></a>
+# AWS Key Management Service<a name="overview"></a>
 
-AWS Key Management Service \(AWS KMS\) is a managed service that makes it easy for you to create and control the encryption keys that are used to encrypt your data\. AWS KMS uses hardware security modules \(HSM\) to protect and validate your AWS KMS keys under the [FIPS 140\-2 Cryptographic Module Validation Program](https://csrc.nist.gov/projects/cryptographic-module-validation-program/Certificate/3139), except in the China \(Beijing\) and China \(Ningxia\) Regions\. 
+AWS Key Management Service \(AWS KMS\) is a managed service that makes it easy for you to create and control the cryptographic keys that are used to protect your data\. AWS KMS uses hardware security modules \(HSM\) to protect and validate your AWS KMS keys under the [FIPS 140\-2 Cryptographic Module Validation Program](https://csrc.nist.gov/projects/cryptographic-module-validation-program/Certificate/3139), except in the China \(Beijing\) and China \(Ningxia\) Regions\. 
 
-AWS KMS integrates with most [AWS services](https://aws.amazon.com/kms/features/#AWS_Service_Integration) that encrypt your data\. AWS KMS also integrates with [AWS CloudTrail](https://docs.aws.amazon.com/awscloudtrail/latest/userguide/) to log use of your KMS keys for auditing, regulatory, and compliance needs\.
+AWS KMS integrates with most [other AWS services](https://aws.amazon.com/kms/features/#AWS_Service_Integration) that encrypt your data\. AWS KMS also integrates with [AWS CloudTrail](https://docs.aws.amazon.com/awscloudtrail/latest/userguide/) to log use of your KMS keys for auditing, regulatory, and compliance needs\.
+
+You can use the AWS KMS API to create and manage KMS keys and special features, such as [custom key stores](custom-key-store-overview.md), and use KMS keys in [cryptographic operations](concepts.md#cryptographic-operations)\. For detailed information, see the *AWS Key Management Service API Reference*\.
 
 You can create and manage your AWS KMS keys:
 + [Create](create-keys.md), [edit](editing-keys.md), and [view](viewing-keys.md) [symmetric and asymmetric KMS keys](symmetric-asymmetric.md)

@@ -143,7 +143,7 @@ Note the following details about this policy:
 + You can specify more than one KMS key in the `Resource` element\. But if you don't specify particular KMS keys in the `Resource` element, you might inadvertently give access to more KMS keys than you intend\.
 + To allow the external user to use the KMS key with [AWS services that integrate with AWS KMS,](https://aws.amazon.com/kms/features/#AWS_Service_Integration) you might need to add permissions to the key policy or the IAM policy\. For details, see [Allowing use of external KMS keys with AWS services](#cross-account-service)\.
 
-For more information about working with IAM policies, see [Using IAM policies](iam-policies.md)\.
+For more information about working with IAM policies, see [IAM policies](iam-policies.md)\.
 
 ## Creating KMS keys that other accounts can use<a name="cross-account-console"></a>
 

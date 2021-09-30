@@ -25,7 +25,7 @@ The update operation has no effect on the [key ARN](concepts.md#key-id-key-ARN) 
 
 The process of updating a primary Region takes a bit longer than the brief eventual consistency delay that affects most AWS KMS operations\. The process might still be in progress after the `UpdatePrimaryRegion` operation returns or you've completed the update procedure in the console\. Operations such as [DescribeKey](https://docs.aws.amazon.com/kms/latest/APIReference/API_DescribeKey.html) might display both the old and new primary keys as replicas until the process completes\.
 
-During the process of updating the primary Region, the old primary key and new primary key are in the `Updating` key state\. When the update process completes successfully, both keys return to the `Enabled` key state\. While in the `Updating` state, some management operations, such as enabling and disabling the keys, are not available\. However, you can continue to use both keys in cryptographic operations without interruption\. For information about the effect of the `Updating` key state, see [Key state: Effect on your KMS key](key-state.md)\.
+During the process of updating the primary Region, the old primary key and new primary key are in the `Updating` key state\. When the update process completes successfully, both keys return to the `Enabled` key state\. While in the `Updating` state, some management operations, such as enabling and disabling the keys, are not available\. However, you can continue to use both keys in cryptographic operations without interruption\. For information about the effect of the `Updating` key state, see [Key states of AWS KMS keys](key-state.md)\.
 
 ### Updating a primary Region \(console\)<a name="update-primary-console"></a>
 
@@ -124,6 +124,6 @@ Automatic key rotation is not supported on asymmetric KMS keys or KMS keys with 
 
 ## Downloading public keys<a name="multi-region-public-key"></a>
 
-When you create a multi\-Region [asymmetric KMS key](symm-asymm-concepts.md#asymmetric-cmks), AWS KMS creates an RSA or elliptic curve \(ECC\) key pair for the primary key\. Then it copies that key pair to every replica of the primary key\. As a result, you can download the public key from the primary key or any of its replica keys\. You will always get the same key material\.
+When you create a multi\-Region [asymmetric KMS key](symmetric-asymmetric.md#asymmetric-cmks), AWS KMS creates an RSA or elliptic curve \(ECC\) key pair for the primary key\. Then it copies that key pair to every replica of the primary key\. As a result, you can download the public key from the primary key or any of its replica keys\. You will always get the same key material\.
 
 For information about downloading and using public keys outside of AWS KMS, see [Special considerations for downloading public keys](download-public-key.md#download-public-key-considerations)\. For instructions, see [Downloading public keys](download-public-key.md)\.

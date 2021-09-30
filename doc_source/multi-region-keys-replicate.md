@@ -1,10 +1,12 @@
 # Creating multi\-Region replica keys<a name="multi-region-keys-replicate"></a>
 
-You can create a [multi\-Region replica key](multi-region-keys-overview.md#mrk-primary-key) in the AWS KMS console or by using the [ReplicateKey](https://docs.aws.amazon.com/kms/latest/APIReference/API_ReplicateKey.html) operation\. You cannot use the [CreateKey](https://docs.aws.amazon.com/kms/latest/APIReference/API_CreateKey.html) operation to create a replica key\.
+You can create a [multi\-Region replica key](multi-region-keys-overview.md#mrk-primary-key) in the AWS KMS console, by using the [ReplicateKey](https://docs.aws.amazon.com/kms/latest/APIReference/API_ReplicateKey.html) operation, or by using a [AWS CloudFormation template](creating-resources-with-cloudformation.md)\. You cannot use the [CreateKey](https://docs.aws.amazon.com/kms/latest/APIReference/API_CreateKey.html) operation to create a replica key\.
 
 When this operation completes, the new replica key has a transient [key state](key-state.md) of `Creating`\. This key state changes to `Enabled` \(or [PendingImport](multi-region-keys-import.md)\) after a few seconds when the process of creating the new replica key is complete\. While the key state is `Creating`, you can manage key, but you cannot yet use it in cryptographic operations\. If you are creating and using the replica key programmatically, retry on `KMSInvalidStateException` or call [DescribeKey](https://docs.aws.amazon.com/kms/latest/APIReference/API_DescribeKey.html) to check its `KeyState` value before using it\. 
 
-These instructions create a replica key for a primary key with key material that AWS KMS generates\. To create a multi\-Region replica key with imported key material, see [Creating a replica key with imported key material](multi-region-keys-import.md#mrk-import-replicate)\.
+**Learn more**
++ To create a multi\-Region replica key with imported key material, see [Creating a replica key with imported key material](multi-region-keys-import.md#mrk-import-replicate)\.
++ To use a AWS CloudTrail template to create a replica key, see [AWS::KMS::ReplicaKey](https://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-resource-kms-replicakey.html) in the *AWS CloudFormation User Guide*\.
 
 **Topics**
 + [Replica Regions](#replica-region)
@@ -55,7 +57,7 @@ You do specify properties that are not shared, including an alias, tags, a descr
 
    The console displays one of the current aliases of the primary key, but you can change it\. You can give your multi\-Region primary key and its replicas the same alias or different aliases\. Aliases are not a [shared property](multi-region-keys-overview.md#mrk-sync-properties) of multi\-Region keys\. AWS KMS does not synchronize the aliases of multi\-Region keys\.
 
-   Adding, deleting, or updating an alias can allow or deny permission to the KMS key\. For details, see [Using ABAC for AWS KMS](abac.md) and [Using aliases to control access to KMS keys](alias-authorization.md)\.
+   Adding, deleting, or updating an alias can allow or deny permission to the KMS key\. For details, see [ABAC for AWS KMS](abac.md) and [Using aliases to control access to KMS keys](alias-authorization.md)\.
 
 1. \(Optional\) Type a description of the replica key\.
 
@@ -65,7 +67,7 @@ You do specify properties that are not shared, including an alias, tags, a descr
 
    The console displays the tags currently attached to the primary key, but you can change them\. Tags are not a shared property of multi\-Region keys\. You can give your multi\-Region primary key and its replicas the same tags or different tags\. AWS KMS does not synchronize the tags of multi\-Region keys\. 
 
-   Tagging or untagging a KMS key can allow or deny permission to the KMS key\. For details, see [Using ABAC for AWS KMS](abac.md) and [Using tags to control access to KMS keys](tag-authorization.md)\.
+   Tagging or untagging a KMS key can allow or deny permission to the KMS key\. For details, see [ABAC for AWS KMS](abac.md) and [Using tags to control access to KMS keys](tag-authorization.md)\.
 
 1. Select the IAM users and roles that can administer the replica key\.
 **Note**  

@@ -11,19 +11,19 @@ You can use Amazon Elastic Transcoder to convert media files stored in an Amazon
 
 ## Encrypting the input file<a name="et-encrypt-input"></a>
 
-Before you can use Elastic Transcoder, you must [create an Amazon S3 bucket](https://docs.aws.amazon.com/AmazonS3/latest/user-guide/CreatingaBucket.html) and upload your media file into it\. You can encrypt the file before uploading by using AES client\-side encryption or after uploading by using Amazon S3 server\-side encryption\.
+Before you can use Elastic Transcoder, you must [create an Amazon S3 bucket](https://docs.aws.amazon.com/AmazonS3/latest/userguide/creating-bucket.html) and upload your media file into it\. You can encrypt the file before uploading by using AES client\-side encryption or after uploading by using Amazon S3 server\-side encryption\.
 
-If you choose client\-side encryption using AES, you are responsible for encrypting the file before uploading it to Amazon S3, and you must provide Elastic Transcoder access to the encryption key\. You do this by using a [symmetric](symm-asymm-concepts.md#symmetric-cmks) AWS KMS [AWS KMS key](concepts.md#kms_keys) to protect the AES encryption key you used to encrypt the media file\.
+If you choose client\-side encryption using AES, you are responsible for encrypting the file before uploading it to Amazon S3, and you must provide Elastic Transcoder access to the encryption key\. You do this by using a [symmetric](concepts.md#symmetric-cmks) AWS KMS [AWS KMS key](concepts.md#kms_keys) to protect the AES encryption key you used to encrypt the media file\.
 
 If you choose server\-side encryption, you allow Amazon S3 to encrypt and decrypt all files on your behalf\. You can configure Amazon S3 to use one of three different types of encryption keys to protect the unique data key that encrypts your file:
 + An Amazon S3 key, an encryption key that Amazon S3 owns and manages\. It is not part of your AWS account\.
 + The [AWS managed key](concepts.md#aws-managed-cmk) for Amazon S3, a KMS key that is part of your account, but is created and managed by AWS
-+ Any [symmetric](symm-asymm-concepts.md#symmetric-cmks) [customer managed key](concepts.md#customer-cmk) that you create by using AWS KMS
++ Any [symmetric](concepts.md#symmetric-cmks) [customer managed key](concepts.md#customer-cmk) that you create by using AWS KMS
 
 **Important**  
-For both client\-side and server\-side encryption, Elastic Transcoder supports only [symmetric KMS keys](symm-asymm-concepts.md#symmetric-cmks)\. You cannot use an [asymmetric KMS key](symm-asymm-concepts.md#asymmetric-cmks) to encrypt your Elastic Transcoder files\. For help determining whether a KMS key is symmetric or asymmetric, see [Identifying symmetric and asymmetric KMS keys](find-symm-asymm.md)\.
+For both client\-side and server\-side encryption, Elastic Transcoder supports only [symmetric KMS keys](concepts.md#symmetric-cmks)\. You cannot use an [asymmetric KMS key](symmetric-asymmetric.md#asymmetric-cmks) to encrypt your Elastic Transcoder files\. For help determining whether a KMS key is symmetric or asymmetric, see [Identifying symmetric and asymmetric KMS keys](find-symm-asymm.md)\.
 
-You can enable encryption and specify a key by using the Amazon S3 console or the appropriate Amazon S3 APIs\. For more information about how Amazon S3 performs encryption, see [Protecting data using server\-side encryption](https://docs.aws.amazon.com/AmazonS3/latest/dev/serv-side-encryption.html) in the *Amazon Simple Storage Service Developer Guide*\.
+You can enable encryption and specify a key by using the Amazon S3 console or the appropriate Amazon S3 APIs\. For more information about how Amazon S3 performs encryption, see [Protecting data using server\-side encryption with KMS keys \(SSE\-KMS\)](https://docs.aws.amazon.com/AmazonS3/latest/userguide/UsingKMSEncryption.html) in the *Amazon Simple Storage Service Developer Guide*\.
 
 When you protect your input file by using the AWS managed key for Amazon S3 in your account or a customer managed key, Amazon S3 and AWS KMS interact in the following manner:
 

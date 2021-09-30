@@ -3,10 +3,23 @@
 Access to AWS KMS requires credentials that AWS can use to authenticate your requests\. The credentials must have permissions to access AWS resources, such as AWS KMS keys\. The following sections provide details about how you can use AWS Identity and Access Management \(IAM\) and AWS KMS to help secure your resources by controlling who can access them\.
 
 **Topics**
-+ [Authentication](#authentication)
-+ [Access control](#authorization)
++ [Concepts](#permission-concepts)
++ [Managing access](control-access-overview.md)
++ [Key policies](key-policies.md)
++ [IAM policies](iam-policies.md)
++ [Grants](grants.md)
++ [VPC endpoint](kms-vpc-endpoint.md)
++ [Policy conditions](policy-conditions.md)
++ [Attribute\-based access control \(ABAC\)](abac.md)
++ [Cross\-account access](key-policy-modifying-external-accounts.md)
++ [Service\-linked roles](using-service-linked-roles.md)
++ [Hybrid post\-quantum TLS](pqtls.md)
++ [Determining access](determining-access.md)
++ [Permissions reference](kms-api-permissions-reference.md)
 
-## Authentication<a name="authentication"></a>
+## Concepts in AWS KMS access control<a name="permission-concepts"></a>
+
+### Authentication<a name="authentication"></a>
 
 You can access AWS as any of the following types of identities:
 + **AWS account root user** – When you sign up for AWS, you provide an email address and password for your AWS account\. These are your *root credentials* and they provide complete access to all of your AWS resources\.
@@ -21,18 +34,8 @@ For security reasons, we recommend that you use the root credentials only to cre
   + **AWS service access** – You can use an IAM role in your account to allow an AWS service permissions to access your account's resources\. For example, you can create a role that allows Amazon Redshift to access an S3 bucket on your behalf and then load data stored in the S3 bucket into an Amazon Redshift cluster\. For more information, see [Creating a Role to Delegate Permissions to an AWS Service](https://docs.aws.amazon.com/IAM/latest/UserGuide/id_roles_create_for-service.html) in the *IAM User Guide*\.
   + **Applications running on EC2 instances** – Instead of storing access keys on an EC2 instance for use by applications that run on the instance and make AWS API requests, you can use an IAM role to provide temporary access keys for these applications\. To assign an IAM role to an EC2 instance, you create an *instance profile* and then attach it when you launch the instance\. An instance profile contains the role and enables applications running on the EC2 instance to get temporary access keys\. For more information, see [Using Roles for Applications on Amazon EC2](https://docs.aws.amazon.com/IAM/latest/UserGuide/id_roles_use_switch-role-ec2.html) in the *IAM User Guide*\.
 
-## Access control<a name="authorization"></a>
+### Access control<a name="authorization"></a>
 
 You can have valid credentials to authenticate your requests, but you also need permissions to make AWS KMS API requests to create, manage, or use AWS KMS resources\. For example, you must have permissions to create, manage, and use a KMS key for [cryptographic operations](concepts.md#cryptographic-operations)\.
 
-The following pages describe how to manage permissions for AWS KMS\. We recommend that you read the overview first\.
-+ [Overview of managing access](control-access-overview.md)
-+ [Using key policies](key-policies.md)
-+ [Using IAM policies](iam-policies.md)
-+ [AWS KMS API permissions reference](kms-api-permissions-reference.md)
-+ [Using policy conditions](policy-conditions.md)
-+ [Using grants](grants.md)
-+ [Using service\-linked roles](using-service-linked-roles.md)
-+ [Determining access](determining-access.md)
-
-If you access AWS KMS through an Amazon Virtual Private Cloud \(Amazon VPC\) endpoint, you can also use a VPC endpoint policy to limit access to your AWS KMS resources when using the endpoint\. For example, when using the VPC endpoint, you might only allow the principals in your AWS account to access your customer managed keys\. For details, see [Controlling access to a VPC endpoint](kms-vpc-endpoint.md#vpce-policy)\.
+Use key policies, IAM policies, and grants to control access to your AWS KMS resources\. You can use policy condition keys to grant access only when a request or resource meets the conditions you specify\. You can allow access to principals you trust in other AWS accounts\.

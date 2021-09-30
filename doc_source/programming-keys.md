@@ -413,7 +413,7 @@ To get the [key IDs](concepts.md#key-id-key-id) and [key ARNs](concepts.md#key-i
 
 In languages that require a client object, these examples use the AWS KMS client object that you created in [Creating a client](programming-client.md)\.
 
-For help with finding key IDs and key ARNs in the AWS KMS console, see [Finding the key ID and ARN](find-cmk-id-arn.md)\.
+For help with finding key IDs and key ARNs in the AWS KMS console, see [Finding the key ID and key ARN](find-cmk-id-arn.md)\.
 
 ------
 #### [ Java ]

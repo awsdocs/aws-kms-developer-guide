@@ -1,14 +1,16 @@
-# Getting started<a name="getting-started"></a>
+# Managing keys<a name="getting-started"></a>
 
-To get started, create an [AWS KMS key](concepts.md#kms_keys)\. The topics in this section explain how to create, view, edit, enable, disable, and tag your KMS key\. They also explain how to download the public key of an asymmetric KMS key\.
-
-You can perform these AWS Key Management Service \(AWS KMS\) tasks in the [AWS Management Console](https://console.aws.amazon.com/iam/)\. You can access all AWS KMS features by using the [AWS KMS API operations](https://docs.aws.amazon.com/kms/latest/APIReference/)\. To run the AWS KMS API operations, use an [AWS SDK](https://aws.amazon.com/tools/#sdk), [AWS Command Line Interface](https://docs.aws.amazon.com/cli/latest/userguide/) or [AWS Tools for PowerShell](https://docs.aws.amazon.com/powershell/latest/userguide/)\.
+To get started with AWS KMS, create an [AWS KMS key](concepts.md#kms_keys)\. The topics in this section explain how to manage your KMS key from creation to deletion\. It includes topics on editing and viewing keys, tagging keys, enabling and disabling keys, rotating key material, and using AWS tools and services to monitor use of your KMS keys\. It also includes information about using AWS CloudFormation to create and manage your KMS keys and a [key state reference](key-state.md) that shows the required key state for each AWS KMS operation\.
 
 **Topics**
 + [Creating keys](create-keys.md)
++ [Using aliases](kms-alias.md)
 + [Viewing keys](viewing-keys.md)
 + [Editing keys](editing-keys.md)
 + [Tagging keys](tagging-keys.md)
 + [Enabling and disabling keys](enabling-keys.md)
-+ [Downloading public keys](download-public-key.md)
-+ [Using aliases](kms-alias.md)
++ [Rotating keys](rotate-keys.md)
++ [Monitoring keys](monitoring-overview.md)
++ [Using CloudFormation templates](creating-resources-with-cloudformation.md)
++ [Deleting keys](deleting-keys.md)
++ [Key state reference](key-state.md)

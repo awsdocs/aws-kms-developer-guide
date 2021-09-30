@@ -2,7 +2,7 @@
 
 By default, AWS KMS creates key material for you when you create a AWS KMS key\. To instead import your own key material, start by creating a KMS key with no key material\. You distinguish between these two types of KMS keys by the KMS key's *origin*\. When AWS KMS creates the key material for you, the KMS key's origin is `AWS_KMS`\. When you create a KMS key with no key material, the KMS key's origin is `EXTERNAL`, which indicates that the key material was generated outside of AWS KMS\.
 
-A KMS key with no key material is in the *pending import* state and is not available for use\. To use it, you must import key material as explained later\. When you import key material, the KMS key's key state changes to *enabled*\. For more information about key state, see [Key state: Effect on your KMS key](key-state.md)\.
+A KMS key with no key material is in the *pending import* state and is not available for use\. To use it, you must import key material as explained later\. When you import key material, the KMS key's key state changes to *enabled*\. For more information about key state, see [Key states of AWS KMS keys](key-state.md)\.
 
 To create a KMS key with no key material, you can use the AWS Management Console or the AWS KMS API\. You can use the API directly by making HTTP requests, or by using an [AWS SDK](https://aws.amazon.com/tools/#sdk), [AWS Command Line Interface](https://docs.aws.amazon.com/cli/latest/userguide/) or [AWS Tools for PowerShell](https://docs.aws.amazon.com/powershell/latest/userguide/)\.
 

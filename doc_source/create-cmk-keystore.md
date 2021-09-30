@@ -1,6 +1,6 @@
 # Creating KMS keys in a custom key store<a name="create-cmk-keystore"></a>
 
-After you have created a custom key store, you can create [AWS KMS keys](concepts.md#kms_keys) in your key store\. They must be [symmetric KMS keys](symm-asymm-concepts.md#symmetric-cmks) with key material that AWS KMS generates\. You cannot create [asymmetric KMS keys](symm-asymm-concepts.md#asymmetric-cmks) or KMS keys with [imported key material](importing-keys.md), and you cannot use symmetric KMS keys in a custom key store to generate asymmetric data key pairs\.
+After you have created a custom key store, you can create [AWS KMS keys](concepts.md#kms_keys) in your key store\. They must be [symmetric KMS keys](concepts.md#symmetric-cmks) with key material that AWS KMS generates\. You cannot create [asymmetric KMS keys](symmetric-asymmetric.md#asymmetric-cmks) or KMS keys with [imported key material](importing-keys.md), and you cannot use symmetric KMS keys in a custom key store to generate asymmetric data key pairs\.
 
 Use and manage the KMS keys in your custom key store the same way that you use and manage any KMS key in AWS KMS\. For example, you can do any of the following:
 + Use the KMS keys for [cryptographic operations](concepts.md#cryptographic-operations)\.
@@ -58,7 +58,7 @@ Use the following procedure to create a AWS KMS key in a custom key store\.
 
 1. \(Optional\)\. On the **Add Tags** page, add tags that identify or categorize your KMS key\.
 
-   When you add tags to your AWS resources, AWS generates a cost allocation report with usage and costs aggregated by tags\. Tags can also be used to control access to a KMS key\. For information about tagging KMS keys, see [Tagging keys](tagging-keys.md) and [Using ABAC for AWS KMS](abac.md)\. 
+   When you add tags to your AWS resources, AWS generates a cost allocation report with usage and costs aggregated by tags\. Tags can also be used to control access to a KMS key\. For information about tagging KMS keys, see [Tagging keys](tagging-keys.md) and [ABAC for AWS KMS](abac.md)\. 
 
 1. Choose **Next**\.
 

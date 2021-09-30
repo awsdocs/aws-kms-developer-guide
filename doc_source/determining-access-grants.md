@@ -1,6 +1,6 @@
 # Examining grants<a name="determining-access-grants"></a>
 
-Grants are advanced mechanisms for specifying permissions that you or an AWS service integrated with AWS KMS can use to specify how and when a KMS key can be used\. Grants are attached to a KMS key, and each grant contains the principal who receives permission to use the KMS key and a list of operations that are allowed\. Grants are an alternative to the key policy, and are useful for specific use cases\. For more information, see [Using grants](grants.md)\.
+Grants are advanced mechanisms for specifying permissions that you or an AWS service integrated with AWS KMS can use to specify how and when a KMS key can be used\. Grants are attached to a KMS key, and each grant contains the principal who receives permission to use the KMS key and a list of operations that are allowed\. Grants are an alternative to the key policy, and are useful for specific use cases\. For more information, see [Using grants in AWS KMS](grants.md)\.
 
 To get a list of grants for a KMS key, use the AWS KMS [ListGrants](https://docs.aws.amazon.com/kms/latest/APIReference/API_ListGrants.html) operation\. You can examine the grants for a KMS key to determine who or what currently has access to use the KMS key via those grants\. For example, the following is a JSON representation of a grant that was obtained from the [list\-grants](https://docs.aws.amazon.com/cli/latest/reference/kms/list-grants.html) command in the AWS CLI\.
 

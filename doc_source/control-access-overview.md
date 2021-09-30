@@ -1,4 +1,4 @@
-# Overview of managing access to your AWS KMS resources<a name="control-access-overview"></a>
+# Managing access to your AWS KMS resources<a name="control-access-overview"></a>
 
 Every AWS resource belongs to an AWS account, and permissions to create or access the resources are defined in permissions policies in that account\. An account administrator can attach permissions policies to IAM identities \(that is, users, groups, and roles\), and some services \(including AWS KMS\) also support attaching permissions policies to other kinds of resources\.
 
@@ -50,15 +50,15 @@ You can control access to your KMS keys in these ways:
 
 For most AWS services, IAM policies are the only way to control access to the service's resources\. Some services offer resource\-based policies or other access control mechanisms to complement IAM policies, but these are generally optional and you can control access to the resources in these services with only IAM policies\. This is not the case for AWS KMS, however\. To allow access to a KMS key, you must use the key policy, either alone or in combination with IAM policies or grants\. IAM policies by themselves are not sufficient to allow access to a KMS key, though you can use them in combination with a key policy\.
 
-For more information about using key policies, see [Using key policies](key-policies.md)\.
+For more information about using key policies, see [Key policies](key-policies.md)\.
 
-For more information about using IAM policies, see [Using IAM policies](iam-policies.md)\.
+For more information about using IAM policies, see [IAM policies](iam-policies.md)\.
 
-For more information about using grants, see [Using grants](grants.md)\.
+For more information about using grants, see [Using grants in AWS KMS](grants.md)\.
 
 ## Specifying permissions in a policy<a name="overview-policy-elements"></a>
 
-AWS KMS provides a set of API operations\. To control access to these API operations, AWS KMS provides a set of *actions* that you can specify in a policy\. For more information, see [AWS KMS API permissions reference](kms-api-permissions-reference.md)\.
+AWS KMS provides a set of API operations\. To control access to these API operations, AWS KMS provides a set of *actions* that you can specify in a policy\. For more information, see [Permissions reference](kms-api-permissions-reference.md)\.
 
 A policy is a document that describes a set of permissions\. The following are the basic elements of a policy\.
 + **Resource** – In an IAM policy, you use an Amazon Resource Name \(ARN\) to specify the resource that the policy applies to\. For more information, see [AWS KMS resources and operations](#kms-resources-operations)\. In a key policy, you use `"*"` for the resource, which effectively means "this KMS key\." A key policy applies only to the KMS key it is attached to\.
@@ -66,12 +66,12 @@ A policy is a document that describes a set of permissions\. The following are t
 + **Effect** – You use the effect to specify whether to allow or deny the permissions\. If you don't explicitly allow access to a resource, access is implicitly denied\. You can also explicitly deny access to a resource, which you might do to make sure that a user cannot access it, even when a different policy allows access\.
 + **Principal** – In an IAM policy, you don't specify an [AWS principal](https://docs.aws.amazon.com/IAM/latest/UserGuide/intro-structure.html#intro-structure-principal)\. Instead, the identity \(the IAM user, group, or role\) that the policy is attached to is the implicit principal\. In a key policy, you must specify the principal \(the identity\) that the permissions apply to\. You can specify AWS accounts \(root\), IAM users, IAM roles, and some AWS services as principals in a key policy\. IAM groups are not valid principals in a key policy\.
 
-For more information, see [Using key policies](key-policies.md) and [Using IAM policies](iam-policies.md)\.
+For more information, see [Key policies](key-policies.md) and [IAM policies](iam-policies.md)\.
 
 ## Specifying conditions in a policy<a name="overview-policy-conditions"></a>
 
 You can use another policy element called a *condition key* to specify the circumstances in which a policy takes effect\. For example, you might want a policy statement to take effect only after a specific date\. Or, you might want a policy statement to control access based on whether a specific value exists in the API request\.
 
-To specify conditions, you use predefined *condition keys*\. Some condition keys apply generally to AWS, and some are specific to AWS KMS\. For more information, see [Using policy conditions](policy-conditions.md)\.
+To specify conditions, you use predefined *condition keys*\. Some condition keys apply generally to AWS, and some are specific to AWS KMS\. For more information, see [Policy conditions](policy-conditions.md)\.
 
-To support attribute\-based access control \(ABAC\), AWS KMS provides condition keys that control access to a KMS key based on tags and aliases\. For details, see [Using ABAC for AWS KMS](abac.md)\.
+To support attribute\-based access control \(ABAC\), AWS KMS provides condition keys that control access to a KMS key based on tags and aliases\. For details, see [ABAC for AWS KMS](abac.md)\.

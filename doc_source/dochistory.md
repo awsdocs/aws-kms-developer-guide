@@ -41,22 +41,22 @@ The following table describes the important changes to the AWS Key Management Se
 | --- | --- | --- | 
 | New content | Added documentation about [Tagging keys](tagging-keys.md)\. | February 15, 2017 | 
 | New content | Added documentation about [Monitoring AWS KMS keys](monitoring-overview.md) and [Monitoring with Amazon CloudWatch](monitoring-cloudwatch.md)\. | August 31, 2016 | 
-| New content | Added documentation about [Importing key material](importing-keys.md)\. | August 11, 2016 | 
-| New content | Added the following documentation: [Overview of managing access](control-access-overview.md), [Using IAM policies](iam-policies.md), [AWS KMS API permissions reference](kms-api-permissions-reference.md), and [Using policy conditions](policy-conditions.md)\. | July 5, 2016 | 
+| New content | Added documentation about [Imported key material](importing-keys.md)\. | August 11, 2016 | 
+| New content | Added the following documentation: [Managing access](control-access-overview.md), [IAM policies](iam-policies.md), [Permissions reference](kms-api-permissions-reference.md), and [Policy conditions](policy-conditions.md)\. | July 5, 2016 | 
 | Update | Updated portions of the documentation in the [Authentication and access control](control-access.md) chapter\. | July 5, 2016 | 
 | Update | Updated the [Quotas](limits.md) page to reflect new default quotas\. | May 31, 2016 | 
 | Update | Updated the [Quotas](limits.md) page to reflect new default quotas, and updated the [grant token](grants.md#grant_token) documentation to improve clarity and accuracy\. | April 11, 2016 | 
 | New content | Added documentation about [Allowing multiple IAM users to access a KMS key](key-policy-modifying.md#key-policy-modifying-multiple-iam-users) and [Using the IP address condition](policy-conditions.md#conditions-aws-ip-address)\. | February 17, 2016 | 
-| Update | Updated the [Using key policies in AWS KMS](key-policies.md) and [Changing a key policy](key-policy-modifying.md) pages to improve clarity and accuracy\. | February 17, 2016 | 
-| Update | Updated the [Getting started](getting-started.md) topic pages to improve clarity\. | January 5, 2016 | 
+| Update | Updated the [Key policies in AWS KMS](key-policies.md) and [Changing a key policy](key-policy-modifying.md) pages to improve clarity and accuracy\. | February 17, 2016 | 
+| Update | Updated the [Managing keys](getting-started.md) topic pages to improve clarity\. | January 5, 2016 | 
 | New content | Added documentation about [How AWS CloudTrail uses AWS KMS](services-cloudtrail.md)\. | November 18, 2015 | 
 | New content | Added instructions for [Changing a key policy](key-policy-modifying.md)\. | November 18, 2015 | 
 | Update | Updated the documentation about [How Amazon Relational Database Service \(Amazon RDS\) uses AWS KMS](services-rds.md)\. | November 18, 2015 | 
 | New content | Added documentation about [How WorkSpaces uses AWS KMS](services-workspaces.md)\. | November 6, 2015 | 
-| Update | Updated the [Using key policies in AWS KMS](key-policies.md) page to improve clarity\. | October 22, 2015 | 
+| Update | Updated the [Key policies in AWS KMS](key-policies.md) page to improve clarity\. | October 22, 2015 | 
 | New content | Added documentation about [Deleting AWS KMS keys](deleting-keys.md), including supporting documentation about [Creating an Amazon CloudWatch alarm](deleting-keys-creating-cloudwatch-alarm.md) and [Determining past usage of a KMS key](deleting-keys-determining-usage.md)\. | October 15, 2015 | 
 | New content | Added documentation about [Determining access to AWS KMS keys](determining-access.md)\. | October 15, 2015 | 
-| New content | Added documentation about [Key state: Effect on your KMS key](key-state.md)\. | October 15, 2015 | 
+| New content | Added documentation about [Key states of AWS KMS keys](key-state.md)\. | October 15, 2015 | 
 | New content | Added documentation about [How Amazon Simple Email Service \(Amazon SES\) uses AWS KMS](services-ses.md)\. | October 1, 2015 | 
 | Update | Updated the [Quotas](limits.md) page to explain the new request quotas\. | August 31, 2015 | 
 | New content | Added information about the charges for using AWS KMS\. See [AWS KMS Pricing](overview.md#pricing)\. | August 14, 2015 | 

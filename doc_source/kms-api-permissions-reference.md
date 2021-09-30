@@ -25,7 +25,7 @@ The columns in this table provide the following information:
 
   Use the following values to represent an AWS KMS resource in an IAM policy\.  
 **KMS key**  
-When the resource is a KMS key, use its [key ARN](concepts.md#key-id-key-ARN)\. For help, see [Finding the key ID and ARN](find-cmk-id-arn.md)\.  
+When the resource is a KMS key, use its [key ARN](concepts.md#key-id-key-ARN)\. For help, see [Finding the key ID and key ARN](find-cmk-id-arn.md)\.  
 `arn:AWS_partition_name:kms:AWS_Region:AWS_account_ID:key/key_ID`  
 For example:  
 arn:aws:kms:us\-west\-2:111122223333:key/1234abcd\-12ab\-34cd\-56ef\-1234567890ab  

@@ -22,4 +22,4 @@ The following example shows an IAM policy with AWS KMS permissions\. This policy
 
 Like all IAM policies, this policy doesn't have a `Principal` element\. When you attach an IAM policy to an IAM user or IAM role, the user or *assumed role user* gets the permissions specified in the policy\.
 
-For a table showing all of the AWS KMS API actions and the resources that they apply to, see the [AWS KMS API permissions reference](kms-api-permissions-reference.md)\.
+For a table showing all of the AWS KMS API actions and the resources that they apply to, see the [Permissions reference](kms-api-permissions-reference.md)\.

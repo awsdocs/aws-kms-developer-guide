@@ -16,7 +16,7 @@ For example, the following `GenerateDataKey` command uses a KMS key that's not i
 $ aws kms generate-data-key --key-id arn:aws:kms:us-west-2:444455556666:alias/ExampleAlias --key-spec AES_256
 ```
 
-One of the most powerful uses of aliases is in applications that run in multiple AWS Regions\. For example, you might have a global application that uses an RSA [asymmetric KMS key](symm-asymm-concepts.md#asymmetric-cmks) for signing and verification\. 
+One of the most powerful uses of aliases is in applications that run in multiple AWS Regions\. For example, you might have a global application that uses an RSA [asymmetric KMS key](symmetric-asymmetric.md#asymmetric-cmks) for signing and verification\. 
 + In US West \(Oregon\) \(us\-west\-2\), you want to use `arn:aws:kms:us-west-2:111122223333:key/1234abcd-12ab-34cd-56ef-1234567890ab`\. 
 + In Europe \(Frankfurt\) \(eu\-central\-1\), you want to use `arn:aws:kms:eu-central-1:111122223333:key/0987dcba-09fe-87dc-65ba-ab0987654321`
 + In Asia Pacific \(Singapore\) \(ap\-southeast\-1\), you want to use `arn:aws:kms:ap-southeast-1:111122223333:key/1a2b3c4d-5e6f-1a2b-3c4d-5e6f1a2b3c4d`\.

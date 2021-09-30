@@ -1,4 +1,4 @@
-# Using multi\-Region keys<a name="multi-region-keys-overview"></a>
+# Using multi\-Region keys in AWS KMS<a name="multi-region-keys-overview"></a>
 
 AWS KMS supports *multi\-Region keys*, which are AWS KMS keys in different AWS Regions that can be used interchangeably – as though you had the same key in multiple Regions\. Each set of *related* multi\-Region keys has the same [key material](concepts.md#key-material) and [key ID](concepts.md#key-id-key-id), so you can encrypt data in one AWS Region and decrypt it in a different AWS Region without re\-encrypting or making a cross\-Region call to AWS KMS\. 
 
@@ -19,7 +19,7 @@ If you use certificate chaining with a single global trust store \(for a single 
 Active\-active applications that span multiple Regions  
 Some workloads and applications can span multiple Regions in active\-active architectures\. For these applications, multi\-Region keys can reduce complexity by providing the same key material for concurrent encrypt and decrypt operations on data that might be moving across Region boundaries\.
 
-You can use multi\-Region keys with client\-side encryption libraries, such as the [AWS Encryption SDK](https://docs.aws.amazon.com/encryption-sdk/latest/developer-guide/), the [DynamoDB Encryption Client](https://docs.aws.amazon.com/dynamodb-encryption-client/latest/devguide/), and [Amazon S3 client\-side encryption](https://docs.aws.amazon.com/AmazonS3/latest/user-guide/UsingClientSideEncryption.html)\. For an example of using multi\-Region keys with Amazon DynamoDB global tables and the DynamoDB Encryption Client, see [Encrypt global data client\-side with AWS KMS multi\-Region keys](http://aws.amazon.com/blogs/security/encrypt-global-data-client-side-with-aws-kms-multi-region-keys/) in the AWS Security Blog\.
+You can use multi\-Region keys with client\-side encryption libraries, such as the [AWS Encryption SDK](https://docs.aws.amazon.com/encryption-sdk/latest/developer-guide/), the [DynamoDB Encryption Client](https://docs.aws.amazon.com/dynamodb-encryption-client/latest/devguide/), and [Amazon S3 client\-side encryption](https://docs.aws.amazon.com/AmazonS3/latest/userguide/UsingClientSideEncryption.html)\. For an example of using multi\-Region keys with Amazon DynamoDB global tables and the DynamoDB Encryption Client, see [Encrypt global data client\-side with AWS KMS multi\-Region keys](http://aws.amazon.com/blogs/security/encrypt-global-data-client-side-with-aws-kms-multi-region-keys/) in the AWS Security Blog\.
 
 [AWS services that integrate with AWS KMS](https://aws.amazon.com/kms/features/) for encryption at rest or digital signatures currently treat multi\-Region keys as though they were single\-Region keys\. They might re\-wrap or re\-encrypt data moved between Regions\. For example, Amazon S3 cross\-region replication decrypts and re\-encrypts data under a KMS key in the destination Region, even when replicating objects protected by a multi\-Region key\.
 

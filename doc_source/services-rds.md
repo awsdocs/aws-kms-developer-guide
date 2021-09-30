@@ -3,7 +3,7 @@
 You can use the [Amazon Relational Database Service \(Amazon RDS\)](https://aws.amazon.com/rds/) to set up, operate, and scale a relational database in the cloud\. Optionally, you can choose to encrypt the data stored on your Amazon RDS [DB instance](https://docs.aws.amazon.com/AmazonRDS/latest/UserGuide/Overview.DBInstance.html) under a [AWS KMS key](concepts.md#kms_keys) \(KMS key\) in AWS KMS\. To learn how to encrypt your Amazon RDS resources under an KMS key, see [Encrypting Amazon RDS Resources](https://docs.aws.amazon.com/AmazonRDS/latest/UserGuide/Overview.Encryption.html) in the *Amazon RDS User Guide*\.
 
 **Important**  
-Amazon RDS supports only [symmetric KMS keys](symm-asymm-concepts.md#symmetric-cmks)\. You cannot use an [asymmetric KMS key](symm-asymm-concepts.md#asymmetric-cmks) to encrypt data in an Amazon RDS database\. For help determining whether a KMS key is symmetric or asymmetric, see [Identifying symmetric and asymmetric KMS keys](find-symm-asymm.md)\.
+Amazon RDS supports only [symmetric KMS keys](concepts.md#symmetric-cmks)\. You cannot use an [asymmetric KMS key](symmetric-asymmetric.md#asymmetric-cmks) to encrypt data in an Amazon RDS database\. For help determining whether a KMS key is symmetric or asymmetric, see [Identifying symmetric and asymmetric KMS keys](find-symm-asymm.md)\.
 
 Amazon RDS builds on [Amazon Elastic Block Store \(Amazon EBS\) encryption](https://docs.aws.amazon.com/AWSEC2/latest/UserGuide/EBSEncryption.html) to provide full disk encryption for database volumes\. For more information about how Amazon EBS uses AWS KMS to encrypt volumes, see [How Amazon Elastic Block Store \(Amazon EBS\) uses AWS KMS](services-ebs.md)\.
 

@@ -1,19 +1,10 @@
 # Programming the AWS KMS API<a name="programming-top"></a>
 
-You can use the AWS KMS API to perform the following actions, and more\.
-+ Create, describe, list, enable, and disable keys\.
-+ Create, delete, list, and update aliases\.
-+ Encrypt, decrypt, and re\-encrypt content\.
-+ Set, list, and retrieve key policies\.
-+ Create, retire, revoke, and list grants\.
-+ Retrieve key rotation status\.
-+ Update key descriptions\.
-+ Generate data keys with or without plaintext\.
-+ Generate random data\.
+You can use the AWS KMS API to create and manage KMS keys and special features, such as [custom key stores](custom-key-store-overview.md), and use KMS keys in [cryptographic operations](concepts.md#cryptographic-operations)\. For detailed information, see the *AWS Key Management Service API Reference*\.
 
 The sample code in the following topics show how to use the AWS SDKs to call the AWS KMS API\.
 
-For information about using the AWS KMS console to perform some of these tasks, see [Getting started](getting-started.md)\.
+For information about using the AWS KMS console to perform some of these tasks, see [Managing keys](getting-started.md)\.
 
 **Topics**
 + [Creating a client](programming-client.md)

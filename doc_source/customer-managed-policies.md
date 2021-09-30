@@ -3,7 +3,7 @@
 In this section, you can find example IAM policies that allow permissions for various AWS KMS actions\.
 
 **Important**  
-Some of the permissions in the following policies are allowed only when the KMS key's key policy also allows them\. For more information, see [AWS KMS API permissions reference](kms-api-permissions-reference.md)\.
+Some of the permissions in the following policies are allowed only when the KMS key's key policy also allows them\. For more information, see [Permissions reference](kms-api-permissions-reference.md)\.
 
 For help writing and formatting a JSON policy document, see the [IAM JSON Policy Reference](https://docs.aws.amazon.com/IAM/latest/UserGuide/reference_policies.html) in the *IAM User Guide*\.
 

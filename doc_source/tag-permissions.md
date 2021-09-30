@@ -5,7 +5,7 @@ To add, view, and delete tags, either in the AWS KMS console or by using the API
 You can also limit these permissions by using AWS global condition keys for tags\. In AWS KMS, these conditions can control access to tagging operations, such as [TagResource](https://docs.aws.amazon.com/kms/latest/APIReference/API_TagResource.html) and [UntagResource](https://docs.aws.amazon.com/kms/latest/APIReference/API_UntagResource.html)\.
 
 **Note**  
-Be cautious when giving principals permission to manage tags and aliases\. Changing a tag or alias can allow or deny permission to the customer managed key\. For details, see [Using ABAC for AWS KMS](abac.md) and [Using tags to control access to KMS keys](tag-authorization.md)\.
+Be cautious when giving principals permission to manage tags and aliases\. Changing a tag or alias can allow or deny permission to the customer managed key\. For details, see [ABAC for AWS KMS](abac.md) and [Using tags to control access to KMS keys](tag-authorization.md)\.
 
 For example policies and more information, see [Controlling Access Based on Tag Keys](https://docs.aws.amazon.com/IAM/latest/UserGuide/access_tags.html#access_tags_control-tag-keys) in the *IAM User Guide*\.
 

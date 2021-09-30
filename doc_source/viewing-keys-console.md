@@ -20,7 +20,7 @@ The AWS KMS keys in each account and Region are displayed in tables\. There are 
 1. To view the keys in your account that you create and manage, in the navigation pane choose **Customer managed keys**\. To view the keys in your account that AWS creates and manages for you, in the navigation pane, choose **AWS managed keys**\. For information about the different types of KMS keys, see [AWS KMS keys](concepts.md#kms_keys)\.
 **Tip**  
 To view [AWS managed keys](concepts.md#aws-managed-cmk) that are missing an alias, use the **Customer managed keys** page\.  
-The AWS KMS console also displays the custom key stores in the account and Region\. KMS keys that you create in custom key stores appear on the **Customer managed keys** page\. For information about custom key stores, see [Using a custom key store](custom-key-store-overview.md)\.
+The AWS KMS console also displays the custom key stores in the account and Region\. KMS keys that you create in custom key stores appear on the **Customer managed keys** page\. For information about custom key stores, see [Custom key stores](custom-key-store-overview.md)\.
 
 ## Navigating to key details<a name="viewing-details-navigate"></a>
 
@@ -133,7 +133,7 @@ The date and time when the key material for the KMS key expires\. This field app
 
 **Key policy**  
 Where: Key policy tab  
-Controls access to the KMS key along with [IAM policies](iam-policies.md) and [grants](grants.md)\. Every KMS key has one key policy\. It is the only mandatory authorization element\. To change the key policy of a customer managed key, on the **Key policy** tab, choose **Edit**\. For details, see [Using key policies in AWS KMS](key-policies.md)\.
+Controls access to the KMS key along with [IAM policies](iam-policies.md) and [grants](grants.md)\. Every KMS key has one key policy\. It is the only mandatory authorization element\. To change the key policy of a customer managed key, on the **Key policy** tab, choose **Edit**\. For details, see [Key policies in AWS KMS](key-policies.md)\.
 
 **Key rotation**  
 Where: Key rotation tab  
@@ -183,12 +183,12 @@ Lists the signing algorithms that can be used with the KMS key in AWS KMS\. This
 
 **Status**  
 Where: General configuration section  
-The key state of the KMS key\. You can use the KMS key in [cryptographic operations](concepts.md#cryptographic-operations) only when the status is **Enabled**\. For a detailed description of each KMS key status and its effect on the operations that you can run on the KMS key, see [Key state: Effect on your KMS key](key-state.md)\.
+The key state of the KMS key\. You can use the KMS key in [cryptographic operations](concepts.md#cryptographic-operations) only when the status is **Enabled**\. For a detailed description of each KMS key status and its effect on the operations that you can run on the KMS key, see [Key states of AWS KMS keys](key-state.md)\.
 
 **Tags**  
 Where: Tags tab  
 Optional key\-value pairs that describe the KMS key\. To add or change the tags for a KMS key, on the **Tags** tab, choose **Edit**\.  
-When you add tags to your AWS resources, AWS generates a cost allocation report with usage and costs aggregated by tags\. Tags can also be used to control access to a KMS key\. For information about tagging KMS keys, see [Tagging keys](tagging-keys.md) and [Using ABAC for AWS KMS](abac.md)\. 
+When you add tags to your AWS resources, AWS generates a cost allocation report with usage and costs aggregated by tags\. Tags can also be used to control access to a KMS key\. For information about tagging KMS keys, see [Tagging keys](tagging-keys.md) and [ABAC for AWS KMS](abac.md)\. 
 
 ## Customizing your KMS key tables<a name="viewing-console-customize"></a>
 

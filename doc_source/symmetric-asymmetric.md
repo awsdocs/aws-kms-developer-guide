@@ -1,36 +1,49 @@
-# Using symmetric and asymmetric keys<a name="symmetric-asymmetric"></a>
+# Asymmetric keys in AWS KMS<a name="symmetric-asymmetric"></a>
 
-AWS KMS protects the [AWS KMS keys](concepts.md#kms_keys) that you use to protect your data and data keys\. Symmetric KMS keys and the private keys in asymmetric KMS keys are generated and used only in hardware security modules so that no one, including AWS employees, can access the plaintext key material\.
+AWS KMS supports asymmetric KMS keys that represent a mathematically related RSA or elliptice curve \(ECC\) public and private key pair\. These key pairs are generated in AWS KMS hardware security modules certified under the [FIPS 140\-2 Cryptographic Module Validation Program](https://csrc.nist.gov/projects/cryptographic-module-validation-program/Certificate/3139), except in the China \(Beijing\) and China \(Ningxia\) Regions\.\. The private key never leaves the HSMs unencrypted\. You can download the public key for distribution and use outside of AWS\. You can create asymmetric KMS keys for encryption and decryption, or signing and verification, but not both\.
 
-You can create and manage the KMS keys in your AWS account, including setting the [key policies](key-policies.md), [IAM policies](iam-policies.md), and [grants](grants.md) that control access to your KMS keys, [enabling and disabling](enabling-keys.md) the KMS keys, [creating tags](tagging-keys.md) and [aliases](alias-manage.md#alias-create), and [deleting the KMS keys](deleting-keys.md)\. You can use your KMS keys to protect your resources in AWS [services that are integrated with AWS KMS](service-integration.md)\. And, you can audit all operations that use or manage your KMS keys in [AWS CloudTrail logs](logging-using-cloudtrail.md)\.
+You can create and manage the asymmetric KMS keys in your AWS account, including setting the [key policies](key-policies.md), [IAM policies](iam-policies.md), and [grants](grants.md) that control access to the keys, [enabling and disabling](enabling-keys.md) the KMS keys, [creating tags](tagging-keys.md) and [aliases](alias-manage.md#alias-create), and [deleting the KMS keys](deleting-keys.md)\. You can audit all operations that use or manage your asymmetric KMS keys within AWS in [AWS CloudTrail logs](logging-using-cloudtrail.md)\.
 
-AWS KMS supports symmetric and asymmetric KMS keys\.
-+ [Symmetric KMS key](symm-asymm-concepts.md#symmetric-cmks): Represents a single 256\-bit secret encryption key that never leaves AWS KMS unencrypted\. To use your symmetric KMS key, you must call AWS KMS\.
-+ [Asymmetric KMS key](symm-asymm-concepts.md#asymmetric-cmks): Represents a mathematically related public key and private key pair that you can use for encryption and decryption or signing and verification, but not both\. The private key never leaves AWS KMS unencrypted\. You can use the public key within AWS KMS by calling the AWS KMS API operations, or download the public key and use it outside of AWS KMS\. 
+AWS KMS also provides asymmetric [data key pairs](concepts.md#data-key-pairs) that are designed to be used for client\-side cryptography outside of AWS KMS\. The symmetric data key and the private key in an asymmetric data key pair are protected by a [symmetric KMS key](concepts.md#symmetric-cmks) in AWS KMS\. 
 
-AWS KMS also supports symmetric [data keys](concepts.md#data-keys) and asymmetric [data key pairs](concepts.md#data-key-pairs) designed for use with other AWS services, and for client\-side signing and cryptography outside of AWS KMS\. The symmetric data key and the private key in an asymmetric data key pair are protected by a symmetric KMS key\.
-+ Symmetric data key — A symmetric encryption key that you can use to encrypt data outside of AWS KMS\. This key is protected by a symmetric KMS key in AWS KMS\. 
-+ Asymmetric data key pair — An RSA or elliptic curve \(ECC\) key pair that consists of a public key and a private key\. The private key is protected by a symmetric KMS key in AWS KMS\. You can use your data key pair outside of AWS KMS to encrypt and decrypt data, or sign messages and verify signatures\. 
-
-  AWS KMS recommends that your use ECC key pairs for signing, and use RSA key pairs for either encryption or signing, but not both\. However, AWS KMS cannot enforce any restrictions on the use of data key pairs outside of AWS KMS\.
-
-This topic explains how symmetric and asymmetric KMS keys work, how they differ, and how to decide which type of KMS key you need to protect your data\. It also explains how symmetric data keys and asymmetric data key pairs work and how to use them outside of AWS KMS\.
+This topic explains how asymmetric KMS keys work, how they differ from symmetric KMS keys, and how to decide which type of KMS key you need to protect your data\. It also explains how asymmetric data key pairs work and how to use them outside of AWS KMS\.
 
 **Regions**
 
 Asymmetric KMS keys and asymmetric data key pairs are supported in all AWS Regions that AWS KMS supports\.
 
 **Learn more**
-+ To create symmetric and asymmetric KMS keys, see [Creating keys](create-keys.md)\.
++ To create symmetric KMS keys, see [Creating keys](create-keys.md)\. To create asymmetric KMS keys, see [Creating asymmetric KMS keys](asymm-create-key.md)\.
 + To find out whether a KMS key is symmetric or asymmetric, see [Identifying symmetric and asymmetric KMS keys](find-symm-asymm.md)\. 
-+ For a table that compares the AWS KMS API operations that apply to each type of KMS key, see [Comparing symmetric and asymmetric KMS keys](symm-asymm-compare.md)\.
++ For a table that compares the AWS KMS API operations that apply to each type of KMS key, see [Key type reference](symm-asymm-compare.md)\.
 + To examine the difference in the default key policy that the AWS KMS console sets for symmetric and asymmetric KMS keys, see [Allows key users to use the KMS key with AWS services](key-policies.md#key-policy-service-integration)\. 
 + To control access to the key specs, key usage, encryption algorithms, and signing algorithms that principals in your account can use for KMS keys and data keys, see [AWS KMS condition keys](policy-conditions.md#conditions-kms)\.
 + To learn about the request quotas that apply to different types of KMS keys, see [Request quotas](requests-per-second.md)\.
 + To learn how to sign messages and verify signatures with asymmetric KMS keys, see [Digital signing with the new asymmetric keys feature of AWS KMS](http://aws.amazon.com/blogs/security/digital-signing-asymmetric-keys-aws-kms/) in the *AWS Security Blog*\.
 
 **Topics**
-+ [About symmetric and asymmetric KMS keys](symm-asymm-concepts.md)
++ [Asymmetric KMS keys](#asymmetric-cmks)
 + [Choosing your KMS key configuration](symm-asymm-choose.md)
-+ [Viewing the cryptographic configuration of KMS keys](symm-asymm-crypto-config.md)
-+ [Comparing symmetric and asymmetric KMS keys](symm-asymm-compare.md)
++ [Creating asymmetric KMS keys](asymm-create-key.md)
++ [Downloading public keys](download-public-key.md)
++ [Identifying symmetric and asymmetric KMS keys](find-symm-asymm.md)
+
+## Asymmetric KMS keys<a name="asymmetric-cmks"></a>
+
+You can create an asymmetric KMS key in AWS KMS\. An *asymmetric KMS key* represents a mathematically related public key and private key pair\. You can give the public key to anyone, even if they're not trusted, but the private key must be kept secret\. 
+
+In an asymmetric KMS key, the private key is created in AWS KMS and never leaves AWS KMS unencrypted\. To use the private key, you must call AWS KMS\. You can use the public key within AWS KMS by calling the AWS KMS API operations\. Or, you can [download the public key](download-public-key.md) and use it outside of AWS KMS\.
+
+If your use case requires encryption outside of AWS by users who cannot call AWS KMS, asymmetric KMS keys are a good choice\. However, if you are creating a KMS key to encrypt the data that you store or manage in an AWS service, use a symmetric KMS key\. [AWS services that are integrated with AWS KMS](https://aws.amazon.com/kms/features/#AWS_Service_Integration) use symmetric KMS keys to encrypt your data\. These services do not support encryption with asymmetric KMS keys\.
+
+AWS KMS supports two types of asymmetric KMS keys\. 
++ **RSA KMS keys**: A KMS key with an RSA key pair for encryption and decryption or signing and verification \(but not both\)\. AWS KMS supports several key lengths for different security requirements\.
++ **Elliptic Curve \(ECC\) KMS keys**: A KMS key with an elliptic curve key pair for signing and verification\. AWS KMS supports several commonly\-used curves\.
+
+For technical details about the encryption and signing algorithms that AWS KMS supports for RSA KMS keys, see [RSA Key Specs](symm-asymm-choose.md#key-spec-rsa)\. For technical details about the signing algorithms that AWS KMS supports for ECC KMS keys, see [Elliptic Curve Key Specs](symm-asymm-choose.md#key-spec-ecc)\.
+
+For a table comparing the operations that you can perform on symmetric and asymmetric KMS keys, see [Comparing Symmetric and Asymmetric KMS keys](symm-asymm-compare.md)\. For help determining whether a KMS key is symmetric or asymmetric, see [Identifying symmetric and asymmetric KMS keys](find-symm-asymm.md)\.
+
+**Regions**
+
+Asymmetric KMS keys and asymmetric data key pairs are supported in all AWS Regions that AWS KMS supports\.

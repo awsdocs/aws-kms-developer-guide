@@ -36,7 +36,7 @@ To create a multi\-Region primary key in the AWS KMS console, use the same proce
 
    Aliases are not a shared property of multi\-Region keys\. You can give your multi\-Region primary key and its replicas the same alias or different aliases\. AWS KMS does not synchronize the aliases of multi\-Region keys\.
 **Note**  
-Adding, deleting, or updating an alias can allow or deny permission to the KMS key\. For details, see [Using ABAC for AWS KMS](abac.md) and [Using aliases to control access to KMS keys](alias-authorization.md)\.
+Adding, deleting, or updating an alias can allow or deny permission to the KMS key\. For details, see [ABAC for AWS KMS](abac.md) and [Using aliases to control access to KMS keys](alias-authorization.md)\.
 
 1. \(Optional\) Type a description of the primary key\.
 
@@ -46,7 +46,7 @@ Adding, deleting, or updating an alias can allow or deny permission to the KMS k
 
    Tags are not a shared property of multi\-Region keys\. You can give your multi\-Region primary key and its replicas the same tags or different tags\. AWS KMS does not synchronize the tags of multi\-Region keys\. You can change the tags on KMS keys at any time\.
 **Note**  
-Tagging or untagging a KMS key can allow or deny permission to the KMS key\. For details, see [Using ABAC for AWS KMS](abac.md) and [Using tags to control access to KMS keys](tag-authorization.md)\.
+Tagging or untagging a KMS key can allow or deny permission to the KMS key\. For details, see [ABAC for AWS KMS](abac.md) and [Using tags to control access to KMS keys](tag-authorization.md)\.
 
 1. Select the IAM users and roles that can administer the primary key\.
 **Note**  
