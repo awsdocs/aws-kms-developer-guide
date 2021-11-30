@@ -8,9 +8,9 @@ Cross\-account permission is effective only for the following operations:
 + [DescribeKey](https://docs.aws.amazon.com/kms/latest/APIReference/API_DescribeKey.html)
 + [GetKeyRotationStatus](https://docs.aws.amazon.com/kms/latest/APIReference/API_GetKeyRotationStatus.html)
 + [GetPublicKey](https://docs.aws.amazon.com/kms/latest/APIReference/API_GetPublicKey.html)
-+ [ListGrants](https://docs.aws.amazon.com/kms/latest/APIReference/ListGrants.html)
-+ [RetireGrant](https://docs.aws.amazon.com/kms/latest/APIReference/RetireGrant.html)
-+ [RevokeGrant](https://docs.aws.amazon.com/kms/latest/APIReference/RevokeGrant.html)
++ [ListGrants](https://docs.aws.amazon.com/kms/latest/APIReference/API_ListGrants.html)
++ [RetireGrant](https://docs.aws.amazon.com/kms/latest/APIReference/API_RetireGrant.html)
++ [RevokeGrant](https://docs.aws.amazon.com/kms/latest/APIReference/API_RevokeGrant.html)
 
 If you give a user in a different account permission for other operations, those permissions have no effect\. For example, if you give a principal in a different account [kms:ListKeys](https://docs.aws.amazon.com/kms/latest/APIReference/API_ListKeys.html) permission in an IAM policy, or [kms:ScheduleKeyDeletion](https://docs.aws.amazon.com/kms/latest/APIReference/API_ScheduleKeyDeletion.html) permission on a KMS key in a key policy, the user's attempts to call those operations on your resources still fail\. 
 
@@ -220,4 +220,6 @@ To identify a KMS key in a different account in a shell command or API request, 
 
 If you enter only a key ID or alias name, AWS assumes the KMS key is in your account\.
 
-The AWS KMS console does not display KMS keys in other accounts, even if you have permission to use them\. Also, the lists of KMS keys displayed in the consoles of other AWS services do not include KMS keys in other accounts\. To specify an external KMS key in the console of an AWS service, you must enter the key ARN of the KMS key\. For details, see the service's console documentation\.
+The AWS KMS console does not display KMS keys in other accounts, even if you have permission to use them\. Also, the lists of KMS keys displayed in the consoles of other AWS services do not include KMS keys in other accounts\. 
+
+To specify a KMS key in a different account in the console of an AWS service, you must enter the key ARN or alias ARN of the KMS key\. The required key identifier varies with the service, and might differ between the service console and its API operations\. For details, see the service documentation\.

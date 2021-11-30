@@ -30,7 +30,7 @@ This policy includes of two policy statements\. The `Resource` element in the fi
   "Version": "2012-10-17",
   "Statement": [
     {
-      "Sid": "ReadOnlyAccessForAllKMS keysInAccount",
+      "Sid": "ReadOnlyAccessForAllKMSKeysInAccount",
       "Effect": "Allow",
       "Action": [
         "kms:GetPublicKey",        
@@ -43,7 +43,7 @@ This policy includes of two policy statements\. The `Resource` element in the fi
       "Resource": "arn:aws:kms:*:111122223333:key/*"
     },
     {
-      "Sid": "ReadOnlyAccessForOperationsWithNoKMS key",
+      "Sid": "ReadOnlyAccessForOperationsWithNoKMSKey",
       "Effect": "Allow",
       "Action": [
         "kms:ListKeys",
@@ -86,7 +86,7 @@ This IAM policy does not include `kms:PutKeyPolicy` permission or any other perm
   "Version": "2012-10-17",
   "Statement": [
     {
-      "Sid": "IAMPermissionsForParticularKMS keys",
+      "Sid": "IAMPermissionsForParticularKMSKeys",
       "Effect": "Allow",
       "Action": "kms:TagResource",
       "Resource": "arn:aws:kms:*:111122223333:key/*"
@@ -98,7 +98,7 @@ This IAM policy does not include `kms:PutKeyPolicy` permission or any other perm
       "Resource": "arn:aws:kms:*:111122223333:alias/*"
     },
     {
-      "Sid": "IAMPermissionsForAllKMS keys",
+      "Sid": "IAMPermissionsForAllKMSKeys",
       "Effect": "Allow",
       "Action": [
         "kms:CreateKey",

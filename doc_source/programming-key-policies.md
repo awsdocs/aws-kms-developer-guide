@@ -11,7 +11,7 @@ For details about how to use key policies, IAM policies, and grants to manage ac
 
 ## Listing key policy names<a name="list-policies"></a>
 
-To get the names of key policies for a AWS KMS key, use the [ListKeyPolicies](https://docs.aws.amazon.com/kms/latest/APIReference/API_ListKeyPolicies.html) operation\. The only key policy name it returns is **default**\.
+To get the names of key policies for an AWS KMS key, use the [ListKeyPolicies](https://docs.aws.amazon.com/kms/latest/APIReference/API_ListKeyPolicies.html) operation\. The only key policy name it returns is **default**\.
 
 In languages that require a client object, these examples use the AWS KMS client object that you created in [Creating a client](programming-client.md)\.
 
@@ -131,7 +131,7 @@ To use the AWS KMS PowerShell cmdlets, install the [AWS\.Tools\.KeyManagementSer
 
 ## Getting a key policy<a name="get-policy"></a>
 
-To get the key policy for a AWS KMS key, use the [GetKeyPolicy](https://docs.aws.amazon.com/kms/latest/APIReference/API_GetKeyPolicy.html) operation\.
+To get the key policy for an AWS KMS key, use the [GetKeyPolicy](https://docs.aws.amazon.com/kms/latest/APIReference/API_GetKeyPolicy.html) operation\.
 
 GetKeyPolicy requires a policy name\. The only valid policy name is **default**\.
 

@@ -31,7 +31,7 @@ In this case, Alice is denied access to the KMS key because there is no key poli
 ![\[Flowchart that describes the policy evaluation process\]](http://docs.aws.amazon.com/kms/latest/developerguide/images/kms-auth-flow-Alice.png)
 
 Consider the relevant policies for this example\.
-+ The KMS key that Alice wants to use has the [default key policy](key-policies.md#key-policy-default)\. This policy [allows the AWS account](key-policies.md#key-policy-default-allow-root-enable-iam) that owns the KMS key to use IAM policies to control access to the KMS key\. This key policy satisfies the *Does the key policy ALLOW the callers account to use IAM policies to control access to the key?* condition in the flowchart\.
++ The KMS key that Alice wants to use has the [default key policy](key-policy-default.md)\. This policy [allows the AWS account](key-policy-default.md#key-policy-default-allow-root-enable-iam) that owns the KMS key to use IAM policies to control access to the KMS key\. This key policy satisfies the *Does the key policy ALLOW the callers account to use IAM policies to control access to the key?* condition in the flowchart\.
 
   ```
   {

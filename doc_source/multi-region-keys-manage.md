@@ -5,6 +5,8 @@ For most actions, you manage multi\-Region keys in the same way that you use and
 + You manage [automatic key rotation](#multi-region-rotate) only on the primary key\.
 + You can get the [public key](#multi-region-public-key) for an asymmetric multi\-Region key from any of the related primary or replica keys\.
 
+The multi\-Region property that you set when you create KMS key is immutable\. You cannot convert a single\-Region key to multi\-Region key or a convert a multi\-Region key to a single\-Region key\. 
+
 ## Updating the primary Region<a name="multi-region-update"></a>
 
 Every set of related multi\-Region keys must have a primary key\. But you can change the primary key\. This action, known as *updating the primary Region*, converts the current primary key to a replica key and converts one of the related replica keys to the primary key\. You might do this if you need to delete the current primary key while maintaining the replica keys, or to locate the primary key in the same Region as your key administrators\.

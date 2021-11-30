@@ -1,6 +1,6 @@
 # Importing key material step 1: Create an AWS KMS key without key material<a name="importing-keys-create-cmk"></a>
 
-By default, AWS KMS creates key material for you when you create a AWS KMS key\. To instead import your own key material, start by creating a KMS key with no key material\. You distinguish between these two types of KMS keys by the KMS key's *origin*\. When AWS KMS creates the key material for you, the KMS key's origin is `AWS_KMS`\. When you create a KMS key with no key material, the KMS key's origin is `EXTERNAL`, which indicates that the key material was generated outside of AWS KMS\.
+By default, AWS KMS creates key material for you when you create an AWS KMS key\. To instead import your own key material, start by creating a KMS key with no key material\. You distinguish between these two types of KMS keys by the KMS key's *origin*\. When AWS KMS creates the key material for you, the KMS key's origin is `AWS_KMS`\. When you create a KMS key with no key material, the KMS key's origin is `EXTERNAL`, which indicates that the key material was generated outside of AWS KMS\.
 
 A KMS key with no key material is in the *pending import* state and is not available for use\. To use it, you must import key material as explained later\. When you import key material, the KMS key's key state changes to *enabled*\. For more information about key state, see [Key states of AWS KMS keys](key-state.md)\.
 
@@ -46,7 +46,7 @@ You need to create a KMS key for the imported key material only once\. To reimpo
 
    Choose **Next**\.
 
-1. In the **Key administrators** section, select the IAM users and roles who can manage the KMS key\. For more information, see [Allows key administrators to administer the KMS key](key-policies.md#key-policy-default-allow-administrators)\. 
+1. In the **Key administrators** section, select the IAM users and roles who can manage the KMS key\. For more information, see [Allows key administrators to administer the KMS key](key-policy-default.md#key-policy-default-allow-administrators)\. 
 **Note**  
 IAM policies can give other IAM users and roles permission to manage the KMS key\.
 
@@ -54,7 +54,7 @@ IAM policies can give other IAM users and roles permission to manage the KMS key
 
    Choose **Next**\.
 
-1. In the **This account** section, select the IAM users and roles in this AWS account who can use the KMS key in [cryptographic operations](concepts.md#cryptographic-operations)\. For more information, see [Allows key users to use the KMS key](key-policies.md#key-policy-default-allow-users)\.
+1. In the **This account** section, select the IAM users and roles in this AWS account who can use the KMS key in [cryptographic operations](concepts.md#cryptographic-operations)\. For more information, see [Allows key users to use the KMS key](key-policy-default.md#key-policy-default-allow-users)\.
 **Note**  
 IAM policies can give other IAM users and roles permission to use the KMS key\.
 

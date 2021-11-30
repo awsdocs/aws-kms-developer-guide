@@ -36,7 +36,7 @@ If you use the optional [S3 Bucket Keys](https://docs.aws.amazon.com/AmazonS3/la
 + Amazon S3 requests a data key from AWS KMS using the KMS key for the bucket\. AWS KMS generates a data key and returns a plaintext and encrypted copy of the data key\.
 + Amazon S3 uses this data key as a *bucket key*\. Amazon S3 creates unique data keys outside of AWS KMS for objects in the bucket and encrypts those data keys under the bucket key\. Amazon S3 uses each bucket key for a time\-limited period\.
 
-For more information about using S3 Bucket Keys, see [Reducing the cost of SSE\-KMS with Amazon S3 Bucket Keys](https://docs.aws.amazon.com/AmazonS3/latest/userguide/bucket-key.html) in the Amazon Simple Storage Service Developer Guide\.
+For more information about using S3 Bucket Keys, see [Reducing the cost of SSE\-KMS with Amazon S3 Bucket Keys](https://docs.aws.amazon.com/AmazonS3/latest/userguide/bucket-key.html) in the Amazon Simple Storage Service User Guide\.
 
 ## Using the Amazon S3 encryption client<a name="sse-client"></a>
 

@@ -6,7 +6,7 @@ When this operation completes, the new replica key has a transient [key state](k
 
 **Learn more**
 + To create a multi\-Region replica key with imported key material, see [Creating a replica key with imported key material](multi-region-keys-import.md#mrk-import-replicate)\.
-+ To use a AWS CloudTrail template to create a replica key, see [AWS::KMS::ReplicaKey](https://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-resource-kms-replicakey.html) in the *AWS CloudFormation User Guide*\.
++ To use a AWS CloudFormation template to create a replica key, see [AWS::KMS::ReplicaKey](https://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-resource-kms-replicakey.html) in the *AWS CloudFormation User Guide*\.
 
 **Topics**
 + [Replica Regions](#replica-region)
@@ -84,7 +84,7 @@ To create a multi\-Region replica key, use the [ReplicateKey](https://docs.aws.a
 When you use the `ReplicateKey` operation, you don't specify values for any [shared properties](multi-region-keys-overview.md#mrk-sync-properties) of multi\-Region keys\. Shared property values are copied from the primary key and kept synchronized\. However, you can specify values for properties that are not shared\. Otherwise, AWS KMS applies the standard default values for KMS keys, not the values of the primary key\.
 
 **Note**  
-If you don't specify values for the `Tags`, `Description`, or `KeyPolicy` parameters, AWS KMS creates the replica key with no tags, an empty string description, and the [default key policy](key-policies.md#key-policy-default)\.
+If you don't specify values for the `Tags`, `Description`, or `KeyPolicy` parameters, AWS KMS creates the replica key with no tags, an empty string description, and the [default key policy](key-policy-default.md)\.
 
 For example, the following command creates a multi\-Region replica key in the Asia Pacific \(Sydney\) Region \(ap\-southeast\-2\)\. This replica key is modeled on the primary key in the US East \(N\. Virginia\) Region \(us\-east\-1\), which is identified by the value of the `KeyId` parameter\. This example accepts default values for all other properties, including the key policy\.
 

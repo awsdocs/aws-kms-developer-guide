@@ -88,7 +88,7 @@ To improve performance and minimize calls to AWS KMS, Amazon WorkMail caches eac
 
 ## Authorizing use of the KMS key<a name="wm-authorizing-cmk"></a>
 
-When Amazon WorkMail uses a AWS KMS key in cryptographic operations, it acts on behalf of the mailbox administrator\.
+When Amazon WorkMail uses an AWS KMS key in cryptographic operations, it acts on behalf of the mailbox administrator\.
 
 To use the AWS KMS key for a secret on your behalf, the administrator must have the following permissions\. You can specify these required permissions in an IAM policy or key policy\.
 + `kms:Encrypt`

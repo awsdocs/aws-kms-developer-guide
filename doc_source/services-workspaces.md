@@ -88,13 +88,13 @@ To give WorkSpaces administrators the permissions that they require, you can use
 
 1. Use the [GetKeyPolicy](https://docs.aws.amazon.com/kms/latest/APIReference/API_GetKeyPolicy.html) operation to get the existing key policy, and then save the policy document to a file\.
 
-1. Open the policy document in your preferred text editor\. Add the IAM users and roles that correspond to your WorkSpaces administrators to the policy statements that [give permission to key users](key-policies.md#key-policy-default-allow-users)\. Then save the file\.
+1. Open the policy document in your preferred text editor\. Add the IAM users and roles that correspond to your WorkSpaces administrators to the policy statements that [give permission to key users](key-policy-default.md#key-policy-default-allow-users)\. Then save the file\.
 
 1. Use the [PutKeyPolicy](https://docs.aws.amazon.com/kms/latest/APIReference/API_PutKeyPolicy.html) operation to apply the key policy to the KMS key\.
 
 ### Part 2: Giving WorkSpaces administrators extra permissions<a name="workspaces-permissions-iam-policy"></a>
 
-If you are using a customer managed key to protect your WorkSpaces data, in addition to the permissions in the key users section of the [default key policy](key-policies.md#key-policy-default), WorkSpaces administrators need permission to create [grants](grants.md) on the KMS key\. Also, if they use the [AWS Management Console](https://console.aws.amazon.com/console/home) to create WorkSpaces with encrypted volumes, WorkSpaces administrators need permission to list aliases and list keys\. For information about creating and editing IAM user policies, see [Managed Policies and Inline Policies](https://docs.aws.amazon.com/IAM/latest/UserGuide/access_policies_managed-vs-inline.html) in the *IAM User Guide*\.
+If you are using a customer managed key to protect your WorkSpaces data, in addition to the permissions in the key users section of the [default key policy](key-policy-default.md), WorkSpaces administrators need permission to create [grants](grants.md) on the KMS key\. Also, if they use the [AWS Management Console](https://console.aws.amazon.com/console/home) to create WorkSpaces with encrypted volumes, WorkSpaces administrators need permission to list aliases and list keys\. For information about creating and editing IAM user policies, see [Managed Policies and Inline Policies](https://docs.aws.amazon.com/IAM/latest/UserGuide/access_policies_managed-vs-inline.html) in the *IAM User Guide*\.
 
 To give these permissions to your WorkSpaces administrators, use an IAM policy\. Add an policy statement similar to the following example to the IAM policy for each WorkSpaces administrator\. Replace the example KMS key ARN \(`arn:aws:kms:us-west-2:111122223333:key/1234abcd-12ab-34cd-56ef-1234567890ab`\) with a valid one\. If your WorkSpaces administrators use only the WorkSpaces API \(not the console\), you can omit the second policy statement with the `"kms:ListAliases"` and `"kms:ListKeys"` permissions\.
 

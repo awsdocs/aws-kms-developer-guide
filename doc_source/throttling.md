@@ -20,3 +20,5 @@ AWS KMS throttles requests for the following conditions\.
   For example, if an application in your account sends a persistent volley of `EnableKey` and `DisableKey` requests for the same KMS key, AWS KMS throttles the requests\. This throttling occurs even if the requests don't exceed the request\-per\-second request limit for the `EnableKey` and `DisableKey` operations\.
 
   To respond to throttling, adjust your application logic so it makes only required requests or it consolidates the requests of multiple functions\. 
+
+To view trends in your request rates, use the [Service Quotas console](https://console.aws.amazon.com/servicequotas)\. You can also create an [Amazon CloudWatch](https://docs.aws.amazon.com/AmazonCloudWatch/latest/DeveloperGuide/) alarm that alerts you when your request rate reaches a certain percentage of a quota value\. For details, see [Manage your AWS KMS API request rates using Service Quotas and Amazon CloudWatch](http://aws.amazon.com/blogs/security/manage-your-aws-kms-api-request-rates-using-service-quotas-and-amazon-cloudwatch/) in the *AWS Security Blog*\.

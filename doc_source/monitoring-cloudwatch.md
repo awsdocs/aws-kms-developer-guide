@@ -2,6 +2,14 @@
 
 You can monitor your AWS KMS keys using Amazon CloudWatch, which collects and processes raw data from AWS KMS into readable, near real\-time metrics\. These data are recorded for a period of two weeks so that you can access historical information and gain a better understanding of the usage of your KMS keys and their changes over time\. For more information about Amazon CloudWatch, see the [Amazon CloudWatch User Guide](https://docs.aws.amazon.com/AmazonCloudWatch/latest/monitoring/)\.
 
+You can use Amazon CloudWatch to alert you to important events, such as the following ones\.
++ The imported key material in a KMS key is nearing its expiration date\.
++ A KMS key that is pending deletion is still being used\. 
++ The key material in a KMS key was automatically rotated\.
++ A KMS key was deleted\.
+
+You can also create an [Amazon CloudWatch](https://docs.aws.amazon.com/AmazonCloudWatch/latest/DeveloperGuide/) alarm that alerts you when your request rate reaches a certain percentage of a quota value\. For details, see [Manage your AWS KMS API request rates using Service Quotas and Amazon CloudWatch](http://aws.amazon.com/blogs/security/manage-your-aws-kms-api-request-rates-using-service-quotas-and-amazon-cloudwatch/) in the *AWS Security Blog*\.
+
 **Topics**
 + [AWS KMS metrics and dimensions](#kms-metrics-dimensions)
 + [Creating CloudWatch alarms to monitor AWS KMS metrics](#creating-alarms)
@@ -95,7 +103,7 @@ You will not receive email notifications until after you have confirmed your ema
 
 When you [schedule key deletion](deleting-keys.md) for a KMS key, AWS KMS enforces a waiting period before deleting the KMS key\. You can use the waiting period to ensure that you don't need the KMS key now or in the future\. You can also configure a CloudWatch alarm to warn you if a person or application attempts to use the KMS key during the waiting period\. If you receive a notification from such an alarm, you might want to cancel deletion of the KMS key\.
 
-For more information, see [Creating an Amazon CloudWatch alarm to detect usage of a AWS KMS key pending deletion](deleting-keys-creating-cloudwatch-alarm.md)\.
+For more information, see [Creating an Amazon CloudWatch alarm to detect usage of an AWS KMS key pending deletion](deleting-keys-creating-cloudwatch-alarm.md)\.
 
 ## AWS KMS events<a name="kms-events"></a>
 

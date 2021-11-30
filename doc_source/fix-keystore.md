@@ -156,9 +156,9 @@ To delete the key material from the associated AWS CloudHSM cluster, use a proce
 
 ## How to recover deleted key material for a KMS key<a name="fix-keystore-recover-backing-key"></a>
 
-If the key material for a AWS KMS key is deleted, the KMS key is unusable and all ciphertext that was encrypted under the KMS key cannot be decrypted\. This can happen if the key material for a KMS key in a custom key store is deleted from the associated AWS CloudHSM cluster\. However, it might be possible to recover the key material\.
+If the key material for an AWS KMS key is deleted, the KMS key is unusable and all ciphertext that was encrypted under the KMS key cannot be decrypted\. This can happen if the key material for a KMS key in a custom key store is deleted from the associated AWS CloudHSM cluster\. However, it might be possible to recover the key material\.
 
-When you create a AWS KMS key \(KMS key\) in a custom key store, AWS KMS logs into the associated AWS CloudHSM cluster and creates the key material for the KMS key\. It also changes the password to a value that only it knows and remains logged in as long as the custom key store is connected\. Because only the key owner, that is, the CU who created a key, can delete the key, it is unlikely that the key will be deleted from the HSMs accidentally\. 
+When you create an AWS KMS key \(KMS key\) in a custom key store, AWS KMS logs into the associated AWS CloudHSM cluster and creates the key material for the KMS key\. It also changes the password to a value that only it knows and remains logged in as long as the custom key store is connected\. Because only the key owner, that is, the CU who created a key, can delete the key, it is unlikely that the key will be deleted from the HSMs accidentally\. 
 
 However, if the key material for a KMS key is deleted from the HSMs in a cluster, the KMS key key state eventually changes to `UNAVAILABLE`\. If you attempt to use the KMS key for a cryptographic operation, the operation fails with a **KMSInvalidStateException** exception\. Most importantly, any data that was encrypted under the KMS key cannot be decrypted\.
 

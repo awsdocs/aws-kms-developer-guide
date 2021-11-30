@@ -1,6 +1,6 @@
 # ImportKeyMaterial<a name="ct-importkeymaterial"></a>
 
-The following example shows an AWS CloudTrail log entry generated when you use the [ImportKeyMaterial](https://docs.aws.amazon.com/kms/latest/APIReference/API_ImportKeyMaterial.html) operation\. The same CloudTrail entry is recorded when you use the `ImportKeyMaterial` operation or use the AWS KMS console to [import key material](importing-keys-import-key-material.md) into a AWS KMS key\.
+The following example shows an AWS CloudTrail log entry generated when you use the [ImportKeyMaterial](https://docs.aws.amazon.com/kms/latest/APIReference/API_ImportKeyMaterial.html) operation\. The same CloudTrail entry is recorded when you use the `ImportKeyMaterial` operation or use the AWS KMS console to [import key material](importing-keys-import-key-material.md) into an AWS KMS key\.
 
 ```
 {

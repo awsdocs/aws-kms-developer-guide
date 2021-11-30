@@ -109,7 +109,7 @@ The following terms and concepts are used with multi\-Region keys\.
 
 A *multi\-Region key* is one of a set of KMS keys with the same key ID and key material \(and other [shared properties](#mrk-replica-key)\) in different AWS Regions\. Each multi\-Region key is a fully functioning KMS key that can be used entirely independently of its related multi\-Region keys\. Because all *related* multi\-Region keys have the same key ID and key material, they are *interoperable*, that is, any related multi\-Region key in any AWS Region can decrypt ciphertext encrypted by any other related multi\-Region key\.
 
-You set the multi\-Region property of a KMS key when you create it\. You cannot change this property on an existing key\. Therefore, to move existing workloads into multi\-Region scenarios, you must re\-encrypt your data or create new signatures with new multi\-Region keys\.
+You set the multi\-Region property of a KMS key when you create it\. You cannot change the multi\-Region property on an existing key\. You cannot convert a single\-Region key to multi\-Region key or a convert a multi\-Region key to a single\-Region key\. To move existing workloads into multi\-Region scenarios, you must re\-encrypt your data or create new signatures with new multi\-Region keys\.
 
 A multi\-Region key can be [symmetric or asymmetric](symmetric-asymmetric.md) and it can use AWS KMS key material or [imported key material](importing-keys.md)\. You cannot create multi\-Region keys in a [custom key store](custom-key-store-overview.md)\.
 

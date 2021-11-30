@@ -1,6 +1,6 @@
 # Managing access to your AWS KMS resources<a name="control-access-overview"></a>
 
-Every AWS resource belongs to an AWS account, and permissions to create or access the resources are defined in permissions policies in that account\. An account administrator can attach permissions policies to IAM identities \(that is, users, groups, and roles\), and some services \(including AWS KMS\) also support attaching permissions policies to other kinds of resources\.
+Every AWS resource belongs to an AWS account\. Permissions to create or access the resources are defined in permissions policies in that account\. An account administrator can attach permissions policies to IAM identities \(that is, users, groups, and roles\), and some services \(including AWS KMS\) also support attaching permissions policies to other kinds of resources\.
 
 **Note**  
 An *account administrator* \(or administrator user\) is a user with administrator permissions\. For more information, see [Creating an Admin User and Group](https://docs.aws.amazon.com/IAM/latest/UserGuide/getting-started_create-admin-group.html) in the *IAM User Guide*\.
@@ -49,6 +49,8 @@ You can control access to your KMS keys in these ways:
 + **Use grants in combination with the key policy** – You can use grants in combination with the key policy to allow access to a KMS key\. Controlling access this way enables you to allow access to the KMS key in the key policy, and to allow users to delegate their access to others\.
 
 For most AWS services, IAM policies are the only way to control access to the service's resources\. Some services offer resource\-based policies or other access control mechanisms to complement IAM policies, but these are generally optional and you can control access to the resources in these services with only IAM policies\. This is not the case for AWS KMS, however\. To allow access to a KMS key, you must use the key policy, either alone or in combination with IAM policies or grants\. IAM policies by themselves are not sufficient to allow access to a KMS key, though you can use them in combination with a key policy\.
+
+KMS keys belong to the AWS account in which they were created\. The IAM user who creates a KMS key is not considered to be the key owner and they don't automatically have permission to use or manage the KMS key that they created\. Like any other principal, the key creator needs to get permission through a key policy, IAM policy, or grant\. However, principals who have the `kms:CreateKey` permission can set the initial key policy and give themselves permission to use or manage the key\.
 
 For more information about using key policies, see [Key policies](key-policies.md)\.
 

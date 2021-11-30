@@ -22,7 +22,7 @@ For detailed information about the KMS key identifiers supported by AWS KMS, see
 
 ## To find the key ID and key ARN \(AWS KMS API\)<a name="find-cmk-arn-api"></a>
 
-To find the [key ID](concepts.md#key-id-key-id) and [key ARN](concepts.md#key-id-key-ARN) of a AWS KMS key, use the [ListKeys](https://docs.aws.amazon.com/kms/latest/APIReference/API_ListKeys.html) operation\. For examples in multiple programming languages, see [Getting key IDs and ARNs](programming-keys.md#listing-keys) and [Get key IDs and ARNs](viewing-keys-cli.md#viewing-keys-list-keys)\.
+To find the [key ID](concepts.md#key-id-key-id) and [key ARN](concepts.md#key-id-key-ARN) of an AWS KMS key, use the [ListKeys](https://docs.aws.amazon.com/kms/latest/APIReference/API_ListKeys.html) operation\. For examples in multiple programming languages, see [Getting key IDs and ARNs](programming-keys.md#listing-keys) and [Get key IDs and ARNs](viewing-keys-cli.md#viewing-keys-list-keys)\.
 
 The `ListKeys` response includes the key ID and key ARN for every KMS key in the account and Region\.
 

@@ -1,6 +1,6 @@
 # Scheduling deletion of KMS keys from a custom key store<a name="delete-cmk-keystore"></a>
 
-When you are certain that you will not need to use a AWS KMS key for any cryptographic operation, you can [schedule the deletion of the KMS key](deleting-keys.md)\. Use the same procedure that you would use to schedule the deletion of any KMS key from AWS KMS\. In addition, keep your custom key store connected so AWS KMS can delete the corresponding key material from the associated AWS CloudHSM cluster when the waiting period expires\.
+When you are certain that you will not need to use an AWS KMS key for any cryptographic operation, you can [schedule the deletion of the KMS key](deleting-keys.md)\. Use the same procedure that you would use to schedule the deletion of any KMS key from AWS KMS\. In addition, keep your custom key store connected so AWS KMS can delete the corresponding key material from the associated AWS CloudHSM cluster when the waiting period expires\.
 
 **Warning**  
 Deleting a KMS key is a destructive and potentially dangerous operation that prevents you from recovering all data encrypted under the KMS key\. Before scheduling deletion of the KMS key, [examine past usage](deleting-keys-determining-usage.md) of the KMS key and [create a Amazon CloudWatch alarm](deleting-keys-creating-cloudwatch-alarm.md) that alerts you when someone tries to use the KMS key while it is pending deletion\. Whenever possible, [disable the KMS key](enabling-keys.md), instead of deleting it\.

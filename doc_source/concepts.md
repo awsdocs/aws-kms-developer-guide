@@ -1,9 +1,10 @@
-# AWS KMS keys concepts<a name="concepts"></a>
+# AWS KMS concepts<a name="concepts"></a>
 
-Learn the basic terms and concepts in AWS Key Management Service \(AWS KMS\) and how they work together to help protect your data\.
+Learn the basic terms and concepts used in AWS Key Management Service \(AWS KMS\) and how they work together to help protect your data\.
 
 **Topics**
 + [AWS KMS keys](#kms_keys)
++ [Customer keys and AWS keys](#key-mgmt)
 + [Symmetric KMS keys](#symmetric-cmks)
 + [Asymmetric KMS keys](#asymmetric-keys-concept)
 + [Data keys](#data-keys)
@@ -32,7 +33,7 @@ AWS KMS is replacing the term *customer master key \(CMK\)* with *AWS KMS key* a
 
 An *AWS KMS key* is a logical representation of an encryption key\. In addition to the key material used to encrypt and decrypt data, a KMS key includes metadata, such as the key ID, creation date, description, and key state\. 
 
-KMS keys can be symmetric or asymmetric\. A *symmetric KMS key* represents a 256\-bit key used for encryption and decryption\. An *asymmetric KMS key* can represent an RSA key pair used for encryption and decryption or signing and verification \(but not both\)\. Or an asymmetric KMS key can represent an elliptic curve \(ECC\) key pair used for signing and verification\. For detailed information about symmetric and asymmetric KMS keys, see [Asymmetric keys in AWS KMS](symmetric-asymmetric.md)\.
+The basic KMS key, a [*symmetric KMS key*](#symmetric-cmks), represents a cryptographic key used for encryption and decryption\. You can also create an [asymmetric KMS key](symmetric-asymmetric.md) \(RSA or elliptic curve \(ECC\)\) for encryption and decryption or signing and verification \(but not both\)\.
 
 You create KMS keys in AWS KMS\. Symmetric KMS keys and the private keys of asymmetric KMS key never leave AWS KMS unencrypted\.  To use or manage your KMS keys, you must use AWS KMS\. For information about creating and managing KMS keys, see [Managing keys](getting-started.md)\. For information about using KMS keys, see the [AWS Key Management Service API Reference](https://docs.aws.amazon.com/kms/latest/APIReference/)\.
 
@@ -42,20 +43,22 @@ AWS KMS also supports [multi\-Region keys](multi-region-keys-overview.md), which
 
 For information about creating and managing KMS keys, see [Managing keys](getting-started.md)\. For information about using KMS keys, see the [AWS Key Management Service API Reference](https://docs.aws.amazon.com/kms/latest/APIReference/)\.
 
-AWS KMS supports three types of KMS keys: customer managed keys, AWS managed keys, and AWS owned keys\. 
+## Customer keys and AWS keys<a name="key-mgmt"></a>
+
+The KMS keys that you create are [customer managed keys](#customer-cmk)\. AWS services that use KMS keys to encrypt your service resources often create keys for you\. KMS keys that AWS services create in your AWS account are [AWS managed keys](#aws-managed-cmk)\. KMS keys that AWS services create in a service account are [AWS owned keys](#aws-owned-cmk)\. 
 
 
 | Type of KMS key | Can view KMS key metadata | Can manage KMS key | Used only for my AWS account | [Automatic rotation](rotate-keys.md) | 
 | --- | --- | --- | --- | --- | 
-| [Customer managed key](#customer-cmk) | Yes | Yes | Yes | Optional\. Every 365 days \(1 year\)\. | 
-| [AWS managed key](#aws-managed-cmk) | Yes | No | Yes | Required\. Every 1095 days \(3 years\)\. | 
-| [AWS owned key](#aws-owned-cmk) | No | No | No | Varies | 
+| Customer managed key | Yes | Yes | Yes | Optional\. Every 365 days \(1 year\)\. | 
+| AWS managed key | Yes | No | Yes | Required\. Every 1095 days \(3 years\)\. | 
+| AWS owned key | No | No | No | Varies | 
 
-[AWS services that integrate with AWS KMS](service-integration.md) differ in their support for KMS keys\. Some AWS services encrypt your data by default with an AWS owned key or an AWS managed key\. Other AWS services offer to encrypt your data under a customer managed key that you choose\. And other AWS services support all types of KMS keys to allow you the ease of an AWS owned key, the visibility of an AWS managed key, or the control of a customer managed key\. For detailed information about the encryption options that an AWS service offers, see the *Encryption at Rest* topic in the user guide or the developer guide for the service\. 
+[AWS services that integrate with AWS KMS](service-integration.md) differ in their support for KMS keys\. Some AWS services encrypt your data by default with an AWS owned key or an AWS managed key\. Some AWS services support customer managed keys\. Other AWS services support all types of KMS keys to allow you the ease of an AWS owned key, the visibility of an AWS managed key, or the control of a customer managed key\. For detailed information about the encryption options that an AWS service offers, see the *Encryption at Rest* topic in the user guide or the developer guide for the service\.
 
 ### Customer managed keys<a name="customer-cmk"></a>
 
-*Customer managed keys* are KMS keys in your AWS account that you create, own, and manage\. You have full control over these KMS keys, including establishing and maintaining their [key policies, IAM policies, and grants](control-access.md), [enabling and disabling](enabling-keys.md) them, [rotating their cryptographic material](rotate-keys.md), [adding tags](tagging-keys.md), [creating aliases](programming-aliases.md) that refer to the KMS keys, and [scheduling the KMS keys for deletion](deleting-keys.md)\. 
+The KMS keys that you create are *customer managed keys*\. Customer managed keys are KMS keys in your AWS account that you create, own, and manage\. You have full control over these KMS keys, including establishing and maintaining their [key policies, IAM policies, and grants](control-access.md), [enabling and disabling](enabling-keys.md) them, [rotating their cryptographic material](rotate-keys.md), [adding tags](tagging-keys.md), [creating aliases](programming-aliases.md) that refer to the KMS keys, and [scheduling the KMS keys for deletion](deleting-keys.md)\. 
 
 Customer managed keys appear on the **Customer managed keys** page of the AWS Management Console for AWS KMS\. To definitively identify a customer managed key, use the [DescribeKey](https://docs.aws.amazon.com/kms/latest/APIReference/API_DescribeKey.html) operation\. For customer managed keys, the value of the `KeyManager` field of the `DescribeKey` response is `CUSTOMER`\.
 
@@ -71,7 +74,11 @@ You can [view the AWS managed keys](viewing-keys.md) in your account, [view thei
 
 AWS managed keys appear on the **AWS managed keys** page of the AWS Management Console for AWS KMS\. You can also identify AWS managed keys by their aliases, which have the format `aws/service-name`, such as `aws/redshift`\. To definitively identify an AWS managed keys, use the [DescribeKey](https://docs.aws.amazon.com/kms/latest/APIReference/API_DescribeKey.html) operation\. For AWS managed keys, the value of the `KeyManager` field of the `DescribeKey` response is `AWS`\.
 
-You do not pay a monthly fee for AWS managed keys\. They can be subject to fees for use in excess of the free tier, but some AWS services cover these costs for you\. For details, see the *Encryption at Rest* topic in the user guide or developer guide for the service\. AWS managed keys do not count against resource quotas on the number of KMS keys in each Region of your account\. But when used on behalf of a principal in your account, the KMS keys count against request quotas\. For details, see [AWS Key Management Service Pricing](https://aws.amazon.com/kms/pricing/) and [Quotas](limits.md)\.
+All AWS managed keys are automatically rotated every three years\. You cannot change this rotation schedule\.
+
+You do not pay a monthly fee for AWS managed keys\. They can be subject to fees for use in excess of the free tier, but some AWS services cover these costs for you\. For details, see the *Encryption at Rest* topic in the user guide or developer guide for the service\. For details, see [AWS Key Management Service Pricing](https://aws.amazon.com/kms/pricing/)\.
+
+AWS managed keys do not count against resource quotas on the number of KMS keys in each Region of your account\. But when used on behalf of a principal in your account, the KMS keys count against request quotas\. For details, see [Quotas](limits.md)\.
 
 ### AWS owned keys<a name="aws-owned-cmk"></a>
 
@@ -79,11 +86,11 @@ You do not pay a monthly fee for AWS managed keys\. They can be subject to fees 
 
 You do not need to create or manage the AWS owned keys\. However, you cannot view, use, track, or audit them\. AWS does not charge you a monthly fee or usage fee for AWS owned keys and they do not count against the [AWS KMS quotas](limits.md) for your account\.
 
-AWS owned key rotation \- For information about the types of KMS key that an AWS service supports, including AWS owned keys, see the *Encryption at Rest* topic in the user guide or developer guide for the service\.
+The rotation of AWS owned keys varies across services\. For information about the rotation of a particular AWS owned key, see the *Encryption at Rest* topic in the user guide or developer guide for the service\.
 
 ## Symmetric KMS keys<a name="symmetric-cmks"></a>
 
-When you create a AWS KMS key, by default, you get a symmetric KMS key\. 
+When you create an AWS KMS key, by default, you get a symmetric KMS key\. 
 
 In AWS KMS, a *symmetric KMS key* represents a 256\-bit encryption key that never leaves AWS KMS unencrypted\. To use a symmetric KMS key, you must call AWS KMS\. Symmetric keys are used in symmetric encryption, where the same key is used for encryption and decryption\. Unless your task explicitly requires asymmetric encryption, symmetric KMS keys, which never leave AWS KMS unencrypted, are a good choice\.
 
@@ -105,13 +112,13 @@ For more information about creating and using asymmetric KMS keys, see [Asymmetr
 
 *Data keys* are encryption keys you can use to encrypt data, including large amounts of data and other data encryption keys\. Unlike [KMS keys](#kms_keys), which can't be downloaded, data keys are returned to you for use outside of AWS KMS\. 
 
-When AWS KMS generates data keys, it typically returns a plaintext data key for immediate use and an encrypted copy of the data key that you can safely store with the data\. When you are ready to decrypt the data, you first ask AWS KMS to decrypt the encrypted data key\. 
+When AWS KMS generates data keys, it returns a plaintext data key for immediate use \(optional\) and an encrypted copy of the data key that you can safely store with the data\. When you are ready to decrypt the data, you first ask AWS KMS to decrypt the encrypted data key\. 
 
-AWS KMS generates, encrypts, and decrypts data keys\. However, AWS KMS does not store, manage, or track your data keys, or perform cryptographic operations with data keys\. You must use and manage data keys outside of AWS KMS\.
+AWS KMS generates, encrypts, and decrypts data keys\. However, AWS KMS does not store, manage, or track your data keys, or perform cryptographic operations with data keys\. You must use and manage data keys outside of AWS KMS\. For help using the data keys securely, see the [AWS Encryption SDK](https://docs.aws.amazon.com/encryption-sdk/latest/developer-guide/)\.
 
 ### Create a data key<a name="data-keys-create"></a>
 
-To create a data key, call the [GenerateDataKey](https://docs.aws.amazon.com/kms/latest/APIReference/API_GenerateDataKey.html) operation\. AWS KMS uses the symmetric KMS key that you specify to generate a data key\. The operation returns a plaintext copy of the data key and a copy of the data key encrypted under the KMS key\. The following image shows this operation\.
+To create a data key, call the [GenerateDataKey](https://docs.aws.amazon.com/kms/latest/APIReference/API_GenerateDataKey.html) operation\. AWS KMS generates the data key\. Then it encrypts a copy of the data key under a symmetric KMS key that you specify\. The operation returns a plaintext copy of the data key and the copy of the data key encrypted under the KMS key\. The following image shows this operation\.
 
 ![\[Generate a data key\]](http://docs.aws.amazon.com/kms/latest/developerguide/images/generate-data-key.png)
 
@@ -143,7 +150,7 @@ AWS KMS supports the following types of data key pairs:
 + RSA key pairs: RSA\_2048, RSA\_3072, and RSA\_4096
 + Elliptic curve key pairs, ECC\_NIST\_P256, ECC\_NIST\_P384, ECC\_NIST\_P521, and ECC\_SECG\_P256K1
 
-The type of data key pair that you select usually depends on your use case or regulatory requirements\. Most certificates require RSA keys\. Elliptic curve keys are often used for digital signatures\. ECC\_SECG\_P256K1 keys are commonly used for cryptocurrencies\. AWS KMS recommends that your use ECC key pairs for signing, and use RSA key pairs for either encryption or signing, but not both\. However, AWS KMS cannot enforce any restrictions on the use of data key pairs outside of AWS KMS\.
+The type of data key pair that you select usually depends on your use case or regulatory requirements\. Most certificates require RSA keys\. Elliptic curve keys are often used for digital signatures\. ECC\_SECG\_P256K1 keys are commonly used for cryptocurrencies\. AWS KMS recommends that you use ECC key pairs for signing, and use RSA key pairs for either encryption or signing, but not both\. However, AWS KMS cannot enforce any restrictions on the use of data key pairs outside of AWS KMS\.
 
 ### Create a data key pair<a name="data-keys-pairs-create"></a>
 

@@ -1,6 +1,6 @@
 # Viewing KMS keys in a custom key store<a name="view-cmk-keystore"></a>
 
-To view the AWS KMS keys in a custom key store, use the same techniques that you would use to view any AWS KMS [customer managed keys](concepts.md#kms_keys)\. To learn the basics, see [Viewing keys](viewing-keys.md)\. To identify the keys in your AWS CloudHSM cluster that serve as key material for your KMS key, see [Finding KMS keys and key material](find-key-material.md)\.
+To view the AWS KMS keys in a custom key store, use the same techniques that you would use to view any AWS KMS [customer managed keys](concepts.md#kms_keys)\. To learn the basics, see [Viewing keys](viewing-keys.md)\. To identify the keys in your AWS CloudHSM cluster that serve as key material for your KMS key, see [Finding KMS keys and key material](find-key-material.md)\. For information about viewing the AWS CloudTrail logs that record all API operations on a custom key store, see [Logging AWS KMS API calls with AWS CloudTrail](logging-using-cloudtrail.md)\.
 
 In the AWS Management Console, the KMS keys in your custom key store are displayed along with all other customer managed keys your AWS account and Region\. 
 

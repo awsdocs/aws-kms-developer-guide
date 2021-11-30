@@ -12,7 +12,7 @@ You do not pay a key usage charge when CloudTrail reads or writes log files encr
 
 ## Understanding when your KMS key is used<a name="cloudtrail-details"></a>
 
-Encrypting CloudTrail log files with AWS KMS builds on the Amazon S3 feature called server\-side encryption with AWS KMS–managed keys \(SSE\-KMS\)\. To learn more about SSE\-KMS, see [How Amazon Simple Storage Service \(Amazon S3\) uses AWS KMS](services-s3.md) in this guide or [Protecting data using server\-side encryption with KMS keys \(SSE\-KMS\)](https://docs.aws.amazon.com/AmazonS3/latest/userguide/UsingKMSEncryption.html) in the *Amazon Simple Storage Service Developer Guide*\.
+Encrypting CloudTrail log files with AWS KMS builds on the Amazon S3 feature called server\-side encryption with AWS KMS–managed keys \(SSE\-KMS\)\. To learn more about SSE\-KMS, see [How Amazon Simple Storage Service \(Amazon S3\) uses AWS KMS](services-s3.md) in this guide or [Protecting data using server\-side encryption with KMS keys \(SSE\-KMS\)](https://docs.aws.amazon.com/AmazonS3/latest/userguide/UsingKMSEncryption.html) in the *Amazon Simple Storage Service User Guide*\.
 
 When you configure AWS CloudTrail to use SSE\-KMS to encrypt your log files, CloudTrail and Amazon S3 use your AWS KMS keys when you perform certain actions with those services\. The following sections explain when and how those services can use your KMS key, and provide additional information that you can use to validate this explanation\.
 

@@ -16,7 +16,7 @@ Controlling access with tags provides a simple, scalable, and flexible way to ma
 + Be cautious about giving principals the `kms:TagResource` and `kms:UntagResource` permissions that let them add, edit, and delete tags\. When you use tags to control access to KMS keys, changing a tag can give principals permission to use KMS keys that they didn't otherwise have permission to use\. It can also deny access to KMS keys that other principals require to do their jobs\. Key administrators who don't have permission to change key policies or create grants can control access to KMS keys if they have permission to manage tags\.
 
   Whenever possible, use a policy condition, such as `aws:RequestTag/tag-key` or `aws:TagKeys` to [limit a principal's tagging permissions](tag-permissions.md#tag-permissions-conditions) to particular tags or tag patterns on particular KMS keys\.
-+ Review the principals in your AWS account that currently have tagging and untagging permissions and adjust them, if necessary\. For example, the console [default key policy for key administrators](key-policies.md#key-policy-default-allow-administrators) includes `kms:TagResource` and `kms:UntagResource` permission on that KMS key\. IAM policies might allow tag and untag permissions on all KMS keys\. For example, the [AWSKeyManagementServicePowerUser](aws-managed-policies.md) managed policy allows principals to tag, untag, and list tags on all KMS keys\.
++ Review the principals in your AWS account that currently have tagging and untagging permissions and adjust them, if necessary\. For example, the console [default key policy for key administrators](key-policy-default.md#key-policy-default-allow-administrators) includes `kms:TagResource` and `kms:UntagResource` permission on that KMS key\. IAM policies might allow tag and untag permissions on all KMS keys\. For example, the [AWSKeyManagementServicePowerUser](aws-managed-policies.md) managed policy allows principals to tag, untag, and list tags on all KMS keys\.
 + Before setting a policy that depends on a tag, review the tags on the KMS keys in your AWS account\. Make sure that your policy applies only to the tags you intend to include\. Use [CloudTrail logs](logging-using-cloudtrail.md) and [CloudWatch alarms](monitoring-overview.md) to alert you to tag changes that might affect access to your KMS keys\.
 + The tag\-based policy conditions use pattern matching; they aren't tied to a particular instance of a tag\. A policy that uses tag\-based condition keys affects all new and existing tags that match the pattern\. If you delete and recreate a tag that matches a policy condition, the condition applies to the new tag, just as it did to the old one\.
 
@@ -44,7 +44,7 @@ For example, consider the following IAM policy\. It allows the principals to cal
 }
 ```
 
-The following example IAM policy allows the principals to use any KMS key in the account for certain cryptographic operations\. But it prohibits the principals from using any AWS KMS operations on KMS keys with a `"Type"="Reserved"` tag or no `"Type"` tag\.
+The following example IAM policy allows the principals to use any KMS key in the account for certain cryptographic operations\. But it prohibits the principals from using these cryptographic operations on KMS keys with a `"Type"="Reserved"` tag or no `"Type"` tag\.
 
 ```
 {
@@ -64,7 +64,12 @@ The following example IAM policy allows the principals to use any KMS key in the
     {
       "Sid": "IAMDenyOnTag",
       "Effect": "Deny",
-      "Action": "kms:*",
+      "Action": [
+        "kms:Encrypt",
+        "kms:GenerateDataKey*",
+        "kms:Decrypt",
+        "kms:ReEncrypt*"
+      ],
       "Resource": "arn:aws:kms:*:111122223333:key/*",
       "Condition": {
         "StringEquals": {
@@ -75,7 +80,12 @@ The following example IAM policy allows the principals to use any KMS key in the
     {
       "Sid": "IAMDenyNoTag",
       "Effect": "Deny",
-      "Action": "kms:*",
+      "Action": [
+        "kms:Encrypt",
+        "kms:GenerateDataKey*",
+        "kms:Decrypt",
+        "kms:ReEncrypt*"
+      ],
       "Resource": "arn:aws:kms:*:111122223333:key/*",
       "Condition": {
         "Null": {

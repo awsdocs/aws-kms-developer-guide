@@ -1,6 +1,6 @@
 # Authentication and access control for AWS KMS<a name="control-access"></a>
 
-Access to AWS KMS requires credentials that AWS can use to authenticate your requests\. The credentials must have permissions to access AWS resources, such as AWS KMS keys\. The following sections provide details about how you can use AWS Identity and Access Management \(IAM\) and AWS KMS to help secure your resources by controlling who can access them\.
+To use AWS KMS, you must have credentials that AWS can use to authenticate your requests\. The credentials must include permissions to access AWS resources, such as AWS KMS keys\. The following topics provide details about how you can use AWS Identity and Access Management \(IAM\) and AWS KMS permissions to help secure your resources by controlling who can access them\.
 
 **Topics**
 + [Concepts](#permission-concepts)

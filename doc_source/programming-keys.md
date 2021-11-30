@@ -5,7 +5,7 @@ The examples in this topic use the AWS KMS API to create, view, enable, and disa
 **Topics**
 + [Creating a KMS key](#creating-keys)
 + [Generating a data key](#generate-datakeys)
-+ [Viewing a AWS KMS key](#describing-keys)
++ [Viewing an AWS KMS key](#describing-keys)
 + [Getting key IDs and key ARNs of KMS keys](#listing-keys)
 + [Enabling AWS KMS keys](#enable-keys)
 + [Disabling AWS KMS key](#disable-keys)
@@ -127,7 +127,9 @@ To use the AWS KMS PowerShell cmdlets, install the [AWS\.Tools\.KeyManagementSer
 
 ## Generating a data key<a name="generate-datakeys"></a>
 
-To generate a symmetric data key, use the [GenerateDataKey](https://docs.aws.amazon.com/kms/latest/APIReference/API_GenerateDataKey.html) operation\. This operation takes a symmetric KMS key and returns a plaintext data key and a copy of that data key encrypted under the KMS key that you specified\. You must specify either a `KeySpec` or `NumberOfBytes` \(but not both\) in each command\.
+To generate a symmetric [data key](concepts.md#data-keys-create), use the [GenerateDataKey](https://docs.aws.amazon.com/kms/latest/APIReference/API_GenerateDataKey.html) operation\. This operation takes a symmetric KMS key and returns a plaintext data key and a copy of that data key encrypted under the KMS key that you specified\. You must specify either a `KeySpec` or `NumberOfBytes` \(but not both\) in each command\.
+
+For help using the data key to encrypt data, see the [AWS Encryption SDK](https://docs.aws.amazon.com/encryption-sdk/latest/developer-guide/)\.
 
 In languages that require a client object, these examples use the AWS KMS client object that you created in [Creating a client](programming-client.md)\.
 
@@ -283,9 +285,9 @@ To use the AWS KMS PowerShell cmdlets, install the [AWS\.Tools\.KeyManagementSer
 
 ------
 
-## Viewing a AWS KMS key<a name="describing-keys"></a>
+## Viewing an AWS KMS key<a name="describing-keys"></a>
 
-To get detailed information about a AWS KMS key, including the KMS key ARN and [key state](key-state.md), use the [DescribeKey](https://docs.aws.amazon.com/kms/latest/APIReference/API_DescribeKey.html) operation\. 
+To get detailed information about an AWS KMS key, including the KMS key ARN and [key state](key-state.md), use the [DescribeKey](https://docs.aws.amazon.com/kms/latest/APIReference/API_DescribeKey.html) operation\. 
 
 `DescribeKey` does not get aliases\. To get aliases, use the [ListAliases](https://docs.aws.amazon.com/kms/latest/APIReference/API_ListAliases.html) operation\. For examples, see [Working with aliases](programming-aliases.md)\.
 

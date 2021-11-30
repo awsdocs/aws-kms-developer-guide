@@ -28,12 +28,12 @@ To view the key policy for a KMS key in the AWS Management Console, you must hav
 
    On the **Key policy** tab, you might see the key policy document\. This is *policy view*\. In the key policy statements, you can see the principals who have been given access to the KMS key by the key policy, and you can see the actions they can perform\.
 
-   The following example shows the policy view for the [default key policy](key-policies.md#key-policy-default)\.   
+   The following example shows the policy view for the [default key policy](key-policy-default.md)\.   
 ![\[View of the default key policy in policy view in the AWS KMS console\]](http://docs.aws.amazon.com/kms/latest/developerguide/images/console-key-policy-view.png)
 
    Or, if you created the KMS key in the AWS Management Console, you will see the *default view* with sections for **Key administrators**, **Key deletion**, and **Key Users**\. To see the key policy document, choose **Switch to policy view**\.
 
-   The following example shows the default view for the [default key policy](key-policies.md#key-policy-default)\.   
+   The following example shows the default view for the [default key policy](key-policy-default.md)\.   
 ![\[View of the default key policy in default view in the AWS KMS console\]](http://docs.aws.amazon.com/kms/latest/developerguide/images/console-key-policy-full-vsm.png)
 
 ## Viewing a key policy \(AWS KMS API\)<a name="key-policy-viewing-api"></a>
@@ -50,7 +50,7 @@ Before running this command, replace the example key ID with a valid one from yo
 $ aws kms get-key-policy --key-id 1234abcd-12ab-34cd-56ef-1234567890ab --policy-name default --output text
 ```
 
-The response should be similar to the following one, which returns the [default key policy](key-policies.md#key-policy-default)\.
+The response should be similar to the following one, which returns the [default key policy](key-policy-default.md)\.
 
 ```
 {

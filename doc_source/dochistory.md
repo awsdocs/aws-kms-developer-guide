@@ -8,9 +8,9 @@ This topic describes significant updates to the *AWS Key Management Service Deve
 
 ## Recent updates<a name="recent-updates"></a>
 
-The following table describes significant changes to this documentation since January 2018\. In addition to major changes listed here, we also update the documentation frequently to improve the descriptions and examples, and to address the feedback that you send to us\. To be notified about significant changes, use the link in the upper right corner to subscribe to the RSS feed\.
+The following table describes significant changes to this documentation since January 2018\. In addition to major changes listed here, we also update the documentation frequently to improve the descriptions and examples, and to address the feedback that you send to us\. To be notified about significant changes, subscribe to the RSS feed\.
 
-**Current API version**: 2014\-11\-01
+You might need to scroll horizontally or vertically to see all of the data in this table\.
 
 | Change | Description | Date | 
 | --- |--- |--- |
@@ -35,6 +35,8 @@ The following table describes significant changes to this documentation since Ja
 ## Earlier updates<a name="earlier-updates"></a>
 
 The following table describes the important changes to the AWS Key Management Service Developer Guide prior to 2018\.
+
+You might need to scroll horizontally or vertically to see all of the data in this table\.
 
 
 | Change | Description | Date | 

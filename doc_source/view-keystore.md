@@ -2,7 +2,7 @@
 
 You can view the custom key stores in each account and region by using the AWS Management Console or the AWS KMS API\. 
 
-For help with viewing the KMS keys in your custom key store, see [Viewing KMS keys in a custom key store](view-cmk-keystore.md)\.
+For help with viewing the KMS keys in your custom key store, see [Viewing KMS keys in a custom key store](view-cmk-keystore.md)\. For information about viewing the AWS CloudTrail logs that record all API operations on a custom key store, see [Logging AWS KMS API calls with AWS CloudTrail](logging-using-cloudtrail.md)\.
 
 **Topics**
 + [View a custom key store \(console\)](#view-keystore-console)

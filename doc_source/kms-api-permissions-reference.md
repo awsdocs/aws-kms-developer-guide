@@ -11,7 +11,7 @@ The columns in this table provide the following information:
 + **Actions and permissions **lists each AWS KMS API operation and the permission that allows the operation\. You specify the operation in `Action` element of a policy statement\.
 + **Policy type** indicates whether the permission can be used in a key policy or IAM policy\. 
 
-  *Key policy* means that you can specify the permission in the key policy\. When the key policy contains the [policy statement that enables IAM policies](key-policies.md#key-policy-default-allow-root-enable-iam), you can specify the permission in an IAM policy\. 
+  *Key policy* means that you can specify the permission in the key policy\. When the key policy contains the [policy statement that enables IAM policies](key-policy-default.md#key-policy-default-allow-root-enable-iam), you can specify the permission in an IAM policy\. 
 
   *IAM policy* means that you can specify the permission only in an IAM policy\.
 + **Cross\-account use** shows the operations that authorized users can perform on resources in a different AWS account\. 

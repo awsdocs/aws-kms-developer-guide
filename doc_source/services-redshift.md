@@ -34,4 +34,4 @@ Each service that is integrated with AWS KMS specifies an [encryption context](c
 },
 ```
 
- You can search on the cluster name in your CloudTrail logs to understand what operations were performed by using a AWS KMS key \(KMS key\)\. The operations include cluster encryption, cluster decryption, and generating data keys\. 
+ You can search on the cluster name in your CloudTrail logs to understand what operations were performed by using an AWS KMS key \(KMS key\)\. The operations include cluster encryption, cluster decryption, and generating data keys\. 

@@ -2,7 +2,7 @@
 
 [Key policies](key-policies.md) are the primary way to control access to KMS keys\. Every KMS key has exactly one key policy\.
 
-When a key policy consists of or includes the [default key policy](key-policies.md#key-policy-default-allow-root-enable-iam), the key policy allows IAM administrators in the account to use IAM policies to control access to the KMS key\. Also, if the key policy gives [another AWS account](key-policy-modifying-external-accounts.md) permission to use the KMS key, the IAM administrators in the external account can use IAM policies to delegate those permissions\. To determine the complete list of principals that can access the KMS key, [examine the IAM policies](determining-access-iam-policies.md)\. 
+When a key policy consists of or includes the [default key policy](key-policy-default.md#key-policy-default-allow-root-enable-iam), the key policy allows IAM administrators in the account to use IAM policies to control access to the KMS key\. Also, if the key policy gives [another AWS account](key-policy-modifying-external-accounts.md) permission to use the KMS key, the IAM administrators in the external account can use IAM policies to delegate those permissions\. To determine the complete list of principals that can access the KMS key, [examine the IAM policies](determining-access-iam-policies.md)\. 
 
 To view the key policy of an AWS KMS [ customer managed key](concepts.md#customer-cmk) or [AWS managed key](concepts.md#aws-managed-cmk) in your account, use the AWS Management Console or the [GetKeyPolicy](https://docs.aws.amazon.com/kms/latest/APIReference/API_GetKeyPolicy.html) operation in the AWS KMS API\. To view the key policy, you must have `kms:GetKeyPolicy` permissions for the KMS key\. For instructions for viewing the key policy for a KMS key, see [Viewing a key policy](key-policy-viewing.md)\.
 
@@ -11,7 +11,7 @@ Examine the key policy document and take note of all principals specified in eac
 **Note**  
 Do not set the Principal to an asterisk \(\*\) in any key policy statement that allows permissions unless you use conditions to limit the key policy\. An asterisk gives every identity in every AWS account permission to use the KMS key, unless another policy statement explicitly denies it\. Users in other AWS accounts just need corresponding IAM permissions in their own accounts to use the KMS key\.
 
-The following examples use the policy statements found in the [default key policy](key-policies.md#key-policy-default) to demonstrate how to do this\.
+The following examples use the policy statements found in the [default key policy](key-policy-default.md) to demonstrate how to do this\.
 
 **Example Policy statement 1**  
 
@@ -25,7 +25,7 @@ The following examples use the policy statements found in the [default key polic
 }
 ```
 In policy statement 1, `arn:aws:iam::111122223333:root` refers to the AWS account 111122223333\. By default, a policy statement like this one is present in the key policy document when you create a new KMS key with the AWS Management Console\. It is also present when you create a new KMS key programmatically but do not provide a key policy\.  
-A key policy document with a statement that allows access to the AWS account \(root user\) enables [IAM policies in the account to allow access to the KMS key](key-policies.md#key-policy-default-allow-root-enable-iam)\. This means that IAM users and roles in the account might have access to the KMS key even if they are not explicitly listed as principals in the key policy document\. Take care to [examine all IAM policies](determining-access-iam-policies.md) in all AWS accounts listed as principals to determine whether they allow access to this KMS key\.
+A key policy document with a statement that allows access to the AWS account \(root user\) enables [IAM policies in the account to allow access to the KMS key](key-policy-default.md#key-policy-default-allow-root-enable-iam)\. This means that IAM users and roles in the account might have access to the KMS key even if they are not explicitly listed as principals in the key policy document\. Take care to [examine all IAM policies](determining-access-iam-policies.md) in all AWS accounts listed as principals to determine whether they allow access to this KMS key\.
 
 **Example Policy statement 2**  
 

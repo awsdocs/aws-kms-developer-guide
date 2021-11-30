@@ -9,6 +9,8 @@ If you are exceeding the request quota for the [GenerateDataKey](https://docs.aw
 
 In addition to request quotas, AWS KMS uses resource quotas to ensure capacity for all users\. For details, see [Resource quotas](resource-limits.md)\.
 
+To view trends in your request rates, use the [Service Quotas console](https://console.aws.amazon.com/servicequotas)\. You can also create an [Amazon CloudWatch](https://docs.aws.amazon.com/AmazonCloudWatch/latest/DeveloperGuide/) alarm that alerts you when your request rate reaches a certain percentage of a quota value\. For details, see [Manage your AWS KMS API request rates using Service Quotas and Amazon CloudWatch](http://aws.amazon.com/blogs/security/manage-your-aws-kms-api-request-rates-using-service-quotas-and-amazon-cloudwatch/) in the *AWS Security Blog*\.
+
 **Topics**
 + [Request quotas for each AWS KMS API operation](#rps-table)
 + [Applying request quotas](#about-rate-limits)

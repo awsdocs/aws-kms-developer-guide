@@ -22,7 +22,7 @@ You can [view and manage](manage-keystore.md) your custom key store, [edit its p
 
 ## AWS CloudHSM cluster<a name="concept-cluster"></a>
 
-Every AWS KMS custom key store is associated with one AWS CloudHSM cluster\. When you create a AWS KMS key in your custom key store, AWS KMS creates its key material in the associated cluster\. When you use a KMS key in your custom key store, the cryptographic operation is performed in the associated cluster\.
+Every AWS KMS custom key store is associated with one AWS CloudHSM cluster\. When you create an AWS KMS key in your custom key store, AWS KMS creates its key material in the associated cluster\. When you use a KMS key in your custom key store, the cryptographic operation is performed in the associated cluster\.
 
 Each AWS CloudHSM cluster can be associated with only one custom key store\. The cluster that you choose cannot be associated with another key store or share a backup history with an associated cluster\. The cluster must be initialized and active, and it must be in the same AWS account and Region as the AWS KMS custom key store\. You can create a new cluster or use an existing one\. AWS KMS does not need exclusive use of the cluster\. To create KMS keys in the custom key store, its associated cluster it must contain at least two active HSMs\. All other operations require only one HSM\.
 

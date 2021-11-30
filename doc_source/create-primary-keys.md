@@ -60,7 +60,7 @@ IAM policies can give other IAM users and roles permission to manage the KMS key
 
 To create a multi\-Region primary key, use the [CreateKey](https://docs.aws.amazon.com/kms/latest/APIReference/API_CreateKey.html) operation\. Use the `MultiRegion` parameter with a value of `True`\.
 
-For example, the following command creates a multi\-Region primary key in the caller's AWS Region \(us\-east\-1\)\. It accepts default values for all other properties, including the key policy\. The default values for multi\-Region primary keys are the same as the default values for all other KMS keys, including the [default key policy](key-policies.md#key-policy-default)\.
+For example, the following command creates a multi\-Region primary key in the caller's AWS Region \(us\-east\-1\)\. It accepts default values for all other properties, including the key policy\. The default values for multi\-Region primary keys are the same as the default values for all other KMS keys, including the [default key policy](key-policy-default.md)\.
 
 The response includes the `MultiRegion` element and the `MultiRegionConfiguration` element with typical sub\-elements and values for a multi\-Region primary key with no replica keys\. The [key ID](concepts.md#key-id-key-id) of a multi\-Region key always begins with `mrk-`\.
 

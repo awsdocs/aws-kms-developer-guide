@@ -32,7 +32,7 @@ The AWS KMS console displays the aliases associated with the KMS key\.
 
 ## To find the alias name and alias ARN \(AWS KMS API\)<a name="find-cmk-arn-api"></a>
 
-To find the [alias name](concepts.md#key-id-alias-name) and [alias ARN](concepts.md#key-id-alias-ARN) of a AWS KMS key, use the [ListAliases](https://docs.aws.amazon.com/kms/latest/APIReference/API_ListAliases.html) operation\. For examples in multiple programming languages, see [Listing aliases](programming-aliases.md#list-aliases) and [Get alias names and ARNsGet tags](viewing-keys-cli.md#viewing-keys-list-aliases)\.
+To find the [alias name](concepts.md#key-id-alias-name) and [alias ARN](concepts.md#key-id-alias-ARN) of an AWS KMS key, use the [ListAliases](https://docs.aws.amazon.com/kms/latest/APIReference/API_ListAliases.html) operation\. For examples in multiple programming languages, see [Listing aliases](programming-aliases.md#list-aliases) and [Get alias names and ARNsGet tags](viewing-keys-cli.md#viewing-keys-list-aliases)\.
 
 By default, the response includes the alias name and alias ARN for every alias in the account and Region\. To get only the aliases for a particular KMS key, use the `KeyId` parameter\.
 

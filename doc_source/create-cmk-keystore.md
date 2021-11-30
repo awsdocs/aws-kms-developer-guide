@@ -20,13 +20,15 @@ When the command succeeds, the [key state](key-state.md) of the new KMS key is `
 
 If your attempt to create a KMS key in your custom key store fails, use the error message to help you determine the cause\. It might indicate that the custom key store is not connected \(`CustomKeyStoreInvalidStateException`\) or the associated AWS CloudHSM cluster doesn't have the two active HSMs that are required for this operation \(`CloudHsmClusterInvalidConfigurationException`\)\. For help see [Troubleshooting a custom key store](fix-keystore.md)\.
 
+For an example of the AWS CloudTrail log of the operation that creates a KMS key in a custom key store, see [CreateKey](ct-createkey.md)\.
+
 **Topics**
 + [Create a KMS key in a custom key store \(console\)](#create-cmk-keystore-console)
 + [Create a KMS key in a custom key store \(API\)](#create-cmk-keystore-api)
 
 ## Create a KMS key in a custom key store \(console\)<a name="create-cmk-keystore-console"></a>
 
-Use the following procedure to create a AWS KMS key in a custom key store\.
+Use the following procedure to create an AWS KMS key in a custom key store\.
 
 1. Sign in to the AWS Management Console and open the AWS Key Management Service \(AWS KMS\) console at [https://console\.aws\.amazon\.com/kms](https://console.aws.amazon.com/kms)\.
 
@@ -62,7 +64,7 @@ Use the following procedure to create a AWS KMS key in a custom key store\.
 
 1. Choose **Next**\.
 
-1. In the **Key Administrators** section, select the IAM users and roles who can manage the KMS key\. For more information, see [Allows Key Administrators to Administer the KMS key](key-policies.md#key-policy-default-allow-administrators)\.
+1. In the **Key Administrators** section, select the IAM users and roles who can manage the KMS key\. For more information, see [Allows Key Administrators to Administer the KMS key](key-policy-default.md#key-policy-default-allow-administrators)\.
 **Note**  
 IAM policies can give other IAM users and roles permission to use the KMS key\.
 
@@ -70,7 +72,7 @@ IAM policies can give other IAM users and roles permission to use the KMS key\.
 
 1. Choose **Next**\.
 
-1. In the **This account** section, select the IAM users and roles in this AWS account that can use the KMS key in [cryptographic operations](concepts.md#cryptographic-operations)\. For more information, see [Allows Key Users to Use the KMS key](key-policies.md#key-policy-default-allow-users)\.
+1. In the **This account** section, select the IAM users and roles in this AWS account that can use the KMS key in [cryptographic operations](concepts.md#cryptographic-operations)\. For more information, see [Allows Key Users to Use the KMS key](key-policy-default.md#key-policy-default-allow-users)\.
 **Note**  
 IAM policies can give other IAM users and roles permission to use the KMS key\.
 

@@ -39,6 +39,7 @@ For information about replicating multi\-Region keys, see [Creating multi\-Regio
             "keyState": "Creating",
             "origin": "AWS_KMS",
             "keyManager": "CUSTOMER",
+            "keySpec": "SYMMETRIC_DEFAULT",
             "customerMasterKeySpec": "SYMMETRIC_DEFAULT",
             "encryptionAlgorithms": [
                 "SYMMETRIC_DEFAULT"

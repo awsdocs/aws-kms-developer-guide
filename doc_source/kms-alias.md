@@ -12,13 +12,13 @@ Much of the power of aliases come from your ability to change the KMS key associ
 
 Aliases also make it easier to reuse the same code in different AWS Regions\. Create aliases with the same name in multiple Regions and associate each alias with a KMS key in its Region\. When the code runs in each Region, the alias refers to the associated KMS key in that Region\. For an example, see [Using aliases in your applications](alias-using.md)\.
 
-You can create an alias for a KMS key in the AWS KMS console, by using the AWS KMS API, or by using an [AWS CloudFormation template](creating-resources-with-cloudformation.md)\.
+You can create an alias for a KMS key in the AWS KMS console, by using the [CreateAlias](https://docs.aws.amazon.com/kms/latest/APIReference/API_CreateAlias.html) API, or by using an [AWS CloudFormation template](creating-resources-with-cloudformation.md)\.
 
 The AWS KMS API provides full control of aliases in each account and Region\. The API includes operations to create an alias \([CreateAlias](https://docs.aws.amazon.com/kms/latest/APIReference/API_CreateAlias.html)\), view alias names and alias ARNs \([ListAliases](https://docs.aws.amazon.com/kms/latest/APIReference/API_ListAliases.html)\), change the KMS key associated with an alias \([UpdateAlias](https://docs.aws.amazon.com/kms/latest/APIReference/API_UpdateAlias.html)\), and delete an alias \([DeleteAlias](https://docs.aws.amazon.com/kms/latest/APIReference/API_DeleteAlias.html)\)\. For examples of managing aliases multiple programming languages, see [Working with aliases](programming-aliases.md)\.
 
 The following resources can help you learn more:
 + For information about KMS key identifiers, including aliases, see [Key identifiers \(KeyId\)](concepts.md#key-id)\.
-+ For help using a AWS CloudTrail template to create an alias for a KMS key, see [AWS::KMS::Alias](https://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-resource-kms-alias.html) in the *AWS CloudFormation User Guide*\.
++ For help using a AWS CloudFormation template to create an alias for a KMS key, see [AWS::KMS::Alias](https://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-resource-kms-alias.html) in the *AWS CloudFormation User Guide*\.
 + For help finding the aliases associated with a KMS key, see [Finding the alias name and alias ARN](find-cmk-alias.md)
 + For information about resource quotas for aliases and rate quotas for API operations related to aliases, see [Quotas](limits.md)\.
 + For examples of creating and managing aliases in multiple programming languages, see [Working with aliases](programming-aliases.md)\.

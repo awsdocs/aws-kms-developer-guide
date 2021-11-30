@@ -21,10 +21,10 @@ AWS KMS supports VPC endpoints in all AWS Regions where both [Amazon VPC](https:
 
 Before you set up an interface VPC endpoint for AWS KMS, review the [Interface endpoint properties and limitations](https://docs.aws.amazon.com/vpc/latest/userguide/vpce-interface.html#vpce-interface-limitations) topic in the *Amazon VPC User Guide*\.
 
-AWS KMS supports the following features to support a VPC endpoint\.
+AWS KMS support for a VPC endpoint includes the following\.
 + You can use your VPC interface endpoint to call all [AWS KMS API operations](https://docs.aws.amazon.com/kms/latest/APIReference/) from your VPC\.
-+ AWS KMS does not support creating a VPC interface endpoint to an AWS KMS FIPS endpoint\.
-+ You can use AWS CloudTrail logs to audit your use of AWS KMS key \(KMS key\) through the VPC endpoint\. For details, see [Logging your VPC endpoint](#vpce-logging)\.
++ You cannot create a VPC interface endpoint to an [AWS KMS FIPS endpoint](https://docs.aws.amazon.com/general/latest/gr/kms.html)\.
++ You can use AWS CloudTrail logs to audit your use of KMS keys through the VPC endpoint\. For details, see [Logging your VPC endpoint](#vpce-logging)\.
 
 ## Creating a VPC endpoint for AWS KMS<a name="vpce-create-endpoint"></a>
 
@@ -58,9 +58,9 @@ For example, this [list\-keys](https://docs.aws.amazon.com/cli/latest/reference/
 $ aws kms list-keys --endpoint-url https://vpce-1234abcdf5678c90a-09p7654s-us-east-1a.ec2.us-east-1.vpce.amazonaws.com
 ```
 
-If you enabled private hostnames when you created your VPC endpoint, you do not need to specify the VPC endpoint URL in your CLI commands or application configuration\. The standard AWS KMS DNS hostname \(https://kms\.*<region>*\.amazonaws\.com\) resolves to your VPC endpoint\. The AWS CLI and SDKs use this hostname by default, so you can begin using the VPC endpoint without changing anything in your scripts and application\. 
+If you enabled private hostnames when you created your VPC endpoint, you do not need to specify the VPC endpoint URL in your CLI commands or application configuration\. The standard AWS KMS DNS hostname \(https://kms\.*<region>*\.amazonaws\.com\) resolves to your VPC endpoint\. The AWS CLI and SDKs use this hostname by default, so you can begin using the VPC endpoint without changing anything in your scripts and applications\. 
 
-To use private hostnames, the` enableDnsHostnames` and `enableDnsSupport` attributes of your VPC must be set to true\. To set these attributes, use the [ModifyVpcAttribute](https://docs.aws.amazon.com/AWSEC2/latest/APIReference/API_ModifyVpcAttribute.html) operation\. 
+To use private hostnames, the `enableDnsHostnames` and `enableDnsSupport` attributes of your VPC must be set to `true`\. To set these attributes, use the [ModifyVpcAttribute](https://docs.aws.amazon.com/AWSEC2/latest/APIReference/API_ModifyVpcAttribute.html) operation\. 
 
 ## Controlling access to a VPC endpoint<a name="vpce-policy"></a>
 
@@ -295,36 +295,36 @@ For example, this sample log entry records a [GenerateDataKey](https://docs.aws.
 
 ```
 {
-	"eventVersion":"1.05",
-	"userIdentity": {
-        "type": "IAMUser",
-        "principalId": "EX_PRINCIPAL_ID",
-        "arn": "arn:aws:iam::111122223333:user/Alice",
-        "accessKeyId": "EXAMPLE_KEY_ID",
-        "accountId": "111122223333",
-        "userName": "Alice"
-    },
-	"eventTime":"2018-01-16T05:46:57Z",
-	"eventSource":"kms.amazonaws.com",
-	"eventName":"GenerateDataKey",
-	"awsRegion":"eu-west-1",
-	"sourceIPAddress":"172.01.01.001",
-	"userAgent":"aws-cli/1.14.23 Python/2.7.12 Linux/4.9.75-25.55.amzn1.x86_64 botocore/1.8.27",
-	"requestParameters":{
-		"keyId":"1234abcd-12ab-34cd-56ef-1234567890ab",
-		"numberOfBytes":128
-	},
-	"responseElements":null,
-	"requestID":"a9fff0bf-fa80-11e7-a13c-afcabff2f04c",
-	"eventID":"77274901-88bc-4e3f-9bb6-acf1c16f6a7c",
-	"readOnly":true,
-	"resources":[{
-		"ARN":"arn:aws:kms:eu-west-1:111122223333:key/1234abcd-12ab-34cd-56ef-1234567890ab",
-		"accountId":"111122223333",
-		"type":"AWS::KMS::Key"
-	}],
-	"eventType":"AwsApiCall",
-	"recipientAccountId":"111122223333",
-	"vpcEndpointId": "vpce-1234abcdf5678c90a"
+  "eventVersion":"1.05",
+  "userIdentity": {
+    "type": "IAMUser",
+    "principalId": "EX_PRINCIPAL_ID",
+    "arn": "arn:aws:iam::111122223333:user/Alice",
+    "accessKeyId": "EXAMPLE_KEY_ID",
+    "accountId": "111122223333",
+    "userName": "Alice"
+  },
+  "eventTime":"2018-01-16T05:46:57Z",
+  "eventSource":"kms.amazonaws.com",
+  "eventName":"GenerateDataKey",
+  "awsRegion":"eu-west-1",
+  "sourceIPAddress":"172.01.01.001",
+  "userAgent":"aws-cli/1.14.23 Python/2.7.12 Linux/4.9.75-25.55.amzn1.x86_64 botocore/1.8.27",
+  "requestParameters":{
+    "keyId":"1234abcd-12ab-34cd-56ef-1234567890ab",
+    "numberOfBytes":128
+  },
+  "responseElements":null,
+  "requestID":"a9fff0bf-fa80-11e7-a13c-afcabff2f04c",
+  "eventID":"77274901-88bc-4e3f-9bb6-acf1c16f6a7c",
+  "readOnly":true,
+  "resources":[{
+    "ARN":"arn:aws:kms:eu-west-1:111122223333:key/1234abcd-12ab-34cd-56ef-1234567890ab",
+    "accountId":"111122223333",
+    "type":"AWS::KMS::Key"
+  }],
+  "eventType":"AwsApiCall",
+  "recipientAccountId":"111122223333",
+  "vpcEndpointId": "vpce-1234abcdf5678c90a"
 }
 ```

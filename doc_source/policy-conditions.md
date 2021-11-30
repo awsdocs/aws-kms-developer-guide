@@ -11,17 +11,15 @@ To specify conditions, you use predefined *condition keys* in the `Condition` el
 
 ## AWS global condition keys<a name="conditions-aws"></a>
 
-AWS defines [global condition keys](https://docs.aws.amazon.com/IAM/latest/UserGuide/reference_policies_condition-keys.html#AvailableKeys), a set of policy conditions keys for all AWS services that use IAM for access control\. You can use global condition keys in AWS KMS key policies and IAM policies\. 
+AWS defines [global condition keys](https://docs.aws.amazon.com/IAM/latest/UserGuide/reference_policies_condition-keys.html#AvailableKeys), a set of policy conditions keys for all AWS services that use IAM for access control\. AWS KMS supports all global condition keys\. You can use them in AWS KMS key policies and IAM policies\.
 
-For example, you can use the [aws:PrincipalArn](https://docs.aws.amazon.com/IAM/latest/UserGuide/reference_policies_condition-keys.html#condition-keys-principalarn) global condition key to allow access to a AWS KMS key \(KMS key\) only when the principal in the request is represented by the Amazon Resource Name \(ARN\) in the condition key value\. To support [attribute\-based access control](abac.md) \(ABAC\) in AWS KMS, you can use the [aws:ResourceTag/*tag\-key*](https://docs.aws.amazon.com/IAM/latest/UserGuide/reference_policies_condition-keys.html#condition-keys-resourcetag) global condition key in an IAM policy to allow access to KMS keys with a particular tag\.
+For example, you can use the [aws:PrincipalArn](https://docs.aws.amazon.com/IAM/latest/UserGuide/reference_policies_condition-keys.html#condition-keys-principalarn) global condition key to allow access to an AWS KMS key \(KMS key\) only when the principal in the request is represented by the Amazon Resource Name \(ARN\) in the condition key value\. To support [attribute\-based access control](abac.md) \(ABAC\) in AWS KMS, you can use the [aws:ResourceTag/*tag\-key*](https://docs.aws.amazon.com/IAM/latest/UserGuide/reference_policies_condition-keys.html#condition-keys-resourcetag) global condition key in an IAM policy to allow access to KMS keys with a particular tag\.
 
-AWS KMS supports all AWS global condition keys except for the following ones:
-+ [aws:SourceAccount](https://docs.aws.amazon.com/IAM/latest/UserGuide/reference_policies_condition-keys.html#condition-keys-sourceaccount)
-+ [aws:SourceArn](https://docs.aws.amazon.com/IAM/latest/UserGuide/reference_policies_condition-keys.html#condition-keys-sourcearn)
+To help prevent an AWS service from being used as a confused deputy in a policy where the principal is an [AWS service principal](https://docs.aws.amazon.com/IAM/latest/UserGuide/reference_policies_elements_principal.html#principal-services), you can use the [https://docs.aws.amazon.com/IAM/latest/UserGuide/reference_policies_condition-keys.html#condition-keys-sourcearn](https://docs.aws.amazon.com/IAM/latest/UserGuide/reference_policies_condition-keys.html#condition-keys-sourcearn) or [https://docs.aws.amazon.com/IAM/latest/UserGuide/reference_policies_condition-keys.html#condition-keys-sourceaccount](https://docs.aws.amazon.com/IAM/latest/UserGuide/reference_policies_condition-keys.html#condition-keys-sourceaccount) global condition keys\. For details, see [Using `aws:SourceArn` or `aws:SourceAccount` condition keys](key-policy-services.md#least-privilege-source-arn)\.
 
 For information about AWS global condition keys, including the types of requests in which they are available, see [AWS Global Condition Context Keys](https://docs.aws.amazon.com/IAM/latest/UserGuide/reference_policies_condition-keys.html) in the *IAM User Guide*\. For examples of using global condition keys in IAM policies, see [Controlling Access to Requests](https://docs.aws.amazon.com/IAM/latest/UserGuide/access_tags.html#access_tags_control-requests) and [Controlling Tag Keys](https://docs.aws.amazon.com/IAM/latest/UserGuide/access_tags.html#access_tags_control-tag-keys) in the *IAM User Guide*\.
 
-The following topics provide special guidance for using condition keys based on IP addresses and VPC endpoints\. 
+The following topics provide special guidance for using condition keys based on IP addresses and VPC endpoints\.
 
 **Topics**
 + [Using the IP address condition in policies with AWS KMS permissions](#conditions-aws-ip-address)
@@ -330,6 +328,9 @@ For example, this IAM policy limits its principals to symmetric encryption\. It 
 |  `kms:EncryptionContext:context-key`  |  String  | Single\-valued |  `CreateGrant` `Encrypt` `Decrypt` `GenerateDataKey` `GenerateDataKeyPair` `GenerateDataKeyPairWithoutPlaintext` `GenerateDataKeyWithoutPlaintext` `ReEncrypt`  |  Key policies and IAM policies  | 
 
 You can use the `kms:EncryptionContext:context-key` condition key to control access to a [symmetric KMS key](concepts.md#symmetric-cmks) based on the [encryption context](concepts.md#encrypt_context) in a request for a [cryptographic operation](concepts.md#cryptographic-operations)\. Use this condition key to evaluate both the key and the value in the encryption context pair\. To evaluate only the encryption context keys or require an encryption context regardless of keys or values, use the [kms:EncryptionContextKeys](#conditions-kms-encryption-context-keys) condition key\.
+
+**Note**  
+This condition key is valid in key policy statements and IAM policy statements even though it does not appear in the IAM console or the IAM *Service Authorization Reference*\.
 
 You cannot specify an encryption context in a cryptographic operation with an [asymmetric KMS key](symmetric-asymmetric.md#asymmetric-cmks)\. The standard asymmetric encryption algorithms that AWS KMS uses do not support an encryption context\.
 
@@ -1351,18 +1352,18 @@ The following example IAM policy statement allows the principal to enable and di
     "kms:DisableKey"
   ],
   "Resource": "arn:aws:kms:*:111122223333:key/*",
-  "Condition": [
-    {
-      "ForAllValues:StringLike": {
-        "kms:ResourceAliases": "alias/*Test*"
-      }
+  "Condition": {
+    "ForAllValues:StringLike": {
+      "kms:ResourceAliases": [
+        "alias/*Test*"
+      ]
     },
-    {
-      "ForAnyValue:StringLike": {
-        "kms:ResourceAliases": "alias/*Test*"
-      }
+    "ForAnyValue:StringLike": {
+      "kms:ResourceAliases": [
+        "alias/*Test*"
+      ]
     }
-  ]
+  }
 }
 ```
 
@@ -1612,12 +1613,14 @@ You might need to scroll horizontally or vertically to see all of the data in th
 | Amazon HealthLake | healthlake\.AWS\_region\.amazonaws\.com | 
 | AWS IoT SiteWise | iotsitewise\.AWS\_region\.amazonaws\.com | 
 | Amazon Kendra | kendra\.AWS\_region\.amazonaws\.com | 
+| Amazon Keyspaces \(for Apache Cassandra\) | cassandra\.AWS\_region\.amazonaws\.com | 
 | Amazon Kinesis | kinesis\.AWS\_region\.amazonaws\.com | 
 | Amazon Kinesis Data Firehose | firehose\.AWS\_region\.amazonaws\.com | 
 | Amazon Kinesis Video Streams | kinesisvideo\.AWS\_region\.amazonaws\.com | 
 | AWS Lambda | lambda\.AWS\_region\.amazonaws\.com | 
 | Amazon Lex | lex\.AWS\_region\.amazonaws\.com | 
 | AWS License Manager | license\-manager\.AWS\_region\.amazonaws\.com | 
+| Amazon Location Service | geo\.AWS\_region\.amazonaws\.com | 
 | Amazon Lookout for Equipment | lookoutequipment\.AWS\_region\.amazonaws\.com | 
 | Amazon Lookout for Metrics | lookoutmetrics\.AWS\_region\.amazonaws\.com | 
 | Amazon Lookout for Vision | lookoutvision\.AWS\_region\.amazonaws\.com | 
@@ -1633,6 +1636,7 @@ You might need to scroll horizontally or vertically to see all of the data in th
 | Amazon Quantum Ledger Database \(Amazon QLDB\) | qldb\.AWS\_region\.amazonaws\.com | 
 | Amazon RDS Performance Insights | rds\.AWS\_region\.amazonaws\.com | 
 | Amazon Redshift | redshift\.AWS\_region\.amazonaws\.com | 
+| Amazon Redshift query editor V2 | sqlworkbench\.AWS\_region\.amazonaws\.com | 
 | Amazon Rekognition | rekognition\.AWS\_region\.amazonaws\.com | 
 | Amazon Relational Database Service \(Amazon RDS\) | rds\.AWS\_region\.amazonaws\.com | 
 | AWS Secrets Manager | secretsmanager\.AWS\_region\.amazonaws\.com | 
@@ -1732,6 +1736,9 @@ The following condition keys let you limit the permissions for these operations 
 
 The `kms:RecipientAttestation:ImageSha384` condition key allows `kms-decrypt`, `kms-generate-data-key`, and `kms-generate-random` requests from an enclave only when the image hash from the signed attestation document in the request matches the value in the condition key\. The `ImageSha384` value corresponds to PCR\[0\] in the attestation document\. This condition key is effective only when you call the AWS Nitro Enclaves SDK APIs from an enclave\.
 
+**Note**  
+This condition key is valid in key policy statements and IAM policy statements even though it does not appear in the IAM console or the IAM *Service Authorization Reference*\.
+
 For example, the following key policy statement allows the `data-processing` role to use the KMS key for the `kms-decrypt` \([Decrypt](https://docs.aws.amazon.com/kms/latest/APIReference/API_Decrypt.html)\), `kms-generate-data-key` \([GenerateDataKey](https://docs.aws.amazon.com/kms/latest/APIReference/API_GenerateDataKey.html)\), and `kms-generate-random` \([GenerateRandom](https://docs.aws.amazon.com/kms/latest/APIReference/API_GenerateRandom.html)\) operations\. The `kms:RecipientAttestation:ImageSha384` condition key allows the operations only when the image hash value \(PCR\[0\]\) of the attestation document in the request matches the image hash value in the condition\. 
 
 If the request doesn't include any attestation document, permission is denied because this condition isn't satisfied\.
@@ -1765,6 +1772,9 @@ If the request doesn't include any attestation document, permission is denied be
 |  `kms:RecipientAttestation:PCR`  |  String  | Single\-valued |  `Decrypt` `GenerateDataKey` `GenerateRandom`  |  Key policies and IAM policies  | 
 
 The `kms:RecipientAttestation:PCR<PCR_ID>` condition key allows `kms-decrypt`, `kms-generate-data-key`, and `kms-generate-random` requests from an enclave only when the platform configuration registers \(PCRs\) from the signed attestation document in the request match the PCRs in the condition key\. This condition key is effective only when you call the AWS Nitro Enclaves SDK APIs from an enclave\.
+
+**Note**  
+This condition key is valid in key policy statements and IAM policy statements even though it does not appear in the IAM console or the IAM *Service Authorization Reference*\.
 
 To specify a PCR value, use the following format\. Concatenate the PCR ID to the condition key name\. The PCR value must be a lower\-case hexadecimal string of up to 96 bytes\.
 

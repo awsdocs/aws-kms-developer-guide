@@ -26,7 +26,7 @@ To authorize access to KMS keys based on their tags and aliases, use the followi
 | [kms:ResourceAliases](policy-conditions.md#conditions-kms-resource-aliases) | Aliases associated with the KMS key match the aliases or alias patterns in the policy | IAM policy only | KMS key resource operations 2 | 
 | [kms:RequestAlias](policy-conditions.md#conditions-kms-request-alias) | Alias that represents the KMS key in the request matches the alias or alias patterns in the policy\. | Key policy and IAM policies1 | [Cryptographic operations](concepts.md#cryptographic-operations), [DescribeKey](https://docs.aws.amazon.com/kms/latest/APIReference/API_DescribeKey.html), [GetPublicKey](https://docs.aws.amazon.com/kms/latest/APIReference/API_GetPublicKey.html) | 
 
-1Any condition key that can be used in a key policy can also be used in an IAM policy, but only if [the key policy allows it](key-policies.md#key-policy-default-allow-root-enable-iam)\.
+1Any condition key that can be used in a key policy can also be used in an IAM policy, but only if [the key policy allows it](key-policy-default.md#key-policy-default-allow-root-enable-iam)\.
 
 2A *KMS key resource operation* is an operation authorized for a particular KMS key\. To identify the KMS key resource operations, in the [AWS KMS permissions table](kms-api-permissions-reference.md#kms-api-permissions-reference-table), look for a value of KMS key in the `Resources` column for the operation\. 
 

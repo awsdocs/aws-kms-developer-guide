@@ -1,6 +1,6 @@
 # GenerateRandom<a name="ct-generaterandom"></a>
 
-The following example shows an AWS CloudTrail log entry for the [GenerateRandom](https://docs.aws.amazon.com/kms/latest/APIReference/API_GenerateRandom.html) operation\. Because this operation doesn't use a AWS KMS key, the `resources` field is empty\.
+The following example shows an AWS CloudTrail log entry for the [GenerateRandom](https://docs.aws.amazon.com/kms/latest/APIReference/API_GenerateRandom.html) operation\. Because this operation doesn't use an AWS KMS key, the `resources` field is empty\.
 
 ```
 {

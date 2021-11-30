@@ -1,6 +1,6 @@
 # How Amazon EMR uses AWS KMS<a name="services-emr"></a>
 
-When you use an [Amazon EMR](https://aws.amazon.com/emr/) cluster, you can configure the cluster to encrypt data *at rest* before saving it to a persistent storage location\. You can encrypt data at rest on the EMR File System \(EMRFS\), on the storage volumes of cluster nodes, or both\. To encrypt data at rest, you can use a AWS KMS key in AWS KMS\. The following topics explain how an Amazon EMR cluster uses a KMS key to encrypt data at rest\.
+When you use an [Amazon EMR](https://aws.amazon.com/emr/) cluster, you can configure the cluster to encrypt data *at rest* before saving it to a persistent storage location\. You can encrypt data at rest on the EMR File System \(EMRFS\), on the storage volumes of cluster nodes, or both\. To encrypt data at rest, you can use an AWS KMS key\. The following topics explain how an Amazon EMR cluster uses a KMS key to encrypt data at rest\.
 
 **Important**  
 Amazon EMR supports only [symmetric KMS keys](concepts.md#symmetric-cmks)\. You cannot use an [asymmetric KMS key](symmetric-asymmetric.md#asymmetric-cmks) to encrypt data at rest in an Amazon EMR cluster\. For help determining whether a KMS key is symmetric or asymmetric, see [Identifying symmetric and asymmetric KMS keys](find-symm-asymm.md)\.
