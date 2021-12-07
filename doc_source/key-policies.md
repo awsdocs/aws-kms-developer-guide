@@ -151,7 +151,3 @@ The following example shows a complete key policy for a symmetric KMS key\. This
   ]
 }
 ```
-
-The following image shows an example of what this key policy looks like when viewed with the console's default view for key policies\.
-
-![\[Key policy in the console's default view for key policies\]](http://docs.aws.amazon.com/kms/latest/developerguide/images/console-key-policy-full-sm.png)
