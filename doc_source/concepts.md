@@ -237,7 +237,7 @@ To perform cryptographic operations with KMS keys, use the AWS SDKs, AWS Command
 The following table lists the AWS KMS cryptographic operations\. It also shows the key type and [key usage](#key-usage) requirements for KMS keys used in the operation\.
 
 
-| Operation | KMS key key type | KMS key key usage | 
+| Operation | Key type | Key usage | 
 | --- | --- | --- | 
 | [Decrypt](https://docs.aws.amazon.com/kms/latest/APIReference/API_Decrypt.html) | Any | ENCRYPT\_DECRYPT | 
 | [Encrypt](https://docs.aws.amazon.com/kms/latest/APIReference/API_Encrypt.html) | Any | ENCRYPT\_DECRYPT | 
@@ -495,7 +495,7 @@ $ aws kms generate-data-key \
     --encryption-context Purpose=Test
 ```
 
-For details about the grant constraints, see [Using grant constraints](create-grant-overview.md#grant-constraints)\. For detailed information about grants, see [Using grants in AWS KMS](grants.md)\.
+For details about the grant constraints, see [Using grant constraints](create-grant-overview.md#grant-constraints)\. For detailed information about grants, see [Grants in AWS KMS](grants.md)\.
 
 ### Logging encryption context<a name="encryption-context-auditing"></a>
 
@@ -518,7 +518,7 @@ When you create a KMS keys, you determine who can use and manage that KMS keys\.
 
 A *grant* is a policy instrument that allows AWS principals to use AWS KMS keys in [cryptographic operations](#cryptographic-operations)\. It also can let them view a KMS keys \([DescribeKey](https://docs.aws.amazon.com/kms/latest/APIReference/API_DescribeKey.html)\) and create and manage grants\. When authorizing access to a KMS key, grants are considered along with [key policies](key-policies.md) and [IAM policies](iam-policies.md)\. Grants are often used for temporary permissions because you can create one, use its permissions, and delete it without changing your key policies or IAM policies\. Because grants can be very specific, and are easy to create and revoke, they are often used to provide temporary permissions or more granular permissions\. 
 
-For detailed information about grants, including grant terminology, see [Using grants in AWS KMS](grants.md)\.
+For detailed information about grants, including grant terminology, see [Grants in AWS KMS](grants.md)\.
 
 ## Auditing KMS key usage<a name="auditing_key_use"></a>
 

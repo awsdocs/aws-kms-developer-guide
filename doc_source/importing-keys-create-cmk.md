@@ -105,4 +105,4 @@ When the command is successful, you see output similar to the following\. The AW
 }
 ```
 
-Copy the KMS key key ID from your command output to use in later steps, and then proceed to [Step 2: Download the public key and import token](importing-keys-get-public-key-and-token.md)\.
+Copy the key ID of your KMS key from the command output to use in later steps, and then proceed to [Step 2: Download the public key and import token](importing-keys-get-public-key-and-token.md)\.

@@ -13,7 +13,7 @@ Before November 2018, encryption at rest was an optional feature that supported 
 
 ## Client\-side encryption for DynamoDB<a name="ddb-client-side"></a>
 
-In addition to encryption at rest, which is a *server\-side encryption* feature, AWS provides the [Amazon DynamoDB Encryption Client](https://docs.aws.amazon.com/dynamodb-encryption-client/latest/devguide/)\. This *client\-side encryption* library enables you to protect your table data before submitting it to DynamoDB\. With server\-side encryption, your data is encrypted in transit over an HTTPS connection, decrypted at the DynamoDB endpoint, and then re\-encrypted before being stored in DynamoDB\. Client\-side encryption provides end\-to\-end protection for your data from its source to storage in DynamoDB\.
+In addition to encryption at rest, which is a *server\-side encryption* feature, AWS provides the [Amazon DynamoDB Encryption Client](https://docs.aws.amazon.com/dynamodb-encryption-client/latest/devguide/)\. This *client\-side encryption* library enables you to protect your table data before submitting it to DynamoDB\. With server\-side encryption, TLS encrypts your data in transit over an HTTPS connection\. Your data is decrypted at the DynamoDB endpoint, and then re\-encrypted before being stored in DynamoDB\. Client\-side encryption provides end\-to\-end protection for your data from its source through storage in DynamoDB and back to you\.
 
 You can use the DynamoDB Encryption Client along with encryption at rest\. To help you decide if this strategy is right your DynamoDB data, see [Client\-Side or Server\-Side Encryption?](https://docs.aws.amazon.com/dynamodb-encryption-client/latest/devguide/client-server-side.html) in the *Amazon DynamoDB Encryption Client Developer Guide*\.
 

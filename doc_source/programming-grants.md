@@ -1,6 +1,6 @@
 # Working with grants<a name="programming-grants"></a>
 
-The examples in this topic use the AWS KMS API to create, view, retire, and revoke grants on AWS KMS keys\. For more details about using grants in AWS KMS, see [Using grants in AWS KMS](grants.md)\.
+The examples in this topic use the AWS KMS API to create, view, retire, and revoke grants on AWS KMS keys\. For more details about using grants in AWS KMS, see [Grants in AWS KMS](grants.md)\.
 
 **Topics**
 + [Creating a grant](#create-grant)

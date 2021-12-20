@@ -3,7 +3,7 @@
 The Actions and Resources Table is designed to help you define [access control](control-access.md#authorization) in [key policies](key-policies.md) and [IAM policies](iam-policies.md)\. 
 
 **Note**  
-You might have to scroll horizontally or vertically to see all of the data in the table\.
+
 
 <a name="kms-api-permissions-reference-table"></a>[\[See the AWS documentation website for more details\]](http://docs.aws.amazon.com/kms/latest/developerguide/kms-api-permissions-reference.html)
 

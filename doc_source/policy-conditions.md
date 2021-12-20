@@ -1589,6 +1589,7 @@ You might need to scroll horizontally or vertically to see all of the data in th
 | AWS Audit Manager | auditmanager\.AWS\_region\.amazonaws\.com | 
 | Amazon Aurora | rds\.AWS\_region\.amazonaws\.com | 
 | AWS Backup | backup\.AWS\_region\.amazonaws\.com | 
+| AWS Backup Gateway | backup\-gateway\.AWS\_region\.amazonaws\.com | 
 | AWS CodeArtifact | codeartifact\.AWS\_region\.amazonaws\.com | 
 | Amazon CodeGuru Reviewer | codeguru\-reviewer\.AWS\_region\.amazonaws\.com | 
 | Amazon Comprehend | comprehend\.AWS\_region\.amazonaws\.com | 

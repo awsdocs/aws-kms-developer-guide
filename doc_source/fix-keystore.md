@@ -160,7 +160,7 @@ If the key material for an AWS KMS key is deleted, the KMS key is unusable and a
 
 When you create an AWS KMS key \(KMS key\) in a custom key store, AWS KMS logs into the associated AWS CloudHSM cluster and creates the key material for the KMS key\. It also changes the password to a value that only it knows and remains logged in as long as the custom key store is connected\. Because only the key owner, that is, the CU who created a key, can delete the key, it is unlikely that the key will be deleted from the HSMs accidentally\. 
 
-However, if the key material for a KMS key is deleted from the HSMs in a cluster, the KMS key key state eventually changes to `UNAVAILABLE`\. If you attempt to use the KMS key for a cryptographic operation, the operation fails with a **KMSInvalidStateException** exception\. Most importantly, any data that was encrypted under the KMS key cannot be decrypted\.
+However, if the key material for a KMS key is deleted from the HSMs in a cluster, the key state of the KMS key eventually changes to `UNAVAILABLE`\. If you attempt to use the KMS key for a cryptographic operation, the operation fails with a **KMSInvalidStateException** exception\. Most importantly, any data that was encrypted under the KMS key cannot be decrypted\.
 
 Under certain circumstances, you can recover deleted key material by [creating a cluster from a backup](https://docs.aws.amazon.com/cloudhsm/latest/userguide/create-cluster-from-backup.html) that contains the key material\. This strategy works only when at least one backup was created while the key existed and before it was deleted\. 
 

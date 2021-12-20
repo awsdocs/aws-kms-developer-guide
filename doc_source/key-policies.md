@@ -48,9 +48,13 @@ A key policy document must have a `Version` element\. We recommend setting the v
 + **Effect** – \(Required\) The effect specifies whether to allow or deny the permissions in the policy statement\. The Effect must be Allow or Deny\. If you don't explicitly allow access to a KMS key, access is implicitly denied\. You can also explicitly deny access to a KMS key\. You might do this to make sure that a user cannot access it, even when a different policy allows access\.
 + **Principal** – \(Required\) The [principal](https://docs.aws.amazon.com/IAM/latest/UserGuide/reference_policies_elements_principal.html#Principal_specifying) is the identity that gets the permissions specified in the policy statement\. You can specify AWS accounts \(root\), IAM users, IAM roles, and some AWS services as principals in a key policy\. IAM groups are not valid principals\. 
 
+  When the principal in a key policy statement is an [https://docs.aws.amazon.com/IAM/latest/UserGuide/reference_policies_elements_principal.html#principal-accounts](https://docs.aws.amazon.com/IAM/latest/UserGuide/reference_policies_elements_principal.html#principal-accounts) in the format `arn:aws:iam::111122223333:root"`, the policy statement doesn't give permission to any IAM principal\. Instead, it gives the account permission to use IAM policies to delegate the permissions specified in the key policy\. \(A principal in `arn:aws:iam::111122223333:root"` format does *not* represent the [AWS account root user](https://docs.aws.amazon.com/IAM/latest/UserGuide/id_root-user.html), despite the use of "root" in the account identifier\. However, the account principal represents the account and its administrators, including the account root user\.\)
+
   When the principal is another AWS account or its principals, the permissions are effective only when the account is enabled in the Region with the KMS key and key policy\. For information about Regions that are not enabled by default \("opt\-in Regions"\), see [Managing AWS Regions](https://docs.aws.amazon.com/general/latest/gr/rande-manage.html) in the *AWS General Reference*\.
 **Note**  
 Do not set the Principal to an asterisk \(\*\) in any key policy statement that allows permissions unless you use conditions to limit the key policy\. An asterisk gives every identity in every AWS account permission to use the KMS key, unless another policy statement explicitly denies it\. Users in other AWS accounts just need corresponding IAM permissions in their own accounts to use the KMS key\.
+
+  To allow a different AWS accountor its principals to use a KMS key, you must provide permission in a key policy and in an IAM policy in the other account\. For details, see [Allowing users in other accounts to use a KMS key](key-policy-modifying-external-accounts.md)\.
 + **Action** – \(Required\) Actions specify the API operations to allow or deny\. For example, the `kms:Encrypt` action corresponds to the AWS KMS [Encrypt](https://docs.aws.amazon.com/kms/latest/APIReference/API_Encrypt.html) operation\. You can list more than one action in a policy statement\. For more information, see [Permissions reference](kms-api-permissions-reference.md)\.
 + **Resource** – \(Required\) In a key policy, the value of the Resource element is `"*"`, which means "this KMS key\." The asterisk \(`"*"`\) identifies the KMS key to which the key policy is attached\.
 + **Condition** – \(Optional\) Conditions specify requirements that must be met for a key policy to take effect\. With conditions, AWS can evaluate the context of an API request to determine whether or not the policy statement applies\. 
@@ -73,8 +77,8 @@ For more information about AWS policy syntax, see [AWS IAM Policy Reference](htt
 
 ## Example key policy<a name="key-policy-example"></a>
 
-The following example shows a complete key policy for a symmetric KMS key\. This key policy combines the example policy statements from the preceding [default key policy](key-policy-default.md) section into a single key policy that accomplishes the following:
-+ Allows the AWS account \(root user\) 111122223333 full access to the KMS key, and thus enables IAM policies in the account to allow access to the KMS key\.
+The following example shows a complete key policy for a symmetric KMS key that was created in the AWS KMS console\. This key policy combines the example policy statements from the preceding [default key policy](key-policy-default.md) section into a single key policy that accomplishes the following:
++ Allows the example AWS account, 111122223333, full access to the KMS key\. It allows the account and its administrators, including the account root user, to use IAM policies in the account to allow access to the KMS key\.
 + Allows IAM user KMSAdminUser and IAM role KMSAdminRole to administer the KMS key\.
 + Allows IAM user `ExampleUser`, IAM role `ExampleRole`, and AWS account 444455556666 to use the KMS key\.
 

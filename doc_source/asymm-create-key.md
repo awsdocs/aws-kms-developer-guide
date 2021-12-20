@@ -7,10 +7,10 @@ When creating a KMS key to encrypt data that you store or manage in an AWS servi
 For information about the permissions required to create KMS keys, see [Permissions for creating KMS keys](create-keys.md#create-key-permissions)\.
 
 **Topics**
-+ [Creating asymmetric KMS keys \(console\)](#create-asymmetric-cmks-console)
-+ [Creating asymmetric KMS keys \(AWS KMS API\)](#create-keys-api)
++ [Creating asymmetric KMS keys \(console\)](#create-asymmetric-keys-console)
++ [Creating asymmetric KMS keys \(AWS KMS API\)](#create-asymmetric-keys-api)
 
-## Creating asymmetric KMS keys \(console\)<a name="create-asymmetric-cmks-console"></a>
+## Creating asymmetric KMS keys \(console\)<a name="create-asymmetric-keys-console"></a>
 
 You can use the AWS Management Console to create asymmetric AWS KMS keys \(KMS keys\)\. Each asymmetric KMS key represents a public and private key pair\.
 
@@ -58,7 +58,7 @@ You can use the AWS Management Console to create asymmetric AWS KMS keys \(KMS k
 
 1. Select the IAM users and roles that can administer the KMS key\.
 **Note**  
-IAM policies can give other IAM users and roles permission to manage the KMS key\.
+This key policy gives the AWS account full control of this KMS key\. It allows account administrators to use IAM policies to give other principals permission to manage the KMS key\. For details, see [Default key policy](key-policy-default.md)\.
 
 1. \(Optional\) To prevent the selected IAM users and roles from deleting this KMS key, in the **Key deletion** section at the bottom of the page, clear the **Allow key administrators to delete this key** check box\.
 
@@ -66,11 +66,11 @@ IAM policies can give other IAM users and roles permission to manage the KMS key
 
 1. Select the IAM users and roles that can use the KMS key for [cryptographic operations](concepts.md#cryptographic-operations)\.
 **Note**  
-The AWS account \(root user\) has full permissions by default\. As a result, any IAM policies can also give users and roles permission use the KMS key for cryptographic operations\.
+This key policy gives the AWS account full control of this KMS key\. It allows account administrators to use IAM policies to give other principals permission to use the KMS key in cryptographic operations\. For details, see [Default key policy](key-policy-default.md)\.
 
 1. \(Optional\) You can allow other AWS accounts to use this KMS key for cryptographic operations\. To do so, in the **Other AWS accounts** section at the bottom of the page, choose **Add another AWS account** and enter the AWS account identification number of an external account\. To add multiple external accounts, repeat this step\.
 **Note**  
-To allow principals in the external accounts to use the KMS key, Administrators of the external account must create IAM policies that provide these permissions\. For more information, see [Allowing users in other accounts to use a KMS key](key-policy-modifying-external-accounts.md)\.
+To allow principals in the external accounts to use the KMS key, administrators of the external account must create IAM policies that provide these permissions\. For more information, see [Allowing users in other accounts to use a KMS key](key-policy-modifying-external-accounts.md)\.
 
 1. Choose **Next**\.
 
@@ -78,7 +78,7 @@ To allow principals in the external accounts to use the KMS key, Administrators 
 
 1. Choose **Finish** to create the KMS key\.
 
-## Creating asymmetric KMS keys \(AWS KMS API\)<a name="create-keys-api"></a>
+## Creating asymmetric KMS keys \(AWS KMS API\)<a name="create-asymmetric-keys-api"></a>
 
 You can use the [CreateKey](https://docs.aws.amazon.com/kms/latest/APIReference/API_CreateKey.html) operation to create an asymmetric AWS KMS key\. These examples use the [AWS Command Line Interface \(AWS CLI\)](https://aws.amazon.com/cli/), but you can use any supported programming language\. 
 

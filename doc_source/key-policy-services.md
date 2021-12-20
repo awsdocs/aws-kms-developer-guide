@@ -10,7 +10,7 @@ To find the permissions that the service requires on a customer managed key, see
 
 When you give an AWS service permission to use a KMS key, ensure that the permission is valid only for the resources that the service must access on your behalf\. This least privilege strategy helps to prevent unauthorized use of a KMS key when requests are passed between AWS services\.
 
-To implement a least privilege strategy, we recommend using AWS KMS encryption context condition keys and the global source ARN or source account condition keys\.
+To implement a least privilege strategy, use we recommend using AWS KMS encryption context condition keys and the global source ARN or source account condition keys\.
 
 ### Using encryption context condition keys<a name="least-privilege-encryption-context"></a>
 

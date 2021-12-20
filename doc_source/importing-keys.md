@@ -9,7 +9,7 @@ A KMS key is a logical representation of an encryption key\. It contains *key ma
 **Note**  
 AWS KMS does not support decrypting any AWS KMS ciphertext outside of AWS KMS, even if the ciphertext was encrypted under a KMS key with imported key material\. AWS KMS does not publish the ciphertext format this task requires, and the format might change without notice\.
 
-Imported key material is supported only for symmetric KMS keys in AWS KMS key stores\. It is not supported on [asymmetric KMS keys](symmetric-asymmetric.md#asymmetric-cmks) or KMS keys in [custom key stores](custom-key-store-overview.md)\.
+Imported key material is supported only for [symmetric KMS keys](concepts.md#symmetric-cmks) in AWS KMS key stores, including [multi\-Region symmetric KMS keys](multi-region-keys-import.md)\. It is not supported on [asymmetric KMS keys](symmetric-asymmetric.md#asymmetric-cmks) or KMS keys in [custom key stores](custom-key-store-overview.md)\.
 
 When you use imported key material, you remain responsible for the key material while allowing AWS KMS to use a copy of it\. You might choose to do this for one or more of the following reasons:
 + To prove that you generated the key material using a source of entropy that meets your requirements\.
@@ -97,7 +97,7 @@ To delete imported key material, the principal needs [kms:DeleteImportedKeyMater
 
 The following overview explains how to import your key material into AWS KMS\. For more details about each step in the process, see the corresponding topic\.
 
-1. [Create a symmetric KMS key with no key material](importing-keys-create-cmk.md) – To get started with importing key material, first create a symmetric KMS key whose *origin* is `EXTERNAL`\. This indicates that the key material was generated outside of AWS KMS and prevents AWS KMS from generating key material for the KMS key\. In a later step you will import your own key material into this KMS key\.
+1. [Create a symmetric KMS key with no key material](importing-keys-create-cmk.md) – To get started create a symmetric KMS key with no key material\. The key spec must be `SYMMETRIC_DEFAULT` and the origin must be `EXTERNAL`\. A key origin of EXTERNAL indicates that the key is designed for imported key material and prevents AWS KMS from generating key material for the KMS key\. In a later step you will import your own key material into this KMS key\.
 
 1. [Download the public key and import token](importing-keys-get-public-key-and-token.md) – After completing step 1, download a public key and an import token\. These items protect the import of your key material to AWS KMS\.
 

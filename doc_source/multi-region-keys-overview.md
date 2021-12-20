@@ -1,4 +1,4 @@
-# Using multi\-Region keys in AWS KMS<a name="multi-region-keys-overview"></a>
+# Multi\-Region keys in AWS KMS<a name="multi-region-keys-overview"></a>
 
 AWS KMS supports *multi\-Region keys*, which are AWS KMS keys in different AWS Regions that can be used interchangeably – as though you had the same key in multiple Regions\. Each set of *related* multi\-Region keys has the same [key material](concepts.md#key-material) and [key ID](concepts.md#key-id-key-id), so you can encrypt data in one AWS Region and decrypt it in a different AWS Region without re\-encrypting or making a cross\-Region call to AWS KMS\. 
 

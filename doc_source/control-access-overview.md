@@ -56,7 +56,7 @@ For more information about using key policies, see [Key policies](key-policies.m
 
 For more information about using IAM policies, see [IAM policies](iam-policies.md)\.
 
-For more information about using grants, see [Using grants in AWS KMS](grants.md)\.
+For more information about using grants, see [Grants in AWS KMS](grants.md)\.
 
 ## Specifying permissions in a policy<a name="overview-policy-elements"></a>
 

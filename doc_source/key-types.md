@@ -15,7 +15,7 @@ You can use a symmetric KMS key in AWS KMS to encrypt, decrypt, and re\-encrypt 
 
 **Topics**
 + [Asymmetric keys in AWS KMS](symmetric-asymmetric.md)
-+ [Using multi\-Region keys in AWS KMS](multi-region-keys-overview.md)
++ [Multi\-Region keys in AWS KMS](multi-region-keys-overview.md)
 + [Importing key material in AWS KMS keys](importing-keys.md)
 + [Custom key stores](custom-key-store-overview.md)
 + [Key type reference](symm-asymm-compare.md)

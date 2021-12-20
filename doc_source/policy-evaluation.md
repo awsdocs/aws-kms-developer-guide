@@ -26,7 +26,7 @@ The flowchart can explain some common permission scenarios\.
 
 Alice is an IAM user in the 111122223333 AWS account\. She was denied access to a KMS key in same AWS account\. Why can't Alice use the KMS key?
 
-In this case, Alice is denied access to the KMS key because there is no key policy, IAM policy, or grant that gives her the required permissions\. The KMS key key policy allows the AWS account to use IAM policies to control access to the KMS key, but no IAM policy gives Alice permission to use the KMS key\.
+In this case, Alice is denied access to the KMS key because there is no key policy, IAM policy, or grant that gives her the required permissions\. The key policy of the KMS key allows the AWS account to use IAM policies to control access to the KMS key, but no IAM policy gives Alice permission to use the KMS key\.
 
 ![\[Flowchart that describes the policy evaluation process\]](http://docs.aws.amazon.com/kms/latest/developerguide/images/kms-auth-flow-Alice.png)
 

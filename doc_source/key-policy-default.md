@@ -1,10 +1,12 @@
 # Default key policy<a name="key-policy-default"></a>
 
+When you create a KMS key, you can specify the key policy for the new KMS key\. If you don't provide one, AWS KMS creates one for you\. The default key policy that AWS KMS uses differs depending on whether you create the key in the AWS KMS console or you use the AWS KMS API\.
+
 **Default key policy when you create a KMS key programmatically**  
-When you create a KMS key programmatically with the [AWS KMS API](https://docs.aws.amazon.com/kms/latest/APIReference/) \(including by using the [AWS SDKs](https://aws.amazon.com/tools/#sdk), [AWS Command Line Interface](https://docs.aws.amazon.com/cli/latest/userguide/) or [AWS Tools for PowerShell](https://docs.aws.amazon.com/powershell/latest/userguide/)\), you can provide a key policy for the new KMS key\. If you don't provide one, AWS KMS creates one for you\. This default key policy has one policy statement that gives the AWS account \(root user\) that owns the KMS key full access to the KMS key and enables IAM policies in the account to allow access to the KMS key\. For more information about this policy statement, see [Allows access to the AWS account and enables IAM policies](#key-policy-default-allow-root-enable-iam)\.
+When you create a KMS key programmatically with the [AWS KMS API](https://docs.aws.amazon.com/kms/latest/APIReference/) \(including by using the [AWS SDKs](https://aws.amazon.com/tools/#sdk), [AWS Command Line Interface](https://docs.aws.amazon.com/cli/latest/userguide/) or [AWS Tools for PowerShell](https://docs.aws.amazon.com/powershell/latest/userguide/)\), and you don't specify a key policy, AWS KMS applies a very simple default key policy\. This default key policy has one policy statement that gives the AWS account that owns the KMS key permission to use IAM policies to allow access to all AWS KMS operations on the KMS key\. For more information about this policy statement, see [Allows access to the AWS account and enables IAM policies](#key-policy-default-allow-root-enable-iam)\.
 
 **Default key policy when you create a KMS key with the AWS Management Console**  
-When you [create a KMS key with the AWS Management Console](create-keys.md), you can choose the IAM users, IAM roles, and AWS accounts that are given access to the KMS key\. The users, roles, and accounts that you choose are added to a default key policy that the console creates for you\. With the console, you can use the default view to view or modify this key policy, or you can work with the key policy document directly\. The default key policy created by the console allows the following permissions, each of which is explained in the corresponding section\.
+When you [create a KMS key with the AWS Management Console](create-keys.md), the key policy begins with the policy statement that [allows access to the AWS account and enables IAM policies](#key-policy-default-allow-root-enable-iam)\. The console then adds a [key administrators statement](#key-policy-default-allow-administrators), a [key users statement](#key-policy-default-allow-users), and \(for most key types\) a statement that allows principals to use the KMS key with [other AWS services](#key-policy-service-integration)\. You can use the features of the AWS KMS console to specify the IAM users and roles and AWS accounts who are key administrators and those who are key users \(or both\)\.
 
 **Permissions**
 + [Allows access to the AWS account and enables IAM policies](#key-policy-default-allow-root-enable-iam)
@@ -15,23 +17,16 @@ When you [create a KMS key with the AWS Management Console](create-keys.md), you
 
 ## Allows access to the AWS account and enables IAM policies<a name="key-policy-default-allow-root-enable-iam"></a>
 
-The default key policy gives the AWS account \(root user\) that owns the KMS key full access to the KMS key, which accomplishes the following two things\.
+The following default key policy statement is critical\. 
++ It gives the AWS account that owns the KMS key full access to the KMS key\. 
 
-**1\. Reduces the risk of the KMS key becoming unmanageable\.**  
-You cannot delete your AWS account's root user, so allowing access to this user reduces the risk of the KMS key becoming unmanageable\. Consider this scenario:  
+  Unlike other AWS resource policies, a AWS KMS key policy does not automatically give permission to the account or any of its users\. To give permission to account administrators, the key policy must include an explicit statement that provides this permission, like this one\.
++ It allows the account to use IAM policies to allow access to the KMS key, in addition to the key policy\.
 
-1. A key policy allows *only* one IAM user, Alice, to manage the KMS key\. This key policy does not allow access to the root user\.
+  Without this permission, IAM policies that allow access to the key are ineffective, although IAM policies that deny access to the key are still effective\. 
++ It reduces the risk of the key becoming unmanageable by giving access control permission to the account administrators, including the account root user, which cannot be deleted\. 
 
-1. Someone deletes IAM user Alice\.
-In this scenario, the KMS key is now unmanageable, and you must [contact AWS Support](https://console.aws.amazon.com/support/home#/case/create) to regain access to the KMS key\. The root user does not have access to the KMS key, because the root user can access a KMS key only when the key policy explicitly allows it\. This is different from most other resources in AWS, which implicitly allow access to the root user\.
-
-**2\. Allows IAM policies to control access to the KMS key\.**  <a name="allow-iam-policies"></a>
-Every KMS key must have a key policy\. You can also use IAM policies to control access to a KMS key, but only if the key policy allows it\. If the key policy doesn't allow it, IAM policies that attempt to control access to a KMS key are ineffective\.  
-To allow IAM policies to control access to a KMS key, the key policy must include a policy statement that gives the AWS account full access to the KMS key, like the following one\. For more information, see [Managing access to KMS keys](control-access-overview.md#managing-access)\.
-
-The following example shows the policy statement that gives an example AWS account full access to a KMS key\. This policy statement lets the account use IAM policies, along with key policies, to control access to the KMS key\. 
-
-A policy statement like this one is part of the default key policy\.
+The following key policy statement is the entire default key policy for KMS keys created programmatically\. It's the first policy statement in the default key policy for KMS keys created in the AWS KMS console\.
 
 ```
 {
@@ -45,12 +40,23 @@ A policy statement like this one is part of the default key policy\.
 }
 ```
 
+**Allows IAM policies to allow access to the KMS key\.**  <a name="allow-iam-policies"></a>
+The key policy statement shown above gives the AWS account that owns the key permission to use IAM policies, as well as key policies, to allow all actions \(`kms:*`\) on the KMS key\.   
+The principal in this key policy statement is the [account principal](https://docs.aws.amazon.com/IAM/latest/UserGuide/reference_policies_elements_principal.html#principal-accounts), which is represented by an ARN in this format: `arn:aws:iam::account-id:root`\. The account principal represents the AWS account and its administrators\.   
+When the principal in a key policy statement is the account principal, the policy statement doesn't give any IAM users or roles permission to use the KMS key\. Instead, it allows the account to use IAM policies to *delegate* the permissions specified in the policy statement\. This default key policy statement allows the account to use IAM policies to delegate permission for all actions \(`kms:*`\) on the KMS key\.  
+For more information, see [Managing access to KMS keys](control-access-overview.md#managing-access)\.
+
+**Reduces the risk of the KMS key becoming unmanageable\.**  
+Unlike other AWS resource policies, a AWS KMS key policy does not automatically give permission to the account or any of its users\. To give permission to any principal, including the [account principal](https://docs.aws.amazon.com/IAM/latest/UserGuide/reference_policies_elements_principal.html#principal-accounts), you must use a key policy statement that provides the permission explicitly\. You are not required to give the account principal, or any principal, access to the KMS key\. However, giving access to the account principal helps you prevent the key from becoming unmanageable\.  
+For example, suppose you create a key policy that gives only one user access to the KMS key\. If you then delete that user, the key becomes unmanageable and you must [contact AWS Support](https://console.aws.amazon.com/support/home#/case/create) to regain access to the KMS key\.   
+The key policy statement shown above gives permission to control the key to the [account principal](https://docs.aws.amazon.com/IAM/latest/UserGuide/reference_policies_elements_principal.html#principal-accounts), which represents the AWS account and its administrators, including the [account root user](https://docs.aws.amazon.com/IAM/latest/UserGuide/id_root-user.html)\. The account root user is the only principal that cannot be deleted unless you delete the AWS account\. IAM best practices discourage acting on behalf of the account root user, except in an emergency\. However, you might need to act as the account root user if you delete all other users and roles with access to the KMS key\. 
+
 ## Allows key administrators to administer the KMS key<a name="key-policy-default-allow-administrators"></a>
 
 The default key policy created by the console allows you to choose IAM users and roles in the account and make them *key administrators*\. This statement is called the *key administrators statement*\. Key administrators have permissions to manage the KMS key, but do not have permissions to use the KMS key in [cryptographic operations](concepts.md#cryptographic-operations)\. You can add IAM users and roles to the list of key administrators when you create the KMS key in the default view or the policy view\. 
 
 **Warning**  
-Because key administrators have permission to change the key policy and create grants, they can give themselves AWS KMS permissions not specified in this policy\.  
+Because key administrators have permission to change the key policy and create grants, they can give themselves and others AWS KMS permissions not specified in this policy\.  
 Principals who have permission to manage tags and aliases can also control access to a KMS key\. For details, see [ABAC for AWS KMS](abac.md)\.
 
 The following example shows the key administrators statement in the default view of the AWS KMS console\.
@@ -292,9 +298,11 @@ Allows key users to verify signatures with this KMS key\.
 
 ## Allows key users to use the KMS key with AWS services<a name="key-policy-service-integration"></a>
 
-The default key policy in the console also gives key users permission to allow [AWS services that are integrated with AWS KMS](service-integration.md) to use the KMS key, particularly services that use grants\. 
+The default key policy in the console also gives key users the grant permissions they need to protect their data in AWS services that use grants\. AWS services often use grants to get specific and limited permission to use a KMS key\.
 
-Key users can implicitly give these services permissions to use the KMS key in specific and limited ways\. This implicit delegation is done using [grants](grants.md)\. These grants allow the integrated AWS service to use the KMS key to protect resources in the account\.
+This key policy statement allows the key user to create, view, and revoke grants on the KMS key, but only when the grant operation request comes from an [AWS service integrated with AWS KMS](https://aws.amazon.com/kms/features/#AWS_Service_Integration)\. The [kms:GrantIsForAWSResource](policy-conditions.md#conditions-kms-grant-is-for-aws-resource) policy condition doesn't allow the user to call these grant operations directly\. When the key user allows it, an AWS service can create a grant on the user's behalf that allows the service to use the KMS key to protect the user's data\. 
+
+Key users require these grant permissions to use their KMS key with integrated services, but these permissions are not sufficient\. Key users also need permission to use the integrated services\. For details about giving users access to an AWS service that integrates with AWS KMS, consult the documentation for the integrated service\.
 
 ```
 {
@@ -314,8 +322,6 @@ Key users can implicitly give these services permissions to use the KMS key in s
 For example, key users can use these permissions on the KMS key in the following ways\.
 + Use this KMS key with Amazon Elastic Block Store \(Amazon EBS\) and Amazon Elastic Compute Cloud \(Amazon EC2\) to attach an encrypted EBS volume to an EC2 instance\. The key user implicitly gives Amazon EC2 permission to use the KMS key to attach the encrypted volume to the instance\. For more information, see [How Amazon Elastic Block Store \(Amazon EBS\) uses AWS KMS](services-ebs.md)\.
 + Use this KMS key with Amazon Redshift to launch an encrypted cluster\. The key user implicitly gives Amazon Redshift permission to use the KMS key to launch the encrypted cluster and create encrypted snapshots\. For more information, see [How Amazon Redshift uses AWS KMS](services-redshift.md)\.
-+ Use this KMS key with other [AWS services integrated with AWS KMS](service-integration.md), specifically the services that use grants, to create, manage, or use encrypted resources with those services\.
++ Use this KMS key with other [AWS services integrated with AWS KMS](service-integration.md) that use grants to create, manage, or use encrypted resources with those services\.
 
-The [kms:GrantIsForAWSResource](policy-conditions.md#conditions-kms-grant-is-for-aws-resource) condition key allows key users to create and manage grants, but only when the grantee is an AWS service that uses grants\. The permission allows key users to use *all* of the integrated services that use grants\. However, you can create a custom key policy that allows particular AWS services to use the KMS key on the key user's behalf\. For more information, see the [kms:ViaService](policy-conditions.md#conditions-kms-via-service) condition key\.
-
-Key users need these grant permissions to use their KMS key with integrated services, but these permissions are not sufficient\. Key users also need permission to use the integrated services\. For details about giving users access to an AWS service that integrates with AWS KMS, consult the documentation for the integrated service\.
+The default key policy allows key users to delegate their grant permission to *all* integrated services that use grants\. However, you can create a custom key policy that restricts the permission to specified AWS services\. For more information, see the [kms:ViaService](policy-conditions.md#conditions-kms-via-service) condition key\.
