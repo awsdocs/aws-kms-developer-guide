@@ -11,7 +11,7 @@ Whenever possible, provide permissions in key policies that affect one KMS key, 
 Give permission to create keys \([kms:CreateKey](https://docs.aws.amazon.com/kms/latest/APIReference/API_CreateKey.html)\) only to principals who need it\. Principals who create a KMS key also set its key policy, so they can give themselves and others permission to use and manage the KMS keys they create\. When you allow this permission, consider limiting it by using [policy conditions](policy-conditions.md)\. For example, you can use the [kms:KeySpec](policy-conditions.md#conditions-kms-key-spec) condition to limit the permission to symmetric KMS keys\.
 
 **Specify KMS keys in an IAM policy**  
-As a best practice, specify the [key ARN](concepts.md#key-id-key-ARN) of each KMS key to which the permission applies in the `Resource` element of the policy statement\. This practice restricts the permission to the KMS keys that principal requires\. For example, this `Resource` element lists only the KMS keyss the principal needs to use\.  
+As a best practice, specify the [key ARN](concepts.md#key-id-key-ARN) of each KMS key to which the permission applies in the `Resource` element of the policy statement\. This practice restricts the permission to the KMS keys that principal requires\. For example, this `Resource` element lists only the KMS keys the principal needs to use\.  
 
 ```
 "Resource": [
