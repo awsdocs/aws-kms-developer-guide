@@ -11,7 +11,7 @@ To specify conditions, you use predefined *condition keys* in the `Condition` el
 
 ## AWS global condition keys<a name="conditions-aws"></a>
 
-AWS defines [global condition keys](https://docs.aws.amazon.com/IAM/latest/UserGuide/reference_policies_condition-keys.html#AvailableKeys), a set of policy conditions keys for all AWS services that use IAM for access control\. AWS KMS supports all global condition keys\. You can use them in AWS KMS key policies and IAM policies\.
+AWS defines [global condition keys](https://docs.aws.amazon.com/IAM/latest/UserGuide/reference_policies_condition-keys.html#AvailableKeys), a set of policy conditions keys for all AWS services that use IAM for access control\. AWS KMS supports all global condition keys\. You can use them in AWS KMS key policies and IAM policies\.  However, AWS KMS key policies do not permit the usage of the aws:ResourceTag condition key\.
 
 For example, you can use the [aws:PrincipalArn](https://docs.aws.amazon.com/IAM/latest/UserGuide/reference_policies_condition-keys.html#condition-keys-principalarn) global condition key to allow access to an AWS KMS key \(KMS key\) only when the principal in the request is represented by the Amazon Resource Name \(ARN\) in the condition key value\. To support [attribute\-based access control](abac.md) \(ABAC\) in AWS KMS, you can use the [aws:ResourceTag/*tag\-key*](https://docs.aws.amazon.com/IAM/latest/UserGuide/reference_policies_condition-keys.html#condition-keys-resourcetag) global condition key in an IAM policy to allow access to KMS keys with a particular tag\.
 
