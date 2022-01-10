@@ -8,7 +8,7 @@ The following example CloudTrail log entry records a `DeleteKey` operation of a 
 
 ```
 {
-    "eventVersion": "1.05",
+    "eventVersion": "1.08",
     "userIdentity": {
         "accountId": "111122223333",
         "invokedBy": "AWS Internal"
@@ -32,9 +32,8 @@ The following example CloudTrail log entry records a `DeleteKey` operation of a 
     ],
     "eventType": "AwsServiceEvent",
     "recipientAccountId": "111122223333",
-    "serviceEventDetails": {
-        "keyId": "1234abcd-12ab-34cd-56ef-1234567890ab"
-    }
+     "managementEvent": true,
+    "eventCategory": "Management"
 }
 ```
 
@@ -71,11 +70,8 @@ The following CloudTrail log entry records a `DeleteKey` operation of a KMS key 
         }
     ],
     "eventType": "AwsServiceEvent",
-    "managementEvent": true,
     "recipientAccountId": "111122223333",
-    "serviceEventDetails": {
-        "keyId": "1234abcd-12ab-34cd-56ef-1234567890ab"
-    },
+    "managementEvent": true,
     "eventCategory": "Management"
 }
 ```

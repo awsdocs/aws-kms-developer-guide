@@ -42,4 +42,4 @@ Permissions for alias operations \([kms:CreateAlias](https://docs.aws.amazon.com
 
  
 
-The examples in this topic provide more information and guidance for designing IAM policies for KMS keys\. For general AWS KMS best practice guidance, see the [AWS Key Management Service Best Practices](https://docs.aws.amazon.com/whitepapers/latest/kms-best-practices/)\. For IAM best practices for all AWS resources, see [Security best practices in IAM](https://docs.aws.amazon.com/IAM/latest/UserGuide/best-practices.html) in the *IAM User Guide*\.
+The examples in this topic provide more information and guidance for designing IAM policies for KMS keys\. For general AWS KMS best practice guidance, see the [AWS Key Management Service Best Practices \(PDF\)](https://d1.awsstatic.com/whitepapers/aws-kms-best-practices.pdf)\. For IAM best practices for all AWS resources, see [Security best practices in IAM](https://docs.aws.amazon.com/IAM/latest/UserGuide/best-practices.html) in the *IAM User Guide*\.

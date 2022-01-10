@@ -6,7 +6,7 @@ Custom key stores are designed to be available and resilient\. However, there ar
 + [How to fix unavailable KMS keys](#fix-unavailable-cmks)
 + [How to fix a failing KMS key](#fix-cmk-failed)
 + [How to fix a connection failure](#fix-keystore-failed)
-+ [How to respond a cryptographic operation failure](#fix-keystore-communication)
++ [How to respond to a cryptographic operation failure](#fix-keystore-communication)
 + [How to fix invalid `kmsuser` credentials](#fix-keystore-password)
 + [How to delete orphaned key material](#fix-keystore-orphaned-key)
 + [How to recover deleted key material for a KMS key](#fix-keystore-recover-backing-key)
@@ -63,7 +63,7 @@ To avoid [resetting the `kmsuser` password](#fix-keystore-password), use the mos
 + `USER_LOGGED_IN` indicates that the `kmsuser` CU account is logged into the associated AWS CloudHSM cluster\. This prevents AWS KMS from rotating the `kmsuser` account password and logging into the cluster\. To fix this error, log the `kmsuser` CU out of the cluster\. If you changed the `kmsuser` password to log into the cluster, you must also and update the key store password value for the custom key store\. For help, see [How to log out and reconnect](#login-kmsuser-2)\.
 + `USER_NOT_FOUND` indicates that AWS KMS cannot find a `kmsuser` CU account in the associated AWS CloudHSM cluster\. To fix this error, [create a kmsuser CU account](create-keystore.md#kmsuser-concept) in the cluster, and then [update the key store password value](update-keystore.md) for the custom key store\. For help, see [How to fix invalid `kmsuser` credentials](#fix-keystore-password)\.
 
-## How to respond a cryptographic operation failure<a name="fix-keystore-communication"></a>
+## How to respond to a cryptographic operation failure<a name="fix-keystore-communication"></a>
 
 A cryptographic operation that uses a KMS key in a custom key store might fail with an error such as the following\.
 
@@ -127,11 +127,48 @@ To repair any of these conditions, use the following procedure\.
 
 ## How to delete orphaned key material<a name="fix-keystore-orphaned-key"></a>
 
-After scheduling deletion of a KMS key from a custom key store, you might need to manually delete the corresponding key material from the associated cluster\. 
+After scheduling deletion of a KMS key from a custom key store, you might need to manually delete the corresponding key material from the associated AWS CloudHSM cluster\. 
 
-When you create a KMS key in a custom key store, AWS KMS creates the KMS key metadata in AWS KMS and generates the key material in the associated AWS CloudHSM cluster\. When you schedule deletion of a KMS key in a custom key store, after the waiting period, AWS KMS deletes the KMS key metadata\. Then AWS KMS makes a best effort to delete the corresponding key material from the cluster\. AWS KMS does not attempt to delete key material from cluster backups\.
+When you create a KMS key in a custom key store, AWS KMS creates the KMS key metadata in AWS KMS and generates the key material in the associated AWS CloudHSM cluster\. When you schedule deletion of a KMS key in a custom key store, after the waiting period, AWS KMS deletes the KMS key metadata\. Then AWS KMS makes a best effort to delete the corresponding key material from the AWS CloudHSM cluster\. The attempt might fail if AWS KMS cannot access the cluster, such as when it's disconnected from the custom key store or the `kmsuser` password changes\. AWS KMS does not attempt to delete key material from cluster backups\.
 
-If AWS KMS cannot delete the key material, such as when the custom key store is disconnected, AWS KMS writes an entry to your AWS CloudTrail logs\. The entry includes the KMS key ID, the AWS CloudHSM cluster ID, and the key handle of the key material\.
+AWS KMS reports the results of its attempt to delete the key material from the cluster in the `DeleteKey` event entry of your AWS CloudTrail logs\. It appears in the `backingKeysDeletionStatus` element of the `additionalEventData` element, as shown in the following example entry\. The entry also includes the KMS key ARN, the AWS CloudHSM cluster ID, and the key handle of the key material \(`backing-key-id`\)\.
+
+```
+{
+    "eventVersion": "1.08",
+    "userIdentity": {
+        "accountId": "111122223333",
+        "invokedBy": "AWS Internal"
+    },
+    "eventTime": "2021-12-10T14:23:51Z",
+    "eventSource": "kms.amazonaws.com",
+    "eventName": "DeleteKey",
+    "awsRegion": "eu-west-1",
+    "sourceIPAddress": "&AWS; Internal",
+    "userAgent": "AWS Internal",
+    "requestParameters": null,
+    "responseElements": null,
+    "additionalEventData": {
+        "customKeyStoreId": "cks-1234567890abcdef0",
+        "clusterId": "cluster-1a23b4cdefg",
+        "backingKeys": "[{\"keyHandle\":\"01\",\"backingKeyId\":\"backing-key-id\"}]",
+        "backingKeysDeletionStatus": "[{\"keyHandle\":\"16\",\"backingKeyId\":\"backing-key-id\",\"deletionStatus\":\"FAILURE\"}]"
+    },
+    "eventID": "c21f1f47-f52b-4ffe-bff0-6d994403cf40",
+    "readOnly": false,
+    "resources": [
+        {
+            "accountId": "111122223333",
+            "type": "AWS::KMS::Key",
+            "ARN": "arn:aws:kms:eu-west-1:111122223333:key/1234abcd-12ab-34cd-56ef-1234567890ab"
+        }
+    ],
+    "eventType": "AwsServiceEvent",
+    "recipientAccountId": "111122223333",
+    "managementEvent": true,
+    "eventCategory": "Management"
+}
+```
 
 To delete the key material from the associated AWS CloudHSM cluster, use a procedure like the following one\. This example uses the AWS CLI and AWS CloudHSM command line tools, but you can use the AWS Management Console instead of the CLI\.
 

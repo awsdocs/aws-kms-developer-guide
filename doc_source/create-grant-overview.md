@@ -28,7 +28,7 @@ If your code retries the `CreateGrant` operation, or uses an [AWS SDK that autom
 
 ```
 $ aws kms create-grant \
-    --name IT-1234abcd-exampleUser-decrypt
+    --name IT-1234abcd-exampleUser-decrypt \
     --key-id 1234abcd-12ab-34cd-56ef-1234567890ab \
     --grantee-principal arn:aws:iam::111122223333:user/exampleUser \
     --operations Decrypt \

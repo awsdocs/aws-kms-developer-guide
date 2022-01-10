@@ -4,6 +4,8 @@ You can create a [multi\-Region replica key](multi-region-keys-overview.md#mrk-p
 
 When this operation completes, the new replica key has a transient [key state](key-state.md) of `Creating`\. This key state changes to `Enabled` \(or [PendingImport](multi-region-keys-import.md)\) after a few seconds when the process of creating the new replica key is complete\. While the key state is `Creating`, you can manage key, but you cannot yet use it in cryptographic operations\. If you are creating and using the replica key programmatically, retry on `KMSInvalidStateException` or call [DescribeKey](https://docs.aws.amazon.com/kms/latest/APIReference/API_DescribeKey.html) to check its `KeyState` value before using it\. 
 
+If you mistakenly delete a replica key, you can use this procedure to recreate it\. If you replicate the same primary key in the same Region, the new replica key you create will have the same [shared properties](multi-region-keys-overview.md#mrk-sync-properties) as the original replica key\.
+
 **Learn more**
 + To create a multi\-Region replica key with imported key material, see [Creating a replica key with imported key material](multi-region-keys-import.md#mrk-import-replicate)\.
 + To use a AWS CloudFormation template to create a replica key, see [AWS::KMS::ReplicaKey](https://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-resource-kms-replicakey.html) in the *AWS CloudFormation User Guide*\.
@@ -19,6 +21,8 @@ You typically choose to replicate a multi\-Region key into an AWS Region based o
 
 The following are the AWS KMS requirements for replica Regions\. If the Region that you choose doesn't comply with these requirements, attempts to replicate a key fail\.
 + **One related multi\-Region key per Region** — You can't create a replica key in the same Region as its primary key, or in the same Region as another replica of the primary key\.
+
+  If you try to replicate a primary key in a Region that already has a replica of that primary key, the attempt fails\. If the current replica key in the Region is in the [`PendingDeletion` key state](key-state.md), you can [cancel the replica key deletion](deleting-keys.md#deleting-keys-scheduling-key-deletion) or wait until the replica key is deleted\.
 + **Multiple unrelated multi\-Region keys in the same Region** — You can have multiple unrelated multi\-Region keys in the same Region\. For example, you can have two multi\-Region primary keys in the `us-east-1` Region\. Each of the primary keys can have a replica key in `us-west-2` Region\.
 + **Regions in the same partition** — The replica key Region must be in the same [AWS partition](https://docs.aws.amazon.com/general/latest/gr/aws-arns-and-namespaces.html) as the primary key Region\.
 + **Region must be enabled** — If a Region is [disabled by default](https://docs.aws.amazon.com/general/latest/gr/rande-manage.html#rande-manage-enable), you cannot create any resources in that Region until it is enabled for your AWS account\. 

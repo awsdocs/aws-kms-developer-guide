@@ -1638,6 +1638,7 @@ You might need to scroll horizontally or vertically to see all of the data in th
 | Amazon RDS Performance Insights | rds\.AWS\_region\.amazonaws\.com | 
 | Amazon Redshift | redshift\.AWS\_region\.amazonaws\.com | 
 | Amazon Redshift query editor V2 | sqlworkbench\.AWS\_region\.amazonaws\.com | 
+| Amazon Redshift Serverless | redshift\-serverless\.AWS\_region\.amazonaws\.com | 
 | Amazon Rekognition | rekognition\.AWS\_region\.amazonaws\.com | 
 | Amazon Relational Database Service \(Amazon RDS\) | rds\.AWS\_region\.amazonaws\.com | 
 | AWS Secrets Manager | secretsmanager\.AWS\_region\.amazonaws\.com | 
@@ -1652,6 +1653,7 @@ You might need to scroll horizontally or vertically to see all of the data in th
 | Amazon Timestream | timestream\.AWS\_region\.amazonaws\.com | 
 | Amazon WorkMail | workmail\.AWS\_region\.amazonaws\.com | 
 | Amazon WorkSpaces | workspaces\.AWS\_region\.amazonaws\.com | 
+| Amazon WorkSpaces Web | workspaces\-web\.AWS\_region\.amazonaws\.com | 
 | AWS X\-Ray | xray\.AWS\_region\.amazonaws\.com | 
 
 ### kms:WrappingAlgorithm<a name="conditions-kms-wrapping-algorithm"></a>

@@ -39,6 +39,8 @@ You can include these permissions in an IAM policy, but it's a best practice to 
 
 You can use the AWS KMS console or the AWS KMS API to delete a replica key\. You can delete a replica key at any time\. It doesn't depend on the key state of any other KMS key\.
 
+If you mistakenly delete a replica key, you can recreate it by replicating the same primary key in the same Region\. The new replica key you create will have the same [shared properties](multi-region-keys-overview.md#mrk-sync-properties) as the original replica key\.
+
 The procedure for deleting a multi\-Region replica key is the same as deleting a single\-Region key\. 
 
 ![\[Deleting a multi-Region replica key\]](http://docs.aws.amazon.com/kms/latest/developerguide/images/multi-region-keys-delete-replica.png)
