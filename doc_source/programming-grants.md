@@ -63,7 +63,7 @@ CreateGrantResponse createGrantResult = kmsClient.CreateGrant(createGrantRequest
 ------
 #### [ Python ]
 
-For details, see the [create\_grant method](https://boto3.amazonaws.com/v1/documentation/api/latest/reference/services/kms.html#KMS.Client.create_grant) in the AWS SDK for Python \(Boto3\)\.
+For details, see the [`create_grant` method](https://boto3.amazonaws.com/v1/documentation/api/latest/reference/services/kms.html#KMS.Client.create_grant) in the AWS SDK for Python \(Boto3\)\.
 
 ```
 # Create a grant
@@ -83,7 +83,7 @@ response = kms_client.create_grant(
 ------
 #### [ Ruby ]
 
-For details, see the [create\_grant](https://docs.aws.amazon.com/sdk-for-ruby/v3/api/Aws/KMS/Client.html#create_grant-instance_method) instance method in the [AWS SDK for Ruby](https://docs.aws.amazon.com/sdk-for-ruby/v3/api/Aws/KMS.html)\.
+For details, see the [https://docs.aws.amazon.com/sdk-for-ruby/v3/api/Aws/KMS/Client.html#create_grant-instance_method](https://docs.aws.amazon.com/sdk-for-ruby/v3/api/Aws/KMS/Client.html#create_grant-instance_method) instance method in the [AWS SDK for Ruby](https://docs.aws.amazon.com/sdk-for-ruby/v3/api/Aws/KMS.html)\.
 
 ```
 # Create a grant
@@ -207,7 +207,7 @@ ListGrantsResponse listGrantsResponse = kmsClient.ListGrants(listGrantsRequest);
 ------
 #### [ Python ]
 
-For details, see the [list\_grants method](https://boto3.amazonaws.com/v1/documentation/api/latest/reference/services/kms.html#KMS.Client.list_grants) in the AWS SDK for Python \(Boto3\)\.
+For details, see the [`list_grants` method](https://boto3.amazonaws.com/v1/documentation/api/latest/reference/services/kms.html#KMS.Client.list_grants) in the AWS SDK for Python \(Boto3\)\.
 
 ```
 # Listing grants on a KMS key
@@ -224,7 +224,7 @@ response = kms_client.list_grants(
 ------
 #### [ Ruby ]
 
-For details, see the [list\_grants](https://docs.aws.amazon.com/sdk-for-ruby/v3/api/Aws/KMS/Client.html#list_grants-instance_method) instance method in the [AWS SDK for Ruby](https://docs.aws.amazon.com/sdk-for-ruby/v3/api/Aws/KMS.html)\.
+For details, see the [https://docs.aws.amazon.com/sdk-for-ruby/v3/api/Aws/KMS/Client.html#list_grants-instance_method](https://docs.aws.amazon.com/sdk-for-ruby/v3/api/Aws/KMS/Client.html#list_grants-instance_method) instance method in the [AWS SDK for Ruby](https://docs.aws.amazon.com/sdk-for-ruby/v3/api/Aws/KMS.html)\.
 
 ```
 # Listing grants on a KMS key
@@ -334,7 +334,7 @@ ListGrantsResponse listGrantsResponse = kmsClient.ListGrants(listGrantsRequest);
 ------
 #### [ Python ]
 
-For details, see the [list\_grants method](https://boto3.amazonaws.com/v1/documentation/api/latest/reference/services/kms.html#KMS.Client.list_grants) in the AWS SDK for Python \(Boto3\)\.
+For details, see the [`list_grants` method](https://boto3.amazonaws.com/v1/documentation/api/latest/reference/services/kms.html#KMS.Client.list_grants) in the AWS SDK for Python \(Boto3\)\.
 
 ```
 # Listing grants on a KMS key
@@ -352,7 +352,7 @@ response = kms_client.list_grants(
 ------
 #### [ Ruby ]
 
-For details, see the [list\_grants](https://docs.aws.amazon.com/sdk-for-ruby/v3/api/Aws/KMS/Client.html#list_grants-instance_method) instance method in the [AWS SDK for Ruby](https://docs.aws.amazon.com/sdk-for-ruby/v3/api/Aws/KMS.html)\.
+For details, see the [https://docs.aws.amazon.com/sdk-for-ruby/v3/api/Aws/KMS/Client.html#list_grants-instance_method](https://docs.aws.amazon.com/sdk-for-ruby/v3/api/Aws/KMS/Client.html#list_grants-instance_method) instance method in the [AWS SDK for Ruby](https://docs.aws.amazon.com/sdk-for-ruby/v3/api/Aws/KMS.html)\.
 
 ```
 # Listing grants on a KMS key
@@ -464,7 +464,7 @@ kmsClient.RetireGrant(retireGrantRequest);
 ------
 #### [ Python ]
 
-For details, see the [retire\_grant method](https://boto3.amazonaws.com/v1/documentation/api/latest/reference/services/kms.html#KMS.Client.retire_grant) in the AWS SDK for Python \(Boto3\)\.
+For details, see the [`retire_grant` method](https://boto3.amazonaws.com/v1/documentation/api/latest/reference/services/kms.html#KMS.Client.retire_grant) in the AWS SDK for Python \(Boto3\)\.
 
 ```
 # Retire a grant
@@ -479,7 +479,7 @@ response = kms_client.retire_grant(
 ------
 #### [ Ruby ]
 
-For details, see the [retire\_grant](https://docs.aws.amazon.com/sdk-for-ruby/v3/api/Aws/KMS/Client.html#retire_grant-instance_method) instance method in the [AWS SDK for Ruby](https://docs.aws.amazon.com/sdk-for-ruby/v3/api/Aws/KMS.html)\.
+For details, see the [https://docs.aws.amazon.com/sdk-for-ruby/v3/api/Aws/KMS/Client.html#retire_grant-instance_method](https://docs.aws.amazon.com/sdk-for-ruby/v3/api/Aws/KMS/Client.html#retire_grant-instance_method) instance method in the [AWS SDK for Ruby](https://docs.aws.amazon.com/sdk-for-ruby/v3/api/Aws/KMS.html)\.
 
 ```
 # Retire a grant
@@ -587,7 +587,7 @@ To use the AWS KMS PowerShell cmdlets, install the [AWS\.Tools\.KeyManagementSer
 ------
 #### [ Python ]
 
-For details, see the [revoke\_grant method](https://boto3.amazonaws.com/v1/documentation/api/latest/reference/services/kms.html#KMS.Client.revoke_grant) in the AWS SDK for Python \(Boto3\)\.
+For details, see the [`revoke_grant` method](https://boto3.amazonaws.com/v1/documentation/api/latest/reference/services/kms.html#KMS.Client.revoke_grant) in the AWS SDK for Python \(Boto3\)\.
 
 ```
 # Revoke a grant on a KMS key
@@ -607,7 +607,7 @@ response = kms_client.revoke_grant(
 ------
 #### [ Ruby ]
 
-For details, see the [revoke\_grant](https://docs.aws.amazon.com/sdk-for-ruby/v3/api/Aws/KMS/Client.html#revoke_grant-instance_method) instance method in the [AWS SDK for Ruby](https://docs.aws.amazon.com/sdk-for-ruby/v3/api/Aws/KMS.html)\.
+For details, see the [https://docs.aws.amazon.com/sdk-for-ruby/v3/api/Aws/KMS/Client.html#revoke_grant-instance_method](https://docs.aws.amazon.com/sdk-for-ruby/v3/api/Aws/KMS/Client.html#revoke_grant-instance_method) instance method in the [AWS SDK for Ruby](https://docs.aws.amazon.com/sdk-for-ruby/v3/api/Aws/KMS.html)\.
 
 ```
 # Revoke a grant on a KMS key

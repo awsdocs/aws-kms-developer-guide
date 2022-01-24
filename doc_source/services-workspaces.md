@@ -28,7 +28,7 @@ When you launch WorkSpaces with encrypted volumes, the end\-to\-end process work
 
 1. <a name="WSP-KMS-creates-data-key"></a>AWS KMS creates a new data key, encrypts it under your KMS key, and then sends the encrypted data key to Amazon EBS\.
 
-1. <a name="WSP-uses-EBS-to-attach-encrypted-volume"></a>WorkSpaces uses Amazon EBS to attach the encrypted volume to your WorkSpace\. Amazon EBS sends the encrypted data key to AWS KMS with a [https://docs.aws.amazon.com/kms/latest/APIReference/API_Decrypt.html](https://docs.aws.amazon.com/kms/latest/APIReference/API_Decrypt.html) request and specifies the WorkSpace user's `Sid`, its directory ID, and the the volume ID, which is used as the [encryption context](#services-workspaces-encryptioncontext)\.
+1. <a name="WSP-uses-EBS-to-attach-encrypted-volume"></a>WorkSpaces uses Amazon EBS to attach the encrypted volume to your WorkSpace\. Amazon EBS sends the encrypted data key to AWS KMS with a [https://docs.aws.amazon.com/kms/latest/APIReference/API_Decrypt.html](https://docs.aws.amazon.com/kms/latest/APIReference/API_Decrypt.html) request and specifies the WorkSpace user's `Sid`, its directory ID, and the volume ID, which is used as the [encryption context](#services-workspaces-encryptioncontext)\.
 
 1. AWS KMS uses your KMS key to decrypt the data key, and then sends the plaintext data key to Amazon EBS\.
 

@@ -178,7 +178,7 @@ Before using an example key policy, replace the example principals with actual p
 
 ### Using grants to authorize DynamoDB<a name="dynamodb-grants"></a>
 
-In addition to key policies, DynamoDB uses grants to set permissions on a customer managed key or the AWS managed key for DynamoDB \(aws/dynamodb\)\. To view the grants on a KMS key in your account, use the [ListGrants](https://docs.aws.amazon.com/kms/latest/APIReference/API_ListGrants.html) operation\. DynamoDB does not need grants, or any additional permissions, to use the [AWS owned key](concepts.md#aws-owned-cmk) to protect your table\.
+In addition to key policies, DynamoDB uses grants to set permissions on a customer managed key or the AWS managed key for DynamoDB \(`aws/dynamodb`\)\. To view the grants on a KMS key in your account, use the [ListGrants](https://docs.aws.amazon.com/kms/latest/APIReference/API_ListGrants.html) operation\. DynamoDB does not need grants, or any additional permissions, to use the [AWS owned key](concepts.md#aws-owned-cmk) to protect your table\.
 
 DynamoDB uses the grant permissions when it performs background system maintenance and continuous data protection tasks\. It also uses grants to generate [table keys](#dynamodb-encrypt)\.
 

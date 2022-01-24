@@ -1,9 +1,11 @@
 # AWS KMS permissions<a name="kms-api-permissions-reference"></a>
 
-The Actions and Resources Table is designed to help you define [access control](control-access.md#authorization) in [key policies](key-policies.md) and [IAM policies](iam-policies.md)\. 
+This table is designed to help you understand AWS KMS permissions so you can control access to your AWS KMS resources\. Definitions of the column headings appear below the table\.
+
+You can also learn about AWS KMS permissions in the [Actions, resources, and condition keys for AWS Key Management Service](https://docs.aws.amazon.com/service-authorization/latest/reference/list_awskeymanagementservice.html) topic of the *Service Authorization Reference*\. However, that topic doesn't list all of the condition keys that you can use to refine each permission\.
 
 **Note**  
-
+You might have to scroll horizontally or vertically to see all of the data in the table\.
 
 <a name="kms-api-permissions-reference-table"></a>[\[See the AWS documentation website for more details\]](http://docs.aws.amazon.com/kms/latest/developerguide/kms-api-permissions-reference.html)
 

@@ -1,6 +1,6 @@
 # How Amazon Simple Email Service \(Amazon SES\) uses AWS KMS<a name="services-ses"></a>
 
-You can use Amazon Simple Email Service \(Amazon SES\) to receive email, and \(optionally\) to encrypt the received email messages before storing them in an Amazon Simple Storage Service \(Amazon S3\) bucket that you choose\. When you configure Amazon SES to encrypt email messages, you must choose the AWS KMS [AWS KMS key](concepts.md#kms_keys) under which Amazon SES encrypts the messages\. You can choose the [AWS managed key](concepts.md#aws-managed-cmk) for Amazon SES \(its alias is **aws/ses**\), or you can choose a symmetric [customer managed key](concepts.md#customer-cmk) that you created in AWS KMS\.
+You can use Amazon Simple Email Service \(Amazon SES\) to receive email, and \(optionally\) to encrypt the received email messages before storing them in an Amazon Simple Storage Service \(Amazon S3\) bucket that you choose\. When you configure Amazon SES to encrypt email messages, you must choose the AWS KMS [AWS KMS key](concepts.md#kms_keys) under which Amazon SES encrypts the messages\. You can choose the [AWS managed key](concepts.md#aws-managed-cmk) for Amazon SES \(its alias is `aws/ses`\), or you can choose a symmetric [customer managed key](concepts.md#customer-cmk) that you created in AWS KMS\.
 
 **Important**  
 Amazon SES supports only [symmetric KMS keys](concepts.md#symmetric-cmks)\. You cannot use an [asymmetric KMS key](symmetric-asymmetric.md#asymmetric-cmks) to encrypt your Amazon SES email messages\. For help determining whether a KMS key is symmetric or asymmetric, see [Identifying symmetric and asymmetric KMS keys](find-symm-asymm.md)\.
@@ -50,7 +50,7 @@ The following example shows a JSON representation of the encryption context that
 
 ## Giving Amazon SES permission to use your AWS KMS key<a name="services-ses-permissions"></a>
 
-To encrypt your email messages, you can use the [AWS managed key](concepts.md#aws-managed-cmk) in your account for Amazon SES \(**aws/ses**\), or you can use a [customer managed key](concepts.md#customer-cmk) that you create\. Amazon SES already has permission to use the AWS managed key on your behalf\. However, if you specify a customer managed key when you [add the S3 action](https://docs.aws.amazon.com/ses/latest/DeveloperGuide/receiving-email-action-s3.html) to your Amazon SES receipt rule, you must give Amazon SES permission to use the KMS key to encrypt your email messages\. 
+To encrypt your email messages, you can use the [AWS managed key](concepts.md#aws-managed-cmk) in your account for Amazon SES \(`aws/ses`\), or you can use a [customer managed key](concepts.md#customer-cmk) that you create\. Amazon SES already has permission to use the AWS managed key on your behalf\. However, if you specify a customer managed key when you [add the S3 action](https://docs.aws.amazon.com/ses/latest/DeveloperGuide/receiving-email-action-s3.html) to your Amazon SES receipt rule, you must give Amazon SES permission to use the KMS key to encrypt your email messages\. 
 
 To give Amazon SES permission to use your customer managed key, add the following statement to that KMS key's [key policy](key-policies.md):
 

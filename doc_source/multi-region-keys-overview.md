@@ -78,7 +78,7 @@ You can [create a multi\-Region replica key](multi-region-keys-replicate.md) in 
 
 The resulting [multi\-Region replica key](#mrk-replica-key) is a fully\-functional KMS key with the same [shared properties](#mrk-sync-properties) as the primary key\. In all other respects, it is an independent KMS key with its own description, key policy, grants, aliases, and tags\. Enabling or disabling a multi\-Region key has no effect on related multi\-Region keys\. You can use the primary and replica keys independently in cryptographic operations or coordinate their use\. For example, you can encrypt data with the primary key in the US East \(N\. Virginia\) Region, move the data to the Europe \(Ireland\) Region and use the replica key to decrypt the data\. 
 
-Related multi\-Region keys have the same key ID\. Their key ARNs \(Amazon Resource Names\) differ only in the Region field\. For example, the multi\-Region primary key and replica keys might have the following example key ARNs\. The key ID – the last element in the key ARN – is identical\. Both keys have the distinctive key ID of multi\-Region keys, which begins with *mrk\-*\.
+Related multi\-Region keys have the same key ID\. Their key ARNs \(Amazon Resource Names\) differ only in the Region field\. For example, the multi\-Region primary key and replica keys might have the following example key ARNs\. The key ID – the last element in the key ARN – is identical\. Both keys have the distinctive key ID of multi\-Region keys, which begins with **mrk\-**\.
 
 ```
 Primary key: arn:aws:kms:us-east-1:111122223333:key/mrk-1234abcd12ab34cd56ef12345678990ab

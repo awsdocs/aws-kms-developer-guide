@@ -1,4 +1,4 @@
-# Customer managed policy examples<a name="customer-managed-policies"></a>
+# IAM policy examples<a name="customer-managed-policies"></a>
 
 In this section, you can find example IAM policies that allow permissions for various AWS KMS actions\.
 
@@ -19,7 +19,7 @@ For help writing and formatting a JSON policy document, see the [IAM JSON Policy
 
 The following IAM policy allows users read\-only access to the AWS KMS console\. Users with these permissions can view all KMS keys in their AWS account, but they cannot create or change any KMS keys\. 
 
-To view KMS keys on the **AWS managed keys** and **Customer managed keys** pages, principals require [kms:ListKeys](https://docs.aws.amazon.com/kms/latest/APIReference/API_ListKeys.html) and [kms:ListAliases](https://docs.aws.amazon.com/kms/latest/APIReference/API_ListAliases.html) permissions\. The remaining permissions, particularly [kms:DescribeKey](https://docs.aws.amazon.com/kms/latest/APIReference/API_DescribeKey.html), are required to view optional KMS key table columns and data on the KMS key detail pages\. The [iam:ListUsers](https://docs.aws.amazon.com/IAM/latest/APIReference/API_ListUsers.html) and [iam:ListRoles](https://docs.aws.amazon.com/IAM/latest/APIReference/API_ListRoles.html) permissions are required to display the key policy in default view without error\. To view data on the **Custom key stores** page and details about KMS keys in custom key stores, principals also need [kms:DescribeCustomKeyStores](https://docs.aws.amazon.com/kms/latest/APIReference/API_DescribeCustomKeyStores.html) permission\.
+To view KMS keys on the **AWS managed keys** and **Customer managed keys** pages, principals require [kms:ListKeys](https://docs.aws.amazon.com/kms/latest/APIReference/API_ListKeys.html), [kms:ListAliases](https://docs.aws.amazon.com/kms/latest/APIReference/API_ListAliases.html), and [tag:GetResources](https://docs.aws.amazon.com/resourcegroupstagging/latest/APIReference/API_GetResources.html) permissions, even if the keys do not have tags or aliases\. The remaining permissions, particularly [kms:DescribeKey](https://docs.aws.amazon.com/kms/latest/APIReference/API_DescribeKey.html), are required to view optional KMS key table columns and data on the KMS key detail pages\. The [iam:ListUsers](https://docs.aws.amazon.com/IAM/latest/APIReference/API_ListUsers.html) and [iam:ListRoles](https://docs.aws.amazon.com/IAM/latest/APIReference/API_ListRoles.html) permissions are required to display the key policy in default view without error\. To view data on the **Custom key stores** page and details about KMS keys in custom key stores, principals also need [kms:DescribeCustomKeyStores](https://docs.aws.amazon.com/kms/latest/APIReference/API_DescribeCustomKeyStores.html) permission\.
 
 If you limit a user's console access to particular KMS keys, the console displays an error for each KMS key that is not visible\. 
 
@@ -38,7 +38,8 @@ This policy includes of two policy statements\. The `Resource` element in the fi
         "kms:GetKeyPolicy",
         "kms:DescribeKey",
         "kms:ListKeyPolicies",
-        "kms:ListResourceTags"
+        "kms:ListResourceTags",
+        "tag:GetResources"
       ],
       "Resource": "arn:aws:kms:*:111122223333:key/*"
     },

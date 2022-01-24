@@ -1,4 +1,4 @@
-# Requesting an AWS KMS quota Increase<a name="increase-quota"></a>
+# Requesting an AWS KMS quota increase<a name="increase-quota"></a>
 
 AWS KMS resource quotas and request quotas are adjustable, except for the [key policy document size quota](resource-limits.md#key-policy-limit) and the [custom key store quota](requests-per-second.md#rps-key-stores)\.
 

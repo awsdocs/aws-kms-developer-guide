@@ -383,7 +383,7 @@ MemoryStream destinationCipherTextBlob = kmsClient.ReEncrypt(reEncryptRequest).C
 ------
 #### [ Python ]
 
-For details, see the [re\_encrypt method](https://boto3.amazonaws.com/v1/documentation/api/latest/reference/services/kms.html#KMS.Client.re_encrypt) in the AWS SDK for Python \(Boto3\)\.
+For details, see the [`re_encrypt` method](https://boto3.amazonaws.com/v1/documentation/api/latest/reference/services/kms.html#KMS.Client.re_encrypt) in the AWS SDK for Python \(Boto3\)\.
 
 ```
 # Re-encrypt a data key
@@ -405,7 +405,7 @@ destination_ciphertext_blob = response['CiphertextBlob']
 ------
 #### [ Ruby ]
 
-For details, see the [re\_encrypt](https://docs.aws.amazon.com/sdk-for-ruby/v3/api/Aws/KMS/Client.html#re_encrypt-instance_method) instance method in the [AWS SDK for Ruby](https://docs.aws.amazon.com/sdk-for-ruby/v3/api/Aws/KMS.html)\.
+For details, see the [https://docs.aws.amazon.com/sdk-for-ruby/v3/api/Aws/KMS/Client.html#re_encrypt-instance_method](https://docs.aws.amazon.com/sdk-for-ruby/v3/api/Aws/KMS/Client.html#re_encrypt-instance_method) instance method in the [AWS SDK for Ruby](https://docs.aws.amazon.com/sdk-for-ruby/v3/api/Aws/KMS.html)\.
 
 ```
 # Re-encrypt a data key

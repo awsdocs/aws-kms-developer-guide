@@ -1,6 +1,6 @@
 # Enabling and disabling keys<a name="enabling-keys"></a>
 
-You can disable and reenable the [AWS KMS keys](concepts.md#kms_keys) that you manage\. You cannot enable or disable AWS managed keys\.
+You can disable and re\-enable the [AWS KMS keys](concepts.md#kms_keys) that you manage\. You cannot enable or disable AWS managed keys\.
 
 When you create a KMS key, it is enabled by default\. If you disable a KMS key, it cannot be used to encrypt or decrypt data until you re\-enable it\. AWS managed keys are permanently enabled for use by [services that use AWS KMS](service-integration.md)\. You cannot disable them\.
 

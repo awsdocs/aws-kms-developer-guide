@@ -52,7 +52,7 @@ CreateKeyResponse response = kmsClient.CreateKey(req);
 ------
 #### [ Python ]
 
-For details, see the [create\_key method](https://boto3.amazonaws.com/v1/documentation/api/latest/reference/services/kms.html#KMS.Client.create_key) in the AWS SDK for Python \(Boto3\)\.
+For details, see the [`create_key` method](https://boto3.amazonaws.com/v1/documentation/api/latest/reference/services/kms.html#KMS.Client.create_key) in the AWS SDK for Python \(Boto3\)\.
 
 ```
 # Create a KMS key
@@ -67,7 +67,7 @@ response = kms_client.create_key(
 ------
 #### [ Ruby ]
 
-For details, see the [create\_key](https://docs.aws.amazon.com/sdk-for-ruby/v3/api/Aws/KMS/Client.html#create_key-instance_method) instance method in the [AWS SDK for Ruby](https://docs.aws.amazon.com/sdk-for-ruby/v3/api/Aws/KMS.html)\.
+For details, see the [https://docs.aws.amazon.com/sdk-for-ruby/v3/api/Aws/KMS/Client.html#create_key-instance_method](https://docs.aws.amazon.com/sdk-for-ruby/v3/api/Aws/KMS/Client.html#create_key-instance_method) instance method in the [AWS SDK for Ruby](https://docs.aws.amazon.com/sdk-for-ruby/v3/api/Aws/KMS.html)\.
 
 ```
 # Create a KMS key
@@ -181,7 +181,7 @@ MemoryStream encryptedKey = dataKeyResponse.CiphertextBlob;
 ------
 #### [ Python ]
 
-For details, see the [generate\_data\_key method](https://boto3.amazonaws.com/v1/documentation/api/latest/reference/services/kms.html#KMS.Client.generate_data_key) in the AWS SDK for Python \(Boto3\)\.
+For details, see the [`generate_data_key` method](https://boto3.amazonaws.com/v1/documentation/api/latest/reference/services/kms.html#KMS.Client.generate_data_key) in the AWS SDK for Python \(Boto3\)\.
 
 ```
 # Generate a data key
@@ -202,7 +202,7 @@ encrypted_key = response['CiphertextBlob']
 ------
 #### [ Ruby ]
 
-For details, see the [generate\_data\_key](https://docs.aws.amazon.com/sdk-for-ruby/v3/api/Aws/KMS/Client.html#generate_data_key-instance_method) instance method in the [AWS SDK for Ruby](https://docs.aws.amazon.com/sdk-for-ruby/v3/api/Aws/KMS.html)\.
+For details, see the [https://docs.aws.amazon.com/sdk-for-ruby/v3/api/Aws/KMS/Client.html#generate_data_key-instance_method](https://docs.aws.amazon.com/sdk-for-ruby/v3/api/Aws/KMS/Client.html#generate_data_key-instance_method) instance method in the [AWS SDK for Ruby](https://docs.aws.amazon.com/sdk-for-ruby/v3/api/Aws/KMS.html)\.
 
 ```
 # Generate a data key
@@ -332,7 +332,7 @@ DescribeKeyResponse describeKeyResponse = kmsClient.DescribeKey(describeKeyReque
 ------
 #### [ Python ]
 
-For details, see the [describe\_key method](https://boto3.amazonaws.com/v1/documentation/api/latest/reference/services/kms.html#KMS.Client.describe_key) in the AWS SDK for Python \(Boto3\)\.
+For details, see the [`describe_key` method](https://boto3.amazonaws.com/v1/documentation/api/latest/reference/services/kms.html#KMS.Client.describe_key) in the AWS SDK for Python \(Boto3\)\.
 
 ```
 # Describe a KMS key
@@ -348,7 +348,7 @@ response = kms_client.describe_key(
 ------
 #### [ Ruby ]
 
-For details, see the [describe\_key](https://docs.aws.amazon.com/sdk-for-ruby/v3/api/Aws/KMS/Client.html#describe_key-instance_method) instance method in the [AWS SDK for Ruby](https://docs.aws.amazon.com/sdk-for-ruby/v3/api/Aws/KMS.html)\.
+For details, see the [https://docs.aws.amazon.com/sdk-for-ruby/v3/api/Aws/KMS/Client.html#describe_key-instance_method](https://docs.aws.amazon.com/sdk-for-ruby/v3/api/Aws/KMS/Client.html#describe_key-instance_method) instance method in the [AWS SDK for Ruby](https://docs.aws.amazon.com/sdk-for-ruby/v3/api/Aws/KMS.html)\.
 
 ```
 # Describe a KMS key
@@ -451,7 +451,7 @@ ListKeysResponse listKeysResponse = kmsClient.ListKeys(listKeysRequest);
 ------
 #### [ Python ]
 
-For details, see the [list\_keys method](https://boto3.amazonaws.com/v1/documentation/api/latest/reference/services/kms.html#KMS.Client.list_keys) in the AWS SDK for Python \(Boto3\)\.
+For details, see the [`list_keys` method](https://boto3.amazonaws.com/v1/documentation/api/latest/reference/services/kms.html#KMS.Client.list_keys) in the AWS SDK for Python \(Boto3\)\.
 
 ```
 # List KMS keys in this account
@@ -464,7 +464,7 @@ response = kms_client.list_keys(
 ------
 #### [ Ruby ]
 
-For details, see the [list\_keys](https://docs.aws.amazon.com/sdk-for-ruby/v3/api/Aws/KMS/Client.html#list_keys-instance_method) instance method in the [AWS SDK for Ruby](https://docs.aws.amazon.com/sdk-for-ruby/v3/api/Aws/KMS.html)\.
+For details, see the [https://docs.aws.amazon.com/sdk-for-ruby/v3/api/Aws/KMS/Client.html#list_keys-instance_method](https://docs.aws.amazon.com/sdk-for-ruby/v3/api/Aws/KMS/Client.html#list_keys-instance_method) instance method in the [AWS SDK for Ruby](https://docs.aws.amazon.com/sdk-for-ruby/v3/api/Aws/KMS.html)\.
 
 ```
 # List KMS keys in this account
@@ -565,7 +565,7 @@ kmsClient.EnableKey(enableKeyRequest);
 ------
 #### [ Python ]
 
-For details, see the [enable\_key method](https://boto3.amazonaws.com/v1/documentation/api/latest/reference/services/kms.html#KMS.Client.enable_key) in the AWS SDK for Python \(Boto3\)\.
+For details, see the [`enable_key` method](https://boto3.amazonaws.com/v1/documentation/api/latest/reference/services/kms.html#KMS.Client.enable_key) in the AWS SDK for Python \(Boto3\)\.
 
 ```
 # Enable a KMS key
@@ -581,7 +581,7 @@ response = kms_client.enable_key(
 ------
 #### [ Ruby ]
 
-For details, see the [enable\_key](https://docs.aws.amazon.com/sdk-for-ruby/v3/api/Aws/KMS/Client.html#enable_key-instance_method) instance method in the [AWS SDK for Ruby](https://docs.aws.amazon.com/sdk-for-ruby/v3/api/Aws/KMS.html)\.
+For details, see the [https://docs.aws.amazon.com/sdk-for-ruby/v3/api/Aws/KMS/Client.html#enable_key-instance_method](https://docs.aws.amazon.com/sdk-for-ruby/v3/api/Aws/KMS/Client.html#enable_key-instance_method) instance method in the [AWS SDK for Ruby](https://docs.aws.amazon.com/sdk-for-ruby/v3/api/Aws/KMS.html)\.
 
 ```
 # Enable a KMS key
@@ -686,7 +686,7 @@ kmsClient.DisableKey(disableKeyRequest);
 ------
 #### [ Python ]
 
-For details, see the [disable\_key method](https://boto3.amazonaws.com/v1/documentation/api/latest/reference/services/kms.html#KMS.Client.disable_key) in the AWS SDK for Python \(Boto3\)\.
+For details, see the [`disable_key` method](https://boto3.amazonaws.com/v1/documentation/api/latest/reference/services/kms.html#KMS.Client.disable_key) in the AWS SDK for Python \(Boto3\)\.
 
 ```
 # Disable a KMS key
@@ -702,7 +702,7 @@ response = kms_client.disable_key(
 ------
 #### [ Ruby ]
 
-For details, see the [disable\_key](https://docs.aws.amazon.com/sdk-for-ruby/v3/api/Aws/KMS/Client.html#disable_key-instance_method) instance method in the [AWS SDK for Ruby](https://docs.aws.amazon.com/sdk-for-ruby/v3/api/Aws/KMS.html)\.
+For details, see the [https://docs.aws.amazon.com/sdk-for-ruby/v3/api/Aws/KMS/Client.html#disable_key-instance_method](https://docs.aws.amazon.com/sdk-for-ruby/v3/api/Aws/KMS/Client.html#disable_key-instance_method) instance method in the [AWS SDK for Ruby](https://docs.aws.amazon.com/sdk-for-ruby/v3/api/Aws/KMS.html)\.
 
 ```
 # Disable a KMS key

@@ -51,7 +51,7 @@ ListKeyPoliciesResponse listKeyPoliciesResponse = kmsClient.ListKeyPolicies(list
 ------
 #### [ Python ]
 
-For details, see the [list\_key\_policies method](https://boto3.amazonaws.com/v1/documentation/api/latest/reference/services/kms.html#KMS.Client.list_key_policies) in the AWS SDK for Python \(Boto3\)\.
+For details, see the [`list_key_policies` method](https://boto3.amazonaws.com/v1/documentation/api/latest/reference/services/kms.html#KMS.Client.list_key_policies) in the AWS SDK for Python \(Boto3\)\.
 
 ```
 # List key policies
@@ -67,7 +67,7 @@ response = kms_client.list_key_policies(
 ------
 #### [ Ruby ]
 
-For details, see the [list\_key\_policies](https://docs.aws.amazon.com/sdk-for-ruby/v3/api/Aws/KMS/Client.html#list_key_policies-instance_method) instance method in the [AWS SDK for Ruby](https://docs.aws.amazon.com/sdk-for-ruby/v3/api/Aws/KMS.html)\.
+For details, see the [https://docs.aws.amazon.com/sdk-for-ruby/v3/api/Aws/KMS/Client.html#list_key_policies-instance_method](https://docs.aws.amazon.com/sdk-for-ruby/v3/api/Aws/KMS/Client.html#list_key_policies-instance_method) instance method in the [AWS SDK for Ruby](https://docs.aws.amazon.com/sdk-for-ruby/v3/api/Aws/KMS.html)\.
 
 ```
 # List key policies
@@ -176,7 +176,7 @@ GetKeyPolicyResponse getKeyPolicyResponse = kmsClient.GetKeyPolicy(getKeyPolicyR
 ------
 #### [ Python ]
 
-For details, see the [get\_key\_policy method](https://boto3.amazonaws.com/v1/documentation/api/latest/reference/services/kms.html#KMS.Client.get_key_policy) in the AWS SDK for Python \(Boto3\)\.
+For details, see the [`get_key_policy` method](https://boto3.amazonaws.com/v1/documentation/api/latest/reference/services/kms.html#KMS.Client.get_key_policy) in the AWS SDK for Python \(Boto3\)\.
 
 ```
 # Get the policy for a KMS key
@@ -194,7 +194,7 @@ response = kms_client.get_key_policy(
 ------
 #### [ Ruby ]
 
-For details, see the [get\_key\_policy](https://docs.aws.amazon.com/sdk-for-ruby/v3/api/Aws/KMS/Client.html#get_key_policy-instance_method) instance method in the [AWS SDK for Ruby](https://docs.aws.amazon.com/sdk-for-ruby/v3/api/Aws/KMS.html)\.
+For details, see the [https://docs.aws.amazon.com/sdk-for-ruby/v3/api/Aws/KMS/Client.html#get_key_policy-instance_method](https://docs.aws.amazon.com/sdk-for-ruby/v3/api/Aws/KMS/Client.html#get_key_policy-instance_method) instance method in the [AWS SDK for Ruby](https://docs.aws.amazon.com/sdk-for-ruby/v3/api/Aws/KMS.html)\.
 
 ```
 # Get the policy for a KMS key
@@ -344,7 +344,7 @@ kmsClient.PutKeyPolicy(putKeyPolicyRequest);
 ------
 #### [ Python ]
 
-For details, see the [put\_key\_policy method](https://boto3.amazonaws.com/v1/documentation/api/latest/reference/services/kms.html#KMS.Client.put_key_policy) in the AWS SDK for Python \(Boto3\)\.
+For details, see the [`put_key_policy` method](https://boto3.amazonaws.com/v1/documentation/api/latest/reference/services/kms.html#KMS.Client.put_key_policy) in the AWS SDK for Python \(Boto3\)\.
 
 ```
 # Set a key policy for a KMS key
@@ -380,7 +380,7 @@ response = kms_client.put_key_policy(
 ------
 #### [ Ruby ]
 
-For details, see the [put\_key\_policy](https://docs.aws.amazon.com/sdk-for-ruby/v3/api/Aws/KMS/Client.html#put_key_policy-instance_method) instance method in the [AWS SDK for Ruby](https://docs.aws.amazon.com/sdk-for-ruby/v3/api/Aws/KMS.html)\.
+For details, see the [https://docs.aws.amazon.com/sdk-for-ruby/v3/api/Aws/KMS/Client.html#put_key_policy-instance_method](https://docs.aws.amazon.com/sdk-for-ruby/v3/api/Aws/KMS/Client.html#put_key_policy-instance_method) instance method in the [AWS SDK for Ruby](https://docs.aws.amazon.com/sdk-for-ruby/v3/api/Aws/KMS.html)\.
 
 ```
 # Set a key policy for a KMS key

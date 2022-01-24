@@ -55,7 +55,7 @@ kmsClient.CreateAlias(createAliasRequest);
 ------
 #### [ Python ]
 
-For details, see the [create\_alias method](https://boto3.amazonaws.com/v1/documentation/api/latest/reference/services/kms.html#KMS.Client.create_alias) in the AWS SDK for Python \(Boto3\)\.
+For details, see the [`create_alias` method](https://boto3.amazonaws.com/v1/documentation/api/latest/reference/services/kms.html#KMS.Client.create_alias) in the AWS SDK for Python \(Boto3\)\.
 
 ```
 # Create an alias for a KMS key
@@ -73,7 +73,7 @@ response = kms_client.create_alias(
 ------
 #### [ Ruby ]
 
-For details, see the [create\_alias](https://docs.aws.amazon.com/sdk-for-ruby/v3/api/Aws/KMS/Client.html#create_alias-instance_method) instance method in the [AWS SDK for Ruby](https://docs.aws.amazon.com/sdk-for-ruby/v3/api/Aws/KMS.html)\.
+For details, see the [https://docs.aws.amazon.com/sdk-for-ruby/v3/api/Aws/KMS/Client.html#create_alias-instance_method](https://docs.aws.amazon.com/sdk-for-ruby/v3/api/Aws/KMS/Client.html#create_alias-instance_method) instance method in the [AWS SDK for Ruby](https://docs.aws.amazon.com/sdk-for-ruby/v3/api/Aws/KMS.html)\.
 
 ```
 # Create an alias for a KMS key
@@ -185,7 +185,7 @@ ListAliasesResponse listAliasesResponse = kmsClient.ListAliases(listAliasesReque
 ------
 #### [ Python ]
 
-For details, see the [list\_aliases method](https://boto3.amazonaws.com/v1/documentation/api/latest/reference/services/kms.html#KMS.Client.list_aliases) in the AWS SDK for Python \(Boto3\)\.
+For details, see the [`list_aliases` method](https://boto3.amazonaws.com/v1/documentation/api/latest/reference/services/kms.html#KMS.Client.list_aliases) in the AWS SDK for Python \(Boto3\)\.
 
 ```
 # List the aliases in this AWS account
@@ -198,7 +198,7 @@ response = kms_client.list_aliases(
 ------
 #### [ Ruby ]
 
-For details, see the [list\_aliases](https://docs.aws.amazon.com/sdk-for-ruby/v3/api/Aws/KMS/Client.html#list_aliases-instance_method) instance method in the [AWS SDK for Ruby](https://docs.aws.amazon.com/sdk-for-ruby/v3/api/Aws/KMS.html)\.
+For details, see the [https://docs.aws.amazon.com/sdk-for-ruby/v3/api/Aws/KMS/Client.html#list_aliases-instance_method](https://docs.aws.amazon.com/sdk-for-ruby/v3/api/Aws/KMS/Client.html#list_aliases-instance_method) instance method in the [AWS SDK for Ruby](https://docs.aws.amazon.com/sdk-for-ruby/v3/api/Aws/KMS.html)\.
 
 ```
 # List the aliases in this AWS account
@@ -293,7 +293,7 @@ ListAliasesResponse listAliasesResponse = kmsClient.ListAliases(listAliasesReque
 ------
 #### [ Python ]
 
-For details, see the [list\_aliases method](https://boto3.amazonaws.com/v1/documentation/api/latest/reference/services/kms.html#KMS.Client.list_aliases) in the AWS SDK for Python \(Boto3\)\.
+For details, see the [`list_aliases` method](https://boto3.amazonaws.com/v1/documentation/api/latest/reference/services/kms.html#KMS.Client.list_aliases) in the AWS SDK for Python \(Boto3\)\.
 
 ```
 # List the aliases for one KMS key
@@ -309,7 +309,7 @@ response = kms_client.list_aliases(
 ------
 #### [ Ruby ]
 
-For details, see the [list\_aliases](https://docs.aws.amazon.com/sdk-for-ruby/v3/api/Aws/KMS/Client.html#list_aliases-instance_method) instance method in the [AWS SDK for Ruby](https://docs.aws.amazon.com/sdk-for-ruby/v3/api/Aws/KMS.html)\.
+For details, see the [https://docs.aws.amazon.com/sdk-for-ruby/v3/api/Aws/KMS/Client.html#list_aliases-instance_method](https://docs.aws.amazon.com/sdk-for-ruby/v3/api/Aws/KMS/Client.html#list_aliases-instance_method) instance method in the [AWS SDK for Ruby](https://docs.aws.amazon.com/sdk-for-ruby/v3/api/Aws/KMS.html)\.
 
 ```
 # List the aliases for one KMS key
@@ -420,7 +420,7 @@ kmsClient.UpdateAlias(updateAliasRequest);
 ------
 #### [ Python ]
 
-For details, see the [update\_alias method](https://boto3.amazonaws.com/v1/documentation/api/latest/reference/services/kms.html#KMS.Client.update_alias) in the AWS SDK for Python \(Boto3\)\.
+For details, see the [`update_alias` method](https://boto3.amazonaws.com/v1/documentation/api/latest/reference/services/kms.html#KMS.Client.update_alias) in the AWS SDK for Python \(Boto3\)\.
 
 ```
 # Updating an alias
@@ -438,7 +438,7 @@ response = kms_client.update_alias(
 ------
 #### [ Ruby ]
 
-For details, see the [update\_alias](https://docs.aws.amazon.com/sdk-for-ruby/v3/api/Aws/KMS/Client.html#update_alias-instance_method) instance method in the [AWS SDK for Ruby](https://docs.aws.amazon.com/sdk-for-ruby/v3/api/Aws/KMS.html)\.
+For details, see the [https://docs.aws.amazon.com/sdk-for-ruby/v3/api/Aws/KMS/Client.html#update_alias-instance_method](https://docs.aws.amazon.com/sdk-for-ruby/v3/api/Aws/KMS/Client.html#update_alias-instance_method) instance method in the [AWS SDK for Ruby](https://docs.aws.amazon.com/sdk-for-ruby/v3/api/Aws/KMS.html)\.
 
 ```
 # Updating an alias
@@ -550,7 +550,7 @@ kmsClient.DeleteAlias(deleteAliasRequest);
 ------
 #### [ Python ]
 
-For details, see the [delete\_alias method](https://boto3.amazonaws.com/v1/documentation/api/latest/reference/services/kms.html#KMS.Client.delete_alias) in the AWS SDK for Python \(Boto3\)\.
+For details, see the [`delete_alias` method](https://boto3.amazonaws.com/v1/documentation/api/latest/reference/services/kms.html#KMS.Client.delete_alias) in the AWS SDK for Python \(Boto3\)\.
 
 ```
 # Delete an alias for a KMS key
@@ -565,7 +565,7 @@ response = kms_client.delete_alias(
 ------
 #### [ Ruby ]
 
-For details, see the [delete\_alias](https://docs.aws.amazon.com/sdk-for-ruby/v3/api/Aws/KMS/Client.html#delete_alias-instance_method) instance method in the [AWS SDK for Ruby](https://docs.aws.amazon.com/sdk-for-ruby/v3/api/Aws/KMS.html)\.
+For details, see the [https://docs.aws.amazon.com/sdk-for-ruby/v3/api/Aws/KMS/Client.html#delete_alias-instance_method](https://docs.aws.amazon.com/sdk-for-ruby/v3/api/Aws/KMS/Client.html#delete_alias-instance_method) instance method in the [AWS SDK for Ruby](https://docs.aws.amazon.com/sdk-for-ruby/v3/api/Aws/KMS.html)\.
 
 ```
 # Delete an alias for a KMS key

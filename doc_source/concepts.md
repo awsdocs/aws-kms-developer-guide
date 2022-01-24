@@ -188,7 +188,7 @@ To generate a cryptographic signature for a message, use the private key in the 
 
 If you encrypt your private key, pass the encrypted private key to the [Decrypt](https://docs.aws.amazon.com/kms/latest/APIReference/API_Decrypt.html) operation\. AWS KMS uses your KMS key to decrypt the data key and then it returns the plaintext private key\. Use the plaintext private key to generate the signature\. Then remove the plaintext private key from memory as soon as possible\.
 
-To sign a message, create a message digest using a cryptographic hash function, such as the [dgst](https://www.openssl.org/docs/man1.0.2/man1/openssl-dgst.html) command in OpenSSL\. Then, pass your plaintext private key to the signing algorithm\. The result is a signature that represents the contents of the message\. \(You might be able to sign shorter messages without first creating a digest\. The maximum message size varies with the signing tool you use\.\)
+To sign a message, create a message digest using a cryptographic hash function, such as the [https://www.openssl.org/docs/man1.0.2/man1/openssl-dgst.html](https://www.openssl.org/docs/man1.0.2/man1/openssl-dgst.html) command in OpenSSL\. Then, pass your plaintext private key to the signing algorithm\. The result is a signature that represents the contents of the message\. \(You might be able to sign shorter messages without first creating a digest\. The maximum message size varies with the signing tool you use\.\)
 
 The following diagram shows how to use the private key in a data key pair to sign a message\.
 

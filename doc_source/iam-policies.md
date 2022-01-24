@@ -20,4 +20,4 @@ For help writing and formatting a JSON policy document, see the [IAM JSON Policy
 + [Specifying KMS keys in IAM policy statements](cmks-in-iam-policies.md)
 + [Permissions required to use the AWS KMS console](console-permissions.md)
 + [AWS managed policy for power users](aws-managed-policies.md)
-+ [Customer managed policy examples](customer-managed-policies.md)
++ [IAM policy examples](customer-managed-policies.md)

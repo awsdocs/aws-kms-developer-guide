@@ -11,9 +11,9 @@ These hybrid cipher suites are available for use on your production workloads in
 **Feedback**
 
 As always, we welcome your feedback and participation in our open\-source repositories\. We’d especially like to hear how your infrastructure interacts with this new variant of TLS traffic\. 
-+ To provide feedback on this topic, use the **Feedback** link in the lower right corner of this page\. You can also [create an issue](https://github.com/awsdocs/aws-kms-developer-guide/issues) or a pull request in the [aws\-kms\-developer\-docs](https://github.com/awsdocs/aws-kms-developer-guide/) repository in GitHub\.
-+ We're developing these hybrid cipher suites in open source in the [s2n](https://github.com/awslabs/s2n) repository on GitHub\. To provide feedback on the usability of the cipher suites, or share novel test conditions or results, [create an issue](https://github.com/awslabs/s2n/issues) in the s2n repository\.
-+ We're writing code samples for using hybrid post\-quantum TLS with AWS KMS in the [aws\-kms\-pq\-tls\-example](https://github.com/aws-samples/aws-kms-pq-tls-example) GitHub repository\. To ask questions or share ideas about configuring your HTTP client or AWS KMS client to use the hybrid cipher suites, [create an issue](https://github.com/aws-samples/aws-kms-pq-tls-example/issues) in the `aws-kms-pq-tls-example` repository\.
++ To provide feedback on this topic, use the **Feedback** link in the lower right corner of this page\. You can also [create an issue](https://github.com/awsdocs/aws-kms-developer-guide/issues) or a pull request in the [https://github.com/awsdocs/aws-kms-developer-guide/](https://github.com/awsdocs/aws-kms-developer-guide/) repository in GitHub\.
++ We're developing these hybrid cipher suites in open source in the [https://github.com/awslabs/s2n](https://github.com/awslabs/s2n) repository on GitHub\. To provide feedback on the usability of the cipher suites, or share novel test conditions or results, [create an issue](https://github.com/awslabs/s2n/issues) in the s2n repository\.
++ We're writing code samples for using hybrid post\-quantum TLS with AWS KMS in the [https://github.com/aws-samples/aws-kms-pq-tls-example](https://github.com/aws-samples/aws-kms-pq-tls-example) GitHub repository\. To ask questions or share ideas about configuring your HTTP client or AWS KMS client to use the hybrid cipher suites, [create an issue](https://github.com/aws-samples/aws-kms-pq-tls-example/issues) in the `aws-kms-pq-tls-example` repository\.
 
 **Supported AWS Regions**
 
@@ -25,11 +25,11 @@ For a list of AWS KMS endpoints for each AWS Region, see [AWS Key Management Ser
 
 AWS KMS supports hybrid post\-quantum key exchange cipher suites\. You can use the AWS SDK for Java 2\.x and AWS Common Runtime \(CRT\) to configure an HTTP client to use these cipher suites on Linux systems\. Then, whenever you connect to a AWS KMS endpoint with your HTTP client, the hybrid cipher suites are used\.
 
-This HTTP client uses [s2n](https://github.com/awslabs/s2n), which is an open source implementation of the TLS protocol\. s2n includes the [pq\-crypto](https://github.com/awslabs/s2n/tree/master/pq-crypto) module, which includes implementations of hybrid post\-quantum algorithms for encryption in transit\.
+This HTTP client uses [https://github.com/awslabs/s2n](https://github.com/awslabs/s2n), which is an open source implementation of the TLS protocol\. s2n includes the [https://github.com/awslabs/s2n/tree/master/pq-crypto](https://github.com/awslabs/s2n/tree/master/pq-crypto) module, which includes implementations of hybrid post\-quantum algorithms for encryption in transit\.
 
 The hybrid cipher suites in s2n are implemented only for key exchange, not for direct data encryption\. During *key exchange*, the client and server calculate the key they will use to encrypt and decrypt the data on the wire\.
 
-The algorithms that s2n uses are a *hybrid* that combines [Elliptic Curve Diffie\-Hellman](https://en.wikipedia.org/wiki/Elliptic-curve_Diffie%E2%80%93Hellman) \(ECDH\), a classic key exchange algorithm used today in TLS, with [Kyber](https://pq-crystals.org/kyber/), a proposed post\-quantum algorithm\. This mechanism uses each of the algorithms independently to generate a key\. Then it combines the two keys cryptographically\. With s2n, you can configure an HTTP client with a *cipher preference* that places ECDH with Kyber first in the preference list\. Classic key exchange algorithms are included in the preference list to ensure compatibility, but they are lower in the preference order\.
+The algorithms that s2n uses are a *hybrid* that combines [Elliptic Curve Diffie\-Hellman](https://en.wikipedia.org/wiki/Elliptic-curve_Diffie%E2%80%93Hellman) \(ECDH\), a classic key exchange algorithm used today in TLS, with [https://pq-crystals.org/kyber/](https://pq-crystals.org/kyber/), a proposed post\-quantum algorithm\. This mechanism uses each of the algorithms independently to generate a key\. Then it combines the two keys cryptographically\. With s2n, you can configure an HTTP client with a *cipher preference* that places ECDH with Kyber first in the preference list\. Classic key exchange algorithms are included in the preference list to ensure compatibility, but they are lower in the preference order\.
 
 If ongoing research reveals that the Kyber algorithm lacks the anticipated post\-quantum strength, the hybrid key is still at least as strong as the single ECDH key currently in use\. The National Institute for Standards and Technology \(NIST\) has [not yet standardized](https://csrc.nist.gov/Projects/Post-Quantum-Cryptography/Post-Quantum-Cryptography-Standardization) post\-quantum algorithms\. They are still in the process of evaluating candidate approaches\. Until that process is complete, we recommend using hybrid algorithms, rather than using post\-quantum algorithms alone\.
 
@@ -63,7 +63,7 @@ Our early benchmark testing shows that the hybrid cipher suites in s2n are slowe
 
 In this procedure, add a Maven dependency for the [preview release](https://aws.amazon.com/blogs/developer/introducing-aws-common-runtime-http-client-in-the-aws-sdk-for-java-2-x/) of the AWS Common Runtime HTTP Client\. Next, configure an HTTP client that uses the hybrid post\-quantum cipher preference\. Then, create an AWS KMS client that uses the HTTP client\.
 
-To see a complete working examples of configuring and using hybrid post\-quantum TLS with AWS KMS, see the [aws\-kms\-pq\-tls\-example](https://github.com/aws-samples/aws-kms-pq-tls-example) repository\.
+To see a complete working examples of configuring and using hybrid post\-quantum TLS with AWS KMS, see the [https://github.com/aws-samples/aws-kms-pq-tls-example](https://github.com/aws-samples/aws-kms-pq-tls-example) repository\.
 
 1. Add the AWS Common Runtime client to your Maven dependencies\. We recommend using the latest available version\. 
 

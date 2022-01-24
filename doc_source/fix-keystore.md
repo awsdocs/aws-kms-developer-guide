@@ -61,7 +61,7 @@ To avoid [resetting the `kmsuser` password](#fix-keystore-password), use the mos
 
   To fix this error, [disconnect the custom key store](disconnect-keystore.md) and use the [changePswd](https://docs.aws.amazon.com/cloudhsm/latest/userguide/cloudhsm_mgmt_util-changePswd.html) command in cloudhsm\_mgmt\_util to change the `kmsuser` account password\. Then, [edit the `kmsuser` password setting](update-keystore.md) for the custom key store, and try to connect again\. For help, use the procedure described in the [How to fix invalid `kmsuser` credentials](#fix-keystore-password) topic\.
 + `USER_LOGGED_IN` indicates that the `kmsuser` CU account is logged into the associated AWS CloudHSM cluster\. This prevents AWS KMS from rotating the `kmsuser` account password and logging into the cluster\. To fix this error, log the `kmsuser` CU out of the cluster\. If you changed the `kmsuser` password to log into the cluster, you must also and update the key store password value for the custom key store\. For help, see [How to log out and reconnect](#login-kmsuser-2)\.
-+ `USER_NOT_FOUND` indicates that AWS KMS cannot find a `kmsuser` CU account in the associated AWS CloudHSM cluster\. To fix this error, [create a kmsuser CU account](create-keystore.md#kmsuser-concept) in the cluster, and then [update the key store password value](update-keystore.md) for the custom key store\. For help, see [How to fix invalid `kmsuser` credentials](#fix-keystore-password)\.
++ `USER_NOT_FOUND` indicates that AWS KMS cannot find a `kmsuser` CU account in the associated AWS CloudHSM cluster\. To fix this error, [create a `kmsuser` CU account](create-keystore.md#kmsuser-concept) in the cluster, and then [update the key store password value](update-keystore.md) for the custom key store\. For help, see [How to fix invalid `kmsuser` credentials](#fix-keystore-password)\.
 
 ## How to respond to a cryptographic operation failure<a name="fix-keystore-communication"></a>
 
@@ -232,7 +232,7 @@ Use the following process to recover the key material\.
 
 ## How to log in as `kmsuser`<a name="fix-login-as-kmsuser"></a>
 
-To create and manage the key material in the AWS CloudHSM cluster for your custom key store, AWS KMS uses the [kmsuser crypto user \(CU\) account](key-store-concepts.md#concept-kmsuser)\. You [create the `kmsuser` CU account](create-keystore.md#before-keystore) in your cluster and provide its password to AWS KMS when you create your custom key store\.
+To create and manage the key material in the AWS CloudHSM cluster for your custom key store, AWS KMS uses the [`kmsuser` crypto user \(CU\) account](key-store-concepts.md#concept-kmsuser)\. You [create the `kmsuser` CU account](create-keystore.md#before-keystore) in your cluster and provide its password to AWS KMS when you create your custom key store\.
 
 In general, AWS KMS manages the `kmsuser` account\. However, for some tasks, you need to disconnect the custom key store, log into the cluster as the `kmsuser` CU, and use the cloudhsm\_mgmt\_util and key\_mgmt\_util command line tools\.
 

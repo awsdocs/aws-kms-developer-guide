@@ -683,7 +683,7 @@ You can use the `kms:EncryptionContextKeys` condition key to control access to a
 
 You cannot specify an encryption context in a cryptographic operation with an [asymmetric KMS key](symmetric-asymmetric.md#asymmetric-cmks)\. The standard asymmetric encryption algorithms that AWS KMS uses do not support an encryption context\.
 
-This is a [multi\-valued condition key](#set-operators)\. You can specifiy multiple encryption context pairs in each API request\. `kms:EncryptionContextKeys` compares the encryption context keys in the request to the set of encryption context keys in the policy\. To determine how these sets are compared, you must provide a `ForAnyValue` or `ForAllValues` set operator in the policy condition\. For details about the set operators, see [Using multiple keys and values](https://docs.aws.amazon.com/IAM/latest/UserGuide/reference_policies_multi-value-conditions.html#reference_policies_multi-key-or-value-conditions) in the IAM User Guide\.
+This is a [multi\-valued condition key](#set-operators)\. You can specify multiple encryption context pairs in each API request\. `kms:EncryptionContextKeys` compares the encryption context keys in the request to the set of encryption context keys in the policy\. To determine how these sets are compared, you must provide a `ForAnyValue` or `ForAllValues` set operator in the policy condition\. For details about the set operators, see [Using multiple keys and values](https://docs.aws.amazon.com/IAM/latest/UserGuide/reference_policies_multi-value-conditions.html#reference_policies_multi-key-or-value-conditions) in the IAM User Guide\.
 + `ForAnyValue`: At least one encryption context key in the request must match an encryption context key in the policy condition\. Other encryption context keys are permitted\. If the request has no encryption context, the condition is not satisfied\.
 + `ForAllValues`: Every encryption context key in the request must match an encryption context key in the policy condition\. This set operator limits the encryption context keys to those in the policy condition\. It doesn't require any encryption context keys, but it forbids unspecified encryption context keys\.
 
@@ -1651,6 +1651,7 @@ You might need to scroll horizontally or vertically to see all of the data in th
 | AWS Systems Manager Incident Manager | ssm\-incidents\.AWS\_region\.amazonaws\.com | 
 | AWS Systems Manager Incident Manager Contacts | ssm\-contacts\.AWS\_region\.amazonaws\.com | 
 | Amazon Timestream | timestream\.AWS\_region\.amazonaws\.com | 
+| Amazon Translate | translate\.AWS\_region\.amazonaws\.com | 
 | Amazon WorkMail | workmail\.AWS\_region\.amazonaws\.com | 
 | Amazon WorkSpaces | workspaces\.AWS\_region\.amazonaws\.com | 
 | Amazon WorkSpaces Web | workspaces\-web\.AWS\_region\.amazonaws\.com | 

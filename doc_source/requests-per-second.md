@@ -4,7 +4,7 @@ AWS KMS establishes quotas for the number of API operations requested in each se
 
 **Note**  
 If you need to exceed a quota, you can request a quota increase in Service Quotas\. Use the [Service Quotas console](https://console.aws.amazon.com/servicequotas) or the [RequestServiceQuotaIncrease](https://docs.aws.amazon.com/servicequotas/2019-06-24/apireference/API_RequestServiceQuotaIncrease.html) operation\. For details, see [Requesting a quota increase](https://docs.aws.amazon.com/servicequotas/latest/userguide/request-increase.html) in the *Service Quotas User Guide*\. If Service Quotas for AWS KMS are not available in the AWS Region, please visit the [AWS Support Center](https://console.aws.amazon.com/support/home) and create a case\.   
-For help requesting an increase in an AWS KMS quota, see [Requesting an AWS KMS quota Increase](increase-quota.md)\.  
+For help requesting an increase in an AWS KMS quota, see [Requesting an AWS KMS quota increase](increase-quota.md)\.  
 If you are exceeding the request quota for the [GenerateDataKey](https://docs.aws.amazon.com/kms/latest/APIReference/API_GenerateDataKey.html) operation, consider using the [data key caching](https://docs.aws.amazon.com/encryption-sdk/latest/developer-guide/data-key-caching.html) feature of the AWS Encryption SDK\. Reusing data keys might reduce the frequency of your requests to AWS KMS\. 
 
 In addition to request quotas, AWS KMS uses resource quotas to ensure capacity for all users\. For details, see [Resource quotas](resource-limits.md)\.
