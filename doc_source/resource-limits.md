@@ -41,7 +41,7 @@ For example, when you attach an Amazon Elastic Block Store \(Amazon EBS\) volume
 
 ## Key policy document size: 32 KB<a name="key-policy-limit"></a>
 
-The maximum length of each [key policy document](key-policies.md#key-policy-overview) is 32 KB \(32,768 bytes\)\. If you use a larger policy document to create or update the key policy for a KMS key, the operation fails\. 
+The maximum length of each [key policy document](key-policy-overview.md) is 32 KB \(32,768 bytes\)\. If you use a larger policy document to create or update the key policy for a KMS key, the operation fails\. 
 
 Unlike other AWS KMS quotas, this quota is not adjustable\. You cannot increase it by using Service Quotas or by creating a case in AWS Support\. If your key policy is approaching the limit, consider using [grants](grants.md) instead of policy statements\. Grants are particularly well suited to temporary or very specific permissions\.
 

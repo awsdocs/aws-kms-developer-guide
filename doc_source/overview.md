@@ -22,6 +22,7 @@ You can use your KMS keys in [cryptographic operations](concepts.md#cryptographi
 + Generate random numbers suitable for cryptographic applications\.
 
 You can use the advanced features of AWS KMS\.
++ Create [multi\-Region keys](multi-region-keys-overview.md), which act like copies of the same KMS key in different AWS Regions\.
 + [Import cryptographic material](importing-keys.md) into a KMS key
 + Create KMS keys in your own [custom key store](custom-key-store-overview.md) backed by a AWS CloudHSM cluster
 + Connect directly to AWS KMS through a [private endpoint in your VPC](kms-vpc-endpoint.md)
@@ -43,7 +44,9 @@ AWS Key Management Service is backed by a [service level agreement](https://aws.
 **Learn more**
 + To learn about the terms and concepts used in AWS KMS, see [AWS KMS Concepts](concepts.md)\.
 + For information about the AWS KMS API, see the [AWS Key Management Service API Reference](https://docs.aws.amazon.com/kms/latest/APIReference/)\. For examples in different programming languages, see [Programming the AWS KMS API](programming-top.md)\.
++ To learn how to use AWS CloudFormation templates to create and manage keys and aliases, see [Creating AWS KMS resources with AWS CloudFormation](creating-resources-with-cloudformation.md) and [AWS Key Management Service resource type reference](https://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/AWS_KMS.html) in the AWS CloudFormation User Guide\.
 + For detailed technical information about how AWS KMS uses cryptography and secures KMS keys, see [AWS Key Management Service Cryptographic Details](https://docs.aws.amazon.com/kms/latest/cryptographic-details/)\. The Cryptographic Details documentation does not describe how AWS KMS works in the China \(Beijing\) and China \(Ningxia\) Regions\.
++ For a list of AWS KMS endpoints, including FIPS endpoints, in each AWS Region, see [Service endpoints](https://docs.aws.amazon.com/general/latest/gr/kms.html#kms_region) in the AWS Key Management Service topic of the AWS General Reference\.
 + For help with questions about AWS KMS, see the [AWS Key Management Service Discussion Forum](https://forums.aws.amazon.com/forum.jspa?forumID=182)\.
 
 **AWS KMS in the AWS SDKs**
@@ -51,7 +54,7 @@ AWS Key Management Service is backed by a [service level agreement](https://aws.
 + [AWS SDK for \.NET](https://docs.aws.amazon.com/sdkfornet/v3/apidocs/items/KeyManagementService/NKeyManagementServiceModel.html)
 + [AWS SDK for C\+\+](https://sdk.amazonaws.com/cpp/api/LATEST/class_aws_1_1_k_m_s_1_1_k_m_s_client.html)
 + [AWS SDK for Go](https://docs.aws.amazon.com/sdk-for-go/api/service/kms/)
-+ [AWS SDK for Java](https://sdk.amazonaws.com/java/api/latest/software/amazon/awssdk/services/kms/package-summary.html)
++ [AWS SDK for Java](https://docs.aws.amazon.com/AWSJavaSDK/latest/javadoc/com/amazonaws/services/kms/package-summary.html)
 + [AWS SDK for JavaScript](https://docs.aws.amazon.com/AWSJavaScriptSDK/v3/latest/clients/client-kms/index.html)
 + [AWS SDK for PHP](https://docs.aws.amazon.com/aws-sdk-php/v3/api/api-kms-2014-11-01.html)
 + [AWS SDK for Python \(Boto3\)](https://boto3.amazonaws.com/v1/documentation/api/latest/reference/services/kms.html)

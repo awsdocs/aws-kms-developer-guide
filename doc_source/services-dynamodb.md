@@ -42,12 +42,12 @@ Use the AWS managed key if you need any of the following features:
 However, the AWS owned key is free of charge and its use does not count against [AWS KMS resource or request quotas](limits.md)\. Customer managed keys and AWS managed keys [incur a charge](https://aws.amazon.com/kms/pricing/) for each API call and AWS KMS quotas apply to these KMS keys\.
 
 **Table keys**  
-DynamoDB uses the KMS key for the table to generate and encrypt a unique [data key](concepts.md#data-keys) for the table, known as the *table key*\. The table key persists for the lifetime of the encrypted table\.   
+DynamoDB uses the KMS key for the table to [generate](https://docs.aws.amazon.com/kms/latest/APIReference/API_GenerateDataKey.html) and encrypt a unique [data key](concepts.md#data-keys) for the table, known as the *table key*\. The table key persists for the lifetime of the encrypted table\.   
 The table key is used as a key encryption key\. DynamoDB uses this table key to protect data encryption keys that are used to encrypt the table data\. DynamoDB generates a unique data encryption key for each underlying structure in a table, but multiple table items might be protected by the same data encryption key\.  
 
 ![\[Encrypting a DynamoDB table with encryption at rest\]](http://docs.aws.amazon.com/kms/latest/developerguide/images/service-ddb-encrypt.png)
 When you first access an encrypted table, DynamoDB sends a request to AWS KMS to use the KMS key to decrypt the table key\. Then, it uses the plaintext table key to decrypt the data encryption keys, and uses the plaintext data encryption keys to decrypt table data\.  
-DynamoDB generates, uses, and stores the table key and data encryption keys outside of AWS KMS\. It protects all keys with [Advanced Encryption Standard](https://en.wikipedia.org/wiki/Advanced_Encryption_Standard) \(AES\) encryption and 256\-bit encryption keys\. Then, it stores the encrypted keys with the encrypted data so they are available to decrypt the table data on demand\.  
+DynamoDB stores and uses the table key and data encryption keys outside of AWS KMS\. It protects all keys with [Advanced Encryption Standard](https://en.wikipedia.org/wiki/Advanced_Encryption_Standard) \(AES\) encryption and 256\-bit encryption keys\. Then, it stores the encrypted keys with the encrypted data so they are available to decrypt the table data on demand\.  
 If you change the KMS key for your table, DynamoDB generates a new table key\. Then, it uses the new table key to re\-encrypt the data encryption keys\.
 
 **Table key caching**  

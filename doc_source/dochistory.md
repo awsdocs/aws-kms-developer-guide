@@ -44,7 +44,7 @@ You might need to scroll horizontally or vertically to see all of the data in th
 | New content | Added documentation about [Tagging keys](tagging-keys.md)\. | February 15, 2017 | 
 | New content | Added documentation about [Monitoring AWS KMS keys](monitoring-overview.md) and [Monitoring with Amazon CloudWatch](monitoring-cloudwatch.md)\. | August 31, 2016 | 
 | New content | Added documentation about [Imported key material](importing-keys.md)\. | August 11, 2016 | 
-| New content | Added the following documentation: [Managing access](control-access-overview.md), [IAM policies](iam-policies.md), [Permissions reference](kms-api-permissions-reference.md), and [Policy conditions](policy-conditions.md)\. | July 5, 2016 | 
+| New content | Added the following documentation: [IAM policies](iam-policies.md), [Permissions reference](kms-api-permissions-reference.md), and [Policy conditions](policy-conditions.md)\. | July 5, 2016 | 
 | Update | Updated portions of the documentation in the [Authentication and access control](control-access.md) chapter\. | July 5, 2016 | 
 | Update | Updated the [Quotas](limits.md) page to reflect new default quotas\. | May 31, 2016 | 
 | Update | Updated the [Quotas](limits.md) page to reflect new default quotas, and updated the [grant token](grants.md#grant_token) documentation to improve clarity and accuracy\. | April 11, 2016 | 

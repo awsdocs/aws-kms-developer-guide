@@ -108,7 +108,7 @@ The quotas for different key types are also calculated independently\. For examp
 
 You can make API requests directly or by using an integrated AWS service that makes API requests to AWS KMS on your behalf\. The quota applies to both kinds of requests\.
 
-For example, you might store data in Amazon S3 using server\-side encryption with AWS KMS \(SSE\-KMS\)\. Each time you upload or download an S3 object that's encrypted with SSE\-KMS, Amazon S3 makes a `GenerateDataKey` \(for uploads\) or `Decrypt` \(for downloads\) request to AWS KMS on your behalf\. These requests count toward your quota, so AWS KMS throttles the requests if you exceed a combined total of 5,500 \(or 10,000 or 30,000 depending upon your AWS Region\) uploads or downloads per second of S3 objects encrypted with SSE\-KMS\.
+For example, you might store data in Amazon S3 using server\-side encryption with a KMS key \(SSE\-KMS\)\. Each time you upload or download an S3 object that's encrypted with SSE\-KMS, Amazon S3 makes a `GenerateDataKey` \(for uploads\) or `Decrypt` \(for downloads\) request to AWS KMS on your behalf\. These requests count toward your quota, so AWS KMS throttles the requests if you exceed a combined total of 5,500 \(or 10,000 or 30,000 depending upon your AWS Region\) uploads or downloads per second of S3 objects encrypted with SSE\-KMS\.
 
 ## Cross\-account requests<a name="rps-cross-account"></a>
 

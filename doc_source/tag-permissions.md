@@ -27,7 +27,7 @@ You can provide tagging permissions in a key policy or IAM policy\. For example,
 ```
 {
   "Version": "2012-10-17",
-  "Id": "key-policy-example",
+  "Id": "example-key-policy",
   "Statement": [
     { 
       "Sid": "Enable IAM policies",
