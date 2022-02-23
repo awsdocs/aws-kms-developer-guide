@@ -31,9 +31,9 @@ Key material that AWS KMS generates for KMS keys is never exported or transmitte
 
 However, some AWS KMS API operations return [data keys](concepts.md#data-keys)\. Also, customers can use API operations to [import key material](importing-keys.md) for selected KMS keys\. 
 
-All AWS KMS API calls must be signed and be transmitted using Transport Layer Security \(TLS\) 1\.2 or later\. Calls to AWS KMS also require a modern cipher suite that supports *perfect forward secrecy*, which means that compromise of any secret, such as a private key, does not also compromise the session key\. 
+All AWS KMS API calls must be signed and be transmitted using Transport Layer Security \(TLS\)\. AWS KMS supports TLS versions 1\.0—1\.3 and hybrid post\-quantum TLS for AWS KMS service endpoints in select regions\. The AWS GovCloud \(US\) region only supports TLS versions 1\.0—1\.2 for AWS KMS service endpoints\. AWS KMS does not support hybrid post\-quantum TLS for endpoints in AWS GovCloud \(US\)\. AWS KMS recommends you always use the latest supported TLS version\. Calls to AWS KMS also require a modern cipher suite that supports *perfect forward secrecy*, which means that compromise of any secret, such as a private key, does not also compromise the session key\.
 
-If you require FIPS 140\-2 validated cryptographic modules when accessing AWS through a command line interface or an API, use a FIPS endpoint\. For more information about the available FIPS endpoints, see [Federal Information Processing Standard \(FIPS\) 140\-2](http://aws.amazon.com/compliance/fips/)\. For a list of AWS KMS FIPS endpoints, see [AWS Key Management Service endpoints and quotas](https://docs.aws.amazon.com/general/latest/gr/kms.html) in the AWS General Reference\.
+If you require FIPS 140\-2 validated cryptographic modules when accessing AWS through a command line interface or an API, use a FIPS endpoint\. AWS KMS supports version 1\.2 of Transport Layer Security \(TLS\) for FIPS endpoints for select regions\. For more information about the available FIPS endpoints, see [Federal Information Processing Standard \(FIPS\) 140\-2](http://aws.amazon.com/compliance/fips/)\. For a list of AWS KMS FIPS endpoints, see [AWS Key Management Service endpoints and quotas](https://docs.aws.amazon.com/general/latest/gr/kms.html) in the AWS General Reference\.
 
 Communications between AWS KMS service hosts and HSMs are protected using Elliptic Curve Cryptography \(ECC\) and Advanced Encryption Standard \(AES\) in an authenticated encryption scheme\. For more details, see [Internal communication security](https://docs.aws.amazon.com/kms/latest/cryptographic-details/internal-communication-security.html) in AWS Key Management Service Cryptographic Details\.
 
@@ -61,7 +61,7 @@ AWS KMS supports two network connectivity options from your private network to A
 + An IPSec VPN connection over the internet
 + [AWS Direct Connect](https://aws.amazon.com/directconnect/), which links your internal network to an AWS Direct Connect location over a standard Ethernet fiber\-optic cable\.
 
-To ensure privacy, all AWS KMS API calls must be signed and be transmitted over Transport Layer Security protocol \(TLS\) 1\.2 or later\. The calls also require a modern cipher suite that supports [perfect forward secrecy](https://en.wikipedia.org/wiki/Forward_secrecy)\. Traffic to the hardware security modules \(HSMs\) that store key material for KMS keys is permitted only from known AWS KMS API hosts over the AWS internal network\.
+All AWS KMS API calls must be signed and be transmitted using Transport Layer Security \(TLS\)\. The calls also require a modern cipher suite that supports [perfect forward secrecy](https://en.wikipedia.org/wiki/Forward_secrecy)\. Traffic to the hardware security modules \(HSMs\) that store key material for KMS keys is permitted only from known AWS KMS API hosts over the AWS internal network\.
 
 To connect directly to AWS KMS from your virtual private cloud \(VPC\) without sending traffic over the public internet, use VPC endpoints, powered by AWS PrivateLink\. For more information, see [Connecting to AWS KMS through a VPC endpoint](kms-vpc-endpoint.md)\.
 
