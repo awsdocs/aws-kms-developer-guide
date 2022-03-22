@@ -303,7 +303,7 @@ Before using a policy statement like this one, replace the example ARNs with val
             "Action": [
                 "ssm:GetParameter*"
             ],
-            "Resource": "arn:aws:ssm:us-west-2:111122223333:parameter/MyParameter",
+            "Resource": "arn:aws:ssm:us-west-2:111122223333:parameter/MyParameter"
         },
         {
             "Effect": "Allow",

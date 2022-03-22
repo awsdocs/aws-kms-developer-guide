@@ -1,10 +1,10 @@
 # Enabling and disabling keys<a name="enabling-keys"></a>
 
-You can disable and re\-enable the [AWS KMS keys](concepts.md#kms_keys) that you manage\. You cannot enable or disable AWS managed keys\.
+You can disable and re\-enable the [KMS keys that you manage](concepts.md#customer-cmk)\. When you create a KMS key, it is enabled by default\. If you disable a KMS key, it cannot be used in any [cryptographic operation](concepts.md#cryptographic-operations) until you re\-enable it\.
 
-When you create a KMS key, it is enabled by default\. If you disable a KMS key, it cannot be used to encrypt or decrypt data until you re\-enable it\. AWS managed keys are permanently enabled for use by [services that use AWS KMS](service-integration.md)\. You cannot disable them\.
+Because it's temporary and easily undone, disabling a KMS key is a safe alternative to deleting a KMS key, an action that is destructive and irreversible\. If you are considering deleting a KMS key, disable it first and set a [CloudWatch alarm](deleting-keys-creating-cloudwatch-alarm.md) or similar mechanism to be certain that you'll never need to use the key to decrypt encrypted data\. 
 
-You can also delete KMS keys\. For more information, see [Deleting AWS KMS keys](deleting-keys.md)\.
+You cannot enable or disable [AWS managed keys](concepts.md#aws-managed-cmk) or [AWS owned keys](concepts.md#aws-owned-cmk)\. AWS managed keys are permanently enabled for use by [services that use AWS KMS](service-integration.md)\. AWS owned keys are managed solely by the service that owns them\.
 
 **Note**  
 AWS KMS does not rotate the key material of customer managed keys while they are disabled\. For more information, see [How automatic key rotation works](rotate-keys.md#rotate-keys-how-it-works)\.

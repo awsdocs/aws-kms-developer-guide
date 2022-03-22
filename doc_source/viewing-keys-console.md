@@ -137,8 +137,8 @@ Controls access to the KMS key along with [IAM policies](iam-policies.md) and [g
 
 **Key rotation**  
 Where: Key rotation tab  
-Enables and disables [automatic key rotation](rotate-keys.md) every year\.   
-To change the key rotation status of a [customer managed key](concepts.md#customer-cmk), use the check box on the **Key rotation** tab\. All [AWS managed keys](concepts.md#aws-managed-cmk) are automatically rotated every three years\.
+Enables and disables [automatic rotation](rotate-keys.md) of the key material in a [customer managed KMS key](concepts.md#customer-cmk)\. To change the key rotation status of a [customer managed key](concepts.md#customer-cmk), use the check box on the **Key rotation** tab\.   
+You can't enable or disable rotation of the key material in an [AWS managed key](concepts.md#aws-managed-cmk)\. AWS managed keys are automatically rotated every three years\.
 
 **Key spec**  
 Where: Cryptographic configuration tab  

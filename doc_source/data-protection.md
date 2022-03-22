@@ -19,7 +19,7 @@ The key material that AWS KMS generates for KMS keys never leaves the boundary o
 
 ### Encryption at rest<a name="encryption-at-rest"></a>
 
-AWS KMS generates key material for AWS KMS keys\) in FIPS 140\-2 Level 2–compliant hardware security modules \(HSMs\)\. When not in use, key material is encrypted by an HSM and written to durable, persistent storage\. The key material for KMS keys and the encryption keys that protect the key material never leave the HSMs in plaintext form\. 
+AWS KMS generates key material for AWS KMS keys in FIPS 140\-2 Level 2–compliant hardware security modules \(HSMs\)\. When not in use, key material is encrypted by an HSM and written to durable, persistent storage\. The key material for KMS keys and the encryption keys that protect the key material never leave the HSMs in plaintext form\. 
 
 Encryption and management of key material for KMS keys is handled entirely by AWS KMS\.
 

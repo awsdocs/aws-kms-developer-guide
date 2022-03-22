@@ -1,16 +1,16 @@
 # Importing key material step 1: Create an AWS KMS key without key material<a name="importing-keys-create-cmk"></a>
 
-By default, AWS KMS creates key material for you when you create an AWS KMS key\. To instead import your own key material, start by creating a KMS key with no key material\. You distinguish between these two types of KMS keys by the KMS key's *origin*\. When AWS KMS creates the key material for you, the KMS key's origin is `AWS_KMS`\. When you create a KMS key with no key material, the KMS key's origin is `EXTERNAL`, which indicates that the key material was generated outside of AWS KMS\.
+By default, AWS KMS creates key material for you when you create an AWS KMS key\. To import your own key material instead, start by creating a KMS key with no key material\. Then import the key material\. To create a KMS key with no key material, you can use the AWS Management Console or the [CreateKey](https://docs.aws.amazon.com/kms/latest/APIReference/API_CreateKey.html) operation\.
 
-A KMS key with no key material is in the *pending import* state and is not available for use\. To use it, you must import key material as explained later\. When you import key material, the KMS key's key state changes to *enabled*\. For more information about key state, see [Key states of AWS KMS keys](key-state.md)\.
+To create a key with no key material, specify a key spec of `SYMMETRIC_DEFAULT` \(the default value\) and an origin of `EXTERNAL`\. The key spec and origin of a KMS key are immutable values\. Once you create it, you cannot convert a KMS key designed for imported key material into a KMS key with key material from AWS KMS or any other source\.
 
-To create a KMS key with no key material, you can use the AWS Management Console or the AWS KMS API\. You can use the API directly by making HTTP requests, or by using an [AWS SDK](https://aws.amazon.com/tools/#sdk), [AWS Command Line Interface](https://docs.aws.amazon.com/cli/latest/userguide/) or [AWS Tools for PowerShell](https://docs.aws.amazon.com/powershell/latest/userguide/)\.
-
-**AWS KMS records an entry in your AWS CloudTrail log when you [create the KMS key](ct-createkey.md), [download the public key and import token](ct-getparametersforimport.md), and [import the key material](ct-importkeymaterial.md)\. AWS KMS also records an entry when you delete imported key material or when AWS KMS [deletes expired key material](ct-deleteexpiredkeymaterial.md)\.**
-+ [Creating a KMS key with no key material \(console\)](#importing-keys-create-cmk-console)
-+ [Creating a KMS key with no key material \(AWS KMS API\)](#importing-keys-create-cmk-api)
+The [key state](key-state.md) of a KMS key with an `EXTERNAL` origin and no key material is `PendingImport`\. A KMS key can remain in `PendingImport` state indefinitely\. However, you cannot use a KMS key in `PendingImport` state in cryptographic operations\.When you import key material, the key state of the KMS key changes to *enabled*, and you can use it in cryptographic operations\.
 
 For information about creating multi\-Region keys with imported key material, see [Importing key material into multi\-Region keys](multi-region-keys-import.md)\.
+
+**Topics**
++ [Creating a KMS key with no key material \(console\)](#importing-keys-create-cmk-console)
++ [Creating a KMS key with no key material \(AWS KMS API\)](#importing-keys-create-cmk-api)
 
 ## Creating a KMS key with no key material \(console\)<a name="importing-keys-create-cmk-console"></a>
 
