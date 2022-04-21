@@ -21,7 +21,7 @@ The cluster key encrypts the database key for the Amazon Redshift cluster\. You 
 You can request encryption by checking the appropriate box in the Amazon Redshift console\. You can specify a [customer managed key](concepts.md#customer-cmk) by choosing one from the list that appears below the encryption box\. If you do not specify a customer managed key, Amazon Redshift uses the [AWS managed key](concepts.md#aws-managed-cmk) for Amazon Redshift under your account\. 
 
 **Important**  
-Amazon Redshift supports only symmetric KMS keys\. You cannot use an asymmetric KMS key in an Amazon Redshift encryption workflow\. For help determining whether a KMS key is symmetric or asymmetric, see [Identifying symmetric and asymmetric KMS keys](find-symm-asymm.md)\.
+Amazon Redshift supports only symmetric encryption KMS keys\. You cannot use an asymmetric KMS key in an Amazon Redshift encryption workflow\. For help determining whether a KMS key is symmetric or asymmetric, see [Identifying asymmetric KMS keys](find-symm-asymm.md)\.
 
 ## Encryption context<a name="rs-encryptioncontext"></a>
 

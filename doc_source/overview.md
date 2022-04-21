@@ -7,7 +7,7 @@ AWS KMS integrates with most [other AWS services](https://aws.amazon.com/kms/fea
 You can use the AWS KMS API to create and manage KMS keys and special features, such as [custom key stores](custom-key-store-overview.md), and use KMS keys in [cryptographic operations](concepts.md#cryptographic-operations)\. For detailed information, see the *AWS Key Management Service API Reference*\.
 
 You can create and manage your AWS KMS keys:
-+ [Create](create-keys.md), [edit](editing-keys.md), and [view](viewing-keys.md) [symmetric and asymmetric KMS keys](symmetric-asymmetric.md)
++ [Create](create-keys.md), [edit](editing-keys.md), and [view](viewing-keys.md) [symmetric](concepts.md#symmetric-cmks) and [asymmetric](concepts.md#asymmetric-keys-concept) KMS keys, including [HMAC keys](concepts.md#hmac-key-concept)\.
 + Control access to your KMS keys by using [key policies](key-policies.md), [IAM policies](iam-policies.md), and [grants](grants.md)\. AWS KMS supports [attribute\-based access control](abac.md) \(ABAC\)\. You can also refine policies by using [condition keys](policy-conditions.md)\. 
 + [Create, delete, list, and update *aliases*](kms-alias.md), friendly names for your KMS keys\. You can also [use aliases to control access](alias-authorization.md) to your KMS keys\.
 + [Tag your KMS keys](tagging-keys.md) for identification, automation, and cost tracking\. You can also [use tags to control access](tag-authorization.md) to your KMS keys\.
@@ -17,11 +17,13 @@ You can create and manage your AWS KMS keys:
 
 You can use your KMS keys in [cryptographic operations](concepts.md#cryptographic-operations)\. For examples, see [Programming the AWS KMS API](programming-top.md)\.
 + Encrypt, decrypt, and re\-encrypt data with symmetric or asymmetric KMS keys\.
-+ Sign and verify messages with asymmetric KMS keys\.
-+ Generate exportable symmetric data keys and asymmetric data key pairs\.
++ Sign and verify messages with [asymmetric KMS keys](symmetric-asymmetric.md)\.
++ Generate exportable [symmetric data keys](concepts.md#data-keys) and [asymmetric data key pairs](concepts.md#data-key-pairs)\.
++ Generate and verify [HMAC codes](hmac.md)\.
 + Generate random numbers suitable for cryptographic applications\.
 
 You can use the advanced features of AWS KMS\.
++ Create [multi\-Region keys](multi-region-keys-overview.md), which act like copies of the same KMS key in different AWS Regions\.
 + Create [multi\-Region keys](multi-region-keys-overview.md), which act like copies of the same KMS key in different AWS Regions\.
 + [Import cryptographic material](importing-keys.md) into a KMS key
 + Create KMS keys in your own [custom key store](custom-key-store-overview.md) backed by a AWS CloudHSM cluster
@@ -47,7 +49,7 @@ AWS Key Management Service is backed by a [service level agreement](https://aws.
 + To learn how to use AWS CloudFormation templates to create and manage keys and aliases, see [Creating AWS KMS resources with AWS CloudFormation](creating-resources-with-cloudformation.md) and [AWS Key Management Service resource type reference](https://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/AWS_KMS.html) in the AWS CloudFormation User Guide\.
 + For detailed technical information about how AWS KMS uses cryptography and secures KMS keys, see [AWS Key Management Service Cryptographic Details](https://docs.aws.amazon.com/kms/latest/cryptographic-details/)\. The Cryptographic Details documentation does not describe how AWS KMS works in the China \(Beijing\) and China \(Ningxia\) Regions\.
 + For a list of AWS KMS endpoints, including FIPS endpoints, in each AWS Region, see [Service endpoints](https://docs.aws.amazon.com/general/latest/gr/kms.html#kms_region) in the AWS Key Management Service topic of the AWS General Reference\.
-+ For help with questions about AWS KMS, see the [AWS Key Management Service Discussion Forum](https://forums.aws.amazon.com/forum.jspa?forumID=182)\.
++ For help with questions about AWS KMS, see the [AWS Key Management Service Discussion Forum](https://repost.aws/tags/TAMC3vcPOPTF-rPAHZVRj1PQ/aws-key-management-service)\.
 
 **AWS KMS in the AWS SDKs**
 + [AWS Command Line Interface](https://docs.aws.amazon.com/cli/latest/reference/kms/index.html)

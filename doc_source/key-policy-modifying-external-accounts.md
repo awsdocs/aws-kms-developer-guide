@@ -42,17 +42,23 @@ You can view the resulting cross\-account AWS KMS operations on the KMS key in y
 + [Allowing use of external KMS keys with AWS services](#cross-account-service)
 + [Using KMS keys in other accounts](#cross-account-use)
 
+**Note**  
+The examples in this topic show how to use a key policy and IAM policy together to provide and limit access to a KMS key\. These generic examples are not intended to represent the permissions that any particular AWS service requires on a KMS key\. For information about the permissions that an AWS service requires, see the encryption topic in the service documentation\.
+
 ## Step 1: Add a key policy statement in the local account<a name="cross-account-key-policy"></a>
 
 The key policy for a KMS key is the primary determinant of who can access the KMS key and which operations they can perform\. The key policy is always in the account that owns the KMS key\. Unlike IAM policies, key policies do not specify a resource\. The resource is the KMS key that is associated with the key policy\.
 
 To give an external account permission to use the KMS key, add a statement to the key policy that specifies the external account\. In the `Principal` element of the key policy, enter the Amazon Resource Name \(ARN\) of the external account\. 
 
+**Note**  
+The **key policy** for the KMS key must give the external account \(or users and roles in the external account\) permission to use the KMS key\.
+
 When you specify an external account in a key policy, IAM administrators in the external account can use IAM policies to delegate those permissions to any users and roles in the external account\. They can also decide which of the actions specified in the key policy the users and roles can perform\. 
 
 Permissions given to the external account and its principals are effective only if the external account is enabled in the Region that hosts the KMS key and its key policy\. For information about Regions that are not enabled by default \("opt\-in Regions"\), see [Managing AWS Regions](https://docs.aws.amazon.com/general/latest/gr/rande-manage.html) in the *AWS General Reference*\.
 
-For example, suppose you want to allow account `444455556666` to use a symmetric KMS key in account `111122223333`\. To do that, add a policy statement like the one in the following example to the key policy for the KMS key in account `111122223333`\. This policy statement gives the external account, `444455556666`, permission to use the KMS key in cryptographic operations for symmetric KMS keys\. 
+For example, suppose you want to allow account `444455556666` to use a symmetric encryption KMS key in account `111122223333`\. To do that, add a policy statement like the one in the following example to the key policy for the KMS key in account `111122223333`\. This policy statement gives the external account, `444455556666`, permission to use the KMS key in cryptographic operations for symmetric encryption KMS keys\. 
 
 ```
 {
@@ -80,7 +86,7 @@ Specifying identities in a key policy restricts the permissions that IAM adminis
 
 To specify particular external users or roles in a key policy, in the `Principal` element, enter the Amazon Resource Name \(ARN\) of a user or role in the external account\.
 
-For example, the following example key policy statement allows `ExampleRole` and ExampleUser in account `444455556666` to use a KMS key in account `111122223333`\. This key policy statement gives the external account, `444455556666`, permission to use the KMS key in cryptographic operations for symmetric KMS keys\. 
+For example, the following example key policy statement allows `ExampleRole` and ExampleUser in account `444455556666` to use a KMS key in account `111122223333`\. This key policy statement gives the external account, `444455556666`, permission to use the KMS key in cryptographic operations for symmetric encryption KMS keys\. 
 
 ```
 {

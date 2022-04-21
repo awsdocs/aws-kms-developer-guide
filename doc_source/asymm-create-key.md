@@ -2,7 +2,7 @@
 
 You can create [asymmetric KMS keys](symmetric-asymmetric.md#asymmetric-cmks) in the AWS KMS console, by using the [CreateKey](https://docs.aws.amazon.com/kms/latest/APIReference/API_CreateKey.html) API, or by using an [AWS CloudFormation template](creating-resources-with-cloudformation.md)\. An asymmetric KMS key represents a public and private key pair that can be used for encryption or signing\. The private key remains within AWS KMS\. To download the public key for use outside of AWS KMS, see [Downloading public keys](download-public-key.md)\.
 
-When creating a KMS key to encrypt data that you store or manage in an AWS service, use a symmetric KMS key\. AWS services that integrate with AWS KMS do not support asymmetric KMS keys\. For help deciding whether to create a symmetric or asymmetric KMS key, see [How to Choose Your KMS key Configuration](symm-asymm-choose.md)\. 
+When creating a KMS key to encrypt data that you store or manage in an AWS service, use a symmetric encryption KMS key\. AWS services that integrate with AWS KMS do not support asymmetric KMS keys\. For help deciding whether to create a symmetric or asymmetric KMS key, see [Choosing a KMS key type](key-types.md#symm-asymm-choose)\.
 
 For information about the permissions required to create KMS keys, see [Permissions for creating KMS keys](create-keys.md#create-key-permissions)\.
 
@@ -24,17 +24,17 @@ You can use the AWS Management Console to create asymmetric AWS KMS keys \(KMS k
 
 1. To create an asymmetric KMS key, in **Key type,** choose **Asymmetric**\.
 
-   For information about how to create an symmetric KMS key in the AWS KMS console, see [Creating symmetric KMS keys \(console\)](create-keys.md#create-keys-console)\.
+   For information about how to create an symmetric encryption KMS key in the AWS KMS console, see [Creating symmetric encryption KMS keys \(console\)](create-keys.md#create-keys-console)\.
 
 1. To create an asymmetric KMS key for public key encryption, in **Key usage**, choose **Encrypt and decrypt**\. Or, to create an asymmetric KMS key for signing messages and verifying signatures, in **Key usage**, choose **Sign and verify**\.
 
-   For help choosing a key usage value, see [Selecting the key usage](symm-asymm-choose.md#symm-asymm-choose-key-usage)\.
+   For help choosing a key usage value, see [Selecting the key usage](key-types.md#symm-asymm-choose-key-usage)\.
 
 1. Select a specification \(**Key spec**\) for your asymmetric KMS key\. 
 
    Often the key spec that you select is determined by regulatory, security, or business requirements\. It might also be influenced by the size of messages that you need to encrypt or sign\. In general, longer encryption keys are more resistant to brute\-force attacks\.
 
-   For help choosing a key spec, see [Selecting the key spec](symm-asymm-choose.md#symm-asymm-choose-key-spec)\.
+   For help choosing a key spec, see [Selecting the key spec](key-types.md#symm-asymm-choose-key-spec)\.
 
 1. Choose **Next**\.
 

@@ -60,7 +60,9 @@ This policy includes of two policy statements\. The `Resource` element in the fi
 
 ## Allow a user to create KMS keys<a name="iam-policy-example-create-key"></a>
 
-The following IAM policy allows a user to create KMS keys\. The value of the `Resource` element is `*` because the `CreateKey` operation does not use any particular AWS KMS resources \(KMS keys or aliases\)\.
+The following IAM policy allows a user to create all types of KMS keys\. The value of the `Resource` element is `*` because the `CreateKey` operation does not use any particular AWS KMS resources \(KMS keys or aliases\)\.
+
+To restrict the user to particular types of KMS keys, use the [kms:KeySpec](policy-conditions.md#conditions-kms-key-spec), [kms:KeyUsage](policy-conditions.md#conditions-kms-key-usage), and [kms:KeyOrigin](policy-conditions.md#conditions-kms-key-origin) condition keys\.
 
 ```
 {

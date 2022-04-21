@@ -18,7 +18,7 @@ To add tags when creating a KMS key, the caller must have `kms:TagResource` perm
 
 The value of the `Tags` parameter of `CreateKey` is a collection of case\-sensitive tag key and tag value pairs\. Each tag on a KMS key must have a different tag name\. The tag value can be a null or empty string\.
 
-For example, the following AWS CLI command creates a symmetric KMS key with a `Project:Alpha` tag\. When specifying more than one key\-value pair, use a space to separate each pair\. 
+For example, the following AWS CLI command creates a symmetric encryption KMS key with a `Project:Alpha` tag\. When specifying more than one key\-value pair, use a space to separate each pair\.
 
 ```
 $ aws kms create-key --tags TagKey=Project,TagValue=Alpha

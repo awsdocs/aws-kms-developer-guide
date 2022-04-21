@@ -2,6 +2,8 @@
 
 You can create a [multi\-Region replica key](multi-region-keys-overview.md#mrk-primary-key) in the AWS KMS console, by using the [ReplicateKey](https://docs.aws.amazon.com/kms/latest/APIReference/API_ReplicateKey.html) operation, or by using a [AWS CloudFormation template](creating-resources-with-cloudformation.md)\. You cannot use the [CreateKey](https://docs.aws.amazon.com/kms/latest/APIReference/API_CreateKey.html) operation to create a replica key\.
 
+You can use these procedures to replicate any multi\-Region primary key, including a [symmetric encryption KMS key](concepts.md#symmetric-cmks), an [asymmetric KMS key](concepts.md#asymmetric-keys-concept), or an [HMAC KMS key](concepts.md#hmac-key-concept)\.
+
 When this operation completes, the new replica key has a transient [key state](key-state.md) of `Creating`\. This key state changes to `Enabled` \(or [PendingImport](multi-region-keys-import.md)\) after a few seconds when the process of creating the new replica key is complete\. While the key state is `Creating`, you can manage key, but you cannot yet use it in cryptographic operations\. If you are creating and using the replica key programmatically, retry on `KMSInvalidStateException` or call [DescribeKey](https://docs.aws.amazon.com/kms/latest/APIReference/API_DescribeKey.html) to check its `KeyState` value before using it\. 
 
 If you mistakenly delete a replica key, you can use this procedure to recreate it\. If you replicate the same primary key in the same Region, the new replica key you create will have the same [shared properties](multi-region-keys-overview.md#mrk-sync-properties) as the original replica key\.

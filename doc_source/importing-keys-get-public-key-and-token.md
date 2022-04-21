@@ -1,6 +1,6 @@
 # Importing key material step 2: Download the public key and import token<a name="importing-keys-get-public-key-and-token"></a>
 
-After you [create a symmetric AWS KMS key with no key material](importing-keys-create-cmk.md), you download a public key and an import token for that KMS key\. You need these items to import your key material\. You can download both items in one step by using the AWS Management Console or the AWS KMS API\.
+After you [create a symmetric encryption AWS KMS key with no key material](importing-keys-create-cmk.md), download a public key and an import token for that KMS key\. You need these items to import your key material\. You can download both items in one step by using the AWS Management Console or the AWS KMS API\.
 
 You can also download these items when you want to reimport the same key material into a KMS key\. You might do this to change the expiration time for the key material, or to restore expired or deleted key material\.
 
@@ -39,7 +39,7 @@ You can use the AWS Management Console to download the public key and import tok
 
 1. In the navigation pane, choose **Customer managed keys**\.
 **Tip**  
-You can import key material only into a symmetric KMS key with an **Origin** of **EXTERNAL**\. This indicates that the KMS key was created with no key material\. To add the **Origin** column to your table, in the upper\-right corner of the page, choose the settings icon \(![\[Image NOT FOUND\]](http://docs.aws.amazon.com/kms/latest/developerguide/images/console-icon-settings-new.png)\)\. Turn on **Origin**, and then choose **Confirm**\.
+You can import key material only into a symmetric encryption KMS key with an **Origin** of **EXTERNAL**\. This indicates that the KMS key was created with no key material\. To add the **Origin** column to your table, in the upper\-right corner of the page, choose the settings icon \(![\[Image NOT FOUND\]](http://docs.aws.amazon.com/kms/latest/developerguide/images/console-icon-settings-new.png)\)\. Turn on **Origin**, and then choose **Confirm**\.
 
 1. Choose the alias or key ID of the KMS key that is pending import\.
 
@@ -49,7 +49,7 @@ You can import key material only into a symmetric KMS key with an **Origin** of 
 
 1. Choose the **Key material** tab and then choose **Download wrapping key and import token**\. 
 
-   The **Key material** tab appears only for symmetric KMS keys that have an **Origin** value of **EXTERNAL**\.
+   The **Key material** tab appears only for symmetric encryption KMS keys that have an **Origin** value of **EXTERNAL**\.
 
 1. <a name="id-wrap-step"></a>For **Select wrapping algorithm**, choose the option that you will use to encrypt your key material\. For more information about the options, see [Select a Wrapping Algorithm](#select-wrapping-algorithm)\.
 

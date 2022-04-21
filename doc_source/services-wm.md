@@ -34,7 +34,7 @@ When you create an Amazon WorkMail organization, you can select an AWS KMS keyfo
 If you use the [Quick Setup](https://docs.aws.amazon.com/workmail/latest/adminguide/add_new_organization.html#quick_setup) procedure to create your organization, Amazon WorkMail uses the [AWS managed key](concepts.md#kms_keys) for Amazon WorkMail \(`aws/workmail`\) in your AWS account\. If you use the [Standard Setup](https://docs.aws.amazon.com/workmail/latest/adminguide/add_new_organization.html#premises_directory), you can select the AWS managed key for Amazon WorkMail or a [customer managed key](concepts.md#customer-cmk) that you own and manage\. You can select the same KMS key or a different KMS key for each of your organizations, but you cannot change the KMS key once you have selected it\.
 
 **Important**  
-Amazon WorkMail supports only symmetric KMS keys\. You cannot use an asymmetric KMS key to encrypt data in Amazon WorkMail\. For help determining whether a KMS key is symmetric or asymmetric, see [Identifying symmetric and asymmetric KMS keys](find-symm-asymm.md)\.
+Amazon WorkMail supports only symmetric encryption KMS keys\. You cannot use an asymmetric KMS key to encrypt data in Amazon WorkMail\. For help determining whether a KMS key is symmetric or asymmetric, see [Identifying asymmetric KMS keys](find-symm-asymm.md)\.
 
 To find the KMS key for your organization, use the AWS CloudTrail log entry that records calls to AWS KMS\.
 

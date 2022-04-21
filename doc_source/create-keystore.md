@@ -1,6 +1,9 @@
 # Creating a custom key store<a name="create-keystore"></a>
 
-You can create one or several [custom key stores](key-store-concepts.md#concept-custom-key-store) in your account\. Each custom key store is associated with one AWS CloudHSM cluster in the same AWS Region\. Before you create your custom key store, you need to [assemble the prerequisites](#before-keystore)\. Then, before you can use your custom key store, you must [connect it](disconnect-keystore.md) to its AWS CloudHSM cluster\. 
+You can create one or several [custom key stores](key-store-concepts.md#concept-custom-key-store) in your account\. Each custom key store is associated with one AWS CloudHSM cluster in the same AWS Region\. Before you create your custom key store, you need to [assemble the prerequisites](#before-keystore)\. Then, before you can use your custom key store, you must [connect it](disconnect-keystore.md) to its AWS CloudHSM cluster\.
+
+**Note**  
+If you try to create a custom key store with all of the same property values as an existing *disconnected* custom key store, AWS KMS does not create a new custom key store, and it does not throw an exception or display an error\. Instead, AWS KMS recognizes the duplicate as the likely consequence of a retry, and it returns the ID of the existing custom key store\. 
 
 **Tip**  
 You do not have to connect your custom key store immediately\. You can leave it in a disconnected state until you are ready to use it\. However, to verify that it is configured properly, you might want to [connect it](disconnect-keystore.md),[ view its connection status](view-keystore.md), and then [disconnect it](disconnect-keystore.md)\.
@@ -76,6 +79,8 @@ When you create a [custom key store](key-store-concepts.md#concept-custom-key-st
 
 When the procedure is successful, the new custom key store appears in the list of custom key stores in the account and Region\. If it is unsuccessful, an error message appears that describes the problem and provides help on how to fix it\. If you need more help, see [Troubleshooting a custom key store](fix-keystore.md)\.
 
+If you try to create a custom key store with all of the same property values as an existing *disconnected* custom key store, AWS KMS does not create a new custom key store, and it does not throw an exception or display an error\. Instead, AWS KMS recognizes the duplicate as the likely consequence of a retry, and it returns the ID of the existing custom key store\. 
+
 **Next**: New custom key stores are not automatically connected\. Before you can create AWS KMS keys in the custom key store, you must [connect the custom key store](disconnect-keystore.md) to its associated AWS CloudHSM cluster\.
 
 ## Create a custom key store \(API\)<a name="create-keystore-api"></a>
@@ -117,5 +122,7 @@ When the operation is successful, `CreateCustomKeyStore` returns the custom key 
 ```
 
 If the operation fails, correct the error indicated by the exception, and try again\. For additional help, see [Troubleshooting a custom key store](fix-keystore.md)\.
+
+If you try to create a custom key store with all of the same property values as an existing *disconnected* custom key store, AWS KMS does not create a new custom key store, and it does not throw an exception or display an error\. Instead, AWS KMS recognizes the duplicate as the likely consequence of a retry, and it returns the ID of the existing custom key store\. 
 
 Next, to use the custom key store, [connect it to the AWS CloudHSM cluster](disconnect-keystore.md)\.

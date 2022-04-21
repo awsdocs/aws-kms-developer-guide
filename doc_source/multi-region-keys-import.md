@@ -1,6 +1,6 @@
 # Importing key material into multi\-Region keys<a name="multi-region-keys-import"></a>
 
-You can import your own key material into multi\-Region keys\. The multi\-Region keys you create with your own key material are interoperable\. You can encrypt data in one Region and decrypt it in any other Region with a related multi\-Region key\. 
+You can import your own key material into a multi\-Region symmetric encryption KMS key\. The multi\-Region keys you create with your own key material are interoperable\. You can encrypt data in one Region and decrypt it in any other Region with a related multi\-Region key\. 
 
 However, you must manage the key material\. 
 + AWS KMS does not copy or synchronize the key material from a primary key with imported key material to its replica keys\. You must import the same key material into related primary and replica keys\.
@@ -27,9 +27,9 @@ Multi\-Region keys are designed to be interoperable\. In addition to having the 
 
 ## Creating a primary key with imported key material<a name="mrk-import-create-primary"></a>
 
-To create a primary key with imported key material, you start by creating a primary key with no key material\. Then, you import your key material into the primary key\.
+To create a primary key with imported key material, you start by creating a symmetric encryption KMS key as a primary key with no key material\. Then, you import your key material into the primary key\.
 
-The procedure for creating a multi\-Region primary key with no key material is almost the same as the procedure for [creating a single\-Region key with no key material](importing-keys-create-cmk.md)\. The only difference is that you specify both a multi\-Region key and external key material\.
+The procedure for creating a multi\-Region primary key with no key material is almost the same as the procedure for [creating a single\-Region symmetric encryption key with no key material](importing-keys-create-cmk.md)\. The only difference is that you specify both a multi\-Region key and external key material\.
 
 The permissions for creating a multi\-Region primary key with imported key material are the same as those required to [create a multi\-Region primary key](multi-region-keys-create.md) with AWS KMS key material, including the [kms:CreateKey](https://docs.aws.amazon.com/kms/latest/APIReference/API_CreateKey.html) and [iam:CreateServiceLinkedRole](https://docs.aws.amazon.com/IAM/latest/APIReference/API_CreateServiceLinkedRole.html) permissions in an IAM policy\. You can use the [kms:MultiRegionKeyType](policy-conditions.md#conditions-kms-multiregion-key-type) and [kms:KeyOrigin](policy-conditions.md#conditions-kms-key-origin) condition keys to allow or deny permission to create multi\-Region primary keys with imported key material\.
 

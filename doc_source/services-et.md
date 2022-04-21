@@ -21,7 +21,7 @@ If you choose server\-side encryption, you allow Amazon S3 to encrypt and decryp
 + Any [symmetric](concepts.md#symmetric-cmks) [customer managed key](concepts.md#customer-cmk) that you create by using AWS KMS
 
 **Important**  
-For both client\-side and server\-side encryption, Elastic Transcoder supports only [symmetric KMS keys](concepts.md#symmetric-cmks)\. You cannot use an [asymmetric KMS key](symmetric-asymmetric.md#asymmetric-cmks) to encrypt your Elastic Transcoder files\. For help determining whether a KMS key is symmetric or asymmetric, see [Identifying symmetric and asymmetric KMS keys](find-symm-asymm.md)\.
+For both client\-side and server\-side encryption, Elastic Transcoder supports only [symmetric KMS keys](concepts.md#symmetric-cmks)\. You cannot use an [asymmetric KMS key](symmetric-asymmetric.md#asymmetric-cmks) to encrypt your Elastic Transcoder files\. For help determining whether a KMS key is symmetric or asymmetric, see [Identifying asymmetric KMS keys](find-symm-asymm.md)\.
 
 You can enable encryption and specify a key by using the Amazon S3 console or the appropriate Amazon S3 APIs\. For more information about how Amazon S3 performs encryption, see [Protecting data using server\-side encryption with KMS keys \(SSE\-KMS\)](https://docs.aws.amazon.com/AmazonS3/latest/userguide/UsingKMSEncryption.html) in the *Amazon Simple Storage Service User Guide*\.
 

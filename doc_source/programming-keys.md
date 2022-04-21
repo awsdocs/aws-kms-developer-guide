@@ -12,7 +12,7 @@ The examples in this topic use the AWS KMS API to create, view, enable, and disa
 
 ## Creating a KMS key<a name="creating-keys"></a>
 
-To create an [AWS KMS key](concepts.md#kms_keys) \(KMS key\), use the [CreateKey](https://docs.aws.amazon.com/kms/latest/APIReference/API_CreateKey.html) operation\. The examples in this section create a symmetric KMS key\. The `Description` parameter used in these examples is optional\.
+To create an [AWS KMS key](concepts.md#kms_keys) \(KMS key\), use the [CreateKey](https://docs.aws.amazon.com/kms/latest/APIReference/API_CreateKey.html) operation\. The examples in this section create a symmetric encryption KMS key\. The `Description` parameter used in these examples is optional\.
 
 In languages that require a client object, these examples use the AWS KMS client object that you created in [Creating a client](programming-client.md)\.
 
@@ -127,9 +127,9 @@ To use the AWS KMS PowerShell cmdlets, install the [AWS\.Tools\.KeyManagementSer
 
 ## Generating a data key<a name="generate-datakeys"></a>
 
-To generate a symmetric [data key](concepts.md#data-keys-create), use the [GenerateDataKey](https://docs.aws.amazon.com/kms/latest/APIReference/API_GenerateDataKey.html) operation\. This operation takes a symmetric KMS key and returns a plaintext data key and a copy of that data key encrypted under the KMS key that you specified\. You must specify either a `KeySpec` or `NumberOfBytes` \(but not both\) in each command\.
+To generate a symmetric [data key](concepts.md#data-keys-create), use the [GenerateDataKey](https://docs.aws.amazon.com/kms/latest/APIReference/API_GenerateDataKey.html) operation\. This operation returns a plaintext data key and a copy of that data key encrypted under a symmetric encryption KMS key that you specify\. You must specify either a `KeySpec` or `NumberOfBytes` \(but not both\) in each command\.
 
-For help using the data key to encrypt data, see the [AWS Encryption SDK](https://docs.aws.amazon.com/encryption-sdk/latest/developer-guide/)\.
+For help using the data key to encrypt data, see the [AWS Encryption SDK](https://docs.aws.amazon.com/encryption-sdk/latest/developer-guide/)\. You can also use the data key in HMAC operations\.
 
 In languages that require a client object, these examples use the AWS KMS client object that you created in [Creating a client](programming-client.md)\.
 

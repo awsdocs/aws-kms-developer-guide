@@ -60,7 +60,7 @@ To filter by a property value, choose the filter, choose the property name, and 
 For example, to display KMS keys with an alias name that contains `aws/e`, choose the filter box, choose **Alias**, type `aws/e`, and then press `Enter` or `Return` to add the filter\.  
 
 ![\[Image NOT FOUND\]](http://docs.aws.amazon.com/kms/latest/developerguide/images/filter-alias.png)
-To display only asymmetric KMS keys on the **Customer managed keys** page, click the filter box, choose **Key type** and then choose **Key type: Asymmetric**\. The **Asymmetric** option appears only when you have asymmetric KMS keys in the table\. For more information about identifying asymmetric KMS keys, see [Identifying symmetric and asymmetric KMS keys](find-symm-asymm.md)\.  
+To display only asymmetric KMS keys on the **Customer managed keys** page, click the filter box, choose **Key type** and then choose **Key type: Asymmetric**\. The **Asymmetric** option appears only when you have asymmetric KMS keys in the table\. For more information about identifying asymmetric KMS keys, see [Identifying asymmetric KMS keys](find-symm-asymm.md)\.  
 
 ![\[Image NOT FOUND\]](http://docs.aws.amazon.com/kms/latest/developerguide/images/filter-keytype.png)
 To display only multi\-Region keys, on the **Customer managed keys** page, choose the filter box, choose **Regionality** and then choose **Regionality: Multi\-Region**\. The **Multi\-Region** option appears only when you have multi\-Region keys in the table\. For more information about identifying multi\-Region keys, see [Viewing multi\-Region keys](multi-region-keys-view.md)\.  
@@ -85,7 +85,7 @@ The details page for each KMS key displays the properties of the KMS key\. It di
 
 To display detailed information about a KMS key, on the **AWS managed keys ** or **Customer managed keys** page, choose the alias or key ID of the KMS key\. 
 
-The details page for a KMS key includes a **General Configuration** section that displays the basic properties of the KMS key\. It also includes tabs on which you can view and edit properties of the KMS key, such as its key policy, cryptographic configuration, tags, key material \(for KMS keys with imported key material\), key rotation \(for symmetric KMS keys\), and its public key \(for asymmetric KMS keys\)\.
+The details page for a KMS key includes a **General Configuration** section that displays the basic properties of the KMS key\. It also includes tabs on which you can view and edit properties of the KMS key, such as **Key policy**, **Cryptographic configuration**, **Tags**, **Key material** \(for KMS keys with imported key material\), **Key rotation** \(for symmetric encryption KMS keys\), **Regionality** \(for multi\-Region keys\), and **Public key** \(for asymmetric KMS keys\)\.
 
 ![\[Image NOT FOUND\]](http://docs.aws.amazon.com/kms/latest/developerguide/images/console-key-detail-view-symmetric-sm.png)
 
@@ -125,7 +125,7 @@ A brief, optional description of the KMS key that you can write and edit\. To ad
 
 **Encryption algorithms**  
 Where: Cryptographic configuration tab  
-Lists the encryption algorithms that can be used with the KMS key in AWS KMS\. This field appears only when the **Key type** is **Asymmetric** and the **Key usage** is **Encrypt and decrypt**\. For information about the encryption algorithms that AWS KMS supports, see [SYMMETRIC\_DEFAULT key spec](symm-asymm-choose.md#key-spec-symmetric-default) and [RSA key specs for encryption and decryption](symm-asymm-choose.md#key-spec-rsa-encryption)\.
+Lists the encryption algorithms that can be used with the KMS key in AWS KMS\. This field appears only when the **Key type** is **Asymmetric** and the **Key usage** is **Encrypt and decrypt**\. For information about the encryption algorithms that AWS KMS supports, see [SYMMETRIC\_DEFAULT key spec](asymmetric-key-specs.md#key-spec-symmetric-default) and [RSA key specs for encryption and decryption](asymmetric-key-specs.md#key-spec-rsa-encryption)\.
 
 **Expiration date**  
 Where: Key material tab  
@@ -142,7 +142,7 @@ You can't enable or disable rotation of the key material in an [AWS managed key]
 
 **Key spec**  
 Where: Cryptographic configuration tab  
-The type of key material in the KMS key\. AWS KMS supports symmetric KMS keys \(SYMMETRIC\_DEFAULT\), KMS keys for RSA keys of different lengths, and elliptic curve keys with different curves\. For details, see [Key spec](concepts.md#key-spec)\.
+The type of key material in the KMS key\. AWS KMS supports symmetric encryption KMS keys \(SYMMETRIC\_DEFAULT\), HMAC KMS keys of different lengths, KMS keys for RSA keys of different lengths, and elliptic curve keys with different curves\. For details, see [Key spec](concepts.md#key-spec)\.
 
 **Key type**  
 Where: Cryptographic configuration tab  
@@ -150,15 +150,19 @@ Indicates whether the KMS key is **Symmetric** or **Asymmetric**\.
 
 **Key usage**  
 Where: Cryptographic configuration tab  
-Indicates whether a KMS key can be used for **Encrypt and decrypt** or **Sign and verify**\. Only asymmetric KMS keys can be used to sign and verify\. For details, see [Key usage](concepts.md#key-usage)\.
+Indicates whether a KMS key can be used for **Encrypt and decrypt**, **Sign and verify** or **Generate and verify MAC**\. For details, see [Key usage](concepts.md#key-usage)\.
 
 **Origin**  
 Where: Cryptographic configuration tab  
 The source of the key material for the KMS key\. Valid values are **AWS\_KMS** for key material that AWS KMS generates, **EXTERNAL** for [imported key material](importing-keys.md), and **AWS\_CloudHSM** for KMS keys in [custom key stores](custom-key-store-overview.md)\.
 
+**MAC algorithms**  
+Where: Cryptographic configuration tab  
+Lists the MAC algorithms that can be used with an HMAC KMS key in AWS KMS\. This field appears only when the **Key spec** is an HMAC key spec \(HMAC\_\*\)\. For information about the MAC algorithms that AWS KMS supports, see [Key specs for HMAC KMS keys](hmac.md#hmac-key-specs)\.
+
 **Primary key**  
 Where: Regionality tab  
-Indicates that this KMS key is a [multi\-Region primary key](multi-region-keys-overview.md#mrk-primary-key)\. Authorized users can use this section to [change the primary key](multi-region-keys-manage.md) to a different related multi\-Region key\.
+Indicates that this KMS key is a [multi\-Region primary key](multi-region-keys-overview.md#mrk-primary-key)\. Authorized users can use this section to [change the primary key](multi-region-keys-manage.md) to a different related multi\-Region key\. This field appears only when the KMS key is a multi\-Region primary key\.
 
 **Public key**  
 Where: Public key tab  
@@ -166,20 +170,20 @@ Displays the public key of an asymmetric KMS key\. Authorized users can use this
 
 **Regionality**  
 Where: General configuration section and Regionality tabs  
-Indicates whether a KMS key is a single\-Region key, a [multi\-Region primary key](multi-region-keys-overview.md#mrk-primary-key), or a [multi\-Region replica key](multi-region-keys-overview.md#mrk-replica-key)\.
+Indicates whether a KMS key is a single\-Region key, a [multi\-Region primary key](multi-region-keys-overview.md#mrk-primary-key), or a [multi\-Region replica key](multi-region-keys-overview.md#mrk-replica-key)\. This field appears only when the KMS key is a multi\-Region key\.
 
 **Related multi\-Region keys**  
 Where: Regionality tab  
-Displays all related [multi\-Region primary and replica keys](multi-region-keys-overview.md), except for the current KMS key\.  
+Displays all related [multi\-Region primary and replica keys](multi-region-keys-overview.md), except for the current KMS key\. This field appears only when the KMS key is a multi\-Region key\.  
 In the **Related multi\-Region keys** section of a primary key, authorized users can [create new replica keys](multi-region-keys-replicate.md)\.
 
 **Replica key**  
 Where: Regionality tab  
-Indicates that this KMS key is a [multi\-Region replica key](multi-region-keys-overview.md#mrk-replica-key)\.
+Indicates that this KMS key is a [multi\-Region replica key](multi-region-keys-overview.md#mrk-replica-key)\. This field appears only when the KMS key is a multi\-Region replica key\.
 
 **Signing algorithms**  
 Where: Cryptographic configuration tab  
-Lists the signing algorithms that can be used with the KMS key in AWS KMS\. This field appears only when the **Key type** is **Asymmetric** and the **Key usage** is **Sign and verify**\. For information about the signing algorithms that AWS KMS supports, see [RSA key specs for signing and verification](symm-asymm-choose.md#key-spec-rsa-sign) and [Elliptic curve key specs](symm-asymm-choose.md#key-spec-ecc)\.
+Lists the signing algorithms that can be used with the KMS key in AWS KMS\. This field appears only when the **Key type** is **Asymmetric** and the **Key usage** is **Sign and verify**\. For information about the signing algorithms that AWS KMS supports, see [RSA key specs for signing and verification](asymmetric-key-specs.md#key-spec-rsa-sign) and [Elliptic curve key specs](asymmetric-key-specs.md#key-spec-ecc)\.
 
 **Status**  
 Where: General configuration section  
@@ -211,11 +215,14 @@ You can customize the columns that appear in your KMS key table to display the i
 **AWS managed keys**  
 By default, the **AWS managed key** table displays the **Aliases**, **Key ID**, and **Status** columns\. These columns are ideal for most use cases\.
 
-**Symmetric KMS keys**  
-If you use only symmetric KMS keys with key material generated by AWS KMS, the **Aliases**, **Key ID**, **Status**, and **Creation date** columns are likely to be the most useful\.
+**Symmetric encryption KMS keys**  
+If you use only symmetric encryption KMS keys with key material generated by AWS KMS, the **Aliases**, **Key ID**, **Status**, and **Creation date** columns are likely to be the most useful\.
 
 **Asymmetric KMS keys**  
 If you use asymmetric KMS keys, in addition to the **Aliases**, **Key ID**, and **Status** columns, consider adding the **Key type**, **Key spec**, and **Key usage** columns\. These columns will show you whether a KMS key is symmetric or asymmetric, the type of key material, and whether the KMS key can be used for encryption or signing\.
+
+**HMAC KMS keys**  
+If you use HMAC KMS keys, in addition to the **Aliases**, **Key ID**, and **Status** columns, consider adding the **Key spec** and **Key usage** columns\. These columns will show you whether a KMS key is an HMAC key\. Because you can't sort KMS keys by key spec or key usage, use aliases and tags to identify your HMAC keys and then use the [filter features](#viewing-console-filter) of the AWS KMS console to filter by aliases or tags\.
 
 **Imported key material**  
 If you have KMS keys with [imported key material](importing-keys.md), consider adding the **Origin** and **Expiration date** columns\. These columns will show you whether the key material in a KMS key is imported or generated by AWS KMS and when the key material expires, if at all\. The **Creation date** field displays the date that the KMS key was created \(without key material\)\. It doesn't reflect any characteristic of the key material\.

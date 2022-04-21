@@ -2,7 +2,7 @@
 
 You can specify conditions in the key policies and AWS Identity and Access Management policies \([IAM policies](iam-policies.md)\) that control access to AWS KMS resources\. The policy statement is effective only when the conditions are true\. For example, you might want a policy statement to take effect only after a specific date\. Or, you might want a policy statement to control access only when a specific value appears in an API request\.
 
-To specify conditions, you use predefined *condition keys* in the `Condition` element of a policy statement with [IAM condition policy operators](https://docs.aws.amazon.com/IAM/latest/UserGuide/reference_policies_elements_condition_operators.html)\. Some condition keys apply generally to AWS others are specific to AWS KMS\.
+To specify conditions, you use *condition keys* in the `Condition` element of a policy statement with [IAM condition policy operators](https://docs.aws.amazon.com/IAM/latest/UserGuide/reference_policies_elements_condition_operators.html)\. Some condition keys apply generally to AWS others are specific to AWS KMS\.
 
 **Topics**
 + [AWS global condition keys](#conditions-aws)
@@ -51,7 +51,7 @@ Take care to avoid a situation like the [IP address condition keys](#conditions-
 
 ## AWS KMS condition keys<a name="conditions-kms"></a>
 
-AWS KMS provides an additional set of predefined condition keys that you can use in key policies and IAM policies\. These condition keys are specific to AWS KMS\. For example, you can use the `kms:EncryptionContext:context-key` condition key to require a particular [encryption context](concepts.md#encrypt_context) when controlling access to a symmetric KMS key\.
+AWS KMS provides a set of condition keys that you can use in key policies and IAM policies\. These condition keys are specific to AWS KMS\. For example, you can use the `kms:EncryptionContext:context-key` condition key to require a particular [encryption context](concepts.md#encrypt_context) when controlling access to a symmetric encryption KMS key\.
 
 **Conditions for an API operation request**
 
@@ -101,6 +101,7 @@ For detailed information about the `ForAnyValue` and `ForAllValues` set operator
 + [kms:KeyOrigin](#conditions-kms-key-origin)
 + [kms:KeySpec](#conditions-kms-key-spec)
 + [kms:KeyUsage](#conditions-kms-key-usage)
++ [kms:MacAlgorithm](#conditions-kms-mac-algorithm)
 + [kms:MessageType](#conditions-kms-message-type)
 + [kms:MultiRegion](#conditions-kms-multiregion)
 + [kms:MultiRegionKeyType](#conditions-kms-multiregion-key-type)
@@ -265,7 +266,7 @@ This condition key has no effect on operations performed outside of AWS KMS, suc
 
 **EncryptionAlgorithm parameter in a request**
 
-To allow users to use only a particular encryption algorithm with a KMS key, use a policy statement with a `Deny` effect and a `StringNotEquals` condition operator\. For example, the following example key policy statement prohibits principals who can assume the `ExampleRole` role from using this symmetric KMS key in the specified cryptographic operations unless the encryption algorithm in the request is `RSAES_OAEP_SHA_256`\. 
+To allow users to use only a particular encryption algorithm with a KMS key, use a policy statement with a `Deny` effect and a `StringNotEquals` condition operator\. For example, the following example key policy statement prohibits principals who can assume the `ExampleRole` role from using this KMS key in the specified cryptographic operations unless the encryption algorithm in the request is `RSAES_OAEP_SHA_256`, an asymmetric encryption algorithm used with RSA KMS keys\.
 
 Unlike a policy statement that allows a user to use a particular encryption algorithm, a policy statement with a double\-negative like this one prevents other policies and grants for this KMS key from allowing this role to use other encryption algorithms\. The `Deny` in this key policy statement takes precedence over any key policy or IAM policy with an `Allow` effect, and it takes precedence over all grants for this KMS key and its principals\.
 
@@ -294,7 +295,7 @@ Unlike a policy statement that allows a user to use a particular encryption algo
 
 You can also use the `kms:EncryptionAlgorithm` condition key to control access to operations based on the encryption algorithm used in the operation, even when the algorithm isn't specified in the request\. This allows you to require or forbid the `SYMMETRIC_DEFAULT` algorithm, which might not be specified in a request because it's the default value\.
 
-This feature lets you use the `kms:EncryptionAlgorithm` condition key to control access to the operations that generate data keys and data key pairs\. These operations use only symmetric KMS keys and the `SYMMETRIC_DEFAULT` algorithm\.
+This feature lets you use the `kms:EncryptionAlgorithm` condition key to control access to the operations that generate data keys and data key pairs\. These operations use only symmetric encryption KMS keys and the `SYMMETRIC_DEFAULT` algorithm\.
 
 For example, this IAM policy limits its principals to symmetric encryption\. It denies access to any KMS key in the example account for cryptographic operations unless the encryption algorithm specified in the request or used in the operation is SYMMETRIC\_DEFAULT\. Including `GenerateDataKey*` adds [GenerateDataKey](https://docs.aws.amazon.com/kms/latest/APIReference/API_GenerateDataKey.html), [GenerateDataKeyWithoutPlaintext](https://docs.aws.amazon.com/kms/latest/APIReference/API_GenerateDataKeyWithoutPlaintext.html), [GenerateDataKeyPair](https://docs.aws.amazon.com/kms/latest/APIReference/API_GenerateDataKeyPair.html), and [GenerateDataKeyPairWithoutPlaintext](https://docs.aws.amazon.com/kms/latest/APIReference/API_GenerateDataKeyPairWithoutPlaintext.html) to the permissions\. The condition has no effect on these operations because they always use a symmetric encryption algorithm\.
 
@@ -318,6 +319,7 @@ For example, this IAM policy limits its principals to symmetric encryption\. It 
 ```
 
 **See also**
++ [kms:MacAlgorithm](#conditions-kms-mac-algorithm)
 + [kms:SigningAlgorithm](#conditions-kms-signing-algorithm)
 
 ### kms:EncryptionContext:*context\-key*<a name="conditions-kms-encryption-context"></a>
@@ -332,7 +334,7 @@ You can use the `kms:EncryptionContext:context-key` condition key to control acc
 **Note**  
 This condition key is valid in key policy statements and IAM policy statements even though it does not appear in the IAM console or the IAM *Service Authorization Reference*\.
 
-You cannot specify an encryption context in a cryptographic operation with an [asymmetric KMS key](symmetric-asymmetric.md#asymmetric-cmks)\. The standard asymmetric encryption algorithms that AWS KMS uses do not support an encryption context\.
+You cannot specify an encryption context in a cryptographic operation with an [asymmetric KMS key](symmetric-asymmetric.md#asymmetric-cmks) or an [HMAC KMS key](hmac.md)\. Asymmetric algorithms and MAC algorithms do not support an encryption context\.
 
 To use the kms:EncryptionContext:*context\-key* condition key, replace the *context\-key* placeholder with the encryption context key\. Replace the *context\-value* placeholder with the encryption context value\.
 
@@ -681,7 +683,7 @@ For example, the following key policy statement is similar to the previous one\.
 
 You can use the `kms:EncryptionContextKeys` condition key to control access to a [symmetric KMS key](concepts.md#symmetric-cmks) based on the [encryption context](concepts.md#encrypt_context) in a request for a cryptographic operation\. Use this condition key to evaluate only the key in each encryption context pair\. To evaluate both the key and the value in the encryption context, use the `kms:EncryptionContext:context-key` condition key\.
 
-You cannot specify an encryption context in a cryptographic operation with an [asymmetric KMS key](symmetric-asymmetric.md#asymmetric-cmks)\. The standard asymmetric encryption algorithms that AWS KMS uses do not support an encryption context\.
+You cannot specify an encryption context in a cryptographic operation with an [asymmetric KMS key](symmetric-asymmetric.md#asymmetric-cmks) or an [HMAC KMS key](hmac.md)\. Asymmetric algorithms and MAC algorithms do not support an encryption context\.
 
 This is a [multi\-valued condition key](#set-operators)\. You can specify multiple encryption context pairs in each API request\. `kms:EncryptionContextKeys` compares the encryption context keys in the request to the set of encryption context keys in the policy\. To determine how these sets are compared, you must provide a `ForAnyValue` or `ForAllValues` set operator in the policy condition\. For details about the set operators, see [Using multiple keys and values](https://docs.aws.amazon.com/IAM/latest/UserGuide/reference_policies_multi-value-conditions.html#reference_policies_multi-key-or-value-conditions) in the IAM User Guide\.
 + `ForAnyValue`: At least one encryption context key in the request must match an encryption context key in the policy condition\. Other encryption context keys are permitted\. If the request has no encryption context, the condition is not satisfied\.
@@ -957,17 +959,43 @@ The following example key policy statement uses the `kms:KeyOrigin` condition ke
 
 ```
 {
-  "Effect": "Allow",
-  "Principal": {
-    "AWS": "arn:aws:iam::111122223333:user/ExampleUser"
-  },
-  "Action": "kms:CreateKey",
-  "Resource": "*",
-  "Condition": {
-    "StringEquals": {
-      "kms:KeyOrigin": "AWS_KMS"
+  "Version": "2012-10-17",
+  "Statement": [
+    {
+      "Effect": "Allow",
+      "Principal": {
+        "AWS": "arn:aws:iam::111122223333:user/ExampleUser"
+      },
+      "Action": "kms:CreateKey",
+      "Resource": "*",
+      "Condition": {
+        "StringEquals": {
+          "kms:KeyOrigin": "AWS_KMS"
+        }
+      }
+    },
+    {
+      "Effect": "Allow",
+      "Principal": {
+        "AWS": "arn:aws:iam::111122223333:user/ExampleUser"
+      },
+      "Action": [
+        "kms:Encrypt",
+        "kms:Decrypt",
+        "kms:GenerateDataKey",
+        "kms:GenerateDataKeyWithoutPlaintext",
+        "kms:GenerateDataKeyPair",
+        "kms:GenerateDataKeyPairWithoutPlaintext",
+        "kms:ReEncrypt*"
+      ],
+      "Resource": "arn:aws:kms:us-west-2:111122223333:key/*",
+      "Condition": {
+        "StringEquals": {
+          "kms:KeyOrigin": "AWS_CLOUDHSM"
+        }
+      }
     }
-  }
+  ]
 }
 ```
 
@@ -1010,9 +1038,9 @@ For example, the following IAM policy allows principals to perform the specified
 
 The `kms:KeySpec` condition key controls access to operations based on the value of the `KeySpec` property of the KMS key that is created by or used in the operation\. 
 
-You can use this condition key in an IAM policy to control access to the [CreateKey](https://docs.aws.amazon.com/kms/latest/APIReference/API_CreateKey.html) operation based on the value of the [KeySpec](https://docs.aws.amazon.com/kms/latest/APIReference/API_CreateKey.html#KMS-CreateKey-request-KeySpec) parameter in a `CreateKey` request\. For example, you can use this condition to allow users to create only symmetric KMS keys or only KMS keys with RSA keys\.
+You can use this condition key in an IAM policy to control access to the [CreateKey](https://docs.aws.amazon.com/kms/latest/APIReference/API_CreateKey.html) operation based on the value of the [KeySpec](https://docs.aws.amazon.com/kms/latest/APIReference/API_CreateKey.html#KMS-CreateKey-request-KeySpec) parameter in a `CreateKey` request\. For example, you can use this condition to allow users to create only symmetric encryption KMS keys or only HMAC KMS keys\.
 
-The following example IAM policy statement uses the `kms:KeySpec` condition key to allow the principals to create a KMS key only when the `KeySpec` in the request is `RSA_4096`\. 
+The following example IAM policy statement uses the `kms:KeySpec` condition key to allow the principals to create only RSA asymmetric KMS keys\. The permission is valid only when the `KeySpec` in the request begins with `RSA_`\.
 
 ```
 {
@@ -1020,8 +1048,8 @@ The following example IAM policy statement uses the `kms:KeySpec` condition key 
   "Action": "kms:CreateKey",
   "Resource": "*",
   "Condition": {
-    "StringEquals": {
-      "kms:KeySpec": "RSA_4096"
+    "StringLike": {
+      "kms:KeySpec": "RSA_*"
     }
   }
 }
@@ -1029,7 +1057,7 @@ The following example IAM policy statement uses the `kms:KeySpec` condition key 
 
 You can also use the `kms:KeySpec` condition key to control access to operations that use or manage a KMS key based on the `KeySpec` property of the KMS key used for the operation\. The operation must be a *KMS key resource operation*, that is, an operation that is authorized for a particular KMS key\. To identify the KMS key resource operations, in the [Actions and Resources Table](kms-api-permissions-reference.md#kms-api-permissions-reference-table), look for a value of `KMS key` in the `Resources` column for the operation\. 
 
-For example, the following IAM policy allows principals to perform the specified KMS key resource operations, but only with symmetric KMS keys in the account\. 
+For example, the following IAM policy allows principals to perform the specified KMS key resource operations, but only with symmetric encryption KMS keys in the account\. 
 
 ```
 {
@@ -1037,12 +1065,10 @@ For example, the following IAM policy allows principals to perform the specified
   "Action": [
     "kms:Encrypt",
     "kms:Decrypt",
-    "kms:ReEncrypt*",    
+    "kms:ReEncrypt*",
     "kms:DescribeKey"
   ],
-  "Resource": {
-      "arn:aws:kms:us-west-2:111122223333:key/*"
-  },
+  "Resource": "arn:aws:kms:us-west-2:111122223333:key/*",
   "Condition": {
     "StringEquals": {
       "kms:KeySpec": "SYMMETRIC_DEFAULT"
@@ -1067,7 +1093,7 @@ For example, the following IAM policy allows principals to perform the specified
 
 The `kms:KeyUsage` condition key controls access to operations based on the value of the `KeyUsage` property of the KMS key that is created by or used in the operation\. 
 
-You can use this condition key to control access to the [CreateKey](https://docs.aws.amazon.com/kms/latest/APIReference/API_CreateKey.html) operation based on the value of the [KeyUsage](https://docs.aws.amazon.com/kms/latest/APIReference/API_CreateKey.html#KMS-CreateKey-request-KeyUsage) parameter in the request\. Valid values for `KeyUsage` are `ENCRYPT_DECRYPT` and `SIGN_VERIFY`\. 
+You can use this condition key to control access to the [CreateKey](https://docs.aws.amazon.com/kms/latest/APIReference/API_CreateKey.html) operation based on the value of the [KeyUsage](https://docs.aws.amazon.com/kms/latest/APIReference/API_CreateKey.html#KMS-CreateKey-request-KeyUsage) parameter in the request\. Valid values for `KeyUsage` are `ENCRYPT_DECRYPT`, `SIGN_VERIFY`, and `GENERATE_VERIFY_MAC`\.
 
 For example, you can allow a user to create a KMS key only when the `KeyUsage` is `ENCRYPT_DECRYPT` or deny a user permission when the `KeyUsage` is `SIGN_VERIFY`\. 
 
@@ -1099,9 +1125,7 @@ For example, the following IAM policy allows principals to perform the specified
     "kms:GetPublicKey",
     "kms:ScheduleKeyDeletion"
   ],
-  "Resource": {
-      "arn:aws:kms:us-west-2:111122223333:key/*"
-  },
+  "Resource": "arn:aws:kms:us-west-2:111122223333:key/*",
   "Condition": {
     "StringEquals": {
       "kms:KeyUsage": "SIGN_VERIFY"
@@ -1115,6 +1139,61 @@ For example, the following IAM policy allows principals to perform the specified
 + [kms:CustomerMasterKeyUsage \(deprecated\)](#conditions-kms-key-usage-replaced)
 + [kms:KeyOrigin](#conditions-kms-key-origin)
 + [kms:KeySpec](#conditions-kms-key-spec)
+
+### kms:MacAlgorithm<a name="conditions-kms-mac-algorithm"></a>
+
+
+| AWS KMS condition keys | Condition type | Value type | API operations | Policy type | 
+| --- | --- | --- | --- | --- | 
+|  `kms:MacAlgorithm`  |  String  | Single\-valued | `GenerateMac``VerifyMac` |  Key policies and IAM policies  | 
+
+You can use the `kms:MacAlgorithm` condition key to control access to the [GenerateMac](https://docs.aws.amazon.com/kms/latest/APIReference/API_GenerateMac.html) and [VerifyMac](https://docs.aws.amazon.com/kms/latest/APIReference/API_VerifyMac.html) operations based on the value of the `MacAlgorithm` parameter in the request\. 
+
+The following example key policy allows users who can assume the `testers` role to use the HMAC KMS key to generate and verify HMAC tags only when the MAC algorithm in the request is `HMAC_SHA_384` or `HMAC_SHA_512`\. This policy uses two separate policy statements each with its own condition\. If you specify more than one MAC algorithm in a single condition statement, the condition requires both algorithms, instead of one or the other\.
+
+```
+{
+  "Version": "2012-10-17",
+  "Statement": [
+    {
+      "Effect": "Allow",
+      "Principal": {
+        "AWS": "arn:aws:iam::111122223333:role/testers"
+      },
+      "Action": [
+        "kms:GenerateMac",
+        "kms:VerifyMac"
+      ],
+      "Resource": "*",
+      "Condition": {
+        "StringEquals": {
+          "kms:MacAlgorithm": "HMAC_SHA_384"
+        }
+      }
+    },
+    {
+      "Effect": "Allow",
+      "Principal": {
+        "AWS": "arn:aws:iam::111122223333:role/testers"
+      },
+      "Action": [
+        "kms:GenerateMac",
+        "kms:VerifyMac"
+      ],
+      "Resource": "*",
+      "Condition": {
+        "StringEquals": {
+          "kms:MacAlgorithm": "HMAC_SHA_512"
+        }
+      }
+    }
+  ]
+}
+```
+
+**See also**
++ [kms:EncryptionAlgorithm](#conditions-kms-encryption-algorithm)
++ [kms:SigningAlgorithm](#conditions-kms-signing-algorithm)
 
 ### kms:MessageType<a name="conditions-kms-message-type"></a>
 
@@ -1161,11 +1240,11 @@ For example, the following IAM policy statement uses the `kms:MultiRegion` condi
 {
   "Effect": "Allow",
   "Action": "kms:CreateKey",
-  "Resource": {
-      "*"
-  },
+  "Resource": "*",
   "Condition": {
-    "Bool": "kms:MultiRegion": false
+    "Bool": {
+      "kms:MultiRegion": false
+    }
   }
 }
 ```
@@ -1185,16 +1264,16 @@ For example, the following IAM policy statement uses the `kms:MultiRegionKeyType
 
 ```
 {
-  "Effect": "Allow",  
+  "Effect": "Allow",
   "Action": [
     "kms:ScheduleKeyDeletion",
     "kms:CancelKeyDeletion"
   ],
-  "Resource": {
-      "arn:aws:kms:*:111122223333:key/*"
-  },
+  "Resource": "arn:aws:kms:*:111122223333:key/*",
   "Condition": {
-    "StringEquals": "kms:MultiRegionKeyType": "REPLICA"
+    "StringEquals": {
+      "kms:MultiRegionKeyType": "REPLICA"
+    }
   }
 }
 ```
@@ -1331,7 +1410,7 @@ Because the `kms:ResourceAliases` condition is based on the resource, not the re
   "Action": "kms:GenerateDataKey",
   "Resource": [
     "arn:aws:kms:*:111122223333:key/*",
-    "arn:aws:kms:*:444455556666:key/*",
+    "arn:aws:kms:*:444455556666:key/*"
   ],
   "Condition": {
     "ForAnyValue:StringEquals": {
@@ -1390,11 +1469,11 @@ For example, the following key policy statement uses the `kms:ReplicaRegion` con
   "Resource": "*",
   "Condition": {
     "StringEquals": {
-      "kms:ReplicaRegion": { 
+      "kms:ReplicaRegion": [ 
          "us-east-1",
          "eu-west-3",
          "ap-southeast-2"
-      }
+      ]
     }
   }
 }
@@ -1467,6 +1546,7 @@ The following example key policy allows users who can assume the `testers` role 
 
 **See also**
 + [kms:EncryptionAlgorithm](#conditions-kms-encryption-algorithm)
++ [kms:MacAlgorithm](#conditions-kms-mac-algorithm)
 + [kms:MessageType](#conditions-kms-message-type)
 
 ### kms:ValidTo<a name="conditions-kms-valid-to"></a>

@@ -1,6 +1,6 @@
-# Identifying symmetric and asymmetric KMS keys<a name="find-symm-asymm"></a>
+# Identifying asymmetric KMS keys<a name="find-symm-asymm"></a>
 
-To determine if a particular KMS key is [symmetric or asymmetric](symmetric-asymmetric.md), find the *key type* or [key spec](concepts.md#key-spec)\. You can use the AWS KMS console or AWS KMS API\. 
+To determine if a particular KMS key is an asymmetric KMS key, find the *key type* or [key spec](concepts.md#key-spec)\. You can use the AWS KMS console or AWS KMS API\. 
 
 Some of these methods also show you other aspects of the cryptographic configuration of a KMS key, including the key usage and the encryption or signing algorithms that the KMS key supports\. You can view the cryptographic configuration of an existing KMS key, but you cannot change it\.
 
@@ -46,20 +46,20 @@ To identify symmetric and asymmetric KMS keys on the details page for a KMS key,
 
    The **Cryptographic configuration** tab displays the **Key Type**, which indicates whether it is symmetric or asymmetric\. It also displays other details about the KMS key, including the **Key Usage**, which tells whether a KMS key can be used for encryption and decryption or signing and verification\. For asymmetric KMS keys, it displays the encryption algorithms or signing algorithms that the KMS key supports\.
 
-   For example, the following is an example **Cryptographic configuration** tab for a symmetric KMS key\.  
-![\[The Cryptographic configuration tab for a symmetric KMS key\]](http://docs.aws.amazon.com/kms/latest/developerguide/images/console-cryptographic-config-symmetric.png)
+   For example, the following is an example **Cryptographic configuration** tab for a symmetric encryption KMS key\.  
+![\[The Cryptographic configuration tab for a symmetric encryption KMS key\]](http://docs.aws.amazon.com/kms/latest/developerguide/images/console-cryptographic-config-symmetric.png)
 
    The following is an example **Cryptographic configuration** tab for an asymmetric RSA KMS key that's used for signing and verification\.  
 ![\[The Cryptographic configuration tab for an asymmetric KMS key\]](http://docs.aws.amazon.com/kms/latest/developerguide/images/console-cryptographic-configuration.png)
 
 ## Finding the key spec using the AWS KMS API<a name="find-key-type-api"></a>
 
-To determine whether a KMS key is symmetric or asymmetric, use the [DescribeKey](https://docs.aws.amazon.com/kms/latest/APIReference/API_DescribeKey.html) operation\. The `KeySpec` field in the response contains the [key spec](concepts.md#key-spec) of the KMS key\. For a symmetric KMS key, the value of `KeySpec` is `SYMMETRIC_DEFAULT`\. Other values indicate an asymmetric key\.
+To determine whether a KMS key is symmetric or asymmetric, use the [DescribeKey](https://docs.aws.amazon.com/kms/latest/APIReference/API_DescribeKey.html) operation\. The `KeySpec` field in the response contains the [key spec](concepts.md#key-spec) of the KMS key\. For a symmetric encryption KMS key, the value of `KeySpec` is `SYMMETRIC_DEFAULT`\. Other values indicate an asymmetric KMS key or an HMAC KMS key\.
 
 **Note**  
 The `CustomerMasterKeySpec` member is deprecated\. Instead, use `KeySpec`\. To prevent breaking changes, the `DescribeKey` response includes `KeySpec` and `CustomerMasterKeySpec` members with the same value\.
 
-For example, `DescribeKey` returns the following response for a symmetric KMS key\. The `KeySpec` value is `SYMMETRIC_DEFAULT`\.
+For example, `DescribeKey` returns the following response for a symmetric encryption KMS key\. The `KeySpec` value is `SYMMETRIC_DEFAULT`\.
 
 ```
 {
@@ -84,7 +84,7 @@ For example, `DescribeKey` returns the following response for a symmetric KMS ke
 }
 ```
 
-The `DescribeKey` response for an asymmetric RSA KMS key used in signing and verification looks similar to this example\. The `KeySpec` value is [RSA\_2048](symm-asymm-choose.md#key-spec-rsa) and the `KeyUsage` is `SIGN_VERIFY`\. The `SigningAlgorithms` element lists the valid signing algorithms for the KMS key\.
+The `DescribeKey` response for an asymmetric RSA KMS key used in signing and verification looks similar to this example\. The `KeySpec` value is [RSA\_2048](asymmetric-key-specs.md#key-spec-rsa) and the `KeyUsage` is `SIGN_VERIFY`\. The `SigningAlgorithms` element lists the valid signing algorithms for the KMS key\.
 
 ```
 {

@@ -92,23 +92,23 @@ When reviewing request quotas, keep in mind the following information\.
 AWS KMS [cryptographic operations](concepts.md#cryptographic-operations) share request quotas\. You can request any combination of the cryptographic operations that are supported by the KMS key, just so the total number of cryptographic operations doesn't exceed the request quota for that type of KMS key\. The exceptions are [GenerateDataKeyPair](https://docs.aws.amazon.com/kms/latest/APIReference/API_GenerateDataKeyPair.html) and [GenerateDataKeyPairWithoutPlaintext](https://docs.aws.amazon.com/kms/latest/APIReference/API_GenerateDataKeyPairWithoutPlaintext.html), which share a separate quota\. 
 
 The quotas for different types of KMS keys are calculated independently\. Each quota applies to all requests for these operations in the AWS account and Region with the given key type in each one\-second interval\.
-+ *Cryptographic operations \(symmetric\) request rate* is the shared request quota for cryptographic operations using symmetric KMS keys in an account and region\.
++ *Cryptographic operations \(symmetric\) request rate* is the shared request quota for cryptographic operations using symmetric KMS keys in an account and region\. This quota applies to cryptographic operations with symmetric encryption keys and HMAC keys, which are also symmetric\.
 
   For example, you might be using [symmetric KMS keys](concepts.md#symmetric-cmks) in an AWS Region with a shared quota of 10,000 requests per second\. When you make 7,000 [GenerateDataKey](https://docs.aws.amazon.com/kms/latest/APIReference/API_GenerateDataKey.html) requests per second and 2,000 [Decrypt](https://docs.aws.amazon.com/kms/latest/APIReference/API_Decrypt.html) requests per second, AWS KMS doesn't throttle your requests\. However, when you make 9,500 `GenerateDataKey` requests and 1,000 [Encrypt](https://docs.aws.amazon.com/kms/latest/APIReference/API_Encrypt.html) and requests per second, AWS KMS throttles your requests because they exceed the shared quota\.
-+ *Cryptographic operations \(RSA\) request rate* is the shared request quota for cryptographic operations using [RSA asymmetric KMS keys](symm-asymm-choose.md#key-spec-rsa)\. 
++ *Cryptographic operations \(RSA\) request rate* is the shared request quota for cryptographic operations using [RSA asymmetric KMS keys](asymmetric-key-specs.md#key-spec-rsa)\. 
 
   For example, with a request quota of 500 operations per second, you can make 200 [Encrypt](https://docs.aws.amazon.com/kms/latest/APIReference/API_Encrypt.html) requests and 100 [Decrypt](https://docs.aws.amazon.com/kms/latest/APIReference/API_Decrypt.html) requests with RSA KMS keys that can encrypt and decrypt, plus 50 [Sign](https://docs.aws.amazon.com/kms/latest/APIReference/API_Sign.html) requests and 150 [Verify](https://docs.aws.amazon.com/kms/latest/APIReference/API_Verify.html) requests with RSA KMS keys that can sign and verify\.
-+ *Cryptographic operations \(ECC\) request rate* is the shared request quota for cryptographic operations using [elliptic curve \(ECC\) asymmetric KMS keys](symm-asymm-choose.md#key-spec-ecc)\. 
++ *Cryptographic operations \(ECC\) request rate* is the shared request quota for cryptographic operations using [elliptic curve \(ECC\) asymmetric KMS keys](asymmetric-key-specs.md#key-spec-ecc)\. 
 
   For example, with a request quota of 300 operations per second, you can make 100 Sign requests and 200 Verify requests with RSA KMS keys that can sign and verify\.
 
-The quotas for different key types are also calculated independently\. For example, in the Asia Pacific \(Singapore\) Region, if you use both symmetric and asymmetric KMS keys, you can make up to 10,000 calls per second with symmetric KMS keys *plus* up to 500 additional calls per second with your RSA asymmetric KMS keys, *plus* up to 300 additional requests per second with your ECC\-based KMS keys\.
+The quotas for different key types are also calculated independently\. For example, in the Asia Pacific \(Singapore\) Region, if you use both symmetric and asymmetric KMS keys, you can make up to 10,000 calls per second with symmetric KMS keys \(including HMAC keys\) *plus* up to 500 additional calls per second with your RSA asymmetric KMS keys, *plus* up to 300 additional requests per second with your ECC\-based KMS keys\.
 
 ## API requests made on your behalf<a name="rps-from-service"></a>
 
 You can make API requests directly or by using an integrated AWS service that makes API requests to AWS KMS on your behalf\. The quota applies to both kinds of requests\.
 
-For example, you might store data in Amazon S3 using server\-side encryption with a KMS key \(SSE\-KMS\)\. Each time you upload or download an S3 object that's encrypted with SSE\-KMS, Amazon S3 makes a `GenerateDataKey` \(for uploads\) or `Decrypt` \(for downloads\) request to AWS KMS on your behalf\. These requests count toward your quota, so AWS KMS throttles the requests if you exceed a combined total of 5,500 \(or 10,000 or 30,000 depending upon your AWS Region\) uploads or downloads per second of S3 objects encrypted with SSE\-KMS\.
+For example, you might store data in Amazon S3 using server\-side encryption with a KMS key \(SSE\-KMS\)\. Each time you upload or download an S3 object that's encrypted with SSE\-KMS, Amazon S3 makes a `GenerateDataKey` \(for uploads\) or `Decrypt` \(for downloads\) request to AWS KMS on your behalf\. These requests count toward your quota, so AWS KMS throttles the requests if you exceed a combined total of 5,500 \(or 10,000 or 50,000 depending upon your AWS Region\) uploads or downloads per second of S3 objects encrypted with SSE\-KMS\.
 
 ## Cross\-account requests<a name="rps-cross-account"></a>
 
@@ -116,7 +116,7 @@ When an application in one AWS account uses a KMS key owned by a different accou
 
 ## Custom key store quota<a name="rps-key-stores"></a>
 
-AWS KMS custom key stores support only symmetric KMS keys\. The cryptographic operations that use the KMS keys in a [custom key store](custom-key-store-overview.md) share a request quota of 1,800 operations per second for each custom key store\. However, not all operations use the quota equally\. The `GenerateDataKey`, `GenerateDataKeyWithoutPlaintext`, and `GenerateRandom` operations use approximately three times as much of the per\-second quota as the `Encrypt`, `Decrypt`, and `ReEncrypt` operations\.
+AWS KMS custom key stores support only symmetric encryption KMS keys\. The cryptographic operations that use the KMS keys in a [custom key store](custom-key-store-overview.md) share a request quota of 1,800 operations per second for each custom key store\. However, not all operations use the quota equally\. The `GenerateDataKey`, `GenerateDataKeyWithoutPlaintext`, and `GenerateRandom` operations use approximately three times as much of the per\-second quota as the `Encrypt`, `Decrypt`, and `ReEncrypt` operations\.
 
 For example, if you are requesting only `Encrypt` and `Decrypt` operations, you can perform approximately 1,800 operations per second\. If, instead, you request repeated `GenerateDataKey` operations, your performance might be closer to 600 operations per second\. For applications patterns that consist of roughly equal numbers of `GenerateDataKey` and `Decrypt` operations, you can expect about 1,200 operations per second\.
 

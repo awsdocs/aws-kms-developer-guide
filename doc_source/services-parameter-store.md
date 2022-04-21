@@ -7,7 +7,7 @@ With [Parameter Store](https://docs.aws.amazon.com/systems-manager/latest/usergu
 To manage sensitive data, you can create secure string parameters\. Parameter Store uses AWS KMS keys to encrypt the parameter values of secure string parameters when you create or change them\. It also uses KMS keys to decrypt the parameter values when you access them\. You can use the [AWS managed key](concepts.md#aws-managed-cmk) that Parameter Store creates for your account or specify your own [customer managed key](concepts.md#customer-cmk)\. 
 
 **Important**  
-Parameter Store supports only [symmetric KMS keys](concepts.md#symmetric-cmks)\. You cannot use an [asymmetric KMS key](symmetric-asymmetric.md#asymmetric-cmks) to encrypt your parameters\. For help determining whether a KMS key is symmetric or asymmetric, see [Identifying symmetric and asymmetric KMS keys](find-symm-asymm.md)\.
+Parameter Store supports only [symmetric KMS keys](concepts.md#symmetric-cmks)\. You cannot use an [asymmetric KMS key](symmetric-asymmetric.md#asymmetric-cmks) to encrypt your parameters\. For help determining whether a KMS key is symmetric or asymmetric, see [Identifying asymmetric KMS keys](find-symm-asymm.md)\.
 
 Parameter Store supports two tiers of secure string parameters: *standard* and *advanced*\. Standard parameters, which cannot exceed 4096 bytes, are encrypted and decrypted directly under the KMS key that you specify\. To encrypt and decrypt advanced secure string parameters, Parameter Store uses envelope encryption with the [AWS Encryption SDK](https://docs.aws.amazon.com/encryption-sdk/latest/developer-guide/)\. You can convert a standard secure string parameter to an advanced parameter, but you cannot convert an advanced parameter to a standard one\. For more information about the difference between standard and advanced secure string parameters, see [About Systems Manager Advanced Parameters](https://docs.aws.amazon.com/systems-manager/latest/userguide/parameter-store-advanced-parameters.html) in the AWS Systems Manager User Guide\.
 
@@ -20,7 +20,7 @@ Parameter Store supports two tiers of secure string parameters: *standard* and *
 
 ## Protecting standard secure string parameters<a name="parameter-store-encrypt"></a>
 
-Parameter Store does not perform any cryptographic operations\. Instead, it relies on AWS KMS to encrypt and decrypt secure string parameter values\. When you create or change a standard secure string parameter value, Parameter Store calls the AWS KMS [Encrypt](https://docs.aws.amazon.com/kms/latest/APIReference/API_Encrypt.html) operation\. This operation uses a symmetric KMS key directly to encrypt the parameter value instead of using the KMS key to generate a [data key](concepts.md#data-keys)\. 
+Parameter Store does not perform any cryptographic operations\. Instead, it relies on AWS KMS to encrypt and decrypt secure string parameter values\. When you create or change a standard secure string parameter value, Parameter Store calls the AWS KMS [Encrypt](https://docs.aws.amazon.com/kms/latest/APIReference/API_Encrypt.html) operation\. This operation uses a symmetric encryption KMS key directly to encrypt the parameter value instead of using the KMS key to generate a [data key](concepts.md#data-keys)\. 
 
 You can select the KMS key that Parameter Store uses to encrypt the parameter value\. If you do not specify a KMS key, Parameter Store uses the AWS managed key that Systems Manager automatically creates in your account\. This KMS key has the `aws/ssm` alias\.
 
@@ -95,7 +95,7 @@ The following workflow shows how Parameter Store uses an KMS key to encrypt and 
 
 ## Protecting advanced secure string parameters<a name="parameter-store-advanced-encrypt"></a>
 
-When you use `PutParameter` to create an advanced secure string parameter, Parameter Store uses [envelope encryption](https://docs.aws.amazon.com/encryption-sdk/latest/developer-guide/how-it-works.html#envelope-encryption) with the AWS Encryption SDK and a symmetric AWS KMS key to protect the parameter value\. Each advanced parameter value is encrypted under a unique data key, and the data key is encrypted under an KMS key\. You can use the [AWS managed key](concepts.md#aws-managed-cmk) for the account \(`aws/ssm`\) or any customer managed key\.
+When you use `PutParameter` to create an advanced secure string parameter, Parameter Store uses [envelope encryption](https://docs.aws.amazon.com/encryption-sdk/latest/developer-guide/how-it-works.html#envelope-encryption) with the AWS Encryption SDK and a symmetric encryption AWS KMS key to protect the parameter value\. Each advanced parameter value is encrypted under a unique data key, and the data key is encrypted under an KMS key\. You can use the [AWS managed key](concepts.md#aws-managed-cmk) for the account \(`aws/ssm`\) or any customer managed key\.
 
 The [AWS Encryption SDK](https://docs.aws.amazon.com/encryption-sdk/latest/developer-guide/) is an open\-source, client\-side library that helps you to encrypt and decrypt data using industry standards and best practices\. It's supported on multiple platforms and in multiple programming languages, including a command\-line interface\. You can view the source code and contribute to its development in GitHub\. 
 

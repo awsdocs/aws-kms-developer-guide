@@ -3,7 +3,7 @@
 You can use [WorkSpaces](https://aws.amazon.com/workspaces/) to provision a cloud\-based desktop \(a *WorkSpace*\) for each of your end users\. When you launch a new WorkSpace, you can choose to encrypt its volumes and decide which [AWS KMS key](concepts.md#kms_keys) to use for the encryption\. You can choose the [AWS managed key](concepts.md#aws-managed-cmk) for WorkSpaces \(**aws/workspaces**\) or a symmetric [customer managed key](concepts.md#customer-cmk)\.
 
 **Important**  
-WorkSpaces supports only symmetric KMS keys\. You cannot use an asymmetric KMS key to encrypt the volumes in an WorkSpaces\. For help determining whether a KMS key is symmetric or asymmetric, see [Identifying symmetric and asymmetric KMS keys](find-symm-asymm.md)\.
+WorkSpaces supports only symmetric encryption KMS keys\. You cannot use an asymmetric KMS key to encrypt the volumes in an WorkSpaces\. For help determining whether a KMS key is symmetric or asymmetric, see [Identifying asymmetric KMS keys](find-symm-asymm.md)\.
 
 For more information about creating WorkSpaces with encrypted volumes, go to [Encrypt a WorkSpace](https://docs.aws.amazon.com/workspaces/latest/adminguide/wsp_encrypt_workspace.html) in the *Amazon WorkSpaces Administration Guide*\.
 

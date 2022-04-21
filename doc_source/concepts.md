@@ -5,8 +5,9 @@ Learn the basic terms and concepts used in AWS Key Management Service \(AWS KMS\
 **Topics**
 + [AWS KMS keys](#kms_keys)
 + [Customer keys and AWS keys](#key-mgmt)
-+ [Symmetric KMS keys](#symmetric-cmks)
++ [Symmetric encryption KMS keys](#symmetric-cmks)
 + [Asymmetric KMS keys](#asymmetric-keys-concept)
++ [HMAC KMS keys](#hmac-key-concept)
 + [Data keys](#data-keys)
 + [Data key pairs](#data-key-pairs)
 + [Aliases](#alias-concept)
@@ -26,14 +27,14 @@ Learn the basic terms and concepts used in AWS Key Management Service \(AWS KMS\
 
 ## AWS KMS keys<a name="kms_keys"></a>
 
-AWS KMS keys \(KMS keys\) are the primary resource in AWS KMS\. You can use a KMS key to encrypt, decrypt, and re\-encrypt data\. It can also generate data keys that you can use outside of AWS KMS\. Typically, you'll use symmetric KMS keys, but you can create and use asymmetric KMS keys for encryption or signing\.
+AWS KMS keys \(KMS keys\) are the primary resource in AWS KMS\. You can use a KMS key to encrypt, decrypt, and re\-encrypt data\. It can also generate data keys that you can use outside of AWS KMS\. Typically, you'll use symmetric encryption KMS keys, but you can create and use asymmetric KMS keys for encryption or signing\.
 
 **Note**  
 AWS KMS is replacing the term *customer master key \(CMK\)* with *AWS KMS key* and *KMS key*\. The concept has not changed\. To prevent breaking changes, AWS KMS is keeping some variations of this term\.
 
 An *AWS KMS key* is a logical representation of an encryption key\. In addition to the key material used to encrypt and decrypt data, a KMS key includes metadata, such as the key ID, creation date, description, and key state\. 
 
-The basic KMS key, a [*symmetric KMS key*](#symmetric-cmks), represents a cryptographic key used for encryption and decryption\. You can also create an [asymmetric KMS key](symmetric-asymmetric.md) \(RSA or elliptic curve \(ECC\)\) for encryption and decryption or signing and verification \(but not both\)\.
+The basic KMS key, a [*symmetric encryption KMS key*](#symmetric-cmks), represents a cryptographic key used for encryption and decryption\. You can also create an [HMAC KMS key](hmac.md) for generating and verifying HMAC tags, or an [asymmetric KMS key](symmetric-asymmetric.md) \(RSA or elliptic curve \(ECC\)\) for encryption and decryption or signing and verification \(but not both\)\.
 
 You create KMS keys in AWS KMS\. Symmetric KMS keys and the private keys of asymmetric KMS key never leave AWS KMS unencrypted\.  To use or manage your KMS keys, you must use AWS KMS\. For information about creating and managing KMS keys, see [Managing keys](getting-started.md)\. For information about using KMS keys, see the [AWS Key Management Service API Reference](https://docs.aws.amazon.com/kms/latest/APIReference/)\.
 
@@ -88,29 +89,37 @@ You do not need to create or manage the AWS owned keys\. However, you cannot vie
 
 The rotation of AWS owned keys varies across services\. For information about the rotation of a particular AWS owned key, see the *Encryption at Rest* topic in the user guide or developer guide for the service\.
 
-## Symmetric KMS keys<a name="symmetric-cmks"></a>
+## Symmetric encryption KMS keys<a name="symmetric-cmks"></a>
 
-When you create an AWS KMS key, by default, you get a symmetric KMS key\. 
+When you create a AWS KMS key, by default, you get a KMS key for symmetric encryption\. This is the basic and most commonly used type of KMS key\.
 
-In AWS KMS, a *symmetric KMS key* represents a 256\-bit encryption key that never leaves AWS KMS unencrypted\. To use a symmetric KMS key, you must call AWS KMS\. Symmetric keys are used in symmetric encryption, where the same key is used for encryption and decryption\. Unless your task explicitly requires asymmetric encryption, symmetric KMS keys, which never leave AWS KMS unencrypted, are a good choice\.
+In AWS KMS, a *symmetric encryption KMS key* represents a 256\-bit encryption key that never leaves AWS KMS unencrypted\. To use a symmetric encryption KMS key, you must call AWS KMS\. Symmetric encryption keys are used in symmetric encryption, where the same key is used for encryption and decryption\. Unless your task explicitly requires asymmetric encryption, symmetric encryption KMS keys, which never leave AWS KMS unencrypted, are a good choice\.
 
-[AWS services that are integrated with AWS KMS](https://aws.amazon.com/kms/features/#AWS_Service_Integration) use symmetric KMS keys to encrypt your data\. These services do not support encryption with asymmetric KMS keys\. For help determining whether a KMS key is symmetric or asymmetric, see [Identifying symmetric and asymmetric KMS keys](find-symm-asymm.md)\.
+[AWS services that are integrated with AWS KMS](https://aws.amazon.com/kms/features/#AWS_Service_Integration) use only symmetric encryption KMS keys to encrypt your data\. These services do not support encryption with asymmetric KMS keys\. For help determining whether a KMS key is symmetric or asymmetric, see [Identifying asymmetric KMS keys](find-symm-asymm.md)\.
 
-Technically, the key spec for a symmetric key is SYMMETRIC\_DEFAULT, the key usage is ENCRYPT\_DECRYPT, and the encryption algorithm is SYMMETRIC\_DEFAULT\. For details, see [SYMMETRIC\_DEFAULT key spec](symm-asymm-choose.md#key-spec-symmetric-default)\.
+Technically, the key spec for a symmetric key is SYMMETRIC\_DEFAULT, the key usage is ENCRYPT\_DECRYPT, and the encryption algorithm is SYMMETRIC\_DEFAULT\. For details, see [SYMMETRIC\_DEFAULT key spec](asymmetric-key-specs.md#key-spec-symmetric-default)\.
 
-You can use a symmetric KMS key in AWS KMS to encrypt, decrypt, and re\-encrypt data, and generate data keys and data key pairs\. You can create [multi\-Region](multi-region-keys-overview.md) symmetric KMS keys, [import your own key material](importing-keys.md) into a symmetric KMS key, and create symmetric KMS keys in [custom key stores](custom-key-store-overview.md)\. For a table comparing the operations that you can perform on KMS keys of different types, see [Key type reference](symm-asymm-compare.md)\.
+You can use a symmetric encryption KMS key in AWS KMS to encrypt, decrypt, and re\-encrypt data, and generate data keys and data key pairs\. You can create [multi\-Region](multi-region-keys-overview.md) symmetric encryption KMS keys, [import your own key material](importing-keys.md) into a symmetric encryption KMS key, and create symmetric encryption KMS keys in [custom key stores](custom-key-store-overview.md)\. For a table comparing the operations that you can perform on KMS keys of different types, see [Key type reference](symm-asymm-compare.md)\.
 
 ## Asymmetric KMS keys<a name="asymmetric-keys-concept"></a>
 
-You can create asymmetric KMS keys in AWS KMS\. An *asymmetric KMS key* represents a mathematically related public key and private key pair\. The private key never leaves AWS KMS unencrypted\. To use the private key, you must call AWS KMS\. You can use the public key within AWS KMS by calling the AWS KMS API operations, or you can [download the public key](download-public-key.md) and use it outside of AWS KMS\. You can also create [multi\-Region](multi-region-keys-overview.md) asymmetric KMS keys\.
+An *asymmetric KMS key* represents a mathematically related public key and private key pair\. The private key never leaves AWS KMS unencrypted\. To use the private key, you must call AWS KMS\. You can use the public key within AWS KMS by calling the AWS KMS API operations, or you can [download the public key](download-public-key.md) and use it outside of AWS KMS\. You can also create [multi\-Region](multi-region-keys-overview.md) asymmetric KMS keys\.
 
 You can create asymmetric KMS keys that represent RSA key pairs for public key encryption or signing and verification, or elliptic curve key pairs for signing and verification\. 
 
 For more information about creating and using asymmetric KMS keys, see [Asymmetric keys in AWS KMS](symmetric-asymmetric.md)\.
 
+## HMAC KMS keys<a name="hmac-key-concept"></a>
+
+An *HMAC KMS key* represents a symmetric key of varying length that is used to generate and verify hash\-based message authentication codes \(HMAC\)\. The key material for an HMAC key never leaves AWS KMS unencrypted\. To use an HMAC key, call the [https://docs.aws.amazon.com/kms/latest/APIReference/API_GenerateMac.html](https://docs.aws.amazon.com/kms/latest/APIReference/API_GenerateMac.html) or [https://docs.aws.amazon.com/kms/latest/APIReference/API_VerifyMac.html](https://docs.aws.amazon.com/kms/latest/APIReference/API_VerifyMac.html) API operations\. 
+
+You can also create [multi\-Region](multi-region-keys-overview.md) HMAC KMS keys\.
+
+For more information about creating and using HMAC KMS keys, see [HMAC keys in AWS KMS](hmac.md)\.
+
 ## Data keys<a name="data-keys"></a>
 
-*Data keys* are encryption keys you can use to encrypt data, including large amounts of data and other data encryption keys\. Unlike [KMS keys](#kms_keys), which can't be downloaded, data keys are returned to you for use outside of AWS KMS\. 
+*Data keys* are symmetric keys you can use to encrypt data, including large amounts of data and other data encryption keys\. Unlike symmetric [KMS keys](#kms_keys), which can't be downloaded, data keys are returned to you for use outside of AWS KMS\. 
 
 When AWS KMS generates data keys, it returns a plaintext data key for immediate use \(optional\) and an encrypted copy of the data key that you can safely store with the data\. When you are ready to decrypt the data, you first ask AWS KMS to decrypt the encrypted data key\. 
 
@@ -118,7 +127,7 @@ AWS KMS generates, encrypts, and decrypts data keys\. However, AWS KMS does not 
 
 ### Create a data key<a name="data-keys-create"></a>
 
-To create a data key, call the [GenerateDataKey](https://docs.aws.amazon.com/kms/latest/APIReference/API_GenerateDataKey.html) operation\. AWS KMS generates the data key\. Then it encrypts a copy of the data key under a symmetric KMS key that you specify\. The operation returns a plaintext copy of the data key and the copy of the data key encrypted under the KMS key\. The following image shows this operation\.
+To create a data key, call the [GenerateDataKey](https://docs.aws.amazon.com/kms/latest/APIReference/API_GenerateDataKey.html) operation\. AWS KMS generates the data key\. Then it encrypts a copy of the data key under a [symmetric encryption KMS key](#symmetric-cmks) that you specify\. The operation returns a plaintext copy of the data key and the copy of the data key encrypted under the KMS key\. The following image shows this operation\.
 
 ![\[Generate a data key\]](http://docs.aws.amazon.com/kms/latest/developerguide/images/generate-data-key.png)
 
@@ -144,7 +153,7 @@ The following diagram shows how to use the `Decrypt` operation to decrypt an enc
 
 *Data key pairs* are asymmetric data keys consisting of a mathematically\-related public key and private key\. They are designed for use in client\-side encryption and decryption or signing and verification outside of AWS KMS\. 
 
-Unlike the data key pairs that tools like OpenSSL generate, AWS KMS protects the private key in each data key pair under a symmetric KMS key in AWS KMS that you specify\. However, AWS KMS does not store, manage, or track your data key pairs, or perform cryptographic operations with data key pairs\. You must use and manage data key pairs outside of AWS KMS\.
+Unlike the data key pairs that tools like OpenSSL generate, AWS KMS protects the private key in each data key pair under a symmetric encryption KMS key in AWS KMS that you specify\. However, AWS KMS does not store, manage, or track your data key pairs, or perform cryptographic operations with data key pairs\. You must use and manage data key pairs outside of AWS KMS\.
 
 AWS KMS supports the following types of data key pairs:
 + RSA key pairs: RSA\_2048, RSA\_3072, and RSA\_4096
@@ -154,7 +163,7 @@ The type of data key pair that you select usually depends on your use case or re
 
 ### Create a data key pair<a name="data-keys-pairs-create"></a>
 
-To create a data key pair, call the [GenerateDataKeyPair](https://docs.aws.amazon.com/kms/latest/APIReference/API_GenerateDataKeyPair.html) or [GenerateDataKeyPairWithoutPlaintext](https://docs.aws.amazon.com/kms/latest/APIReference/API_GenerateDataKeyPairWithoutPlaintext.html) operations\. Specify the symmetric KMS key you want to use to encrypt the private key\.
+To create a data key pair, call the [GenerateDataKeyPair](https://docs.aws.amazon.com/kms/latest/APIReference/API_GenerateDataKeyPair.html) or [GenerateDataKeyPairWithoutPlaintext](https://docs.aws.amazon.com/kms/latest/APIReference/API_GenerateDataKeyPairWithoutPlaintext.html) operations\. Specify the [symmetric encryption KMS key](#symmetric-cmks) you want to use to encrypt the private key\.
 
 `GenerateDataKeyPair` returns a plaintext public key, a plaintext private key, and an encrypted private key\. Use this operation when you need a plaintext private key immediately, such as to generate a digital signature\.
 
@@ -245,12 +254,14 @@ The following table lists the AWS KMS cryptographic operations\. It also shows t
 | [GenerateDataKeyPair](https://docs.aws.amazon.com/kms/latest/APIReference/API_GenerateDataKeyPair.html) | Symmetric \[1\] | ENCRYPT\_DECRYPT | 
 | [GenerateDataKeyPairWithoutPlaintext](https://docs.aws.amazon.com/kms/latest/APIReference/API_GenerateDataKeyPairWithoutPlaintext.html) | Symmetric \[1\] | ENCRYPT\_DECRYPT | 
 | [GenerateDataKeyWithoutPlaintext](https://docs.aws.amazon.com/kms/latest/APIReference/API_GenerateDataKeyWithoutPlaintext.html) | Symmetric | ENCRYPT\_DECRYPT | 
+| [GenerateMac](https://docs.aws.amazon.com/kms/latest/APIReference/API_GenerateMac.html) | HMAC | GENERATE\_VERIFY\_MAC | 
 | [GenerateRandom](https://docs.aws.amazon.com/kms/latest/APIReference/API_GenerateRandom.html) | N/A\. This operation doesn't use a KMS key\. | N/A | 
 | [ReEncrypt](https://docs.aws.amazon.com/kms/latest/APIReference/API_ReEncrypt.html) | Any | ENCRYPT\_DECRYPT | 
 | [Sign](https://docs.aws.amazon.com/kms/latest/APIReference/API_Sign.html) | Asymmetric | SIGN\_VERIFY | 
 | [Verify](https://docs.aws.amazon.com/kms/latest/APIReference/API_Verify.html) | Asymmetric | SIGN\_VERIFY | 
+| [VerifyMac](https://docs.aws.amazon.com/kms/latest/APIReference/API_VerifyMac.html) | HMAC | GENERATE\_VERIFY\_MAC | 
 
-\[1\] `GenerateDataKeyPair` and `GenerateDataKeyPairWithoutPlaintext` generate an asymmetric data key pair that is protected by a symmetric KMS key\.
+\[1\] `GenerateDataKeyPair` and `GenerateDataKeyPairWithoutPlaintext` generate an asymmetric data key pair that is protected by a symmetric encryption KMS key\.
 
 For information about the permissions for cryptographic operations, see the [AWS KMS permissions](kms-api-permissions-reference.md)\. 
 
@@ -260,7 +271,7 @@ To make AWS KMS responsive and highly functional for all users, AWS KMS establis
 
 Key identifiers act as names for your KMS keys\. They help you to recognize your KMS keys in the console\. You use them to indicate which KMS keys you want to use in AWS KMS API operations, key policies, IAM policies, and grants\.
 
-AWS KMS defines several key identifiers\. When you create a KMS key, AWS KMS generates a key ARN and key ID, which are properties of the KMS key\. When you create an alias, AWS KMS generates an alias ARN based on the alias name that you define\. You can view the key and alias identifiers in the AWS Management Console and in the AWS KMS API\. 
+AWS KMS defines several key identifiers\. When you create a KMS key, AWS KMS generates a key ARN and key ID, which are properties of the KMS key\. When you create an [alias](kms-alias.md), AWS KMS generates an alias ARN based on the alias name that you define\. You can view the key and alias identifiers in the AWS Management Console and in the AWS KMS API\. 
 
 In the AWS KMS console, you can view and filter KMS keys by their key ARN, key ID, or alias name, and sort by key ID and alias name\. For help finding the key identifiers in the console, see [Finding the key ID and key ARN](find-cmk-id-arn.md)\.
 
@@ -338,7 +349,7 @@ alias/aws/s3
 
 *Key material* is the secret string of bits used in a cryptographic algorithm\. Key material must be kept secret to protect the cryptographic operations that use it\.
 
-Each KMS key includes key material along with metadata, such as its [key ID](#key-id) and [key policy](key-policies.md)\. The [key material origin](#key-origin) can vary\. You can use key material that AWS KMS generates, key material that is generated in the AWS CloudHSM cluster of a [custom key store](custom-key-store-overview.md), or [import your own key material](importing-keys.md)\. If you use AWS KMS key material, you can enable [automatic rotation](rotate-keys.md) of your key material\.
+Each KMS key includes key material along with metadata, such as its [key ID](#key-id) and [key policy](key-policies.md)\. The [key material origin](#key-origin) of symmetric encryption KMS keys can vary\. You can use key material that AWS KMS generates, key material that is generated in the AWS CloudHSM cluster of a [custom key store](custom-key-store-overview.md), or [import your own key material](importing-keys.md)\. If you use AWS KMS key material for your symmetric encryption KMS key, you can enable [automatic rotation](rotate-keys.md) of your key material\.
 
 By default, each KMS key has unique key material\. However, you can create a set of [multi\-Region keys](multi-region-keys-overview.md) with the same key material\.
 
@@ -346,45 +357,40 @@ By default, each KMS key has unique key material\. However, you can create a set
 
 *Key material origin* is a KMS key property that identifies the source of the key material in the KMS key\. You choose the key material origin when you create the KMS key, and you cannot change it\. To find the key material origin of a KMS key, use the [DescribeKey](https://docs.aws.amazon.com/kms/latest/APIReference/API_DescribeKey.html) operation, or see the **Origin** value on the **Cryptographic configuration** tab of the detail page for a KMS key in the AWS KMS console\. For help, see [Viewing Keys](viewing-keys.md)\. 
 
-KMS keys can have one of the following key material origin values\.
+The key origin for asymmetric KMS keys and HMAC KMS keys is always `AWS_KMS`, which indicates that AWS KMS generated it\.
 
-**KMS \(default\)**  
-API value: `AWS_KMS`  
+Symmetric encryption KMS keys can have one of the following key material origin values\.
+
+**`AWS_KMS`**  
 AWS KMS creates and manages the key material for the KMS key in its own key store\. This is the default and the recommended value for most KMS keys\.  
 For help creating keys with key material from AWS KMS, see [Creating keys](create-keys.md)\.
 
-**External**  
-API value: `EXTERNAL`  
+**`EXTERNAL`**  
 The KMS key has [imported key material](importing-keys.md)\. When you create a KMS key with an `External` key material origin, the KMS key has no key material\. Later, you can import key material into the KMS key\. When you use imported key material, you need to secure and manage that key material outside of AWS KMS, including replacing the key material if it expires\. For details, see [About imported key material](importing-keys.md#importing-keys-considerations)\.  
 For help creating a KMS key for imported key material, see [Step 1: Create a KMS key with no key material](importing-keys-create-cmk.md)\.
 
-**Custom key store \(CloudHSM\)**  
-API value: `AWS_CLOUDHSM`  
-AWS KMS created the key material for the KMS key in your [custom key store](custom-key-store-overview.md)\.  
-For help creating a KMS key in a custom key store, see [Creating KMS keys in a custom key store](create-cmk-keystore.md)
+**`AWS_CLOUDHSM`**  
+AWS KMS created the key material for the KMS key in the AWS CloudHSM cluster associated with your [custom key store](custom-key-store-overview.md)\.  
+For help creating a KMS key in a custom key store, see [Creating KMS keys in a custom key store](create-cmk-keystore.md)\.
 
 ## Key spec<a name="key-spec"></a>
 
 *Key spec* is a property that represents the cryptographic configuration of a key\. The meaning of the key spec differs with the key type\.
-+ [AWS KMS keys](#kms_keys) — The *key spec* determines whether the KMS key is symmetric or asymmetric\. It also determines the type of its key material, and the encryption algorithms or signing algorithms it supports\. You choose the key spec when you [create the KMS key](create-keys.md), and you cannot change it\.
++ [AWS KMS keys](#kms_keys) — The *key spec* determines whether the KMS key is symmetric or asymmetric\. It also determines the type of its key material, and the cryptographic algorithms it supports\. You choose the key spec when you [create the KMS key](create-keys.md), and you cannot change it\.
 **Note**  
 The `KeySpec` for an KMS key was known as a `CustomerMasterKeySpec`\. The `CustomerMasterKeySpec` parameter of the [CreateKey](https://docs.aws.amazon.com/kms/latest/APIReference/API_CreateKey.html) operation is deprecated\. Instead, use the `KeySpec` parameter, which works the same way\. To prevent breaking changes, the response of the `CreateKey` and [DescribeKey](https://docs.aws.amazon.com/kms/latest/APIReference/API_DescribeKey.html) operations now includes both `KeySpec` and `CustomerMasterKeySpec` members with the same values\.
 
-  For a list of key specs and help with choosing a key spec, see [Selecting the key spec](symm-asymm-choose.md#symm-asymm-choose-key-spec)\. To find the key spec of a KMS key, use the [DescribeKey](https://docs.aws.amazon.com/kms/latest/APIReference/API_DescribeKey.html) operation, or see the **Cryptographic configuration** tab on the detail page for a KMS key in the AWS KMS console\. For help, see [Viewing Keys](viewing-keys.md)\.
+  For a list of key specs and help with choosing a key spec, see [Selecting the key spec](key-types.md#symm-asymm-choose-key-spec)\. To find the key spec of a KMS key, use the [DescribeKey](https://docs.aws.amazon.com/kms/latest/APIReference/API_DescribeKey.html) operation, or see the **Cryptographic configuration** tab on the detail page for a KMS key in the AWS KMS console\. For help, see [Viewing Keys](viewing-keys.md)\.
 
-  To limit the key specs that principals can use when creating KMS keys, use the [kms:KeySpec](policy-conditions.md#conditions-kms-key-spec) condition key\. You can also use the `kms:KeySpec` condition key to allow principals to call AWS KMS operations for a KMS key based on its key spec\. For example, you can deny permission to schedule deletion of a KMS key with an `RSA_4096` key spec\. 
+  To limit the key specs that principals can use when creating KMS keys, use the [kms:KeySpec](policy-conditions.md#conditions-kms-key-spec) condition key\. You can also use the `kms:KeySpec` condition key to allow principals to call AWS KMS operations only on KMS keys with a particular key spec\. For example, you can deny permission to schedule deletion of any KMS key with an `RSA_4096` key spec\. 
 + [Data keys](#data-keys) \([GenerateDataKey](https://docs.aws.amazon.com/kms/latest/APIReference/API_GenerateDataKey.html)\) — The *key spec* determines the length of an AES data key\. 
 + [Data keys pairs](#data-key-pairs) \([GenerateDataKeyPair](https://docs.aws.amazon.com/kms/latest/APIReference/API_GenerateDataKeyPair.html)\) — The *key pair spec* determines the type of key material in the data key pair\.
 
 ## Key usage<a name="key-usage"></a>
 
-*Key usage* is a property that determines whether a KMS key is used for encryption and decryption \-or\- signing and verification\. A key cannot support both\. Using a KMS key for more than one type of operations makes the product of both operations more vulnerable to attack\.
+*Key usage* is a property that determines whether a KMS key is used for encryption and decryption \(`ENCRYPT_DECRYPT`\) \-or\- signing and verification \(`SIGN_VERIFY`\) \-or\- generate and verify MAC \(`GENERATE_VERIFY_MAC`\)\. Each KMS key can have only one usage\. Using a KMS key for more than one type of operation makes the product of both operations more vulnerable to attack\.
 
-The key usage for symmetric KMS keys is always encryption and decryption\. The key usage for elliptic curve \(ECC\) KMS keys is always signing and verification\. You only need to choose a key usage for RSA KMS keys\. You choose the key usage when you [create the KMS key](create-keys.md), and you cannot change it\. If you've chosen the wrong key usage, [delete the KMS key](deleting-keys.md), and create a new one\. 
-
-For choosing the key usage, see [Selecting the key usage](symm-asymm-choose.md#symm-asymm-choose-key-usage)\. To find the key usage of a KMS key, use the [DescribeKey](https://docs.aws.amazon.com/kms/latest/APIReference/API_DescribeKey.html) operation, or choose the **Cryptographic configuration** tab on the detail page for a KMS key in the AWS KMS console\. For help, see [Viewing Keys](viewing-keys.md)\. 
-
-To allow principals to create KMS keys only for signing and verification or only for encryption and decryption, use the [kms:KeyUsage](policy-conditions.md#conditions-kms-key-usage) condition key\. You can also use the `kms:KeyUsage` condition key to allow principals to call API operations for a KMS key based on its key usage\. For example, you can allow permission to disable a KMS key only if its key usage is SIGN\_VERIFY\. 
+For help choosing the key usage for your KMS key, see [Selecting the key usage](key-types.md#symm-asymm-choose-key-usage)\. To find the key usage of a KMS key, use the [DescribeKey](https://docs.aws.amazon.com/kms/latest/APIReference/API_DescribeKey.html) operation, or choose the **Cryptographic configuration** tab on the detail page for a KMS key in the AWS KMS console\. For help, see [Viewing Keys](viewing-keys.md)\. 
 
 ## Envelope encryption<a name="enveloping"></a>
 
@@ -411,11 +417,12 @@ Envelope encryption offers several benefits:
 
 ## Encryption context<a name="encrypt_context"></a>
 
-All AWS KMS [cryptographic operations](#cryptographic-operations) with symmetric KMS keys accept an *encryption context*, an optional set of non\-secret key–value pairs that can contain additional contextual information about the data\. AWS KMS uses the encryption context as [additional authenticated data](https://docs.aws.amazon.com/crypto/latest/userguide/cryptography-concepts.html#term-aad) \(AAD\) to support [authenticated encryption](https://docs.aws.amazon.com/crypto/latest/userguide/cryptography-concepts.html#define-authenticated-encryption)\. 
-
-You cannot specify an encryption context in a cryptographic operation with an [asymmetric KMS key](symmetric-asymmetric.md#asymmetric-cmks)\. The standard asymmetric encryption algorithms that AWS KMS uses do not support an encryption context\.
+All AWS KMS [cryptographic operations](#cryptographic-operations) with [symmetric encryption KMS keys](#symmetric-cmks) accept an *encryption context*, an optional set of key–value pairs that can contain additional contextual information about the data\. AWS KMS uses the encryption context as [additional authenticated data](https://docs.aws.amazon.com/crypto/latest/userguide/cryptography-concepts.html#term-aad) \(AAD\) to support [authenticated encryption](https://docs.aws.amazon.com/crypto/latest/userguide/cryptography-concepts.html#define-authenticated-encryption)\. 
 
 When you include an encryption context in an encryption request, it is cryptographically bound to the ciphertext such that the same encryption context is required to decrypt \(or decrypt and re\-encrypt\) the data\. If the encryption context provided in the decryption request is not an exact, case\-sensitive match, the decrypt request fails\. Only the order of the key\-value pairs in the encryption context can vary\.
+
+**Note**  
+You cannot specify an encryption context in a cryptographic operation with an [asymmetric KMS key](symmetric-asymmetric.md#asymmetric-cmks) or an [HMAC KMS key](hmac.md)\. Asymmetric algorithms and MAC algorithms do not support an encryption context\.
 
 The encryption context is not secret\. It appears in plaintext in [AWS CloudTrail Logs](logging-using-cloudtrail.md) so you can use it to identify and categorize your cryptographic operations\.
 
@@ -447,7 +454,7 @@ More about encryption context\.
 
 ### Encryption context in policies<a name="encryption-context-authorization"></a>
 
-The encryption context is used primarily to verify integrity and authenticity\. But you can also use the encryption context to control access to symmetric AWS KMS keys in key policies and IAM policies\. 
+The encryption context is used primarily to verify integrity and authenticity\. But you can also use the encryption context to control access to symmetric encryption AWS KMS keys in key policies and IAM policies\. 
 
 The [kms:EncryptionContext:](policy-conditions.md#conditions-kms-encryption-context) and [kms:EncryptionContextKeys](policy-conditions.md#conditions-kms-encryption-context) condition keys allow \(or deny\) a permission only when the request includes particular encryption context keys or key–value pairs\. 
 

@@ -68,7 +68,7 @@ For more information about AWS policy syntax, see [AWS IAM Policy Reference](htt
 
 ## Example key policy<a name="key-policy-example"></a>
 
-The following example shows a complete key policy for a symmetric KMS key that was created in the AWS KMS console\. This key policy combines the example policy statements from the preceding [default key policy](key-policy-default.md) section into a single key policy that accomplishes the following:
+The following example shows a complete key policy for a symmetric encryption KMS key\. This key policy combines the example policy statements from the preceding [default key policy](key-policy-default.md) section into a single key policy that accomplishes the following:
 + Allows the example AWS account, 111122223333, full access to the KMS key\. It allows the account and its administrators, including the account root user, to use IAM policies in the account to allow access to the KMS key\.
 + Allows IAM user KMSAdminUser and IAM role KMSAdminRole to administer the KMS key\.
 + Allows IAM user `ExampleUser`, IAM role `ExampleRole`, and AWS account 444455556666 to use the KMS key\.

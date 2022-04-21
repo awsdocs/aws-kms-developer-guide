@@ -62,7 +62,7 @@ The following example shows the key administrators statement in the default view
 
 ![\[Key administrators in the console's default key policy, default view\]](http://docs.aws.amazon.com/kms/latest/developerguide/images/console-key-policy-administrators-sm.png)
 
-The following is an example key administrators statement in the policy view of the AWS KMS console\. This key administrators statement is for a single\-region symmetric KMS key\.
+The following is an example key administrators statement in the policy view of the AWS KMS console\. This key administrators statement is for a single\-region symmetric encryption KMS key\.
 
 ```
 {
@@ -92,7 +92,7 @@ The following is an example key administrators statement in the policy view of t
 }
 ```
 
-The default key administrators statement for a single\-Region symmetric KMS key allows the following permissions\. For detailed information about each permission, see the [AWS KMS permissions](kms-api-permissions-reference.md)\.
+The default key administrators statement for the most common KMS key, a single\-Region symmetric encryption KMS key, allows the following permissions\. For detailed information about each permission, see the [AWS KMS permissions](kms-api-permissions-reference.md)\.
 
 When you use the AWS KMS console to create a KMS key, the console adds the users and roles you specify to the `Principal` element in the key administrators statement\.
 
@@ -105,7 +105,7 @@ Allows [`kms:CreateAlias`](kms-alias.md) and [`kms:CreateGrant`](grants.md)\. \(
 Allows [`kms:DescribeKey`](viewing-keys.md)\. The `kms:DescribeKey` permission is required to view the key details page for a KMS key in the AWS Management Console\.
 
 **`kms:Enable*`**  
-Allows [`kms:EnableKey`](enabling-keys.md)\. For symmetric KMS keys, it also allows [`kms:EnableKeyRotation`](rotate-keys.md)\.
+Allows [`kms:EnableKey`](enabling-keys.md)\. For symmetric encryption KMS keys, it also allows [`kms:EnableKeyRotation`](rotate-keys.md)\.
 
 **`kms:List*`**  
 Allows [`kms:ListGrants`](grants.md), [https://docs.aws.amazon.com/kms/latest/APIReference/API_ListKeyPolicies.html](https://docs.aws.amazon.com/kms/latest/APIReference/API_ListKeyPolicies.html), and [`kms:ListResourceTags`](tagging-keys.md)\. \(The `kms:ListAliases` and `kms:ListKeys` permissions, which are required to view KMS keys in the AWS Management Console, are valid only in IAM policies\.\)
@@ -120,7 +120,7 @@ Allows [`kms:UpdateAlias`](alias-manage.md#alias-update) and [`kms:UpdateKeyDesc
 Allows [`kms:RevokeGrant`](grant-manage.md#grant-delete), which allows key administrators to [delete a grant](grant-manage.md#grant-delete) even if they are not a [retiring principal](grants.md#terms-retiring-principal) in the grant\. 
 
 **`kms:Disable*`**  
-Allows [`kms:DisableKey`](enabling-keys.md)\. For symmetric KMS keys, it also allows [`kms:DisableKeyRotation`](rotate-keys.md)\.
+Allows [`kms:DisableKey`](enabling-keys.md)\. For symmetric encryption KMS keys, it also allows [`kms:DisableKeyRotation`](rotate-keys.md)\.
 
 **`kms:Get*`**  
 Allows [`kms:GetKeyPolicy`](key-policy-viewing.md) and [`kms:GetKeyRotationStatus`](rotate-keys.md)\. For KMS keys with imported key material, it allows [https://docs.aws.amazon.com/kms/latest/APIReference/API_GetParametersForImport.html](https://docs.aws.amazon.com/kms/latest/APIReference/API_GetParametersForImport.html)\. For asymmetric KMS keys, it allows [https://docs.aws.amazon.com/kms/latest/APIReference/API_GetPublicKey.html](https://docs.aws.amazon.com/kms/latest/APIReference/API_GetPublicKey.html)\. The `kms:GetKeyPolicy` permission is required to view the key policy of a KMS key in the AWS Management Console\.
@@ -155,7 +155,7 @@ The [https://docs.aws.amazon.com/kms/latest/APIReference/API_UpdatePrimaryRegion
 
 ## Allows key users to use the KMS key<a name="key-policy-default-allow-users"></a>
 
-The default key policy that the console creates for symmetric KMS keys allows you to choose IAM users and roles in the account, and external AWS accounts, and make them *key users*\. 
+The default key policy that the console creates for KMS keys allows you to choose IAM users and roles in the account, and external AWS accounts, and make them *key users*\. 
 
 The console adds two policy statements to the key policy for key users\.
 + [Use the KMS key directly](#key-policy-users-crypto) — The first key policy statement gives key users permission to use the KMS key directly for all supported [cryptographic operations](concepts.md#cryptographic-operations) for that type of KMS key\.
@@ -209,10 +209,10 @@ When you use the AWS KMS console to create a KMS key, the console adds the users
 
 Key users have permission to use the KMS key directly in all [cryptographic operations](concepts.md#cryptographic-operations) supported on the KMS key\. They can also use the [DescribeKey ](https://docs.aws.amazon.com/kms/latest/APIReference/API_DescribeKey.html)operation to get detailed information about the KMS key in the AWS KMS console or by using the AWS KMS API operations\.
 
-By default, the AWS KMS console adds key users statements like those in the following examples to the default key policy\. Because they support different API operations, the actions in the policy statements for symmetric KMS keys, asymmetric KMS keys for public key encryption, and asymmetric KMS keys for signing and verification are slightly different\.
+By default, the AWS KMS console adds key users statements like those in the following examples to the default key policy\. Because they support different API operations, the actions in the policy statements for symmetric encryption KMS keys, HMAC KMS keys, asymmetric KMS keys for public key encryption, and asymmetric KMS keys for signing and verification are slightly different\.
 
-**Symmetric KMS keys**  
-The console adds the following statement to the key policy for symmetric KMS keys\.  
+**Symmetric encryption KMS keys**  
+The console adds the following statement to the key policy for symmetric encryption KMS keys\.  
 
 ```
 {
@@ -225,6 +225,23 @@ The console adds the following statement to the key policy for symmetric KMS key
     "kms:Encrypt",
     "kms:GenerateDataKey*",
     "kms:ReEncrypt*"
+  ],
+  "Resource": "*"
+}
+```
+
+**HMAC KMS keys**  
+The console adds the following statement to the key policy for HMAC KMS keys\.  
+
+```
+{
+  "Sid": "Allow use of the key",
+  "Effect": "Allow",  
+  "Principal": {"AWS": "arn:aws:iam::111122223333:user/ExampleUser"},
+  "Action": [
+    "kms:DescribeKey",
+    "kms:GenerateMac",
+    "kms:VerifyMac"
   ],
   "Resource": "*"
 }
@@ -283,17 +300,23 @@ Allows key users to get detailed information about this KMS key including its id
 `kms:GenerateDataKey*`  
 Allows key users to request a symmetric data key or an asymmetric data key pair for client\-side cryptographic operations\. The console uses the \* wildcard character to represent permission for the following API operations: [GenerateDataKey](https://docs.aws.amazon.com/kms/latest/APIReference/API_GenerateDataKey.html), [GenerateDataKeyWithoutPlaintext](https://docs.aws.amazon.com/kms/latest/APIReference/API_GenerateDataKeyWithoutPlaintext.html), [GenerateDataKeyPair](https://docs.aws.amazon.com/kms/latest/APIReference/API_GenerateDataKeyPair.html), and [GenerateDataKeyPairWithoutPlaintext](https://docs.aws.amazon.com/kms/latest/APIReference/API_GenerateDataKeyPairWithoutPlaintext.html)\. These permissions are valid only on the symmetric KMS keys that encrypt the data keys\.
 
-[https://docs.aws.amazon.com/kms/latest/APIReference/API_GetPublicKey.html](https://docs.aws.amazon.com/kms/latest/APIReference/API_GetPublicKey.html)  
+[kms:GenerateMac](https://docs.aws.amazon.com/kms/latest/APIReference/API_GenerateMac.html)  
+Allows key users to use an HMAC KMS key to generate an HMAC tag\.
+
+[kms:GetPublicKey](https://docs.aws.amazon.com/kms/latest/APIReference/API_GetPublicKey.html)  
 Allows key users to download the public key of the asymmetric KMS key\. Parties with whom you share this public key can encrypt data outside of AWS KMS\. However, those ciphertexts can be decrypted only by calling the [Decrypt](https://docs.aws.amazon.com/kms/latest/APIReference/API_Decrypt.html) operation in AWS KMS\.
 
-[https://docs.aws.amazon.com/kms/latest/APIReference/API_ReEncrypt.html](https://docs.aws.amazon.com/kms/latest/APIReference/API_ReEncrypt.html)\*   
-Allows key users to re\-encrypt data that was originally encrypted with this KMS key, or to use this KMS key to re\-encrypt previously encrypted data\. The [ReEncrypt](https://docs.aws.amazon.com/kms/latest/APIReference/API_ReEncrypt.html) operation requires access to both source and destination KMS keys\. You can allow only `kms:ReEncryptFrom` permission on the source KMS key and only `kms:ReEncryptTo` permission on the destination KMS key\. However, for simplicity, the console allows `kms:ReEncrypt*` \(with the `*` wildcard character\) on both KMS keys\.
+[kms:ReEncrypt](https://docs.aws.amazon.com/kms/latest/APIReference/API_ReEncrypt.html)\*   
+Allows key users to re\-encrypt data that was originally encrypted with this KMS key, or to use this KMS key to re\-encrypt previously encrypted data\. The [ReEncrypt](https://docs.aws.amazon.com/kms/latest/APIReference/API_ReEncrypt.html) operation requires access to both source and destination KMS keys\. To accomplish this, you can allow the `kms:ReEncryptFrom` permission on the source KMS key and `kms:ReEncryptTo` permission on the destination KMS key\. However, for simplicity, the console allows `kms:ReEncrypt*` \(with the `*` wildcard character\) on both KMS keys\.
 
-[https://docs.aws.amazon.com/kms/latest/APIReference/API_Sign.html](https://docs.aws.amazon.com/kms/latest/APIReference/API_Sign.html)  
+[kms:Sign](https://docs.aws.amazon.com/kms/latest/APIReference/API_Sign.html)  
 Allows key users to sign messages with this KMS key\.
 
-[https://docs.aws.amazon.com/kms/latest/APIReference/API_Verify.html](https://docs.aws.amazon.com/kms/latest/APIReference/API_Verify.html)  
+[kms:Verify](https://docs.aws.amazon.com/kms/latest/APIReference/API_Verify.html)  
 Allows key users to verify signatures with this KMS key\.
+
+[kms:VerifyMac](https://docs.aws.amazon.com/kms/latest/APIReference/API_VerifyMac.html)  
+Allows key users to use an HMAC KMS key to verify an HMAC tag\.
 
 ## Allows key users to use the KMS key with AWS services<a name="key-policy-service-integration"></a>
 

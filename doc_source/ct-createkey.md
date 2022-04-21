@@ -4,7 +4,7 @@ These examples show AWS CloudTrail log entries for the [CreateKey](https://docs.
 
 A `CreateKey` log entry can result from a `CreateKey` request or the `CreateKey` operation for a [ReplicateKey](https://docs.aws.amazon.com/kms/latest/APIReference/API_ReplicateKey.html) request\.
 
-The following example shows an CloudTrail log entry for a [CreateKey](https://docs.aws.amazon.com/kms/latest/APIReference/API_CreateKey.html) operation that creates a [symmetric KMS key](concepts.md#symmetric-cmks)\. For information about creating KMS keys, see [Creating keys](create-keys.md)\.
+The following example shows an CloudTrail log entry for a [CreateKey](https://docs.aws.amazon.com/kms/latest/APIReference/API_CreateKey.html) operation that creates a [symmetric encryption KMS key](concepts.md#symmetric-cmks)\. For information about creating KMS keys, see [Creating keys](create-keys.md)\.
 
 ```
 {

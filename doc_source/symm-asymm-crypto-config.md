@@ -2,7 +2,7 @@
 
 After you create your KMS key, you can view its cryptographic configuration\. You cannot change the configuration of a KMS key after it is created\. If you prefer a different configuration, delete the KMS key and create it again\.
 
-You can find the cryptographic configuration of your KMS keys, include the key spec, key usage, and supported encryption or signing algorithms, in the AWS KMS console or by using the AWS KMS API\. For details, see [Identifying symmetric and asymmetric KMS keys](find-symm-asymm.md)\.
+You can find the cryptographic configuration of your KMS keys, include the key spec, key usage, and supported encryption or signing algorithms, in the AWS KMS console or by using the AWS KMS API\. For details, see [Identifying asymmetric KMS keys](find-symm-asymm.md)\.
 
 In the AWS KMS console, the [details page for each KMS key](viewing-keys-console.md#viewing-console-details) includes a **Cryptographic configuration** tab that displays cryptographic details about your KMS keys\. For example, the following image shows the **Cryptographic configuration** tab for an RSA KMS key used for signing and verification\.
 

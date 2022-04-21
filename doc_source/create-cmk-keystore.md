@@ -1,6 +1,6 @@
 # Creating KMS keys in a custom key store<a name="create-cmk-keystore"></a>
 
-After you have created a custom key store, you can create [AWS KMS keys](concepts.md#kms_keys) in your key store\. They must be [symmetric KMS keys](concepts.md#symmetric-cmks) with key material that AWS KMS generates\. You cannot create [asymmetric KMS keys](symmetric-asymmetric.md#asymmetric-cmks) or KMS keys with [imported key material](importing-keys.md), and you cannot use symmetric KMS keys in a custom key store to generate asymmetric data key pairs\.
+After you have created a custom key store, you can create [AWS KMS keys](concepts.md#kms_keys) in your key store\. They must be [symmetric encryption KMS keys](concepts.md#symmetric-cmks) with key material that AWS KMS generates\. You cannot create [asymmetric KMS keys](symmetric-asymmetric.md#asymmetric-cmks), [HMAC KMS keys](hmac.md) or KMS keys with [imported key material](importing-keys.md) in a custom key store\. Also, you cannot use symmetric encryption KMS keys in a custom key store to generate asymmetric data key pairs\.
 
 Use and manage the KMS keys in your custom key store the same way that you use and manage any KMS key in AWS KMS\. For example, you can do any of the following:
 + Use the KMS keys for [cryptographic operations](concepts.md#cryptographic-operations)\.
@@ -28,7 +28,7 @@ For an example of the AWS CloudTrail log of the operation that creates a KMS key
 
 ## Create a KMS key in a custom key store \(console\)<a name="create-cmk-keystore-console"></a>
 
-Use the following procedure to create an AWS KMS key in a custom key store\.
+Use the following procedure to create a symmetric encryption KMS key in a custom key store\. 
 
 1. Sign in to the AWS Management Console and open the AWS Key Management Service \(AWS KMS\) console at [https://console\.aws\.amazon\.com/kms](https://console.aws.amazon.com/kms)\.
 
@@ -40,7 +40,7 @@ Use the following procedure to create an AWS KMS key in a custom key store\.
 
 1. Choose **Symmetric**\.
 
-   You cannot create an asymmetric KMS key in a custom key store\. 
+1. In **Key usage**, the **Encrypt and decrypt** option is selected for you\. Do not change it\. 
 
 1. Choose **Advanced options**\.
 

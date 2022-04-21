@@ -1,6 +1,6 @@
 # GenerateDataKeyPair<a name="ct-generatedatakeypair"></a>
 
-The following example shows an AWS CloudTrail log entry for the [GenerateDataKeyPair](https://docs.aws.amazon.com/kms/latest/APIReference/API_GenerateDataKeyPair.html) operation\. This example records an operation that generates an RSA key pair encrypted under a symmetric AWS KMS key\.
+The following example shows an AWS CloudTrail log entry for the [GenerateDataKeyPair](https://docs.aws.amazon.com/kms/latest/APIReference/API_GenerateDataKeyPair.html) operation\. This example records an operation that generates an RSA key pair encrypted under a symmetric encryption AWS KMS key\.
 
 ```
 {

@@ -8,6 +8,9 @@ You might share a public key to let others encrypt data outside of AWS KMS that 
 
 When you use the public key in your asymmetric KMS key within AWS KMS, you benefit from the authentication, authorization, and logging that are part of every AWS KMS operation\. You also reduce of risk of encrypting data that cannot be decrypted\. These features are not effective outside of AWS KMS\. For details, see [Special considerations for downloading public keys](#download-public-key-considerations)\.
 
+**Tip**  
+Looking for data keys or SSH keys? This topic explains how to manage asymmetric keys in AWS Key Management Service, where the private key is not exportable\. For exportable data key pairs where the private key is protected by a symmetric encryption KMS key, see [GenerateDataKeyPair](https://docs.aws.amazon.com/kms/latest/APIReference/API_GenerateDataKeyPair.html)\. For help with downloading the public key associated with an Amazon EC2 instance, see *Retrieving the public key* in the [Amazon EC2 User Guide for Linux Instances](https://docs.aws.amazon.com/AWSEC2/latest/UserGuide/describe-keys.html#retrieving-the-public-key) and [Amazon EC2 User Guide for Windows Instances](https://docs.aws.amazon.com/AWSEC2/latest/WindowsGuide/describe-keys.html#retrieving-the-public-key)\.
+
 **Topics**
 + [Special considerations for downloading public keys](#download-public-key-considerations)
 + [Downloading a public key \(console\)](#download-public-key-console)

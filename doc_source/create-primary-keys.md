@@ -22,7 +22,13 @@ To create a multi\-Region primary key in the AWS KMS console, use the same proce
 
 1. Choose **Create key**\.
 
-1. Select a [symmetric or asymmetric](symmetric-asymmetric.md) key type\. If you choose asymmetric, you need to select the key usage and key spec\.
+1. Select a [symmetric or asymmetric](symmetric-asymmetric.md) key type\. Symmetric keys are the default\.
+
+   You can create multi\-Region symmetric and asymmetric keys, including multi\-Region HMAC KMS keys, which are symmetric\. 
+
+1. Select your key usage\. **Encrypt and decrypt** is the default\.
+
+   For help, see [Creating keys](create-keys.md), [Creating asymmetric KMS keys](asymm-create-key.md), or [Creating HMAC KMS keys](hmac-create-key.md)\.
 
 1. Expand **Advanced options**\.
 
@@ -60,7 +66,7 @@ IAM policies can give other IAM users and roles permission to manage the KMS key
 
 To create a multi\-Region primary key, use the [CreateKey](https://docs.aws.amazon.com/kms/latest/APIReference/API_CreateKey.html) operation\. Use the `MultiRegion` parameter with a value of `True`\.
 
-For example, the following command creates a multi\-Region primary key in the caller's AWS Region \(us\-east\-1\)\. It accepts default values for all other properties, including the key policy\. The default values for multi\-Region primary keys are the same as the default values for all other KMS keys, including the [default key policy](key-policy-default.md)\.
+For example, the following command creates a multi\-Region primary key in the caller's AWS Region \(us\-east\-1\)\. It accepts default values for all other properties, including the key policy\. The default values for multi\-Region primary keys are the same as the default values for all other KMS keys, including the [default key policy](key-policy-default.md)\. This procedure creates a symmetric encryption key, the default KMS key\. 
 
 The response includes the `MultiRegion` element and the `MultiRegionConfiguration` element with typical sub\-elements and values for a multi\-Region primary key with no replica keys\. The [key ID](concepts.md#key-id-key-id) of a multi\-Region key always begins with `mrk-`\.
 

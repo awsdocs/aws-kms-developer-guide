@@ -42,7 +42,7 @@ The [DescribeKey](https://docs.aws.amazon.com/kms/latest/APIReference/API_Descri
 **Note**  
 The `DescribeKey` response includes both `KeySpec` and `CustomerMasterKeySpec` members with the same values\. The `CustomerMasterKeySpec` member is deprecated\.
 
-For example, this call to `DescribeKey` returns information about a symmetric KMS key\. The fields in the response vary with the [AWS KMS key spec](concepts.md#key-spec), [key state](key-state.md), and the [key material origin](concepts.md#key-origin)\. For examples in multiple programming languages, see [Viewing an AWS KMS key](programming-keys.md#describing-keys)\.
+For example, this call to `DescribeKey` returns information about a symmetric encryption KMS key\. The fields in the response vary with the [AWS KMS key spec](concepts.md#key-spec), [key state](key-state.md), and the [key material origin](concepts.md#key-origin)\. For examples in multiple programming languages, see [Viewing an AWS KMS key](programming-keys.md#describing-keys)\.
 
 ```
 $ aws kms describe-key --key-id 1234abcd-12ab-34cd-56ef-1234567890ab

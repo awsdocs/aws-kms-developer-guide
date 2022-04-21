@@ -14,6 +14,7 @@ You might need to scroll horizontally or vertically to see all of the data in th
 
 | Change | Description | Date | 
 | --- |--- |--- |
+| [New feature](https://docs.aws.amazon.com/kms/latest/developerguide/hmac.html) | Added support for AWS KMS keys and API operations that generate and verify HMAC codes\. | April 19, 2022 | 
 | [Documentation change](https://docs.aws.amazon.com/kms/latest/developerguide/concepts.html#kms_keys) | Replace the term *customer master key \(CMK\)* with *AWS KMS key* and *KMS key*\. | August 30, 2021 | 
 | [New feature](https://docs.aws.amazon.com/kms/latest/developerguide/multi-region-keys-overview.html) | Added support for [multi\-Region keys](https://docs.aws.amazon.com/kms/latest/developerguide/multi-region-keys-overview.html), a set of interoperable KMS keys in different Regions that have the same key ID and key material\. You can use multi\-Region keys to encrypt data in one Region and decrypt data in a different Region\. | June 8, 2021 | 
 | [New feature](https://docs.aws.amazon.com/kms/latest/developerguide/abac.html) | Added support for attribute based access control \(ABAC\)\. You can use tags and aliases to control access to your AWS KMS keys\. | December 17, 2020 | 

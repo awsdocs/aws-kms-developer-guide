@@ -1,29 +1,39 @@
 # Creating keys<a name="create-keys"></a>
 
-You can create AWS KMS keys in the AWS Management Console, or by using the [CreateKey](https://docs.aws.amazon.com/kms/latest/APIReference/API_CreateKey.html) operation or an [AWS CloudFormation template](creating-resources-with-cloudformation.md)\. During this process, you determine the cryptographic configuration of your KMS key and the origin of the key material\. You cannot change these properties after the KMS key is created\. You also set the key policy for the KMS key, which you can change at any time\.
+You can create AWS KMS keys in the AWS Management Console, or by using the [CreateKey](https://docs.aws.amazon.com/kms/latest/APIReference/API_CreateKey.html) operation or an [AWS CloudFormation template](creating-resources-with-cloudformation.md)\. During this process, you pick the type of the KMS key, its regionality \(single\-Region or multi\-Region\), and the origin of the key material \(the default is that AWS KMS creates it for you\)\. You cannot change these properties after the KMS key is created\. You also set the key policy for the KMS key, which you can change at any time\.
 
-If you are creating a KMS key to encrypt data you store or manage in an AWS service, create a symmetric KMS key\. [AWS services that are integrated with AWS KMS](https://aws.amazon.com/kms/features/#AWS_Service_Integration) use symmetric KMS keys to encrypt your data\. These services do not support encryption with asymmetric KMS keys\. For help deciding which type of KMS key to create, see [Choosing your KMS key configuration](symm-asymm-choose.md)\.
+This topic explains how to create the basic KMS key, a [symmetric encryption KMS key](concepts.md#symmetric-cmks) for a single Region with key material from AWS KMS\. You can use this KMS key to protect your resources in an AWS service\. For detailed information about symmetric encryption KMS keys, see [SYMMETRIC\_DEFAULT key spec](asymmetric-key-specs.md#key-spec-symmetric-default)\. For help creating other types of keys, see [Special\-purpose keys](key-types.md)\.
+
+If you are creating a KMS key to encrypt data you store or manage in an AWS service, create a symmetric encryption KMS key\. [AWS services that are integrated with AWS KMS](https://aws.amazon.com/kms/features/#AWS_Service_Integration) use only symmetric encryption KMS keys to encrypt your data\. These services do not support encryption with asymmetric KMS keys\. For help deciding which type of KMS key to create, see [Choosing a KMS key type](key-types.md#symm-asymm-choose)\.
+
+**Note**  
+Symmetric KMS keys are now called *symmetric encryption* KMS keys\. AWS KMS supports two kinds of symmetric KMS keys, [symmetric encryption KMS keys](concepts.md#symmetric-cmks) \(the default type\) and [HMAC KMS keys](concepts.md#hmac-key-concept), which are also symmetric keys\. 
 
 When you create a KMS key in the AWS KMS console, you are required to give it an alias \(friendly name\)\. The `CreateKey` operation does not create an alias for the new KMS key\. To create an alias for a new or existing KMS key, use the [CreateAlias](https://docs.aws.amazon.com/kms/latest/APIReference/API_CreateAlias.html) operation\. For detailed information about aliases in AWS KMS, see [Using aliases](kms-alias.md)\.
+
+This topic explains how to create a symmetric encryption KMS key\[
 
 **Learn more:**
 + To create data keys for client\-side encryption, use the [GenerateDataKey](https://docs.aws.amazon.com/kms/latest/APIReference/API_GenerateDataKey.html) operation\.
 + To create an asymmetric KMS key for encryption or signing, see [Creating asymmetric KMS keys](asymm-create-key.md)\.
-+ To create a KMS key with imported key material \("bring your own key"\), see [Create an AWS KMS key with no key material](importing-keys-create-cmk.md)\.
++ To create an HMAC KMS key, see [Creating HMAC KMS keys](hmac-create-key.md)\.
++ To create a KMS key with imported key material \("bring your own key"\), see [Importing key material step 1: Create an AWS KMS key without key material](importing-keys-create-cmk.md)\.
 + To create a multi\-Region primary key or replica key, see [Creating multi\-Region keys](multi-region-keys-create.md)\.
-+ To create a KMS key in a custom key store \([key material origin](concepts.md#key-origin) is Custom Key Store \(CloudHSM\)\), see [Creating KMS keys in a Custom Key Store](create-cmk-keystore.md)\.
++ To create a KMS key in a custom key store \([key material origin](concepts.md#key-origin) is Custom Key Store \(CloudHSM\)\), see [Creating KMS keys in a custom key store](create-cmk-keystore.md)\.
 + To use an AWS CloudFormation template to create a KMS key, see [AWS::KMS::Key](https://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-resource-kms-key.html) in the *AWS CloudFormation User Guide*\.
-+ To determine whether an existing KMS key is symmetric or asymmetric, see [Identifying symmetric and asymmetric KMS keys](find-symm-asymm.md)\.
++ To determine whether an existing KMS key is symmetric or asymmetric, see [Identifying asymmetric KMS keys](find-symm-asymm.md)\.
 + To use your KMS key programmatically and in command line interface operations, you need a [key ID](concepts.md#key-id-key-id) or [key ARN](concepts.md#key-id-key-ARN)\. For detailed instructions, see [Finding the key ID and key ARN](find-cmk-id-arn.md)\.
 + For information about quotas that apply to KMS keys, see [Quotas](limits.md)\.
 
 **Topics**
 + [Permissions for creating KMS keys](#create-key-permissions)
-+ [Creating symmetric KMS keys](#create-symmetric-cmk)
++ [Creating symmetric encryption KMS keys](#create-symmetric-cmk)
 
 ## Permissions for creating KMS keys<a name="create-key-permissions"></a>
 
-To create a KMS key in the console or by using the APIs, you must have the following permission in an IAM policy\. Whenever possible, use [condition keys](policy-conditions.md) to limit the permissions\. For an example of an IAM policy for principals who create keys, see [Allow a user to create KMS keys](customer-managed-policies.md#iam-policy-example-create-key)\.
+To create a KMS key in the console or by using the APIs, you must have the following permission in an IAM policy\. Whenever possible, use [condition keys](policy-conditions.md) to limit the permissions\. For example, you can use the [kms:KeySpec](policy-conditions.md#conditions-kms-key-spec) condition key in an IAM policy to allow principals to create only symmetric encryption keys\.
+
+For an example of an IAM policy for principals who create keys, see [Allow a user to create KMS keys](customer-managed-policies.md#iam-policy-example-create-key)\.
 
 **Note**  
 Be cautious when giving principals permission to manage tags and aliases\. Changing a tag or alias can allow or deny permission to the customer managed key\. For details, see [ABAC for AWS KMS](abac.md)\.
@@ -36,13 +46,13 @@ The [kms:PutKeyPolicy](https://docs.aws.amazon.com/kms/latest/APIReference/API_P
 
 KMS keys belong to the AWS account in which they were created\. The IAM user who creates a KMS key is not considered to be the key owner and they don't automatically have permission to use or manage the KMS key that they created\. Like any other principal, the key creator needs to get permission through a key policy, IAM policy, or grant\. However, principals who have the `kms:CreateKey` permission can set the initial key policy and give themselves permission to use or manage the key\.
 
-## Creating symmetric KMS keys<a name="create-symmetric-cmk"></a>
+## Creating symmetric encryption KMS keys<a name="create-symmetric-cmk"></a>
 
-You can create [symmetric KMS key](concepts.md#symmetric-cmks) in the AWS Management Console or by using the AWS KMS API\. Symmetric key encryption uses the same key to encrypt and decrypt data\. 
+You can create KMS keys in the AWS Management Console or by using the AWS KMS API\. 
 
-The following procedure creates the most commonly used KMS key, a symmetric encryption key in a single Region backed by key material generated by AWS KMS\.
+This topic explains how to create the basic KMS key, a [symmetric encryption KMS key](concepts.md#symmetric-cmks) for a single Region with key material from AWS KMS\. You can use this KMS key to protect your resources in an AWS service\. For help creating other types of keys, see [Special\-purpose keys](key-types.md)\.
 
-### Creating symmetric KMS keys \(console\)<a name="create-keys-console"></a>
+### Creating symmetric encryption KMS keys \(console\)<a name="create-keys-console"></a>
 
 You can use the AWS Management Console to create AWS KMS keys \(KMS keys\)\.
 
@@ -54,11 +64,17 @@ You can use the AWS Management Console to create AWS KMS keys \(KMS keys\)\.
 
 1. Choose **Create key**\.
 
-1. To create a symmetric KMS key, for **Key type** choose **Symmetric**\.
+1. To create a symmetric encryption KMS key, for **Key type** choose **Symmetric**\.
 
    For information about how to create an asymmetric KMS key in the AWS KMS console, see [Creating asymmetric KMS keys \(console\)](asymm-create-key.md#create-asymmetric-keys-console)\.
 
+1. In **Key usage**, the **Encrypt and decrypt** option is selected for you\.
+
+   For information about how to create KMS keys that generate and verify MAC codes, see [Creating HMAC KMS keys](hmac-create-key.md)\.
+
 1. Choose **Next**\.
+
+   For information about the **Advanced options**, see [Special\-purpose keys](key-types.md)\.
 
 1. Type an alias for the KMS key\. The alias name cannot begin with **aws/**\. The **aws/** prefix is reserved by Amazon Web Services to represent AWS managed keys in your account\.
 **Note**  
@@ -104,7 +120,7 @@ To allow principals in the external accounts to use the KMS key, Administrators 
 
 1. Choose **Finish** to create the KMS key\.
 
-### Creating symmetric KMS keys \(AWS KMS API\)<a name="create-keys-api"></a>
+### Creating symmetric encryption KMS keys \(AWS KMS API\)<a name="create-keys-api"></a>
 
 You can use the [CreateKey](https://docs.aws.amazon.com/kms/latest/APIReference/API_CreateKey.html) operation to create AWS KMS keys of all types\. These examples use the [AWS Command Line Interface \(AWS CLI\)](https://aws.amazon.com/cli/), but you can use any supported programming language\. 
 
@@ -112,7 +128,7 @@ The following operation creates the most commonly used KMS key, a symmetric encr
 
 The `CreateKey` operation doesn't let you specify an alias, but you can use the [CreateAlias](https://docs.aws.amazon.com/kms/latest/APIReference/API_CreateAlias.html) operation to create an alias for your new KMS key\.
 
-The following is an example of a call to the `CreateKey` operation with no parameters\. This command uses all of the default values\. It creates a symmetric KMS key for encrypting and decrypting with key material generated by AWS KMS\.
+The following is an example of a call to the `CreateKey` operation with no parameters\. This command uses all of the default values\. It creates a symmetric encryption KMS key with key material generated by AWS KMS\.
 
 ```
 $ aws kms create-key

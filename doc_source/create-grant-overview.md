@@ -45,7 +45,7 @@ For code examples that demonstrate how to work with grants in several programmin
 AWS KMS supports two grant constraints, `EncryptionContextEquals` and `EncryptionContextSubset`, both of which establish requirements for the [encryption context](concepts.md#encrypt_context) in a request for a cryptographic operation\. 
 
 The encryption context grant constraints are designed to be used with [grant operations](grants.md#terms-grant-operations) that have an encryption context parameter\. 
-+ You cannot use an encryption context constraint in a grant for an asymmetric KMS key\. Cryptographic operations with asymmetric KMS keys don't support an encryption context\.
++ Encryption context constraints are valid only in a grant for a symmetric encryption KMS key\. Cryptographic operations with other KMS keys don't support an encryption context\.
 + The encryption context constraint is ignored for `DescribeKey` and `RetireGrant` operations\. `DescribeKey` and `RetireGrant` don't have an encryption context parameter, but you can include these operations in a grant that has an encryption context constraint\.
 + You can use an encryption context constraint in a grant for the `CreateGrant` operation\. The encryption context constraint requires that any grants created with the `CreateGrant` permission have an equally strict or stricter encryption context constraint\.
 
@@ -61,7 +61,7 @@ Use `EncryptionContextSubset` to require that requests include particular encryp
 `EncryptionContextSubset` requires that the request include all encryption context pairs in the grant constraint \(an exact, case\-sensitive match\), but the request can also have additional encryption context pairs\. The pairs can appear in any order, but the keys and values in each pair cannot vary\.   
 For example, if the `EncryptionContextSubset` grant constraint requires the `Department=IT` encryption context pair, the grant allows requests of the specified type when the encryption context in the request is `"Department": "IT"`, or includes `"Department": "IT"` along with other encryption context pairs, such as `"Department": "IT","Purpose": "Test"`\.
 
-To specify an encryption context constraint in a grant for a symmetric KMS key, use the `Constraints` parameter in the [CreateGrant](https://docs.aws.amazon.com/kms/latest/APIReference/API_CreateGrant.html) operation\. The grant that this command creates gives the `exampleUser` permission to call the [Decrypt](https://docs.aws.amazon.com/kms/latest/APIReference/API_Decrypt.html) operation\. But that permission is effective only when the encryption context in the `Decrypt` request is a `"Department": "IT"` encryption context pair\.
+To specify an encryption context constraint in a grant for a symmetric encryption KMS key, use the `Constraints` parameter in the [CreateGrant](https://docs.aws.amazon.com/kms/latest/APIReference/API_CreateGrant.html) operation\. The grant that this command creates gives the `exampleUser` permission to call the [Decrypt](https://docs.aws.amazon.com/kms/latest/APIReference/API_Decrypt.html) operation\. But that permission is effective only when the encryption context in the `Decrypt` request is a `"Department": "IT"` encryption context pair\.
 
 ```
 $ aws kms create-grant \
