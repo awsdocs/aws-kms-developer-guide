@@ -61,7 +61,7 @@ Our early benchmark testing shows that the hybrid cipher suites in s2n\-tls are 
 
 ## How to configure hybrid post\-quantum TLS<a name="pqtls-how-to"></a>
 
-In this procedure, add a Maven dependency for the [preview release](https://aws.amazon.com/blogs/developer/introducing-aws-common-runtime-http-client-in-the-aws-sdk-for-java-2-x/) of the AWS Common Runtime HTTP Client\. Next, configure an HTTP client that uses the hybrid post\-quantum cipher preference\. Then, create an AWS KMS client that uses the HTTP client\.
+In this procedure, add a Maven dependency for the [preview release](https://docs.aws.amazon.com/sdk-for-java/latest/developer-guide/http-configuration-crt.html) of the AWS Common Runtime HTTP Client\. Next, configure an HTTP client that uses the hybrid post\-quantum cipher preference\. Then, create an AWS KMS client that uses the HTTP client\.
 
 To see a complete working examples of configuring and using hybrid post\-quantum TLS with AWS KMS, see the [https://github.com/aws-samples/aws-kms-pq-tls-example](https://github.com/aws-samples/aws-kms-pq-tls-example) repository\.
 

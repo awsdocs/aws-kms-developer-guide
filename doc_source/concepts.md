@@ -51,8 +51,8 @@ The KMS keys that you create are [customer managed keys](#customer-cmk)\. AWS se
 
 | Type of KMS key | Can view KMS key metadata | Can manage KMS key | Used only for my AWS account | [Automatic rotation](rotate-keys.md) | 
 | --- | --- | --- | --- | --- | 
-| Customer managed key | Yes | Yes | Yes | Optional\. Every 365 days \(1 year\)\. | 
-| AWS managed key | Yes | No | Yes | Required\. Every 1095 days \(3 years\)\. | 
+| Customer managed key | Yes | Yes | Yes | Optional\. Every year \(approximately 365 days\) | 
+| AWS managed key | Yes | No | Yes | Required\. Every year \(approximately 365 days\) | 
 | AWS owned key | No | No | No | Varies | 
 
 [AWS services that integrate with AWS KMS](service-integration.md) differ in their support for KMS keys\. Some AWS services encrypt your data by default with an AWS owned key or an AWS managed key\. Some AWS services support customer managed keys\. Other AWS services support all types of KMS keys to allow you the ease of an AWS owned key, the visibility of an AWS managed key, or the control of a customer managed key\. For detailed information about the encryption options that an AWS service offers, see the *Encryption at Rest* topic in the user guide or the developer guide for the service\.
@@ -91,7 +91,7 @@ The rotation of AWS owned keys varies across services\. For information about th
 
 ## Symmetric encryption KMS keys<a name="symmetric-cmks"></a>
 
-When you create a AWS KMS key, by default, you get a KMS key for symmetric encryption\. This is the basic and most commonly used type of KMS key\.
+When you create a AWS KMS key, by default, you get a KMS key for symmetric encryption\. This is the basic and most commonly used type of KMS key\. 
 
 In AWS KMS, a *symmetric encryption KMS key* represents a 256\-bit encryption key that never leaves AWS KMS unencrypted\. To use a symmetric encryption KMS key, you must call AWS KMS\. Symmetric encryption keys are used in symmetric encryption, where the same key is used for encryption and decryption\. Unless your task explicitly requires asymmetric encryption, symmetric encryption KMS keys, which never leave AWS KMS unencrypted, are a good choice\.
 
@@ -103,7 +103,7 @@ You can use a symmetric encryption KMS key in AWS KMS to encrypt, decrypt, and r
 
 ## Asymmetric KMS keys<a name="asymmetric-keys-concept"></a>
 
-An *asymmetric KMS key* represents a mathematically related public key and private key pair\. The private key never leaves AWS KMS unencrypted\. To use the private key, you must call AWS KMS\. You can use the public key within AWS KMS by calling the AWS KMS API operations, or you can [download the public key](download-public-key.md) and use it outside of AWS KMS\. You can also create [multi\-Region](multi-region-keys-overview.md) asymmetric KMS keys\.
+You can create asymmetric KMS keys in AWS KMS\. An *asymmetric KMS key* represents a mathematically related public key and private key pair\. The private key never leaves AWS KMS unencrypted\. To use the private key, you must call AWS KMS\. You can use the public key within AWS KMS by calling the AWS KMS API operations, or you can [download the public key](download-public-key.md) and use it outside of AWS KMS\. You can also create [multi\-Region](multi-region-keys-overview.md) asymmetric KMS keys\.
 
 You can create asymmetric KMS keys that represent RSA key pairs for public key encryption or signing and verification, or elliptic curve key pairs for signing and verification\. 
 
@@ -424,19 +424,13 @@ When you include an encryption context in an encryption request, it is cryptogra
 **Note**  
 You cannot specify an encryption context in a cryptographic operation with an [asymmetric KMS key](symmetric-asymmetric.md#asymmetric-cmks) or an [HMAC KMS key](hmac.md)\. Asymmetric algorithms and MAC algorithms do not support an encryption context\.
 
-The encryption context is not secret\. It appears in plaintext in [AWS CloudTrail Logs](logging-using-cloudtrail.md) so you can use it to identify and categorize your cryptographic operations\.
-
-An encryption context can consist of up to 8151 characters, including the `=` or `:` separator\. It can use any keys and values\. However, because it is not secret and not encrypted, your encryption context should not include sensitive information\. We recommend that your encryption context describe the data being encrypted or decrypted\. For example, when you encrypt a file, you might use part of the file path as encryption context\.
-
-The key and value in an encryption context pair must be simple literal strings\. They cannot be integers or objects, or any type that is not fully resolved\. If you use a different type, such as an integer or float, AWS KMS interprets it as a string\.
+The encryption context is not secret and not encrypted\. It appears in plaintext in [AWS CloudTrail Logs](logging-using-cloudtrail.md) so you can use it to identify and categorize your cryptographic operations\. Your encryption context should not include sensitive information\. We recommend that your encryption context describe the data being encrypted or decrypted\. For example, when you encrypt a file, you might use part of the file path as encryption context\.
 
 ```
 "encryptionContext": {
     "department": "10103.0"
 }
 ```
-
-The encryption context key and value can include special characters, such as underscores \(\_\), dashes \(\-\), slashes \(/, \\\) and colons \(:\)\.
 
 For example, when encrypting volumes and snapshots created with the [Amazon Elastic Block Store](https://docs.aws.amazon.com/AWSEC2/latest/UserGuide/AmazonEBS.html) \(Amazon EBS\) [CreateSnapshot](https://docs.aws.amazon.com/AWSEC2/latest/APIReference/API_CreateSnapshot.html) operation, Amazon EBS uses the volume ID as encryption context value\.
 
@@ -451,6 +445,12 @@ You can also use the encryption context to refine or limit access to AWS KMS key
 To learn how to use encryption context to protect the integrity of encrypted data, see the post [How to Protect the Integrity of Your Encrypted Data by Using AWS Key Management Service and EncryptionContext](https://aws.amazon.com/blogs/security/how-to-protect-the-integrity-of-your-encrypted-data-by-using-aws-key-management-service-and-encryptioncontext/) on the AWS Security Blog\.
 
 More about encryption context\.
+
+### Encryption context rules<a name="encryption-context-rules"></a>
+
+AWS KMS enforces the following rules for encryption context keys and values\.
++ The key and value in an encryption context pair must be simple literal strings\. If you use a different type, such as an integer or float, AWS KMS interprets it as a string\.
++ The keys and values in an encryption context can include Unicode characters\. However, if an encryption context includes characters are not valid in key policies or IAM policies, you won't be able to specify the encryption context in policy condition keys, such as [`kms:EncryptionContext:context-key`](policy-conditions.md#conditions-kms-encryption-context) and [`kms:EncryptionContextKeys`](policy-conditions.md#conditions-kms-encryption-context-keys)\. For details about key policy document rules, see [Key policy format](key-policy-overview.md#key-policy-format)\. For details about IAM policy document rules, see [IAM name requirements](https://docs.aws.amazon.com/IAM/latest/UserGuide/reference_iam-quotas.html#reference_iam-quotas-names) in the *IAM User Guide*\.
 
 ### Encryption context in policies<a name="encryption-context-authorization"></a>
 

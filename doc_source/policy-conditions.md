@@ -4,6 +4,9 @@ You can specify conditions in the key policies and AWS Identity and Access Manag
 
 To specify conditions, you use *condition keys* in the `Condition` element of a policy statement with [IAM condition policy operators](https://docs.aws.amazon.com/IAM/latest/UserGuide/reference_policies_elements_condition_operators.html)\. Some condition keys apply generally to AWS others are specific to AWS KMS\.
 
+**Note**  
+Condition key values must adhere to the character and encoding rules for AWS KMS key policies and IAM policies\. For details about key policy document rules, see [Key policy format](key-policy-overview.md#key-policy-format)\. For details about IAM policy document rules, see [IAM name requirements](https://docs.aws.amazon.com/IAM/latest/UserGuide/reference_iam-quotas.html#reference_iam-quotas-names) in the *IAM User Guide*\.\.
+
 **Topics**
 + [AWS global condition keys](#conditions-aws)
 + [AWS KMS condition keys](#conditions-kms)
@@ -329,10 +332,11 @@ For example, this IAM policy limits its principals to symmetric encryption\. It 
 | --- | --- | --- | --- | --- | 
 |  `kms:EncryptionContext:context-key`  |  String  | Single\-valued |  `CreateGrant` `Encrypt` `Decrypt` `GenerateDataKey` `GenerateDataKeyPair` `GenerateDataKeyPairWithoutPlaintext` `GenerateDataKeyWithoutPlaintext` `ReEncrypt`  |  Key policies and IAM policies  | 
 
-You can use the `kms:EncryptionContext:context-key` condition key to control access to a [symmetric KMS key](concepts.md#symmetric-cmks) based on the [encryption context](concepts.md#encrypt_context) in a request for a [cryptographic operation](concepts.md#cryptographic-operations)\. Use this condition key to evaluate both the key and the value in the encryption context pair\. To evaluate only the encryption context keys or require an encryption context regardless of keys or values, use the [kms:EncryptionContextKeys](#conditions-kms-encryption-context-keys) condition key\.
+You can use the `kms:EncryptionContext:context-key` condition key to control access to a [symmetric encryption KMS key](concepts.md#symmetric-cmks) based on the [encryption context](concepts.md#encrypt_context) in a request for a [cryptographic operation](concepts.md#cryptographic-operations)\. Use this condition key to evaluate both the key and the value in the encryption context pair\. To evaluate only the encryption context keys or require an encryption context regardless of keys or values, use the [kms:EncryptionContextKeys](#conditions-kms-encryption-context-keys) condition key\.
 
 **Note**  
-This condition key is valid in key policy statements and IAM policy statements even though it does not appear in the IAM console or the IAM *Service Authorization Reference*\.
+This condition key is valid in key policy statements and IAM policy statements even though it does not appear in the IAM console or the IAM *Service Authorization Reference*\.  
+Condition key values, including the key and value in the encryption context, must conform to the character and encoding rules for AWS KMS key policies\. You might not be able to use this condition key to express all valid encryption contexts\. For details about key policy document rules, see [Key policy format](key-policy-overview.md#key-policy-format)\. For details about IAM policy document rules, see [IAM name requirements](https://docs.aws.amazon.com/IAM/latest/UserGuide/reference_iam-quotas.html#reference_iam-quotas-names) in the *IAM User Guide*\.
 
 You cannot specify an encryption context in a cryptographic operation with an [asymmetric KMS key](symmetric-asymmetric.md#asymmetric-cmks) or an [HMAC KMS key](hmac.md)\. Asymmetric algorithms and MAC algorithms do not support an encryption context\.
 
@@ -681,9 +685,12 @@ For example, the following key policy statement is similar to the previous one\.
 | --- | --- | --- | --- | --- | 
 |  `kms:EncryptionContextKeys`  |  String \(list\)  | Multi\-valued |  `CreateGrant` `Decrypt` `Encrypt` `GenerateDataKey` `GenerateDataKeyPair` `GenerateDataKeyPairWithoutPlaintext` `GenerateDataKeyWithoutPlaintext` `ReEncrypt`  |  Key policies and IAM policies  | 
 
-You can use the `kms:EncryptionContextKeys` condition key to control access to a [symmetric KMS key](concepts.md#symmetric-cmks) based on the [encryption context](concepts.md#encrypt_context) in a request for a cryptographic operation\. Use this condition key to evaluate only the key in each encryption context pair\. To evaluate both the key and the value in the encryption context, use the `kms:EncryptionContext:context-key` condition key\.
+You can use the `kms:EncryptionContextKeys` condition key to control access to a [symmetric encryption KMS key](concepts.md#symmetric-cmks) based on the [encryption context](concepts.md#encrypt_context) in a request for a cryptographic operation\. Use this condition key to evaluate only the key in each encryption context pair\. To evaluate both the key and the value in the encryption context, use the `kms:EncryptionContext:context-key` condition key\.
 
 You cannot specify an encryption context in a cryptographic operation with an [asymmetric KMS key](symmetric-asymmetric.md#asymmetric-cmks) or an [HMAC KMS key](hmac.md)\. Asymmetric algorithms and MAC algorithms do not support an encryption context\.
+
+**Note**  
+Condition key values, including an encryption context key, must conform to the character and encoding rules for AWS KMS key policies\. You might not be able to use this condition key to express all valid encryption context keys\. For details about key policy document rules, see [Key policy format](key-policy-overview.md#key-policy-format)\. For details about IAM policy document rules, see [IAM name requirements](https://docs.aws.amazon.com/IAM/latest/UserGuide/reference_iam-quotas.html#reference_iam-quotas-names) in the *IAM User Guide*\.
 
 This is a [multi\-valued condition key](#set-operators)\. You can specify multiple encryption context pairs in each API request\. `kms:EncryptionContextKeys` compares the encryption context keys in the request to the set of encryption context keys in the policy\. To determine how these sets are compared, you must provide a `ForAnyValue` or `ForAllValues` set operator in the policy condition\. For details about the set operators, see [Using multiple keys and values](https://docs.aws.amazon.com/IAM/latest/UserGuide/reference_policies_multi-value-conditions.html#reference_policies_multi-key-or-value-conditions) in the IAM User Guide\.
 + `ForAnyValue`: At least one encryption context key in the request must match an encryption context key in the policy condition\. Other encryption context keys are permitted\. If the request has no encryption context, the condition is not satisfied\.

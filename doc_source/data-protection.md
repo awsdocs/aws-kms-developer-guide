@@ -63,6 +63,6 @@ AWS KMS supports two network connectivity options from your private network to A
 
 All AWS KMS API calls must be signed and be transmitted using Transport Layer Security \(TLS\)\. The calls also require a modern cipher suite that supports [perfect forward secrecy](https://en.wikipedia.org/wiki/Forward_secrecy)\. Traffic to the hardware security modules \(HSMs\) that store key material for KMS keys is permitted only from known AWS KMS API hosts over the AWS internal network\.
 
-To connect directly to AWS KMS from your virtual private cloud \(VPC\) without sending traffic over the public internet, use VPC endpoints, powered by AWS PrivateLink\. For more information, see [Connecting to AWS KMS through a VPC endpoint](kms-vpc-endpoint.md)\.
+To connect directly to AWS KMS from your virtual private cloud \(VPC\) without sending traffic over the public internet, use VPC endpoints, powered by [AWS PrivateLink](https://docs.aws.amazon.com/vpc/latest/privatelink/)\. For more information, see [Connecting to AWS KMS through a VPC endpoint](kms-vpc-endpoint.md)\.
 
 AWS KMS also supports a [hybrid post\-quantum key exchange](pqtls.md) option for the Transport Layer Security \(TLS\) network encryption protocol\. You can use this option with TLS when you connect to AWS KMS API endpoints\.
