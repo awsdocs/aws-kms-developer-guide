@@ -82,7 +82,7 @@ To use the permissions in a new grant immediately, use the [grant token](grants.
 
 
 
-The following example use the `CreateGrant` operation to create a grant that allows the [GenerateDataKey](https://docs.aws.amazon.com/kms/latest/APIReference/API_GenerateDataKey.html) and [Decrypt](https://docs.aws.amazon.com/kms/latest/APIReference/API_Decrypt.html) operations\. It saves the grant token that `CreateGrant` returns in the `token` variable\. Then, in a call to the `GenerateDataKey` operation, it uses the grant token in the `token` variable\.
+The following example uses the `CreateGrant` operation to create a grant that allows the [GenerateDataKey](https://docs.aws.amazon.com/kms/latest/APIReference/API_GenerateDataKey.html) and [Decrypt](https://docs.aws.amazon.com/kms/latest/APIReference/API_Decrypt.html) operations\. It saves the grant token that `CreateGrant` returns in the `token` variable\. Then, in a call to the `GenerateDataKey` operation, it uses the grant token in the `token` variable\.
 
 ```
 # Create a grant; save the grant token 
