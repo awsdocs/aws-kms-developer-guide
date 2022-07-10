@@ -172,6 +172,7 @@ Amazon's trademarks and trade dress may not be used in
    + [Identity and access management for AWS Key Management Service](security-iam.md)
    + [Logging and monitoring in AWS Key Management Service](security-logging-monitoring.md)
    + [Compliance validation for AWS Key Management Service](kms-compliance.md)
+   + [Resilience in AWS Key Management Service](disaster-recovery-resiliency.md)
    + [Infrastructure security in AWS Key Management Service](infrastructure-security.md)
    + [Security best practices for AWS Key Management Service](best-practices.md)
 + [Quotas](limits.md)

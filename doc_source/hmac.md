@@ -1,6 +1,6 @@
 # HMAC keys in AWS KMS<a name="hmac"></a>
 
-Hash\-Based Message Authentication Code \(HMAC\) KMS keys are symmetric keys that you use to generate and verify HMACs within AWS KMS\. The unique key material in each HMAC KMS key provides the secret key that HMAC algorithms require\. You can use an HMAC KMS key with the `[GenerateMac](https://docs.aws.amazon.com/kms/latest/APIReference/API_GenerateMac.html)` and [https://docs.aws.amazon.com/kms/latest/APIReference/API_VerifyMac.html](https://docs.aws.amazon.com/kms/latest/APIReference/API_VerifyMac.html) operations to verify the integrity and authenticity of data within AWS KMS\.
+Hash\-Based Message Authentication Code \(HMAC\) KMS keys are symmetric keys that you use to generate and verify HMACs within AWS KMS\. The unique key material associated with each HMAC KMS key provides the secret key that HMAC algorithms require\. You can use an HMAC KMS key with the `[GenerateMac](https://docs.aws.amazon.com/kms/latest/APIReference/API_GenerateMac.html)` and [https://docs.aws.amazon.com/kms/latest/APIReference/API_VerifyMac.html](https://docs.aws.amazon.com/kms/latest/APIReference/API_VerifyMac.html) operations to verify the integrity and authenticity of data within AWS KMS\.
 
 HMAC algorithms combine a cryptographic hash function and a shared secret key\. They take a message and a secret key, such as the key material in an HMAC KMS key, and return a unique, fixed\-size code or *tag*\. If even one character of the message changes, or if the secret key is not identical, the resulting tag is entirely different\. By requiring a secret key, HMAC also provides authenticity; it is impossible to generate an identical HMAC tag without the secret key\. HMACs are sometimes called *symmetric signatures*, because they work like digital signatures, but use a single key for both signing and verification\.
 
@@ -21,16 +21,12 @@ If you are creating a KMS key to encrypt data in an AWS service, use a symmetric
 
 **Regions**
 
-HMAC KMS keys are currently supported only in the following AWS Regions\.
-+ US East \(Ohio\) \(us\-east\-2\)
-+ US East \(N\. Virginia\) \(us\-east\-1\)
-+ US West \(Oregon\) \(us\-west\-2\)
-+ Asia Pacific \(Osaka\) \(ap\-northeast\-3\)
-+ Europe \(Milan\) \(eu\-south\-1\)
-+ Europe \(Paris\) \(eu\-west\-3\)
-+ Europe \(Stockholm\) \(eu\-north\-1\)
-+ Middle East \(Bahrain\) \(me\-south\-1\)
-+ South America \(São Paulo\) \(sa\-east\-1\)
+HMAC KMS keys are supported in all AWS Regions that AWS KMS supports except for the following Regions:
++ Africa \(Cape Town\) \(af\-south\-1\)
++ China \(Beijing\) \(cn\-north\-1\)
++ China \(Ningxia\) \(cn\-northwest\-1\)
++ Europe \(Frankfurt\) \(eu\-central\-1\)
++ AWS GovCloud \(US\-West\) \(us\-gov\-west\-1\)
 
 **Learn more**
 + For help with choosing a type of KMS key, see [Choosing a KMS key type](key-types.md#symm-asymm-choose)\.
@@ -41,6 +37,7 @@ HMAC KMS keys are currently supported only in the following AWS Regions\.
 + For information about quotas that apply to HMAC KMS keys, see [Resource quotas](resource-limits.md) and [Request quotas](requests-per-second.md)\.
 + For information about deleting HMAC KMS keys, see [Deleting AWS KMS keys](deleting-keys.md)\.
 + To learn about using HMACs to create JSON web tokens, see [How to protect HMACs inside AWS KMS](http://aws.amazon.com/blogs/security/how-to-protect-hmacs-inside-aws-kms.html) in the *AWS Security Blog*\.
++ Listen to a podcast: [Introducing HMACs for AWS Key Management Service](https://aws.amazon.com/podcasts/introducing-hmacs-apis-in-aws-key-management-service) on *The Official AWS Podcast*\.
 
 **Topics**
 + [Key specs for HMAC KMS keys](#hmac-key-specs)

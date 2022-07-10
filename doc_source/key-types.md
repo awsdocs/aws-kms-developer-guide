@@ -2,11 +2,11 @@
 
 AWS Key Management Service \(AWS KMS\) supports several different types of keys for different uses\.
 
-When you create a AWS KMS key in KMS, by default, you get a symmetric encryption KMS key\. In AWS KMS, a *symmetric encryption KMS key* represents a 256\-bit key that is used for encryption and decryption\. Symmetric key material never leaves AWS KMS unencrypted\. Unless your task explicitly requires asymmetric encryption or HMAC keys, symmetric encryption KMS keys, which never leave AWS KMS unencrypted, are a good choice\. Also, [AWS services that are integrated with AWS KMS](https://aws.amazon.com/kms/features/#AWS_Service_Integration) use only symmetric encryption KMS keys to encrypt your data\. These services do not support encryption with asymmetric KMS keys\. 
+When you create an AWS KMS key, by default, you get a symmetric encryption KMS key\. In AWS KMS, a *symmetric encryption KMS key* represents a 256\-bit key that is used for encryption and decryption\. Symmetric key material never leaves AWS KMS unencrypted\. Unless your task explicitly requires asymmetric encryption or HMAC keys, symmetric encryption KMS keys, which never leave AWS KMS unencrypted, are a good choice\. Also, [AWS services that are integrated with AWS KMS](https://aws.amazon.com/kms/features/#AWS_Service_Integration) use only symmetric encryption KMS keys to encrypt your data\. These services do not support encryption with asymmetric KMS keys\. 
 
 You can use a symmetric encryption KMS key in AWS KMS to encrypt, decrypt, and re\-encrypt data, generate data keys and data key pairs, and generate random byte strings\. You can [import your own key material](importing-keys.md) into a symmetric encryption KMS key and create symmetric encryption KMS keys in [custom key stores](custom-key-store-overview.md)\. For a table comparing the operations that you can perform on symmetric and asymmetric KMS keys, see [Key type reference](symm-asymm-compare.md)\.
 
-AWS KMS also support the following special\-purpose KMS key types
+AWS KMS also support the following special\-purpose KMS key types:
 + [Asymmetric RSA keys](symmetric-asymmetric.md#asymmetric-cmks) for public key cryptography
 + [Asymmetric RSA and ECC keys](symmetric-asymmetric.md#asymmetric-cmks) for signing and verification
 + [HMAC keys](hmac.md) to generate and verify hash\-based message authentication codes
@@ -63,7 +63,7 @@ As shown in the following table, symmetric encryption KMS keys can be used only 
 
 **Valid key usage for KMS key types**  
 
-| KMS key type | Encrypt and decryptENCRYPT\_DECRYPT | Sign and verifySIGN\_VERIFY | Generate and verify HMACGENERATE\_VERIFY\_MAC | 
+| KMS key type | Encrypt and decryptENCRYPT\_DECRYPT | Sign and verifySIGN\_VERIFY | Generate and verify MACGENERATE\_VERIFY\_MAC | 
 | --- | --- | --- | --- | 
 | Symmetric encryption KMS keys | ![\[Image NOT FOUND\]](http://docs.aws.amazon.com/kms/latest/developerguide/images/icon-successful.png) | ![\[Image NOT FOUND\]](http://docs.aws.amazon.com/kms/latest/developerguide/images/icon-failed.png) | ![\[Image NOT FOUND\]](http://docs.aws.amazon.com/kms/latest/developerguide/images/icon-failed.png) | 
 | HMAC KMS keys \(symmetric\) | ![\[Image NOT FOUND\]](http://docs.aws.amazon.com/kms/latest/developerguide/images/icon-failed.png) | ![\[Image NOT FOUND\]](http://docs.aws.amazon.com/kms/latest/developerguide/images/icon-failed.png) | ![\[Image NOT FOUND\]](http://docs.aws.amazon.com/kms/latest/developerguide/images/icon-successful.png) | 
@@ -87,7 +87,7 @@ To allow principals to create KMS keys only for a particular key usage, use the 
 When you create an asymmetric KMS key or an HMAC KMS key, you select its [key spec](concepts.md#key-spec)\. The *key spec*, which is a property of every AWS KMS key, represents the cryptographic configuration of your KMS key\. You choose the key spec when you create the KMS key, and you cannot change it\. If you've selected the wrong key spec, [delete the KMS key](deleting-keys.md), and create a new one\.
 
 **Note**  
-The key spec for an KMS key was known as a "customer master key spec\." The `CustomerMasterKeySpec` parameter of the [CreateKey](https://docs.aws.amazon.com/kms/latest/APIReference/API_CreateKey.html) operation is deprecated\. Instead, use the `KeySpec` parameter\. The response of the `CreateKey` and [DescribeKey](https://docs.aws.amazon.com/kms/latest/APIReference/API_DescribeKey.html) operations includes a `KeySpec` and `CustomerMasterKeySpec` member with the same value\.
+The key spec for a KMS key was known as a "customer master key spec\." The `CustomerMasterKeySpec` parameter of the [CreateKey](https://docs.aws.amazon.com/kms/latest/APIReference/API_CreateKey.html) operation is deprecated\. Instead, use the `KeySpec` parameter\. The response of the `CreateKey` and [DescribeKey](https://docs.aws.amazon.com/kms/latest/APIReference/API_DescribeKey.html) operations includes a `KeySpec` and `CustomerMasterKeySpec` member with the same value\.
 
 The key spec determines whether the KMS key is symmetric or asymmetric, the type of key material in the KMS key, and the encryption algorithms, signing algorithms, or message authentication code \(MAC\) algorithms that AWS KMS supports for the KMS key\. The key spec that you choose is typically determined by your use case and regulatory requirements\.
 

@@ -336,7 +336,7 @@ You can use the `kms:EncryptionContext:context-key` condition key to control acc
 
 **Note**  
 This condition key is valid in key policy statements and IAM policy statements even though it does not appear in the IAM console or the IAM *Service Authorization Reference*\.  
-Condition key values, including the key and value in the encryption context, must conform to the character and encoding rules for AWS KMS key policies\. You might not be able to use this condition key to express all valid encryption contexts\. For details about key policy document rules, see [Key policy format](key-policy-overview.md#key-policy-format)\. For details about IAM policy document rules, see [IAM name requirements](https://docs.aws.amazon.com/IAM/latest/UserGuide/reference_iam-quotas.html#reference_iam-quotas-names) in the *IAM User Guide*\.
+Condition key values must conform to the character rules for key policies and IAM policies\. Some characters that are valid in an encryption context are not valid in policies\. You might not be able to use this condition key to express all valid encryption context values\. For details about key policy document rules, see [Key policy format](key-policy-overview.md#key-policy-format)\. For details about IAM policy document rules, see [IAM name requirements](https://docs.aws.amazon.com/IAM/latest/UserGuide/reference_iam-quotas.html#reference_iam-quotas-names) in the *IAM User Guide*\.
 
 You cannot specify an encryption context in a cryptographic operation with an [asymmetric KMS key](symmetric-asymmetric.md#asymmetric-cmks) or an [HMAC KMS key](hmac.md)\. Asymmetric algorithms and MAC algorithms do not support an encryption context\.
 

@@ -13,5 +13,6 @@ This documentation helps you understand how to apply the shared responsibility m
 + [Identity and access management](security-iam.md)
 + [Logging and monitoring](security-logging-monitoring.md)
 + [Compliance validation](kms-compliance.md)
++ [Resilience](disaster-recovery-resiliency.md)
 + [Infrastructure security](infrastructure-security.md)
 + [Security best practices](best-practices.md)

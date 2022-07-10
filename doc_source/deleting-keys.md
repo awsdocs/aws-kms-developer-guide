@@ -1,6 +1,8 @@
 # Deleting AWS KMS keys<a name="deleting-keys"></a>
 
-Deleting an AWS KMS key \(KMS key\) from AWS Key Management Service \(AWS KMS\) is destructive and potentially dangerous\. It deletes the key material and all metadata associated with the KMS key and is irreversible\. After a KMS key is deleted, you can no longer decrypt the data that was encrypted under that KMS key, which means that data becomes unrecoverable\. You should delete a KMS key only when you are sure that you don't need to use it anymore\. If you are not sure, consider [disabling the KMS key](enabling-keys.md) instead of deleting it\. You can re\-enable a disabled KMS key if you need to use it again later, but you cannot recover a deleted KMS key\.
+Deleting an AWS KMS key is destructive and potentially dangerous\. It deletes the key material and all metadata associated with the KMS key and is irreversible\. After a KMS key is deleted, you can no longer decrypt the data that was encrypted under that KMS key, which means that data becomes unrecoverable\. You should delete a KMS key only when you are sure that you don't need to use it anymore\. If you are not sure, consider [disabling the KMS key](enabling-keys.md) instead of deleting it\. You can re\-enable a disabled KMS key if you need to use it again later, but you cannot recover a deleted KMS key\.
+
+You can only schedule the deletion of a customer managed key\. You cannot delete AWS managed keys or AWS owned keys\.
 
 Before deleting a KMS key, you might want to know how many ciphertexts were encrypted under that KMS key\. AWS KMS does not store this information and does not store any of the ciphertexts\. To get this information, you must determine past usage of a KMS key\. For help, go to [Determining past usage of a KMS key](deleting-keys-determining-usage.md)\.
 
@@ -84,6 +86,8 @@ In the AWS Management Console, you can schedule and cancel the deletion of multi
 
 1. In the navigation pane, choose **Customer managed keys**\.
 
+   You cannot schedule the deletion of [AWS managed keys](concepts.md#aws-managed-cmk) or [AWS owned keys](concepts.md#aws-owned-cmk)\.
+
 1. Select the check box next to the KMS key that you want to delete\.
 
 1. Choose **Key actions**, **Schedule key deletion**\.
@@ -116,7 +120,9 @@ The KMS key status changes from **Pending deletion** to **Disabled**\. To use th
 
 ### Scheduling and canceling key deletion \(AWS CLI\)<a name="deleting-keys-scheduling-key-deletion-cli"></a>
 
-Use the [https://docs.aws.amazon.com/cli/latest/reference/kms/schedule-key-deletion.html](https://docs.aws.amazon.com/cli/latest/reference/kms/schedule-key-deletion.html) command to schedule key deletion from the AWS CLI as shown in the following example\.
+Use the [https://docs.aws.amazon.com/cli/latest/reference/kms/schedule-key-deletion.html](https://docs.aws.amazon.com/cli/latest/reference/kms/schedule-key-deletion.html) command to schedule key deletion of a [customer managed key](concepts.md#customer-cmk), as shown in the following example\.
+
+You cannot schedule the deletion of an AWS managed key or AWS owned key\.
 
 ```
 $ aws kms schedule-key-deletion --key-id 1234abcd-12ab-34cd-56ef-1234567890ab --pending-window-in-days 10
@@ -151,7 +157,7 @@ The status of the KMS key changes from **Pending Deletion** to **Disabled**\. To
 
 ### Scheduling and canceling key deletion \(AWS SDK for Java\)<a name="deleting-keys-scheduling-key-deletion-java"></a>
 
-The following example demonstrates how to schedule a KMS key for deletion with the AWS SDK for Java\. This example requires that you previously instantiated an `AWSKMSClient` as `kms`\.
+The following example demonstrates how to schedule the deletion of a customer managed key with the AWS SDK for Java\. This example requires that you previously instantiated an `AWSKMSClient` as `kms`\.
 
 ```
 String KeyId = "arn:aws:kms:us-west-2:111122223333:key/1234abcd-12ab-34cd-56ef-1234567890ab";

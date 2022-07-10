@@ -37,6 +37,16 @@ Multi\-Region keys are supported in all AWS Regions that AWS KMS supports except
 
 Every key in a set of related multi\-Region keys counts as one KMS key for pricing and quotas\. [AWS KMS quotas](limits.md) are calculated separately for each Region of an account\. Use and management of the multi\-Region keys in each Region count toward the quotas for that Region\.
 
+**Supported KMS key types**
+
+You can create the following types of multi\-Region KMS keys:
++ Symmetric encryption KMS keys
++ Asymmetric KMS keys
++ HMAC KMS keys
++ KMS keys with imported key material
+
+You cannot create multi\-Region keys in a custom key store\.
+
 **Topics**
 + [Controlling access to multi\-Region keys](multi-region-keys-auth.md)
 + [Creating multi\-Region keys](multi-region-keys-create.md)

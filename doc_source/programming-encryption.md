@@ -137,7 +137,7 @@ kmsClient.encrypt({ KeyId, Plaintext }, (err, data) => {
 ------
 #### [ PowerShell ]
 
-To encrypt a data key under an KMS key, use the [Invoke\-KMSEncrypt](https://docs.aws.amazon.com/powershell/latest/reference/items/Invoke-KMSEncrypt.html) cmdlet\. It returns the ciphertext as a `MemoryStream` \([System\.IO\.MemoryStream](https://docs.microsoft.com/en-us/dotnet/api/system.io.memorystream)\) object\. You can use the `MemoryStream` object as the input to the [Invoke\-KMSDecrypt](https://docs.aws.amazon.com/powershell/latest/reference/items/Invoke-KMSDecrypt.html) cmdlet\.
+To encrypt a data key under a KMS key, use the [Invoke\-KMSEncrypt](https://docs.aws.amazon.com/powershell/latest/reference/items/Invoke-KMSEncrypt.html) cmdlet\. It returns the ciphertext as a `MemoryStream` \([System\.IO\.MemoryStream](https://docs.microsoft.com/en-us/dotnet/api/system.io.memorystream)\) object\. You can use the `MemoryStream` object as the input to the [Invoke\-KMSDecrypt](https://docs.aws.amazon.com/powershell/latest/reference/items/Invoke-KMSDecrypt.html) cmdlet\.
 
 AWS KMS also returns data keys as `MemoryStream` objects\. In this example, to simulate a plaintext data key, we create a byte array and write it to a `MemoryStream` object\. 
 

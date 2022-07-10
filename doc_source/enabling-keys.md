@@ -1,6 +1,6 @@
 # Enabling and disabling keys<a name="enabling-keys"></a>
 
-You can disable and re\-enable the [KMS keys that you manage](concepts.md#customer-cmk)\. When you create a KMS key, it is enabled by default\. If you disable a KMS key, it cannot be used in any [cryptographic operation](concepts.md#cryptographic-operations) until you re\-enable it\.
+You can disable and re\-enable customer managed keys\. When you create a KMS key, it is enabled by default\. If you disable a KMS key, it cannot be used in any [cryptographic operation](concepts.md#cryptographic-operations) until you re\-enable it\.
 
 Because it's temporary and easily undone, disabling a KMS key is a safe alternative to deleting a KMS key, an action that is destructive and irreversible\. If you are considering deleting a KMS key, disable it first and set a [CloudWatch alarm](deleting-keys-creating-cloudwatch-alarm.md) or similar mechanism to be certain that you'll never need to use the key to decrypt encrypted data\. 
 

@@ -78,7 +78,7 @@ The following benefits are of general interest\.
 ** Benefits of tag\-based access control**
 + Same authorization mechanism for different types of AWS resources\. 
 
-  You can use the same tag or tag key to control access to multiple resource types, such as an Amazon Relational Database Service \(Amazon RDS\) cluster, an Amazon Elastic Block Store \(Amazon EBS\) volume, and an KMS key\. This feature enables several different authorization models that are more flexible than traditional role\-based access control\.
+  You can use the same tag or tag key to control access to multiple resource types, such as an Amazon Relational Database Service \(Amazon RDS\) cluster, an Amazon Elastic Block Store \(Amazon EBS\) volume, and a KMS key\. This feature enables several different authorization models that are more flexible than traditional role\-based access control\.
 + Authorize access to a group of KMS keys\.
 
   You can use tags to manage access to a group of KMS keys in the same AWS account and Region\. Assign the same tag or tag key to the KMS keys that you choose\. Then create a simple, easy\-to\-maintain policy statement that is based on the tag or tag key\. To add or remove a KMS key from your authorization group, add or remove the tag; you don't need to edit the policy\.

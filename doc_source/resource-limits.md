@@ -11,16 +11,16 @@ For help requesting an increase in an AWS KMS quota, see [Requesting an AWS KMS 
 
 | Quota name | Default value | Applies to | 
 | --- | --- | --- | 
-| [AWS KMS keys](#kms-keys-limit) | 10,000 | Customer managed keys | 
+| [AWS KMS keys](#kms-keys-limit) | 100,000 | Customer managed keys | 
 | [Aliases per KMS key](#aliases-per-key) | 50 | Customer created aliases | 
 | [Grants per KMS key](#grants-per-key) | 50,000 | Customer managed keys | 
 | [Key policy document size](#key-policy-limit) | 32 KB \(32,768 bytes\) |  Customer managed keys AWS managed keys  | 
 
 In addition to resource quotas, AWS KMS uses request quotas to ensure the responsiveness of the service\. For details, see [Request quotas](requests-per-second.md)\.
 
-## AWS KMS keys: 10,000<a name="kms-keys-limit"></a>
+## AWS KMS keys: 100,000<a name="kms-keys-limit"></a>
 
-You can have up to 10,000 [customer managed keys](concepts.md#customer-cmk) in each Region of your AWS account\. This quota applies to all [symmetric](concepts.md#symmetric-cmks) and [asymmetric](symmetric-asymmetric.md#asymmetric-cmks) customer managed keys regardless of their [key state](key-state.md)\. Each KMS key — whether symmetric or asymmetric — is considered to be one resource\. [AWS managed keys](concepts.md#aws-managed-cmk) and [AWS owned keys](concepts.md#aws-owned-cmk) do not count against this quota\.
+You can have up to 100,000 [customer managed keys](concepts.md#customer-cmk) in each Region of your AWS account\. This quota applies to all customer managed keys in all AWS Regions regardless of their [key spec](concepts.md#key-spec) or [key state](key-state.md)\. Each KMS key — whether symmetric or asymmetric — is considered to be one resource\. [AWS managed keys](concepts.md#aws-managed-cmk) and [AWS owned keys](concepts.md#aws-owned-cmk) do not count against this quota\.
 
 ## Aliases per KMS key: 50<a name="aliases-per-key"></a>
 

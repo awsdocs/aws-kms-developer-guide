@@ -1,6 +1,6 @@
 # Rotating AWS KMS keys<a name="rotate-keys"></a>
 
-Cryptographic best practices discourage extensive reuse of encryption keys\. To create new cryptographic material for your KMS keys, you can create new KMS keys, and then change your applications or aliases to use the new KMS keys\. Or, you can enable automatic key rotation for an existing KMS key\. 
+Cryptographic best practices discourage extensive reuse of encryption keys\. To create new cryptographic material for your [customer managed keys](concepts.md#customer-cmk), you can create new KMS keys, and then change your applications or aliases to use the new KMS keys\. Or, you can enable automatic key rotation for an existing KMS key\. 
 
 When you enable *automatic key rotation* for a KMS key, AWS KMS generates new cryptographic material for the KMS key every year\. AWS KMS saves all previous versions of the cryptographic material in perpetuity so you can decrypt any data encrypted with that KMS key\. AWS KMS does not delete any rotated key material until you [delete the KMS key](deleting-keys.md)\. You can [track the rotation](#monitor-key-rotation) of key material for your KMS keys in Amazon CloudWatch and AWS CloudTrail\.
 
@@ -48,18 +48,28 @@ AWS KMS retains all key material for a KMS key, even if key rotation is disabled
 **Using key material**  
 When you use a rotated KMS key to encrypt data, AWS KMS uses the current key material\. When you use the rotated KMS key to decrypt ciphertext, AWS KMS uses the same version of the key material that was used to encrypt it\. You cannot request a particular version of the key material\.
 
-**Customer managed keys**  <a name="rotate-customer-keys"></a>
-Automatic key rotation is disabled by default on [customer managed keys](concepts.md#customer-cmk) but authorized users can enable and disable it\. When you enable \(or re\-enable\) automatic key rotation, AWS KMS automatically rotates the KMS key one year \(approximately 365 days\) after the enable date and every year thereafter\.
-
+**Key manager differences**  <a name="rotate-customer-keys"></a>
+Automatic key rotation options vary by key manager\.    
+**Customer managed keys**  
+Automatic key rotation is disabled by default on [customer managed keys](concepts.md#customer-cmk) but authorized users can enable and disable it\. When you enable \(or re\-enable\) automatic key rotation, AWS KMS automatically rotates the KMS key one year \(approximately 365 days\) after the enable date and every year thereafter\.  
 **AWS managed keys**  <a name="rotate-aws-managed-keys"></a>
 AWS KMS automatically rotates AWS managed keys every year \(approximately 365 days\)\. You cannot enable or disable key rotation for [AWS managed keys](concepts.md#aws-managed-cmk)\.   
 In May 2022, AWS KMS changed the rotation schedule for AWS managed keys from every three years \(approximately 1,095 days\) to every year \(approximately 365 days\)\.  
 New AWS managed keys are automatically rotated one year after they are created, and approximately every year thereafter\.   
-Existing AWS managed keys are automatically rotated one year after their most recent rotation, and every year thereafter\.
- 
-
+Existing AWS managed keys are automatically rotated one year after their most recent rotation, and every year thereafter\.  
 **AWS owned keys**  <a name="rotate-aws-owned-keys"></a>
 You cannot enable or disable key rotation for AWS owned keys\. The [key rotation](#rotate-keys) strategy for an AWS owned key is determined by the AWS service that creates and manages the key\. For details, see the *Encryption at Rest* topic in the user guide or developer guide for the service\.
+
+**Supported KMS key types**  
+Automatic key rotation is supported only on [symmetric encryption KMS keys](concepts.md#symmetric-cmks) with key material that AWS KMS generates \(Origin = AWS\_KMS\)\.  
+Automatic key rotation is *not* supported on the following types of KMS keys, but you can [rotate these KMS keys manually](#rotate-keys-manually)\.  
++ [Asymmetric KMS keys](symmetric-asymmetric.md#asymmetric-cmks)
++ [HMAC KMS keys](hmac.md)
++ KMS keys in [custom key stores](custom-key-store-overview.md)
++ KMS keys with [imported key material](importing-keys.md)
+
+**Multi\-Region keys**  
+You can enable and disable automatic key rotation for [multi\-Region keys](multi-region-keys-overview.md)\. You set the property only on the primary key\. When AWS KMS synchronizes the keys, it copies the property setting from the primary key to its replica keys\. When the key material of the primary key is rotated, AWS KMS automatically copies that key material to all of its replica keys\. For details, see [Rotating multi\-Region keys](multi-region-keys-manage.md#multi-region-rotate)\.
 
 **Disabled KMS keys**  
 While a KMS key is disabled, AWS KMS does not rotate it\. However, the key rotation status does not change, and you cannot change it while the KMS key is disabled\. When the KMS key is re\-enabled, if the key material is more than one year old, AWS KMS rotates it immediately and every year thereafter\. If the key material is less than one year old, AWS KMS resumes the original key rotation schedule\.
@@ -70,19 +80,8 @@ While a KMS key is pending deletion, AWS KMS does not rotate it\. The key rotati
 **AWS services**  
 You can enable automatic key rotation on the [customer managed keys](concepts.md#customer-cmk) that you use for server\-side encryption in AWS services\. The annual rotation is transparent and compatible with AWS services\.
 
-**Multi\-Region keys**  
-You can enable and disable automatic key rotation for [multi\-Region keys](multi-region-keys-overview.md)\. You set the property only on the primary key\. When AWS KMS synchronizes the keys, it copies the property setting from the primary key to its replica keys\. When the key material of the primary key is rotated, AWS KMS automatically copies that key material to all of its replica keys\. For details, see [Rotating multi\-Region keys](multi-region-keys-manage.md#multi-region-rotate)\.
-
 **Monitoring key rotation**  <a name="monitor-key-rotation"></a>
 When AWS KMS automatically rotates the key material for an [AWS managed key](concepts.md#aws-managed-cmk) or [customer managed key](concepts.md#customer-cmk), it writes a `KMS CMK Rotation` event to [Amazon CloudWatch Events](https://docs.aws.amazon.com/AmazonCloudWatch/latest/events/) and a [RotateKey event](ct-rotatekey.md) to your AWS CloudTrail log\. You can use these records to verify that the KMS key was rotated\.
-
-**Supported KMS key types**  
-Automatic key rotation is supported only on [symmetric encryption KMS keys](concepts.md#symmetric-cmks) with key material that AWS KMS generates \(Origin = AWS\_KMS\)\.  
-Automatic key rotation is *not* supported on the following types of KMS keys, but you can [rotate these KMS keys manually](#rotate-keys-manually)\.  
-+ [Asymmetric KMS keys](symmetric-asymmetric.md#asymmetric-cmks)
-+ [HMAC KMS keys](hmac.md)
-+ KMS keys in [custom key stores](custom-key-store-overview.md)
-+ KMS keys with [imported key material](importing-keys.md)
 
 **Eventual consistency**  
 Automatic key rotation is subject to the same eventual consistency effects as other AWS KMS management operations\. There might be a slight delay before the new key material is available throughout AWS KMS\. However, rotating key material does not cause any interruption or delay in cryptographic operations\. The current key material is used in cryptographic operations until the new key material is available throughout AWS KMS\. When key material for a multi\-Region key is automatically rotated, AWS KMS uses the current key material until the new key material is available in all Regions with a related multi\-Region key\.
@@ -103,7 +102,7 @@ When you enable automatic key rotation, AWS KMS rotates the key material of the 
 
 1. To change the AWS Region, use the Region selector in the upper\-right corner of the page\.
 
-1. In the navigation pane, choose **Customer managed keys**\. \(You cannot enable or disable rotation of AWS managed keys\. They are automatically rotated every three years\.\)
+1. In the navigation pane, choose **Customer managed keys**\. \(You cannot enable or disable rotation of AWS managed keys\. They are automatically rotated every year\.\)
 
 1. Choose the alias or key ID of a KMS key\.
 

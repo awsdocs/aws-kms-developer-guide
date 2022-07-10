@@ -106,7 +106,7 @@ HTTP Live Streaming \(HLS\) is an adaptive streaming protocol\. Elastic Transcod
 
 When you enable *HLS content protection*, each media segment is encrypted using a 128\-bit AES encryption key\. When the content is viewed, during the playback process, the player downloads the key and decrypts the media segments\.
 
-Two types of keys are used: an KMS key and a data key\. You must create a KMS key to use to encrypt and decrypt the data key\. Elastic Transcoder uses the data key to encrypt and decrypt media segments\. The data key must be AES\-128\. All variations and segments of the same content are encrypted using the same data key\. You can provide a data key or have Elastic Transcoder create it for you\.
+Two types of keys are used: a KMS key and a data key\. You must create a KMS key to use to encrypt and decrypt the data key\. Elastic Transcoder uses the data key to encrypt and decrypt media segments\. The data key must be AES\-128\. All variations and segments of the same content are encrypted using the same data key\. You can provide a data key or have Elastic Transcoder create it for you\.
 
 The KMS key can be used to encrypt the data key at the following points:
 + If you provide your own data key, you must encrypt it before passing it to Elastic Transcoder\.

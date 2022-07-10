@@ -1,6 +1,6 @@
 # Creating keys<a name="create-keys"></a>
 
-You can create AWS KMS keys in the AWS Management Console, or by using the [CreateKey](https://docs.aws.amazon.com/kms/latest/APIReference/API_CreateKey.html) operation or an [AWS CloudFormation template](creating-resources-with-cloudformation.md)\. During this process, you pick the type of the KMS key, its regionality \(single\-Region or multi\-Region\), and the origin of the key material \(the default is that AWS KMS creates it for you\)\. You cannot change these properties after the KMS key is created\. You also set the key policy for the KMS key, which you can change at any time\.
+You can create AWS KMS keys in the AWS Management Console, or by using the [CreateKey](https://docs.aws.amazon.com/kms/latest/APIReference/API_CreateKey.html) operation or an [AWS CloudFormation template](creating-resources-with-cloudformation.md)\. During this process, you pick the type of the KMS key, its regionality \(single\-Region or multi\-Region\), and the origin of the key material \(by default, AWS KMS creates the key material\)\. You cannot change these properties after the KMS key is created\. You also set the key policy for the KMS key, which you can change at any time\.
 
 This topic explains how to create the basic KMS key, a [symmetric encryption KMS key](concepts.md#symmetric-cmks) for a single Region with key material from AWS KMS\. You can use this KMS key to protect your resources in an AWS service\. For detailed information about symmetric encryption KMS keys, see [SYMMETRIC\_DEFAULT key spec](asymmetric-key-specs.md#key-spec-symmetric-default)\. For help creating other types of keys, see [Special\-purpose keys](key-types.md)\.
 
@@ -11,7 +11,7 @@ Symmetric KMS keys are now called *symmetric encryption* KMS keys\. AWS KMS supp
 
 When you create a KMS key in the AWS KMS console, you are required to give it an alias \(friendly name\)\. The `CreateKey` operation does not create an alias for the new KMS key\. To create an alias for a new or existing KMS key, use the [CreateAlias](https://docs.aws.amazon.com/kms/latest/APIReference/API_CreateAlias.html) operation\. For detailed information about aliases in AWS KMS, see [Using aliases](kms-alias.md)\.
 
-This topic explains how to create a symmetric encryption KMS key\[
+This topic explains how to create a symmetric encryption KMS key\.
 
 **Learn more:**
 + To create data keys for client\-side encryption, use the [GenerateDataKey](https://docs.aws.amazon.com/kms/latest/APIReference/API_GenerateDataKey.html) operation\.

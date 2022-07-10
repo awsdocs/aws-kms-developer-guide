@@ -19,7 +19,7 @@ The key material that AWS KMS generates for KMS keys never leaves the boundary o
 
 ### Encryption at rest<a name="encryption-at-rest"></a>
 
-AWS KMS generates key material for AWS KMS keys in FIPS 140\-2 Level 2–compliant hardware security modules \(HSMs\)\. When not in use, key material is encrypted by an HSM and written to durable, persistent storage\. The key material for KMS keys and the encryption keys that protect the key material never leave the HSMs in plaintext form\. 
+AWS KMS generates key material for AWS KMS keys in FIPS 140\-2 Level 2–compliant hardware security modules \(HSMs\)\. When not in use, key material is encrypted by an HSM key and written to durable, persistent storage\. The key material for KMS keys and the encryption keys that protect the key material never leave the HSMs in plaintext form\. 
 
 Encryption and management of key material for KMS keys is handled entirely by AWS KMS\.
 
@@ -39,7 +39,7 @@ Communications between AWS KMS service hosts and HSMs are protected using Ellipt
 
 ### Key management<a name="encryption-key-mgmt"></a>
 
-AWS KMS does not directly store customer data\. Instead, AWS KMS is responsible for storing and protecting AWS KMS keys, which are logical entities backed by encryption key material\.
+AWS KMS does not directly store customer data\. Instead, AWS KMS is responsible for storing and protecting AWS KMS keys, which are logical entities backed by cryptographic key material\.
 
 Key material for KMS keys is supported by a distributed fleet of FIPS 140\-2 Level\-2–validated hardware security modules \(HSMs\)\. Each AWS KMS HSM is a standalone cryptographic hardware appliance designed to provide dedicated cryptographic functions to meet the security and scalability requirements of AWS KMS\.
 

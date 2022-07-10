@@ -1,6 +1,9 @@
 # Viewing KMS keys in the console<a name="viewing-keys-console"></a>
 
-In the AWS Management Console, you can view lists of your KMS keys and details about each KMS key\.
+In the AWS Management Console, you can view lists of your KMS keys in the account and Region and details about each KMS key\.
+
+**Note**  
+The AWS KMS console displays the KMS keys that you have [permission to view](customer-managed-policies.md#iam-policy-example-read-only-console) in your account and Region\. KMS keys in other AWS accounts do not appear in the console, even if you have permission to view, manage, and use them\. To view KMS keys in other accounts, use the [DescribeKey](https://docs.aws.amazon.com/kms/latest/APIReference/API_DescribeKey.html) operation\.
 
 **Topics**
 + [Navigating to the key tables](#viewing-console-navigate)
@@ -24,7 +27,7 @@ The AWS KMS console also displays the custom key stores in the account and Regio
 
 ## Navigating to key details<a name="viewing-details-navigate"></a>
 
-There is a details page for every AWS KMS key in the account and Region\. The details page displays the **General configuration** section for the KMS key and includes tabs that let authorized users view and manage the **Cryptographic configuration** and **Key policy** for the key\. Depending on the type of key, the detail page might also include **Aliases**, **Key material**, **Key rotation** and **Tags** tabs\.
+There is a details page for every AWS KMS key in the account and Region\. The details page displays the **General configuration** section for the KMS key and includes tabs that let authorized users view and manage the **Cryptographic configuration** and **Key policy** for the key\. Depending on the type of key, the detail page might also include **Aliases**, **Key material**, **Key rotation**, **Public key**, **Regionality** and **Tags** tabs\.
 
 To navigate to the key details page for a KMS key\.
 

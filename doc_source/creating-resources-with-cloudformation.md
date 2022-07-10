@@ -8,7 +8,7 @@ To provision and configure resources for AWS KMS and other AWS services, you mus
 
 **Regions**
 
-AWS KMS CloudFormation resources are supported in all Regions in which AWS CloudFormation is supported\. However, in the Asia Pacific \(Jakarta\) Region \(ap\-southeast\-3\), you cannot use a CloudFormation template to create or manage [asymmetric KMS keys](symmetric-asymmetric.md) or [multi\-Region KMS keys](multi-region-keys-overview.md) \(primary or replica\)\.
+AWS KMS CloudFormation resources are supported in all Regions in which AWS CloudFormation is supported\.
 
 ## AWS KMS resources in AWS CloudFormation templates<a name="working-with-templates"></a>
 
@@ -16,6 +16,10 @@ AWS KMS supports the following AWS CloudFormation resources\.
 + [https://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-resource-kms-key.html](https://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-resource-kms-key.html) creates a symmetric or asymmetric [KMS key](concepts.md#kms_keys)\. You can use this resource to create a symmetric or asymmetric multi\-Region primary KMS key\. To create a multi\-Region replica key use the `AWS::KMS::ReplicaKey` resource\. You cannot use this resource to create KMS keys with [imported key material](importing-keys.md) or KMS keys in a [custom key store](custom-key-store-overview.md)\. 
 + [https://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-resource-kms-alias.html](https://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-resource-kms-alias.html) creates an [alias](kms-alias.md) and associates it with a KMS key\. The KMS key can be defined in the template, or created by another mechanism\.
 + [https://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-resource-kms-replicakey.html](https://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-resource-kms-replicakey.html) creates a [multi\-Region replica key](multi-region-keys-overview.md#mrk-replica-key)\. To create a multi\-Region primary key, use the `AWS::KMS::Key` resource\. You cannot use this resource to replicate multi\-Region keys with [imported key material](multi-region-keys-import.md)\. For details about multi\-Region keys, see [Multi\-Region keys in AWS KMS](multi-region-keys-overview.md)\.
+
+**Important**  
+If you change the value of the `KeyUsage`, `KeySpec`, or `MultiRegion` property of an existing KMS key, the existing KMS key is scheduled for deletion and a new KMS key is created with the specified value\.  
+While scheduled for deletion, the existing KMS key becomes unusable\. If you don't cancel the scheduled deletion of the existing KMS key outside of AWS CloudFormation, all data encrypted under the existing KMS key becomes unrecoverable when the KMS key is deleted\.
 
 The KMS keys that the template creates are actual resources in your AWS account\. Authorized principals can use and manage the KMS keys that the template creates, either by using the template, the AWS KMS console, or the AWS KMS APIs\. When you delete a KMS key from your template, the KMS key is scheduled for deletion using a waiting period that you specify in advance\. 
 

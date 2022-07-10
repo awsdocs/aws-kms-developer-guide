@@ -39,6 +39,8 @@ $ aws kms list-keys
 
 The [DescribeKey](https://docs.aws.amazon.com/kms/latest/APIReference/API_DescribeKey.html) operation returns details about the specified KMS key\. To identify the KMS key, use the [key ID](concepts.md#key-id-key-id), [key ARN](concepts.md#key-id-key-ARN), [alias name](concepts.md#key-id-alias-name), or [alias ARN](concepts.md#key-id-alias-ARN)\. 
 
+Unlike the [ListKeys](https://docs.aws.amazon.com/kms/latest/APIReference/API_ListKeys.html) operation, which displays only KMS keys in the caller's account and Region, authorized users can use the `DescribeKey` operation to get details about KMS keys in other accounts\.
+
 **Note**  
 The `DescribeKey` response includes both `KeySpec` and `CustomerMasterKeySpec` members with the same values\. The `CustomerMasterKeySpec` member is deprecated\.
 
@@ -98,7 +100,7 @@ $ aws kms describe-key --key-id 0987dcba-09fe-87dc-65ba-ab0987654321
 
 ## GetKeyPolicy: Get the key policy attached to a KMS key<a name="viewing-keys-get-key-policy"></a>
 
-The [GetKeyPolicy](https://docs.aws.amazon.com/kms/latest/APIReference/API_GetKeyPolicy.html) operation gets the key policy that is attached to the KMS key\. To identify the KMS key, use its key ID or key ARN\. You must also specify the policy name, which is always `default`\. \(If your output is difficult to read, add the `--output text` option to your command\.\)
+The [GetKeyPolicy](https://docs.aws.amazon.com/kms/latest/APIReference/API_GetKeyPolicy.html) operation gets the key policy that is attached to the KMS key\. To identify the KMS key, use its key ID or key ARN\. You must also specify the policy name, which is always `default`\. \(If your output is difficult to read, add the `--output text` option to your command\.\) `GetKeyPolicy` works only on KMS keys in the caller's account and Region\.
 
 For examples in multiple programming languages, see [Getting a key policy](programming-key-policies.md#get-policy)\.
 
@@ -122,7 +124,7 @@ $ aws kms get-key-policy --key-id 1234abcd-12ab-34cd-56ef-1234567890ab --policy-
 
 ## ListAliases: Get alias names and ARNs for KMS keys<a name="viewing-keys-list-aliases"></a>
 
-The [ListAliases](https://docs.aws.amazon.com/kms/latest/APIReference/API_ListAliases.html) operation returns aliases in the account and region\. The `TargetKeyId` in the response displays the key ID of the KMS key that the alias refers to, if any\.
+The [ListAliases](https://docs.aws.amazon.com/kms/latest/APIReference/API_ListAliases.html) operation returns aliases in the account and Region\. The `TargetKeyId` in the response displays the key ID of the KMS key that the alias refers to, if any\.
 
 By default, the ListAliases command returns all aliases in the account and region\. This includes [aliases that you created](https://docs.aws.amazon.com/kms/latest/APIReference/API_CreateAlias.html) and associated with your [customer managed keys](concepts.md#kms_keys), and aliases that AWS created and associated with [AWS managed key](concepts.md#kms_keys) in your account\. You can recognize AWS aliases because their names have the format `aws/<service-name>`, such as `aws/dynamodb`\.
 
@@ -221,7 +223,7 @@ $ aws kms list-aliases --query 'Aliases[?starts_with(AliasName, `alias/aws/`)]'
 
 The [ListResourceTags](https://docs.aws.amazon.com/kms/latest/APIReference/API_ListAliases.html) operation returns the tags on the specified KMS key\. The API returns tags for one KMS key, but you can run the command in a loop to get tags for all KMS keys in the account and Region, or for a set of KMS keys you select\. This API returns one page at a time, so if you have numerous tags on numerous KMS keys, you might have to use the paginator in your programming language to get all of the tags you want\. 
 
-The ListResourceTags operation returns tags for all KMS keys, but [AWS managed key](concepts.md#aws-managed-cmk) are not tagged\. 
+The `ListResourceTags` operation returns tags for all KMS keys, but [AWS managed key](concepts.md#aws-managed-cmk) are not tagged\. It works only on KMS keys in the caller's account and Region\.
 
 To find the tags for a KMS key, use the `ListResourceTags` operation\. The `KeyId` parameter is required\. It accepts a [key ID](concepts.md#key-id-key-id) or [key ARN](concepts.md#key-id-key-ARN)\. Before running this example, replace the example key ARN with a valid one\.
 

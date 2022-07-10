@@ -44,7 +44,7 @@ For instructions on creating your `kmsuser` CU account, see [Create the `kmsuser
 
 You can use the AWS Management Console or AWS KMS API to create a [AWS KMS keys](concepts.md#kms_keys) in a custom key store\. You use the same technique that you would use on any KMS key\. The only difference is that you must identify the custom key store and specify that the origin of the key material is the AWS CloudHSM cluster\. 
 
-When you [create a KMS key in a custom key store](create-cmk-keystore.md), AWS KMS creates the KMS key in AWS KMS and it generates a 256\-bit, persistent, non\-exportable Advanced Encryption Standard \(AES\) symmetric key material in its associated cluster\. Although AWS CloudHSM supports symmetric and asymmetric keys of different types, AWS KMS custom key stores support only [symmetric encryption keys](concepts.md#symmetric-cmks)\.
+When you [create a KMS key in a custom key store](create-cmk-keystore.md), AWS KMS creates the KMS key in AWS KMS and it generates a 256\-bit, persistent, non\-exportable Advanced Encryption Standard \(AES\) symmetric key material in its associated cluster\. When you use the AWS KMS key in a cryptographic operation, the operation is performed in the AWS CloudHSM cluster using the cluster\-based AES key\. Although AWS CloudHSM supports symmetric and asymmetric keys of different types, AWS KMS custom key stores support only AES symmetric encryption keys\.
 
 You can view the KMS keys in a custom key store in the AWS KMS console, and use the console options to display the custom key store ID\. You can also use the [DescribeKey](https://docs.aws.amazon.com/kms/latest/APIReference/API_DescribeKey.html) operation to find the custom key store ID and AWS CloudHSM cluster ID\.
 

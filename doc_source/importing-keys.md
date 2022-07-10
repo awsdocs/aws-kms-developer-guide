@@ -2,7 +2,7 @@
 
 You can create a [AWS KMS keys](concepts.md#kms_keys) \(KMS key\) with key material that you supply\. 
 
-A KMS key is a logical representation of an encryption key\. It contains *key material* used to encrypt and decrypt data, in addition to its [key identifiers](concepts.md#key-id) and other metadata\. When you [create a KMS key](create-keys.md), by default, AWS KMS generates the key material for that KMS key\. But you can create a KMS key without key material and then import your own key material into that KMS key, a feature often known as "bring your own key" \(BYOK\)\.
+A KMS key is a logical representation of an encryption key\. The metadata for a KMS key includes the ID of [key material](concepts.md#key-material) used to encrypt and decrypt data\. When you [create a KMS key](create-keys.md), by default, AWS KMS generates the key material for that KMS key\. But you can create a KMS key without key material and then import your own key material into that KMS key, a feature often known as "bring your own key" \(BYOK\)\.
 
 ![\[Image NOT FOUND\]](http://docs.aws.amazon.com/kms/latest/developerguide/images/import-key.png)
 
@@ -121,7 +121,7 @@ You must reimport the same key material that was originally imported into the KM
 
 To reimport key material, use the same procedure that you used to [import the key material](#importing-keys-overview) the first time, with the following exceptions\.
 + Use an existing KMS key, instead of creating a new KMS key\. You can skip [Step 1](importing-keys-create-cmk.md) of the import procedure\.
-+ If the KMS key contains key material, you must [delete the existing key material](importing-keys-delete-key-material.md) before you reimport the key material\. 
++ If the KMS key is associated with imported key material, you must [delete the existing imported key material](importing-keys-delete-key-material.md) before you reimport the key material\. 
 
 Each time you import key material to a KMS key, you need to [download and use a new wrapping key and import token](importing-keys-get-public-key-and-token.md) for the KMS key\. The wrapping procedure does not affect the content of the key material, so you can use different wrapping keys \(and different import tokens\) to import the same key material\.
 

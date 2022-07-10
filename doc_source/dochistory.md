@@ -14,6 +14,9 @@ You might need to scroll horizontally or vertically to see all of the data in th
 
 | Change | Description | Date | 
 | --- |--- |--- |
+| [Quota change](https://docs.aws.amazon.com/kms/latest/developerguide/limits.html) | Increased the AWS KMS keys resource quota to 100,000 KMS keys in each account and Region\. | July 8, 2022 | 
+| [Feature update](https://docs.aws.amazon.com/kms/latest/developerguide/hmac.html) | Added support for HMAC KMS keys in more AWS Regions | July 8, 2022 | 
+| [New topic](https://docs.aws.amazon.com/kms/latest/developerguide/disaster-recovery-resiliency.html) | Added the [Resilience in AWS Key Management Service topic](https://docs.aws.amazon.com/kms/latest/developerguide/disaster-recovery-resiliency.html) to the Security chapter of the AWS KMS Developer Guide\. | June 14, 2022 | 
 | [New feature](https://docs.aws.amazon.com/kms/latest/developerguide/hmac.html) | Added support for AWS KMS keys and API operations that generate and verify HMAC codes\. | April 19, 2022 | 
 | [Documentation change](https://docs.aws.amazon.com/kms/latest/developerguide/concepts.html#kms_keys) | Replace the term *customer master key \(CMK\)* with *AWS KMS key* and *KMS key*\. | August 30, 2021 | 
 | [New feature](https://docs.aws.amazon.com/kms/latest/developerguide/multi-region-keys-overview.html) | Added support for [multi\-Region keys](https://docs.aws.amazon.com/kms/latest/developerguide/multi-region-keys-overview.html), a set of interoperable KMS keys in different Regions that have the same key ID and key material\. You can use multi\-Region keys to encrypt data in one Region and decrypt data in a different Region\. | June 8, 2021 | 
