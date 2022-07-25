@@ -76,13 +76,13 @@ $  aws kms list-grants --key-id 1234abcd-12ab-34cd-56ef-1234567890ab
 
 ## Using a grant token<a name="using-grant-token"></a>
 
-When you create a grant, the grant might not be effective immediately\. There's likely to be a brief interval, less than five minutes, until the grant achieves [eventual consistency](grants.md#terms-eventual-consistency), that is, before the new grant is available throughout AWS KMS\. Once the grant has achieved eventual consistency, the grantee principal can use the permissions in the grant without specifying the grant token or any evidence the grant\. However, if grant that is so new that it is not yet known to all of AWS KMS, the request might fail with an `AccessDeniedException` error\.
+When you create a grant, the grant might not be effective immediately\. There's likely to be a brief interval, less than five minutes, until the grant achieves [eventual consistency](grants.md#terms-eventual-consistency), that is, before the new grant is available throughout AWS KMS\. Once the grant has achieved eventual consistency, the grantee principal can use the permissions in the grant without specifying the grant token or any evidence of the grant\. However, if grant that is so new that it is not yet known to all of AWS KMS, the request might fail with an `AccessDeniedException` error\.
 
 To use the permissions in a new grant immediately, use the [grant token](grants.md#grant_token) for the grant\. Save the grant token that the [CreateGrant](https://docs.aws.amazon.com/kms/latest/APIReference/API_CreateGrant.html) operation returns\. Then submit the grant token in the request for the AWS KMS operation\. You can submit a grant token to any AWS KMS [grant operation](grants.md#terms-grant-operations) and you can submit multiple grant tokens in the same request\.
 
 
 
-The following example use the `CreateGrant` operation to create a grant that allows the [GenerateDataKey](https://docs.aws.amazon.com/kms/latest/APIReference/API_GenerateDataKey.html) and [Decrypt](https://docs.aws.amazon.com/kms/latest/APIReference/API_Decrypt.html) operations\. It saves the grant token that `CreateGrant` returns in the `token` variable\. Then, in a call to the `GenerateDataKey` operation, it uses the grant token in the `token` variable\.
+The following example uses the `CreateGrant` operation to create a grant that allows the [GenerateDataKey](https://docs.aws.amazon.com/kms/latest/APIReference/API_GenerateDataKey.html) and [Decrypt](https://docs.aws.amazon.com/kms/latest/APIReference/API_Decrypt.html) operations\. It saves the grant token that `CreateGrant` returns in the `token` variable\. Then, in a call to the `GenerateDataKey` operation, it uses the grant token in the `token` variable\.
 
 ```
 # Create a grant; save the grant token 

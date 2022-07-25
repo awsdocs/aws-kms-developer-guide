@@ -88,8 +88,6 @@ Adding, deleting, or updating an alias can allow or deny permission to the KMS k
 
    You can add a description now or update it any time unless the [key state](key-state.md) is `Pending Deletion` or `Pending Replica Deletion`\. To add, change, or delete the description of an existing customer managed key, [edit the description](editing-keys.md) in the AWS Management Console or use the [UpdateKeyDescription](https://docs.aws.amazon.com/kms/latest/APIReference/API_UpdateKeyDescription.html) operation\.
 
-1. Choose **Next**\.
-
 1. \(Optional\) Type a tag key and an optional tag value\. To add more than one tag to the KMS key, choose **Add tag**\.
 **Note**  
 Tagging or untagging a KMS key can allow or deny permission to the KMS key\. For details, see [ABAC for AWS KMS](abac.md) and [Using tags to control access to KMS keys](tag-authorization.md)\.

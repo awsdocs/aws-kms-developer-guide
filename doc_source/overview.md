@@ -1,6 +1,6 @@
 # AWS Key Management Service<a name="overview"></a>
 
-AWS Key Management Service \(AWS KMS\) is a managed service that makes it easy for you to create and control the cryptographic keys that are used to protect your data\. AWS KMS uses hardware security modules \(HSM\) to protect and validate your AWS KMS keys under the [FIPS 140\-2 Cryptographic Module Validation Program](https://csrc.nist.gov/projects/cryptographic-module-validation-program/Certificate/3139), except in the China \(Beijing\) and China \(Ningxia\) Regions\. 
+AWS Key Management Service \(AWS KMS\) is a managed service that makes it easy for you to create and control the cryptographic keys that are used to protect your data\. AWS KMS uses hardware security modules \(HSM\) to protect and validate your AWS KMS keys under the [FIPS 140\-2 Cryptographic Module Validation Program](https://csrc.nist.gov/projects/cryptographic-module-validation-program/Certificate/3139)\. The HSMs that AWS KMS uses to protect KMS keys in China \(Beijing\) and China \(Ningxia\) Regions comply with all pertinent Chinese regulations, but are not validated under the FIPS 140\-2 Cryptographic Module Validation Program\.
 
 AWS KMS integrates with most [other AWS services](https://aws.amazon.com/kms/features/#AWS_Service_Integration) that encrypt your data\. AWS KMS also integrates with [AWS CloudTrail](https://docs.aws.amazon.com/awscloudtrail/latest/userguide/) to log use of your KMS keys for auditing, regulatory, and compliance needs\.
 

@@ -2,7 +2,7 @@
 
 AWS KMS resource quotas and request quotas are adjustable, except for the [key policy document size quota](resource-limits.md#key-policy-limit) and the [custom key store quota](requests-per-second.md#rps-key-stores)\.
 
-If you need to exceed a quota, you can request a quota increase in Service Quotas\. Use the [Service Quotas console](https://console.aws.amazon.com/servicequotas) or the [RequestServiceQuotaIncrease](https://docs.aws.amazon.com/servicequotas/2019-06-24/apireference/API_RequestServiceQuotaIncrease.html) operation\. For details, see [Requesting a quota increase](https://docs.aws.amazon.com/servicequotas/latest/userguide/request-increase.html) in the *Service Quotas User Guide*\. If Service Quotas for AWS KMS are not available in the AWS Region, please visit the [AWS Support Center](https://console.aws.amazon.com/support/home) and create a case\. 
+To request a quota increase, use the [Service Quotas console](https://console.aws.amazon.com/servicequotas) or the [RequestServiceQuotaIncrease](https://docs.aws.amazon.com/servicequotas/2019-06-24/apireference/API_RequestServiceQuotaIncrease.html) operation\. For instructions, see [Requesting an AWS KMS quota increase](#increase-quota)\. For details, see [Requesting a quota increase](https://docs.aws.amazon.com/servicequotas/latest/userguide/request-increase.html) in the *Service Quotas User Guide*\. If Service Quotas for AWS KMS are not available in your AWS Region, please visit the [AWS Support Center](https://console.aws.amazon.com/support/home) and create a case\. 
 
 ## Using the Service Quotas console<a name="quota-increase-console"></a>
 
@@ -14,9 +14,13 @@ To request an increase for an AWS KMS quota, you can use the [Service Quotas con
 
    You can search for the quota name in the Service Quotas console\. There are several pages of AWS KMS quotas\. You can also find the quota names and descriptions of AWS KMS quotas in the [resource quota](resource-limits.md) and [request quota](requests-per-second.md) tables\.
 
-   For example, to request an increase to the quota for cryptographic operations on symmetric encryption KMS keys and HMAC KMS keys, choose **Cryptographic operations \(symmetric\) request rate**\.
+   For example, to request an increase to the `Cryptographic operations (symmetric) request rate` quota for cryptographic operations on symmetric encryption KMS keys and HMAC KMS keys, choose **Cryptographic operations \(symmetric\) request rate**\.
 
 1. Choose **Request quota increase**\.
+
+1. In the **Change quota value** box, type your desired quota value\. It must be greater than the **Applied quota value**\.
+
+1. Choose **Request**\.
 
 ## Using the Service Quotas API<a name="quota-increase-api"></a>
 

@@ -2,9 +2,8 @@
 
 AWS KMS establishes quotas for the number of API operations requested in each second\. The request quotas differ with the API operation, the AWS Region, and other factors, such as the KMS key type\. When you exceed an API request quota, AWS KMS [throttles the request](throttling.md)\.
 
-**Note**  
-If you need to exceed a quota, you can request a quota increase in Service Quotas\. Use the [Service Quotas console](https://console.aws.amazon.com/servicequotas) or the [RequestServiceQuotaIncrease](https://docs.aws.amazon.com/servicequotas/2019-06-24/apireference/API_RequestServiceQuotaIncrease.html) operation\. For details, see [Requesting a quota increase](https://docs.aws.amazon.com/servicequotas/latest/userguide/request-increase.html) in the *Service Quotas User Guide*\. If Service Quotas for AWS KMS are not available in the AWS Region, please visit the [AWS Support Center](https://console.aws.amazon.com/support/home) and create a case\.   
-For help requesting an increase in an AWS KMS quota, see [Requesting an AWS KMS quota increase](increase-quota.md)\.  
+All AWS KMS request quotas are adjustable, except for the request quota for KMS keys in a [custom key store](#rps-key-stores)\. To request a quota increase, use the [Service Quotas console](https://console.aws.amazon.com/servicequotas) or the [RequestServiceQuotaIncrease](https://docs.aws.amazon.com/servicequotas/2019-06-24/apireference/API_RequestServiceQuotaIncrease.html) operation\. For instructions, see [Requesting an AWS KMS quota increase](increase-quota.md)\. For details, see [Requesting a quota increase](https://docs.aws.amazon.com/servicequotas/latest/userguide/request-increase.html) in the *Service Quotas User Guide*\. If Service Quotas for AWS KMS are not available in your AWS Region, please visit the [AWS Support Center](https://console.aws.amazon.com/support/home) and create a case\. 
+
 If you are exceeding the request quota for the [GenerateDataKey](https://docs.aws.amazon.com/kms/latest/APIReference/API_GenerateDataKey.html) operation, consider using the [data key caching](https://docs.aws.amazon.com/encryption-sdk/latest/developer-guide/data-key-caching.html) feature of the AWS Encryption SDK\. Reusing data keys might reduce the frequency of your requests to AWS KMS\. 
 
 In addition to request quotas, AWS KMS uses resource quotas to ensure capacity for all users\. For details, see [Resource quotas](resource-limits.md)\.
@@ -32,6 +31,7 @@ You might need to scroll horizontally or vertically to see all of the data in th
 |  `Cryptographic operations (symmetric) request rate` Applies to: [\[See the AWS documentation website for more details\]](http://docs.aws.amazon.com/kms/latest/developerguide/requests-per-second.html)  |  These shared quotas vary with the AWS Region and the type of KMS key used in the request\. Each quota is calculated separately\. [\[See the AWS documentation website for more details\]](http://docs.aws.amazon.com/kms/latest/developerguide/requests-per-second.html) Custom key stores quota \(symmetric KMS keys\): [\[See the AWS documentation website for more details\]](http://docs.aws.amazon.com/kms/latest/developerguide/requests-per-second.html)  | 
 | `Cryptographic operations (RSA) request rate` Applies to:[\[See the AWS documentation website for more details\]](http://docs.aws.amazon.com/kms/latest/developerguide/requests-per-second.html) |  500 \(shared\) for RSA KMS keys  | 
 | `Cryptographic operations (ECC) request rate` Applies to:[\[See the AWS documentation website for more details\]](http://docs.aws.amazon.com/kms/latest/developerguide/requests-per-second.html) |  300 \(shared\) for elliptic curve \(ECC\) KMS keys  | 
+| `Cryptographic operations (SM) request rate` Applies to:[\[See the AWS documentation website for more details\]](http://docs.aws.amazon.com/kms/latest/developerguide/requests-per-second.html) |  300 \(shared\) for SM2 \(China Regions only\) KMS keys  | 
 | `CancelKeyDeletion request rate` | 5 | 
 | `ConnectCustomKeyStore request rate` | 5 | 
 | `CreateAlias request rate` | 5 | 
@@ -55,6 +55,7 @@ You might need to scroll horizontally or vertically to see all of the data in th
 |  `GenerateDataKeyPair (RSA_2048) request rate` Applies to: [\[See the AWS documentation website for more details\]](http://docs.aws.amazon.com/kms/latest/developerguide/requests-per-second.html)  |  1  | 
 |  `GenerateDataKeyPair (RSA_3072) request rate` Applies to: [\[See the AWS documentation website for more details\]](http://docs.aws.amazon.com/kms/latest/developerguide/requests-per-second.html)  |  0\.5 \(1 in each 2\-second interval\)  | 
 |  `GenerateDataKeyPair (RSA_4096) request rate` Applies to: [\[See the AWS documentation website for more details\]](http://docs.aws.amazon.com/kms/latest/developerguide/requests-per-second.html)  |  0\.1 \(1 in each 10\-second interval\)  | 
+|  `GenerateDataKeyPair (SM2 — China Regions only) request rate` Applies to: [\[See the AWS documentation website for more details\]](http://docs.aws.amazon.com/kms/latest/developerguide/requests-per-second.html)  |  25  | 
 | `GetKeyPolicy request rate` | 1000 | 
 | `GetKeyRotationStatus request rate` | 1000 | 
 | `GetParametersForImport request rate` | 0\.25 \(1 in each 4\-second interval\) | 
@@ -101,6 +102,9 @@ The quotas for different types of KMS keys are calculated independently\. Each q
 + *Cryptographic operations \(ECC\) request rate* is the shared request quota for cryptographic operations using [elliptic curve \(ECC\) asymmetric KMS keys](asymmetric-key-specs.md#key-spec-ecc)\. 
 
   For example, with a request quota of 300 operations per second, you can make 100 Sign requests and 200 Verify requests with RSA KMS keys that can sign and verify\.
++ *Cryptographic operations \(SM — China Regions only\) request rate* is the shared request quota for cryptographic operations using [SM asymmetric KMS keys](asymmetric-key-specs.md#key-spec-sm)\. 
+
+  For example, with a request quota of 300 operations per second, you can make 100 [Encrypt](https://docs.aws.amazon.com/kms/latest/APIReference/API_Encrypt.html) requests and 100 [Decrypt](https://docs.aws.amazon.com/kms/latest/APIReference/API_Decrypt.html) requests with SM2 KMS keys that can encrypt and decrypt, plus 50 [Sign](https://docs.aws.amazon.com/kms/latest/APIReference/API_Sign.html) requests and 50 [Verify](https://docs.aws.amazon.com/kms/latest/APIReference/API_Verify.html) requests with SM2 KMS keys that can sign and verify\.
 
 The quotas for different key types are also calculated independently\. For example, in the Asia Pacific \(Singapore\) Region, if you use both symmetric and asymmetric KMS keys, you can make up to 10,000 calls per second with symmetric KMS keys \(including HMAC keys\) *plus* up to 500 additional calls per second with your RSA asymmetric KMS keys, *plus* up to 300 additional requests per second with your ECC\-based KMS keys\.
 
@@ -116,11 +120,13 @@ When an application in one AWS account uses a KMS key owned by a different accou
 
 ## Custom key store quota<a name="rps-key-stores"></a>
 
-AWS KMS custom key stores support only symmetric encryption KMS keys\. The cryptographic operations that use the KMS keys in a [custom key store](custom-key-store-overview.md) share a request quota of 1,800 operations per second for each custom key store\. However, not all operations use the quota equally\. The `GenerateDataKey`, `GenerateDataKeyWithoutPlaintext`, and `GenerateRandom` operations use approximately three times as much of the per\-second quota as the `Encrypt`, `Decrypt`, and `ReEncrypt` operations\.
+AWS KMS custom key stores support only symmetric encryption KMS keys\. The KMS keys in each custom key store share a `Cryptographic operations (symmetric) request rate` request quota of 1,800 operations per second\. This quota is calculated separately for each custom key store\.
+
+However, not all operations use the quota equally\. The `GenerateDataKey`, `GenerateDataKeyWithoutPlaintext`, and `GenerateRandom` operations use approximately three times as much of the per\-second quota as the `Encrypt`, `Decrypt`, and `ReEncrypt` operations\.
 
 For example, if you are requesting only `Encrypt` and `Decrypt` operations, you can perform approximately 1,800 operations per second\. If, instead, you request repeated `GenerateDataKey` operations, your performance might be closer to 600 operations per second\. For applications patterns that consist of roughly equal numbers of `GenerateDataKey` and `Decrypt` operations, you can expect about 1,200 operations per second\.
 
-Unlike other AWS KMS quotas, the custom key store quota is not adjustable\. You cannot increase it by using Service Quotas or by creating a case in AWS Support\.
+The custom key store quota is not adjustable\. You cannot increase it by using Service Quotas or by creating a case in AWS Support\.
 
 **Note**  
 If the AWS CloudHSM cluster that is associated with the custom key store is processing numerous commands, including those unrelated to the custom key store, you might get an AWS KMS `ThrottlingException` at a lower\-than\-expected rate\. If this occurs, lower your request rate to AWS KMS, reduce the unrelated load, or use a dedicated AWS CloudHSM cluster for your custom key store\.

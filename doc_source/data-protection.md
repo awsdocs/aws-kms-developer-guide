@@ -19,7 +19,7 @@ The key material that AWS KMS generates for KMS keys never leaves the boundary o
 
 ### Encryption at rest<a name="encryption-at-rest"></a>
 
-AWS KMS generates key material for AWS KMS keys in FIPS 140\-2 Level 2–compliant hardware security modules \(HSMs\)\. When not in use, key material is encrypted by an HSM key and written to durable, persistent storage\. The key material for KMS keys and the encryption keys that protect the key material never leave the HSMs in plaintext form\. 
+AWS KMS generates key material for AWS KMS keys in FIPS 140\-2 Level 2–compliant hardware security modules \(HSMs\)\. The only exception is China Regions, where the HSMs that AWS KMS uses to generate KMS keys comply with all pertinent Chinese regulations, but are not validated under the FIPS 140\-2 Cryptographic Module Validation Program\. When not in use, key material is encrypted by an HSM key and written to durable, persistent storage\. The key material for KMS keys and the encryption keys that protect the key material never leave the HSMs in plaintext form\. 
 
 Encryption and management of key material for KMS keys is handled entirely by AWS KMS\.
 
@@ -31,7 +31,7 @@ Key material that AWS KMS generates for KMS keys is never exported or transmitte
 
 However, some AWS KMS API operations return [data keys](concepts.md#data-keys)\. Also, customers can use API operations to [import key material](importing-keys.md) for selected KMS keys\. 
 
-All AWS KMS API calls must be signed and be transmitted using Transport Layer Security \(TLS\)\. AWS KMS supports TLS 1\.0—1\.3 and hybrid post\-quantum TLS for AWS KMS service endpoints in all regions, except AWS GovCloud \(US\) and China Regions\. The AWS GovCloud \(US\) region only supports TLS 1\.0—1\.2 for AWS KMS service endpoints\. AWS KMS does not support hybrid post\-quantum TLS for endpoints in AWS GovCloud \(US\)\. AWS KMS recommends you always use the latest supported TLS version\. Calls to AWS KMS also require a modern cipher suite that supports *perfect forward secrecy*, which means that compromise of any secret, such as a private key, does not also compromise the session key\.
+All AWS KMS API calls must be signed and be transmitted using Transport Layer Security \(TLS\)\. AWS KMS supports TLS 1\.0—1\.3 and hybrid post\-quantum TLS for AWS KMS service endpoints in all regions, except AWS GovCloud \(US\) and China Regions\. The AWS GovCloud \(US\) and China Regions only support TLS 1\.0—1\.2 for AWS KMS service endpoint\. The AWS GovCloud \(US\) and China Regions do not support hybrid post\-quantum TLS\. AWS KMS recommends you always use the latest supported TLS version\. Calls to AWS KMS also require a modern cipher suite that supports *perfect forward secrecy*, which means that compromise of any secret, such as a private key, does not also compromise the session key\.
 
 If you require FIPS 140\-2 validated cryptographic modules when accessing AWS through a command line interface or an API, use a FIPS endpoint\. AWS KMS supports version 1\.2 of Transport Layer Security \(TLS\) for FIPS endpoints for select regions\. For more information about the available FIPS endpoints, see [Federal Information Processing Standard \(FIPS\) 140\-2](http://aws.amazon.com/compliance/fips/)\. For a list of AWS KMS FIPS endpoints, see [AWS Key Management Service endpoints and quotas](https://docs.aws.amazon.com/general/latest/gr/kms.html) in the AWS General Reference\.
 
@@ -41,7 +41,7 @@ Communications between AWS KMS service hosts and HSMs are protected using Ellipt
 
 AWS KMS does not directly store customer data\. Instead, AWS KMS is responsible for storing and protecting AWS KMS keys, which are logical entities backed by cryptographic key material\.
 
-Key material for KMS keys is supported by a distributed fleet of FIPS 140\-2 Level\-2–validated hardware security modules \(HSMs\)\. Each AWS KMS HSM is a standalone cryptographic hardware appliance designed to provide dedicated cryptographic functions to meet the security and scalability requirements of AWS KMS\.
+Key material for KMS keys is supported by a distributed fleet of FIPS 140\-2 Level\-2–validated hardware security modules \(HSMs\)\. The only exception is China Regions, where the HSMs that AWS KMS uses to protect KMS keys comply with all pertinent Chinese regulations, but are not validated under the FIPS 140\-2 Cryptographic Module Validation Program\. Each AWS KMS HSM is a standalone cryptographic hardware appliance designed to provide dedicated cryptographic functions to meet the security and scalability requirements of AWS KMS\.
 
 The key material for KMS keys exists in plaintext only inside the HSMs and only when the key material is generated or being used in a cryptographic operation\.
 

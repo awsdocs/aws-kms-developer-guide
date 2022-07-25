@@ -47,11 +47,11 @@ For information about creating and managing KMS keys, see [Managing keys](gettin
 The KMS keys that you create are customer managed keys\. AWS services that use KMS keys to encrypt your service resources often create keys for you\. KMS keys that AWS services create in your AWS account are AWS managed keys\. KMS keys that AWS services create in a service account are AWS owned keys\.
 
 
-| Type of KMS key | Can view KMS key metadata | Can manage KMS key | Used only for my AWS account | [Automatic rotation](rotate-keys.md) | 
-| --- | --- | --- | --- | --- | 
-| [Customer managed key](#customer-cmk) | Yes | Yes | Yes | Optional\. Every year \(approximately 365 days\) | 
-| [AWS managed key](#aws-managed-cmk) | Yes | No | Yes | Required\. Every year \(approximately 365 days\) | 
-| [AWS owned key](#aws-owned-cmk) | No | No | No | Varies | 
+| Type of KMS key | Can view KMS key metadata | Can manage KMS key | Used only for my AWS account | [Automatic rotation](rotate-keys.md) | [Pricing](https://aws.amazon.com/kms/pricing/) | 
+| --- | --- | --- | --- | --- | --- | 
+| [Customer managed key](#customer-cmk) | Yes | Yes | Yes | Optional\. Every year \(approximately 365 days\) | Monthly fee \(pro\-rated hourly\)Per\-use fee | 
+| [AWS managed key](#aws-managed-cmk) | Yes | No | Yes | Required\. Every year \(approximately 365 days\) | No monthly feePer\-use fee \(some AWS services pay this fee for you\) | 
+| [AWS owned key](#aws-owned-cmk) | No | No | No | Varies | Varies | 
 
 [AWS services that integrate with AWS KMS](service-integration.md) differ in their support for KMS keys\. Some AWS services encrypt your data by default with an AWS owned key or an AWS managed key\. Some AWS services support customer managed keys\. Other AWS services support all types of KMS keys to allow you the ease of an AWS owned key, the visibility of an AWS managed key, or the control of a customer managed key\. For detailed information about the encryption options that an AWS service offers, see the *Encryption at Rest* topic in the user guide or the developer guide for the service\.
 
@@ -98,7 +98,7 @@ The rotation of AWS owned keys varies across services\. For information about th
 
 When you create an AWS KMS key, by default, you get a KMS key for symmetric encryption\. This is the basic and most commonly used type of KMS key\. 
 
-In AWS KMS, a *symmetric encryption KMS key* represents a 256\-bit encryption key that never leaves AWS KMS unencrypted\. To use a symmetric encryption KMS key, you must call AWS KMS\. Symmetric encryption keys are used in symmetric encryption, where the same key is used for encryption and decryption\. Unless your task explicitly requires asymmetric encryption, symmetric encryption KMS keys, which never leave AWS KMS unencrypted, are a good choice\.
+In AWS KMS, a *symmetric encryption KMS key* represents a 256\-bit AES\-GCM encryption key, except in China Regions, where it represents a 128\-bit SM4 encryption key\. Symmetric key material never leaves AWS KMS unencrypted\. To use a symmetric encryption KMS key, you must call AWS KMS\. Symmetric encryption keys are used in symmetric encryption, where the same key is used for encryption and decryption\. Unless your task explicitly requires asymmetric encryption, symmetric encryption KMS keys, which never leave AWS KMS unencrypted, are a good choice\.
 
 [AWS services that are integrated with AWS KMS](https://aws.amazon.com/kms/features/#AWS_Service_Integration) use only symmetric encryption KMS keys to encrypt your data\. These services do not support encryption with asymmetric KMS keys\. For help determining whether a KMS key is symmetric or asymmetric, see [Identifying asymmetric KMS keys](find-symm-asymm.md)\.
 
@@ -162,9 +162,10 @@ Unlike the data key pairs that tools like OpenSSL generate, AWS KMS protects the
 
 AWS KMS supports the following types of data key pairs:
 + RSA key pairs: RSA\_2048, RSA\_3072, and RSA\_4096
-+ Elliptic curve key pairs, ECC\_NIST\_P256, ECC\_NIST\_P384, ECC\_NIST\_P521, and ECC\_SECG\_P256K1
++ Elliptic curve key pairs: ECC\_NIST\_P256, ECC\_NIST\_P384, ECC\_NIST\_P521, and ECC\_SECG\_P256K1
++ SM key pairs \(China Regions only\): SM2
 
-The type of data key pair that you select usually depends on your use case or regulatory requirements\. Most certificates require RSA keys\. Elliptic curve keys are often used for digital signatures\. ECC\_SECG\_P256K1 keys are commonly used for cryptocurrencies\. AWS KMS recommends that you use ECC key pairs for signing, and use RSA key pairs for either encryption or signing, but not both\. However, AWS KMS cannot enforce any restrictions on the use of data key pairs outside of AWS KMS\.
+The type of data key pair that you select usually depends on your use case or regulatory requirements\. Most certificates require RSA keys\. Elliptic curve keys are often used for digital signatures\. ECC\_SECG\_P256K1 keys are commonly used for cryptocurrencies\. AWS KMS recommends that you use ECC key pairs for signing, and use RSA for either encryption or signing, but not both\. However, AWS KMS cannot enforce any restrictions on the use of data key pairs outside of AWS KMS\.
 
 ### Create a data key pair<a name="data-keys-pairs-create"></a>
 

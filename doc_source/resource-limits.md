@@ -4,9 +4,9 @@ AWS KMS establishes resource quotas to ensure that it can provide fast and resil
 
 If you have exceeded a resource limit, requests to create an additional resource of that type generate an `LimitExceededException` error message\. 
 
-The following table lists and describes the AWS KMS resource quotas in each AWS account and Region\. If you need to exceed a quota, you can request a quota increase in Service Quotas\. Use the [Service Quotas console](https://console.aws.amazon.com/servicequotas) or the [RequestServiceQuotaIncrease](https://docs.aws.amazon.com/servicequotas/2019-06-24/apireference/API_RequestServiceQuotaIncrease.html) operation\. For details, see [Requesting a quota increase](https://docs.aws.amazon.com/servicequotas/latest/userguide/request-increase.html) in the *Service Quotas User Guide*\. If Service Quotas for AWS KMS are not available in the AWS Region, please visit the [AWS Support Center](https://console.aws.amazon.com/support/home) and create a case\. 
+All AWS KMS resource quotas are adjustable, except for the [key policy document size quota](#key-policy-limit)\. To request a quota increase, use the [Service Quotas console](https://console.aws.amazon.com/servicequotas) or the [RequestServiceQuotaIncrease](https://docs.aws.amazon.com/servicequotas/2019-06-24/apireference/API_RequestServiceQuotaIncrease.html) operation\. For instructions, see [Requesting an AWS KMS quota increase](increase-quota.md)\. For details, see [Requesting a quota increase](https://docs.aws.amazon.com/servicequotas/latest/userguide/request-increase.html) in the *Service Quotas User Guide*\. If Service Quotas for AWS KMS are not available in your AWS Region, please visit the [AWS Support Center](https://console.aws.amazon.com/support/home) and create a case\. 
 
-For help requesting an increase in an AWS KMS quota, see [Requesting an AWS KMS quota increase](increase-quota.md)\.
+The following table lists and describes the AWS KMS resource quotas in each AWS account and Region\. 
 
 
 | Quota name | Default value | Applies to | 
@@ -43,6 +43,6 @@ For example, when you attach an Amazon Elastic Block Store \(Amazon EBS\) volume
 
 The maximum length of each [key policy document](key-policy-overview.md) is 32 KB \(32,768 bytes\)\. If you use a larger policy document to create or update the key policy for a KMS key, the operation fails\. 
 
-Unlike other AWS KMS quotas, this quota is not adjustable\. You cannot increase it by using Service Quotas or by creating a case in AWS Support\. If your key policy is approaching the limit, consider using [grants](grants.md) instead of policy statements\. Grants are particularly well suited to temporary or very specific permissions\.
+This quota is not adjustable\. You cannot increase it by using Service Quotas or by creating a case in AWS Support\. If your key policy is approaching the limit, consider using [grants](grants.md) instead of policy statements\. Grants are particularly well suited to temporary or very specific permissions\.
 
 You use a key policy document whenever you create or change a key policy by using the [default view](key-policy-modifying.md#key-policy-modifying-how-to-console-default-view) or [policy view](key-policy-modifying.md#key-policy-modifying-how-to-console-policy-view) in the AWS Management Console, or the [PutKeyPolicy](https://docs.aws.amazon.com/kms/latest/APIReference/API_PutKeyPolicy.html) operation\. This quota applies to your key policy document, even if you use the [default view](key-policy-modifying.md#key-policy-modifying-how-to-console-default-view) in the AWS KMS console, where you don't edit the JSON statements directly\.

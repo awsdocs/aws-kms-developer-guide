@@ -35,6 +35,9 @@ Actions that you can take to prevent the use of KMS key in a cryptographic opera
 **Logging**  
 AWS CloudTrail logs that record every AWS KMS operation, including the request, response, date, time, and authorized user, do not record the use of the public key outside of AWS KMS\.
 
+**Offline verification with SM2 key pairs \(China Regions only\)**  
+To verify a signature outside of AWS KMS with an SM2 public key, you must specify the distinguishing ID\. By default, AWS KMS uses `1234567812345678` as the distinguishing ID\. For more information, see [Offline verification with SM2 key pairs \(China Regions only\)\.](asymmetric-key-specs.md#key-spec-sm-offline-verification)
+
 ## Downloading a public key \(console\)<a name="download-public-key-console"></a>
 
 You can use the AWS Management Console to view, copy, and download the public key from an asymmetric KMS key in your AWS account\. To download the public key from an asymmetric KMS key in different AWS account, use the AWS KMS API\.

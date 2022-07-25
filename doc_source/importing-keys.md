@@ -35,7 +35,7 @@ For information about important differences between KMS keys with imported key m
 Before you decide to import key material into AWS KMS, you should understand the following characteristics of imported key material\.
 
 **You generate the key material**  
-You are responsible for generating the key material using a source of randomness that meets your security requirements\. The key material you import must be a 256\-bit symmetric encryption key\.
+You are responsible for generating the key material using a source of randomness that meets your security requirements\. The key material you import must be a 256\-bit symmetric encryption key, except in China Regions, where it must be a 128\-bit symmetric encryption key\.
 
 **You can delete the key material**  
 You can delete imported key material from a KMS key, immediately rendering the KMS key unusable\. Also, when you import key material into a KMS key, you can determine whether the key expires and [set its expiration date](importing-keys-create-cmk.md)\. When the expiration date arrives, AWS KMS [deletes the key material](importing-keys-delete-key-material.md)\. Without key material, the KMS key cannot be used in any cryptographic operation\. To restore the key, you must reimport the same key material into the key\. 
