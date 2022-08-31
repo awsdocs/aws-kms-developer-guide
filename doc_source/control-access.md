@@ -21,7 +21,7 @@ The following topics provide details about how you can use AWS Identity and Acce
 + [IAM policies](iam-policies.md)
 + [Grants](grants.md)
 + [VPC endpoint](kms-vpc-endpoint.md)
-+ [Policy conditions](policy-conditions.md)
++ [Condition keys](policy-conditions.md)
 + [Attribute\-based access control \(ABAC\)](abac.md)
 + [Cross\-account access](key-policy-modifying-external-accounts.md)
 + [Service\-linked roles](using-service-linked-roles.md)

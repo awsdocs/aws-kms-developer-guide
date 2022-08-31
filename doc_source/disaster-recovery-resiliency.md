@@ -10,13 +10,13 @@ AWS Key Management Service \(AWS KMS\) is a self\-sustaining Regional service th
 
 The AWS KMS [Service Level Agreement](https://aws.amazon.com/kms/sla/) \(SLA\) includes a service commitment of 99\.999% for all KMS APIs\. To fulfill this commitment, AWS KMS ensures that all data and authorization information required to execute an API request is available on all regional hosts that receive the request\. 
 
-The AWS KMS infrastructure is replicated in at least three Availability Zones \(AZs\) in each Region\. The replication of customer data to all API endpoints across at least 3 AZs per Region allows the service to continue to perform as expected even if multiple hosts fail\.
+The AWS KMS infrastructure is replicated in at least three Availability Zones \(AZs\) in each Region\. To ensure that multiple host failures do not affect AWS KMS performance, AWS KMS is designed to service customer traffic from any of the AZs in a Region\.
 
-Changes that you make to the properties or permissions of a KMS key are replicated to all hosts in the Region to ensure that subsequent request can be processed correctly by any host in the Region\. Requests for [cryptographic operations](concepts.md#cryptographic-operations) using your KMS key are forwarded to a fleet of AWS KMS hardware security modules \(HSMs\), any of which can perform the operation with any KMS key\.
+Changes that you make to the properties or permissions of a KMS key are replicated to all hosts in the Region to ensure that subsequent request can be processed correctly by any host in the Region\. Requests for [cryptographic operations](concepts.md#cryptographic-operations) using your KMS key are forwarded to a fleet of AWS KMS hardware security modules \(HSMs\), any of which can perform the operation with the KMS key\.
 
 ## Multi\-tenant design<a name="multi-tenant"></a>
 
-The multi\-tenant design of AWS KMS enables it to the fulfill the 99\.999% availability SLA, and to sustain high request rates, while protecting the confidentiality of your keys and data\. 
+The multi\-tenant design of AWS KMS enables it to fulfill the 99\.999% availability SLA, and to sustain high request rates, while protecting the confidentiality of your keys and data\. 
 
 Multiple integrity\-enforcing mechanisms are deployed to ensure that the KMS key that you specified for the cryptographic operation is always the one that is used\. 
 

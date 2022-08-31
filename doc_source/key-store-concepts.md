@@ -10,7 +10,7 @@ This topic explains some of the concepts used in AWS KMS custom key stores\.
 
 ## AWS KMS custom key store<a name="concept-custom-key-store"></a>
 
-A *key store* is a secure location for storing cryptographic keys\. The default key store in AWS KMS also supports methods for generating and managing the keys that its stores\. By default, the AWS KMS key that you create in AWS KMS are generated in and protected by hardware security modules \(HSMs\) that are [FIPS 140\-2 validated cryptographic modules](https://csrc.nist.gov/projects/cryptographic-module-validation-program/Certificate/3139)\. The KMS keys never leave the modules unencrypted\.
+A *key store* is a secure location for storing cryptographic keys\. The default key store in AWS KMS also supports methods for generating and managing the keys that it stores\. By default, the AWS KMS key that you create in AWS KMS are generated in and protected by hardware security modules \(HSMs\) that are [FIPS 140\-2 validated cryptographic modules](https://csrc.nist.gov/projects/cryptographic-module-validation-program/certificate/4177)\. The KMS keys never leave the modules unencrypted\.
 
 However, if you require even more control of the HSMs, you can create a custom key store that is backed by [FIPS 140\-2 Level 3 HSMs](https://docs.aws.amazon.com/cloudhsm/latest/userguide/compliance.html) in an [AWS CloudHSM](https://docs.aws.amazon.com/cloudhsm/latest/userguide/) cluster that you own and manage\.
 

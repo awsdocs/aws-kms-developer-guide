@@ -6,7 +6,7 @@ AWS KMS provides full console and API support for creating, using, and managing 
 
 **Do I need a custom key store?**
 
-For most users, the default AWS KMS key store, which is protected by [FIPS 140\-2 validated cryptographic modules](https://csrc.nist.gov/projects/cryptographic-module-validation-program/Certificate/3139), fulfills their security requirements\. There is no need to add an extra layer of maintenance responsibility or a dependency on an additional service\. 
+For most users, the default AWS KMS key store, which is protected by [FIPS 140\-2 validated cryptographic modules](https://csrc.nist.gov/projects/cryptographic-module-validation-program/certificate/4177), fulfills their security requirements\. There is no need to add an extra layer of maintenance responsibility or a dependency on an additional service\. 
 
 However, you might consider creating a custom key store if your organization has any of the following requirements:
 + Key material cannot be stored in a shared environment\.

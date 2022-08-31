@@ -129,4 +129,5 @@ For example, if you are requesting only `Encrypt` and `Decrypt` operations, you 
 The custom key store quota is not adjustable\. You cannot increase it by using Service Quotas or by creating a case in AWS Support\.
 
 **Note**  
-If the AWS CloudHSM cluster that is associated with the custom key store is processing numerous commands, including those unrelated to the custom key store, you might get an AWS KMS `ThrottlingException` at a lower\-than\-expected rate\. If this occurs, lower your request rate to AWS KMS, reduce the unrelated load, or use a dedicated AWS CloudHSM cluster for your custom key store\.
+If the AWS CloudHSM cluster that is associated with the custom key store is processing numerous commands, including those unrelated to the custom key store, you might get an AWS KMS `ThrottlingException` at a lower\-than\-expected rate\. If this occurs, lower your request rate to AWS KMS, reduce the unrelated load, or use a dedicated AWS CloudHSM cluster for your custom key store\.  
+AWS KMS also throttles cryptographic operations on KMS keys in custom key stores when there are no available PKCS11 sessions for the AWS CloudHSM cluster\. These `ThrottlingException` instances typically occur during periods of high burst traffic when additional sessions are needed to service the traffic\.

@@ -4,13 +4,13 @@
 *****Copyright &copy; Amazon Web Services, Inc. and/or its affiliates. All rights reserved.*****
 
 -----
-Amazon's trademarks and trade dress may not be used in 
-     connection with any product or service that is not Amazon's, 
-     in any manner that is likely to cause confusion among customers, 
-     or in any manner that disparages or discredits Amazon. All other 
-     trademarks not owned by Amazon are the property of their respective
-     owners, who may or may not be affiliated with, connected to, or 
-     sponsored by Amazon.
+Amazon's trademarks and trade dress may not be used in
+connection with any product or service that is not Amazon's,
+in any manner that is likely to cause confusion among customers,
+or in any manner that disparages or discredits Amazon. All other
+trademarks not owned by Amazon are the property of their respective
+owners, who may or may not be affiliated with, connected to, or
+sponsored by Amazon.
 
 -----
 ## Contents
@@ -114,7 +114,7 @@ Amazon's trademarks and trade dress may not be used in
       + [Creating grants](create-grant-overview.md)
       + [Managing grants](grant-manage.md)
    + [Connecting to AWS KMS through a VPC endpoint](kms-vpc-endpoint.md)
-   + [Using policy conditions with AWS KMS](policy-conditions.md)
+   + [Condition keys for AWS KMS](policy-conditions.md)
    + [ABAC for AWS KMS](abac.md)
    + [Allowing users in other accounts to use a KMS key](key-policy-modifying-external-accounts.md)
    + [Using service-linked roles for AWS KMS](using-service-linked-roles.md)

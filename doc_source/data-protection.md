@@ -10,7 +10,7 @@ AWS Key Management Service stores and protects your encryption keys to make them
 
 The data in AWS KMS consists of [AWS KMS keys](concepts.md#kms_keys) and the encryption key material they represent\. This key material exists in plaintext only within AWS KMS hardware security modules \(HSMs\) and only when in use\. Otherwise, the key material is encrypted and stored in durable persistent storage\. 
 
-The key material that AWS KMS generates for KMS keys never leaves the boundary of AWS KMS HSMs unencrypted\. It is not exported or transmitted in any AWS KMS API operations\.
+The key material that AWS KMS generates for KMS keys never leaves the boundary of AWS KMS HSMs unencrypted\. It is not exported or transmitted in any AWS KMS API operations\. The exception is for [multi\-Region keys](multi-region-keys-overview.md), where AWS KMS uses a cross\-Region replication mechanism to copy the key material for a multi\-Region key from an HSM in one AWS Region to an HSM in a different AWS Region\. For details, see [Replication process for multi\-Region keys](https://docs.aws.amazon.com/kms/latest/cryptographic-details/replicate-key-details.html) in AWS Key Management Service Cryptographic Details\.
 
 **Topics**
 + [Encryption at rest](#encryption-at-rest)

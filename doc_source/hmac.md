@@ -6,7 +6,7 @@ HMAC algorithms combine a cryptographic hash function and a shared secret key\. 
 
 HMACs are typically used to determine the authenticity of a message, such as a JSON Web Token \(JWT\), tokenized credit card information, or a submitted password\. They can also be used as secure Key Derivation Functions \(KDFs\), especially in applications that require deterministic keys\. 
 
-HMAC KMS keys provide an advantage over HMACs from application software because the key material is generated and used entirely within AWS KMS, subject to the access controls that you set on the key\. HMAC KMS keys and the HMAC algorithms that AWS KMS uses conform to industry standards defined in [RFC 2104](https://datatracker.ietf.org/doc/html/rfc2104)\. HMAC KMS keys are generated in AWS KMS hardware security modules that are certified under the [FIPS 140\-2 Cryptographic Module Validation Program](https://csrc.nist.gov/projects/cryptographic-module-validation-program/Certificate/3139) \(except in China \(Beijing\) and China \(Ningxia\) Regions\) and never leave AWS KMS unencrypted\. To use an HMAC KMS key, you must call AWS KMS\.
+HMAC KMS keys provide an advantage over HMACs from application software because the key material is generated and used entirely within AWS KMS, subject to the access controls that you set on the key\. HMAC KMS keys and the HMAC algorithms that AWS KMS uses conform to industry standards defined in [RFC 2104](https://datatracker.ietf.org/doc/html/rfc2104)\. HMAC KMS keys are generated in AWS KMS hardware security modules that are certified under the [FIPS 140\-2 Cryptographic Module Validation Program](https://csrc.nist.gov/projects/cryptographic-module-validation-program/certificate/4177) \(except in China \(Beijing\) and China \(Ningxia\) Regions\) and never leave AWS KMS unencrypted\. To use an HMAC KMS key, you must call AWS KMS\.
 
 **Tip**  
 Best practices recommend that you limit the time during which any signing mechanism, including an HMAC, is effective\. This deters an attack where the actor uses a signed message to establish validity repeatedly or long after the message is superseded\. HMAC tags do not include a timestamp, but you can include a timestamp in the token or message to help you detect when its time to refresh the HMAC\. 
@@ -36,7 +36,7 @@ HMAC KMS keys are supported in all AWS Regions that AWS KMS supports except for 
 + For information about pricing of HMAC KMS keys, see [AWS Key Management Service pricing](https://aws.amazon.com/kms/pricing/)\.
 + For information about quotas that apply to HMAC KMS keys, see [Resource quotas](resource-limits.md) and [Request quotas](requests-per-second.md)\.
 + For information about deleting HMAC KMS keys, see [Deleting AWS KMS keys](deleting-keys.md)\.
-+ To learn about using HMACs to create JSON web tokens, see [How to protect HMACs inside AWS KMS](http://aws.amazon.com/blogs/security/how-to-protect-hmacs-inside-aws-kms.html) in the *AWS Security Blog*\.
++ To learn about using HMACs to create JSON web tokens, see [How to protect HMACs inside AWS KMS](http://aws.amazon.com/blogs/security/how-to-protect-hmacs-inside-aws-kms/) in the *AWS Security Blog*\.
 + Listen to a podcast: [Introducing HMACs for AWS Key Management Service](https://aws.amazon.com/podcasts/introducing-hmacs-apis-in-aws-key-management-service) on *The Official AWS Podcast*\.
 
 **Topics**

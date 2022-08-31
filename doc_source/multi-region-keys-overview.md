@@ -31,7 +31,7 @@ For most data security needs, the Regional isolation and fault tolerance of Regi
 
 **Regions**
 
-Multi\-Region keys are supported in all AWS Regions that AWS KMS supports except for China \(Beijing\) and China \(Ningxia\)\.
+Multi\-Region keys are supported in all AWS Regions that AWS KMS supports except for Middle East \(UAE\), China \(Beijing\), and China \(Ningxia\)\.
 
 **Pricing and quotas**
 

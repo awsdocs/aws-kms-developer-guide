@@ -6,8 +6,8 @@ AWS KMS supports Amazon Virtual Private Cloud \(Amazon VPC\) interface endpoints
 
 The VPC interface endpoint connects your VPC directly to AWS KMS without an internet gateway, NAT device, VPN connection, or AWS Direct Connect connection\. The instances in your VPC do not need public IP addresses to communicate with AWS KMS\. 
 
-**Supported AWS Regions**  
-AWS KMS supports VPC endpoints in all AWS Regions where both [Amazon VPC](https://docs.aws.amazon.com/general/latest/gr/vpc-service.html) and [AWS KMS](https://docs.aws.amazon.com/general/latest/gr/kms.html) are available\.
+**Regions**  
+AWS KMS supports VPC endpoints and VPC endpoint policies in all AWS Regions where both [Amazon VPC](https://docs.aws.amazon.com/general/latest/gr/vpc-service.html) and [AWS KMS](https://docs.aws.amazon.com/general/latest/gr/kms.html) are available except for Middle East \(UAE\)\.
 
 **Topics**
 + [Considerations for AWS KMS VPC endpoints](#vpce-considerations)

@@ -36,7 +36,7 @@ An *AWS KMS key* is a logical representation of a cryptographic key\. A KMS key 
 
 You create KMS keys in AWS KMS\. Symmetric KMS keys and the private keys of asymmetric KMS key never leave AWS KMS unencrypted\.  To use or manage your KMS keys, you must use AWS KMS\. For information about creating and managing KMS keys, see [Managing keys](getting-started.md)\. For information about using KMS keys, see the [AWS Key Management Service API Reference](https://docs.aws.amazon.com/kms/latest/APIReference/)\.
 
-By default, AWS KMS creates the key material for a KMS key\. You cannot extract, export, view, or manage this key material\. Also, you cannot delete this key material; you must [delete the KMS key](deleting-keys.md)\. However, you can [import your own key material](importing-keys.md) into a KMS key or create the key material for a KMS key in the AWS CloudHSM cluster associated with an [AWS KMS custom key store](custom-key-store-overview.md)\.
+By default, AWS KMS creates the key material for a KMS key\. You cannot extract, export, view, or manage this key material\. The only exception is the public key of an asymmetric key pair, which you can export for use outside of AWS\. Also, you cannot delete this key material; you must [delete the KMS key](deleting-keys.md)\. However, you can [import your own key material](importing-keys.md) into a KMS key or create the key material for a KMS key in the AWS CloudHSM cluster associated with an [AWS KMS custom key store](custom-key-store-overview.md)\.
 
 AWS KMS also supports [multi\-Region keys](multi-region-keys-overview.md), which let you encrypt data in one AWS Region and decrypt it in a different AWS Region\. 
 
@@ -275,7 +275,7 @@ To make AWS KMS responsive and highly functional for all users, AWS KMS establis
 
 ## Key identifiers \(KeyId\)<a name="key-id"></a>
 
-Key identifiers act as names for your KMS keys\. They help you to recognize your KMS keys in the console\. You use them to indicate which KMS keys you want to use in AWS KMS API operations, key policies, IAM policies, and grants\.
+Key identifiers act like names for your KMS keys\. They help you to recognize your KMS keys in the console\. You use them to indicate which KMS keys you want to use in AWS KMS API operations, key policies, IAM policies, and grants\. The key identifier values are completely unrelated to the key material associated with the KMS key\.
 
 AWS KMS defines several key identifiers\. When you create a KMS key, AWS KMS generates a key ARN and key ID, which are properties of the KMS key\. When you create an [alias](kms-alias.md), AWS KMS generates an alias ARN based on the alias name that you define\. You can view the key and alias identifiers in the AWS Management Console and in the AWS KMS API\. 
 
@@ -406,7 +406,7 @@ You can even encrypt the data encryption key under another encryption key, and e
 
 ![\[Envelope encryption\]](http://docs.aws.amazon.com/kms/latest/developerguide/images/key-hierarchy-root.png)
 
-AWS KMS helps you to protect your encryption keys by storing and managing them securely\. Root keys stored in AWS KMS, known as [AWS KMS keys](#kms_keys), never leave the AWS KMS [FIPS validated hardware security modules](https://csrc.nist.gov/projects/cryptographic-module-validation-program/Certificate/3139) unencrypted\. To use a KMS key, you must call AWS KMS\.
+AWS KMS helps you to protect your encryption keys by storing and managing them securely\. Root keys stored in AWS KMS, known as [AWS KMS keys](#kms_keys), never leave the AWS KMS [FIPS validated hardware security modules](https://csrc.nist.gov/projects/cryptographic-module-validation-program/certificate/4177) unencrypted\. To use a KMS key, you must call AWS KMS\.
 
 ![\[Envelope encryption with multiple key encryption keys\]](http://docs.aws.amazon.com/kms/latest/developerguide/images/key-hierarchy-kms-key.png)
 
@@ -482,7 +482,7 @@ For example, the following key policy statement allows the `RoleForExampleApp` r
 }
 ```
 
-For more information about these encryption context condition keys, see [Using policy conditions with AWS KMS](policy-conditions.md)\.
+For more information about these encryption context condition keys, see [Condition keys for AWS KMS](policy-conditions.md)\.
 
 ### Encryption context in grants<a name="encryption-context-grants"></a>
 

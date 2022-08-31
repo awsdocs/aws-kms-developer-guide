@@ -72,7 +72,7 @@ $ aws kms describe-custom-key-stores --custom-key-store-id cks-1234567890abcdef0
    "CustomKeyStores": [ 
       { 
          "CloudHsmClusterId": "cluster-1a23b4cdefg",
-         "ConnectionErrorCode": "INVALID_CREDENTIALS"
+         "ConnectionErrorCode": "INVALID_CREDENTIALS",
          "ConnectionState": "FAILED",
          "CustomKeyStoreId": "cks-1234567890abcdef0",
          "CustomKeyStoreName": "ExampleKeyStore",

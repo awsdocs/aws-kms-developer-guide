@@ -17,9 +17,9 @@ As always, we welcome your feedback and participation in our open\-source reposi
 
 **Supported AWS Regions**
 
-Post\-quantum TLS for AWS KMS is available in all AWS Regions except for AWS GovCloud \(US\-East\), AWS GovCloud \(US\-West\), China \(Beijing\), and China \(Ningxia\)\. 
+Post\-quantum TLS for AWS KMS is available in all AWS Regions that AWS KMS supports except for AWS GovCloud \(US\-East\), AWS GovCloud \(US\-West\), China \(Beijing\), and China \(Ningxia\)\. 
 
-For a list of AWS KMS endpoints for each AWS Region, see [AWS Key Management Service endpoints and quotas](https://docs.aws.amazon.com/general/latest/gr/kms.html) in the *Amazon Web Services General Reference*\. For information about FIPS endpoints, see [FIPS endpoints](https://docs.aws.amazon.com/general/latest/gr/rande.html#FIPS-endpoints) in the *Amazon Web Services General Reference*\.\.
+For a list of AWS KMS endpoints for each AWS Region, see [AWS Key Management Service endpoints and quotas](https://docs.aws.amazon.com/general/latest/gr/kms.html) in the *Amazon Web Services General Reference*\. For information about FIPS endpoints, see [FIPS endpoints](https://docs.aws.amazon.com/general/latest/gr/rande.html#FIPS-endpoints) in the *Amazon Web Services General Reference*\.
 
 ## About hybrid post\-quantum key exchange in TLS<a name="PQTLS-concepts"></a>
 
@@ -121,6 +121,7 @@ Consider running the following tests with hybrid cipher suites on your applicati
 ## Learn more about post\-quantum TLS in AWS KMS<a name="pqtls-see-also"></a>
 
 For more information about using hybrid post\-quantum TLS in AWS KMS, see the following resources\.
++ For information about Amazon's post\-quantum outlook, see [Preparing today for a post\-quantum cryptographic future](https://www.amazon.science/blog/preparing-today-for-a-post-quantum-cryptographic-future) in the Amazon Science blog\.
 + For information about using hybrid post\-quantum TLS cipher suites with AWS KMS, including performance data, see [How to tune TLS for hybrid post\-quantum cryptography with Kyber](http://aws.amazon.com/blogs/security/how-to-tune-tls-for-hybrid-post-quantum-cryptography-with-kyber/)\.
 + For technical information about using hybrid post\-quantum key exchange in TLS, see [Hybrid Post\-Quantum Key Encapsulation Methods \(PQ KEM\) for Transport Layer Security 1\.2 \(TLS\)](https://tools.ietf.org/html/draft-campagna-tls-bike-sike-hybrid-01)\.
 + For information about s2n\-tls, see [Introducing s2n\-tls, a New Open Source TLS Implementation](http://aws.amazon.com/blogs/security/introducing-s2n-a-new-open-source-tls-implementation/) and [Using s2n\-tls](https://github.com/aws/s2n-tls/blob/main/docs/USAGE-GUIDE.md)\.
