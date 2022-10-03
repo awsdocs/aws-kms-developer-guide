@@ -4,9 +4,9 @@ In the following example, an IAM user running an Amazon EC2 instance creates and
 
 When the volume is created, Amazon EC2, acting on behalf of the customer, gets an encrypted data key from AWS KMS \(`GenerateDataKeyWithoutPlaintext`\)\. Then it creates a grant \(`CreateGrant`\) that allows it to decrypt the data key\. When the volume is mounted, Amazon EC2 calls AWS KMS to decrypt the data key \(`Decrypt`\)\.
 
-The `instanceId` of the Amazon EC2 instance, `"i-81e2f56c"`, appears in the `RunInstances` event\. The same instance ID qualifies the `granteePrincipal` of the grant that is created \(`"123456789012:aws:ec2-infrastructure:i-81e2f56c"`\) and the assumed role that is the principal in the `Decrypt` call \(`"arn:aws:sts::123456789012:assumed-role/aws:ec2-infrastructure/i-81e2f56c"`\)\. 
+The `instanceId` of the Amazon EC2 instance, `"i-81e2f56c"`, appears in the `RunInstances` event\. The same instance ID qualifies the `granteePrincipal` of the grant that is created \(`"111122223333:aws:ec2-infrastructure:i-81e2f56c"`\) and the assumed role that is the principal in the `Decrypt` call \(`"arn:aws:sts::111122223333:assumed-role/aws:ec2-infrastructure/i-81e2f56c"`\)\. 
 
-The [key ARN](concepts.md#key-id-key-ARN) of the KMS key that protects the data volume, `arn:aws:kms:us-east-1:123456789012:key/e29ddfd4-1bf6-4e1b-8ecb-08216bd70d07`, appears in all three AWS KMS calls \(`CreateGrant`, `GenerateDataKeyWithoutPlaintext`, and `Decrypt`\)\.
+The [key ARN](concepts.md#key-id-key-ARN) of the KMS key that protects the data volume, `arn:aws:kms:us-west-2:111122223333:key/1234abcd-12ab-34cd-56ef-1234567890ab`, appears in all three AWS KMS calls \(`CreateGrant`, `GenerateDataKeyWithoutPlaintext`, and `Decrypt`\)\.
 
 ```
 {
@@ -14,26 +14,19 @@ The [key ARN](concepts.md#key-id-key-ARN) of the KMS key that protects the data 
     {
       "eventVersion": "1.02",
       "userIdentity": {
-        "type": "IAMUser",
-        "principalId": "EX_PRINCIPAL_ID",
-        "arn": "arn:aws:iam::123456789012:user/Alice",
-        "accountId": "123456789012",
-        "accessKeyId": "EXAMPLE_KEY_ID",
-        "userName": "Alice",
-        "sessionContext": {
-          "attributes": {
-            "mfaAuthenticated": "false",
-            "creationDate": "2014-11-05T21:34:36Z"
-          }
-        },
-        "invokedBy": "signin.amazonaws.com"
+            "type": "IAMUser",
+            "principalId": "EX_PRINCIPAL_ID",
+            "arn": "arn:aws:iam::111122223333:user/Alice",
+            "accountId": "111122223333",
+            "accessKeyId": "EXAMPLE_KEY_ID",
+            "userName": "Alice"
       },
       "eventTime": "2014-11-05T21:35:27Z",
       "eventSource": "ec2.amazonaws.com",
       "eventName": "RunInstances",
-      "awsRegion": "us-east-1",
-      "sourceIPAddress": "72.72.72.72",
-      "userAgent": "signin.amazonaws.com",
+      "awsRegion": "us-west-2",
+      "sourceIPAddress": "192.0.2.0",
+      "userAgent": "AWS Internal",
       "requestParameters": {
         "instancesSet": {
           "items": [
@@ -83,7 +76,7 @@ The [key ARN](concepts.md#key-id-key-ARN) of the KMS key that protects the data 
       },
       "responseElements": {
         "reservationId": "r-5ebc9f74",
-        "ownerId": "123456789012",
+        "ownerId": "111122223333",
         "groupSet": {
           "items": [
             {
@@ -146,30 +139,23 @@ The [key ARN](concepts.md#key-id-key-ARN) of the KMS key that protects the data 
       "requestID": "41c4b4f7-8bce-4773-bf0e-5ae3bb5cbce2",
       "eventID": "cd75a605-2fee-4fda-b847-9c3d330ebaae",
       "eventType": "AwsApiCall",
-      "recipientAccountId": "123456789012"
+      "recipientAccountId": "111122223333"
     },
     {
       "eventVersion": "1.02",
       "userIdentity": {
-        "type": "IAMUser",
-        "principalId": "EX_PRINCIPAL_ID",
-        "arn": "arn:aws:iam::123456789012:user/Alice",
-        "accountId": "123456789012",
-        "accessKeyId": "EXAMPLE_KEY_ID",
-        "userName": "Alice",
-        "sessionContext": {
-          "attributes": {
-            "mfaAuthenticated": "false",
-            "creationDate": "2014-11-05T21:34:36Z"
-          }
-        },
-        "invokedBy": "AWS Internal"
+            "type": "IAMUser",
+            "principalId": "EX_PRINCIPAL_ID",
+            "arn": "arn:aws:iam::111122223333:user/Alice",
+            "accountId": "111122223333",
+            "accessKeyId": "EXAMPLE_KEY_ID",
+            "userName": "Alice"
       },
       "eventTime": "2014-11-05T21:35:35Z",
       "eventSource": "kms.amazonaws.com",
       "eventName": "CreateGrant",
       "awsRegion": "us-east-1",
-      "sourceIPAddress": "AWS Internal",
+      "sourceIPAddress": "192.0.2.0",
       "userAgent": "AWS Internal",
       "requestParameters": {
         "constraints": {
@@ -177,46 +163,39 @@ The [key ARN](concepts.md#key-id-key-ARN) of the KMS key that protects the data 
             "aws:ebs:id": "vol-f67bafb2"
           }
         },
-        "granteePrincipal": "123456789012:aws:ec2-infrastructure:i-81e2f56c",
-        "keyId": "arn:aws:kms:us-east-1:123456789012:key/e29ddfd4-1bf6-4e1b-8ecb-08216bd70d07"
+        "granteePrincipal": "111122223333:aws:ec2-infrastructure:i-81e2f56c",
+        "keyId": "arn:aws:kms:us-west-2:111122223333:key/1234abcd-12ab-34cd-56ef-1234567890ab"
       },
       "responseElements": {
-        "grantId": "6caf442b4ff8a27511fb6de3e12cc5342f5382112adf75c1a91dbd221ec356fe"
+        "grantId": "abcde1237f76e4ba7987489ac329fbfba6ad343d6f7075dbd1ef191f0120514a"
       },
       "requestID": "41c4b4f7-8bce-4773-bf0e-5ae3bb5cbce2",
       "eventID": "c1ad79e3-0d3f-402a-b119-d5c31d7c6a6c",
       "readOnly": false,
       "resources": [
         {
-          "ARN": "arn:aws:kms:us-east-1:123456789012:key/e29ddfd4-1bf6-4e1b-8ecb-08216bd70d07",
-          "accountId": "123456789012"
+          "ARN": "arn:aws:kms:us-west-2:111122223333:key/1234abcd-12ab-34cd-56ef-1234567890ab",
+          "accountId": "111122223333"
         }
       ],
       "eventType": "AwsApiCall",
-      "recipientAccountId": "123456789012"
+      "recipientAccountId": "111122223333"
     },
     {
       "eventVersion": "1.02",
       "userIdentity": {
-        "type": "IAMUser",
-        "principalId": "EX_PRINCIPAL_ID",
-        "arn": "arn:aws:iam::123456789012:user/Alice",
-        "accountId": "123456789012",
-        "accessKeyId": "EXAMPLE_KEY_ID",
-        "userName": "Alice",
-        "sessionContext": {
-          "attributes": {
-            "mfaAuthenticated": "false",
-            "creationDate": "2014-11-05T21:34:36Z"
-          }
-        },
-        "invokedBy": "AWS Internal"
+          "type": "IAMUser",
+          "principalId": "EX_PRINCIPAL_ID",
+          "arn": "arn:aws:iam::111122223333:user/Alice",
+          "accountId": "111122223333",
+          "accessKeyId": "EXAMPLE_KEY_ID",
+          "userName": "Alice"
       },
       "eventTime": "2014-11-05T21:35:32Z",
       "eventSource": "kms.amazonaws.com",
       "eventName": "GenerateDataKeyWithoutPlaintext",
       "awsRegion": "us-east-1",
-      "sourceIPAddress": "AWS Internal",
+      "sourceIPAddress": "192.0.2.0",
       "userAgent": "AWS Internal",
       "requestParameters": {
         "encryptionContext": {
@@ -226,25 +205,25 @@ The [key ARN](concepts.md#key-id-key-ARN) of the KMS key that protects the data 
         "keyId": "alias/aws/ebs"
       },
       "responseElements": null,
-      "requestID": "create-123456789012-758247346-1415223332",
+      "requestID": "create-111122223333-758247346-1415223332",
       "eventID": "ac3cab10-ce93-4953-9d62-0b6e5cba651d",
       "readOnly": true,
       "resources": [
         {
-          "ARN": "arn:aws:kms:us-east-1:123456789012:key/e29ddfd4-1bf6-4e1b-8ecb-08216bd70d07",
-          "accountId": "123456789012"
+          "ARN": "arn:aws:kms:us-west-2:111122223333:key/1234abcd-12ab-34cd-56ef-1234567890ab",
+          "accountId": "111122223333"
         }
       ],
       "eventType": "AwsApiCall",
-      "recipientAccountId": "123456789012"
+      "recipientAccountId": "111122223333"
     },
     {
       "eventVersion": "1.02",
       "userIdentity": {
         "type": "AssumedRole",
-        "principalId": "123456789012:aws:ec2-infrastructure:i-81e2f56c",
-        "arn": "arn:aws:sts::123456789012:assumed-role/aws:ec2-infrastructure/i-81e2f56c",
-        "accountId": "123456789012",
+        "principalId": "111122223333:aws:ec2-infrastructure:i-81e2f56c",
+        "arn": "arn:aws:sts::111122223333:assumed-role/aws:ec2-infrastructure/i-81e2f56c",
+        "accountId": "111122223333",
         "accessKeyId": "",
         "sessionContext": {
           "attributes": {
@@ -253,9 +232,9 @@ The [key ARN](concepts.md#key-id-key-ARN) of the KMS key that protects the data 
           },
           "sessionIssuer": {
             "type": "Role",
-            "principalId": "123456789012:aws:ec2-infrastructure",
-            "arn": "arn:aws:iam::123456789012:role/aws:ec2-infrastructure",
-            "accountId": "123456789012",
+            "principalId": "111122223333:aws:ec2-infrastructure",
+            "arn": "arn:aws:iam::111122223333:role/aws:ec2-infrastructure",
+            "accountId": "111122223333",
             "userName": "aws:ec2-infrastructure"
           }
         }
@@ -264,7 +243,7 @@ The [key ARN](concepts.md#key-id-key-ARN) of the KMS key that protects the data 
       "eventSource": "kms.amazonaws.com",
       "eventName": "Decrypt",
       "awsRegion": "us-east-1",
-      "sourceIPAddress": "172.172.172.172",
+      "sourceIPAddress": "192.0.2.0",
       "requestParameters": {
         "encryptionContext": {
           "aws:ebs:id": "vol-f67bafb2"
@@ -276,12 +255,12 @@ The [key ARN](concepts.md#key-id-key-ARN) of the KMS key that protects the data 
       "readOnly": true,
       "resources": [
         {
-          "ARN": "arn:aws:kms:us-east-1:123456789012:key/e29ddfd4-1bf6-4e1b-8ecb-08216bd70d07",
-          "accountId": "123456789012"
+          "ARN": "arn:aws:kms:us-west-2:111122223333:key/1234abcd-12ab-34cd-56ef-1234567890ab",
+          "accountId": "111122223333"
         }
       ],
       "eventType": "AwsApiCall",
-      "recipientAccountId": "123456789012"
+      "recipientAccountId": "111122223333"
     }
   ]
 }

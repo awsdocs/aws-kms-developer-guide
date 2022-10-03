@@ -10,26 +10,19 @@ The following example shows a CloudTrail log entry in which user Alice creates a
      {
       "eventVersion": "1.02",
       "userIdentity": {
-        "type": "IAMUser",
-        "principalId": "EX_PRINCIPAL_ID",
-        "arn": "arn:aws:iam::123456789012:user/Alice",
-        "accountId": "123456789012",
-        "accessKeyId": "EXAMPLE_KEY_ID",
-        "userName": "Alice",
-        "sessionContext": {
-          "attributes": {
-            "mfaAuthenticated": "false",
-            "creationDate": "2014-11-05T20:40:44Z"
-          }
+            "type": "IAMUser",
+            "principalId": "EX_PRINCIPAL_ID",
+            "arn": "arn:aws:iam::111122223333:user/Alice",
+            "accountId": "111122223333",
+            "accessKeyId": "EXAMPLE_KEY_ID",
+            "userName": "Alice"
         },
-        "invokedBy": "signin.amazonaws.com"
-      },
       "eventTime": "2014-11-05T20:50:18Z",
       "eventSource": "ec2.amazonaws.com",
       "eventName": "CreateVolume",
       "awsRegion": "us-east-1",
-      "sourceIPAddress": "72.72.72.72",
-      "userAgent": "signin.amazonaws.com",
+      "sourceIPAddress": "192.0.2.0",
+      "userAgent": "AWS Internal",
       "requestParameters": {
         "size": "10",
         "zone": "us-east-1a",
@@ -56,24 +49,17 @@ The following example shows a CloudTrail log entry in which user Alice creates a
       "userIdentity": {
         "type": "IAMUser",
         "principalId": "EX_PRINCIPAL_ID",
-        "arn": "arn:aws:iam::123456789012:user/Alice",
-        "accountId": "123456789012",
+        "arn": "arn:aws:iam::111122223333:user/Alice",
+        "accountId": "111122223333",
         "accessKeyId": "EXAMPLE_KEY_ID",
-        "userName": "Alice",
-        "sessionContext": {
-          "attributes": {
-            "mfaAuthenticated": "false",
-            "creationDate": "2014-11-05T20:40:44Z"
-          }
-        },
-        "invokedBy": "AWS Internal"
+        "userName": "Alice"
       },
       "eventTime": "2014-11-05T20:50:19Z",
       "eventSource": "kms.amazonaws.com",
       "eventName": "GenerateDataKeyWithoutPlaintext",
       "awsRegion": "us-east-1",
-      "sourceIPAddress": "AWS Internal",
-      "userAgent": "AWS Internal",
+      "sourceIPAddress": "192.0.2.0",
+      "userAgent": "&AWS; Internal",
       "requestParameters": {
         "encryptionContext": {
           "aws:ebs:id": "vol-13439757"
@@ -87,12 +73,12 @@ The following example shows a CloudTrail log entry in which user Alice creates a
       "readOnly": true,
       "resources": [
         {
-          "ARN": "arn:aws:kms:us-east-1:123456789012:key/e29ddfd4-1bf6-4e1b-8ecb-08216bd70d07",
-          "accountId": "123456789012"
+          "ARN": "arn:aws:kms:us-west-2:111122223333:key/1234abcd-12ab-34cd-56ef-1234567890ab",
+          "accountId": "111122223333"
         }
       ],
       "eventType": "AwsApiCall",
-      "recipientAccountId": "123456789012"
+      "recipientAccountId": "111122223333"
     }
   ]
 }

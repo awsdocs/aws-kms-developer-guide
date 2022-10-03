@@ -129,7 +129,7 @@ SM2DSA is an elliptic curve based signing algorithm defined by OSCCA in GM/T 000
 
 ### Offline operations with SM2 \(China Regions only\)<a name="key-spec-sm-offline"></a>
 
-You can [download the public key](importing-keys-get-public-key-and-token.md) of your SM2 key pair for use in offline operations, that is, operations outside of AWS KMS\. However, when using your SM2 public key offline, you may need to manually perform extra conversions and calculations\. SM2DSA operations may require you to provide a distinguishing ID or calculate a message digest\. SM2PKE encrypt operations may require you to convert the raw ciphertext output to a format AWS KMS can accept\.
+You can [download the public key](download-public-key.md) of your SM2 key pair for use in offline operations, that is, operations outside of AWS KMS\. However, when using your SM2 public key offline, you may need to manually perform extra conversions and calculations\. SM2DSA operations may require you to provide a distinguishing ID or calculate a message digest\. SM2PKE encrypt operations may require you to convert the raw ciphertext output to a format AWS KMS can accept\.
 
 To help you with these operations, the `SM2OfflineOperationHelper` class for Java has methods that perform the tasks for you\. You can use this helper class as a model for other cryptographic providers\.
 

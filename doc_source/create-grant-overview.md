@@ -81,7 +81,7 @@ $ aws kms list-grants --key-id 1234abcd-12ab-34cd-56ef-1234567890ab
         {
             "Name": "",
             "IssuingAccount": "arn:aws:iam::111122223333:root",
-            "GrantId": "8c94d1f12f5e69f440bae30eaec9570bb1fb7358824f9ddfa1aa5a0dab1a59b2",
+            "GrantId": "abcde1237f76e4ba7987489ac329fbfba6ad343d6f7075dbd1ef191f0120514a",
             "Operations": [
                 "Decrypt"
             ],

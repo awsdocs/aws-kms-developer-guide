@@ -8,8 +8,8 @@ The following example shows an AWS CloudTrail log entry for the [VerifyMac](http
     "userIdentity": {
         "type": "IAMUser",
         "principalId": "EX_PRINCIPAL_ID",
-        "arn": "arn:aws:iam::&ExampleAWSAccountNo1;:user/Alice",
-        "accountId": "&ExampleAWSAccountNo1;",
+        "arn": "arn:aws:iam::111122223333:user/Alice",
+        "accountId": "111122223333",
         "accessKeyId": "EXAMPLE_KEY_ID",
         "userName": "Alice"
      },

@@ -26,7 +26,7 @@ For information about deleting multi\-Region primary and replica keys, see [Dele
 + [Deleting multi\-Region keys](#deleting-mrks)
 + [Scheduling and canceling key deletion](#deleting-keys-scheduling-key-deletion)
 + [Adding permission to schedule and cancel key deletion](#deleting-keys-adding-permission)
-+ [Creating an Amazon CloudWatch alarm to detect usage of an AWS KMS key pending deletion](deleting-keys-creating-cloudwatch-alarm.md)
++ [Creating an alarm that detects use of a KMS key pending deletion](deleting-keys-creating-cloudwatch-alarm.md)
 + [Determining past usage of a KMS key](deleting-keys-determining-usage.md)
 
 ## About the waiting period<a name="deleting-keys-how-it-works"></a>

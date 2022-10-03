@@ -149,7 +149,7 @@ AWS KMS reports the results of its attempt to delete the key material from the c
     "eventSource": "kms.amazonaws.com",
     "eventName": "DeleteKey",
     "awsRegion": "eu-west-1",
-    "sourceIPAddress": "&AWS; Internal",
+    "sourceIPAddress": "AWS Internal",
     "userAgent": "AWS Internal",
     "requestParameters": null,
     "responseElements": null,

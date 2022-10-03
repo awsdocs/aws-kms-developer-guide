@@ -56,7 +56,7 @@ For encrypted snapshots created with the Amazon EC2 [CopySnapshot](https://docs.
 
 To create an encrypted EBS volume or attach the volume to an EC2 instance, Amazon EBS and the Amazon EC2 infrastructure must be able to use the KMS key that you specified for EBS volume encryption\. When the KMS key is not usable—for example, when its [key state](key-state.md) is not `Enabled` —the volume creation or volume attachment fails\.
 
- In this case, Amazon EBS sends an *event* to Amazon CloudWatch Events to notify you about the failure\. With CloudWatch Events, you can establish rules that trigger automatic actions in response to these events\. For more information, see [Amazon CloudWatch Events for Amazon EBS](https://docs.aws.amazon.com/AWSEC2/latest/UserGuide/ebs-cloud-watch-events.html) in the *Amazon EC2 User Guide for Linux Instances*, especially the following sections:
+ In this case, Amazon EBS sends an *event* to Amazon EventBridge \(formerly CloudWatch Events\) to notify you about the failure\. In EventBridge, you can establish rules that trigger automatic actions in response to these events\. For more information, see [Amazon CloudWatch Events for Amazon EBS](https://docs.aws.amazon.com/AWSEC2/latest/UserGuide/ebs-cloud-watch-events.html) in the *Amazon EC2 User Guide for Linux Instances*, especially the following sections:
 + [Invalid Encryption Key on Volume Attach or Reattach](https://docs.aws.amazon.com/AWSEC2/latest/UserGuide/ebs-cloud-watch-events.html#attach-fail-key)
 + [Invalid Encryption Key on Create Volume](https://docs.aws.amazon.com/AWSEC2/latest/UserGuide/ebs-cloud-watch-events.html#create-fail-key)
 

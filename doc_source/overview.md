@@ -12,7 +12,7 @@ You can create and manage your AWS KMS keys:
 + [Create, delete, list, and update *aliases*](kms-alias.md), friendly names for your KMS keys\. You can also [use aliases to control access](alias-authorization.md) to your KMS keys\.
 + [Tag your KMS keys](tagging-keys.md) for identification, automation, and cost tracking\. You can also [use tags to control access](tag-authorization.md) to your KMS keys\.
 + [Enable and disable](enabling-keys.md) KMS keys\.
-+ Enable and disable [automatic rotation](rotate-keys.md) of the cryptographic material in a KMS keys\.
++ Enable and disable [automatic rotation](rotate-keys.md) of the cryptographic material in a KMS key\.
 + [Delete KMS keys](deleting-keys.md) to complete the key lifecycle\.
 
 You can use your KMS keys in [cryptographic operations](concepts.md#cryptographic-operations)\. For examples, see [Programming the AWS KMS API](programming-top.md)\.

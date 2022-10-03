@@ -553,7 +553,7 @@ For details, see the [revokeGrant method](https://docs.aws.amazon.com/sdk-for-ja
 // Replace the following example key ARN with a valid key ID or key ARN
 String keyId = "arn:aws:kms:us-west-2:111122223333:key/1234abcd-12ab-34cd-56ef-1234567890ab";
 
-// &fake-grant-id;
+// Replace the following example grant ID with a valid one
 String grantId = "grant1";
 
 RevokeGrantRequest req = new RevokeGrantRequest().withKeyId(keyId).withGrantId(grantId);
@@ -571,7 +571,7 @@ For details, see the [RevokeGrant method](https://docs.aws.amazon.com/sdkfornet/
 // Replace the following example key ARN with a valid key ID or key ARN
 String keyId = "arn:aws:kms:us-west-2:111122223333:key/1234abcd-12ab-34cd-56ef-1234567890ab";
 
-// &fake-grant-id;
+// Replace the following example grant ID with a valid one
 String grantId = "grant1";
 
 RevokeGrantRequest revokeGrantRequest = new RevokeGrantRequest()
@@ -595,7 +595,7 @@ For details, see the [`revoke_grant` method](https://boto3.amazonaws.com/v1/docu
 # Replace the following example key ARN with a valid key ID or key ARN
 key_id = 'arn:aws:kms:us-west-2:111122223333:key/1234abcd-12ab-34cd-56ef-1234567890ab'
 
-# &fake-grant-id;
+# Replace the following example grant ID with a valid one
 grant_id = 'grant1'
 
 response = kms_client.revoke_grant(
@@ -615,7 +615,7 @@ For details, see the [https://docs.aws.amazon.com/sdk-for-ruby/v3/api/Aws/KMS/Cl
 # Replace the following example key ARN with a valid key ID or key ARN
 key_id = 'arn:aws:kms:us-west-2:111122223333:key/1234abcd-12ab-34cd-56ef-1234567890ab'
 
-# &fake-grant-id;
+# Replace the following example grant ID with a valid one
 grant_id = 'grant1'
 
 response = kmsClient.revoke_grant({

@@ -60,7 +60,7 @@ You might need to scroll horizontally or vertically to see all of the data in th
 | Update | Updated the documentation about [How Amazon Relational Database Service \(Amazon RDS\) uses AWS KMS](services-rds.md)\. | November 18, 2015 | 
 | New content | Added documentation about [How WorkSpaces uses AWS KMS](services-workspaces.md)\. | November 6, 2015 | 
 | Update | Updated the [Key policies in AWS KMS](key-policies.md) page to improve clarity\. | October 22, 2015 | 
-| New content | Added documentation about [Deleting AWS KMS keys](deleting-keys.md), including supporting documentation about [Creating an Amazon CloudWatch alarm](deleting-keys-creating-cloudwatch-alarm.md) and [Determining past usage of a KMS key](deleting-keys-determining-usage.md)\. | October 15, 2015 | 
+| New content | Added documentation about [Deleting AWS KMS keys](deleting-keys.md), including supporting documentation about [Creating an alarm](deleting-keys-creating-cloudwatch-alarm.md) and [Determining past usage of a KMS key](deleting-keys-determining-usage.md)\. | October 15, 2015 | 
 | New content | Added documentation about [Determining access to AWS KMS keys](determining-access.md)\. | October 15, 2015 | 
 | New content | Added documentation about [Key states of AWS KMS keys](key-state.md)\. | October 15, 2015 | 
 | New content | Added documentation about [How Amazon Simple Email Service \(Amazon SES\) uses AWS KMS](services-ses.md)\. | October 1, 2015 | 
