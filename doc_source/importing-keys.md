@@ -17,7 +17,6 @@ When you use imported key material, you remain responsible for the key material 
 + To set an expiration time for the key material in AWS and to [manually delete it](#importing-keys-delete-key-material), but to also make it available again in the future\. In contrast, [scheduling key deletion](deleting-keys.md#deleting-keys-how-it-works) requires a waiting period of 7 to 30 days, after which you cannot recover the deleted KMS key\.
 + To own the original copy of the key material, and to keep it outside of AWS for additional durability and disaster recovery during the complete lifecycle of the key material\.
 
-Imported key material is supported only for [symmetric encryption KMS keys](concepts.md#symmetric-cmks) in AWS KMS key stores, including [multi\-Region symmetric KMS keys](multi-region-keys-import.md)\. It is not supported on [asymmetric KMS keys](symmetric-asymmetric.md#asymmetric-cmks), [HMAC KMS keys](hmac.md), or KMS keys in [custom key stores](custom-key-store-overview.md)\. 
 
 You can monitor the use and management of a KMS key with imported key material\. AWS KMS records an entry in your AWS CloudTrail log when you [create the KMS key](ct-createkey.md), [download the public key and import token](ct-getparametersforimport.md), and [import the key material](ct-importkeymaterial.md)\. AWS KMS also records an entry when you [manually delete imported key material](#importing-keys-delete-key-material) or when AWS KMS [deletes expired key material](ct-deleteexpiredkeymaterial.md)\.
 
