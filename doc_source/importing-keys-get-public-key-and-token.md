@@ -105,7 +105,7 @@ To base64 decode the public key and import token:
 
 1. Copy the base64 encoded import token \(represented by *import token \(base64 encoded\)* in the example output\), paste it into a new file, and then save the file\. Give the file a descriptive name, for example `ImportToken.b64`\.
 
-1. Use [OpenSSL](https://openssl.org/) to base64 decode the file's contents and save the decoded data to a new file\. The following example decodes the data in the file that you saved in the previous step \(`PublicKey.b64`\) and saves the output to a new file named `PublicKey.bin`\.
+1. Use [OpenSSL](https://openssl.org/) to base64 decode the file's contents and save the decoded data to a new file\. The following example decodes the data in the file that you saved in the previous step \(`ImportToken.b64`\) and saves the output to a new file named `ImportToken.bin`\.
 
    ```
    $ openssl enc -d -base64 -A -in ImportToken.b64 -out ImportToken.bin

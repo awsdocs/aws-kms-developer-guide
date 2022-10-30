@@ -41,11 +41,11 @@ If you get stuck at any point, you can find help in the [Troubleshooting a custo
 
 **Quotas**
 
-There are no resource quotas for the number of custom key stores in an AWS account or Region\. However, there are AWS CloudHSM quotas, such as a quota on the [number of AWS CloudHSM clusters](https://docs.aws.amazon.com/cloudhsm/latest/userguide/limits.html) in each AWS account and Region, and AWS KMS quotas on the [use of KMS keys in a custom key store](requests-per-second.md#rps-key-stores)\.
+There are no resource quotas for the number of custom key stores in an AWS account or Region\. However, there are AWS CloudHSM quotas, such as a quota on the [number of AWS CloudHSM clusters](https://docs.aws.amazon.com/cloudhsm/latest/userguide/limits.html) in each AWS account and Region, and AWS KMS quotas on the [use of KMS keys in a custom key store](requests-per-second.md#rps-key-stores)\.<a name="cks-regions"></a>
 
 **Regions**
 
-AWS KMS supports custom key stores in all AWS Regions where both AWS KMS and AWS CloudHSM are available\. For a list of AWS Regions that each service supports, see [AWS Key Management Service Endpoints and Quotas](https://docs.aws.amazon.com/general/latest/gr/kms.html) and [AWS CloudHSM Endpoints and Quotas](https://docs.aws.amazon.com/general/latest/gr/cloudhsm.html) in the *Amazon Web Services General Reference*\.
+AWS KMS supports custom key stores in all AWS Regions where AWS KMS is supported, except for China \(Beijing\), China \(Ningxia\), and Middle East \(UAE\)\.
 
 **Unsupported features**
 

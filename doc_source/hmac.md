@@ -23,12 +23,7 @@ If you are creating a KMS key to encrypt data in an AWS service, use a symmetric
 
 **Regions**
 
-HMAC KMS keys are supported in all AWS Regions that AWS KMS supports except for the following Regions:
-+ Africa \(Cape Town\) \(af\-south\-1\)
-+ China \(Beijing\) \(cn\-north\-1\)
-+ China \(Ningxia\) \(cn\-northwest\-1\)
-+ Europe \(Frankfurt\) \(eu\-central\-1\)
-+ AWS GovCloud \(US\-West\) \(us\-gov\-west\-1\)
+HMAC KMS keys are supported in all AWS Regions that AWS KMS supports except for China \(Beijing\) Region and China \(Ningxia\) Region\.
 
 **Learn more**
 + For help with choosing a type of KMS key, see [Choosing a KMS key type](key-types.md#symm-asymm-choose)\.

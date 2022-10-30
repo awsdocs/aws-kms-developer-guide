@@ -6,9 +6,6 @@ AWS KMS supports multiple [key specs for HMAC KMS keys](hmac.md#hmac-key-specs)\
 
 If you are creating a KMS key to encrypt data in an AWS service, use a symmetric encryption KMS key\. AWS services that integrate with AWS KMS do not support asymmetric KMS keys or HMAC KMS keys\. For help with creating a symmetric encryption KMS key, see [Creating keys](create-keys.md)\.
 
-**Note**  
-HMAC KMS keys are not supported in all AWS Regions\. For a list of Regions in which HMAC KMS keys are supported, see [HMAC Regions](hmac.md#hmac-regions)\.
-
 **Learn more**
 + To determine which kind of KMS key to create, see [Choosing a KMS key type](key-types.md#symm-asymm-choose)\.
 + You can use the procedures described in this topic to create a multi\-Region *primary* HMAC KMS key\. To replicate a multi\-Region HMAC key, see [Creating multi\-Region replica keys](multi-region-keys-replicate.md)\.
@@ -39,7 +36,7 @@ You can use the AWS Management Console to create HMAC KMS keys\. HMAC KMS keys a
 
    Generate and verify MAC is the only valid key usage for HMAC KMS keys\.
 **Note**  
-**Key usage** is displayed for symmetric keys only when HMAC KMS keys are supported in your selected Region\. HMAC KMS keys are not supported in all AWS Regions\. For a list of Regions in which HMAC KMS keys are supported, see [HMAC Regions](hmac.md#hmac-regions)\.
+**Key usage** is displayed for symmetric keys only when HMAC KMS keys are supported in your selected Region\.
 
 1. Select a specification \(**Key spec**\) for your HMAC KMS key\. 
 
@@ -101,7 +98,7 @@ When you create an HMAC KMS key, you must specify the `KeySpec` parameter, which
 
 The `CreateKey` operation doesn't let you specify an alias, but you can use the [CreateAlias](https://docs.aws.amazon.com/kms/latest/APIReference/API_CreateAlias.html) operation to create an alias for your new KMS key\. We recommend that you use an alias that identifies the KMS key as an HMAC key, such as `HMAC/test-key`\. This will make it easier for you to identify your HMAC keys in the AWS KMS console where you can sort and filter keys by alias, but not by key spec or key usage\.
 
-If you try to create an HMAC KMS key in an AWS Region in which HMAC keys are not supported, the `CreateKey` operation returns an `UnsupportedOperationException`\. HMAC KMS keys are not supported in all AWS Regions\. For a list of Regions in which HMAC KMS keys are supported, see [HMAC Regions](hmac.md#hmac-regions)\.
+If you try to create an HMAC KMS key in an AWS Region in which HMAC keys are not supported, the `CreateKey` operation returns an `UnsupportedOperationException`
 
 The following example uses the `CreateKey` operation to create a 512\-bit HMAC KMS key\.
 

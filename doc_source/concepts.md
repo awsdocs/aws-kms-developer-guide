@@ -51,7 +51,7 @@ The KMS keys that you create are customer managed keys\. AWS services that use K
 | --- | --- | --- | --- | --- | --- | 
 | [Customer managed key](#customer-cmk) | Yes | Yes | Yes | Optional\. Every year \(approximately 365 days\) | Monthly fee \(pro\-rated hourly\)Per\-use fee | 
 | [AWS managed key](#aws-managed-cmk) | Yes | No | Yes | Required\. Every year \(approximately 365 days\) | No monthly feePer\-use fee \(some AWS services pay this fee for you\) | 
-| [AWS owned key](#aws-owned-cmk) | No | No | No | Varies | Varies | 
+| [AWS owned key](#aws-owned-cmk) | No | No | No | Varies | No fees | 
 
 [AWS services that integrate with AWS KMS](service-integration.md) differ in their support for KMS keys\. Some AWS services encrypt your data by default with an AWS owned key or an AWS managed key\. Some AWS services support customer managed keys\. Other AWS services support all types of KMS keys to allow you the ease of an AWS owned key, the visibility of an AWS managed key, or the control of a customer managed key\. For detailed information about the encryption options that an AWS service offers, see the *Encryption at Rest* topic in the user guide or the developer guide for the service\.
 
@@ -254,15 +254,15 @@ The following table lists the AWS KMS cryptographic operations\. It also shows t
 
 | Operation | Key type | Key usage | 
 | --- | --- | --- | 
-| [Decrypt](https://docs.aws.amazon.com/kms/latest/APIReference/API_Decrypt.html) | Any | ENCRYPT\_DECRYPT | 
-| [Encrypt](https://docs.aws.amazon.com/kms/latest/APIReference/API_Encrypt.html) | Any | ENCRYPT\_DECRYPT | 
+| [Decrypt](https://docs.aws.amazon.com/kms/latest/APIReference/API_Decrypt.html) | Symmetric or asymmetric | ENCRYPT\_DECRYPT | 
+| [Encrypt](https://docs.aws.amazon.com/kms/latest/APIReference/API_Encrypt.html) | Symmetric or asymmetric | ENCRYPT\_DECRYPT | 
 | [GenerateDataKey](https://docs.aws.amazon.com/kms/latest/APIReference/API_GenerateDataKey.html) | Symmetric  | ENCRYPT\_DECRYPT | 
-| [GenerateDataKeyPair](https://docs.aws.amazon.com/kms/latest/APIReference/API_GenerateDataKeyPair.html) | Symmetric \[1\] | ENCRYPT\_DECRYPT | 
-| [GenerateDataKeyPairWithoutPlaintext](https://docs.aws.amazon.com/kms/latest/APIReference/API_GenerateDataKeyPairWithoutPlaintext.html) | Symmetric \[1\] | ENCRYPT\_DECRYPT | 
+| [GenerateDataKeyPair](https://docs.aws.amazon.com/kms/latest/APIReference/API_GenerateDataKeyPair.html) | Symmetric \[1\]Not supported on KMS keys in custom key stores\. | ENCRYPT\_DECRYPT | 
+| [GenerateDataKeyPairWithoutPlaintext](https://docs.aws.amazon.com/kms/latest/APIReference/API_GenerateDataKeyPairWithoutPlaintext.html) | Symmetric \[1\]Not supported on KMS keys in custom key stores\. | ENCRYPT\_DECRYPT | 
 | [GenerateDataKeyWithoutPlaintext](https://docs.aws.amazon.com/kms/latest/APIReference/API_GenerateDataKeyWithoutPlaintext.html) | Symmetric | ENCRYPT\_DECRYPT | 
 | [GenerateMac](https://docs.aws.amazon.com/kms/latest/APIReference/API_GenerateMac.html) | HMAC | GENERATE\_VERIFY\_MAC | 
 | [GenerateRandom](https://docs.aws.amazon.com/kms/latest/APIReference/API_GenerateRandom.html) | N/A\. This operation doesn't use a KMS key\. | N/A | 
-| [ReEncrypt](https://docs.aws.amazon.com/kms/latest/APIReference/API_ReEncrypt.html) | Any | ENCRYPT\_DECRYPT | 
+| [ReEncrypt](https://docs.aws.amazon.com/kms/latest/APIReference/API_ReEncrypt.html) | Symmetric or asymmetric | ENCRYPT\_DECRYPT | 
 | [Sign](https://docs.aws.amazon.com/kms/latest/APIReference/API_Sign.html) | Asymmetric | SIGN\_VERIFY | 
 | [Verify](https://docs.aws.amazon.com/kms/latest/APIReference/API_Verify.html) | Asymmetric | SIGN\_VERIFY | 
 | [VerifyMac](https://docs.aws.amazon.com/kms/latest/APIReference/API_VerifyMac.html) | HMAC | GENERATE\_VERIFY\_MAC | 

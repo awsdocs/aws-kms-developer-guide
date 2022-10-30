@@ -1594,7 +1594,7 @@ The following example policy statement allows a user to import key material into
 | --- | --- | --- | --- | --- | 
 |  `kms:ViaService`  |  String  | Single\-valued |  KMS key resource operations  |  Key policies and IAM policies  | 
 
-The `kms:ViaService` condition key limits use of an AWS KMS [AWS KMS key](concepts.md#kms_keys) \(KMS key\) to requests from specified AWS services\. You can specify one or more services in each `kms:ViaService` condition key\. The operation must be a *KMS key resource operation*, that is, an operation that is authorized for a particular KMS key\. To identify the KMS key resource operations, in the [Actions and Resources Table](kms-api-permissions-reference.md#kms-api-permissions-reference-table), look for a value of `KMS key` in the `Resources` column for the operation\.
+The `kms:ViaService` condition key limits use of an KMS key to requests from specified AWS services\. You can specify one or more services in each `kms:ViaService` condition key\. The operation must be a *KMS key resource operation*, that is, an operation that is authorized for a particular KMS key\. To identify the KMS key resource operations, in the [Actions and Resources Table](kms-api-permissions-reference.md#kms-api-permissions-reference-table), look for a value of `KMS key` in the `Resources` column for the operation\.
 
 For example, the following key policy statement uses the `kms:ViaService` condition key to allow a [customer managed key](concepts.md#customer-cmk) to be used for the specified actions only when the request comes from Amazon EC2 or Amazon RDS in the US West \(Oregon\) region on behalf of `ExampleUser`\.
 

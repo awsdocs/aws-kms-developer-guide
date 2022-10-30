@@ -72,7 +72,7 @@ This difference is meaningful in the following cases:
 
 ## Permissions for importing key material<a name="importing-keys-permissions"></a>
 
-To create and manage KMS keys with imported key material, the user needs permission for the operations in this process\. You can provide the `kms:GetParametersForImport`, `kms:ImportKeyMaterial`, and `kms:DeleteImportedKeyMaterial` permissions in the key policy when you create the KMS key\. The `kms:ImportKeyMaterial` permission is not included in the default permissions for key administrators, so you need to add it manually\.
+To create and manage KMS keys with imported key material, the user needs permission for the operations in this process\. You can provide the `kms:GetParametersForImport`, `kms:ImportKeyMaterial`, and `kms:DeleteImportedKeyMaterial` permissions in the key policy when you create the KMS key\. In the AWS KMS console, these permissions are added automatically for key administrators when you create a key with an **External** key material origin\.
 
 To create KMS keys with imported key material, the principal needs the following permissions\.
 + [kms:CreateKey](customer-managed-policies.md#iam-policy-example-create-key) \(IAM policy\)
@@ -80,18 +80,13 @@ To create KMS keys with imported key material, the principal needs the following
 
     ```
     {
-      "Version": "2012-10-17",
-      "Statement": {
-        "Sid": "IAM policy to create KMS keys with no key material" 
-        "Effect": "Allow",
-        "Resource": "*",
-        "Principal": {
-          "AWS": "arn:aws:iam::111122223333:role/KMSAdminRole"
-        },
-        "Action": "kms:CreateKey",
-        "Condition": {
-          "StringEquals": {
-            "kms:KeyOrigin": "EXTERNAL"
+      "Sid": "CreateKMSKeysWithoutKeyMaterial",
+      "Effect": "Allow",
+      "Resource": "*",
+      "Action": "kms:CreateKey",
+      "Condition": {
+        "StringEquals": {
+          "kms:KeyOrigin": "EXTERNAL"
         }
       }
     }
@@ -104,6 +99,24 @@ To create KMS keys with imported key material, the principal needs the following
 To reimport imported key material, the principal needs the [kms:GetParametersForImport](https://docs.aws.amazon.com/kms/latest/APIReference/API_GetParametersForImport.html) and [kms:ImportKeyMaterial](https://docs.aws.amazon.com/kms/latest/APIReference/API_ImportKeyMaterial.html) permissions\.
 
 To delete imported key material, the principal needs [kms:DeleteImportedKeyMaterial](https://docs.aws.amazon.com/kms/latest/APIReference/API_DeleteImportedKeyMaterial.html) permission\.
+
+For example, to give the example `KMSAdminRole` permission to manage all aspects of a KMS key with imported key material, include a key policy statement like the following one in the key policy of the KMS key\.
+
+```
+{
+  "Sid": "Manage KMS keys with imported key material",
+  "Effect": "Allow",
+  "Resource": "*",
+  "Principal": {
+    "AWS": "arn:aws:iam::111122223333:role/KMSAdminRole"
+  },
+  "Action": [
+    "kms:GetParametersForImport",
+    "kms:ImportKeyMaterial",
+    "kms:DeleteImportedKeyMaterial"
+  ]  
+}
+```
 
 ## How to import key material<a name="importing-keys-overview"></a>
 

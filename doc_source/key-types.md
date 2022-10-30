@@ -26,8 +26,6 @@ KMS keys differ because they contain different cryptographic key material\.
 + [Asymmetric KMS key](symmetric-asymmetric.md#asymmetric-cmks): Represents a mathematically related public key and private key pair that you can use for encryption and decryption or signing and verification, but not both\. The private key never leaves AWS KMS unencrypted\. You can use the public key within AWS KMS by calling the AWS KMS API operations, or download the public key and use it outside of AWS KMS\. 
 + [HMAC KMS key](hmac.md) \(symmetric\): Represents a symmetric key of varying length that is used to generate and verify hash\-based message authentication codes\. The key material in an HMAC KMS key never leaves AWS KMS unencrypted\. To use your HMAC KMS key, you must call AWS KMS\.
 
- 
-
 The type of KMS key that you create depends largely on how you plan to use the KMS key, your security requirements, and your authorization requirements\. When creating your KMS key, remember that the cryptographic configuration of the KMS key, including its key spec and key usage, are established when you create the KMS key and cannot be changed\. 
 
 Use the following guidance to determine which type of KMS key you need based on your use case\.
@@ -47,8 +45,7 @@ To avoid these errors, anyone using a public key outside of AWS KMS must store t
 
 **Generate and verify HMAC codes**  
 To generate and verify hash\-based message authentication codes, use an HMAC KMS key\. When you create an HMAC key in AWS KMS, AWS KMS creates and protects your key material and ensures that you use the correct MAC algorithms for your key\. HMAC codes can also be used as pseudo\-random numbers, and in certain scenarios for symmetric signing and tokenizing\.  
-HMAC KMS keys are symmetric keys\. When creating an HMAC KMS key in the AWS KMS console, choose the `Symmetric` key type\.  
-HMAC KMS keys are not supported in all AWS Regions\. For a list of Regions in which HMAC KMS keys are supported, see [HMAC Regions](hmac.md#hmac-regions)\.
+HMAC KMS keys are symmetric keys\. When creating an HMAC KMS key in the AWS KMS console, choose the `Symmetric` key type\.
 
 **Use with AWS services**  <a name="cmks-aws-service"></a>
 To create a KMS key for use with an [AWS service that is integrated with AWS KMS](service-integration.md), consult the documentation for the service\. AWS services that encrypt your data require a [symmetric encryption KMS key\.](concepts.md#symmetric-cmks)\.
@@ -77,8 +74,6 @@ In the AWS KMS console, you first choose the key type \(symmetric or asymmetric\
 To choose a key usage in the AWS KMS console:
 + For symmetric encryption KMS keys \(default\), choose **Encrypt and decrypt**\.
 + For HMAC KMS keys, choose **Generate and verify MAC**\.
-**Note**  
-HMAC KMS keys are not supported in all AWS Regions\. For a list of Regions in which HMAC KMS keys are supported, see [HMAC Regions](hmac.md#hmac-regions)\.
 + For asymmetric KMS keys with elliptic curve \(ECC\) key material, choose **Sign and verify**\.
 + For asymmetric KMS keys with RSA key material, choose **Encrypt and decrypt** or **Sign and verify**\.
 + For asymmetric KMS keys with SM2 key material, choose **Encrypt and decrypt** or **Sign and verify**\. The SM2 key spec is available only in China Regions\.
@@ -97,9 +92,6 @@ The key spec determines whether the KMS key is symmetric or asymmetric, the type
 To determine the key specs that principals in your account are permitted to use for KMS keys, use the [kms:KeySpec](policy-conditions.md#conditions-kms-key-spec) condition key\.
 
 AWS KMS supports the following key specs for KMS keys:
-
-**Note**  
-HMAC KMS keys are not supported in all AWS Regions\. For a list of Regions in which HMAC KMS keys are supported, see [HMAC Regions](hmac.md#hmac-regions)\.
 
 [Symmetric encryption key spec](asymmetric-key-specs.md#key-spec-symmetric-default) \(default\)  
 + SYMMETRIC\_DEFAULT
