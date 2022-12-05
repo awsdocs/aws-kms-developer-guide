@@ -4,10 +4,10 @@ You can connect directly to AWS KMS through a private interface endpoint in your
 
 AWS KMS supports Amazon Virtual Private Cloud \(Amazon VPC\) interface endpoints powered by [AWS PrivateLink](https://docs.aws.amazon.com/vpc/latest/privatelink/)\. Each VPC endpoint is represented by one or more [Elastic Network Interfaces](https://docs.aws.amazon.com/AWSEC2/latest/UserGuide/using-eni.html) \(ENIs\) with private IP addresses in your VPC subnets\. 
 
-The VPC interface endpoint connects your VPC directly to AWS KMS without an internet gateway, NAT device, VPN connection, or AWS Direct Connect connection\. The instances in your VPC do not need public IP addresses to communicate with AWS KMS\. 
+The VPC interface endpoint connects your VPC directly to AWS KMS without an internet gateway, NAT device, VPN connection, or AWS Direct Connect connection\. The instances in your VPC do not need public IP addresses to communicate with AWS KMS\. <a name="vpc-regions"></a>
 
 **Regions**  
-AWS KMS supports VPC endpoints and VPC endpoint policies in all AWS Regions where both [Amazon VPC](https://docs.aws.amazon.com/general/latest/gr/vpc-service.html) and [AWS KMS](https://docs.aws.amazon.com/general/latest/gr/kms.html) are available\.
+AWS KMS supports VPC endpoints and VPC endpoint policies in all AWS Regions that [AWS KMS](https://docs.aws.amazon.com/general/latest/gr/kms.html) supports except for Asia Pacific \(Hyderabad\), Europe \(Spain\), and Europe \(Zurich\)\.
 
 **Topics**
 + [Considerations for AWS KMS VPC endpoints](#vpce-considerations)
@@ -188,7 +188,7 @@ You can control access to AWS KMS resources and operations when the request come
 + Use the `aws:sourceVpc` condition key to grant or restrict access based on the VPC that hosts the private endpoint\.
 
 **Note**  
-Use caution when creating key policies and IAM policies based on your VPC endpoint\. If a policy statement requires that requests come from a particular VPC or VPC endpoint, requests from integrated AWS services that use an AWS KMS resource on your behalf might fail\. For help, see [Using VPC endpoint conditions in policies with AWS KMS permissions](policy-conditions.md#conditions-aws-vpce)\.  
+Use caution when creating key policies and IAM policies based on your VPC endpoint\. If a policy statement requires that requests come from a particular VPC or VPC endpoint, requests from integrated AWS services that use an AWS KMS resource on your behalf might fail\. For help, see [Using VPC endpoint conditions in policies with AWS KMS permissions](conditions-aws.md#conditions-aws-vpce)\.  
 Also, the `aws:sourceIP` condition key is not effective when the request comes from an [Amazon VPC endpoint](https://docs.aws.amazon.com/vpc/latest/userguide/vpc-endpoints.html)\. To restrict requests to a VPC endpoint, use the `aws:sourceVpce` or `aws:sourceVpc` condition keys\. For more information, see [Identity and access management for VPC endpoints and VPC endpoint services](https://docs.aws.amazon.com/vpc/latest/privatelink/vpc-endpoints-iam.html) in the *AWS PrivateLink Guide*\. 
 
 You can use these global condition keys to control access to AWS KMS keys \(KMS keys\), aliases, and to operations like [CreateKey](https://docs.aws.amazon.com/kms/latest/APIReference/API_CreateKey.html) that don't depend on any particular resource\.

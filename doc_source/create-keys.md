@@ -19,7 +19,7 @@ This topic explains how to create a symmetric encryption KMS key\.
 + To create an HMAC KMS key, see [Creating HMAC KMS keys](hmac-create-key.md)\.
 + To create a KMS key with imported key material \("bring your own key"\), see [Importing key material step 1: Create an AWS KMS key without key material](importing-keys-create-cmk.md)\.
 + To create a multi\-Region primary key or replica key, see [Creating multi\-Region keys](multi-region-keys-create.md)\.
-+ To create a KMS key in a custom key store \([key material origin](concepts.md#key-origin) is Custom Key Store \(CloudHSM\)\), see [Creating KMS keys in a custom key store](create-cmk-keystore.md)\.
++ To create a KMS key in a custom key store \([key material origin](concepts.md#key-origin) is Custom Key Store \(CloudHSM\)\), see [Creating KMS keys in an AWS CloudHSM key store](create-cmk-keystore.md)\.
 + To use an AWS CloudFormation template to create a KMS key, see [AWS::KMS::Key](https://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-resource-kms-key.html) in the *AWS CloudFormation User Guide*\.
 + To determine whether an existing KMS key is symmetric or asymmetric, see [Identifying asymmetric KMS keys](find-symm-asymm.md)\.
 + To use your KMS key programmatically and in command line interface operations, you need a [key ID](concepts.md#key-id-key-id) or [key ARN](concepts.md#key-id-key-ARN)\. For detailed instructions, see [Finding the key ID and key ARN](find-cmk-id-arn.md)\.
@@ -31,7 +31,7 @@ This topic explains how to create a symmetric encryption KMS key\.
 
 ## Permissions for creating KMS keys<a name="create-key-permissions"></a>
 
-To create a KMS key in the console or by using the APIs, you must have the following permission in an IAM policy\. Whenever possible, use [condition keys](policy-conditions.md) to limit the permissions\. For example, you can use the [kms:KeySpec](policy-conditions.md#conditions-kms-key-spec) condition key in an IAM policy to allow principals to create only symmetric encryption keys\.
+To create a KMS key in the console or by using the APIs, you must have the following permission in an IAM policy\. Whenever possible, use [condition keys](policy-conditions.md) to limit the permissions\. For example, you can use the [kms:KeySpec](conditions-kms.md#conditions-kms-key-spec) condition key in an IAM policy to allow principals to create only symmetric encryption keys\.
 
 For an example of an IAM policy for principals who create keys, see [Allow a user to create KMS keys](customer-managed-policies.md#iam-policy-example-create-key)\.
 

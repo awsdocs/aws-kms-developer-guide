@@ -9,6 +9,8 @@ You might have to scroll horizontally or vertically to see all of the data in th
 
 <a name="kms-api-permissions-reference-table"></a>[\[See the AWS documentation website for more details\]](http://docs.aws.amazon.com/kms/latest/developerguide/kms-api-permissions-reference.html)
 
+## Column descriptions<a name="permissions-column-descriptions"></a>
+
 The columns in this table provide the following information:
 + **Actions and permissions **lists each AWS KMS API operation and the permission that allows the operation\. You specify the operation in `Action` element of a policy statement\.
 + **Policy type** indicates whether the permission can be used in a key policy or IAM policy\. 
@@ -39,4 +41,4 @@ arn:aws:kms:us\-west\-2:111122223333:alias/ExampleAlias
 **`*` \(asterisk\)**  
 When the permission doesn't apply to a particular resource \(KMS key or alias\), use an asterisk \(`*`\)\.  
 In an IAM policy for an AWS KMS permission, an asterisk in the `Resource` element indicates all AWS KMS resources \(KMS keys and aliases\)\. You can also use an asterisk in the `Resource` element when the AWS KMS permission doesn't apply to any particular KMS keys or aliases\. For example, when allowing or denying `kms:CreateKey` or `kms:ListKeys` permission, you can set the `Resource` element to `*` or to an account\-specific variation, such as `arn:AWS_partition_name:kms:AWS_region:AWS_account_ID:*`\.
-+ **AWS KMS condition keys** lists the AWS KMS condition keys that you can use to control access to the operation\. You specify conditions in a policy's `Condition` element\. For more information, see [AWS KMS condition keys](policy-conditions.md#conditions-kms)\. This column also includes [AWS global condition keys](https://docs.aws.amazon.com/IAM/latest/UserGuide/reference_policies_condition-keys.html) that are supported by AWS KMS, but not by all AWS services\.
++ **AWS KMS condition keys** lists the AWS KMS condition keys that you can use to control access to the operation\. You specify conditions in a policy's `Condition` element\. For more information, see [AWS KMS condition keys](conditions-kms.md)\. This column also includes [AWS global condition keys](https://docs.aws.amazon.com/IAM/latest/UserGuide/reference_policies_condition-keys.html) that are supported by AWS KMS, but not by all AWS services\.

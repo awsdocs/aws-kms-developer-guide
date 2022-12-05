@@ -72,7 +72,7 @@ If the required `Resource` element is missing from a key policy statement, the p
 When a key policy statement is missing its `Resource` element, the AWS KMS console correctly reports an error, but the [CreateKey](https://docs.aws.amazon.com/kms/latest/APIReference/API_CreateKey.html) and [PutKeyPolicy](https://docs.aws.amazon.com/kms/latest/APIReference/API_PutKeyPolicy.html) APIs succeed, even though the policy statement is ineffective\.  
 **Condition**  
 \(Optional\) Conditions specify requirements that must be met for a key policy to take effect\. With conditions, AWS can evaluate the context of an API request to determine whether or not the policy statement applies\.   
-To specify conditions, you use predefined *condition keys*\. AWS KMS supports [AWS global condition keys](policy-conditions.md#conditions-aws) and [AWS KMS condition keys](policy-conditions.md#conditions-kms)\. To support attribute\-based access control \(ABAC\), AWS KMS provides condition keys that control access to a KMS key based on tags and aliases\. For details, see [ABAC for AWS KMS](abac.md)\.  
+To specify conditions, you use predefined *condition keys*\. AWS KMS supports [AWS global condition keys](conditions-aws.md) and [AWS KMS condition keys](conditions-kms.md)\. To support attribute\-based access control \(ABAC\), AWS KMS provides condition keys that control access to a KMS key based on tags and aliases\. For details, see [ABAC for AWS KMS](abac.md)\.  
 The format for a condition is:  
 
 ```

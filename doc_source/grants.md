@@ -15,12 +15,12 @@ For code examples that demonstrate how to work with grants in several programmin
 
 ## About grants<a name="about-grants"></a>
 
-Grants are a very flexible and useful access control mechanism\. When you create a grant for a KMS key, the grant allows the grantee principals to call the specified grant operations on the KMS key provided that all conditions specified in the grant are met\. 
+Grants are a very flexible and useful access control mechanism\. When you create a grant for a KMS key, the grant allows the grantee principal to call the specified grant operations on the KMS key provided that all conditions specified in the grant are met\. 
 + Each grant allows access to exactly one KMS key\. You can create a grant for a KMS key in a different AWS account\.
 + A grant can allow access to a KMS key, but not deny access\.
-+ Each grant must have at least one [grantee principal](#terms-grantee-principal)\. The grantee principal can be an identity in a different AWS account\.
++ Each grant has one [grantee principal](#terms-grantee-principal)\. The grantee principal can represent one or more identities in the same AWS account as the KMS key or in a different account\.
 + A grant can only allow [grant operations](#terms-grant-operations)\. The grant operations must be supported by the KMS key in the grant\. If you specify an unsupported operation, the [CreateGrant](https://docs.aws.amazon.com/kms/latest/APIReference/API_CreateGrant.html) request fails with a `ValidationError` exception\.
-+ Grantee principals can use the permissions that the grant gives them without specifying the grant, just as they would if the permissions came from a key policy or IAM policy\. However, when you create, retire, or revoke a grant, there might be a brief delay, usually less than five minutes, until the operation achieves [eventual consistency](#terms-eventual-consistency)\. To use the permissions in a grant immediately, [use a grant token](grant-manage.md#using-grant-token)\.
++ The grantee principal can use the permissions that the grant gives them without specifying the grant, just as they would if the permissions came from a key policy or IAM policy\. However, when you create, retire, or revoke a grant, there might be a brief delay, usually less than five minutes, until the operation achieves [eventual consistency](#terms-eventual-consistency)\. To use the permissions in a grant immediately, [use a grant token](grant-manage.md#using-grant-token)\.
 + An authorized principal can delete the grant \([retire](#terms-retire-grant) or [revoke](#terms-revoke-grant) it\)\. Deleting a grant eliminates all permissions that the grant allowed\. You do not have to figure out which policies to add or remove to undo the grant\. 
 + AWS KMS limits the number of grants on each KMS key\. For details, see [Grants per KMS key: 50,000](resource-limits.md#grants-per-key)\.
 
@@ -88,7 +88,8 @@ $ aws kms retire-grant \
 For details, see [Using a grant token](grant-manage.md#using-grant-token)\.
 
 **Grantee principal**  <a name="terms-grantee-principal"></a>
-The identity that gets the permissions specified in the grant\. A grant must have at least one grantee principal\. The grantee principal can be any AWS principal, including an AWS account \(root\), an [IAM user](https://docs.aws.amazon.com/IAM/latest/UserGuide/id_users.html), an [IAM role](https://docs.aws.amazon.com/IAM/latest/UserGuide/id_roles.html), a [federated role or user](https://docs.aws.amazon.com/IAM/latest/UserGuide/id_roles_providers.html), or an assumed role user\. The grantee principal can be in the same account as the KMS key or a different account\. However, the grantee principal cannot be a [service principal](https://docs.aws.amazon.com/IAM/latest/UserGuide/reference_policies_elements_principal.html#principal-services), an [IAM group](https://docs.aws.amazon.com/IAM/latest/UserGuide/id_groups.html), or an [AWS organization](https://docs.aws.amazon.com/organizations/latest/userguide/)\.
+The identities that get the permissions specified in the grant\. Each grant has one grantee principal, but the grantee principal can represent multiple identities\.   
+The grantee principal can be any AWS principal, including an AWS account \(root\), an [IAM user](https://docs.aws.amazon.com/IAM/latest/UserGuide/id_users.html), an [IAM role](https://docs.aws.amazon.com/IAM/latest/UserGuide/id_roles.html), a [federated role or user](https://docs.aws.amazon.com/IAM/latest/UserGuide/id_roles_providers.html), or an assumed role user\. The grantee principal can be in the same account as the KMS key or a different account\. However, the grantee principal cannot be a [service principal](https://docs.aws.amazon.com/IAM/latest/UserGuide/reference_policies_elements_principal.html#principal-services), an [IAM group](https://docs.aws.amazon.com/IAM/latest/UserGuide/id_groups.html), or an [AWS organization](https://docs.aws.amazon.com/organizations/latest/userguide/)\.
 
 **Retire \(a grant\)**  <a name="terms-retire-grant"></a>
 Terminates a grant\. You retire a grant when you finish using the permissions\.  

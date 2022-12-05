@@ -23,8 +23,8 @@ To authorize access to KMS keys based on their tags and aliases, use the followi
 | [aws:ResourceTag](https://docs.aws.amazon.com/IAM/latest/UserGuide/reference_policies_condition-keys.html#condition-keys-resourcetag) | Tag \(key and value\) on the KMS key matches the tag \(key and value\) or tag pattern in the policy | IAM policy only | KMS key resource operations 2 | 
 | [aws:RequestTag/*tag\-key*](https://docs.aws.amazon.com/IAM/latest/UserGuide/reference_policies_condition-keys.html#condition-keys-requesttag) | Tag \(key and value\) in the request matches the tag \(key and value\) or tag pattern in the policy | Key policy and IAM policies1 | [TagResource](https://docs.aws.amazon.com/kms/latest/APIReference/API_TagResource.html), [UntagResource](https://docs.aws.amazon.com/kms/latest/APIReference/API_UntagResource.html) | 
 | [aws:TagKeys](https://docs.aws.amazon.com/IAM/latest/UserGuide/reference_policies_condition-keys.html#condition-keys-tagkeys) | Tag keys in the request match the tag keys in the policy | Key policy and IAM policies1 | [TagResource](https://docs.aws.amazon.com/kms/latest/APIReference/API_TagResource.html), [UntagResource](https://docs.aws.amazon.com/kms/latest/APIReference/API_UntagResource.html) | 
-| [kms:ResourceAliases](policy-conditions.md#conditions-kms-resource-aliases) | Aliases associated with the KMS key match the aliases or alias patterns in the policy | IAM policy only | KMS key resource operations 2 | 
-| [kms:RequestAlias](policy-conditions.md#conditions-kms-request-alias) | Alias that represents the KMS key in the request matches the alias or alias patterns in the policy\. | Key policy and IAM policies1 | [Cryptographic operations](concepts.md#cryptographic-operations), [DescribeKey](https://docs.aws.amazon.com/kms/latest/APIReference/API_DescribeKey.html), [GetPublicKey](https://docs.aws.amazon.com/kms/latest/APIReference/API_GetPublicKey.html) | 
+| [kms:ResourceAliases](conditions-kms.md#conditions-kms-resource-aliases) | Aliases associated with the KMS key match the aliases or alias patterns in the policy | IAM policy only | KMS key resource operations 2 | 
+| [kms:RequestAlias](conditions-kms.md#conditions-kms-request-alias) | Alias that represents the KMS key in the request matches the alias or alias patterns in the policy\. | Key policy and IAM policies1 | [Cryptographic operations](concepts.md#cryptographic-operations), [DescribeKey](https://docs.aws.amazon.com/kms/latest/APIReference/API_DescribeKey.html), [GetPublicKey](https://docs.aws.amazon.com/kms/latest/APIReference/API_GetPublicKey.html) | 
 
 1Any condition key that can be used in a key policy can also be used in an IAM policy, but only if [the key policy allows it](key-policy-default.md#key-policy-default-allow-root-enable-iam)\.
 
@@ -86,7 +86,7 @@ The following benefits are of general interest\.
 **Benefits of alias\-based access control**
 + Authorize access to cryptographic operations based on aliases\.
 
-  Most request\-based policy conditions for attributes, including [aws:RequestTag/*tag\-key*](https://docs.aws.amazon.com/IAM/latest/UserGuide/reference_policies_condition-keys.html#condition-keys-requesttag), affect only operations that add, edit, or delete the attribute\. But the [kms:RequestAlias](policy-conditions.md#conditions-kms-request-alias) condition key controls access to cryptographic operations based on the alias used to identify the KMS key in the request\. For example, you can give a principal permission to use a KMS key in a `Encrypt` operation but only when the value of the `KeyId` parameter is `alias/restricted-key-1`\. To satisfy this condition requires all of the following:
+  Most request\-based policy conditions for attributes, including [aws:RequestTag/*tag\-key*](https://docs.aws.amazon.com/IAM/latest/UserGuide/reference_policies_condition-keys.html#condition-keys-requesttag), affect only operations that add, edit, or delete the attribute\. But the [kms:RequestAlias](conditions-kms.md#conditions-kms-request-alias) condition key controls access to cryptographic operations based on the alias used to identify the KMS key in the request\. For example, you can give a principal permission to use a KMS key in a `Encrypt` operation but only when the value of the `KeyId` parameter is `alias/restricted-key-1`\. To satisfy this condition requires all of the following:
   + The KMS key must be associated with that alias\.
   + The request must use the alias to identify the KMS key\.
   + The principal must have permission to use the KMS key subject to the `kms:RequestAlias` condition\. 
@@ -136,7 +136,7 @@ To restore access without updating the policy, change the tags on the KMS key\. 
 
 If an alias is deleted or associated with a different KMS key, principals who have access to the KMS key based only on that alias will be denied access to the KMS key\. This can also happen when an alias that is associated with a KMS key is included in a deny policy statement\. Adding a policy\-related alias to a KMS key can also allow access to principals who should be denied access to a KMS key\.
 
-For example, the following IAM policy statement uses the [kms:ResourceAliases](policy-conditions.md#conditions-kms-resource-aliases) condition key to allow access to KMS keys in different Regions of the account with any of the specified aliases\.
+For example, the following IAM policy statement uses the [kms:ResourceAliases](conditions-kms.md#conditions-kms-resource-aliases) condition key to allow access to KMS keys in different Regions of the account with any of the specified aliases\.
 
 ```
 {
@@ -173,7 +173,7 @@ To prevent this error, give alias management permissions only to principals who 
 
 ### Access denied due to alias quota<a name="access-denied-alias-quota"></a>
 
-Users who are authorized to use a KMS key by an [kms:ResourceAliases](policy-conditions.md#conditions-kms-resource-aliases) condition will get an `AccessDenied` exception if the KMS key exceeds the default [aliases per KMS key](resource-limits.md#aliases-per-key) quota for that account and Region\. 
+Users who are authorized to use a KMS key by an [kms:ResourceAliases](conditions-kms.md#conditions-kms-resource-aliases) condition will get an `AccessDenied` exception if the KMS key exceeds the default [aliases per KMS key](resource-limits.md#aliases-per-key) quota for that account and Region\. 
 
 To restore access, delete aliases that are associated with the KMS key so it complies with the quota\. Or use an alternate mechanism to give users access to the KMS key\. 
 

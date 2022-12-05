@@ -1,6 +1,6 @@
 # Using aliases to control access to KMS keys<a name="alias-authorization"></a>
 
-You can control access to KMS keys based on the aliases that are associated with the KMS key\. To do so, use the [kms:RequestAlias](policy-conditions.md#conditions-kms-request-alias) and [kms:ResourceAliases](policy-conditions.md#conditions-kms-resource-aliases) condition keys\. This feature is part of AWS KMS support for [attribute\-based access control](abac.md) \(ABAC\)\.
+You can control access to KMS keys based on the aliases that are associated with the KMS key\. To do so, use the [kms:RequestAlias](conditions-kms.md#conditions-kms-request-alias) and [kms:ResourceAliases](conditions-kms.md#conditions-kms-resource-aliases) condition keys\. This feature is part of AWS KMS support for [attribute\-based access control](abac.md) \(ABAC\)\.
 
 The `kms:RequestAlias` condition key allows or denies access to a KMS key based on the alias in a request\. The `kms:ResourceAliases` condition key allows or denies access to a KMS key based on the aliases associated with the KMS key\. 
 
@@ -22,7 +22,7 @@ The `kms:RequestAlias` condition key relies on the alias specified explicitly in
 
 ## kms:RequestAlias<a name="alias-auth-request-alias"></a>
 
-Allow or deny access to a KMS key based on the alias that identifies the KMS key in a request\. You can use the [kms:RequestAlias](policy-conditions.md#conditions-kms-request-alias) condition key in a [key policy](key-policies.md) or IAM policy\. It applies to operations that use an alias to identify a KMS key in a request, namely [cryptographic operations](concepts.md#cryptographic-operations), [DescribeKey](https://docs.aws.amazon.com/kms/latest/APIReference/API_DescribeKey.html), and [GetPublicKey](https://docs.aws.amazon.com/kms/latest/APIReference/API_GetPublicKey.html)\. It is not valid for alias operations, such as [CreateAlias](https://docs.aws.amazon.com/kms/latest/APIReference/API_CreateAlias.html) or [DeleteAlias](https://docs.aws.amazon.com/kms/latest/APIReference/API_DeleteAlias.html)\.
+Allow or deny access to a KMS key based on the alias that identifies the KMS key in a request\. You can use the [kms:RequestAlias](conditions-kms.md#conditions-kms-request-alias) condition key in a [key policy](key-policies.md) or IAM policy\. It applies to operations that use an alias to identify a KMS key in a request, namely [cryptographic operations](concepts.md#cryptographic-operations), [DescribeKey](https://docs.aws.amazon.com/kms/latest/APIReference/API_DescribeKey.html), and [GetPublicKey](https://docs.aws.amazon.com/kms/latest/APIReference/API_GetPublicKey.html)\. It is not valid for alias operations, such as [CreateAlias](https://docs.aws.amazon.com/kms/latest/APIReference/API_CreateAlias.html) or [DeleteAlias](https://docs.aws.amazon.com/kms/latest/APIReference/API_DeleteAlias.html)\.
 
 In the condition key, specify an [alias name](concepts.md#key-id-alias-name) or alias name pattern\. You cannot specify an [alias ARN](concepts.md#key-id-alias-ARN)\.
 
@@ -57,7 +57,7 @@ $ aws kms describe-key --key-id "arn:aws:kms:us-west-2:111122223333:alias/projec
 
 ## kms:ResourceAliases<a name="alias-auth-resource-aliases"></a>
 
-Allow or deny access to a KMS key based on the aliases associated with the KMS key, even if the alias isn't used in a request\. The [kms:ResourceAliases](policy-conditions.md#conditions-kms-resource-aliases) condition key lets you specify an alias or alias pattern, such as `alias/test*`, so you can use it in an IAM policy to control access to several KMS keys in the same Region\. It's valid for any AWS KMS operation that uses a KMS key\. 
+Allow or deny access to a KMS key based on the aliases associated with the KMS key, even if the alias isn't used in a request\. The [kms:ResourceAliases](conditions-kms.md#conditions-kms-resource-aliases) condition key lets you specify an alias or alias pattern, such as `alias/test*`, so you can use it in an IAM policy to control access to several KMS keys in the same Region\. It's valid for any AWS KMS operation that uses a KMS key\. 
 
 For example, the following IAM policy lets the principals manage automatic key rotation on the KMS keys in two AWS accounts\. However, the permission applies only to KMS keys associated with aliases that begin with `restricted`\.
 

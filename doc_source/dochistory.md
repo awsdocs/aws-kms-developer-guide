@@ -14,6 +14,7 @@ You might need to scroll horizontally or vertically to see all of the data in th
 
 | Change | Description | Date | 
 | --- |--- |--- |
+| [Feature update](https://docs.aws.amazon.com/kms/latest/developerguide/keystore-external.html) | Added support for External key stores, a feature that lets you protect your AWS resources using cryptographic keys outside of AWS\.  | November 29, 2022 | 
 | [Quota change](https://docs.aws.amazon.com/kms/latest/developerguide/limits.html) | Increased the AWS KMS keys resource quota to 100,000 KMS keys in each account and Region\. | July 8, 2022 | 
 | [Feature update](https://docs.aws.amazon.com/kms/latest/developerguide/hmac.html) | Added support for HMAC KMS keys in more AWS Regions | July 8, 2022 | 
 | [New topic](https://docs.aws.amazon.com/kms/latest/developerguide/disaster-recovery-resiliency.html) | Added the [Resilience in AWS Key Management Service topic](https://docs.aws.amazon.com/kms/latest/developerguide/disaster-recovery-resiliency.html) to the Security chapter of the AWS KMS Developer Guide\. | June 14, 2022 | 
@@ -52,7 +53,7 @@ You might need to scroll horizontally or vertically to see all of the data in th
 | Update | Updated portions of the documentation in the [Authentication and access control](control-access.md) chapter\. | July 5, 2016 | 
 | Update | Updated the [Quotas](limits.md) page to reflect new default quotas\. | May 31, 2016 | 
 | Update | Updated the [Quotas](limits.md) page to reflect new default quotas, and updated the [grant token](grants.md#grant_token) documentation to improve clarity and accuracy\. | April 11, 2016 | 
-| New content | Added documentation about [Allowing multiple IAM users to access a KMS key](key-policy-modifying.md#key-policy-modifying-multiple-iam-users) and [Using the IP address condition](policy-conditions.md#conditions-aws-ip-address)\. | February 17, 2016 | 
+| New content | Added documentation about [Allowing multiple IAM users to access a KMS key](key-policy-modifying.md#key-policy-modifying-multiple-iam-users) and [Using the IP address condition](conditions-aws.md#conditions-aws-ip-address)\. | February 17, 2016 | 
 | Update | Updated the [Key policies in AWS KMS](key-policies.md) and [Changing a key policy](key-policy-modifying.md) pages to improve clarity and accuracy\. | February 17, 2016 | 
 | Update | Updated the [Managing keys](getting-started.md) topic pages to improve clarity\. | January 5, 2016 | 
 | New content | Added documentation about [How AWS CloudTrail uses AWS KMS](services-cloudtrail.md)\. | November 18, 2015 | 

@@ -95,7 +95,7 @@ To use the AWS KMS key for a secret on your behalf, the administrator must have 
 + `kms:Decrypt`
 + `kms:CreateGrant`
 
-To allow the KMS key to be used only for requests that originate in Amazon WorkMail, you can use the [kms:ViaService](policy-conditions.md#conditions-kms-via-service) condition key with the `workmail.<region>.amazonaws.com` value\.
+To allow the KMS key to be used only for requests that originate in Amazon WorkMail, you can use the [kms:ViaService](conditions-kms.md#conditions-kms-via-service) condition key with the `workmail.<region>.amazonaws.com` value\.
 
 You can also use the keys or values in the [encryption context](#wm-encryptioncontext) as a condition for using the KMS key for cryptographic operations\. For example, you can use a string condition operator in an IAM or key policy document or use a grant constraint in a grant\.
 

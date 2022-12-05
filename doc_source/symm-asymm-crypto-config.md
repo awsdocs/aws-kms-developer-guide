@@ -6,6 +6,8 @@ You can find the cryptographic configuration of your KMS keys, include the key s
 
 In the AWS KMS console, the [details page for each KMS key](viewing-keys-console.md#viewing-console-details) includes a **Cryptographic configuration** tab that displays cryptographic details about your KMS keys\. For example, the following image shows the **Cryptographic configuration** tab for an RSA KMS key used for signing and verification\.
 
+The **Cryptographic configuration** tab for some special purpose KMS keys has additional specialized sections\. For example, the **Cryptographic configuration** tab for a KMS key in a [custom key store](custom-key-store-overview.md) has a **Custom key stores** section\. The **Cryptographic configuration** tab for a KMS key in an [external key store](keystore-external.md) has an **External key** section\.
+
 ![\[Generate a data key\]](http://docs.aws.amazon.com/kms/latest/developerguide/images/console-cryptographic-configuration.png)
 
 In the AWS KMS API, use the [DescribeKey](https://docs.aws.amazon.com/kms/latest/APIReference/API_DescribeKey.html) operation\. The `KeyMetadata` structure in the response includes the cryptographic configuration of the KMS key\. For example, `DescribeKey` returns the following response for an RSA KMS key used for signing and verification\.

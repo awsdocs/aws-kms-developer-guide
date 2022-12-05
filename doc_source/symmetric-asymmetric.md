@@ -17,7 +17,7 @@ Asymmetric KMS keys and asymmetric data key pairs are supported in all AWS Regio
 + To create multi\-Region asymmetric KMS keys, see [Creating multi\-Region keys](multi-region-keys-create.md)\.
 + To find out whether a KMS key is symmetric or asymmetric, see [Identifying asymmetric KMS keys](find-symm-asymm.md)\. 
 + For a table that compares the AWS KMS API operations that apply to each type of KMS key, see [Key type reference](symm-asymm-compare.md)\.
-+ To control access to the key specs, key usage, encryption algorithms, and signing algorithms that principals in your account can use for KMS keys and data keys, see [AWS KMS condition keys](policy-conditions.md#conditions-kms)\.
++ To control access to the key specs, key usage, encryption algorithms, and signing algorithms that principals in your account can use for KMS keys and data keys, see [AWS KMS condition keys](conditions-kms.md)\.
 + To learn about the request quotas that apply to different types of KMS keys, see [Request quotas](requests-per-second.md)\.
 + To learn how to sign messages and verify signatures with asymmetric KMS keys, see [Digital signing with the new asymmetric keys feature of AWS KMS](http://aws.amazon.com/blogs/security/digital-signing-asymmetric-keys-aws-kms/) in the *AWS Security Blog*\.
 

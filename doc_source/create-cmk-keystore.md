@@ -1,34 +1,24 @@
-# Creating KMS keys in a custom key store<a name="create-cmk-keystore"></a>
+# Creating KMS keys in an AWS CloudHSM key store<a name="create-cmk-keystore"></a>
 
-After you have created a custom key store, you can create [AWS KMS keys](concepts.md#kms_keys) in your key store\. They must be [symmetric encryption KMS keys](concepts.md#symmetric-cmks) with key material that AWS KMS generates\. You cannot create [asymmetric KMS keys](symmetric-asymmetric.md#asymmetric-cmks), [HMAC KMS keys](hmac.md) or KMS keys with [imported key material](importing-keys.md) in a custom key store\. Also, you cannot use symmetric encryption KMS keys in a custom key store to generate asymmetric data key pairs\.
+After you have created an AWS CloudHSM key store, you can create [AWS KMS keys](concepts.md#kms_keys) in your key store\. They must be [symmetric encryption KMS keys](concepts.md#symmetric-cmks) with key material that AWS KMS generates\. You cannot create [asymmetric KMS keys](symmetric-asymmetric.md#asymmetric-cmks), [HMAC KMS keys](hmac.md) or KMS keys with [imported key material](importing-keys.md) in a custom key store\. Also, you cannot use symmetric encryption KMS keys in a custom key store to generate asymmetric data key pairs\.
 
-Use and manage the KMS keys in your custom key store the same way that you use and manage any KMS key in AWS KMS\. For example, you can do any of the following:
-+ Use the KMS keys for [cryptographic operations](concepts.md#cryptographic-operations)\.
-+ Set IAM and key policies on the KMS keys\.
-+ Create aliases are associated with the KMS keys\.
-+ Attach tags to the KMS keys\.
-+ Enable and disable the KMS keys\. 
-+ Schedule deletions of the KMS keys\.
+To create a KMS key in an AWS CloudHSM key store, the AWS CloudHSM key store must be [connected to the associated AWS CloudHSM cluster](disconnect-keystore.md) and the cluster must contain at least two active HSMs in different Availability Zones\. To find the connection state and number of HSMs, view the [AWS CloudHSM key stores page](view-keystore.md#view-keystore-console) in the AWS Management Console\. When using the API operations, use the [DescribeCustomKeyStores](https://docs.aws.amazon.com/kms/latest/APIReference/API_DescribeCustomKeyStores.html) operation to verify that the AWS CloudHSM key store is connected\. To verify the number of active HSMs in the cluster and their Availability Zones, use the AWS CloudHSM [DescribeClusters](https://docs.aws.amazon.com/cloudhsm/latest/APIReference/API_DescribeClusters.html) operation\.
 
-To create a KMS key in a custom key store, the custom key store must be [connected to the associated AWS CloudHSM cluster](disconnect-keystore.md) and the cluster must contain at least two active HSMs in different Availability Zones\. To find the connection status and number of HSMs, view the [custom key stores page](view-keystore.md#view-keystore-console) in the AWS Management Console\. When using the API operations, use the [DescribeCustomKeyStores](https://docs.aws.amazon.com/kms/latest/APIReference/API_DescribeCustomKeyStores.html) operation to verify that the custom key store is connected\. Use the AWS CloudHSM [DescribeClusters](https://docs.aws.amazon.com/cloudhsm/latest/APIReference/API_DescribeClusters.html) operation to get the number of active HSMs in the cluster and their Availability Zones\. 
+When you create a KMS key in your AWS CloudHSM key store, AWS KMS creates the KMS key in AWS KMS\. But, it creates the key material for the KMS key in the associated AWS CloudHSM cluster\. Specifically, AWS KMS signs into the cluster as the [`kmsuser` CU that you created](create-keystore.md#before-keystore)\. Then it creates a persistent, non\-extractable, 256\-bit Advanced Encryption Standard \(AES\) symmetric key in the cluster\. AWS KMS sets the value of the [key label attribute](https://docs.aws.amazon.com/cloudhsm/latest/userguide/key-attribute-table.html), which is visible only in the cluster, to Amazon Resource Name \(ARN\) of the KMS key\.
 
-When you create a KMS key in your custom key store, AWS KMS creates the KMS key in AWS KMS\. But, it creates the key material for the KMS key in the associated AWS CloudHSM cluster\. Specifically, AWS KMS signs into the cluster as the [`kmsuser` CU that you created](create-keystore.md#before-keystore)\. Then it creates a persistent, non\-extractable, 256\-bit Advanced Encryption Standard \(AES\) symmetric key in the cluster\. AWS KMS sets the value of the [key label attribute](https://docs.aws.amazon.com/cloudhsm/latest/userguide/key-attribute-table.html), which is visible only in the cluster, to Amazon Resource Name \(ARN\) of the KMS key\.
+When the command succeeds, the [key state](key-state.md) of the new KMS key is `Enabled` and its origin is `AWS_CLOUDHSM`\. You cannot change the origin of any KMS key after you create it\. When you view a KMS key in an AWS CloudHSM key store in the AWS KMS console or by using the [DescribeKey](https://docs.aws.amazon.com/kms/latest/APIReference/API_DescribeKey.html) operation, you can see typical properties, like its key ID, key state, and creation date\. But you can also see the custom key store ID and \(optionally\) the AWS CloudHSM cluster ID\. For details, see [Viewing KMS keys in an AWS CloudHSM key store](view-cmk-keystore.md)\.
 
-When the command succeeds, the [key state](key-state.md) of the new KMS key is `Enabled` and its origin is `AWS_CLOUDHSM`\. You cannot change the origin of any KMS key after you create it\. When you view a KMS key in a custom key store in the console or by using the [DescribeKey](https://docs.aws.amazon.com/kms/latest/APIReference/API_DescribeKey.html) operation, you can see typical properties, like its key ID, key state, and creation date\. But you can also see the custom key store ID and \(optionally\) the AWS CloudHSM cluster ID\. For details, see [Viewing KMS keys in a custom key store](view-cmk-keystore.md)\.
+If your attempt to create a KMS key in your AWS CloudHSM key store fails, use the error message to help you determine the cause\. It might indicate that the AWS CloudHSM key store is not connected \(`CustomKeyStoreInvalidStateException`\) or the associated AWS CloudHSM cluster doesn't have the two active HSMs that are required for this operation \(`CloudHsmClusterInvalidConfigurationException`\)\. For help see [Troubleshooting a custom key store](fix-keystore.md)\.
 
-
-
-If your attempt to create a KMS key in your custom key store fails, use the error message to help you determine the cause\. It might indicate that the custom key store is not connected \(`CustomKeyStoreInvalidStateException`\) or the associated AWS CloudHSM cluster doesn't have the two active HSMs that are required for this operation \(`CloudHsmClusterInvalidConfigurationException`\)\. For help see [Troubleshooting a custom key store](fix-keystore.md)\.
-
-For an example of the AWS CloudTrail log of the operation that creates a KMS key in a custom key store, see [CreateKey](ct-createkey.md)\.
+For an example of the AWS CloudTrail log of the operation that creates a KMS key in an AWS CloudHSM key store, see [CreateKey](ct-createkey.md)\.
 
 **Topics**
-+ [Create a KMS key in a custom key store \(console\)](#create-cmk-keystore-console)
-+ [Create a KMS key in a custom key store \(API\)](#create-cmk-keystore-api)
++ [Create a KMS key in an AWS CloudHSM key store \(console\)](#create-cmk-keystore-console)
++ [Create a KMS key in an AWS CloudHSM key store \(API\)](#create-cmk-keystore-api)
 
-## Create a KMS key in a custom key store \(console\)<a name="create-cmk-keystore-console"></a>
+## Create a KMS key in an AWS CloudHSM key store \(console\)<a name="create-cmk-keystore-console"></a>
 
-Use the following procedure to create a symmetric encryption KMS key in a custom key store\. 
+Use the following procedure to create a symmetric encryption KMS key in an AWS CloudHSM key store\. 
 
 1. Sign in to the AWS Management Console and open the AWS Key Management Service \(AWS KMS\) console at [https://console\.aws\.amazon\.com/kms](https://console.aws.amazon.com/kms)\.
 
@@ -44,15 +34,17 @@ Use the following procedure to create a symmetric encryption KMS key in a custom
 
 1. Choose **Advanced options**\.
 
-1. For **Key material origin**, choose **Custom key store \(CloudHSM\)**\.
+1. For **Key material origin**, choose **AWS CloudHSM key store**\.
+
+   You cannot create a multi\-Region key in an AWS CloudHSM key store\.
 
 1. Choose **Next**\.
 
-1. Select a custom key store for your new KMS key\. To create a new custom key store, choose **Create custom key store**\.
+1. Select an AWS CloudHSM key store for your new KMS key\. To create a new AWS CloudHSM key store, choose **Create custom key store**\.
 
-   The custom key store that you select must have a status of **CONNECTED**\. Its associated AWS CloudHSM cluster must be active and contain at least two active HSMs in different Availability Zones\. 
+   The AWS CloudHSM key store that you select must have a status of **CONNECTED**\. Its associated AWS CloudHSM cluster must be active and contain at least two active HSMs in different Availability Zones\. 
 
-   For help with connecting a custom key store, see [Connecting and disconnecting a custom key store](disconnect-keystore.md)\. For help with adding HSMs, see [Adding an HSM](https://docs.aws.amazon.com/cloudhsm/latest/userguide/add-remove-hsm.html#add-hsm) in the *AWS CloudHSM User Guide*\.
+   For help with connecting an AWS CloudHSM key store, see [Connecting and disconnecting an AWS CloudHSM key store](disconnect-keystore.md)\. For help with adding HSMs, see [Adding an HSM](https://docs.aws.amazon.com/cloudhsm/latest/userguide/add-remove-hsm.html#add-hsm) in the *AWS CloudHSM User Guide*\.
 
 1. Choose **Next**\.
 
@@ -64,7 +56,7 @@ Use the following procedure to create a symmetric encryption KMS key in a custom
 
 1. Choose **Next**\.
 
-1. In the **Key Administrators** section, select the IAM users and roles who can manage the KMS key\. For more information, see [Allows Key Administrators to Administer the KMS key](key-policy-default.md#key-policy-default-allow-administrators)\.
+1. In the **Key Administrators** section, select the IAM users and roles who can manage the KMS key\. For more information, see [Allows key administrators to administer the KMS key](key-policy-default.md#key-policy-default-allow-administrators)\.
 **Note**  
 IAM policies can give other IAM users and roles permission to use the KMS key\.
 
@@ -72,7 +64,7 @@ IAM policies can give other IAM users and roles permission to use the KMS key\.
 
 1. Choose **Next**\.
 
-1. In the **This account** section, select the IAM users and roles in this AWS account that can use the KMS key in [cryptographic operations](concepts.md#cryptographic-operations)\. For more information, see [Allows Key Users to Use the KMS key](key-policy-default.md#key-policy-default-allow-users)\.
+1. In the **This account** section, select the IAM users and roles in this AWS account that can use the KMS key in [cryptographic operations](concepts.md#cryptographic-operations)\. For more information, see [Allows key users to use the KMS key](key-policy-default.md#key-policy-default-allow-users)\.
 **Note**  
 IAM policies can give other IAM users and roles permission to use the KMS key\.
 
@@ -86,20 +78,20 @@ Administrators of the other AWS accounts must also allow access to the KMS key b
 
 1. When you're done, choose **Finish** to create the key\.
 
-When the procedure succeeds, the display shows the new KMS key in the custom key store that you chose\. When you choose the name or alias of the new KMS key, its detail page displays the origin of the KMS key \(**CloudHSM**\), the name and ID of the custom key store, and the ID of the AWS CloudHSM cluster\. If the procedure fails, an error message appears that describes the failure\.
+When the procedure succeeds, the display shows the new KMS key in the AWS CloudHSM key store that you chose\. When you choose the name or alias of the new KMS key, the **Cryptographic configuration** tab on its detail page displays the origin of the KMS key \(**AWS CloudHSM**\), the name, ID, and type of the custom key store, and the ID of the AWS CloudHSM cluster\. If the procedure fails, an error message appears that describes the failure\.
 
 **Tip**  
-To make it easier to identify KMS keys in a custom key store, on the **Customer managed keys** page, add the **Custom key store ID** column to the display\. Click the gear icon in the upper\-right and select **Custom key store ID**\.
+To make it easier to identify KMS keys in a custom key store, on the **Customer managed keys** page, add the **Custom key store ID** column to the display\. Click the gear icon in the upper\-right and select **Custom key store ID**\. For details, see [Customizing your KMS key tables](viewing-keys-console.md#viewing-console-customize)\.
 
-## Create a KMS key in a custom key store \(API\)<a name="create-cmk-keystore-api"></a>
+## Create a KMS key in an AWS CloudHSM key store \(API\)<a name="create-cmk-keystore-api"></a>
 
-To create a new [AWS KMS key](concepts.md#kms_keys) \(KMS key\) in your custom key store, use the [CreateKey](https://docs.aws.amazon.com/kms/latest/APIReference/API_CreateKey.html) operation\. Use the `CustomKeyStoreId` parameter to identify your custom key store and specify an `Origin` value of `AWS_CLOUDHSM`\. 
+To create a new [AWS KMS key](concepts.md#kms_keys) \(KMS key\) in your AWS CloudHSM key store, use the [CreateKey](https://docs.aws.amazon.com/kms/latest/APIReference/API_CreateKey.html) operation\. Use the `CustomKeyStoreId` parameter to identify your custom key store and specify an `Origin` value of `AWS_CLOUDHSM`\. 
 
 You might also want to use the `Policy` parameter to specify a key policy\. You can change the key policy \([PutKeyPolicy](https://docs.aws.amazon.com/kms/latest/APIReference/API_PutKeyPolicy.html)\) and add optional elements, such as a [description](https://docs.aws.amazon.com/kms/latest/APIReference/API_DescribeKey.html) and [tags](https://docs.aws.amazon.com/kms/latest/APIReference/API_TagResource.html) at any time\.
 
 The examples in this section use the [AWS Command Line Interface \(AWS CLI\)](https://aws.amazon.com/cli/), but you can use any supported programming language\. 
 
-The following example begins with a call to the [DescribeCustomKeyStores](https://docs.aws.amazon.com/kms/latest/APIReference/API_DescribeCustomKeyStores.html) operation to verify that the custom key store is connected to its associated AWS CloudHSM cluster\. By default, this operation returns all custom keys stores in your account and Region\. To describe only a particular custom key store, use the `CustomKeyStoreId` or `CustomKeyStoreName` parameter \(but not both\)\.
+The following example begins with a call to the [DescribeCustomKeyStores](https://docs.aws.amazon.com/kms/latest/APIReference/API_DescribeCustomKeyStores.html) operation to verify that the AWS CloudHSM key store is connected to its associated AWS CloudHSM cluster\. By default, this operation returns all custom keys stores in your account and Region\. To describe only a particular AWS CloudHSM key store, use its `CustomKeyStoreId` or `CustomKeyStoreName` parameter \(but not both\)\.
 
 Before running this command, replace the example custom key store ID with a valid ID\.
 
@@ -109,6 +101,7 @@ $ aws kms describe-custom-key-stores --custom-key-store-id cks-1234567890abcdef0
    "CustomKeyStores": [
       "CustomKeyStoreId": "cks-1234567890abcdef0",
       "CustomKeyStoreName": "ExampleKeyStore",
+      "CustomKeyStoreType": "AWS CloudHSM key store",
       "CloudHsmClusterId": "cluster-1a23b4cdefg",
       "TrustAnchorCertificate": "<certificate string appears here>",
       "CreationDate": "1.499288695918E9",
@@ -164,7 +157,7 @@ $ aws cloudhsmv2 describe-clusters
 }
 ```
 
-This example command uses the [CreateKey](https://docs.aws.amazon.com/kms/latest/APIReference/API_CreateKey.html) operation to create a KMS key the custom key store\. To create a KMS key in a custom key store, you must provide the ID of the custom key store name and specify an `Origin` value of `AWS_CLOUDHSM`\.
+This example command uses the [CreateKey](https://docs.aws.amazon.com/kms/latest/APIReference/API_CreateKey.html) operation to create a KMS key in an AWS CloudHSM key store\. To create a KMS key in an AWS CloudHSM key store, you must provide the custom key store ID of the AWS CloudHSM key store and specify an `Origin` value of `AWS_CLOUDHSM`\.
 
 The response includes the IDs of the custom key store and the AWS CloudHSM cluster\. 
 

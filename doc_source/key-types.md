@@ -13,7 +13,7 @@ AWS KMS also supports the following special\-purpose KMS key types:
 + [HMAC keys](hmac.md) to generate and verify hash\-based message authentication codes
 + [Multi\-Region keys](multi-region-keys-overview.md) \(symmetric and asymmetric\) that work like copies of the same key in different AWS Regions
 + [Keys with imported key material](importing-keys.md) that you provide
-+ [Keys in a custom key store](custom-key-store-overview.md) that is backed by a AWS CloudHSM cluster
++ [Keys in a custom key store](custom-key-store-overview.md) that is backed by a AWS CloudHSM cluster or an external key manager outside of AWS\.
 
 ## Choosing a KMS key type<a name="symm-asymm-choose"></a>
 
@@ -78,7 +78,7 @@ To choose a key usage in the AWS KMS console:
 + For asymmetric KMS keys with RSA key material, choose **Encrypt and decrypt** or **Sign and verify**\.
 + For asymmetric KMS keys with SM2 key material, choose **Encrypt and decrypt** or **Sign and verify**\. The SM2 key spec is available only in China Regions\.
 
-To allow principals to create KMS keys only for a particular key usage, use the [kms:KeyUsage](policy-conditions.md#conditions-kms-key-usage) condition key\. You can also use the `kms:KeyUsage` condition key to allow principals to call API operations for a KMS key based on its key usage\. For example, you can allow permission to disable a KMS key only if its key usage is SIGN\_VERIFY\. 
+To allow principals to create KMS keys only for a particular key usage, use the [kms:KeyUsage](conditions-kms.md#conditions-kms-key-usage) condition key\. You can also use the `kms:KeyUsage` condition key to allow principals to call API operations for a KMS key based on its key usage\. For example, you can allow permission to disable a KMS key only if its key usage is SIGN\_VERIFY\. 
 
 ## Selecting the key spec<a name="symm-asymm-choose-key-spec"></a>
 
@@ -89,7 +89,7 @@ The key spec for a KMS key was known as a "customer master key spec\." The `Cust
 
 The key spec determines whether the KMS key is symmetric or asymmetric, the type of key material in the KMS key, and the encryption algorithms, signing algorithms, or message authentication code \(MAC\) algorithms that AWS KMS supports for the KMS key\. The key spec that you choose is typically determined by your use case and regulatory requirements\.
 
-To determine the key specs that principals in your account are permitted to use for KMS keys, use the [kms:KeySpec](policy-conditions.md#conditions-kms-key-spec) condition key\.
+To determine the key specs that principals in your account are permitted to use for KMS keys, use the [kms:KeySpec](conditions-kms.md#conditions-kms-key-spec) condition key\.
 
 AWS KMS supports the following key specs for KMS keys:
 

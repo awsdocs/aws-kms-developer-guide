@@ -57,7 +57,7 @@ You can view a record of your actions in your AWS CloudTrail log\. AWS KMS recor
 
 ### Deleting a replica key \(console\)<a name="replica-delete-console"></a>
 
-To schedule the deletion of a multi\-Region replica key, use the [same procedure](deleting-keys.md#deleting-keys-scheduling-key-deletion-console) you use to schedule the deletion of a single\-Region key\.
+To schedule the deletion of a multi\-Region replica key, use the [same procedure](deleting-keys-scheduling-key-deletion.md#deleting-keys-scheduling-key-deletion-console) you use to schedule the deletion of a single\-Region key\.
 
 Because related replica keys are in different AWS Regions, you cannot schedule the deletion of more than one replica key at a time\. To delete all related replica keys, use a pattern like the following one\.
 
@@ -80,7 +80,7 @@ Because related replica keys are in different AWS Regions, you cannot schedule t
 
 1. From the **Key actions** menu, choose **Schedule key deletion**\. 
 
-   This action starts the process of scheduling deletion of the key\. Complete the schedule key deletion process\. For details, see [Scheduling and canceling key deletion \(console\)](deleting-keys.md#deleting-keys-scheduling-key-deletion-console)\.
+   This action starts the process of scheduling deletion of the key\. Complete the schedule key deletion process\. For details, see [Scheduling and canceling key deletion \(console\)](deleting-keys-scheduling-key-deletion.md#deleting-keys-scheduling-key-deletion-console)\.
 
 1. Return to the browser tab that displays the **Regionality** tab of the primary key\. \(You might need to refresh the page to see the updated status of the replica keys\.\) Choose the key ARN of another replica key and repeat the process of scheduling deletion of the replica key\.
 

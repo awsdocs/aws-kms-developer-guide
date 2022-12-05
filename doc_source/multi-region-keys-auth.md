@@ -3,7 +3,7 @@
 You can use multi\-Region keys in compliance, disaster recovery, and backup scenarios that would be more complex with single\-Region keys\. However, because the security properties of multi\-Region keys are significantly different from those of single\-Region keys, we recommend using caution when authorizing the creation, management, and use of multi\-Region keys\.
 
 **Note**  
-Existing IAM policy statements with wildcard characters in the `Resource` field now apply to both single\-Region and multi\-Region keys\. To restrict them to single\-Region KMS keys or multi\-Region keys, use the [kms:MultiRegion](policy-conditions.md#conditions-kms-multiregion) condition key\.
+Existing IAM policy statements with wildcard characters in the `Resource` field now apply to both single\-Region and multi\-Region keys\. To restrict them to single\-Region KMS keys or multi\-Region keys, use the [kms:MultiRegion](conditions-kms.md#conditions-kms-multiregion) condition key\.
 
 Use your authorization tools to prevent creation and use of multi\-Region keys in any scenario where a single\-Region will suffice\. Allow principals to replicate a multi\-Region key only into AWS Regions that require them\. Give permission for multi\-Region keys only to principals who need them and only for tasks that require them\.
 
@@ -42,7 +42,7 @@ When designing key policies and IAM policies for multi\-Region keys, consider th
   }
   ```
 
-  To apply a policy statement to all multi\-Region keys in your AWS account, you can use the [kms:MultiRegion](policy-conditions.md#conditions-kms-multiregion) policy condition or a key ID pattern that includes the distinctive `mrk-` prefix\.
+  To apply a policy statement to all multi\-Region keys in your AWS account, you can use the [kms:MultiRegion](conditions-kms.md#conditions-kms-multiregion) policy condition or a key ID pattern that includes the distinctive `mrk-` prefix\.
 + **Service\-linked role** — Principals who create multi\-Region primary keys must have [iam:CreateServiceLinkedRole](https://docs.aws.amazon.com/IAM/latest/APIReference/API_CreateServiceLinkedRole.html) permission\.
 
   To synchronize the shared properties of related multi\-Region keys, AWS KMS assumes an IAM [service\-linked role](#multi-region-auth-slr)\. AWS KMS creates the service\-linked role in the AWS account whenever you create a multi\-Region primary key\. \(If the role exists, AWS KMS recreates it, which has no harmful effect\.\) The role is valid in all Regions\. To allow AWS KMS to create \(or recreate\) the service\-linked role, principals who create multi\-Region primary keys must have [iam:CreateServiceLinkedRole](https://docs.aws.amazon.com/IAM/latest/APIReference/API_CreateServiceLinkedRole.html) permission\.
@@ -77,7 +77,7 @@ For example, this IAM policy allows a principal to create any type of KMS key\.
 }
 ```
 
-To allow or deny permission to create multi\-Region primary keys, use the [kms:MultiRegion](policy-conditions.md#conditions-kms-multiregion) condition key\. Valid values are `true` \(multi\-Region key\) or `false` \(single\-Region key\)\. For example, the following IAM policy statement uses a `Deny` action with the `kms:MultiRegion` condition key to prevent principals from creating multi\-Region keys\. 
+To allow or deny permission to create multi\-Region primary keys, use the [kms:MultiRegion](conditions-kms.md#conditions-kms-multiregion) condition key\. Valid values are `true` \(multi\-Region key\) or `false` \(single\-Region key\)\. For example, the following IAM policy statement uses a `Deny` action with the `kms:MultiRegion` condition key to prevent principals from creating multi\-Region keys\. 
 
 ```
 {
@@ -101,7 +101,7 @@ To [create a multi\-Region replica key](#mrk-auth-replicate), the principal need
 
 Use caution when allowing these permissions\. They allow principals to create KMS keys and the key policies that authorize their use\. The `kms:ReplicateKey` permission also authorizes the transfer of key material across Region boundaries within AWS KMS\.
 
-To restrict the AWS Regions in which a multi\-Region key can be replicated, use the [kms:ReplicaRegion](policy-conditions.md#conditions-kms-replica-region) condition key\. It limits only the `kms:ReplicateKey` permission\. Otherwise, it has no effect\. For example, the following key policy allows the principal to replicate this primary key, but only in the specified Regions\.
+To restrict the AWS Regions in which a multi\-Region key can be replicated, use the [kms:ReplicaRegion](conditions-kms.md#conditions-kms-replica-region) condition key\. It limits only the `kms:ReplicateKey` permission\. Otherwise, it has no effect\. For example, the following key policy allows the principal to replicate this primary key, but only in the specified Regions\.
 
 ```
 {
@@ -142,7 +142,7 @@ For example, the following key policy gives users who can assume the Administrat
 }
 ```
 
-To restrict the AWS Regions that can host a primary key, use the [kms:PrimaryRegion](policy-conditions.md#conditions-kms-primary-region) condition key\. For example, the following IAM policy statement allows the principals to update the primary Region of the multi\-Region keys in the AWS account, but only when the new primary Region is one of the specified Regions\.
+To restrict the AWS Regions that can host a primary key, use the [kms:PrimaryRegion](conditions-kms.md#conditions-kms-primary-region) condition key\. For example, the following IAM policy statement allows the principals to update the primary Region of the multi\-Region keys in the AWS account, but only when the new primary Region is one of the specified Regions\.
 
 ```
 {
@@ -165,7 +165,7 @@ To restrict the AWS Regions that can host a primary key, use the [kms:PrimaryReg
 
 ### Using and managing multi\-Region keys<a name="mrk-auth-using"></a>
 
-By default, principals who have permission to use and manage KMS keys in an AWS account and Region also have permission to use and manage multi\-Region keys\. However, you can use the [kms:MultiRegion](policy-conditions.md#conditions-kms-multiregion) condition key to allow only single\-Region keys or only multi\-Region keys\. Or use the [kms:MultiRegionKeyType](policy-conditions.md#conditions-kms-multiregion-key-type) condition key to allow only multi\-Region primary keys or only replica keys\. Both condition keys controls access to the [CreateKey](https://docs.aws.amazon.com/kms/latest/APIReference/API_CreateKey.html) operation and to any operation that uses an existing KMS key, such as [Encrypt](https://docs.aws.amazon.com/kms/latest/APIReference/API_Encrypt.html) or [EnableKey](https://docs.aws.amazon.com/kms/latest/APIReference/API_EnableKey.html)\.
+By default, principals who have permission to use and manage KMS keys in an AWS account and Region also have permission to use and manage multi\-Region keys\. However, you can use the [kms:MultiRegion](conditions-kms.md#conditions-kms-multiregion) condition key to allow only single\-Region keys or only multi\-Region keys\. Or use the [kms:MultiRegionKeyType](conditions-kms.md#conditions-kms-multiregion-key-type) condition key to allow only multi\-Region primary keys or only replica keys\. Both condition keys controls access to the [CreateKey](https://docs.aws.amazon.com/kms/latest/APIReference/API_CreateKey.html) operation and to any operation that uses an existing KMS key, such as [Encrypt](https://docs.aws.amazon.com/kms/latest/APIReference/API_Encrypt.html) or [EnableKey](https://docs.aws.amazon.com/kms/latest/APIReference/API_EnableKey.html)\.
 
 The following example IAM policy statement uses the `kms:MultiRegion` condition key to prevent the principals from using or managing any multi\-Region key\.
 

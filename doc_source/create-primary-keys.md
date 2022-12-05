@@ -2,7 +2,7 @@
 
 You can create a [multi\-Region primary key](multi-region-keys-overview.md#mrk-primary-key) in the AWS KMS console or by using the AWS KMS API\. You can create the primary key in any AWS Region where AWS KMS supports multi\-Region keys\.
 
-To create a multi\-Region primary key, the principal needs the [same permissions](create-keys.md#create-key-permissions) that they need to create any KMS key, including the [kms:CreateKey](https://docs.aws.amazon.com/kms/latest/APIReference/API_CreateKey.html) permission in an IAM policy\. The principal also needs the [iam:CreateServiceLinkedRole](https://docs.aws.amazon.com/IAM/latest/APIReference/API_CreateServiceLinkedRole.html) permission\. You can use the [kms:MultiRegionKeyType](policy-conditions.md#conditions-kms-multiregion-key-type) condition key to allow or deny permission to create multi\-Region primary keys\. 
+To create a multi\-Region primary key, the principal needs the [same permissions](create-keys.md#create-key-permissions) that they need to create any KMS key, including the [kms:CreateKey](https://docs.aws.amazon.com/kms/latest/APIReference/API_CreateKey.html) permission in an IAM policy\. The principal also needs the [iam:CreateServiceLinkedRole](https://docs.aws.amazon.com/IAM/latest/APIReference/API_CreateServiceLinkedRole.html) permission\. You can use the [kms:MultiRegionKeyType](conditions-kms.md#conditions-kms-multiregion-key-type) condition key to allow or deny permission to create multi\-Region primary keys\. 
 
 These instructions create a multi\-Region primary key with key material that AWS KMS generates\. To create a multi\-Region primary key with imported key material, see [Creating a primary key with imported key material](multi-region-keys-import.md#mrk-import-create-primary)\.
 

@@ -10,7 +10,7 @@ The following references provide useful information about using and managing KMS
 + [AWS KMS API permissions reference](kms-api-permissions-reference.md)\. Provides information about the permissions required for each AWS KMS API operation\.
 
   To find: Can I run [GetKeyPolicy](https://docs.aws.amazon.com/kms/latest/APIReference/API_GetKeyPolicy.html) on a key in a different AWS account? Can I allow `kms:Decrypt` permission in an IAM policy?
-  + [ViaService reference](policy-conditions.md#viaService_table)\. Lists the AWS services that support the `kms:ViaService` condition key\.
+  + [ViaService reference](conditions-kms.md#viaService_table)\. Lists the AWS services that support the `kms:ViaService` condition key\.
 
     To find: Can I use the `kms:ViaService` condition key to allow a permission only when it comes from Amazon ElastiCache? What about Amazon Neptune?
 + [AWS KMS pricing](https://aws.amazon.com/kms/pricing/)\. Lists and explains the price of KMS keys\.

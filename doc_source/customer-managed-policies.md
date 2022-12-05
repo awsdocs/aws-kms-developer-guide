@@ -62,7 +62,7 @@ This policy includes of two policy statements\. The `Resource` element in the fi
 
 The following IAM policy allows a user to create all types of KMS keys\. The value of the `Resource` element is `*` because the `CreateKey` operation does not use any particular AWS KMS resources \(KMS keys or aliases\)\.
 
-To restrict the user to particular types of KMS keys, use the [kms:KeySpec](policy-conditions.md#conditions-kms-key-spec), [kms:KeyUsage](policy-conditions.md#conditions-kms-key-usage), and [kms:KeyOrigin](policy-conditions.md#conditions-kms-key-origin) condition keys\.
+To restrict the user to particular types of KMS keys, use the [kms:KeySpec](conditions-kms.md#conditions-kms-key-spec), [kms:KeyUsage](conditions-kms.md#conditions-kms-key-usage), and [kms:KeyOrigin](conditions-kms.md#conditions-kms-key-origin) condition keys\.
 
 ```
 {

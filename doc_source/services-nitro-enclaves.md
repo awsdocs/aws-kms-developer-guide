@@ -6,7 +6,7 @@ Applications running in AWS Nitro Enclaves can use the [https://docs.aws.amazon.
 
 To support AWS Nitro Enclaves, AWS KMS adds a `Recipient` request parameter with the `RecipientInfo` object type and a `CiphertextForRecipient` response field to the standard request and response fields for these operations\. These enclave\-specific elements are valid only in the supported API operations and only when the request is signed using the AWS Nitro Enclaves Development Kit\. AWS KMS relies on the digital signature for the enclave’s attestation document to prove that the public key in the request came from a valid enclave\. You cannot supply your own certificate to digitally sign the attestation document\.
 
-AWS KMS also supports policy condition keys that you can use to allow enclave operations on an AWS KMS key only when the attestation document has the specified content\. For details, see [AWS KMS condition keys for AWS Nitro Enclaves](policy-conditions.md#conditions-nitro-enclaves)\.
+AWS KMS also supports policy condition keys that you can use to allow enclave operations on an AWS KMS key only when the attestation document has the specified content\. For details, see [AWS KMS condition keys for AWS Nitro Enclaves](conditions-nitro-enclaves.md)\.
 
 For information about AWS Nitro Enclaves, see [What is AWS Nitro Enclaves](https://docs.aws.amazon.com/enclaves/latest/user/nitro-enclave.html) in the *AWS Nitro Enclaves Developer Guide*\. For information about setting up your data and data keys for encryption, see [Using cryptographic attestation with AWS KMS](https://docs.aws.amazon.com/enclaves/latest/user/kms.html)\.
 

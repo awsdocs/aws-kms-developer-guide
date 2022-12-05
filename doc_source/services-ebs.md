@@ -63,7 +63,7 @@ To create an encrypted EBS volume or attach the volume to an EC2 instance, Amazo
 To fix these failures, ensure that the KMS key that you specified for EBS volume encryption is enabled\. To do this, first [view the KMS key](viewing-keys.md) to determine its current key state \(the **Status** column in the AWS Management Console\)\. Then, see the information at one of the following links:
 + If the KMS key's key state is disabled, [enable it](enabling-keys.md)\.
 + If the KMS key's key state is pending import, [import key material](importing-keys.md#importing-keys-overview)\.
-+ If the KMS key's key state is pending deletion, [cancel key deletion](deleting-keys.md#deleting-keys-scheduling-key-deletion)\.
++ If the KMS key's key state is pending deletion, [cancel key deletion](deleting-keys-scheduling-key-deletion.md)\.
 
 ## Using AWS CloudFormation to create encrypted Amazon EBS volumes<a name="ebs-encryption-using-cloudformation"></a>
 

@@ -85,7 +85,7 @@ The following workflow shows how Parameter Store uses a KMS key to encrypt and d
 1. AWS KMS encrypts the parameter value with the specified KMS key and encryption context\. It returns the ciphertext to Parameter Store, which stores the parameter name and its encrypted value\.  
 ![\[Encrypting a standard secure string parameter value\]](http://docs.aws.amazon.com/kms/latest/developerguide/images/service-pstore-standard.png)
 
-### Decrypt a standard parameters<a name="param-store-standard-decrypt"></a>
+### Decrypt a standard parameter<a name="param-store-standard-decrypt"></a>
 
 1. When you include the `WithDecryption` parameter in a `GetParameter` request, Parameter Store sends a `Decrypt` request to AWS KMS with the encrypted secure string parameter value and the [Parameter Store encryption context](#parameter-store-encryption-context)\.
 
@@ -330,6 +330,6 @@ To perform any operation on a secure string parameter, Parameter Store must be a
 + The KMS key is not found\. 
 
   This typically happens when you use an incorrect identifier for the KMS key\. [Find the correct identifiers](find-cmk-id-arn.md) for the KMS key and try the command again\. 
-+ The KMS key is not enabled\. When this occurs, Parameter Store returns an InvalidKeyId exception with a detailed error message from AWS KMS\. If the KMS key state is `Disabled`, [enable it](enabling-keys.md)\. If it is `Pending Import`, complete the [import procedure](importing-keys.md)\. If the key state is `Pending Deletion`, [cancel the key deletion](deleting-keys.md#deleting-keys-scheduling-key-deletion) or use a different KMS key\.
++ The KMS key is not enabled\. When this occurs, Parameter Store returns an InvalidKeyId exception with a detailed error message from AWS KMS\. If the KMS key state is `Disabled`, [enable it](enabling-keys.md)\. If it is `Pending Import`, complete the [import procedure](importing-keys.md)\. If the key state is `Pending Deletion`, [cancel the key deletion](deleting-keys-scheduling-key-deletion.md) or use a different KMS key\.
 
   To find the [key state](key-state.md) of a KMS key in the AWS KMS console, on the **Customer managed keys** or **AWS managed keys** page, see the [Status column](viewing-keys-console.md)\. To use the AWS KMS API to find the status of a KMS key, use the [DescribeKey](https://docs.aws.amazon.com/kms/latest/APIReference/API_DescribeKey.html) operation\. 

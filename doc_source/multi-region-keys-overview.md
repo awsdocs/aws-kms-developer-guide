@@ -14,7 +14,7 @@ Businesses that operate globally need globally distributed data that is availabl
 
 Distributed signing applications  
 Applications that require cross\-Region signature capabilities can use multi\-Region asymmetric signing keys to generate identical digital signatures consistently and repeatedly in different AWS Regions\.   
-If you use certificate chaining with a single global trust store \(for a single root certification authority \(CA\), and Regional intermediate CAs signed by the root CA, you don't need multi\-Region keys\. However, if your system doesn't support intermediate CAs, such as application signing, you can use multi\-Region keys to bring consistency to Regional certifications\.
+If you use certificate chaining with a single global trust store \(for a single root certificate authority \(CA\), and Regional intermediate CAs signed by the root CA, you don't need multi\-Region keys\. However, if your system doesn't support intermediate CAs, such as application signing, you can use multi\-Region keys to bring consistency to Regional certifications\.
 
 Active\-active applications that span multiple Regions  
 Some workloads and applications can span multiple Regions in active\-active architectures\. For these applications, multi\-Region keys can reduce complexity by providing the same key material for concurrent encrypt and decrypt operations on data that might be moving across Region boundaries\.
@@ -29,9 +29,11 @@ You cannot convert an existing single\-Region key to a multi\-Region key\. This 
 
 For most data security needs, the Regional isolation and fault tolerance of Regional resources make standard AWS KMS single\-Region keys a best\-fit solution\. However, when you need to encrypt or sign data in client\-side applications across multiple Regions, multi\-Region keys might be the solution\.
 
+
+
 **Regions**
 
-Multi\-Region keys are supported in all AWS Regions that AWS KMS supports except for Middle East \(UAE\), China \(Beijing\), and China \(Ningxia\)\.
+Multi\-Region keys are supported in all AWS Regions that AWS KMS supports except for Asia Pacific \(Hyderabad\), China \(Beijing\), China \(Ningxia\), Europe \(Spain\), Europe \(Zurich\), and Middle East \(UAE\)\.
 
 **Pricing and quotas**
 

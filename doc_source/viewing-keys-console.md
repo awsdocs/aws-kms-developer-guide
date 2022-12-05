@@ -103,6 +103,10 @@ The **Aliases** tab displays all aliases associated with the KMS key in the AWS 
 Where: General configuration section  
 The Amazon Resource Name \(ARN\) of the KMS key\. This value uniquely identifies the KMS key\. You can use it to identify the KMS key in AWS KMS API operations\.
 
+**Connection state**  
+Indicates whether a [custom key store](custom-key-store-overview.md) is connected to its backing key store\. This field appears only when the KMS key is created in a custom key store\.  
+For information about the values in this field, see [ConnectionState](https://docs.aws.amazon.com/kms/latest/APIReference/API_CustomKeyStoresListEntry.html#KMS-Type-CustomKeyStoresListEntry-ConnectionState) in the *AWS KMS API Reference*\.
+
 **Creation date**  
 Where: General configuration section  
 The date and time that the KMS key was created\. This value is displayed in local time for the device\. The time zone does not depend on the Region\.  
@@ -110,17 +114,21 @@ Unlike **Expiration**, the creation refers only to the KMS key, not its key mate
 
 **CloudHSM cluster ID**  
 Where: Cryptographic configuration tab  
-The cluster ID of the AWS CloudHSM cluster that contains the key material for the KMS key\. This field appears only when the KMS key is created in an AWS KMS [custom key store](custom-key-store-overview.md)\.  
+The cluster ID of the AWS CloudHSM cluster that contains the key material for the KMS key\. This field appears only when the KMS key is created in a [custom key store](custom-key-store-overview.md)\.  
 If you choose the CloudHSM cluster ID, it opens the **Clusters** page in the AWS CloudHSM console\.
 
 **Custom key store ID**  
 Where: Cryptographic configuration tab  
-The ID of the [custom key store](custom-key-store-overview.md) that contains the KMS key\. This field appears only when the KMS key is created in an AWS KMS custom key store\.  
+The ID of the [custom key store](custom-key-store-overview.md) that contains the KMS key\. This field appears only when the KMS key is created in a custom key store\.  
 If you choose the custom key store ID, it opens the **Custom key stores** page in the AWS KMS console\.
 
 **Custom key store name**  
 Where: Cryptographic configuration tab  
-The name of the [custom key store](custom-key-store-overview.md) that contains the KMS key\. This field appears only when the KMS key is created in an AWS KMS custom key store\.
+The name of the [custom key store](custom-key-store-overview.md) that contains the KMS key\. This field appears only when the KMS key is created in a custom key store\.
+
+**Custom key store type**  
+Where: Cryptographic configuration tab  
+Indicates whether the custom key store is an [AWS CloudHSM key store](keystore-cloudhsm.md) or an [external key store](keystore-external.md)\. This field appears only when the KMS key is created in a [custom key store](custom-key-store-overview.md)\.
 
 **Description**  
 Where: General configuration section  
@@ -133,6 +141,18 @@ Lists the encryption algorithms that can be used with the KMS key in AWS KMS\. T
 **Expiration date**  
 Where: Key material tab  
 The date and time when the key material for the KMS key expires\. This field appears only for KMS keys with [imported key material](importing-keys.md), that is, when the **Origin** is **External** and the KMS key has key material that expires\.
+
+**External key ID**  
+Where: Cryptographic configuration tab  
+The ID of the [external key](keystore-external.md#concept-external-key) that is associated with a KMS key in an [external key store](keystore-external.md)\. This field appears only for KMS keys in an external key store\.
+
+**External key status**  
+Where: Cryptographic configuration tab  
+The most recent status that the [external key store proxy](keystore-external.md#concept-xks-proxy) reported for the [external key](keystore-external.md#concept-external-key) associated with the KMS key\. This field appears only for KMS keys in an external key store\.
+
+**External key usage**  
+Where: Cryptographic configuration tab  
+The cryptographic operations that are enabled on the [external key](keystore-external.md#concept-external-key) associated with the KMS key\. This field appears only for KMS keys in an external key store\.
 
 **Key policy**  
 Where: Key policy tab  
@@ -157,7 +177,11 @@ Indicates whether a KMS key can be used for **Encrypt and decrypt**, **Sign and 
 
 **Origin**  
 Where: Cryptographic configuration tab  
-The source of the key material for the KMS key\. Valid values are **AWS\_KMS** for key material that AWS KMS generates, **EXTERNAL** for [imported key material](importing-keys.md), and **AWS\_CloudHSM** for KMS keys in [custom key stores](custom-key-store-overview.md)\.
+The source of the key material for the KMS key\. Valid values are:  
++ **AWS KMS** for key material that AWS KMS generates
++ **AWS CloudHSM** for KMS keys in [AWS CloudHSM key store](custom-key-store-overview.md)
++ **External** for [imported key material](importing-keys.md) \(BYOK\)
++ **External key store** for KMS keys in an [external key store](keystore-external.md)
 
 **MAC algorithms**  
 Where: Cryptographic configuration tab  
@@ -231,7 +255,7 @@ If you use HMAC KMS keys, in addition to the **Aliases**, **Key ID**, and **Stat
 If you have KMS keys with [imported key material](importing-keys.md), consider adding the **Origin** and **Expiration date** columns\. These columns will show you whether the key material in a KMS key is imported or generated by AWS KMS and when the key material expires, if at all\. The **Creation date** field displays the date that the KMS key was created \(without key material\)\. It doesn't reflect any characteristic of the key material\.
 
 **Keys in custom key stores**  
-If you have KMS keys in [custom key stores](custom-key-store-overview.md), consider adding the **Custom key store ID** column\. A value in this column indicates that the KMS key is in a custom key store, as well as showing which custom key store it's in\.
+If you have KMS keys in [custom key stores](custom-key-store-overview.md), consider adding the **Origin** and **Custom key store ID** columns\. These columns show that the KMS key is in a custom key store, display the custom key store type, and identify the custom key store\.
 
 **Multi\-Region keys**  
 If you have [multi\-Region keys](multi-region-keys-overview.md), consider adding the **Regionality** column\. This shows whether a KMS key is a single\-Region key, a [multi\-Region primary key](multi-region-keys-overview.md#mrk-primary-key) or a [multi\-Region replica key](multi-region-keys-overview.md#mrk-replica-key)\.

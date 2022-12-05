@@ -24,8 +24,9 @@ You can use your KMS keys in [cryptographic operations](concepts.md#cryptographi
 
 You can use the advanced features of AWS KMS\.
 + Create [multi\-Region keys](multi-region-keys-overview.md), which act like copies of the same KMS key in different AWS Regions\.
-+ [Import cryptographic material](importing-keys.md) into a KMS key
-+ Create KMS keys in your own [custom key store](custom-key-store-overview.md) backed by a AWS CloudHSM cluster
++ [Import cryptographic material](importing-keys.md) into a KMS key\.
++ Create KMS keys in an [AWS CloudHSM key store](custom-key-store-overview.md) backed by your AWS CloudHSM cluster\.
++ Create KMS keys in an [external key store](keystore-external.md) backed by your cryptographic keys outside of AWS\.
 + Connect directly to AWS KMS through a [private endpoint in your VPC](kms-vpc-endpoint.md)
 + Use [hybrid post\-quantum TLS](pqtls.md) to provide forward\-looking encryption in transit for the data that you send to AWS KMS\.
 

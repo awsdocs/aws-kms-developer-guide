@@ -193,7 +193,7 @@ Because an alias is an independent resource, you can change the KMS key associat
 
 You cannot update an alias in the AWS KMS console\. Also, you cannot use `UpdateAlias` \(or any other operation\) to change an alias name\. To change an alias name, delete the current alias and then create a new alias for the KMS key\.
 
-When you update an alias, the current KMS key and the new KMS key must be the same type \(both symmetric or asymmetric\)\. They must also have the same key usage \(`ENCRYPT_DECRYPT` or `SIGN_VERIFY` or GENERATE\_VERIFY\_MAC\)\. This restriction prevents cryptographic errors in code that uses aliases\. 
+When you update an alias, the current KMS key and the new KMS key must be the same type \(both symmetric or asymmetric or HMAC\)\. They must also have the same key usage \(`ENCRYPT_DECRYPT` or `SIGN_VERIFY` or GENERATE\_VERIFY\_MAC\)\. This restriction prevents cryptographic errors in code that uses aliases\. 
 
 The following example begins by using the [ListAliases](https://docs.aws.amazon.com/kms/latest/APIReference/API_ListAliases.html) operation to show that the `test-key` alias is currently associated with KMS key `1234abcd-12ab-34cd-56ef-1234567890ab`\. 
 

@@ -6,7 +6,7 @@ To access AWS KMS over the network, you can call the AWS KMS API operations that
 
 Additionally, requests must be signed by using an access key ID and a secret access key that is associated with an IAM principal\. Or you can use the [AWS Security Token Service](https://docs.aws.amazon.com/STS/latest/APIReference/Welcome.html) \(AWS STS\) to generate temporary security credentials to sign requests\.
 
-You can call these API operations from any network location, but AWS KMS supports global policy conditions that let you control access to a KMS key based on the source IP address, VPC, and VPC endpoint\. You can use these condition keys in key policies and IAM policies\. However, these conditions can prevent AWS from using the KMS key on your behalf\. For details, see [AWS global condition keys](policy-conditions.md#conditions-aws)\.
+You can call these API operations from any network location, but AWS KMS supports global policy conditions that let you control access to a KMS key based on the source IP address, VPC, and VPC endpoint\. You can use these condition keys in key policies and IAM policies\. However, these conditions can prevent AWS from using the KMS key on your behalf\. For details, see [AWS global condition keys](conditions-aws.md)\.
 
 For example, the following key policy statement allows users who can assume the `KMSTestRole` role to use this AWS KMS key for the specified [cryptographic operations](concepts.md#cryptographic-operations) unless the source IP address is one of the IP addresses specified in the policy\.
 

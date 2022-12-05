@@ -98,11 +98,11 @@ You can limit tagging permissions by using [policy conditions](policy-conditions
 + [aws:RequestTag](https://docs.aws.amazon.com/IAM/latest/UserGuide/reference_policies_condition-keys.html#condition-keys-requesttag)
 + [aws:ResourceTag/*tag\-key*](https://docs.aws.amazon.com/IAM/latest/UserGuide/reference_policies_condition-keys.html#condition-keys-resourcetag) \(IAM policies only\)
 + [aws:TagKeys](https://docs.aws.amazon.com/IAM/latest/UserGuide/reference_policies_condition-keys.html#condition-keys-tag-keys)
-+ [kms:CallerAccount](policy-conditions.md#conditions-kms-caller-account)
-+ [kms:KeySpec](policy-conditions.md#conditions-kms-key-spec)
-+ [kms:KeyUsage](policy-conditions.md#conditions-kms-key-usage)
-+ [kms:KeyOrigin](policy-conditions.md#conditions-kms-key-origin)
-+ [kms:ViaService](policy-conditions.md#conditions-kms-via-service)
++ [kms:CallerAccount](conditions-kms.md#conditions-kms-caller-account)
++ [kms:KeySpec](conditions-kms.md#conditions-kms-key-spec)
++ [kms:KeyUsage](conditions-kms.md#conditions-kms-key-usage)
++ [kms:KeyOrigin](conditions-kms.md#conditions-kms-key-origin)
++ [kms:ViaService](conditions-kms.md#conditions-kms-via-service)
 
 As a best practice when you use tags to control access to KMS keys, use the `aws:RequestTag/tag-key` or `aws:TagKeys` condition key to determine which tags \(or tag keys\) are allowed\.
 

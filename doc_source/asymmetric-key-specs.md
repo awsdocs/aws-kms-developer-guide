@@ -40,7 +40,7 @@ AWS KMS supports two encryption algorithms for KMS keys with RSA key specs\. The
 | RSAES\_OAEP\_SHA\_1 | PKCS \#1 v2\.2, Section 7\.1\. RSA encryption with OAEP Padding using SHA\-1 for both the hash and in the MGF1 mask generation function along with an empty label\. | 
 | RSAES\_OAEP\_SHA\_256 | PKCS \#1, Section 7\.1\. RSA encryption with OAEP Padding using SHA\-256 for both the hash and in the MGF1 mask generation function along with an empty label\. | 
 
-You cannot configure a KMS key to use a particular encryption algorithm\. However, you can use the [kms:EncryptionAlgorithm](policy-conditions.md#conditions-kms-encryption-algorithm) policy condition to specify the encryption algorithms that principals are allowed to use with the KMS key\. 
+You cannot configure a KMS key to use a particular encryption algorithm\. However, you can use the [kms:EncryptionAlgorithm](conditions-kms.md#conditions-kms-encryption-algorithm) policy condition to specify the encryption algorithms that principals are allowed to use with the KMS key\. 
 
 To get the encryption algorithms for a KMS key, [view the cryptographic configuration](viewing-keys-console.md#viewing-console-details) of the KMS key in the AWS KMS console or use the [DescribeKey](https://docs.aws.amazon.com/kms/latest/APIReference/API_DescribeKey.html) operation\. AWS KMS also provides the key spec and encryption algorithms when you download your public key, either in the AWS KMS console or by using the [GetPublicKey](https://docs.aws.amazon.com/kms/latest/APIReference/API_GetPublicKey.html) operation\. 
 
@@ -77,7 +77,7 @@ AWS KMS supports the following signing algorithms for KMS keys with RSA key spec
 | RSASSA\_PSS\_SHA\_384 | PKCS \#1 v2\.2, Section 8\.1, RSA signature with PSS padding using SHA\-384 for both the message digest and the MGF1 mask generation function along with a 384\-bit salt | 
 | RSASSA\_PSS\_SHA\_512 | PKCS \#1 v2\.2, Section 8\.1, RSA signature with PSS padding using SHA\-512 for both the message digest and the MGF1 mask generation function along with a 512\-bit salt | 
 
-You cannot configure a KMS key to use particular signing algorithms\. However, you can use the [kms:SigningAlgorithm](policy-conditions.md#conditions-kms-signing-algorithm) policy condition to specify the signing algorithms that principals are allowed to use with the KMS key\. 
+You cannot configure a KMS key to use particular signing algorithms\. However, you can use the [kms:SigningAlgorithm](conditions-kms.md#conditions-kms-signing-algorithm) policy condition to specify the signing algorithms that principals are allowed to use with the KMS key\. 
 
 To get the signing algorithms for a KMS key, [view the cryptographic configuration](viewing-keys-console.md#viewing-console-details) of the KMS key in the AWS KMS console or by using the [DescribeKey](https://docs.aws.amazon.com/kms/latest/APIReference/API_DescribeKey.html) operation\. AWS KMS also provides the key spec and signing algorithms when you download your public key, either in the AWS KMS console or by using the [GetPublicKey](https://docs.aws.amazon.com/kms/latest/APIReference/API_GetPublicKey.html) operation\. 
 
@@ -101,7 +101,7 @@ If you're creating an asymmetric KMS key to use with cryptocurrencies, use the E
 
 KMS keys with different ECC key specs are priced differently and are subject to different request quotas\. For information about AWS KMS pricing, see [AWS Key Management Service Pricing](https://aws.amazon.com/kms/pricing/)\. For information about request quotas, see [Request quotas](requests-per-second.md)\.
 
-The following table shows the signing algorithms that AWS KMS supports for each of the ECC key specs\. You cannot configure a KMS key to use particular signing algorithms\. However, you can use the [kms:SigningAlgorithm](policy-conditions.md#conditions-kms-signing-algorithm) policy condition to specify the signing algorithms that principals are allowed to use with the KMS key\. 
+The following table shows the signing algorithms that AWS KMS supports for each of the ECC key specs\. You cannot configure a KMS key to use particular signing algorithms\. However, you can use the [kms:SigningAlgorithm](conditions-kms.md#conditions-kms-signing-algorithm) policy condition to specify the signing algorithms that principals are allowed to use with the KMS key\. 
 
 
 **Supported signing algorithms for ECC key specs**  

@@ -1,51 +1,18 @@
 # Custom key stores<a name="custom-key-store-overview"></a>
 
-AWS KMS supports [custom key stores](key-store-concepts.md#concept-custom-key-store) backed by [AWS CloudHSM clusters](https://docs.aws.amazon.com/cloudhsm/latest/userguide/)\. When you create an [AWS KMS key](concepts.md#kms_keys) in a custom key store, AWS KMS generates and stores non\-extractable key material for the KMS key in an AWS CloudHSM cluster that you own and manage\. When you use a KMS key in a custom key store, the [cryptographic operations](use-cmk-keystore.md) are performed in the HSMs in the cluster\. This feature combines the convenience and widespread integration of AWS KMS with the added control of an AWS CloudHSM cluster in your AWS account\. 
+A *key store* is a secure location for storing cryptographic keys\. The default key store in AWS KMS also supports methods for generating and managing the keys that its stores\. By default, the cryptographic key material for the AWS KMS keys that you create in AWS KMS is generated in and protected by hardware security modules \(HSMs\) that are [FIPS 140\-2 validated cryptographic modules](https://csrc.nist.gov/projects/cryptographic-module-validation-program/Certificate/3139)\. Key material for your KMS keys never leave the HSMs unencrypted\.
 
-AWS KMS provides full console and API support for creating, using, and managing your custom key stores\. You can use the KMS keys in your custom key store the same way that you use any KMS key\. For example, you can use the KMS keys to generate data keys and encrypt data\. You can also use the KMS keys in your custom key store with AWS services that support customer managed keys\.
+However, if you require even more control of the HSMs, you can create a custom key store\. 
 
-**Do I need a custom key store?**
+A *custom key store* is a logical key store within AWS KMS that is backed by a key manager outside of AWS KMS that you own and manage\. Custom key stores combine the convenient and comprehensive key management interface of AWS KMS with the ability to own and control the key material and cryptographic operations\. When you use a KMS key in a custom key store, the cryptographic operations are performed by your key manager using your cryptographic keys\. As a result, you assume more responsibility for the availability and durability of cryptographic keys, and for the operation of the HSMs\. 
 
-For most users, the default AWS KMS key store, which is protected by [FIPS 140\-2 validated cryptographic modules](https://csrc.nist.gov/projects/cryptographic-module-validation-program/certificate/4177), fulfills their security requirements\. There is no need to add an extra layer of maintenance responsibility or a dependency on an additional service\. 
+AWS KMS supports two types of custom key stores\.
++ An [AWS CloudHSM key store](keystore-cloudhsm.md) is an AWS KMS custom key store backed by an AWS CloudHSM cluster\. When you create a KMS key in your AWS CloudHSM key store, AWS KMS generates a 256\-bit, persistent, non\-exportable Advanced Encryption Standard \(AES\) symmetric key in the associated AWS CloudHSM cluster\. This key material never leaves your AWS CloudHSM clusters unencrypted\. When you use a KMS key in AWS CloudHSM key store, the cryptographic operations are performed in the HSMs in the cluster\. AWS CloudHSM clusters are backed by hardware security modules \(HSMs\) certified at [FIPS 140\-2 Level 3](https://docs.aws.amazon.com/cloudhsm/latest/userguide/compliance.html)\.
++ An [external key store](keystore-external.md) is an AWS KMS custom key store backed by an external key manager outside of AWS that you own and control\. When you use a KMS key in your external key store, all encryption and decryption operations are performed by your external key manager using your cryptographic keys\. External key stores are designed to support a variety of external key managers from different vendors\.
 
-However, you might consider creating a custom key store if your organization has any of the following requirements:
-+ Key material cannot be stored in a shared environment\.
-+ Key material must be subject to a secondary, independent audit path\.
-+ The HSMs that generate and store key material must be certified at [FIPS 140\-2 Level 3](https://docs.aws.amazon.com/cloudhsm/latest/userguide/compliance.html)\.
+  AWS KMS never directly views, accesses, or interacts with your external key manager or cryptographic keys\. When you encrypt or decrypt with a KMS key in an external key store, the operation is performed by your external key manager using your external keys\. You retain full control over your cryptographic keys, including the ability to refuse or halt a cryptographic operation without interacting with AWS\. However, due to distance and extra processing, KMS keys in an external key store might have poorer latency and performance, and might have different availability characteristics than KMS keys with key material in AWS KMS\.
 
-**How do custom key stores work?**
-
-Each custom key store is associated with an AWS CloudHSM cluster in your AWS account\. When you connect the custom key store to its cluster, AWS KMS creates the network infrastructure to support the connection\. Then it logs into the key AWS CloudHSM client in the cluster using the credentials of a [dedicated crypto user](key-store-concepts.md#concept-kmsuser) in the cluster\.
-
-You create and manage your custom key stores in AWS KMS and create and manage your HSM clusters in AWS CloudHSM\. When you create AWS KMS keys in an AWS KMS custom key store, you view and manage the KMS keys in AWS KMS\. But you can also view and manage their key material in AWS CloudHSM, just as you would do for other keys in the cluster\.
-
-![\[Managing KMS keys in a custom key store\]](http://docs.aws.amazon.com/kms/latest/developerguide/images/kms-hsm-view.png)
-
-You can [create symmetric encryption KMS keys](create-cmk-keystore.md) with key material generated by AWS KMS in your custom key store\. Then use the same techniques to view and manage the KMS keys in your custom key store that you use for KMS keys in the AWS KMS key store\. You can control access with IAM and key policies, create tags and aliases, enable and disable the KMS keys, and schedule key deletion\. You can use the KMS keys for [cryptographic operations](use-cmk-keystore.md) and use them with AWS services that integrate with AWS KMS\. 
-
-In addition, you have full control over the AWS CloudHSM cluster, including creating and deleting HSMs and managing backups\. You can use the AWS CloudHSM client and supported software libraries to view, audit, and manage the key material for your KMS keys\. While the custom key store is disconnected, AWS KMS cannot access it, and users cannot use the KMS keys in the custom key store for cryptographic operations\. This added layer of control makes custom key stores a powerful solution for organizations that require it\.
-
-**Where do I start?**
-
-To create and manage a custom key store, you use features of AWS KMS and AWS CloudHSM\.
-
-1. Start in AWS CloudHSM\. [Create an active AWS CloudHSM cluster](https://docs.aws.amazon.com/cloudhsm/latest/userguide/getting-started.html) or select an existing cluster\. The cluster must have at least two active HSMs in different Availability Zones\. Then create a [dedicated crypto user \(CU\) account](key-store-concepts.md#concept-kmsuser) in that cluster for AWS KMS\. 
-
-1. In AWS KMS, [create a custom key store](create-keystore.md) that is associated with your selected AWS CloudHSM cluster\. AWS KMS provides [a complete management interface](manage-keystore.md) that lets you create, view, edit, and delete your custom key stores\.
-
-1. When you're ready to use your custom key store, [connect it to its associated AWS CloudHSM cluster](disconnect-keystore.md)\. AWS KMS creates the network infrastructure that it needs to support the connection\. It then logs in to the cluster using the dedicated crypto user account credentials so it can generate and manage key material in the cluster\.
-
-1. Now, you can [create symmetric encryption KMS keys in your custom key store](create-cmk-keystore.md)\. Just specify the custom key store when you create the KMS key\.
-
-If you get stuck at any point, you can find help in the [Troubleshooting a custom key store](fix-keystore.md) topic\. If your question is not answered, use the feedback link at the bottom of each page of this guide or post a question on the [AWS Key Management Service Discussion Forum](https://repost.aws/tags/TAMC3vcPOPTF-rPAHZVRj1PQ/aws-key-management-service)\.
-
-**Quotas**
-
-There are no resource quotas for the number of custom key stores in an AWS account or Region\. However, there are AWS CloudHSM quotas, such as a quota on the [number of AWS CloudHSM clusters](https://docs.aws.amazon.com/cloudhsm/latest/userguide/limits.html) in each AWS account and Region, and AWS KMS quotas on the [use of KMS keys in a custom key store](requests-per-second.md#rps-key-stores)\.<a name="cks-regions"></a>
-
-**Regions**
-
-AWS KMS supports custom key stores in all AWS Regions where AWS KMS is supported, except for China \(Beijing\), China \(Ningxia\), and Middle East \(UAE\)\.
+These two types of custom key stores are quite different from the standard AWS KMS key store and from each other\. Their security models, locus of responsibility, performance, price, and the use cases are also very different\. Before choosing a custom key store, read the related documentation and confirm that the extra configuration and maintenance responsibility is a wise trade\-off for the extra control\. However, if the rules and regulations under which you operate require direct control of key material, a custom key store might be a good choice for you\.
 
 **Unsupported features**
 
@@ -58,9 +25,5 @@ AWS KMS does not support the following features in custom key stores\.
 + [Multi\-Region keys](multi-region-keys-overview.md)
 
 **Topics**
-+ [What is a custom key store?](key-store-concepts.md)
-+ [Controlling access to your custom key store](authorize-key-store.md)
-+ [Creating a custom key store](create-keystore.md)
-+ [Managing a custom key store](manage-keystore.md)
-+ [Managing KMS keys in a custom key store](manage-cmk-keystore.md)
-+ [Troubleshooting a custom key store](fix-keystore.md)
++ [AWS CloudHSM key stores](keystore-cloudhsm.md)
++ [External key stores](keystore-external.md)

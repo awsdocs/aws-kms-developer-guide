@@ -23,7 +23,7 @@ For a list of AWS KMS endpoints for each AWS Region, see [AWS Key Management Ser
 
 ## About hybrid post\-quantum key exchange in TLS<a name="PQTLS-concepts"></a>
 
-AWS KMS supports hybrid post\-quantum key exchange cipher suites\. You can use the AWS SDK for Java 2\.x and AWS Common Runtime \(CRT\) to configure an HTTP client to use these cipher suites on Linux systems\. Then, whenever you connect to a AWS KMS endpoint with your HTTP client, the hybrid cipher suites are used\.
+AWS KMS supports hybrid post\-quantum key exchange cipher suites\. You can use the AWS SDK for Java 2\.x and AWS Common Runtime \(CRT\) to configure an HTTP client to use these cipher suites on Linux systems\. Then, whenever you connect to an AWS KMS endpoint with your HTTP client, the hybrid cipher suites are used\.
 
 This HTTP client uses [https://github.com/aws/s2n-tls](https://github.com/aws/s2n-tls), which is an open source implementation of the TLS protocol\. s2n\-tls includes the [https://github.com/aws/s2n-tls/tree/main/pq-crypto](https://github.com/aws/s2n-tls/tree/main/pq-crypto) module, which includes implementations of hybrid post\-quantum algorithms for encryption in transit\.
 

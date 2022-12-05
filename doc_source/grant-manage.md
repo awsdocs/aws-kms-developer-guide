@@ -21,21 +21,21 @@ You can control access to the operations that create and manage grants in key po
 | Retire Grants | \(Limited\. See [Retiring and revoking grants](#grant-delete)\) | ✓ | 
 | RevokeGrant | ✓ | \- | 
 
-When you use a key policy or IAM policy to control access to operations that create and manage grants, you can use one or more of the following policy conditions to limit the permission\. AWS KMS supports all of the following grant\-related condition keys\. For detailed information and examples, see [AWS KMS condition keys](policy-conditions.md#conditions-kms)\.
+When you use a key policy or IAM policy to control access to operations that create and manage grants, you can use one or more of the following policy conditions to limit the permission\. AWS KMS supports all of the following grant\-related condition keys\. For detailed information and examples, see [AWS KMS condition keys](conditions-kms.md)\.
 
-[kms:GrantConstraintType](policy-conditions.md#conditions-kms-grant-constraint-type)  
+[kms:GrantConstraintType](conditions-kms.md#conditions-kms-grant-constraint-type)  
 Allows principals to create a grant only when the grant includes the specified [grant constraint](create-grant-overview.md#grant-constraints)\.
 
-[kms:GrantIsForAWSResource](policy-conditions.md#conditions-kms-grant-is-for-aws-resource)  
+[kms:GrantIsForAWSResource](conditions-kms.md#conditions-kms-grant-is-for-aws-resource)  
 Allows principals to call `CreateGrant`, `ListGrants`, or `RevokeGrant` only when [an AWS service that is integrated with AWS KMS](https://aws.amazon.com/kms/features/#AWS_Service_Integration) sends the request on the principal's behalf\.
 
-[kms:GrantOperations](policy-conditions.md#conditions-kms-grant-operations)  
+[kms:GrantOperations](conditions-kms.md#conditions-kms-grant-operations)  
 Allows principals to create a grant, but limits the grant to the specified operations\.
 
-[kms:GranteePrincipal](policy-conditions.md#conditions-kms-grantee-principal)  
+[kms:GranteePrincipal](conditions-kms.md#conditions-kms-grantee-principal)  
 Allows principals to create a grant only for the specified [grantee principal](grants.md#terms-grantee-principal)\.
 
-[kms:RetiringPrincipal](policy-conditions.md#conditions-kms-retiring-principal)  
+[kms:RetiringPrincipal](conditions-kms.md#conditions-kms-retiring-principal)  
 Allows principals to create a grant only when the grant specifies a particular [retiring principal](grants.md#terms-retiring-principal)\.
 
 ## Viewing grants<a name="grant-view"></a>

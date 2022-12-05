@@ -4,30 +4,31 @@ AWS KMS establishes resource quotas to ensure that it can provide fast and resil
 
 If you have exceeded a resource limit, requests to create an additional resource of that type generate an `LimitExceededException` error message\. 
 
-All AWS KMS resource quotas are adjustable, except for the [key policy document size quota](#key-policy-limit)\. To request a quota increase, use the [Service Quotas console](https://console.aws.amazon.com/servicequotas) or the [RequestServiceQuotaIncrease](https://docs.aws.amazon.com/servicequotas/2019-06-24/apireference/API_RequestServiceQuotaIncrease.html) operation\. For instructions, see [Requesting an AWS KMS quota increase](increase-quota.md)\. For details, see [Requesting a quota increase](https://docs.aws.amazon.com/servicequotas/latest/userguide/request-increase.html) in the *Service Quotas User Guide*\. If Service Quotas for AWS KMS are not available in your AWS Region, please visit the [AWS Support Center](https://console.aws.amazon.com/support/home) and create a case\. 
+All AWS KMS resource quotas are adjustable, except for the [key policy document size quota](#key-policy-limit) and the [custom key stores resource quota](#cks-resource-quota)\. To request a quota increase, see [Requesting a quota increase](https://docs.aws.amazon.com/servicequotas/latest/userguide/request-increase.html) in the *Service Quotas User Guide*\. To request a quota decrease, to change a quota that is not listed in Service Quotas, or to change a quota in an AWS Region where Service Quotas for AWS KMS is not available, please visit [AWS Support Center](https://console.aws.amazon.com/support/home) and create a case\. 
 
 The following table lists and describes the AWS KMS resource quotas in each AWS account and Region\. 
 
 
-| Quota name | Default value | Applies to | 
-| --- | --- | --- | 
-| [AWS KMS keys](#kms-keys-limit) | 100,000 | Customer managed keys | 
-| [Aliases per KMS key](#aliases-per-key) | 50 | Customer created aliases | 
-| [Grants per KMS key](#grants-per-key) | 50,000 | Customer managed keys | 
-| [Key policy document size](#key-policy-limit) | 32 KB \(32,768 bytes\) |  Customer managed keys AWS managed keys  | 
+| Quota name | Default value | Applies to | Adjustable | 
+| --- | --- | --- | --- | 
+| [AWS KMS keys](#kms-keys-limit) | 100,000 | Customer managed keys | Yes | 
+| [Aliases per KMS key](#aliases-per-key) | 50 | Customer created aliases | Yes | 
+| [Grants per KMS key](#grants-per-key) | 50,000 | Customer managed keys | Yes | 
+| [Key policy document size](#key-policy-limit) | 32 KB \(32,768 bytes\) |  Customer managed keys AWS managed keys  | No | 
+| [Custom key stores](#cks-resource-quota) | 10 | AWS account and Region | No | 
 
 In addition to resource quotas, AWS KMS uses request quotas to ensure the responsiveness of the service\. For details, see [Request quotas](requests-per-second.md)\.
 
 ## AWS KMS keys: 100,000<a name="kms-keys-limit"></a>
 
-You can have up to 100,000 [customer managed keys](concepts.md#customer-cmk) in each Region of your AWS account\. This quota applies to all customer managed keys in all AWS Regions regardless of their [key spec](concepts.md#key-spec) or [key state](key-state.md)\. Each KMS key — whether symmetric or asymmetric — is considered to be one resource\. [AWS managed keys](concepts.md#aws-managed-cmk) and [AWS owned keys](concepts.md#aws-owned-cmk) do not count against this quota\.
+You can have up to 100,000 [customer managed keys](concepts.md#customer-cmk) in each Region of your AWS account\. This quota applies to all customer managed keys in all AWS Regions regardless of their [key spec](concepts.md#key-spec) or [key state](key-state.md)\. Each KMS key is considered to be one resource\. [AWS managed keys](concepts.md#aws-managed-cmk) and [AWS owned keys](concepts.md#aws-owned-cmk) do not count against this quota\.
 
 ## Aliases per KMS key: 50<a name="aliases-per-key"></a>
 
 You can associate up to 50 [aliases](kms-alias.md) with each [customer managed key](concepts.md#customer-cmk)\. Aliases that AWS associates with [AWS managed keys](concepts.md#aws-managed-cmk) do not count against this quota\. You might encounter this quota when you [create](alias-manage.md#alias-create) or [update](alias-manage.md#alias-update) an alias\.
 
 **Note**  
-The [kms:ResourceAliases](policy-conditions.md#conditions-kms-resource-aliases) condition is effective only when the KMS key conforms to this quota\. If a KMS key exceeds this quota, principals who are authorized to use the KMS key by the `kms:ResourceAliases` condition are denied access to the KMS key\. For details, see [Access denied due to alias quota](abac.md#access-denied-alias-quota)\.
+The [kms:ResourceAliases](conditions-kms.md#conditions-kms-resource-aliases) condition is effective only when the KMS key conforms to this quota\. If a KMS key exceeds this quota, principals who are authorized to use the KMS key by the `kms:ResourceAliases` condition are denied access to the KMS key\. For details, see [Access denied due to alias quota](abac.md#access-denied-alias-quota)\.
 
 The Aliases per KMS key quota replaces the Aliases per Region quota that limited the total number of aliases in each Region of an AWS account\. AWS KMS has eliminated the Aliases per Region quota\.
 
@@ -46,3 +47,14 @@ The maximum length of each [key policy document](key-policy-overview.md) is 32 K
 This quota is not adjustable\. You cannot increase it by using Service Quotas or by creating a case in AWS Support\. If your key policy is approaching the limit, consider using [grants](grants.md) instead of policy statements\. Grants are particularly well suited to temporary or very specific permissions\.
 
 You use a key policy document whenever you create or change a key policy by using the [default view](key-policy-modifying.md#key-policy-modifying-how-to-console-default-view) or [policy view](key-policy-modifying.md#key-policy-modifying-how-to-console-policy-view) in the AWS Management Console, or the [PutKeyPolicy](https://docs.aws.amazon.com/kms/latest/APIReference/API_PutKeyPolicy.html) operation\. This quota applies to your key policy document, even if you use the [default view](key-policy-modifying.md#key-policy-modifying-how-to-console-default-view) in the AWS KMS console, where you don't edit the JSON statements directly\.
+
+## Custom key stores resource quota: 10<a name="cks-resource-quota"></a>
+
+**Note**  
+The AWS KMS custom key store resource quota does not yet appear in the Service Quotas console\. You cannot view or manage this quota by using Service Quotas API operations\.
+
+You can create up to 10 [custom key stores](custom-key-store-overview.md) in each AWS account and Region\. If you try to create more, the [CreateCustomKeyStore](https://docs.aws.amazon.com/kms/latest/APIReference/API_CreateCustomKeyStore.html) operation fails\.
+
+This quota applies to the total number of custom key stores in each account and region, including all [AWS CloudHSM key stores](keystore-cloudhsm.md) and [external key stores](keystore-external.md), regardless of their connection state\. 
+
+This quota is not adjustable\. You cannot increase it by using Service Quotas or by creating a case in AWS Support\. If you are not using all of your custom key stores, consider deleting an unused, long\-disconnected custom key store\. Before you do, verify that you do not need any of the KMS keys in the custom key store to decrypt ciphertext\. 

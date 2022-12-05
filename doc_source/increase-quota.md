@@ -1,16 +1,23 @@
-# Requesting an AWS KMS quota increase<a name="increase-quota"></a>
+# Requesting an AWS KMS quota change<a name="increase-quota"></a>
 
-All AWS KMS quotas are adjustable, except for the [key policy document size resource quota](resource-limits.md#key-policy-limit)\.
+All AWS KMS quotas are adjustable, except for the [key policy document size resource quota](resource-limits.md#key-policy-limit) and the [custom key stores resource quota](resource-limits.md#cks-resource-quota)\. You can request an increase or decrease from your current quota\.
 
-To request a quota increase, use the [Service Quotas console](https://console.aws.amazon.com/servicequotas) or the [RequestServiceQuotaIncrease](https://docs.aws.amazon.com/servicequotas/2019-06-24/apireference/API_RequestServiceQuotaIncrease.html) operation\. For instructions, see [Requesting an AWS KMS quota increase](#increase-quota)\. For details, see [Requesting a quota increase](https://docs.aws.amazon.com/servicequotas/latest/userguide/request-increase.html) in the *Service Quotas User Guide*\. If Service Quotas for AWS KMS are not available in your AWS Region, please visit the [AWS Support Center](https://console.aws.amazon.com/support/home) and create a case\. 
+You might request an increase if you get frequent throttling exceptions, especially if you notice prolonged periods of throttling, and not just spikes\. You might request a quota decrease if you have a known bottleneck, such as a [custom key store](custom-key-store-overview.md) associated with a backing key store that cannot handle the current request rate\.
+
+To request a quota increase, see [Requesting a quota increase](https://docs.aws.amazon.com/servicequotas/latest/userguide/request-increase.html) in the *Service Quotas User Guide*\. To request a quota decrease, to change a quota that is not listed in Service Quotas, or to change a quota in an AWS Region where Service Quotas for AWS KMS is not available, please visit [AWS Support Center](https://console.aws.amazon.com/support/home) and create a case\. 
+
+**Note**  
+AWS KMS custom key store quotas do not appear in the Service Quotas console\. You cannot view or manage these quotas by using Service Quotas API operations\.
 
 ## Using the Service Quotas console<a name="quota-increase-console"></a>
 
-To request an increase for an AWS KMS quota, you can use the [Service Quotas console](https://console.aws.amazon.com/servicequotas)\. For instructions, see [Requesting a quota increase](https://docs.aws.amazon.com/servicequotas/latest/userguide/request-quota-increase.html) in the *Service Quotas User Guide*\. 
+To request an increase in an AWS KMS quota, you can use the [Service Quotas console](https://console.aws.amazon.com/servicequotas)\. For instructions, see [Requesting a quota increase](https://docs.aws.amazon.com/servicequotas/latest/userguide/request-quota-increase.html) in the *Service Quotas User Guide*\.
+
+You cannot use the Service Quotas console to request a quota decrease\. Instead, contact [AWS Support Center](https://console.aws.amazon.com/support/home) and create a case\.
 
 1. For service name, choose **AWS Key Management Service \(AWS KMS\)**\.
 
-1. Choose the quota name of the quota you want to increase\. Use the detailed information about the quota to confirm that you have chosen the quota you want to increase\. 
+1. Choose the quota name of the quota you want to change\. Use the detailed information about the quota to confirm that you have chosen the correct quota\. 
 
    You can search for the quota name in the Service Quotas console\. There are several pages of AWS KMS quotas\. You can also find the quota names and descriptions of AWS KMS quotas in the [resource quota](resource-limits.md) and [request quota](requests-per-second.md) tables\.
 
@@ -24,7 +31,9 @@ To request an increase for an AWS KMS quota, you can use the [Service Quotas con
 
 ## Using the Service Quotas API<a name="quota-increase-api"></a>
 
-To request an increase in an AWS KMS quota, you can use the [Service Quotas API](https://docs.aws.amazon.com/servicequotas/2019-06-24/apireference/)\. The `RequestServiceQuotaIncrease` operation, which submits the request, requires the quota code for the quota\. So begin by getting the quota code\.
+To request an increase in an AWS KMS quota, you can use the [Service Quotas API](https://docs.aws.amazon.com/servicequotas/2019-06-24/apireference/)\. You cannot use the Service Quotas console to request a quota decrease\. Instead, contact [AWS Support Center](https://console.aws.amazon.com/support/home) and create a case\.
+
+The `RequestServiceQuotaIncrease` operation, which submits the request, requires the quota code for the quota\. So begin by getting the quota code\.
 
 1. Find the quota name of the quota you want to increase\. You can find the quota names and descriptions of AWS KMS quotas in the [resource quota](resource-limits.md) and [request quota](requests-per-second.md) tables\. 
 

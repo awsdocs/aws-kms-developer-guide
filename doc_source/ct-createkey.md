@@ -68,7 +68,7 @@ The following example shows an CloudTrail log entry for a [CreateKey](https://do
 }
 ```
 
-The following example shows the CloudTrail log of a `CreateKey` operation that creates a symmetric KMS key in an AWS CloudHSM [custom key store](custom-key-store-overview.md)\. 
+The following example shows the CloudTrail log of a `CreateKey` operation that creates a symmetric encryption KMS key in an [AWS CloudHSM key store](keystore-cloudhsm.md)\.
 
 ```
 {
@@ -129,6 +129,78 @@ The following example shows the CloudTrail log of a `CreateKey` operation that c
             "accountId": "111122223333",
             "type": "AWS::KMS::Key",
             "ARN": "arn:aws:kms:us-west-2:111122223333:key/0987dcba-09fe-87dc-65ba-ab0987654321"
+        }
+    ],
+    "eventType": "AwsApiCall",
+    "managementEvent": true,
+    "recipientAccountId": "111122223333",
+    "eventCategory": "Management"
+}
+```
+
+The following example shows the CloudTrail log of a `CreateKey` operation that creates a symmetric encryption KMS key in an [external key store](keystore-external.md)\.
+
+```
+{
+    "eventVersion": "1.08",
+    "userIdentity": {
+        "type": "IAMUser",
+            "principalId": "EX_PRINCIPAL_ID",
+            "arn": "arn:aws:iam::111122223333:user/Alice",
+            "accountId": "111122223333",
+            "accessKeyId": "EXAMPLE_KEY_ID",
+            "userName": "Alice"
+    },
+    "eventTime": "2022-09-07T22:37:45Z",
+    "eventSource": "kms.amazonaws.com",
+    "eventName": "CreateKey",
+    "awsRegion": "us-east-1",
+    "sourceIPAddress": "192.0.2.0",
+    "userAgent": "AWS Internal",
+    "requestParameters": {
+        "tags": [],
+        "keyUsage": "ENCRYPT_DECRYPT",
+        "description": "",
+        "origin": "EXTERNAL_KEY_STORE",        
+        "multiRegion": false,
+        "keySpec": "SYMMETRIC_DEFAULT",
+        "customerMasterKeySpec": "SYMMETRIC_DEFAULT",
+        "bypassPolicyLockoutSafetyCheck": false,
+        "customKeyStoreId": "cks-1234567890abcdef0",
+        "xksKeyId": "bb8562717f809024"
+    },
+    "responseElements": {
+        "keyMetadata": {
+            "aWSAccountId": "111122223333",
+            "keyId": "1234abcd-12ab-34cd-56ef-1234567890ab",
+            "arn": "arn:aws:kms:us-west-2:111122223333:key/1234abcd-12ab-34cd-56ef-1234567890ab",
+            "creationDate": "Dec 7, 2022, 10:37:45 PM",
+            "enabled": true,
+            "description": "",
+            "keyUsage": "ENCRYPT_DECRYPT",
+            "keyState": "Enabled",
+            "origin": "EXTERNAL_KEY_STORE",
+            "customKeyStoreId": "cks-1234567890abcdef0",
+            "keyManager": "CUSTOMER",
+            "customerMasterKeySpec": "SYMMETRIC_DEFAULT",
+            "keySpec": "SYMMETRIC_DEFAULT",
+            "encryptionAlgorithms": [
+                "SYMMETRIC_DEFAULT"
+            ],
+            "multiRegion": false,
+            "xksKeyConfiguration": {                
+                "id": "bb8562717f809024"
+            }
+        }
+    },
+    "requestID": "ba197c82-3ac7-487a-8ff4-7736bbeb1316",
+    "eventID": "838ad5f4-5fdd-4044-afd7-4dbd88c6af56",
+    "readOnly": false,
+    "resources": [
+        {
+            "accountId": "227179770375",
+            "type": "AWS::KMS::Key",
+            "ARN": "arn:aws:kms:us-east-1:227179770375:key/39c5eb22-f37c-4956-92ca-89e8f8b57ab2"
         }
     ],
     "eventType": "AwsApiCall",

@@ -43,7 +43,7 @@ To create an alias, the principal needs the following permissions for both the a
   }
   ```
 
-You can use condition keys to limit the KMS keys that you can associate with an alias\. For example, you can use the [kms:KeySpec](policy-conditions.md#conditions-kms-key-spec) condition key to allow the principal to create aliases only on asymmetric KMS keys\. For a full list of conditions keys that you can use to limit the `kms:CreateAlias` permission on KMS key resources, see [AWS KMS permissions](kms-api-permissions-reference.md)\.
+You can use condition keys to limit the KMS keys that you can associate with an alias\. For example, you can use the [kms:KeySpec](conditions-kms.md#conditions-kms-key-spec) condition key to allow the principal to create aliases only on asymmetric KMS keys\. For a full list of conditions keys that you can use to limit the `kms:CreateAlias` permission on KMS key resources, see [AWS KMS permissions](kms-api-permissions-reference.md)\.
 
 ## kms:ListAliases<a name="alias-access-view"></a>
 
@@ -113,7 +113,7 @@ For example, suppose you want to change the `test-key` alias from the KMS key wi
   }
   ```
 
-You can use condition keys to limit either or both of KMS keys in an `UpdateAlias` operation\. For example, you can use a [kms:ResourceAliases](policy-conditions.md#conditions-kms-resource-aliases) condition key to allow the principal to update aliases only when the target KMS key already has a particular alias\. For a full list of conditions keys that you can use to limit the `kms:UpdateAlias` permission on a KMS key resource, see [AWS KMS permissions](kms-api-permissions-reference.md)\.
+You can use condition keys to limit either or both of KMS keys in an `UpdateAlias` operation\. For example, you can use a [kms:ResourceAliases](conditions-kms.md#conditions-kms-resource-aliases) condition key to allow the principal to update aliases only when the target KMS key already has a particular alias\. For a full list of conditions keys that you can use to limit the `kms:UpdateAlias` permission on a KMS key resource, see [AWS KMS permissions](kms-api-permissions-reference.md)\.
 
 ## kms:DeleteAlias<a name="alias-access-delete"></a>
 
@@ -157,7 +157,7 @@ As always, you should exercise caution when giving principals permission to dele
 
 ## Limiting alias permissions<a name="alias-access-limiting"></a>
 
-You can use condition keys to limit alias permissions when the resource is a KMS key\. For example, the following IAM policy allows the alias operations on KMS keys in a particular account and Region\. However, it uses the [kms:KeyOrigin](policy-conditions.md#conditions-kms-key-origin) condition key to further limit the permissions to KMS keys with key material from AWS KMS\. 
+You can use condition keys to limit alias permissions when the resource is a KMS key\. For example, the following IAM policy allows the alias operations on KMS keys in a particular account and Region\. However, it uses the [kms:KeyOrigin](conditions-kms.md#conditions-kms-key-origin) condition key to further limit the permissions to KMS keys with key material from AWS KMS\. 
 
 For a full list of conditions keys that you can use to limit alias permission on a KMS key resource, see [AWS KMS permissions](kms-api-permissions-reference.md)\.
 
