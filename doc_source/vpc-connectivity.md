@@ -88,7 +88,7 @@ Follow the instructions in the [Configure a target group](https://docs.aws.amazo
 | Field | Value |
 | --- | --- |
 | Target type | IP addresses |
-| Protocol | TCP |
+| Protocol | TLS |
 | Port |  443  |
 | IP address type | IPv4 |
 | VPC | Choose the VPC where you will create the VPC endpoint service for your external key store\. |
@@ -110,7 +110,7 @@ Follow the instructions in the [Configure a load balancer and a listener](https:
 | IP address type | IPv4 |
 | Network mapping |  Choose the VPC where you will create the VPC endpoint service for your external key store\.  |
 | Mapping | Choose both of the availability zones \(at least two\) that you configured for your VPC subnets\. Verify the subnet names and private IP address\. |
-| Protocol | TCP |
+| Protocol | TLS |
 | Port | 443 |
 | Default action: Forward to | Choose the [target group](#xks-target-group) for your network load balancer\. |
 
