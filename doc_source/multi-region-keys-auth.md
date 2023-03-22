@@ -37,7 +37,7 @@ When designing key policies and IAM policies for multi\-Region keys, consider th
       "kms:List*"
     ],
     "Resource": {
-        "arn:aws:kms:*::111122223333:key/mrk-1234abcd12ab34cd56ef1234567890ab"
+        "arn:aws:kms:*:111122223333:key/mrk-1234abcd12ab34cd56ef1234567890ab"
     }
   }
   ```
