@@ -1,6 +1,6 @@
 # Controlling access to your external key store<a name="authorize-xks-key-store"></a>
 
-All AWS KMS access control features — [key policies](key-policies.md), [IAM policies](iam-policies.md), and [grants](grants.md) — that you use with standard KMS keys, work the same way for KMS keys in an external key store\. You can use IAM policies to control access to the API operations that create and manage external key stores\. You use IAM policies and key policies to control access to the AWS KMS keys in your external key store\. You can also use [service control policies](https://docs.aws.amazon.com/organizations/latest/userguide/orgs_manage_policies_scps.html) for your AWS organization and [VPC endpoint policies](kms-vpc-endpoint.md#vpce-policy) to control access to KMS keys in your external key store\. 
+All AWS KMS access control features — [key policies](key-policies.md), [IAM policies](iam-policies.md), and [grants](grants.md) — that you use with standard KMS keys, work the same way for KMS keys in an external key store\. You can use IAM policies to control access to the API operations that create and manage external key stores\. You use IAM policies and key policies to control access to the AWS KMS keys in your external key store\. You can also use [service control policies](https://docs.aws.amazon.com/organizations/latest/userguide/orgs_manage_policies_scps.html) for your AWS organization and [VPC endpoint policies](kms-vpc-endpoint.md#vpce-policy) to control access to KMS keys in your external key store\.
 
 We recommend that you provide users and roles only the permissions that they require for the tasks that they are likely to perform\.
 
@@ -16,7 +16,7 @@ We recommend that you provide users and roles only the permissions that they req
 Principals who create and manage an external key store need permissions to the custom key store operations\. The following list describes the minimum permissions required for external key store managers\. Because a custom key store is not an AWS resource, you cannot provide permission to an external key store for principals in other AWS accounts\.
 + `kms:CreateCustomKeyStore`
 + `kms:DescribeCustomKeyStores`
-+ `kms:ConnectCustomKeyStore`kms:DescribeCustomKeyStores
++ `kms:ConnectCustomKeyStore`
 + `kms:DisconnectCustomKeyStore`
 + `kms:UpdateCustomKeyStore`
 + `kms:DeleteCustomKeyStore`
@@ -59,7 +59,7 @@ To set a permission that applies only to KMS keys in an external key store, use 
 
 ## Authorizing AWS KMS to communicate with your external key store proxy<a name="allowlist-kms-xks"></a>
 
-AWS KMS communicates with your external key manager only through the [external key store proxy](keystore-external.md#concept-xks-proxy) that you provide\. AWS KMS authenticates to your proxy by signing its requests using the [Signature Version 4 \(SigV4\) process](https://docs.aws.amazon.com/general/latest/gr/signature-version-4.html) with the [external key store proxy authentication credential](keystore-external.md#concept-xks-credential) that you specify\. If you are using [public endpoint connectivity](plan-xks-keystore.md#xks-connectivity-public-endpoint) for your external key store proxy, AWS KMS does not require any additional permissions\. 
+AWS KMS communicates with your external key manager only through the [external key store proxy](keystore-external.md#concept-xks-proxy) that you provide\. AWS KMS authenticates to your proxy by signing its requests using the [Signature Version 4 \(SigV4\) process](https://docs.aws.amazon.com/general/latest/gr/signature-version-4.html) with the [external key store proxy authentication credential](keystore-external.md#concept-xks-credential) that you specify\. If you are using [public endpoint connectivity](plan-xks-keystore.md#xks-connectivity-public-endpoint) for your external key store proxy, AWS KMS does not require any additional permissions\.
 
 However, if you are using [VPC endpoint service connectivity](plan-xks-keystore.md#xks-vpc-connectivity), you must give AWS KMS permission to create an interface endpoint to your Amazon VPC endpoint service\. This permission is required regardless of whether the external key store proxy is in your VPC or the external key store proxy is located elsewhere, but uses the VPC endpoint service to communicate with AWS KMS\.
 
@@ -103,7 +103,7 @@ If proxy authorization fails, the related AWS KMS operation fails with a message
 
 To enable your external key store proxy to authenticate requests from AWS KMS, AWS KMS signs all requests to your external key store proxy with the Signature V4 \(SigV4\) [proxy authentication credential](keystore-external.md#concept-xks-credential) for your external key store\.
 
-To provide additional assurance that your external key store proxy responds only to AWS KMS requests, some external key proxies support *mutual Transport Layer Security* \(mTLS\), in which both parties to a transaction use certificates to authenticate to each other\. mTLS adds client\-side authentication — where the external key store proxy server authenticates the AWS KMS client — to the server\-side authentication that standard TLS provides\. In the rare case that your proxy authentication credential is compromised, mTLS prevents a third party from making successful API requests to the external key store proxy\. 
+To provide additional assurance that your external key store proxy responds only to AWS KMS requests, some external key proxies support *mutual Transport Layer Security* \(mTLS\), in which both parties to a transaction use certificates to authenticate to each other\. mTLS adds client\-side authentication — where the external key store proxy server authenticates the AWS KMS client — to the server\-side authentication that standard TLS provides\. In the rare case that your proxy authentication credential is compromised, mTLS prevents a third party from making successful API requests to the external key store proxy\.
 
 To implement mTLS, configure your external key store proxy to accept only client\-side TLS certificates with the following properties:
 + The subject common name on the TLS certificate must be `cks.kms.<Region>.amazonaws.com`, for example, `cks.kms.eu-west-3.amazonaws.com`\.
