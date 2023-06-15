@@ -1,9 +1,0 @@
-# How Amazon Simple Storage Service \(Amazon S3\) uses AWS KMS<a name="services-s3"></a>
-
-[Amazon Simple Storage Service \(Amazon S3\)](https://docs.aws.amazon.com/AmazonS3/latest/userguide/Welcome.html) is an object storage service that stores data as objects within buckets\. Buckets and the objects in them are private and can be accessed only if you explicitly grant access permissions\. 
-
-Amazon S3 integrates with AWS Key Management Service \(AWS KMS\) to provide server\-side encryption of Amazon S3 objects\. Amazon S3 uses AWS KMS keys to encrypt your Amazon S3 objects\. The encryption keys that protect your objects never leave AWS KMS unencrypted\. This integration also enables you to set permissions on the AWS KMS key and audit the operations that generate, encrypt, and decrypt the data keys that protect your secrets\. 
-
-To reduce the volume of Amazon S3 calls to AWS KMS, use [Amazon S3 bucket keys](https://docs.aws.amazon.com/AmazonS3/latest/userguide/bucket-key.html), which are KMS key\-protected key\-encryption\-keys that are reused for a limited time within Amazon S3\. Bucket keys can reduce costs for AWS KMS requests by up to 99 percent\. You can configure a bucket key [for all objects](https://docs.aws.amazon.com/AmazonS3/latest/userguide/bucket-key.html#configure-bucket-key) in an Amazon S3 bucket, or [for a particular object](https://docs.aws.amazon.com/AmazonS3/latest/userguide/configuring-bucket-key-object.html) in an Amazon S3 bucket\.
-
-For more information about how Amazon S3 uses AWS KMS, see [Protecting data using server\-side encryption with KMS keys \(SSE\-KMS\)](https://docs.aws.amazon.com/AmazonS3/latest/userguide/UsingKMSEncryption.html) in the *Amazon S3 User Guide*\.
